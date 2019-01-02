@@ -34,7 +34,7 @@ def insertargpscrap(listai):
     sql = """INSERT INTO goplaceit_scraped(lista)
              VALUES(%s) ON DUPLICATE KEY UPDATE lista=%s"""
 
-    mariadb_connection = mysql.connect(user='sergei', password='sergei', host='0.0.0.0', database='goplaceit')
+    mariadb_connection = mysql.connect(user='sergei', password='lEL6wip6lu', host='0.0.0.0', database='goplaceit')
 
     cur = mariadb_connection.cursor()
     cur.execute(sql, (listai))
@@ -46,7 +46,7 @@ def insertarPropiedadgp(propiedad):
     sql = """INSERT INTO goplaceit(id2,nombre,fechapublicacion,fechascrap,region,provincia,comuna,operacion,tipo,precio,moneda,dormitorios,banos,metrosmin,metrosmax,gastoscomunes,estacionamientos,ano,piso,orientacion,amoblado,antiguedad,dueno,lat,lon,link,disponibilidad)
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,provincia=%s,comuna=%s,operacion=%s,tipo=%s,precio=%s,moneda=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,gastoscomunes=%s,estacionamientos=%s,ano=%s,piso=%s,orientacion=%s,amoblado=%s,antiguedad=%s,dueno=%s,lat=%s,lon=%s,link=%s,disponibilidad=%s"""
 
-    mariadb_connection = mysql.connect(user='sergei', password='sergei', host='0.0.0.0', database='goplaceit')
+    mariadb_connection = mysql.connect(user='sergei', password='lEL6wip6lu', host='0.0.0.0', database='goplaceit')
     cur = mariadb_connection.cursor()
     cur.execute(sql, (propiedad))
     mariadb_connection.commit()
@@ -63,7 +63,7 @@ def remove(desde,hasta,removelist):
     return sublista
 
 def fromgpscrap():
-    mariadb_connection = mysql.connect(user='sergei', password='sergei', host='0.0.0.0', database='goplaceit')
+    mariadb_connection = mysql.connect(user='sergei', password='lEL6wip6lu', host='0.0.0.0', database='goplaceit')
     cur = mariadb_connection.cursor()
     sql = "SELECT lista FROM goplaceit_scraped"
     cur.execute(sql)
