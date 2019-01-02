@@ -409,7 +409,10 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                     print(l)
                     lista.append(l)
                 if remate==0:
-                    insertarPropiedad(aux)
+                    try:
+                        insertarPropiedad(aux)
+                    except:
+                        continue
                 else:
                     insertarRemate(aux)
 
@@ -490,18 +493,18 @@ def Main():
     tipo=[]
 
     region.append("metropolitana")
-    #region.append("valparaiso")
-    #region.append("biobio")
+    region.append("valparaiso")
+    region.append("biobio")
 
     operacion.append("venta")
-    #operacion.append("arriendo")
+    operacion.append("arriendo")
 
     tipo.append("departamento")
-   # tipo.append("casa")
-    #tipo.append("oficina")
-    #tipo.append("sitio")
-    #tipo.append("comercial")
-    #tipo.append("estacionamiento")
+    tipo.append("casa")
+    tipo.append("oficina")
+    tipo.append("sitio")
+    tipo.append("comercial")
+    tipo.append("estacionamiento")
 
 
     while True:
