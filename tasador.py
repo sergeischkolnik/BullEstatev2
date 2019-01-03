@@ -103,7 +103,7 @@ def calcularDistancia(i,data):
         distancias=distancias[:40]
     except:
         distancias=distancia
-
+    print(len(distancias))
     prices=[]
     count=0
     for d in distancias:

@@ -57,6 +57,7 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 def insertarRemate(propiedad):
+    #En caso de ser remate, inserta en tabla de remates
     sql = """INSERT INTO remates(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,lat,lon,link)
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,lat=%s,lon=%s,link=%s"""
 
@@ -443,16 +444,11 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                 abcde=1
 
 def scrap(d,h,operacion,tipo,region,lista,faillista):
+    #Crear arreglo para almacenar links con páginas para scrapear
     collection = []
-    for n1 in [operacion]:
+    #crear link con detalles, y añadir a arreglo
+    collection.append("http://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/"+region+"?tp=6&op=2&ca=2&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=1&sf=0&sp=0&pg=1")
 
-        for n2 in [tipo]:
-            for n3 in [region]:
-            #for n3 in ['arica-y-parinacota']:
-
-                collection.append("http://www.portalinmobiliario.com/"+n1+"/"+n2+"/"+n3+"?tp=6&op=2&ca=2&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=1&sf=0&sp=0&pg=1")
-
-    cycle = 0
 
 
     for collectElement in collection:
@@ -497,26 +493,25 @@ def scrap(d,h,operacion,tipo,region,lista,faillista):
         master = []
         titles = ["id", "Nombre", "Precio", "minMet", "maxMet", "promM","Precio/m2", "direc" ,"tipo", "lat", "lon", "dorms", "banios", "fecha", "link"]
         master.append(titles)
-        desde=d
-
-        hasta=h
-
-        getInfo(subsites, master,desde,hasta,lista,faillista)
+        getInfo(subsites, master,d,h,lista,faillista)
 
 
 def Main():
+    #crear arreglos para almacenar region, operacion y tipo
     region=[]
     operacion=[]
     tipo=[]
 
+    #Añadir regiones a arreglo
     region.append("valparaiso")
     region.append("metropolitana")
-
     region.append("biobio")
 
+    #Añadir operaciones a arreglo
     operacion.append("venta")
     operacion.append("arriendo")
 
+    #Añadir tipo a arreglo
     tipo.append("departamento")
     tipo.append("casa")
     tipo.append("oficina")
@@ -524,6 +519,7 @@ def Main():
     tipo.append("comercial")
     tipo.append("estacionamiento")
 
+    #Obtener proxies
     proxies=get_proxiestextweb()
     proxy_pool=cycle(proxies)
     while True:
