@@ -52,7 +52,7 @@ def from_tasaciones():
 def from_portalinmobiliario():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos FROM portalinmobiliario"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario"
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -104,6 +104,7 @@ def calcularDistancia(i,data):
                 subdistancia=[]
                 subdistancia.append(j[0])
                 subdistancia.append(d)
+                subdistancia.append(j[13])
                 distanciat0.append(subdistancia)
 
             #T1 REVISAR
@@ -112,6 +113,7 @@ def calcularDistancia(i,data):
                 subdistancia=[]
                 subdistancia.append(j[0])
                 subdistancia.append(d)
+                subdistancia.append(j[13])
                 distanciat1.append(subdistancia)
 
             #T2.1
@@ -120,6 +122,7 @@ def calcularDistancia(i,data):
                 subdistancia=[]
                 subdistancia.append(j[0])
                 subdistancia.append(d)
+                subdistancia.append(j[13])
                 distanciat2_1.append(subdistancia)
 
             #T2.2
@@ -128,6 +131,7 @@ def calcularDistancia(i,data):
                 subdistancia=[]
                 subdistancia.append(j[0])
                 subdistancia.append(d)
+                subdistancia.append(j[13])
                 distanciat2_2.append(subdistancia)
 
             #T3.1
@@ -136,6 +140,7 @@ def calcularDistancia(i,data):
                 subdistancia=[]
                 subdistancia.append(j[0])
                 subdistancia.append(d)
+                subdistancia.append(j[13])
                 distanciat3_1.append(subdistancia)
 
             #T3.2
@@ -152,6 +157,7 @@ def calcularDistancia(i,data):
                 subdistancia=[]
                 subdistancia.append(j[0])
                 subdistancia.append(d)
+                subdistancia.append(j[13])
                 distanciat4_1.append(subdistancia)
 
             #T4.2
@@ -160,6 +166,7 @@ def calcularDistancia(i,data):
                 subdistancia=[]
                 subdistancia.append(j[0])
                 subdistancia.append(d)
+                subdistancia.append(j[13])
                 distanciat4_2.append(subdistancia)
 
     t_actual="0"
@@ -200,6 +207,9 @@ def calcularDistancia(i,data):
         distancias=distancia
     print("propiedades encontradas "+str(len(distancias)))
     print ("nivel de confianza: "+str(t_actual))
+    for link in [x[2] for x in distancias]:
+        print (link)
+    
     prices=[]
     count=0
     for d in distancias:
