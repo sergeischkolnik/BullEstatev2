@@ -78,10 +78,18 @@ def precio_from_portalinmobiliario(id2):
 
 def calcularDistancia(i,data):
 
-    distancia=[]
-    for j in data:
+    distanciat0=[]
+    distanciat1=[]
+    distanciat2_1=[]
+    distanciat2_2=[]
+    distanciat3_1=[]
+    distanciat3_2=[]
+    distanciat4_1=[]
+    distanciat4_2=[]
 
-        if (j[1]>past) and (i[3]==j[3]) and (i[4]==j[4]) and (i[6]==j[6]) and (i[7]==j[7]) and (i[12]==j[12]) and (j!=i):
+    for j in data:
+        # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
+        if (j[1]>past) and (i[3]==j[3]) and (i[4]==j[4]) and (j!=i):
             lat1=i[10]
             long1=i[11]
             lat2=j[10]
@@ -90,13 +98,100 @@ def calcularDistancia(i,data):
             c=pi/180
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
 
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.1) and (abs(i[9]/j[9]-1)<0.2):
+            #T0
+            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.1) and (abs(i[9]/j[9]-1)<0.2) and (i[6]==j[6]) and (i[7]==j[7]) and (i[12]==j[12]) :
                 d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
                 subdistancia=[]
                 subdistancia.append(j[0])
                 subdistancia.append(d)
-                distancia.append(subdistancia)
+                distanciat0.append(subdistancia)
 
+            #T1 REVISAR
+            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) and (i[12]==j[12]) :
+                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
+                subdistancia=[]
+                subdistancia.append(j[0])
+                subdistancia.append(d)
+                distanciat1.append(subdistancia)
+
+            #T2.1
+            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) and (int(i[12])>=(int(j[12])-1) and (int(i[12])<=(int(j[12])+1))) :
+                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
+                subdistancia=[]
+                subdistancia.append(j[0])
+                subdistancia.append(d)
+                distanciat2_1.append(subdistancia)
+
+            #T2.2
+            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) :
+                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
+                subdistancia=[]
+                subdistancia.append(j[0])
+                subdistancia.append(d)
+                distanciat2_2.append(subdistancia)
+
+            #T3.1
+            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (int(i[6])>=(int(j[6])-1) and (int(i[6])<=(int(j[6])+1))) and (i[7]==j[7]) :
+                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
+                subdistancia=[]
+                subdistancia.append(j[0])
+                subdistancia.append(d)
+                distanciat3_1.append(subdistancia)
+
+            #T3.2
+            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[7]==j[7]) :
+                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
+                subdistancia=[]
+                subdistancia.append(j[0])
+                subdistancia.append(d)
+                distanciat3_2.append(subdistancia)
+
+            #T4.1
+            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (int(i[7])>=(int(j[7])-1) and (int(i[7])<=(int(j[7])+1))):
+                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
+                subdistancia=[]
+                subdistancia.append(j[0])
+                subdistancia.append(d)
+                distanciat4_1.append(subdistancia)
+
+            #T4.2
+            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4):
+                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
+                subdistancia=[]
+                subdistancia.append(j[0])
+                subdistancia.append(d)
+                distanciat4_2.append(subdistancia)
+
+    t_actual="0"
+
+    if len(distanciat0)>=3:
+        distancia=distanciat0
+
+    elif len(distanciat1)>=3:
+        distancia=distanciat1
+        t_actual="1"
+    elif len(distanciat2_1)>=3:
+        distancia=distanciat2_1
+        t_actual="2.1"
+    elif len(distanciat2_2)>=3:
+        distancia=distanciat2_2
+        t_actual="2.2"
+    elif len(distanciat3_1)>=3:
+        distancia=distanciat3_1
+        t_actual="3.1"
+    elif len(distanciat3_2)>=3:
+        distancia=distanciat3_2
+        t_actual="3.2"
+    elif len(distanciat4_1)>=3:
+        distancia=distanciat4_1
+        t_actual="4.1"
+    elif len(distanciat4_2)>=3:
+        distancia=distanciat4_2
+        t_actual="4.2"
+
+    else:
+        print("no se han encontrado propiedades para comparar")
+        return
 
     distancias=sorted(distancia,key=lambda x:x[1])
     try:
@@ -104,6 +199,7 @@ def calcularDistancia(i,data):
     except:
         distancias=distancia
     print(len(distancias))
+    print (t_actual)
     prices=[]
     count=0
     for d in distancias:
@@ -125,6 +221,7 @@ def calcularDistancia(i,data):
     except:
         print("No existen departamentos para comparar")
 
+
 data=from_portalinmobiliario()
 #data2=from_proyectos()
 tasaciones=from_tasaciones()
@@ -132,15 +229,10 @@ threadList=[]
 b=0
 for i in tasaciones:
     if i[13]=="usado":
-        t=Thread(target=calcularDistancia, args=(i,data))
-        t.start()
-        print(str(b+1)+" Thread Started")
-        b=b+1
-        threadList.append(t)
-        sleep(0.05)
-for t in threadList:
-    t.join
-#
+        print("buscando para cliente "+str(i[1]))
+        calcularDistancia(i,data)
+
+
 # for i in tasaciones:
 #     if i[13]=="nuevo":
 #         t=Thread(target=calcularDistancia, args=(i,data2))
