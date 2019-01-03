@@ -4,12 +4,30 @@ import requests
 import datetime
 from threading import Thread
 import pymysql as mysql
+from itertools import cycle
+import agentCreator
+import time
+import random
+
 
 print(str(datetime.datetime.now()))
 
-def getLast(operacion,tipo,region):
+def get_proxiestextweb():
+    url="https://proxyscrape.com/proxies/HTTP_Working_Proxies.txt"
+    proxies=set()
+    response=requests.get(url)
+    ip=response.text.split('\r\n')
+    for proxy in ip:
+            proxies.add(proxy)
+    return proxies
+
+
+def getLast(operacion,tipo,region,proxi):
+    #Obtiene el número de la última página con publicaciones
+
+    #armar link a consultar dada una operacion, tipo, region
     link='https://www.portalinmobiliario.com/'+str(operacion)+'/'+str(tipo)+'/'+str(region)+'?ca=2&ts=1&mn=2&or=p-asc&pg=1&sf=0&sp=0&at=0'
-    page2 = requests.get(link)
+    page2 = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
     tree2 = html.fromstring(page2.content)
     xpath='//*[@id="PaginacionSuperior"]/div/ul/li[6]/a'
     last=tree2.xpath(xpath)
@@ -25,6 +43,8 @@ def getLast(operacion,tipo,region):
     return last
 
 def insertarPropiedad(propiedad):
+    #Inserta una propiedad en una base de datos
+
     sql = """INSERT INTO portalinmobiliario(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,lat,lon,link)
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,lat=%s,lon=%s,link=%s"""
 
@@ -57,7 +77,7 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
             print("Thread "+str(threadnum)+" completed")
 
         try:
-            page2 = requests.get(subsites[j])
+            page2 = requests.get(subsites[j], headers={'User-Agent': agentCreator.generateAgent()})
             tree2 = html.fromstring(page2.content)
 
 
@@ -155,7 +175,7 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                 state = state[0].text
                 state = state[:-2]
                 try:
-                    page3 = requests.get(newLink, allow_redirects=True)
+                    page3 = requests.get(newLink, headers={'User-Agent': agentCreator.generateAgent()})
                     tree3 = html.fromstring(page3.content)
                 except:
                     abcde=1
@@ -399,15 +419,12 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                 aux.append(lon)
                 aux.append(newLink)
 
-                try:
-                    l=lista[-1]
-                    l=l+1
-                    lista.append(l)
-                    print (l)
-                except:
-                    l=1
-                    print(l)
-                    lista.append(l)
+
+                lista=lista+1
+
+                print ("propiedades registradas: "+str(lista))
+                time.sleep(random.uniform(0,0.5))
+
                 if remate==0:
                     try:
                         insertarPropiedad(aux)
@@ -447,7 +464,7 @@ def scrap(d,h,operacion,tipo,region,lista,faillista):
         # ENDTESTING
 
         try:
-            page2 = requests.get(collectElement)
+            page2 = requests.get(collectElement, headers={'User-Agent': agentCreator.generateAgent()})
             tree2 = html.fromstring(page2.content)
         except:
             abcde=1
@@ -506,32 +523,24 @@ def Main():
     tipo.append("comercial")
     tipo.append("estacionamiento")
 
-
+    proxies=get_proxiestextweb()
+    proxy_pool=cycle(proxies)
     while True:
         for reg in region:
             for tip in tipo:
                 for op in operacion:
-
-                    lista=[]
+                    proxi=next(proxy_pool)
+                    lista=0
                     faillista=[]
-                    threadList=[]
                     print("Running scraper for: "+op+" "+tip+" "+reg)
-                    try:
-                        last=getLast(op,tip,reg)
-                        print(last)
-                        last=int(last/2)
 
-                        for x in range(0,last):
-                            v=1+x*2
-                            w=v+2
-                            t = Thread(target=scrap, args=(v, w,op,tip,reg,lista,faillista))
-                            t.start()
-                            threadList.append(t)
-                        print("scrapers ran")
-                        for t in threadList:
-                            t.join()
-                    except:
-                        print("Not possible to run: "+op+" "+tip+" "+reg)
+                    last=getLast(op,tip,reg,proxi)
+                    print(last)
+
+                    for x in range(0,last):
+                       scrap(0,last,op,tip,reg,lista,faillista)
+                    print("scraper ran")
+
 
 
     print("Main Complete")
