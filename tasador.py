@@ -198,8 +198,8 @@ def calcularDistancia(i,data):
         distancias=distancias[:40]
     except:
         distancias=distancia
-    print(len(distancias))
-    print (t_actual)
+    print("propiedades encontradas "+str(len(distancias)))
+    print ("nivel de confianza: "+str(t_actual))
     prices=[]
     count=0
     for d in distancias:
