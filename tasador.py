@@ -1,16 +1,14 @@
-import psycopg2
 import math
-import mysql.connector
+import pymysql as mysql
 import math
 from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=90)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=2)
+yesterday = datetime.now() - timedelta(days=60)
 yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
-import scipy
 
 def mean(numbers):
     suma=0
@@ -36,7 +34,7 @@ def insertarTasacion(precio,preciomin,preciomax,id):
     sql = "UPDATE tasaciones SET precio='"+str(precio)+"',preciomin='"+str(preciomin)+"',preciomax='"+str(preciomax)+"' WHERE id='"+str(id)+"'"
 
 
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -44,7 +42,7 @@ def insertarTasacion(precio,preciomin,preciomax,id):
     mariadb_connection.close()
 
 def from_tasaciones():
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT id,cliente,descripcion,operacion,tipo,precio,dormitorios,banos,util,total,lat,lon,estacionamientos,estado FROM tasaciones"
     cur.execute(sql)
@@ -52,7 +50,7 @@ def from_tasaciones():
     return tasaciones
 
 def from_portalinmobiliario():
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos FROM portalinmobiliario"
     cur.execute(sql)
@@ -70,7 +68,7 @@ def from_portalinmobiliario():
     return data
 
 def precio_from_portalinmobiliario(id2):
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT precio,metrosmin,metrosmax,lat,lon,dormitorios,banos FROM portalinmobiliario WHERE id2='"+str(id2)+"'"
     cur.execute(sql)
@@ -128,7 +126,7 @@ def calcularDistancia(i,data):
         print("No existen departamentos para comparar")
 
 data=from_portalinmobiliario()
-data2=from_proyectos()
+#data2=from_proyectos()
 tasaciones=from_tasaciones()
 threadList=[]
 b=0
@@ -142,14 +140,14 @@ for i in tasaciones:
         sleep(0.05)
 for t in threadList:
     t.join
-
-for i in tasaciones:
-    if i[13]=="nuevo":
-        t=Thread(target=calcularDistancia, args=(i,data2))
-        t.start()
-        print(str(b+1)+" Thread Started")
-        b=b+1
-        threadList.append(t)
-        sleep(0.05)
-for t in threadList:
-    t.join
+#
+# for i in tasaciones:
+#     if i[13]=="nuevo":
+#         t=Thread(target=calcularDistancia, args=(i,data2))
+#         t.start()
+#         print(str(b+1)+" Thread Started")
+#         b=b+1
+#         threadList.append(t)
+#         sleep(0.05)
+# for t in threadList:
+#     t.join
