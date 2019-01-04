@@ -423,7 +423,7 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
 
                 lista=lista+1
 
-                print ("propiedades registradas: "+str(lista))
+                print (tipo + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
                 time.sleep(random.uniform(0.5,1.5))
 
                 if remate==0:

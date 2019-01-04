@@ -209,7 +209,7 @@ def calcularDistancia(i,data):
     print ("nivel de confianza: "+str(t_actual))
     for link in [x[2] for x in distancias]:
         print (link)
-    
+
     prices=[]
     count=0
     for d in distancias:
