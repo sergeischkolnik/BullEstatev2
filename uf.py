@@ -1,18 +1,15 @@
 import math
-import sql
 from lxml import html
 import requests
 # import csvWrite as ew
 import datetime
 import time
-import psycopg2
 from random import randint
 from time import sleep
 from itertools import cycle
 import traceback
 from lxml.html import fromstring
 from threading import Thread
-import mysql.connector
 
 def getUf():
     link='https://valoruf.cl/'
