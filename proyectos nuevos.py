@@ -1,16 +1,11 @@
 import math
-
-from mysql import connector
 from threading import Thread
-
-import sql
 from lxml import html
 import requests
 #import csvWrite as ew
 import datetime
 import time
-import psycopg2
-import mysql.connector
+import pymysql as mysql
 guardados=[]
 a=0
 from itertools import cycle
@@ -33,7 +28,7 @@ def insertarProyecto(proyecto):
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE fechascrap=%s"""
 
 
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
 
     cur = mariadb_connection.cursor()
     try:
@@ -49,7 +44,7 @@ def insertarDepto(propiedad):
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE fechascrap=%s"""
 
 
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
 
     cur = mariadb_connection.cursor()
     try:
