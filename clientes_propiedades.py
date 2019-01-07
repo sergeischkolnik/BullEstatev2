@@ -1,5 +1,5 @@
 import math
-import mysql.connector
+import pymysql as mysql
 from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=30)
@@ -8,12 +8,11 @@ yesterday = datetime.now() - timedelta(days=3)
 yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
-import psycopg2
 from datetime import datetime, timedelta
 import pdfCreatorTest as pdfC
 
 def estaciones():
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
     cur = mariadb_connection.cursor()
     sql = "SELECT * FROM estaciones"
     cur.execute(sql)
@@ -21,7 +20,7 @@ def estaciones():
     return tupla
 
 def rentabilidad(prop):
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT rentabilidad FROM rentabilidades_portalinmobiliario WHERE prop="+str(prop)
     cur.execute(sql)
@@ -32,7 +31,7 @@ def rentabilidad(prop):
 
 
 def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6):
-        mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
 
         sqlselect = "SELECT * FROM portalinmobiliario WHERE "
@@ -107,7 +106,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         return tupla
 
 def clientes():
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT * FROM clientes"
     cur.execute(sql)
@@ -118,7 +117,7 @@ def insertarClientes_Propiedades(resultado):
     sql = """INSERT INTO clientes_propiedades(uni,cliente,prop)
              VALUES(%s,%s,%s) ON DUPLICATE KEY UPDATE prop=%s"""
 
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
     cur.execute(sql, (resultado))
@@ -129,7 +128,7 @@ def actualizarActividad(cliente):
 
     sql = "UPDATE clientes SET activo=2 WHERE id="+str(cliente)
 
-    mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
     cur.execute(sql)
