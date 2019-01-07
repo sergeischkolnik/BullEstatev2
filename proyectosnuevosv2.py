@@ -12,7 +12,6 @@ from itertools import cycle
 from time import sleep
 import agentCreator
 from requests_html import HTMLSession
-session = HTMLSession()
 
 
 def getLast(operacion,tipo,region):
@@ -20,7 +19,7 @@ def getLast(operacion,tipo,region):
 
     #armar link a consultar dada una operacion, tipo, region
     link='https://www.portalinmobiliario.com/'+str(operacion)+'/'+str(tipo)+'/'+str(region)+'?ca=1&ts=1&mn=2&or=p-asc&pg=1&sf=0&sp=0&at=0'
-    page2 = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
+    page2 = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()}, timeout=30)
     tree2 = html.fromstring(page2.content)
     xpath='//*[@id="PaginacionSuperior"]/div/ul/li[6]/a'
     last=tree2.xpath(xpath)
@@ -348,7 +347,9 @@ def scraper(tipo,region,a):
                     vende=vende[1:]
             except:
                 continue
-        r = session.get(link2)
+        session = HTMLSession()
+
+        r = session.get(link2, timeout=20)
         script=r.html.find('.page-project')
         texto=script[0]
         texto=texto.text
@@ -528,7 +529,7 @@ def scraper(tipo,region,a):
                     print(piso)
                     print(orientacion)
                     print(util)
-                    printd(total)
+                    print(total)
                     print(terraza)
                     print(fechascrap)
                     propiedad.append(fechascrap)
