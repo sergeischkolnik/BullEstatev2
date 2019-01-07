@@ -424,7 +424,7 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                 lista=lista+1
 
                 print (tipo + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
-                time.sleep(random.uniform(0.5,1.5))
+                #time.sleep(random.uniform(0.5,1.5))
 
                 if remate==0:
                     try:
@@ -503,8 +503,8 @@ def Main():
     tipo=[]
 
     #Añadir regiones a arreglo
-    region.append("valparaiso")
     region.append("metropolitana")
+    region.append("valparaiso")
     region.append("biobio")
 
     #Añadir operaciones a arreglo

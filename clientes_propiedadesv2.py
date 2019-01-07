@@ -462,8 +462,8 @@ for i in data:
             subestacion=[]
             late=e[3]
             lone=e[4]
-            lat1=prop[15]
-            long1=prop[16]
+            lat1=prop[10]
+            long1=prop[11]
             r=6371000
             c=pi/180
             distance= 2*r*asin(sqrt(sin(c*(late-lat1)/2)**2 + cos(c*lat1)*cos(c*late)*sin(c*(lone-long1)/2)**2))
@@ -492,7 +492,7 @@ for i in data:
             subresultado.append(estacioncercana[0])
             subresultado.append(estacioncercana[2])
             preciob=calcularDistancia(prop,props)
-            rentab=(preciob-prop[5])/prop[5]
+            rentab=((preciob/uf1)-prop[5])/prop[5]
             if rentab<0.1:
                 continue
             subresultado.append(float(rentab))
