@@ -456,7 +456,7 @@ def scraper(tipo,region,a):
         print(len(proyecto))
         print(proyecto)
         insertarProyecto(proyecto)
-
+        time.sleep(random.uniform(0.5,1.5))
         for t in texto:
             if ("Numero" in t):
                 try:
