@@ -2,171 +2,17 @@ import math
 import pymysql as mysql
 from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
-past = datetime.now() - timedelta(days=60)
+past = datetime.now() - timedelta(days=120)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=1)
+yesterday = datetime.now() - timedelta(days=3)
 yesterday=datetime.date(yesterday)
-from threading import Thread
-from time import sleep
+import uf
+
 from datetime import datetime, timedelta
 import pdfCreatorTest as pdfC
-import uf
-import numpy as np
-from sklearn import datasets, linear_model
 
 uf1=uf.getUf()
 
-def estaciones():
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
-    cur = mariadb_connection.cursor()
-    sql = "SELECT * FROM estaciones"
-    cur.execute(sql)
-    tupla = cur.fetchall()
-    return tupla
-
-def rentabilidad(prop):
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    cur = mariadb_connection.cursor()
-    sql = "SELECT rentabilidad FROM rentabilidades_portalinmobiliario WHERE prop="+str(prop)
-    cur.execute(sql)
-    rent = cur.fetchall()
-    rent=rent[0]
-    rent=rent[0]
-    return rent
-
-def mean(numbers):
-    suma=0
-    for i in numbers:
-        i=i[0]
-        i=i[0]
-
-        suma=suma+i
-    promedio=suma/len(numbers)
-    suma=0
-    for i in numbers:
-        i=i[0]
-        i=i[0]
-        suma=suma+abs(i-promedio)
-    desvest=suma/len(numbers)
-
-    cosa=[]
-    cosa.append(promedio)
-    cosa.append(desvest)
-    return cosa
-
-def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6):
-        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-        cur = mariadb_connection.cursor()
-
-        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE "
-
-        sqlwhere="fechascrap>='"+str(yesterday)+"' AND "
-        sql=sqlselect+sqlwhere
-
-        sqlwhere="fechapublicacion>='"+str(past)+"' AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="precio>="+str(preciomin)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="precio<="+str(preciomax)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="metrosmin>="+str(utilmin)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="metrosmin<="+str(utilmax)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="metrosmax>="+str(totalmin)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="metrosmax<="+str(totalmax)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="lat>="+str(latmin)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="lat<="+str(latmax)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="lon>="+str(lonmin)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="lon<="+str(lonmax)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="dormitorios>="+str(dormitoriosmin)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="dormitorios<="+str(dormitoriosmax)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="banos>="+str(banosmin)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="banos<="+str(banosmax)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="estacionamientos>="+str(estacionamientos)+" AND "
-        sql=sql+sqlwhere
-
-
-        sqlwhere="tipo LIKE '%" + str(tipo) + "%' AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="operacion LIKE '%"+str(operacion)+"%' AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="region LIKE '%"+str(region)+"%' AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
-        sql=sql+sqlwhere
-
-        print(sql)
-        cur.execute(sql)
-        tupla = cur.fetchall()
-        return tupla
-
-def clientes():
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    cur = mariadb_connection.cursor()
-    sql = "SELECT * FROM clientes"
-    cur.execute(sql)
-    tupla = cur.fetchall()
-    return tupla
-
-def insertarClientes_Propiedades(resultado):
-    sql = """INSERT INTO clientes_propiedades(uni,cliente,prop)
-             VALUES(%s,%s,%s) ON DUPLICATE KEY UPDATE prop=%s"""
-
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-
-    cur = mariadb_connection.cursor()
-    cur.execute(sql, (resultado))
-    mariadb_connection.commit()
-    mariadb_connection.close()
-
-def actualizarActividad(cliente):
-
-    sql = "UPDATE clientes SET activo=2 WHERE id="+str(cliente)
-
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-
-    cur = mariadb_connection.cursor()
-    cur.execute(sql)
-    mariadb_connection.commit()
-    mariadb_connection.close()
-
-def precio_from_portalinmobiliario(id2):
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    cur = mariadb_connection.cursor()
-    sql = "SELECT precio,metrosmin,metrosmax,lat,lon,dormitorios,banos FROM portalinmobiliario WHERE id2='"+str(id2)+"'"
-    cur.execute(sql)
-    precio = cur.fetchall()
-
-    return precio
 
 def calcularDistancia(i,data):
 
@@ -373,10 +219,13 @@ def calcularDistancia(i,data):
     except:
         print("No existen departamentos para comparar")
 
-def from_portalinmobiliario():
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+
+def from_proyectos():
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario"
+    sql="SELECT proyectos.id, deptos.id, deptos.fechascrap, proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM deptos,proyectos"
+
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -391,7 +240,139 @@ def from_portalinmobiliario():
             data.append(subdata)
     return data
 
-props=from_portalinmobiliario()
+
+def estaciones():
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT * FROM estaciones"
+    cur.execute(sql)
+    tupla = cur.fetchall()
+    return tupla
+
+def rentabilidad(prop):
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT rentabilidad FROM rentabilidades_portalinmobiliario WHERE prop="+str(prop)
+    cur.execute(sql)
+    rent = cur.fetchall()
+    rent=rent[0]
+    rent=rent[0]
+    return rent
+
+
+def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,pisomin,pisomax):
+        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
+        cur = mariadb_connection.cursor()
+
+        sqlselect = "SELECT id.proyectos,id.deptos,fechascrap.deptos,comuna.proyectos,tipo.proyectos,precio.deptos,dormitorios.deptos,banos.deptos,metrosmin.deptos,metrosmax.deptos,lat.proyectos,lon.proyectos,estacionamientos.proyectos,link.proyectos FROM deptos,proyectos WHERE "
+
+        sqlwhere="id_proyecto.deptos=id.proyectos "
+        sql=sqlselect+sqlwhere
+
+        sqlwhere="fechascrap.deptos>='"+str(yesterday)+"' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="precio.deptos>="+str(preciomin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="precio.deptos<="+str(preciomax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="metrosmin.deptos>="+str(utilmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="metrosmin.deptos<="+str(utilmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="metrosmax.deptos>="+str(totalmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="metrosmax.deptos<="+str(totalmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="pisomin.deptos>="+str(pisomin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="pisomax.deptos>="+str(pisomax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="lat.proyectos>="+str(latmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="lat.proyectos<="+str(latmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="lon.proyectos>="+str(lonmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="lon.proyectos<="+str(lonmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="dormitorios.deptos>="+str(dormitoriosmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="dormitorios.deptos<="+str(dormitoriosmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="banos.deptos>="+str(banosmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="banos.deptos<="+str(banosmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="estacionamientos.proyectos>="+str(estacionamientos)+" AND "
+        sql=sql+sqlwhere
+
+
+        sqlwhere="tipo LIKE '%" + str(tipo) + "%' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="operacion LIKE '%"+str(operacion)+"%' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="region LIKE '%"+str(region)+"%' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
+        sql=sql+sqlwhere
+
+        print(sql)
+        cur.execute(sql)
+        tupla = cur.fetchall()
+        return tupla
+
+def clientes():
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT * FROM clientesproyectos"
+    cur.execute(sql)
+    tupla = cur.fetchall()
+    return tupla
+
+def insertarClientes_Propiedades(resultado):
+    sql = """INSERT INTO clientes_propiedades(uni,cliente,prop)
+             VALUES(%s,%s,%s) ON DUPLICATE KEY UPDATE prop=%s"""
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql, (resultado))
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
+def actualizarActividad(cliente):
+
+    sql = "UPDATE clientes SET activo=2 WHERE id="+str(cliente)
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
+
+props=from_proyectos()
 data=clientes()
 resultado=[]
 for i in data:
@@ -419,6 +400,8 @@ for i in data:
     banosmin=float(i[17])
     banosmax=float(i[18])
     metrodistance=(i[30])
+    pisomin=float(i[34])
+    pisomax=float(i[35])
 
     estacionamientos=float(i[19])
 
@@ -454,7 +437,7 @@ for i in data:
     comuna6=i[29]
     if comuna6 is None:
         comuna6="abcdefghij"
-    propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
+    propiedades=from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
     estaciones1=estaciones()
     for prop in propiedades:
         estaciones2=[]
@@ -473,6 +456,7 @@ for i in data:
             estaciones2.append(subestacion)
         estaciones2=sorted(estaciones2,key=lambda x:x[2])
         estacioncercana=estaciones2[0]
+
 
         if metrodistance != None:
             if estacioncercana[2]>float(metrodistance):
@@ -505,14 +489,11 @@ for i in data:
             print("exception ocurred")
 
     if len(resultado)>0:
-        resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
         columnNames=["Precio","Útil","Total","Dorms","Baños","Estacion.","Metro","Linea","Dist-est.","Rent.","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
-        nombreArchivo = i[1] + " propiedades usadas " +str(tipo)+" "+ today
+        nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today
         pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])
    #insertarClientes_Propiedades(subresultado)
-
-

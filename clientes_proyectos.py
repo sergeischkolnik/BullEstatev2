@@ -6,9 +6,7 @@ past = datetime.now() - timedelta(days=120)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=3)
 yesterday=datetime.date(yesterday)
-from threading import Thread
-from time import sleep
-import psycopg2
+
 from datetime import datetime, timedelta
 import pdfCreatorTest as pdfC
 
