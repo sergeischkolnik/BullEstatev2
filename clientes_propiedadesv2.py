@@ -1,3 +1,4 @@
+
 import math
 import pymysql as mysql
 from math import radians, sin, cos, acos, asin,pi,sqrt
@@ -492,7 +493,7 @@ for i in data:
             subresultado.append(estacioncercana[0])
             subresultado.append(estacioncercana[2])
             preciob=calcularDistancia(prop,props)
-            rentab=((preciob/uf1)-prop[5])/prop[5]
+            rentab=((preciob)-prop[5])/prop[5]
             if rentab<0.1:
                 continue
             subresultado.append(float(rentab))
