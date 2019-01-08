@@ -12,6 +12,18 @@ import random
 
 print(str(datetime.datetime.now()))
 
+def actualizar_checker():
+    d=datetime.datetime.now().strftime('%Y-%M-%D %H:%M:%S0')
+
+    sql = "UPDATE checker SET lastscrap="+str(d)+" WHERE id=1"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
 def get_proxiestextweb():
     url="https://proxyscrape.com/proxies/HTTP_Working_Proxies.txt"
     proxies=set()
@@ -31,15 +43,33 @@ def getLast(operacion,tipo,region,proxi):
     tree2 = html.fromstring(page2.content)
     xpath='//*[@id="PaginacionSuperior"]/div/ul/li[6]/a'
     last=tree2.xpath(xpath)
-    last=last[0]
-    last=last.attrib
-    last=str(last)
-    last=last.split('=')
-    last=last[8]
-    last=last.split(',')
-    last=last[0]
-    last=last[:-1]
-    last=int(last)
+    try:
+        last=last[0]
+    except:
+        for i in range (1,5):
+            xpath='//*[@id="PaginacionSuperior"]/div/ul/li['+str(6-i)+']/a'
+            last=tree2.xpath(xpath)
+            try:
+                last=last[0]
+                break
+            except:
+                continue
+    try:
+        last=last.attrib
+
+        last=str(last)
+        last=last.split('=')
+        last=last[8]
+        last=last.split(',')
+        last=last[0]
+        last=last[:-1]
+        try:
+            last=int(last)
+        except:
+            last=int(last[0])
+    except:
+        last=1
+    print(last)
     return last
 
 def insertarPropiedad(propiedad):
@@ -424,7 +454,7 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                 lista=lista+1
 
                 print (tipo + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
-                #time.sleep(random.uniform(0.5,1.5))
+                time.sleep(random.uniform(0.5,1.5))
 
                 if remate==0:
                     try:
@@ -433,6 +463,8 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                         continue
                 else:
                     insertarRemate(aux)
+
+                actualizar_checker()
 
                 #print("New property registered at: "+str(datetime.datetime.now()))
 
