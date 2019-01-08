@@ -13,9 +13,10 @@ import random
 print(str(datetime.datetime.now()))
 
 def actualizar_checker():
-    d=datetime.datetime.now().strftime('%Y-%M-%D %H:%M:%S0')
-
-    sql = "UPDATE checker SET lastscrap="+str(d)+" WHERE id=1"
+    d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(str(d))
+    sql = "UPDATE checker SET lastscrap='"+str(d)+"' WHERE id=1"
+    print(sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
