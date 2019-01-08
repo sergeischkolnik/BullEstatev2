@@ -34,17 +34,21 @@ def getLast(operacion,tipo,region):
                 break
             except:
                 continue
-    last=last.attrib
-    last=str(last)
-    last=last.split('=')
-    last=last[8]
-    last=last.split(',')
-    last=last[0]
-    last=last[:-1]
     try:
-        last=int(last)
+        last=last.attrib
+
+        last=str(last)
+        last=last.split('=')
+        last=last[8]
+        last=last.split(',')
+        last=last[0]
+        last=last[:-1]
+        try:
+            last=int(last)
+        except:
+            last=int(last[0])
     except:
-        last=int(last[0])
+        last=1
     print(last)
     return last
 
@@ -571,6 +575,6 @@ while (a==True):
             print(tip)
             print(reg)
             last=getLast("venta",tip,reg)
-            #for i in range(0,last):
-                #scraper(tip,reg,i)
+            for i in range(0,last):
+                scraper(tip,reg,i)
 
