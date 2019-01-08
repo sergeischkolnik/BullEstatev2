@@ -23,7 +23,17 @@ def getLast(operacion,tipo,region):
     tree2 = html.fromstring(page2.content)
     xpath='//*[@id="PaginacionSuperior"]/div/ul/li[6]/a'
     last=tree2.xpath(xpath)
-    last=last[0]
+    try:
+        last=last[0]
+    except:
+        for i in range (1,5):
+            xpath='//*[@id="PaginacionSuperior"]/div/ul/li['+str(6-i)+']/a'
+            last=tree2.xpath(xpath)
+            try:
+                last=last[0]
+                break
+            except:
+                continue
     last=last.attrib
     last=str(last)
     last=last.split('=')
@@ -31,8 +41,13 @@ def getLast(operacion,tipo,region):
     last=last.split(',')
     last=last[0]
     last=last[:-1]
-    last=int(last)
+    try:
+        last=int(last)
+    except:
+        last=int(last[0])
+    print(last)
     return last
+
 
 # def get_proxies():
 #     url = 'https://free-proxy-list.net/'
@@ -553,7 +568,9 @@ region.append("biobio")
 while (a==True):
     for tip in tipo:
         for reg in region:
+            print(tip)
+            print(reg)
             last=getLast("venta",tip,reg)
-            for i in range(0,last):
-                scraper(tip,reg,i)
+            #for i in range(0,last):
+                #scraper(tip,reg,i)
 
