@@ -12,6 +12,8 @@ from itertools import cycle
 from time import sleep
 import agentCreator
 from requests_html import HTMLSession
+import random
+
 
 
 def getLast(operacion,tipo,region):
