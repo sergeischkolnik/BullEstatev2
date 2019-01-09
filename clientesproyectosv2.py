@@ -10,8 +10,10 @@ import uf
 
 from datetime import datetime, timedelta
 import pdfCreatorTest as pdfC
-
+import numpy as np
+from sklearn import datasets, linear_model
 uf1=uf.getUf()
+
 
 
 def calcularDistancia(i,data):
@@ -154,7 +156,7 @@ def calcularDistancia(i,data):
         prices=[]
         count=0
         for d in distancias:
-            p=precio_from_portalinmobiliario(d[0])
+            p=d[5]
             if (count==1) and (q==p):
                 continue
             else:
@@ -373,10 +375,13 @@ def actualizarActividad(cliente):
 
 
 props=from_proyectos()
+print("proyectos rescatados")
 data=clientes()
+print("clientes rescatados")
 resultado=[]
 for i in data:
     print(i[34])
+    print("cliente")
     resultado=[]
     if i[34]==0:
         continue
