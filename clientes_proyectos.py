@@ -236,7 +236,9 @@ for i in data:
             subresultado.append(estacioncercana[1])
             subresultado.append(estacioncercana[0])
             subresultado.append(estacioncercana[2])
+
             rentab=rentabilidad(prop[1])
+
             if rentab<0.1:
                 continue
             subresultado.append(rentab)

@@ -4,7 +4,7 @@ from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=120)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=3)
+yesterday = datetime.now() - timedelta(days=30)
 yesterday=datetime.date(yesterday)
 import uf
 
@@ -267,9 +267,9 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
         cur = mariadb_connection.cursor()
 
         sqlselect = "SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto WHERE "
-
+        sql=sqlselect
         sqlwhere="deptos.fechascrap>='"+str(yesterday)+"' AND "
-        sql=sqlselect+sqlwhere
+        sql=sql + sqlwhere
 
         sqlwhere="deptos.precio>="+str(preciomin)+" AND "
         sql=sql+sqlwhere
@@ -394,9 +394,11 @@ for i in data:
     banosmin=float(i[17])
     banosmax=float(i[18])
     metrodistance=(i[30])
-    pisomin=float(i[34])
-    pisomax=float(i[35])
-
+    try:
+        pisomin=float(i[34])
+        pisomax=float(i[35])
+    except:
+        print("piso no registrado")
     estacionamientos=float(i[19])
 
     tipo=i[20]
