@@ -83,7 +83,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sqlwhere="banos<="+str(banosmax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="estacionamientos>="+str(estacionamientos)+" AND "
+        sqlwhere="estacionamiento>="+str(estacionamientos)+" AND "
         sql=sql+sqlwhere
 
 
