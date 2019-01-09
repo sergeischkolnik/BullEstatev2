@@ -314,7 +314,7 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
         sqlwhere="deptos.banos<="+str(banosmax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="proyectos.estacionamientos>="+str(estacionamientos)+" AND "
+        sqlwhere="proyectos.estacionamiento>="+str(estacionamientos)+" AND "
         sql=sql+sqlwhere
 
 
