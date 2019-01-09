@@ -321,7 +321,7 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
         sqlwhere="tipo LIKE '%" + str(tipo) + "%' AND "
         sql=sql+sqlwhere
 
-        sqlwhere="region LIKE '%"+str(region)+"%' AND "
+        sqlwhere="link LIKE '%"+str(region)+"%' AND "
         sql=sql+sqlwhere
 
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
