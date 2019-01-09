@@ -226,8 +226,8 @@ def calcularDistancia(i,data):
 def from_proyectos():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
     cur = mariadb_connection.cursor()
-    sql="SELECT proyectos.id, deptos.id, deptos.fechascrap, proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM deptos,proyectos"
-
+    #sql="SELECT proyectos.id, deptos.id, deptos.fechascrap, proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM deptos,proyectos"
+    sql="SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto"
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -266,13 +266,10 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
         cur = mariadb_connection.cursor()
 
-        sqlselect = "SELECT id.proyectos,id.deptos,fechascrap.deptos,comuna.proyectos,tipo.proyectos,precio.deptos,dormitorios.deptos,banos.deptos,metrosmin.deptos,metrosmax.deptos,lat.proyectos,lon.proyectos,estacionamientos.proyectos,link.proyectos FROM deptos,proyectos WHERE "
-
-        sqlwhere="id_proyecto.deptos=id.proyectos "
-        sql=sqlselect+sqlwhere
+        sqlselect = "SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto WHERE "
 
         sqlwhere="fechascrap.deptos>='"+str(yesterday)+"' AND "
-        sql=sql+sqlwhere
+        sql=sqlselect+sqlwhere
 
         sqlwhere="precio.deptos>="+str(preciomin)+" AND "
         sql=sql+sqlwhere
