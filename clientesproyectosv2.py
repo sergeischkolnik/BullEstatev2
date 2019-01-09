@@ -321,9 +321,6 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
         sqlwhere="tipo LIKE '%" + str(tipo) + "%' AND "
         sql=sql+sqlwhere
 
-        sqlwhere="operacion LIKE '%"+str(operacion)+"%' AND "
-        sql=sql+sqlwhere
-
         sqlwhere="region LIKE '%"+str(region)+"%' AND "
         sql=sql+sqlwhere
 
