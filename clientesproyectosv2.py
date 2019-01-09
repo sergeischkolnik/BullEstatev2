@@ -262,7 +262,7 @@ def rentabilidad(prop):
     return rent
 
 
-def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,pisomin,pisomax):
+def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6):
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
         cur = mariadb_connection.cursor()
 
