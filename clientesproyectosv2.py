@@ -268,58 +268,53 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
 
         sqlselect = "SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto WHERE "
 
-        sqlwhere="fechascrap.deptos>='"+str(yesterday)+"' AND "
+        sqlwhere="deptos.fechascrap>='"+str(yesterday)+"' AND "
         sql=sqlselect+sqlwhere
 
-        sqlwhere="precio.deptos>="+str(preciomin)+" AND "
+        sqlwhere="deptos.precio>="+str(preciomin)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="precio.deptos<="+str(preciomax)+" AND "
+        sqlwhere="deptos.precio<="+str(preciomax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="metrosmin.deptos>="+str(utilmin)+" AND "
+        sqlwhere="deptos.utiles>="+str(utilmin)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="metrosmin.deptos<="+str(utilmax)+" AND "
+        sqlwhere="deptos.utiles<="+str(utilmax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="metrosmax.deptos>="+str(totalmin)+" AND "
+        sqlwhere="deptos.totales>="+str(totalmin)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="metrosmax.deptos<="+str(totalmax)+" AND "
+        sqlwhere="deptos.totales<="+str(totalmax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="pisomin.deptos>="+str(pisomin)+" AND "
+
+        sqlwhere="proyectos.lat>="+str(latmin)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="pisomax.deptos>="+str(pisomax)+" AND "
+        sqlwhere="proyectos.lat<="+str(latmax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="lat.proyectos>="+str(latmin)+" AND "
+        sqlwhere="proyectos.lon>="+str(lonmin)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="lat.proyectos<="+str(latmax)+" AND "
+        sqlwhere="proyectos.lon<="+str(lonmax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="lon.proyectos>="+str(lonmin)+" AND "
+        sqlwhere="deptos.dormitorios>="+str(dormitoriosmin)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="lon.proyectos<="+str(lonmax)+" AND "
+        sqlwhere="deptos.dormitorios<="+str(dormitoriosmax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="dormitorios.deptos>="+str(dormitoriosmin)+" AND "
+        sqlwhere="deptos.banos>="+str(banosmin)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="dormitorios.deptos<="+str(dormitoriosmax)+" AND "
+        sqlwhere="deptos.banos<="+str(banosmax)+" AND "
         sql=sql+sqlwhere
 
-        sqlwhere="banos.deptos>="+str(banosmin)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="banos.deptos<="+str(banosmax)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="estacionamientos.proyectos>="+str(estacionamientos)+" AND "
+        sqlwhere="proyectos.estacionamientos>="+str(estacionamientos)+" AND "
         sql=sql+sqlwhere
 
 
