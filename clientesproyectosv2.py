@@ -514,8 +514,8 @@ for i in data:
             rentab=((preciob)-prop[5])/prop[5]
             print(prop[1])
             print(rentab)
-            #if rentab<0.1:
-                #continue
+            if rentab<0.1:
+                continue
             #Prediccion
             subresultado.append(preciob)
             #Rentabilidad
