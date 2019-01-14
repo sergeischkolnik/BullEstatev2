@@ -483,25 +483,38 @@ for i in data:
             subresultado=[]
             uni=str(prop[0])+"000"+str(i[0])
             uni=int(uni)
+            #ID proyecto
             subresultado.append(int(prop[0]))
-            subresultado.append(int(prop[1]))
+            #ID Depto
+            #subresultado.append(int(prop[1]))
+            #Comuna
             subresultado.append(prop[3])
+            #Precio
             subresultado.append(int(prop[5]))
-            subresultado.append(int(prop[8]))
-            subresultado.append(int(prop[9]))
-            subresultado.append(int(prop[6]))
-            subresultado.append(int(prop[7]))
-            subresultado.append(int(prop[12]))
-            subresultado.append(estacioncercana[1])
-            subresultado.append(estacioncercana[0])
-            subresultado.append(estacioncercana[2])
+            #SupUtil
+            #subresultado.append(int(prop[8]))
+            #SupTotal
+            #subresultado.append(int(prop[9]))
+            #Dorms
+            #subresultado.append(int(prop[6]))
+            #Baños
+            #subresultado.append(int(prop[7]))
+            #Estacionamientos
+            #subresultado.append(int(prop[12]))
+            #Metro
+            #subresultado.append(estacioncercana[1])
+            #subresultado.append(estacioncercana[0])
+            #subresultado.append(estacioncercana[2])
+
             preciob=calcularDistancia(prop,props)
             rentab=((preciob)-prop[5])/prop[5]
             print(prop[1])
             print(rentab)
             #if rentab<0.1:
                 #continue
+            #Rentabilidad
             subresultado.append(float(rentab))
+            #Link
             subresultado.append(prop[13])
 
             print("depto encontrado para "+str(i[1]))
@@ -513,7 +526,7 @@ for i in data:
     s = sorted(resultado, key=lambda x:x[12],reverse=True)
     resultado=sorted(s,key=lambda x:x[0])
     if len(resultado)>0:
-        columnNames=["Id-Proyecto","Id-Departamento","Comuna","Precio","Útil","Total","Dorms","Baños","Estacion.","Metro","Linea","Dist-est.","Rent.","Link"]
+        columnNames=["Id-Proyecto","Comuna","Precio","Rent.","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today
