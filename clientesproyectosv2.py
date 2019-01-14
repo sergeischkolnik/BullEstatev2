@@ -238,7 +238,7 @@ def calcularDistancia(i,data):
         # std=cosa[1]
         # preciomin=precio-std
         # preciomax=precio+std
-        return price
+        return price,t_actual
     except:
         print("No existen departamentos para comparar")
 
@@ -485,6 +485,7 @@ for i in data:
             uni=int(uni)
             #ID proyecto
             subresultado.append(int(prop[0]))
+
             #ID Depto
             #subresultado.append(int(prop[1]))
             #Comuna
@@ -509,7 +510,11 @@ for i in data:
             #subresultado.append(estacioncercana[0])
             #subresultado.append(estacioncercana[2])
 
-            preciob=calcularDistancia(prop,props)
+            tasacion=calcularDistancia(prop,props)
+            preciob=tasacion[0]
+            confianza=tasacion[1]
+
+            print(str(prop[0])+" tiene un nivel de confianza de "+str(confianza))
 
             rentab=((preciob)-prop[5])/prop[5]
             print(prop[1])
