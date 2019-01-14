@@ -65,11 +65,11 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
     #creacion de precios, porcentajes y link
     for i,prop in enumerate(data):
         #porcentaje
-        rent = float(prop[3])
+        rent = float(prop[4])
         rent = int(rent*1000)
         rent = float(rent/10)
         rent = str(rent)+"%"
-        prop[3] = rent
+        prop[4] = rent
 
         #arreglar precio
         precio = prop[2]
@@ -85,6 +85,19 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
 
         prop[2] = precioStr
 
+        precio = prop[3]
+        if operacion=="venta":
+            precio=int(precio)
+            precioStr =  format(precio, ',.2f')
+            precioStr = precioStr[:-3]
+            precioStr = "UF "+precioStr.replace(",",".")
+        else:
+            precioStr = format(precio, ',.2f')
+            precioStr = precioStr[:-3]
+            precioStr="$ "+str(precioStr)
+
+        prop[3] = precioStr
+
         #quitar decimales a valores
         # prop[4] = int(prop[4])
         # prop[5] = int(prop[5])
@@ -94,9 +107,9 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
         # prop[11] = int(prop[11])
 
         #link
-        link = str(prop[4])
+        link = str(prop[5])
         linkHtml = '<link href="' + link + '" color="blue">' + "Link" + '</link>'
-        prop[4] = platypus.Paragraph(linkHtml, PS('body'))
+        prop[5] = platypus.Paragraph(linkHtml, PS('body'))
 
         #agregar numerador
         data[i] = [i+1] + prop
