@@ -523,11 +523,28 @@ for i in data:
             #Link
             subresultado.append(prop[13])
             #entrega
-            subresultado.append(prop[14])
+            entrega=prop[14]
+            subresultado.append(entrega)
             #Inmobiliaria
-            subresultado.append(prop[15])
+            inmobiliaria=prop[15]
+            try:
+                inmobiliaria=inmobiliaria.replace("Inmobiliaria ","")
+            except:
+                try:
+                    inmobiliaria=inmobiliaria.replace("Inmobiliaria","")
+                except:
+                    z=0
+            subresultado.append(inmobiliaria)
             #Constructora
-            subresultado.append(prop[16])
+            constructora=prop[16]
+            try:
+                constructora=constructora.replace("Constructura ","")
+            except:
+                try:
+                    constructora=constructora.replace("Constructura","")
+                except:
+                    z=0
+            subresultado.append(constructora)
 
 
             print("depto encontrado para "+str(i[1]))
