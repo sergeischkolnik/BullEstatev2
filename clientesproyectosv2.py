@@ -531,17 +531,17 @@ for i in data:
                 inmobiliaria=inmobiliaria.replace("Inmobiliaria ","")
             except:
                 try:
-                    inmobiliaria=inmobiliaria.replace("Inmobiliaria","")
+                    inmobiliaria=inmobiliaria.replace(" Inmobiliaria","")
                 except:
                     z=0
             subresultado.append(inmobiliaria)
             #Constructora
             constructora=prop[16]
             try:
-                constructora=constructora.replace("Constructura ","")
+                constructora=constructora.replace("Constructora ","")
             except:
                 try:
-                    constructora=constructora.replace("Constructura","")
+                    constructora=constructora.replace(" Constructora","")
                 except:
                     z=0
             subresultado.append(constructora)
