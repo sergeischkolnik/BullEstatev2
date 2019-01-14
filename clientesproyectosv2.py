@@ -54,7 +54,7 @@ def calcularDistancia(i,data):
 
     for j in data:
 
-        # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
+        # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total, i14=piso
         if (j[2]>past) and (i[3]==j[3]) and (i[4]==j[4]) and (j!=i):
             #print("ok, primera iteracion")
             lat1=i[10]
@@ -189,7 +189,7 @@ def calcularDistancia(i,data):
         y_train = []
         x_train = []
         for e in distancias:
-            x_train.append([e[8],e[9],e[6],e[7],e[12]])
+            x_train.append([e[8],e[9],e[6],e[7],e[12],e[14]])
             y_train.append(e[5])
 
         #y2_train=[]
@@ -214,7 +214,7 @@ def calcularDistancia(i,data):
          #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
         #except:
          #   print("unable to print coef")
-        x_test = [i[8],i[9],i[6],i[7],i[12]]
+        x_test = [i[8],i[9],i[6],i[7],i[12],i[14]]
         x_test=np.array(x_test)
         x_test=np.transpose(x_test)
         # Make predictions using the testing set
@@ -248,7 +248,7 @@ def from_proyectos():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
     cur = mariadb_connection.cursor()
     #sql="SELECT proyectos.id, deptos.id, deptos.fechascrap, proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM deptos,proyectos"
-    sql="SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto"
+    sql="SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link, deptos.piso FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto"
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -287,7 +287,7 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
         cur = mariadb_connection.cursor()
 
-        sqlselect = "SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link, proyectos.entrega, proyectos.vende, proyectos.construye FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto WHERE "
+        sqlselect = "SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link, proyectos.entrega, proyectos.vende, proyectos.construye, deptos.piso FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto WHERE "
         sql=sqlselect
         sqlwhere="deptos.fechascrap>='"+str(yesterday)+"' AND "
         sql=sql + sqlwhere
@@ -544,7 +544,10 @@ for i in data:
                 inmobiliaria=inmobiliaria.replace("Constructora","")
             except:
                 z=0
-
+            try:
+                inmobiliaria=inmobiliaria[:20]
+            except:
+                z=0
             subresultado.append(inmobiliaria)
             #Constructora
             constructora=prop[16]
@@ -565,7 +568,10 @@ for i in data:
                 constructora=constructora.replace("Inmobiliaria","")
             except:
                 z=0
-
+            try:
+                constructora=constructora[:20]
+            except:
+                z=0
 
             subresultado.append(constructora)
 
