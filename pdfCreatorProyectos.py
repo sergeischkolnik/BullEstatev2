@@ -117,16 +117,11 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
     headers = ["Nº"] + headers
 
     #t=Table(data,nrCols*[0.6*inch], nrRows*[0.25*inch])
-    a=0
-    data2=[]
-    data2 = [headers]+data2
-    for i in data:
-        if (i[1]==a):
-            continue
-        else:
-            data2.append(i)
-            a=i[1]
-    t=Table(data2)
+
+
+    data = [headers]+data
+
+    t=Table(data)
     t.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),

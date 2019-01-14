@@ -535,15 +535,28 @@ for i in data:
             print("sub appended")
         except:
             print("exception ocurred")
+
+
+
     print(len(resultado))
-    s = sorted(resultado, key=lambda x:x[3],reverse=True)
+    s = sorted(resultado, key=lambda x:x[5],reverse=True)
     resultado=sorted(s, key=lambda x:x[0])
+    a=""
+    resultado2=[]
+    for prop in resultado:
+        if (a==prop[0]):
+            continue
+        else:
+            a=prop[0]
+            resultado2.append[prop]
+    resultado2 = sorted(resultado2, key=lambda x:x[5],reverse=True)
+
     if len(resultado)>0:
         columnNames=["Id","Comuna","Tipologia","P. Real","P. Predicho","Rent.","Link","Entrega","Inmobiliaria","Constructora"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today
-        pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
+        pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado2, columnNames,operacion)
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])
    #insertarClientes_Propiedades(subresultado)
