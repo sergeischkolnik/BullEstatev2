@@ -108,24 +108,24 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
     data2=[]
     for i in data:
         if (i[1]==a):
-            data2.append(i)
+            continue
         else:
             if (a!=0):
+                continue
 
-                t=Table(data2)
-                t.setStyle(TableStyle([
-                                       ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                                       ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-                                       ('FONTSIZE', (0,0), (-1,-1), 9),
-                                       ]))
-
-                Story.append(t)
-                Story.append(PageBreak())
             data2=[]
             data2 = [headers]+data2
             data2.append(i)
             a=i[1]
+    t=Table(data2)
+    t.setStyle(TableStyle([
+                           ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                           ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                           ('FONTSIZE', (0,0), (-1,-1), 9),
+                           ]))
 
+    Story.append(t)
+    Story.append(PageBreak())
 
     Story.append(Spacer(2, 24))
 
