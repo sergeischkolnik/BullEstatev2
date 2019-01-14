@@ -106,15 +106,11 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
     #t=Table(data,nrCols*[0.6*inch], nrRows*[0.25*inch])
     a=0
     data2=[]
+    data2 = [headers]+data2
     for i in data:
         if (i[1]==a):
             continue
         else:
-            if (a!=0):
-                continue
-
-            data2=[]
-            data2 = [headers]+data2
             data2.append(i)
             a=i[1]
     t=Table(data2)
