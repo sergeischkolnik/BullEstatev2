@@ -539,7 +539,7 @@ for i in data:
     s = sorted(resultado, key=lambda x:x[3],reverse=True)
     resultado=sorted(s, key=lambda x:x[0])
     if len(resultado)>0:
-        columnNames=["Id-Proyecto","Comuna","Precio real","Precio predicho","Rent.","Link","Entrega","Inmobiliaria","Constructora"]
+        columnNames=["Id","Comuna","Tipologia","P. Real","P. Predicho","Rent.","Link","Entrega","Inmobiliaria","Constructora"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today

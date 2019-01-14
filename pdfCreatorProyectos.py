@@ -134,7 +134,7 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
                            ]))
 
     Story.append(t)
-    Story.append(PageBreak())
+
 
     Story.append(Spacer(2, 24))
 
