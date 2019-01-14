@@ -1,6 +1,6 @@
 import psycopg2
 from datetime import datetime, timedelta
-import pdfCreatorTest as pdfC
+import pdfCreatorPropiedades as pdfC
 
 
 limiteFechaPublicacion = 30

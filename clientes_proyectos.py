@@ -8,7 +8,7 @@ yesterday = datetime.now() - timedelta(days=3)
 yesterday=datetime.date(yesterday)
 
 from datetime import datetime, timedelta
-import pdfCreatorTest as pdfC
+import pdfCreatorPropiedades as pdfC
 
 def estaciones():
     mariadb_connection = mysql.connector.connect(user='root', password='sergei', host='127.0.0.1', database='metro')

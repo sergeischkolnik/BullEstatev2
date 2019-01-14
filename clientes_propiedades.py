@@ -9,7 +9,7 @@ yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
 from datetime import datetime, timedelta
-import pdfCreatorTest as pdfC
+import pdfCreatorPropiedades as pdfC
 
 def estaciones():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
