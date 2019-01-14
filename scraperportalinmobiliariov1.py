@@ -486,11 +486,6 @@ def scrap(d,h,operacion,tipo,region,lista,faillista):
 
     for collectElement in collection:
 
-        # TESTING
-        oneTesting = False
-        if oneTesting:
-            collectElement = 'http://www.portalinmobiliario.com/venta/departamento/metropolitana?tp=6&op=2&ca=2&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=1&sf=0&sp=0&pg=1'
-        # ENDTESTING
 
         try:
             page2 = requests.get(collectElement, headers={'User-Agent': agentCreator.generateAgent()})
@@ -536,25 +531,30 @@ def Main():
     tipo=[]
 
     #Añadir regiones a arreglo
+    region.append("biobio")
     region.append("metropolitana")
     region.append("valparaiso")
-    region.append("biobio")
+
 
     #Añadir operaciones a arreglo
     operacion.append("venta")
     operacion.append("arriendo")
 
     #Añadir tipo a arreglo
+    tipo.append("estacionamiento")
     tipo.append("departamento")
     tipo.append("casa")
     tipo.append("oficina")
     tipo.append("sitio")
     tipo.append("comercial")
-    tipo.append("estacionamiento")
+
 
     #Obtener proxies
     proxies=get_proxiestextweb()
     proxy_pool=cycle(proxies)
+
+
+
     while True:
         for reg in region:
             for tip in tipo:
