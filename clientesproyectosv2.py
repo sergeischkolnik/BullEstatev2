@@ -9,15 +9,32 @@ yesterday=datetime.date(yesterday)
 import uf
 
 from datetime import datetime, timedelta
-import pdfCreatorTest as pdfC
+import pdfCreatorProyectos as pdfC
 import numpy as np
 from sklearn import datasets, linear_model
 uf1=uf.getUf()
 
 
+def mean(numbers):
+    suma=0
+    for i in numbers:
+
+
+        suma=suma+i
+    promedio=suma/len(numbers)
+    suma=0
+    for i in numbers:
+
+        suma=suma+abs(i-promedio)
+    desvest=suma/len(numbers)
+
+    cosa=[]
+    cosa.append(promedio)
+    cosa.append(desvest)
+    return cosa
 
 def calcularDistancia(i,data):
-
+    past=datetime.date(datetime.now() - timedelta(days=120))
     distanciat0=[]
     distanciat1=[]
     distanciat2_1=[]
@@ -36,8 +53,10 @@ def calcularDistancia(i,data):
     k42=[0]*14
 
     for j in data:
+
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
-        if (j[1]>past) and (i[3]==j[3]) and (i[4]==j[4]) and (j!=i):
+        if (j[2]>past) and (i[3]==j[3]) and (i[4]==j[4]) and (j!=i):
+            #print("ok, primera iteracion")
             lat1=i[10]
             long1=i[11]
             lat2=j[10]
@@ -111,6 +130,7 @@ def calcularDistancia(i,data):
                 j=j[:-1]
                 k42=j
 
+
     t_actual="0"
     cota=5
     for cot in range (1,6):
@@ -148,10 +168,10 @@ def calcularDistancia(i,data):
             distancias=distancias[:40]
         except:
             distancias=distancia
-        print("propiedades encontradas "+str(len(distancias)))
-        print ("nivel de confianza: "+str(t_actual))
-        for link in [x[13] for x in distancias]:
-            print (link)
+        #print("propiedades encontradas "+str(len(distancias)))
+        #print ("nivel de confianza: "+str(t_actual))
+        #for link in [x[13] for x in distancias]:
+            #print (link)
 
         prices=[]
         count=0
@@ -205,11 +225,12 @@ def calcularDistancia(i,data):
             price=price+coef*x_test[c]
             c=c+1
         price=price/uf1
-        print(price)
+        #print(price)
         cota=len(distancias)+1
     #print("y_pred = " + str(y_pred))
     # The coefficients
     #print('Coefficients: \n', regr.coef_)
+
 
     try:
         cosa=mean(prices)
@@ -327,7 +348,7 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        print(sql)
+        #print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
         return tupla
@@ -369,8 +390,8 @@ data=clientes()
 print("clientes rescatados")
 resultado=[]
 for i in data:
-    print(i[34])
-    print("cliente")
+    #print(i[34])
+    #print("cliente")
     resultado=[]
     if i[34]==0:
         continue
@@ -457,11 +478,14 @@ for i in data:
         if metrodistance != None:
             if estacioncercana[2]>float(metrodistance):
                 continue
-
+        preciob=calcularDistancia(prop,props)
         try:
             subresultado=[]
             uni=str(prop[0])+"000"+str(i[0])
             uni=int(uni)
+            subresultado.append(int(prop[0]))
+            subresultado.append(int(prop[1]))
+            subresultado.append(prop[3])
             subresultado.append(int(prop[5]))
             subresultado.append(int(prop[8]))
             subresultado.append(int(prop[9]))
@@ -472,9 +496,11 @@ for i in data:
             subresultado.append(estacioncercana[0])
             subresultado.append(estacioncercana[2])
             preciob=calcularDistancia(prop,props)
-            rentab=((preciob/uf1)-prop[5])/prop[5]
-            if rentab<0.1:
-                continue
+            rentab=((preciob)-prop[5])/prop[5]
+            print(prop[1])
+            print(rentab)
+            #if rentab<0.1:
+                #continue
             subresultado.append(float(rentab))
             subresultado.append(prop[13])
 
@@ -483,9 +509,11 @@ for i in data:
             print("sub appended")
         except:
             print("exception ocurred")
-
+    print(len(resultado))
+    s = sorted(resultado, key=lambda x:x[12],reverse=True)
+    resultado=sorted(s,key=lambda x:x[0])
     if len(resultado)>0:
-        columnNames=["Precio","Útil","Total","Dorms","Baños","Estacion.","Metro","Linea","Dist-est.","Rent.","Link"]
+        columnNames=["Id-Proyecto","Id-Departamento","Comuna","Precio","Útil","Total","Dorms","Baños","Estacion.","Metro","Linea","Dist-est.","Rent.","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today
