@@ -287,7 +287,7 @@ def from_proyectos_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,tot
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='proyectos')
         cur = mariadb_connection.cursor()
 
-        sqlselect = "SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto WHERE "
+        sqlselect = "SELECT id2,deptos.id,deptos.fechascrap,proyectos.comuna,proyectos.tipo,deptos.precio,deptos.dormitorios,deptos.banos,deptos.utiles,deptos.totales,proyectos.lat,proyectos.lon,proyectos.estacionamiento,proyectos.link, proyectos.entrega, proyectos.vende, proyectos.construye FROM proyectos INNER JOIN deptos ON proyectos.id2 = deptos.id_proyecto WHERE "
         sql=sqlselect
         sqlwhere="deptos.fechascrap>='"+str(yesterday)+"' AND "
         sql=sql + sqlwhere
@@ -489,6 +489,9 @@ for i in data:
             #subresultado.append(int(prop[1]))
             #Comuna
             subresultado.append(prop[3])
+            #tipologia
+            tipologia=(str(prop[6])+"/"+str(prop[7]))
+            subresultado.append(tipologia)
             #Precio
             subresultado.append(int(prop[5]))
             #SupUtil
@@ -519,6 +522,12 @@ for i in data:
             subresultado.append(float(rentab))
             #Link
             subresultado.append(prop[13])
+            #entrega
+            subresultado.append(prop[14])
+            #Inmobiliaria
+            subresultado.append(prop[15])
+            #Constructora
+            subresultado.append(prop[16])
 
 
             print("depto encontrado para "+str(i[1]))
@@ -527,10 +536,10 @@ for i in data:
         except:
             print("exception ocurred")
     print(len(resultado))
-    #s = sorted(resultado, key=lambda x:x[12],reverse=True)
-    resultado=sorted(resultado, key=lambda x:x[3])
+    s = sorted(resultado, key=lambda x:x[3],reverse=True)
+    resultado=sorted(s, key=lambda x:x[0])
     if len(resultado)>0:
-        columnNames=["Id-Proyecto","Comuna","Precio real","Precio predicho","Rent.","Link"]
+        columnNames=["Id-Proyecto","Comuna","Precio real","Precio predicho","Rent.","Link","Entrega","Inmobiliaria","Constructora"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today
