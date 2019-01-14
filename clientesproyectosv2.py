@@ -214,7 +214,7 @@ def calcularDistancia(i,data):
          #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
         #except:
          #   print("unable to print coef")
-        x_test = [i[8],i[9],i[6],i[7],i[12],i[14]]
+        x_test = [i[8],i[9],i[6],i[7],i[12],i[17]]
         x_test=np.array(x_test)
         x_test=np.transpose(x_test)
         # Make predictions using the testing set
@@ -224,7 +224,7 @@ def calcularDistancia(i,data):
         for coef in regr.coef_:
             price=price+coef*x_test[c]
             c=c+1
-        price=price/uf1
+        price=price
         #print(price)
         cota=len(distancias)+1
     #print("y_pred = " + str(y_pred))
@@ -510,7 +510,7 @@ for i in data:
             #subresultado.append(estacioncercana[2])
 
             preciob=calcularDistancia(prop,props)
-            preciob=uf1*preciob
+
             rentab=((preciob)-prop[5])/prop[5]
             print(prop[1])
             print(rentab)
