@@ -524,7 +524,7 @@ for i in data:
             print("exception ocurred")
     print(len(resultado))
     #s = sorted(resultado, key=lambda x:x[12],reverse=True)
-    resultado=sorted(key=lambda x:x[3])
+    resultado=sorted(resultado, key=lambda x:x[3])
     if len(resultado)>0:
         columnNames=["Id-Proyecto","Comuna","Precio","Rent.","Link"]
 
