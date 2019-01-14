@@ -516,7 +516,7 @@ for i in data:
             subresultado.append(float(rentab))
             #Link
             subresultado.append(prop[13])
-            subresultado.append(prop[5])
+            subresultado.append(preciob)
 
             print("depto encontrado para "+str(i[1]))
             resultado.append(subresultado)
