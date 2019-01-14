@@ -531,9 +531,10 @@ def Main():
     tipo=[]
 
     #Añadir regiones a arreglo
-    region.append("biobio")
+
     region.append("metropolitana")
     region.append("valparaiso")
+    region.append("biobio")
 
 
     #Añadir operaciones a arreglo
@@ -541,12 +542,12 @@ def Main():
     operacion.append("arriendo")
 
     #Añadir tipo a arreglo
-    tipo.append("estacionamiento")
     tipo.append("departamento")
     tipo.append("casa")
     tipo.append("oficina")
     tipo.append("sitio")
     tipo.append("comercial")
+    tipo.append("estacionamiento")
 
 
     #Obtener proxies
