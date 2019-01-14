@@ -516,6 +516,7 @@ for i in data:
             subresultado.append(float(rentab))
             #Link
             subresultado.append(prop[13])
+            subresultado.append(prop[5])
 
             print("depto encontrado para "+str(i[1]))
             resultado.append(subresultado)
@@ -526,7 +527,7 @@ for i in data:
     #s = sorted(resultado, key=lambda x:x[12],reverse=True)
     resultado=sorted(resultado, key=lambda x:x[3])
     if len(resultado)>0:
-        columnNames=["Id-Proyecto","Comuna","Precio","Rent.","Link"]
+        columnNames=["Id-Proyecto","Comuna","Precio","Rent.","Link","predicho"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today
