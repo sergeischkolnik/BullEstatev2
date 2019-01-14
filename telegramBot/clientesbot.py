@@ -10,7 +10,7 @@ yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
 from datetime import datetime, timedelta
-import pdfCreatorPropiedades as pdfC
+import pdfCreatorTest as pdfC
 import uf
 import numpy as np
 from sklearn import datasets, linear_model
@@ -133,7 +133,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
 def clientes():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT * FROM clientes"
+    sql = "SELECT * FROM clientesBot"
     cur.execute(sql)
     tupla = cur.fetchall()
     return tupla
