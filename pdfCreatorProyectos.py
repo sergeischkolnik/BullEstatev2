@@ -85,7 +85,7 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
 
         prop[3] = precioStr
 
-        precio = prop[43]
+        precio = prop[4]
         if operacion=="venta":
             precio=int(precio)
             precioStr =  format(precio, ',.2f')
