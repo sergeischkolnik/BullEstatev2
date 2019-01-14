@@ -548,7 +548,7 @@ for i in data:
             continue
         else:
             a=prop[0]
-            resultado2.append[prop]
+            resultado2.append(prop)
     resultado2 = sorted(resultado2, key=lambda x:x[5],reverse=True)
 
     if len(resultado)>0:
