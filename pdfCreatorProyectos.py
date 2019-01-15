@@ -11,7 +11,7 @@ from reportlab.platypus import PageBreak
 import locale
 import uf
 
-def createPdfReport(cliente, fileName, data, headers,operacion):
+def createPdfReport(cliente, fileName, data, headers,operacion,resultado3):
 
     doc = SimpleDocTemplate(fileName,pagesize=letter,
                             rightMargin=72,leftMargin=72,
@@ -148,6 +148,6 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
 
     ptext = '<font size=12>Sergei Schkolnik</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
-
-
+    if len (resultado3)>0:
+        Story.append(resultado3)
     doc.build(Story)

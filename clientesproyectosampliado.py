@@ -392,6 +392,7 @@ print("proyectos rescatados")
 data=clientes()
 print("clientes rescatados")
 resultado=[]
+resultado3=[]
 for i in data:
     #print(i[34])
     #print("cliente")
@@ -586,8 +587,9 @@ for i in data:
 
             print("depto encontrado para "+str(i[1]))
             resultado.append(subresultado)
-
-            print("sub appended")
+            resultado3.append(prop)
+            for linkcomp in linkscomp:
+                resultado3.append(linkcomp)
         except:
             print("exception ocurred")
 
@@ -611,7 +613,7 @@ for i in data:
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today
-        pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado2, columnNames,operacion)
+        pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado2, columnNames,operacion,resultado3)
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])
    #insertarClientes_Propiedades(subresultado)
