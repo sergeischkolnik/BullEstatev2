@@ -587,9 +587,10 @@ for i in data:
 
             print("depto encontrado para "+str(i[1]))
             resultado.append(subresultado)
-            resultado3.append(prop)
+            resultado3.append([prop[0],confianza])
+
             for linkcomp in linkscomp:
-                resultado3.append(linkcomp)
+                resultado3.append([linkcomp])
         except:
             print("exception ocurred")
 
