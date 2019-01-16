@@ -153,7 +153,7 @@ def createPdfReport(cliente, fileName, data, headers,operacion,resultado3):
         for row in resultado3:
             ptext = '<font size=9>'
             for col in row:
-                ptext += str(row) + " "
+                ptext += str(col) + " "
             ptext += '</font>'
             Story.append(Paragraph(ptext, styles["Normal"]))
 
