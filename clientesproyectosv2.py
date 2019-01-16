@@ -605,7 +605,7 @@ for i in data:
             a=prop[0]
             resultado2.append(prop)
     resultado2 = sorted(resultado2, key=lambda x:x[5],reverse=True)
-
+    resultado3=[]
     if len(resultado)>0:
         columnNames=["Id","Comuna","Tip.","P. Real","P. Predicho","Rent.","Link","Entrega","Inmobiliaria","Constructora"]
 
