@@ -587,8 +587,8 @@ for i in data:
 
             print("depto encontrado para "+str(i[1]))
             resultado.append(subresultado)
-            resultado3.append([prop[0],confianza,prop[8],prop[12]],prop[17])
-            resultado3.append(confianza)
+
+            resultado3.append([prop[0],confianza,prop[8],prop[12],prop[17]])
 
             for linkcomp in linkscomp:
                 resultado3.append(linkcomp)
