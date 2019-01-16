@@ -151,7 +151,7 @@ def createPdfReport(cliente, fileName, data, headers,operacion,resultado3):
 
     if len(resultado3)>0:
         for link in resultado3:
-            linkHtml = '<link href="' + str(link) + '" color="blue">' + str(link) + '</link>'
-            Story.append(Paragraph(linkHtml, styles["Normal"]))
+            ptext = '<font size=9>'+ str(link) +'</font>'
+            Story.append(Paragraph(ptext, styles["Normal"]))
 
     doc.build(Story)
