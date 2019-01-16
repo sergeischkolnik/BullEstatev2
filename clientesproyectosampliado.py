@@ -192,7 +192,7 @@ def calcularDistancia(i,data):
         y_train = []
         x_train = []
         for e in distancias:
-            x_train.append([e[8],e[9],e[6],e[7],e[12],e[14]])
+            x_train.append([e[8],e[9],e[6],e[7],e[12]])
             y_train.append(e[5])
 
         #y2_train=[]
@@ -217,7 +217,7 @@ def calcularDistancia(i,data):
          #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
         #except:
          #   print("unable to print coef")
-        x_test = [i[8],i[9],i[6],i[7],i[12],i[17]]
+        x_test = [i[8],i[9],i[6],i[7],i[12]]
         x_test=np.array(x_test)
         x_test=np.transpose(x_test)
         # Make predictions using the testing set
@@ -521,7 +521,7 @@ for i in data:
             rentab=((preciob)-prop[5])/prop[5]
             print(prop[1])
             print(rentab)
-            if rentab<0.1:
+            if (rentab<0.1) or (rentab>1):
                 continue
             #Prediccion
             subresultado.append(preciob)
