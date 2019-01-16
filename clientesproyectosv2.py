@@ -611,7 +611,7 @@ for i in data:
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " proyectos " +str(tipo)+" "+ today
-        pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado2, columnNames,operacion)
+        pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado2, columnNames,operacion,resultado3)
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])
    #insertarClientes_Propiedades(subresultado)
