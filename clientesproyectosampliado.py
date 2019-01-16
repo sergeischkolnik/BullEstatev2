@@ -173,8 +173,8 @@ def calcularDistancia(i,data):
         linkscomp=[]
 
 
-        for link in [x[13] for x in distancias]:
-            linkscomp.append(link)
+        for x in distancias:
+            linkscomp.append([x[5],x[13]])
 
         # prices=[]
         # count=0
@@ -587,7 +587,7 @@ for i in data:
 
             print("depto encontrado para "+str(i[1]))
             resultado.append(subresultado)
-            resultado3.append(prop[0])
+            resultado3.append([prop[0],confianza,prop[8],prop[12]],prop[17])
             resultado3.append(confianza)
 
             for linkcomp in linkscomp:
