@@ -420,7 +420,7 @@ for i in data:
     banosmin=float(i[17])
     banosmax=float(i[18])
     metrodistance=(i[30])
-
+    rentmin=float(i[35])
     estacionamientos=float(i[19])
 
     tipo=i[20]
@@ -494,7 +494,7 @@ for i in data:
             subresultado.append(estacioncercana[2])
             preciob=calcularDistancia(prop,props)
             rentab=((preciob)-prop[5])/prop[5]
-            if rentab<0.1:
+            if rentab<rentmin or rentab>1:
                 continue
             subresultado.append(float(rentab))
             subresultado.append(prop[13])
