@@ -22,131 +22,50 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="jpg" value="1" />
-          <entry key="py" value="48" />
+          <entry key="py" value="83" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="1" />
-          <entry key="Python" value="48" />
+          <entry key="Python" value="83" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="36" />
-          <entry key="dummy" value="33" />
-          <entry key="py" value="84118" />
+          <entry key="dummy" value="34" />
+          <entry key="py" value="89662" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="33" />
-          <entry key="Python" value="84154" />
+          <entry key="PLAIN_TEXT" value="34" />
+          <entry key="Python" value="89698" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clientesproyectosv2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#775#8806#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pdfCreatorProyectos.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="113" selection-start-line="113" selection-end-line="113" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scraperportalinmobiliariov1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="102" column="57" selection-start-line="102" selection-start-column="57" selection-end-line="102" selection-end-column="57" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#2893#3663#0" />
-                <element signature="e#3728#19146#0" />
-                <marker date="1546977146834" expanded="true" signature="257:653" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clientes_propiedadesv2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="57" column="268" selection-start-line="57" selection-start-column="268" selection-end-line="57" selection-end-column="268" />
-              <folding>
-                <element signature="e#802#1137#0" />
-                <element signature="e#1162#1479#0" />
-                <element signature="e#1758#4018#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rentabilidades_portalinmobiliario.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="9" lean-forward="true" selection-end-line="123" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/rentabilidades_portailinmobiliario_v2.py">
+        <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="89" column="8" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
+            <state relative-caret-position="203">
+              <caret line="711" column="35" lean-forward="true" selection-start-line="711" selection-start-column="35" selection-end-line="711" selection-end-column="35" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#1773#4033#0" />
+                <element signature="e#13467#21417#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tasador.py">
+        <entry file="file://$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="477" selection-start-line="477" selection-end-line="477" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#471#788#0" />
-                <element signature="e#1252#1611#0" />
-                <element signature="e#1648#2256#0" />
-                <element signature="e#2675#10662#0" />
-                <element signature="e#18704#18965#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/powerscrapergp2.0.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="669" column="8" selection-start-line="669" selection-start-column="8" selection-end-line="678" selection-end-column="16" />
+            <state relative-caret-position="285">
+              <caret line="129" column="154" selection-start-line="129" selection-start-column="154" selection-end-line="129" selection-end-column="154" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -165,36 +84,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>proxiestext</find>
-      <find>id=</find>
-      <find>id=&quot;6</find>
-      <find>rent</find>
-      <find>prop</find>
-      <find>uni</find>
-      <find>uf1</find>
-      <find>slee</find>
-      <find>thre</find>
-      <find>request</find>
-      <find>scri</find>
-      <find>props</find>
-      <find>print(sql)</find>
-      <find>propiedades</find>
-      <find>distancia</find>
-      <find>Thread</find>
-      <find>getLast(</find>
-      <find>last</find>
-      <find>WHERE</find>
       <find>dist</find>
       <find>fechascrap</find>
       <find>exce</find>
       <find>sleep</find>
-      <find>key</find>
-      <find>like</find>
       <find>i[</find>
-      <find>print</find>
       <find>no se</find>
-      <find>corrertasacion</find>
       <find>precio_from</find>
+      <find>key</find>
+      <find>piso</find>
+      <find>corrertasacion</find>
+      <find>proxieste</find>
+      <find>programas</find>
+      <find>like</find>
+      <find>href</find>
+      <find>actualiza</find>
+      <find>tipo</find>
+      <find>resultado3</find>
+      <find>=0</find>
+      <find>scra</find>
+      <find>activo</find>
+      <find>preciob</find>
+      <find>main</find>
+      <find>for x</find>
+      <find>clientes</find>
+      <find>check</find>
+      <find>insertar</find>
+      <find>from_proye</find>
+      <find>calcu</find>
+      <find>if</find>
+      <find>print</find>
     </findStrings>
     <replaceStrings>
       <replace>print</replace>
@@ -209,7 +128,6 @@
       <list>
         <option value="$PROJECT_DIR$/power scraper vdm.py" />
         <option value="$PROJECT_DIR$/powerscrapergp4.py" />
-        <option value="$PROJECT_DIR$/powerscrapergp3.py" />
         <option value="$PROJECT_DIR$/bsScrapTest.py" />
         <option value="$PROJECT_DIR$/agentCreator.py" />
         <option value="$PROJECT_DIR$/propiedad.py" />
@@ -218,16 +136,28 @@
         <option value="$PROJECT_DIR$/Yapo.py" />
         <option value="$PROJECT_DIR$/clientes_propiedades.py" />
         <option value="$PROJECT_DIR$/proyectos nuevos.py" />
-        <option value="$PROJECT_DIR$/clientes_propiedadesv2.py" />
-        <option value="$PROJECT_DIR$/scraperportalinmobiliariov1.py" />
         <option value="$PROJECT_DIR$/clientes_proyectos.py" />
         <option value="$PROJECT_DIR$/clientesbot.py" />
         <option value="$PROJECT_DIR$/proyectosnuevosv2.py" />
-        <option value="$PROJECT_DIR$/clientesproyectosv2.py" />
-        <option value="$PROJECT_DIR$/pdfCreatorProyectos.py" />
         <option value="$PROJECT_DIR$/powerscrapergp2.0.py" />
         <option value="$PROJECT_DIR$/tasador.py" />
         <option value="$PROJECT_DIR$/rentabilidades_portailinmobiliario_v2.py" />
+        <option value="$PROJECT_DIR$/toctoc.py" />
+        <option value="$USER_HOME$/Downloads/scraperTocToc.py" />
+        <option value="$PROJECT_DIR$/../../ProyectoActualizado/scraperTocTocSoup.py" />
+        <option value="$PROJECT_DIR$/scraperTocToc.py" />
+        <option value="$PROJECT_DIR$/pdfCreatorProyectos.py" />
+        <option value="$PROJECT_DIR$/clientesproyectosampliado.py" />
+        <option value="$PROJECT_DIR$/clientesproyectosv2.py" />
+        <option value="$PROJECT_DIR$/powerscrapergp3.py" />
+        <option value="$PROJECT_DIR$/test1.py" />
+        <option value="$PROJECT_DIR$/restauradorPortalinmobiliario.py" />
+        <option value="$PROJECT_DIR$/scraperportalinmobiliariov1.py" />
+        <option value="$PROJECT_DIR$/clientes_propiedadesv2.py" />
+        <option value="$PROJECT_DIR$/pdCreatorProyectoscompra_arriendo.py" />
+        <option value="$PROJECT_DIR$/clientes_proyectos_compra_arriendo.py" />
+        <option value="$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py" />
+        <option value="$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py" />
       </list>
     </option>
   </component>
@@ -277,8 +207,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.rentabilidades_portailinmobiliario_v2">
-    <configuration name="clientes_propiedadesv2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.restauradorPortalinmobiliario">
+    <configuration name="powerscrapergp3" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="BullEstatev2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -290,7 +220,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/clientes_propiedadesv2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/powerscrapergp3.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -299,7 +229,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="clientes_proyectos" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="restauradorPortalinmobiliario" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="BullEstatev2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -311,7 +241,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/clientes_proyectos.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/restauradorPortalinmobiliario.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -320,7 +250,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="clientesproyectosv2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="scraperTocToc (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="BullEstatev2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -332,7 +262,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/clientesproyectosv2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scraperTocToc.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -341,7 +271,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pdfCreatorProyectos" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="scraperportalinmobiliariov1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="BullEstatev2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -353,7 +283,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pdfCreatorProyectos.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scraperportalinmobiliariov1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -362,7 +292,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="rentabilidades_portailinmobiliario_v2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="test1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="BullEstatev2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -374,7 +304,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/rentabilidades_portailinmobiliario_v2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -384,19 +314,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.clientes_propiedadesv2" />
-      <item itemvalue="Python.clientesproyectosv2" />
-      <item itemvalue="Python.clientes_proyectos" />
-      <item itemvalue="Python.pdfCreatorProyectos" />
-      <item itemvalue="Python.rentabilidades_portailinmobiliario_v2" />
+      <item itemvalue="Python.scraperportalinmobiliariov1" />
+      <item itemvalue="Python.scraperTocToc (1)" />
+      <item itemvalue="Python.powerscrapergp3" />
+      <item itemvalue="Python.restauradorPortalinmobiliario" />
+      <item itemvalue="Python.test1" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.rentabilidades_portailinmobiliario_v2" />
-        <item itemvalue="Python.clientesproyectosv2" />
-        <item itemvalue="Python.pdfCreatorProyectos" />
-        <item itemvalue="Python.clientes_propiedadesv2" />
-        <item itemvalue="Python.clientes_proyectos" />
+        <item itemvalue="Python.restauradorPortalinmobiliario" />
+        <item itemvalue="Python.test1" />
+        <item itemvalue="Python.powerscrapergp3" />
+        <item itemvalue="Python.scraperportalinmobiliariov1" />
+        <item itemvalue="Python.scraperTocToc (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -407,11 +337,11 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24968314" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24904943" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294423" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36446175" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.46562904" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4396887" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -422,6 +352,22 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24904943" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3294423" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.17250325" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4396887" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Python Console" order="8" weight="0.3294423" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -429,11 +375,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/scraperportalinmobiliariov1.py</url>
-          <line>504</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Yapo.py</url>
           <line>66</line>
@@ -455,9 +396,14 @@
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pdfCreatorProyectos.py</url>
+          <url>file://$PROJECT_DIR$/scraperTocToc.py</url>
           <line>71</line>
-          <option name="timeStamp" value="212" />
+          <option name="timeStamp" value="256" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scraperportalinmobiliariov1.py</url>
+          <line>505</line>
+          <option name="timeStamp" value="262" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -468,12 +414,16 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="bien['Proyecto']['MetrosConstruidos']" />
+        <watch expression="bien['DenunciaPropietarios']" />
+        <watch expression="__py_debug_temp_var_1578423465" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/power scraper vdm.py" />
-    <entry file="file://$PROJECT_DIR$/proxies.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/bsScrapTest.py" />
     <entry file="file://$PROJECT_DIR$/propiedad.py" />
     <entry file="file://$PROJECT_DIR$/crearTablas.py">
@@ -524,23 +474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Yapo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Yapo2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="23" selection-start-line="2" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/pymysql/err.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -572,23 +505,6 @@
     <entry file="file://$PROJECT_DIR$/firmaSergei.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/agentCreator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/powerscrapergp3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/proyectosnuevosv2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -609,87 +525,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clientes_proyectos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="239" column="12" selection-start-line="239" selection-start-column="12" selection-end-line="239" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pdfCreatorPropiedades.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="64" lean-forward="true" selection-start-line="12" selection-start-column="64" selection-end-line="12" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clientesproyectosv2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#775#8806#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pdfCreatorProyectos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rentabilidades_portalinmobiliario.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="9" lean-forward="true" selection-end-line="123" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scraperportalinmobiliariov1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="102" column="57" selection-start-line="102" selection-start-column="57" selection-end-line="102" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#2893#3663#0" />
-            <element signature="e#3728#19146#0" />
-            <marker date="1546977146834" expanded="true" signature="257:653" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/powerscrapergp2.0.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="669" column="8" selection-start-line="669" selection-start-column="8" selection-end-line="678" selection-end-column="16" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clientes_propiedadesv2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="57" column="268" selection-start-line="57" selection-start-column="268" selection-end-line="57" selection-end-column="268" />
-          <folding>
-            <element signature="e#802#1137#0" />
-            <element signature="e#1162#1479#0" />
-            <element signature="e#1758#4018#0" />
           </folding>
         </state>
       </provider>
@@ -709,12 +550,255 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rentabilidades_portailinmobiliario_v2.py">
+    <entry file="file://$USER_HOME$/PycharmProjects/scraper64/venv/Lib/site-packages/pip-10.0.1-py3.7.egg/pip/_vendor/cachecontrol/controller.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxies.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generarReporteCsvMultiple.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="89" column="8" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
+        <state>
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rentabilidades_proyectos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="30" column="11" lean-forward="true" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rentabilidades_portalinmobiliario.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Yapo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="28" column="4" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="30" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Yapo2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="31" selection-start-line="6" selection-end-line="8" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/scraperTocToc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="32" column="1" lean-forward="true" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../ProyectoActualizado/scraperTocTocSoup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="10" column="19" selection-start-line="10" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agentCreator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rentabilidades_portailinmobiliario_v2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="69" column="3" lean-forward="true" selection-start-line="69" selection-start-column="3" selection-end-line="69" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/toctoc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pdfCreatorPropiedades.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="64" lean-forward="true" selection-end-line="135" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientesproyectosampliado.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3240">
+          <caret line="529" column="17" lean-forward="true" selection-start-line="529" selection-start-column="17" selection-end-line="529" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#479#738#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/powerscrapergp3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10115">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scraperTocToc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="775">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restauradorPortalinmobiliario.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="30" lean-forward="true" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scraperportalinmobiliariov1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="467" column="11" selection-start-line="467" selection-start-column="11" selection-end-line="467" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1547688699668" expanded="true" signature="436:908" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientes_proyectos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3876">
+          <caret line="228" column="24" lean-forward="true" selection-start-line="228" selection-start-column="24" selection-end-line="228" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientes_propiedadesv2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="464" column="21" lean-forward="true" selection-end-line="519" />
+          <folding>
+            <element signature="e#802#1137#0" />
+            <element signature="e#1162#1479#0" />
+            <element signature="e#1758#4018#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientesproyectosv2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" lean-forward="true" selection-end-line="617" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#479#738#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pdfCreatorProyectos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2397">
+          <caret line="141" column="32" selection-start-line="141" selection-start-column="27" selection-end-line="141" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientes_proyectos_compra_arriendo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="56" column="29" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#479#738#0" />
+            <element signature="e#9957#10199#0" />
+            <element signature="e#10229#10564#0" />
+            <element signature="e#10835#13258#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pdfCreatorProyectoscompra_arriendo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="160" selection-start-line="160" selection-end-line="160" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="129" column="154" selection-start-line="129" selection-start-column="154" selection-end-line="129" selection-end-column="154" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="711" column="35" lean-forward="true" selection-start-line="711" selection-start-column="35" selection-end-line="711" selection-end-column="35" />
+          <folding>
+            <element signature="e#1773#4033#0" />
+            <element signature="e#13467#21417#0" />
           </folding>
         </state>
       </provider>
