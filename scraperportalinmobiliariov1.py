@@ -20,9 +20,7 @@ def rotateToFirst(l, element):
 
 def actualizar_checker(operacion,tipo,region,pagina):
     d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print("[SUPI] " + str(d))
     sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='supi'"
-    print("[SUPI]" + sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
