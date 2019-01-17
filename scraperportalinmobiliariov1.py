@@ -10,13 +10,19 @@ import time
 import random
 
 
-print(str(datetime.datetime.now()))
+print("[SUPI] " + str(datetime.datetime.now()))
 
-def actualizar_checker():
+def rotateToFirst(l, element):
+    if element in l:
+        return l[l.index(element):] + l[:l.index(element)]
+    else:
+        return l
+
+def actualizar_checker(operacion,tipo,region,pagina):
     d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(str(d))
-    sql = "UPDATE checker SET lastscrap='"+str(d)+"' WHERE id=1"
-    print(sql)
+    print("[SUPI] " + str(d))
+    sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='supi'"
+    print("[SUPI]" + sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
@@ -70,7 +76,7 @@ def getLast(operacion,tipo,region,proxi):
             last=int(last[0])
     except:
         last=1
-    print(last)
+    print("[SUPI] " + str(last))
     return last
 
 def insertarPropiedad(propiedad):
@@ -100,22 +106,16 @@ def insertarRemate(propiedad):
     mariadb_connection.commit()
     mariadb_connection.close()
 
-def getInfo(subsites,master,desde,hasta,lista,faillista):
+def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
     for j in range(desde, hasta):
-
-        if j==hasta:
-            threadnum=hasta/10
-            print("Thread "+str(threadnum)+" completed")
-
         try:
             page2 = requests.get(subsites[j], headers={'User-Agent': agentCreator.generateAgent()})
             tree2 = html.fromstring(page2.content)
 
 
         except:
-            abde=1
-            print("fail")
+            print("[SUPI] fail")
 
         lastRange = 25
         for i in range(1,lastRange+3):
@@ -150,8 +150,7 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                     code = int(code[8:])
 
                 except:
-                    abcde=1
-                    print("fail")
+                    print("[SUPI] fail")
 
                 aux.append(code)
 
@@ -190,28 +189,25 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                         meters = float(meters.replace(',','.'))
                         minMeters = meters
                         maxMeters = meters
-                    meanMeters = (minMeters+maxMeters)/2.0
+
                 except:
                     try:
                         l=faillista[-1]
                         l=l+1
                         faillista.append(l)
-                        print ("fails:"+str(l))
+                        print ("[SUPI] fails:"+str(l))
                     except:
                         l=1
-                        print ("fails (price or meters):"+str(l))
+                        print ("[SUPI] fails (price or meters):"+str(l))
                         faillista.append(l)
-                    print("continued")
+                    print("[SUPI] continued")
                     continue
 
-                state = state[0].text
-                state = state[:-2]
                 try:
                     page3 = requests.get(newLink, headers={'User-Agent': agentCreator.generateAgent()})
                     tree3 = html.fromstring(page3.content)
                 except:
-                    abcde=1
-                    print("fail")
+                    print("[SUPI] fail")
 
                 addresSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[2]/div[1]/div/div/p[3]/span[1]'
                 address = tree3.xpath(addresSite)
@@ -243,10 +239,10 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                             l=faillista[-1]
                             l=l+1
                             faillista.append(l)
-                            print ("fails:"+str(l))
+                            print ("[SUPI] fails:"+str(l))
                         except:
                             l=1
-                            print ("fails (lat):"+str(l))
+                            print ("[SUPI] fails (lat):"+str(l))
                             faillista.append(l)
                         continue
 
@@ -263,11 +259,11 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                         try:
                             l=faillista[-1]
                             l=l+1
-                            print ("fails:"+str(l))
+                            print ("[SUPI] fails:"+str(l))
                             print (l)
                         except:
                             l=1
-                            print ("fails (lon):"+str(l))
+                            print ("[SUPI] fails (lon):"+str(l))
                             faillista.append(l)
                         continue
                 else:
@@ -330,8 +326,6 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                     date = dateSplit[2]+'-'+dateSplit[1]+'-'+dateSplit[0]
                 else:
                     date = None
-
-                pxm = float(price / minMeters)
 
                 split = subsites[j].split('/')
 
@@ -451,10 +445,8 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                 aux.append(lon)
                 aux.append(newLink)
 
-
                 lista=lista+1
-
-                print (tipo + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
+                print ("[SUPI] "+ str(tipo) + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
                 time.sleep(random.uniform(0.5,1.5))
 
                 if remate==0:
@@ -465,116 +457,80 @@ def getInfo(subsites,master,desde,hasta,lista,faillista):
                 else:
                     insertarRemate(aux)
 
-                actualizar_checker()
+                actualizar_checker(op,tip,reg,j)
 
-                #print("New property registered at: "+str(datetime.datetime.now()))
-
-                master.append(aux)
-                #a=a+1
-                #Matrix = np.r_[Matrix, np.zeros((1, 15))]
-
-            else:
-                abcde=1
 
 def scrap(d,h,operacion,tipo,region,lista,faillista):
-    #Crear arreglo para almacenar links con páginas para scrapear
-    collection = []
-    #crear link con detalles, y añadir a arreglo
-    collection.append("http://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/"+region+"?tp=6&op=2&ca=2&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=1&sf=0&sp=0&pg=1")
 
+    link = "http://www.portalinmobiliario.com/"+str(operacion)+"/"+str(tipo)+"/"+str(region)+"?tp=6&op=2&ca=2&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=1&sf=0&sp=0&pg=1"
 
+    try:
+        page2 = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
+        tree2 = html.fromstring(page2.content)
+    except:
+        print("[SUPI] fail")
+    paginas = tree2.xpath('//*[@id="wrapper"]/section[2]/div/div/div[1]/article/div[1]/div[1]/div/div/text()[1]')
 
-    for collectElement in collection:
+    if len(paginas) == 0:
+        return
 
+    pagsplit = (str(paginas[0]).split())[2]
+    nrOfPubs = int(pagsplit.replace(".", ""))
 
-        try:
-            page2 = requests.get(collectElement, headers={'User-Agent': agentCreator.generateAgent()})
-            tree2 = html.fromstring(page2.content)
-        except:
-            abcde=1
-            print("fail")
-        paginas = tree2.xpath('//*[@id="wrapper"]/section[2]/div/div/div[1]/article/div[1]/div[1]/div/div/text()[1]')
-        if len(paginas) == 0:
-            continue
+    nrOfPbsPerPage = 25
 
-        pagsplit = (str(paginas[0]).split())[2]
-        nrOfPubs = int(pagsplit.replace(".", ""))
+    nrPages = math.ceil(nrOfPubs/nrOfPbsPerPage)
 
-        nrOfPbsPerPage = 25
+    subsites = []
+    subsiteBasicUrl = (link)[:-1]
+    for i in range(1,nrPages+1):
+        subsites.append(subsiteBasicUrl + str(i))
 
-        nrPages = math.ceil(nrOfPubs/nrOfPbsPerPage)
+    getInfo(subsites,d,h,lista,faillista,operacion,tipo,region)
 
-        subsites = []
-        subsiteBasicUrl = (collectElement)[:-1]
-        for i in range(1,nrPages+1):
-            subsites.append(subsiteBasicUrl + str(i))
-
-        last = nrOfPubs % 25
-        if last == 0:
-            last = 25
-
-
-        fileName = collectElement.split('?')
-        fileName = fileName[0].split('/')
-        fileName = fileName[3]+'_'+fileName[4]+'_'+fileName[5]
-
-        master = []
-        titles = ["id", "Nombre", "Precio", "minMet", "maxMet", "promM","Precio/m2", "direc" ,"tipo", "lat", "lon", "dorms", "banios", "fecha", "link"]
-        master.append(titles)
-        getInfo(subsites, master,d,h,lista,faillista)
-
-
-def Main():
-    #crear arreglos para almacenar region, operacion y tipo
-    region=[]
-    operacion=[]
-    tipo=[]
+def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=0,isRecovery=False):
 
     #Añadir regiones a arreglo
-
-    region.append("metropolitana")
-    region.append("valparaiso")
-    region.append("biobio")
-
+    region= ["metropolitana","valparaiso","biobio"]
 
     #Añadir operaciones a arreglo
-    operacion.append("venta")
-    operacion.append("arriendo")
+    operacion = ["venta", "arriendo"]
 
     #Añadir tipo a arreglo
-    tipo.append("departamento")
-    tipo.append("casa")
-    tipo.append("oficina")
-    tipo.append("sitio")
-    tipo.append("comercial")
-    tipo.append("estacionamiento")
+    tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento"]
 
+    #Hacer rotaciones para cada lista
+    region = rotateToFirst(region,regionRec)
+    operacion = rotateToFirst(operacion,operacionRec)
+    tipo = rotateToFirst(tipo,tipoRec)
 
     #Obtener proxies
     proxies=get_proxiestextweb()
     proxy_pool=cycle(proxies)
 
-
-
     while True:
         for reg in region:
             for tip in tipo:
                 for op in operacion:
+
                     proxi=next(proxy_pool)
                     lista=0
                     faillista=[]
-                    print("Running scraper for: "+op+" "+tip+" "+reg)
+                    print("[SUPI] Running scraper for: "+op+" "+tip+" "+reg)
 
                     last=getLast(op,tip,reg,proxi)
-                    print(last)
+                    print("[SUPI]" + str(last))
 
-                    for x in range(0,last):
-                       scrap(0,last,op,tip,reg,lista,faillista)
-                    print("scraper ran")
+                    if isRecovery:
+                        firstPage = pagRec
+                        isRecovery = False
+                    else:
+                        firstPage=0
+                    scrap(firstPage,last,op,tip,reg,lista,faillista)
+                    print("[SUPI] scraper ran")
 
 
-
-    print("Main Complete")
+    print("[SUPI] Main Complete")
 
 if __name__=="__main__":
     Main()
