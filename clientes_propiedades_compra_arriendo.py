@@ -10,7 +10,7 @@ yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
 from datetime import datetime, timedelta
-import pdfCreatorPropiedades as pdfC
+import pdfCreatorPropiedadescompra_arriendo as pdfC
 import uf
 import numpy as np
 from sklearn import datasets, linear_model
@@ -508,7 +508,7 @@ for i in data:
 
     if len(resultado)>0:
         resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
-        columnNames=["Precio","Útil","Total","Dorms","Baños","Estacion.","Metro","Dist-est.","Arriendo","Rent. Arriendo","Link"]
+        columnNames=["Precio","Útil","Total","Dorms","Baños","Estacion.","Metro","Dist-est.","Arriendo","Rent","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " propiedades usadas " +str(tipo)+" "+ today
