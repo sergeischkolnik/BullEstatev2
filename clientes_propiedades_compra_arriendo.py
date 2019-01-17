@@ -506,10 +506,10 @@ def calcularDistanciaA(i,data):
             distancias=distancias[:40]
         except:
             distancias=distancia
-        print("propiedades encontradas "+str(len(distancias)))
-        print ("nivel de confianza: "+str(t_actual))
-        for link in [x[13] for x in distancias]:
-            print (link)
+        #print("propiedades encontradas "+str(len(distancias)))
+        #print ("nivel de confianza: "+str(t_actual))
+        # for link in [x[13] for x in distancias]:
+        #     print (link)
 
         prices=[]
         count=0
@@ -563,7 +563,7 @@ def calcularDistanciaA(i,data):
             price=price+coef*x_test[c]
             c=c+1
         price=price/uf1
-        print(price)
+        #print(price)
         cota=len(distancias)+1
     #print("y_pred = " + str(y_pred))
     # The coefficients
@@ -601,7 +601,7 @@ props=from_portalinmobiliario()
 data=clientes()
 resultado=[]
 for i in data:
-    print(i[34])
+    #print(i[34])
     resultado=[]
     if i[34]==0:
         continue
@@ -713,18 +713,18 @@ for i in data:
 
             subresultado.append(prop[13])
 
-            print("depto encontrado para "+str(i[1]))
+            #print("depto encontrado para "+str(i[1]))
             resultado.append(subresultado)
             print("sub appended")
         except:
             print("exception ocurred")
 
     if len(resultado)>0:
-        resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
-        columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.P","Arriendo","Rent.A","Link"]
+        resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
+        columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
-        nombreArchivo = i[1] + " propiedades usadas " +str(tipo)+" "+ today
+        nombreArchivo = i[1] + " propiedades usadas (V/A " +str(tipo)+" "+ today
         pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])

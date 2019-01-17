@@ -127,6 +127,10 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
     Story.append(t)
     Story.append(Spacer(2, 24))
 
+    ptext = '<font size=12>*D=Dormitorios  B=Baños  E=Estacionamientos  P.P=Precio venta predicho  Rent.P=Rentabilidad Venta  Rent.A=Rentabilidad Arriendo  >'
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(1, 12))
+
     ptext = '<font size=12>Si ud. esta interesada/o en visitar algunas de las propiedades señaladas, le solicitamos escribirnos a la brevedad ' \
             'para agendar una visita.</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
