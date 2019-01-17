@@ -301,10 +301,10 @@ def calcularDistanciaV(i,data):
             distancias=distancias[:40]
         except:
             distancias=distancia
-        print("propiedades encontradas "+str(len(distancias)))
-        print ("nivel de confianza: "+str(t_actual))
-        for link in [x[13] for x in distancias]:
-            print (link)
+        #print("propiedades encontradas "+str(len(distancias)))
+        #print ("nivel de confianza: "+str(t_actual))
+        # for link in [x[13] for x in distancias]:
+        #     print (link)
 
         prices=[]
         count=0
@@ -358,7 +358,7 @@ def calcularDistanciaV(i,data):
             price=price+coef*x_test[c]
             c=c+1
         price=price/uf1
-        print(price)
+        #print(price)
         cota=len(distancias)+1
     #print("y_pred = " + str(y_pred))
     # The coefficients
