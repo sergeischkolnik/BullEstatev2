@@ -306,16 +306,6 @@ def calcularDistanciaV(i,data):
         # for link in [x[13] for x in distancias]:
         #     print (link)
 
-        prices=[]
-        count=0
-        for d in distancias:
-            p=precio_from_portalinmobiliario(d[0])
-            if (count==1) and (q==p):
-                continue
-            else:
-                prices.append(p)
-                count=1
-                q=p
 
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
 
@@ -357,19 +347,14 @@ def calcularDistanciaV(i,data):
         for coef in regr.coef_:
             price=price+coef*x_test[c]
             c=c+1
-        price=price
-        #print(price)
+        print(price)
         cota=len(distancias)+1
     #print("y_pred = " + str(y_pred))
     # The coefficients
     #print('Coefficients: \n', regr.coef_)
 
+
     try:
-        cosa=mean(prices)
-        precio=cosa[0]
-        std=cosa[1]
-        preciomin=precio-std
-        preciomax=precio+std
         return price
     except:
         print("No existen departamentos para comparar")
