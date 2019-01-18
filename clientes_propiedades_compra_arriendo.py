@@ -564,6 +564,7 @@ def calcularDistanciaA(i,data):
         return price
     except:
         print("No existen departamentos para comparar")
+        return -1
 
 def from_portalinmobiliario():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
@@ -697,6 +698,10 @@ for i in data:
             continue
 
         precioA=calcularDistanciaA(prop,props)
+        
+        if precioA is None:
+            continue
+
         subresultado.append(precioA)
         rentaA=(precioA*12/prop[5])
 
