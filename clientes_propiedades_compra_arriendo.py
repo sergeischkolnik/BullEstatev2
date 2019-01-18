@@ -722,7 +722,7 @@ for i in data:
         columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
-        nombreArchivo = i[1] + " propiedades usadas (V/A " +str(tipo)+" "+ today
+        nombreArchivo = i[1] + " propiedades usadas VA " +str(tipo)+" "+ today
         pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])
