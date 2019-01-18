@@ -684,7 +684,7 @@ for i in data:
         subresultado.append(estacioncercana[2])
 
         precioV=calcularDistanciaV(prop,props)
-        if int(precioV)<0:
+        if precioV is None:
             continue
 
         subresultado.append(precioV)
