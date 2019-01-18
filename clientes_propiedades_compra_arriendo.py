@@ -357,7 +357,7 @@ def calcularDistanciaV(i,data):
         for coef in regr.coef_:
             price=price+coef*x_test[c]
             c=c+1
-        price=price/uf1
+        price=price
         #print(price)
         cota=len(distancias)+1
     #print("y_pred = " + str(y_pred))
@@ -370,7 +370,7 @@ def calcularDistanciaV(i,data):
         std=cosa[1]
         preciomin=precio-std
         preciomax=precio+std
-        return precio
+        return price
     except:
         print("No existen departamentos para comparar")
         return -1
@@ -563,7 +563,7 @@ def calcularDistanciaA(i,data):
         for coef in regr.coef_:
             price=price+coef*x_test[c]
             c=c+1
-        price=price/uf1
+        price=price
         #print(price)
         cota=len(distancias)+1
     #print("y_pred = " + str(y_pred))
@@ -576,7 +576,7 @@ def calcularDistanciaA(i,data):
         std=cosa[1]
         preciomin=precio-std
         preciomax=precio+std
-        return precio
+        return price
     except:
         print("No existen departamentos para comparar")
 
@@ -699,7 +699,7 @@ for i in data:
         subresultado.append(estacioncercana[2])
 
         precioV=calcularDistanciaV(prop,props)
-        if precioV<0:
+        if int(precioV)<0:
             continue
 
         subresultado.append(precioV)
