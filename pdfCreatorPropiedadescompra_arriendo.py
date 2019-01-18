@@ -127,7 +127,7 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
     Story.append(t)
     Story.append(Spacer(2, 24))
 
-    ptext = '<font size=12>*D=Dormitorios  B=Baños  E=Estacionamientos  P.P=Precio venta predicho  Rent.P=Rentabilidad Venta  Rent.A=Rentabilidad Arriendo  >'
+    ptext = '<font size=12>*D=Dormitorios  B=Baños  E=Estacionamientos  P.P=Precio venta predicho  Rent.P=Rentabilidad Venta  Rent.A=Rentabilidad Arriendo </font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 

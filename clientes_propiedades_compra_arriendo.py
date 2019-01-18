@@ -698,7 +698,7 @@ for i in data:
             continue
 
         precioA=calcularDistanciaA(prop,props)
-        
+
         if precioA is None:
             continue
 
