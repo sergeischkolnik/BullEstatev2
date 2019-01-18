@@ -684,42 +684,41 @@ for i in data:
             if estacioncercana[2]>float(metrodistance):
                 continue
 
-        try:
-            subresultado=[]
-            uni=str(prop[0])+"000"+str(i[0])
-            uni=int(uni)
-            subresultado.append(int(prop[5]))
-            subresultado.append(int(prop[8]))
-            subresultado.append(int(prop[9]))
-            subresultado.append(int(prop[6]))
-            subresultado.append(int(prop[7]))
-            subresultado.append(int(prop[12]))
-            subresultado.append(estacioncercana[1])
-            subresultado.append(estacioncercana[2])
 
-            precioV=calcularDistanciaV(prop,props)
-            subresultado.append(precioV)
-            rentaV=((precioV-prop[5])/prop[5])
-            # if rentaV<rentmin or rentaV>1:
-            #     continue
-            subresultado.append(float(rentaV))
-            if rentaV<rentmin or rentaV>1:
-                continue
+        subresultado=[]
+        uni=str(prop[0])+"000"+str(i[0])
+        uni=int(uni)
+        subresultado.append(int(prop[5]))
+        subresultado.append(int(prop[8]))
+        subresultado.append(int(prop[9]))
+        subresultado.append(int(prop[6]))
+        subresultado.append(int(prop[7]))
+        subresultado.append(int(prop[12]))
+        subresultado.append(estacioncercana[1])
+        subresultado.append(estacioncercana[2])
 
-            precioA=calcularDistanciaA(prop,props)
-            subresultado.append(precioA)
-            rentaA=(precioV*12/prop[5])
-            if rentaA<rentmin or rentaA>1:
-                continue
-            subresultado.append(float(rentaA))
+        precioV=calcularDistanciaV(prop,props)
+        subresultado.append(precioV)
+        rentaV=((precioV-prop[5])/prop[5])
+        # if rentaV<rentmin or rentaV>1:
+        #     continue
+        subresultado.append(float(rentaV))
+        if rentaV<rentmin or rentaV>1:
+            continue
 
-            subresultado.append(prop[13])
+        precioA=calcularDistanciaA(prop,props)
+        subresultado.append(precioA)
+        rentaA=(precioV*12/prop[5])
+        if rentaA<rentmin or rentaA>1:
+            continue
+        subresultado.append(float(rentaA))
 
-            #print("depto encontrado para "+str(i[1]))
-            resultado.append(subresultado)
-            print("sub appended")
-        except:
-            print("exception ocurred")
+        subresultado.append(prop[13])
+
+        #print("depto encontrado para "+str(i[1]))
+        resultado.append(subresultado)
+        print("sub appended")
+
 
     if len(resultado)>0:
         resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
