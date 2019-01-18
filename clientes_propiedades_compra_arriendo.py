@@ -692,14 +692,17 @@ for i in data:
         # if rentaV<rentmin or rentaV>1:
         #     continue
         subresultado.append(float(rentaV))
+
         if rentaV<rentmin or rentaV>1:
             continue
 
         precioA=calcularDistanciaA(prop,props)
         subresultado.append(precioA)
-        rentaA=(precioV*12/prop[5])
+        rentaA=(precioA*12/prop[5])
+
         if rentaA<rentmin or rentaA>1:
             continue
+
         subresultado.append(float(rentaA))
 
         subresultado.append(prop[13])
