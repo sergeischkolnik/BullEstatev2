@@ -373,6 +373,7 @@ def calcularDistanciaV(i,data):
         return precio
     except:
         print("No existen departamentos para comparar")
+        return -1
 
 def calcularDistanciaA(i,data):
 
@@ -698,6 +699,9 @@ for i in data:
         subresultado.append(estacioncercana[2])
 
         precioV=calcularDistanciaV(prop,props)
+        if precioV<0:
+            continue
+
         subresultado.append(precioV)
         rentaV=((precioV-prop[5])/prop[5])
         # if rentaV<rentmin or rentaV>1:
