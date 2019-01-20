@@ -14,7 +14,8 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
-comandos = ['hola','portal','goplaceit']
+comandosIndividuales = ['hola','portal','goplaceit','reporte']
+comandosMultiples = ['reporte']
 id_chats_updates = ["485728961","652659504"]
 
 def get_url(url):
@@ -50,20 +51,70 @@ def echo_all(updates):
             text = text.strip(' ')
             text = text.lower()
 
-            #Hola y bienvenida
-            if text==comandos[0]:
-                text="Hola! Los comandos son:"
-                for c in comandos:
-                    text+="\n" + c
-            #propiedades portal
-            elif text==comandos[1]:
-                text="Propiedades de portal scrapeadas:" + str(pm.selectorPortal())
+            arr = text.split(' ')
 
-            #propiedades gp
-            elif text==comandos[2]:
-                text="Propiedades de GP scrapeadas:" + str(pm.selectorGP())
+            if len(arr)==1:
+                #comandos simples
+                text = arr[0]
+                
+                #Hola y bienvenida
+                if text==comandosIndividuales[0]:
+                    text="Hola! Los comandos son:"
+                    for c in comandosIndividuales:
+                        text+="\n" + c
+               
+                #propiedades portal
+                elif text==comandosIndividuales[1]:
+                    text="Propiedades de portal scrapeadas:" + str(pm.selectorPortal())
+              
+                #propiedades gp
+                elif text==comandosIndividuales[2]:
+                    text="Propiedades de GP scrapeadas:" + str(pm.selectorGP())
+              
+                #reportes
+                elif text==comandosIndividuales[3]:
+                    text = "Para usar reporte, escriba, separando por espacios:\nreporte region comuna operacion tipo estado dormitorios baños"
+
+                #no encontrado
+                else:
+                    text = "Comando desconocido. Los comandos dispobibles son:"
+                    for c in comandosIndividuales:
+                        text+="\n" + c
+            
+            elif len(arr)>1:
+                #comandos multiples
+
+                #reportes
+                if arr[0] == comandosMultiples[0]:
+                    if len(arr)!=8:
+                        text = "Para usar reporte, escriba, separando por espacios:\nreporte region comuna operacion tipo estado dormitorios baños"
+                    else:
+                        region = arr[1]
+                        comuna = arr[2]
+                        operacion = arr[3]
+                        tipo = arr[4]
+                        estado = arr[5]
+                        dormitorios = arr[6]
+                        banos = arr[7]
+                        text = "Generando reporte para:"
+                        text += "\nRegion:" + region
+                        text += "\nComuna:" + comuna
+                        text += "\nOperacion:" + operacion
+                        text += "\nTipo:" + tipo
+                        text += "\nEstado:" + estado
+                        text += "\nDormitorios" + dormitorios
+                        text += "\nBaños:" + banos
+                        #Agregar codigo aca para generar reporte
+
+                else:
+                    text = "Comando desconocido. Los comandos dispobibles son:"
+                    for c in comandosIndividuales:
+                        text+="\n" + c
             else:
-                text = "Comando desconocido."
+                text = "Comando desconocido. Los comandos dispobibles son:"
+                    for c in comandosIndividuales:
+                        text+="\n" + c
+
             chat = update["message"]["chat"]["id"]
             send_message(text, chat,URL)
         except Exception as e:
