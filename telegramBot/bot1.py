@@ -102,7 +102,7 @@ def echo_all(updates):
                         text += "\nOperacion:" + operacion
                         text += "\nTipo:" + tipo
                         text += "\nEstado:" + estado
-                        text += "\nDormitorios" + dormitorios
+                        text += "\nDormitorios:" + dormitorios
                         text += "\nBaños:" + banos
                         #Agregar codigo aca para generar reporte
 
