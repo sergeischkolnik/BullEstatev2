@@ -112,8 +112,8 @@ def echo_all(updates):
                         text+="\n" + c
             else:
                 text = "Comando desconocido. Los comandos dispobibles son:"
-                    for c in comandosIndividuales:
-                        text+="\n" + c
+                for c in comandosIndividuales:
+                    text+="\n" + c
 
             chat = update["message"]["chat"]["id"]
             send_message(text, chat,URL)
