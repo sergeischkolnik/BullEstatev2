@@ -12,12 +12,12 @@
     <session id="-553247431">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="35" />
+          <entry key="py" value="38" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="35" />
+          <entry key="Python" value="38" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -34,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3552">
-              <caret line="693" column="22" lean-forward="true" selection-start-line="693" selection-start-column="22" selection-end-line="693" selection-end-column="22" />
+            <state relative-caret-position="84">
+              <caret line="720" column="36" selection-start-line="720" selection-start-column="36" selection-end-line="720" selection-end-column="36" />
               <folding>
                 <element signature="e#1773#4033#0" />
               </folding>
@@ -46,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
@@ -97,8 +97,8 @@
       <find>insertar</find>
       <find>from_proye</find>
       <find>calcu</find>
-      <find>if</find>
       <find>print</find>
+      <find>if</find>
     </findStrings>
     <replaceStrings>
       <replace>print</replace>
@@ -141,8 +141,8 @@
         <option value="$PROJECT_DIR$/clientes_propiedadesv2.py" />
         <option value="$PROJECT_DIR$/pdCreatorProyectoscompra_arriendo.py" />
         <option value="$PROJECT_DIR$/clientes_proyectos_compra_arriendo.py" />
-        <option value="$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py" />
         <option value="$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py" />
+        <option value="$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py" />
       </list>
     </option>
   </component>
@@ -720,16 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3552">
-          <caret line="693" column="22" lean-forward="true" selection-start-line="693" selection-start-column="22" selection-end-line="693" selection-end-column="22" />
-          <folding>
-            <element signature="e#1773#4033#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/uf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -743,6 +733,16 @@
           <caret line="107" column="29" lean-forward="true" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="29" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="720" column="36" selection-start-line="720" selection-start-column="36" selection-end-line="720" selection-end-column="36" />
+          <folding>
+            <element signature="e#1773#4033#0" />
           </folding>
         </state>
       </provider>

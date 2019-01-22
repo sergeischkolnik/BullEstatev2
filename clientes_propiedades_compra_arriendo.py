@@ -694,7 +694,7 @@ for i in data:
         #     continue
         subresultado.append(float(rentaV))
 
-        if rentaV<rentmin or rentaV>1:
+        if rentaV<rentmin or rentaV>0.3:
             continue
 
         precioA=calcularDistanciaA(prop,props)
