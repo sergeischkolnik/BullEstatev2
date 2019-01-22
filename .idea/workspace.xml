@@ -12,22 +12,22 @@
     <session id="-553247431">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="38" />
+          <entry key="py" value="160" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="38" />
+          <entry key="Python" value="160" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="1" />
+          <entry key="py" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="1" />
+          <entry key="Python" value="2" />
         </counts>
       </usages-collector>
     </session>
@@ -37,10 +37,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="720" column="36" selection-start-line="720" selection-start-column="36" selection-end-line="720" selection-end-column="36" />
+            <state relative-caret-position="349">
+              <caret line="736" lean-forward="true" selection-start-line="736" selection-end-line="736" />
               <folding>
                 <element signature="e#1773#4033#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sendmail.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -69,7 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dist</find>
       <find>fechascrap</find>
       <find>exce</find>
       <find>sleep</find>
@@ -97,8 +108,9 @@
       <find>insertar</find>
       <find>from_proye</find>
       <find>calcu</find>
-      <find>print</find>
       <find>if</find>
+      <find>print</find>
+      <find>rentmin</find>
     </findStrings>
     <replaceStrings>
       <replace>print</replace>
@@ -142,6 +154,7 @@
         <option value="$PROJECT_DIR$/pdCreatorProyectoscompra_arriendo.py" />
         <option value="$PROJECT_DIR$/clientes_proyectos_compra_arriendo.py" />
         <option value="$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py" />
+        <option value="$PROJECT_DIR$/telegramBot/sendmail.py" />
         <option value="$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py" />
       </list>
     </option>
@@ -165,6 +178,11 @@
               <item name="BullEstatev2" type="b2602c69:ProjectViewProjectNode" />
               <item name="BullEstatev2" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="BullEstatev2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BullEstatev2" type="462c0819:PsiDirectoryNode" />
+              <item name="telegramBot" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -177,6 +195,9 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\serge\Documents\GitHub\BullEstatev2" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\serge\Documents\GitHub\BullEstatev2" />
     </key>
@@ -333,12 +354,12 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24904943" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24904943" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294423" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.46562904" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2983139" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4396887" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -737,10 +758,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sendmail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="720" column="36" selection-start-line="720" selection-start-column="36" selection-end-line="720" selection-end-column="36" />
+        <state relative-caret-position="349">
+          <caret line="736" lean-forward="true" selection-start-line="736" selection-end-line="736" />
           <folding>
             <element signature="e#1773#4033#0" />
           </folding>

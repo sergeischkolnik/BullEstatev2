@@ -14,6 +14,7 @@ import pdfCreatorPropiedadescompra_arriendo as pdfC
 import uf
 import numpy as np
 from sklearn import datasets, linear_model
+import sendmail
 
 uf1=uf.getUf()
 
@@ -726,6 +727,10 @@ for i in data:
         pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])
+
+    if ((int(i[36]))==1):
+        sendmail.sendMail(i[3],i[1],str(nombreArchivo))
+
    #insertarClientes_Propiedades(subresultado)
 
 
