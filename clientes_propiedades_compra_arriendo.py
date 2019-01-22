@@ -729,7 +729,7 @@ for i in data:
         pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
 
         if ((int(i[36]))==1):
-            sendmail.sendMail(i[3],i[1],str(nombreArchivo))
+            sendmail.sendMail(i[3],i[1],(str(nombreArchivo)+".pdf"))
             print("Enviando reporte a cliente "+str(i[1]))
 
     else:
