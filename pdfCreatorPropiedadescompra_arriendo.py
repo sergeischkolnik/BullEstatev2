@@ -101,9 +101,9 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
         prop[7] = int(prop[7])
         prop[8] = int(prop[8]/ufn)
 
-        prop[8] = format(prop[10], ',.2f')
-        prop[8] =prop[10][:-3]
-        prop[8] ="UF "+str(prop[10])
+        prop[8] = format(prop[8], ',.2f')
+        prop[8] =prop[8][:-3]
+        prop[8] ="UF "+str(prop[8])
 
         prop[10] = int(prop[10])
 
