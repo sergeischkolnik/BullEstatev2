@@ -91,7 +91,7 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
             precioStr="$ "+str(precioStr)
 
         prop[0] = precioStr
-
+        ufn=uf.getUf()
         #quitar decimales a valores
         prop[1] = int(prop[1])
         prop[2] = int(prop[2])
@@ -99,7 +99,12 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
         prop[4] = int(prop[4])
         prop[5] = int(prop[5])
         prop[7] = int(prop[7])
-        prop[8] = int(prop[8])
+        prop[8] = int(prop[8]/ufn)
+
+        prop[8] = format(prop[10], ',.2f')
+        prop[8] =prop[10][:-3]
+        prop[8] ="UF "+str(prop[10])
+
         prop[10] = int(prop[10])
 
         prop[10] = format(prop[10], ',.2f')

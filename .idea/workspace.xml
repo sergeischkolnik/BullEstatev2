@@ -8,13 +8,37 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-553247431">
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="32" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="32" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="703" column="22" lean-forward="true" selection-start-line="703" selection-start-column="22" selection-end-line="703" selection-end-column="22" />
+            <state relative-caret-position="3552">
+              <caret line="693" column="22" lean-forward="true" selection-start-line="693" selection-start-column="22" selection-end-line="693" selection-end-column="22" />
               <folding>
                 <element signature="e#1773#4033#0" />
               </folding>
@@ -22,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2023">
-              <caret line="129" column="154" selection-start-line="129" selection-start-column="154" selection-end-line="129" selection-end-column="154" />
+            <state relative-caret-position="204">
+              <caret line="105" column="36" lean-forward="true" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -117,8 +141,8 @@
         <option value="$PROJECT_DIR$/clientes_propiedadesv2.py" />
         <option value="$PROJECT_DIR$/pdCreatorProyectoscompra_arriendo.py" />
         <option value="$PROJECT_DIR$/clientes_proyectos_compra_arriendo.py" />
-        <option value="$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py" />
         <option value="$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py" />
+        <option value="$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py" />
       </list>
     </option>
   </component>
@@ -133,6 +157,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Course" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -145,7 +170,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Course" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -306,14 +330,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24868283" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24904943" />
       <window_info id="Structure" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294423" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.46562904" />
@@ -323,6 +345,8 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="8" weight="0.3294423" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -412,13 +436,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3638">
           <caret line="220" column="47" selection-start-line="220" selection-start-column="47" selection-end-line="220" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
@@ -705,18 +722,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="703" column="22" lean-forward="true" selection-start-line="703" selection-start-column="22" selection-end-line="703" selection-end-column="22" />
+        <state relative-caret-position="3552">
+          <caret line="693" column="22" lean-forward="true" selection-start-line="693" selection-start-column="22" selection-end-line="693" selection-end-column="22" />
           <folding>
             <element signature="e#1773#4033#0" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/uf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pdfCreatorPropiedadescompra_arriendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2023">
-          <caret line="129" column="154" selection-start-line="129" selection-start-column="154" selection-end-line="129" selection-end-column="154" />
+        <state relative-caret-position="204">
+          <caret line="105" column="36" lean-forward="true" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
