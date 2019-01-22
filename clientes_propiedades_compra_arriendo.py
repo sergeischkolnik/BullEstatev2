@@ -725,11 +725,13 @@ for i in data:
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " propiedades usadas VA " +str(tipo)+" "+ today
         pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
+
+        if ((int(i[36]))==1):
+            sendmail.sendMail(i[3],i[1],str(nombreArchivo))
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])
 
-    if ((int(i[36]))==1):
-        sendmail.sendMail(i[3],i[1],str(nombreArchivo))
+    
 
    #insertarClientes_Propiedades(subresultado)
 
