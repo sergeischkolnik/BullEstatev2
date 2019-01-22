@@ -719,9 +719,10 @@ for i in data:
 
         if (i[37]=="arriendo"):
             resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
-
-        else:
+        if (i[37]=="venta"):
             resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
+        else:
+            resultado=sorted(resultado, key=lambda x:x[0],reverse=True)
 
 
         columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
