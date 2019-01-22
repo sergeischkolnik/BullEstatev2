@@ -12,12 +12,12 @@
     <session id="-553247431">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="290" />
+          <entry key="py" value="294" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="290" />
+          <entry key="Python" value="294" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -37,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="736" lean-forward="true" selection-start-line="736" selection-end-line="736" />
+            <state relative-caret-position="281">
+              <caret line="734" lean-forward="true" selection-start-line="734" selection-end-line="734" />
               <folding>
                 <element signature="e#1773#4033#0" />
               </folding>
@@ -354,12 +354,12 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24904943" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24904943" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294423" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2983139" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2983139" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4396887" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -770,8 +770,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="736" lean-forward="true" selection-start-line="736" selection-end-line="736" />
+        <state relative-caret-position="281">
+          <caret line="734" lean-forward="true" selection-start-line="734" selection-end-line="734" />
           <folding>
             <element signature="e#1773#4033#0" />
           </folding>

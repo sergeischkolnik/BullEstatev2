@@ -294,7 +294,6 @@ def calcularDistanciaV(i,data):
             t_actual="4.2"
 
         else:
-            print("no se han encontrado propiedades para comparar")
             return
 
         distancias=sorted(distancia,key=lambda x:x[14])
@@ -358,7 +357,6 @@ def calcularDistanciaV(i,data):
     try:
         return price
     except:
-        print("No existen departamentos para comparar")
         return -1
 
 def calcularDistanciaA(i,data):
@@ -485,7 +483,6 @@ def calcularDistanciaA(i,data):
             t_actual="4.2"
 
         else:
-            print("no se han encontrado propiedades para comparar")
             return
 
         distancias=sorted(distancia,key=lambda x:x[14])
@@ -564,7 +561,6 @@ def calcularDistanciaA(i,data):
         preciomax=precio+std
         return price
     except:
-        print("No existen departamentos para comparar")
         return -1
 
 def from_portalinmobiliario():
