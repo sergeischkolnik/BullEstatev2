@@ -12,12 +12,12 @@
     <session id="-553247431">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="164" />
+          <entry key="py" value="282" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="164" />
+          <entry key="Python" value="282" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -37,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="733" column="4" selection-start-line="733" selection-start-column="4" selection-end-line="733" selection-end-column="4" />
+            <state relative-caret-position="332">
+              <caret line="734" column="9" lean-forward="true" selection-start-line="734" selection-start-column="9" selection-end-line="734" selection-end-column="9" />
               <folding>
                 <element signature="e#1773#4033#0" />
               </folding>
@@ -109,8 +109,8 @@
       <find>from_proye</find>
       <find>calcu</find>
       <find>if</find>
-      <find>print</find>
       <find>rentmin</find>
+      <find>print</find>
     </findStrings>
     <replaceStrings>
       <replace>print</replace>
@@ -770,8 +770,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="733" column="4" selection-start-line="733" selection-start-column="4" selection-end-line="733" selection-end-column="4" />
+        <state relative-caret-position="332">
+          <caret line="734" column="9" lean-forward="true" selection-start-line="734" selection-start-column="9" selection-end-line="734" selection-end-column="9" />
           <folding>
             <element signature="e#1773#4033#0" />
           </folding>

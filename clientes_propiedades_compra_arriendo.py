@@ -3,9 +3,9 @@ import math
 import pymysql as mysql
 from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
-past = datetime.now() - timedelta(days=60)
+past = datetime.now() - timedelta(days=90)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=1)
+yesterday = datetime.now() - timedelta(days=3)
 yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
@@ -126,7 +126,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        print(sql)
+        #print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
         return tupla
@@ -348,7 +348,7 @@ def calcularDistanciaV(i,data):
         for coef in regr.coef_:
             price=price+coef*x_test[c]
             c=c+1
-        print(price)
+        #print(price)
         cota=len(distancias)+1
     #print("y_pred = " + str(y_pred))
     # The coefficients
@@ -589,7 +589,7 @@ props=from_portalinmobiliario()
 data=clientes()
 resultado=[]
 for i in data:
-    #print(i[34])
+    print("Buscando propiedades para el cliente "+str(i[1]))
     resultado=[]
     if i[34]==0:
         continue
@@ -719,6 +719,8 @@ for i in data:
 
 
     if len(resultado)>0:
+        print("Generando Reporte para el cliente "+str(i[1]))
+
         resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
         columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
 
@@ -728,10 +730,12 @@ for i in data:
 
         if ((int(i[36]))==1):
             sendmail.sendMail(i[3],i[1],str(nombreArchivo))
+            print("Enviando reporte a cliente "+str(i[1]))
+
     else:
         print("No se han encontrado propiedades para el cliente "+i[1])
 
-    
+
 
    #insertarClientes_Propiedades(subresultado)
 
