@@ -617,7 +617,7 @@ for i in data:
     region=i[23]
     comuna1=i[24]
     if comuna1 is None:
-        comuna1="abcdefghij"
+        comuna1=""
     comuna2=i[25]
     if comuna2 is None:
         comuna2="abcdefghij"
@@ -717,7 +717,13 @@ for i in data:
     if len(resultado)>0:
         print("Generando Reporte para el cliente "+str(i[1]))
 
-        resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
+        if (i[37]=="arriendo"):
+            resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
+
+        else:
+            resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
+
+
         columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
