@@ -711,7 +711,7 @@ for i in data:
 
         #print("depto encontrado para "+str(i[1]))
         resultado.append(subresultado)
-        print("sub appended")
+        #print("sub appended")
 
 
     if len(resultado)>0:
