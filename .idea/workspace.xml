@@ -12,12 +12,12 @@
     <session id="-553247431">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="509" />
+          <entry key="py" value="536" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="509" />
+          <entry key="Python" value="536" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -37,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="749" column="37" lean-forward="true" selection-start-line="749" selection-start-column="37" selection-end-line="749" selection-end-column="37" />
+            <state relative-caret-position="247">
+              <caret line="764" column="43" selection-start-line="764" selection-start-column="43" selection-end-line="764" selection-end-column="43" />
               <folding>
                 <element signature="e#545#787#0" />
                 <element signature="e#817#1152#0" />
@@ -787,8 +787,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="749" column="37" lean-forward="true" selection-start-line="749" selection-start-column="37" selection-end-line="749" selection-end-column="37" />
+        <state relative-caret-position="247">
+          <caret line="764" column="43" selection-start-line="764" selection-start-column="43" selection-end-line="764" selection-end-column="43" />
           <folding>
             <element signature="e#545#787#0" />
             <element signature="e#817#1152#0" />

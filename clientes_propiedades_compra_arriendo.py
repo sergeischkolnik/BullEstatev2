@@ -714,21 +714,21 @@ for i in data:
 
             subresultado.append(float(rentaA))
         else:
-            precioV=calcularDistanciaV(prop,props)
-            if precioV is None:
-                continue
-
-            subresultado.append(precioV)
-            rentaV=(prop[5]*12/precioV)
-            # if rentaV<rentmin or rentaV>1:
+            # precioV=calcularDistanciaV(prop,props)
+            # if precioV is None:
             #     continue
-            subresultado.append(float(rentaV))
 
-            if rentaV>0.3:
-                continue
-
-            if rentaV<rentmin and (i[37]=="venta"):
-                continue
+            # subresultado.append(precioV)
+            # rentaV=(prop[5]*12/precioV)
+            # # if rentaV<rentmin or rentaV>1:
+            # #     continue
+            # subresultado.append(float(rentaV))
+            #
+            # if rentaV>0.3:
+            #     continue
+            #
+            # if rentaV<rentmin and (i[37]=="venta"):
+            #     continue
 
             precioA=calcularDistanciaA(prop,props)
 
@@ -762,10 +762,15 @@ for i in data:
         if (i[37]=="venta"):
             resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
         else:
-            resultado=sorted(resultado, key=lambda x:x[0],reverse=True)
+            resultado=sorted(resultado, key=lambda x:x[0])
 
+        if (i[21]=="venta"):
+            if (i[37]=="venta"):
+                resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
+            columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
+        else:
+            columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","Arriendo","Rent.A","Link"]
 
-        columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = i[1] + " propiedades usadas VA " +str(tipo)+" "+ today
