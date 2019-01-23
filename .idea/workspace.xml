@@ -12,12 +12,12 @@
     <session id="-553247431">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="768" />
+          <entry key="py" value="803" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="768" />
+          <entry key="Python" value="803" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -37,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="507" column="18" lean-forward="true" selection-start-line="507" selection-start-column="18" selection-end-line="507" selection-end-column="18" />
+            <state relative-caret-position="17">
+              <caret line="172" column="31" selection-start-line="172" selection-start-column="31" selection-end-line="172" selection-end-column="31" />
               <folding>
                 <element signature="e#545#787#0" />
                 <element signature="e#817#1152#0" />
@@ -46,8 +46,8 @@
                 <element signature="e#4055#4300#0" />
                 <element signature="e#4351#4724#0" />
                 <element signature="e#4765#5060#0" />
-                <element signature="e#5107#5441#0" />
-                <element signature="e#5480#13031#0" />
+                <element signature="e#13070#21040#0" />
+                <element signature="e#21077#21685#0" />
               </folding>
             </state>
           </provider>
@@ -786,8 +786,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="507" column="18" lean-forward="true" selection-start-line="507" selection-start-column="18" selection-end-line="507" selection-end-column="18" />
+        <state relative-caret-position="17">
+          <caret line="172" column="31" selection-start-line="172" selection-start-column="31" selection-end-line="172" selection-end-column="31" />
           <folding>
             <element signature="e#545#787#0" />
             <element signature="e#817#1152#0" />
@@ -795,8 +795,8 @@
             <element signature="e#4055#4300#0" />
             <element signature="e#4351#4724#0" />
             <element signature="e#4765#5060#0" />
-            <element signature="e#5107#5441#0" />
-            <element signature="e#5480#13031#0" />
+            <element signature="e#13070#21040#0" />
+            <element signature="e#21077#21685#0" />
           </folding>
         </state>
       </provider>

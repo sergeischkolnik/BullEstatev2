@@ -167,7 +167,7 @@ def precio_from_portalinmobiliario(id2):
     sql = "SELECT precio,metrosmin,metrosmax,lat,lon,dormitorios,banos FROM portalinmobiliario WHERE id2='"+str(id2)+"'"
     cur.execute(sql)
     precio = cur.fetchall()
-
+    print (precio)
     return precio
 
 def calcularDistanciaV(i,data):
@@ -191,7 +191,7 @@ def calcularDistanciaV(i,data):
 
     for j in data:
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
-        if (j[1]>past) and (i[3]==j[3]) and (i[4]==j[4]) and (j!=i):
+        if (j[1]>past) and ("venta"==j[3]) and (i[4]==j[4]) and (j!=i):
             lat1=i[10]
             long1=i[11]
             lat2=j[10]
@@ -380,7 +380,7 @@ def calcularDistanciaA(i,data):
 
     for j in data:
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
-        if (j[1]>past) and (i[3]!=j[3]) and (i[4]==j[4]) and (j!=i):
+        if (j[1]>past) and ("arriendo"==j[3]) and (i[4]==j[4]) and (j!=i):
             lat1=i[10]
             long1=i[11]
             lat2=j[10]
@@ -494,7 +494,7 @@ def calcularDistanciaA(i,data):
         #print ("nivel de confianza: "+str(t_actual))
         # for link in [x[13] for x in distancias]:
         #     print (link)
-        z=1
+
         prices=[]
         count=0
         for d in distancias:
@@ -505,9 +505,7 @@ def calcularDistanciaA(i,data):
                 prices.append(p)
                 count=1
                 q=p
-        if (z==1):
-            print(prices)
-            z=0
+
 
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
 
