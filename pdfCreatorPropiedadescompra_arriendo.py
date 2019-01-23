@@ -69,12 +69,12 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
         rent = float(rent/10)
         rent = str(rent)+"%"
         prop[9] = rent
-
-        rent = float(prop[11])
-        rent = int(rent*1000)
-        rent = float(rent/10)
-        rent = str(rent)+"%"
-        prop[11] = rent
+        if (operacion=="venta"):
+            rent = float(prop[11])
+            rent = int(rent*1000)
+            rent = float(rent/10)
+            rent = str(rent)+"%"
+            prop[11] = rent
 
         #arreglar precio
         precio = prop[0]
@@ -99,22 +99,31 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
         prop[4] = int(prop[4])
         prop[5] = int(prop[5])
         prop[7] = int(prop[7])
-        prop[8] = int(prop[8]/ufn)
 
-        prop[8] = format(prop[8], ',.2f')
-        prop[8] =prop[8][:-3]
-        prop[8] ="UF "+str(prop[8])
+        if (operacion=="venta"):
+            prop[8] = int(prop[8]/ufn)
+            prop[8] = format(prop[8], ',.2f')
+            prop[8] =prop[8][:-3]
+            prop[8] ="UF "+str(prop[8])
+            prop[10] = int(prop[10])
+            prop[10] = format(prop[10], ',.2f')
+            prop[10] =prop[10][:-3]
+            prop[10] ="$ "+str(prop[10])
+            #link
+            link = str(prop[12])
+            linkHtml = '<link href="' + link + '" color="blue">' + "Link" + '</link>'
+            prop[12] = platypus.Paragraph(linkHtml, PS('body'))
 
-        prop[10] = int(prop[10])
-
-        prop[10] = format(prop[10], ',.2f')
-        prop[10] =prop[10][:-3]
-        prop[10] ="$ "+str(prop[10])
-
-        #link
-        link = str(prop[12])
-        linkHtml = '<link href="' + link + '" color="blue">' + "Link" + '</link>'
-        prop[12] = platypus.Paragraph(linkHtml, PS('body'))
+        else:
+           
+            prop[8] = int(prop[8])
+            prop[8] = format(prop[8], ',.2f')
+            prop[8] =prop[8][:-3]
+            prop[8] ="$ "+str(prop[8])
+            #link
+            link = str(prop[10])
+            linkHtml = '<link href="' + link + '" color="blue">' + "Link" + '</link>'
+            prop[10] = platypus.Paragraph(linkHtml, PS('body'))
 
         #agregar numerador
         data[i] = [i+1] + prop
