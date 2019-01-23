@@ -645,7 +645,7 @@ for i in data:
     if comuna6 is None:
         comuna6="abcdefghij"
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
-    print(len(propiedades))
+    #print(len(propiedades))
     estaciones1=estaciones()
     for prop in propiedades:
         estaciones2=[]
@@ -738,7 +738,8 @@ for i in data:
 
             subresultado.append(precioA)
             rentaA=((precioA-prop[5])/prop[5])
-
+            print(precioA)
+            print(rentaA)
             if rentaA>1:
                 continue
 
