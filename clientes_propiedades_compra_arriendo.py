@@ -167,7 +167,7 @@ def precio_from_portalinmobiliario(id2):
     sql = "SELECT precio,metrosmin,metrosmax,lat,lon,dormitorios,banos FROM portalinmobiliario WHERE id2='"+str(id2)+"'"
     cur.execute(sql)
     precio = cur.fetchall()
-    print (precio)
+    
     return precio
 
 def calcularDistanciaV(i,data):
