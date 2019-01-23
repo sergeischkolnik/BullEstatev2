@@ -12,12 +12,12 @@
     <session id="-553247431">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="404" />
+          <entry key="py" value="509" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="404" />
+          <entry key="Python" value="509" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -37,10 +37,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="721" column="28" lean-forward="true" selection-start-line="721" selection-start-column="28" selection-end-line="721" selection-end-column="28" />
+            <state relative-caret-position="322">
+              <caret line="749" column="37" lean-forward="true" selection-start-line="749" selection-start-column="37" selection-end-line="749" selection-end-column="37" />
               <folding>
-                <element signature="e#1773#4033#0" />
+                <element signature="e#545#787#0" />
+                <element signature="e#817#1152#0" />
+                <element signature="e#1177#1494#0" />
+                <element signature="e#4055#4300#0" />
+                <element signature="e#4351#4724#0" />
+                <element signature="e#4765#5060#0" />
+                <element signature="e#5107#5441#0" />
+                <element signature="e#5480#13031#0" />
+                <element signature="e#13070#21040#0" />
               </folding>
             </state>
           </provider>
@@ -90,7 +98,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>i[</find>
       <find>no se</find>
       <find>precio_from</find>
       <find>key</find>
@@ -120,6 +127,7 @@
       <find>sub</find>
       <find>comuna</find>
       <find>if</find>
+      <find>venta</find>
     </findStrings>
     <replaceStrings>
       <replace>print</replace>
@@ -779,10 +787,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/clientes_propiedades_compra_arriendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="721" column="28" lean-forward="true" selection-start-line="721" selection-start-column="28" selection-end-line="721" selection-end-column="28" />
+        <state relative-caret-position="322">
+          <caret line="749" column="37" lean-forward="true" selection-start-line="749" selection-start-column="37" selection-end-line="749" selection-end-column="37" />
           <folding>
-            <element signature="e#1773#4033#0" />
+            <element signature="e#545#787#0" />
+            <element signature="e#817#1152#0" />
+            <element signature="e#1177#1494#0" />
+            <element signature="e#4055#4300#0" />
+            <element signature="e#4351#4724#0" />
+            <element signature="e#4765#5060#0" />
+            <element signature="e#5107#5441#0" />
+            <element signature="e#5480#13031#0" />
+            <element signature="e#13070#21040#0" />
           </folding>
         </state>
       </provider>

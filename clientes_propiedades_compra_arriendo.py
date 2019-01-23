@@ -681,31 +681,71 @@ for i in data:
         subresultado.append(estacioncercana[1])
         subresultado.append(estacioncercana[2])
 
-        precioV=calcularDistanciaV(prop,props)
-        if precioV is None:
-            continue
+        if (i[21]=="venta"):
+            precioV=calcularDistanciaV(prop,props)
+            if precioV is None:
+                continue
 
-        subresultado.append(precioV)
-        rentaV=((precioV-prop[5])/prop[5])
-        # if rentaV<rentmin or rentaV>1:
-        #     continue
-        subresultado.append(float(rentaV))
+            subresultado.append(precioV)
+            rentaV=((precioV-prop[5])/prop[5])
+            # if rentaV<rentmin or rentaV>1:
+            #     continue
+            subresultado.append(float(rentaV))
 
-        if rentaV<rentmin or rentaV>0.3:
-            continue
+            if rentaV>0.3:
+                continue
 
-        precioA=calcularDistanciaA(prop,props)
+            if rentaV<rentmin and (i[37]=="venta"):
+                continue
 
-        if precioA is None:
-            continue
+            precioA=calcularDistanciaA(prop,props)
 
-        subresultado.append(precioA)
-        rentaA=(precioA*12/prop[5])
+            if precioA is None:
+                continue
 
-        if rentaA<rentmin or rentaA>1:
-            continue
+            subresultado.append(precioA)
+            rentaA=(precioA*12/prop[5])
 
-        subresultado.append(float(rentaA))
+            if rentaA>1:
+                continue
+
+            if rentaA<rentmin and (i[37]=="arriendo"):
+                continue
+
+            subresultado.append(float(rentaA))
+        else:
+            precioV=calcularDistanciaV(prop,props)
+            if precioV is None:
+                continue
+
+            subresultado.append(precioV)
+            rentaV=(prop[5]*12/precioV)
+            # if rentaV<rentmin or rentaV>1:
+            #     continue
+            subresultado.append(float(rentaV))
+
+            if rentaV>0.3:
+                continue
+
+            if rentaV<rentmin and (i[37]=="venta"):
+                continue
+
+            precioA=calcularDistanciaA(prop,props)
+
+            if precioA is None:
+                continue
+
+            subresultado.append(precioA)
+            rentaA=((-prop[5]+precioA)/prop[5])
+
+            if rentaA>1:
+                continue
+
+            if rentaA<rentmin and (i[37]=="arriendo"):
+                continue
+
+            subresultado.append(float(rentaA))
+
 
         subresultado.append(prop[13])
 
