@@ -494,7 +494,7 @@ def calcularDistanciaA(i,data):
         #print ("nivel de confianza: "+str(t_actual))
         # for link in [x[13] for x in distancias]:
         #     print (link)
-
+        z=1
         prices=[]
         count=0
         for d in distancias:
@@ -505,6 +505,9 @@ def calcularDistanciaA(i,data):
                 prices.append(p)
                 count=1
                 q=p
+        if (z==1):
+            print(prices)
+            z=0
 
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
 
@@ -738,8 +741,9 @@ for i in data:
 
             subresultado.append(precioA)
             rentaA=((precioA-prop[5])/prop[5])
-            print(precioA)
-            print(rentaA)
+            print("arriendo real: "+str(prop[5]))
+            print("arriendo predicho: "+str(precioA))
+            print("rentabildiad: "+str(rentaA))
             if rentaA>1:
                 continue
 
