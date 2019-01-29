@@ -226,7 +226,7 @@ def echo_all(updates):
                             text = "El precio tasado es UF " + str(precio)+", con un nivel de confianza: "+str(nivel)+\
                                    ", tasación realizada comparandose con "+str(nrcomp)+" propiedades.\nLinks:"
                             for link in links:
-                                text += "\n" + str(link)
+                                text += "\n\n" + str(link)
                         else:
                             text = "Error de ingreso de datos."
 
