@@ -138,7 +138,7 @@ def echo_all(updates):
                         else:
                             n=-1
 
-                        if n>0:
+                        if n>=0:
                             operacion = arr[3+n]
                             tipo = arr[4+n]
                             estado = arr[5+n]
