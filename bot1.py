@@ -181,6 +181,8 @@ def main():
     hasChecked = False
     last_update_id = None
     avisado = False
+    print("Bot andando.")
+
     while True:
         updates = get_updates(last_update_id)
         if len(updates["result"]) > 0:
