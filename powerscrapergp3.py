@@ -30,27 +30,23 @@ def binarySearch(alist, item):
 
     return found
 
-def insertargpscrap(listai):
+def insertargpscrap(listai,mariadb_connection):
     sql = """INSERT INTO goplaceit_scraped(lista)
              VALUES(%s) ON DUPLICATE KEY UPDATE lista=%s"""
 
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='goplaceit')
-
     cur = mariadb_connection.cursor()
+
     cur.execute(sql, (listai))
     mariadb_connection.commit()
-    mariadb_connection.close()
 
 
-def insertarPropiedadgp(propiedad):
+def insertarPropiedadgp(propiedad,mariadb_connection):
     sql = """INSERT INTO goplaceit(id2,nombre,fechapublicacion,fechascrap,region,provincia,comuna,operacion,tipo,precio,moneda,dormitorios,banos,metrosmin,metrosmax,gastoscomunes,estacionamientos,ano,piso,orientacion,amoblado,antiguedad,dueno,lat,lon,link,disponibilidad)
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,provincia=%s,comuna=%s,operacion=%s,tipo=%s,precio=%s,moneda=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,gastoscomunes=%s,estacionamientos=%s,ano=%s,piso=%s,orientacion=%s,amoblado=%s,antiguedad=%s,dueno=%s,lat=%s,lon=%s,link=%s,disponibilidad=%s"""
 
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='goplaceit')
     cur = mariadb_connection.cursor()
     cur.execute(sql, (propiedad))
     mariadb_connection.commit()
-    mariadb_connection.close()
 
 
 def remove(desde,hasta,removelist):
@@ -212,8 +208,7 @@ def get_proxies6():
 
     return(proxies)
 
-def scrapergp(link,proxy,succes,lista_i):
-
+def scrapergp(link,proxy,succes,lista_i,mariadb_connection):
     activa=1
     aux=[]
 
@@ -570,7 +565,7 @@ def scrapergp(link,proxy,succes,lista_i):
         aux.append(lon)
         aux.append(link)
         aux.append(disponibilidad)
-        insertarPropiedadgp(aux)
+        insertarPropiedadgp(aux,mariadb_connection)
 
         #print(str(j)+"/"+str(z))
         #print("thread "+str(thread)+" completed")
@@ -648,6 +643,7 @@ while len(lista)!=0:
 
 
     print(len(proxies))
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='goplaceit')
     proxy_pool = cycle(proxies)
     succes = []
     if (j+len(proxies)>len(lista)):
@@ -659,7 +655,7 @@ while len(lista)!=0:
         proxi=next(proxy_pool)
 
         link = "https://www.goplaceit.com/cl/propiedad/arriendo/departamento/vitacura/" + str(lista[i+j])
-        t = Thread(target=scrapergp, args=(link, proxi, succes,lista[i+j]))
+        t = Thread(target=scrapergp, args=(link, proxi, succes,lista[i+j],mariadb_connection))
 
         try:
             t.start()
@@ -677,7 +673,9 @@ while len(lista)!=0:
         listai=[]
         listai.append(suc)
         listai.append(suc)
-        insertargpscrap(listai)
+        insertargpscrap(listai,mariadb_connection)
         lista.remove(int(suc))
     print("faltan: "+str(len(lista)))
+    mariadb_connection.close()
     sleep(1.5)
+
