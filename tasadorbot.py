@@ -161,7 +161,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
                 k42=j
 
     t_actual="A+"
-    cota=5
+    cota=10
 
 
 
@@ -192,13 +192,21 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     else:
         print("no se han encontrado propiedades para comparar")
-        return 0,"E",len(distanciat4_2)
+        return 0,"E",len(distanciat4_2),[]
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
         distancias=distancias[:40]
     except:
         distancias=distancia
+
+    links = []
+    for props in distancias:
+            links.append(props[13])
+
+    if __name__ == "__main__":
+        for props in distancias:
+            print(props[13])
 
 
     y_train = []
@@ -248,10 +256,25 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     try:
         price = int(price/uf.getUf())
-        return(price,t_actual,len(distancias))
+        return(price,t_actual,len(distancias),links)
 
     except:
 
-        return -1,"ERROR",-1
+        return -1,"ERROR",-1,[]
 
+if __name__ == "__main__":
 
+    operacion = "venta"
+    tipo = "departamento"
+    lat = -33.404904
+    lon=-70.5947597
+    util = 240
+    total = 270
+    dormitorios = 3
+    banos = 3
+    estacionamientos=2
+
+    precio,confianza,nrProps = calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos)
+    print("Precio:" + str(precio))
+    print("confianza:" + str(confianza))
+    print("comparado con:" + str(nrProps))
