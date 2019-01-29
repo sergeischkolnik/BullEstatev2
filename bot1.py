@@ -160,10 +160,11 @@ def echo_all(updates):
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
 
-                            precio = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
+                            precio,nivel,nrcomp = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
                                                          total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
                                                          estacionamientos=int(nrEstacionamientos))
-                            text = "El precio tasado es UF " + str(precio)
+                            text = "El precio tasado es UF " + str(precio)+", con un nivel de confianza: "+str(nivel)+\
+                                   ", tasación realizada comparandose con "+str(nrcomp)+" propiedades."
                         else:
                             text = "Error de ingreso de datos."
 

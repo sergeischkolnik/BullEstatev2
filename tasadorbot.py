@@ -160,42 +160,39 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
                 j=j[:-1]
                 k42=j
 
-    t_actual="0"
+    t_actual="A+"
     cota=5
 
 
-    print("largo distancias 0 " +str(len(distanciat0)))
-    print("largo distancias 1 " +str(len(distanciat1)))
-    print("largo distancias 2.1 " +str(len(distanciat2_1)))
 
     if len(distanciat0)>=cota:
         distancia=distanciat0
 
     elif len(distanciat1)>=cota:
         distancia=distanciat1
-        t_actual="1"
+        t_actual="A-"
     elif len(distanciat2_1)>=cota:
         distancia=distanciat2_1
-        t_actual="2.1"
+        t_actual="B+"
     elif len(distanciat2_2)>=cota:
         distancia=distanciat2_2
-        t_actual="2.2"
+        t_actual="B-"
     elif len(distanciat3_1)>=cota:
         distancia=distanciat3_1
-        t_actual="3.1"
+        t_actual="C+"
     elif len(distanciat3_2)>=cota:
         distancia=distanciat3_2
-        t_actual="3.2"
+        t_actual="C-"
     elif len(distanciat4_1)>=cota:
         distancia=distanciat4_1
-        t_actual="4.1"
+        t_actual="D+"
     elif len(distanciat4_2)>=cota:
         distancia=distanciat4_2
-        t_actual="4.2"
+        t_actual="D-"
 
     else:
         print("no se han encontrado propiedades para comparar")
-        return -1
+        return 0,"E",len(distanciat4_2)
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
@@ -251,10 +248,10 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     try:
         price = int(price/uf.getUf())
-        return(price)
+        return(price,t_actual,len(distancias))
 
     except:
 
-        return -1
+        return -1,"ERROR",-1
 
 
