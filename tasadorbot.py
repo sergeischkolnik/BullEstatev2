@@ -65,6 +65,17 @@ def precio_from_portalinmobiliario(id2):
 
 def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos):
 
+    print(operacion)
+    print(tipo)
+    print(lat)
+    print(lon)
+    print(util)
+    print(total)
+    print(dormitorios)
+    print(banos)
+    print(estacionamientos)
+
+
     data = from_portalinmobiliario()
     distanciat0=[]
     distanciat1=[]
