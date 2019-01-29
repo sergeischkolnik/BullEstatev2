@@ -116,7 +116,7 @@ def echo_all(updates):
 
                 #tasador
                 elif arr[0] == comandosMultiples[1]:
-                    if len(arr)!=16:
+                    if len(arr)< 16:
                         text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> " \
                                "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
                                "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
@@ -134,9 +134,14 @@ def echo_all(updates):
                         ano = arr[11]
                         piso = arr[12]
                         orientacion = arr[13]
-                        calle = arr[14]
-                        nrCalle = arr[15]
-                        direccion = str(calle) + " " + str(nrCalle) + ", " + str(comuna) + ", Chile"
+
+                        calle = ""
+                        for c in range(14,len(arr)-1):
+                            calle += c
+                            calle += " "
+
+                        nrCalle = arr[len(arr)-1]
+                        direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                         lat,lon = gm.getCoordsWithAdress(direccion)
 
                         precio = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
