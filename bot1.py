@@ -139,9 +139,9 @@ def echo_all(updates):
                         direccion = str(calle) + " " + str(nrCalle) + ", " + str(comuna) + ", Chile"
                         lat,lon = gm.getCoordsWithAdress(direccion)
 
-                        precio = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=lat,lon=lon,util=mtUtiles,
-                                                     total=mtTotales,dormitorios=dormitorios,banos=banos,
-                                                     estacionamientos=nrEstacionamientos)
+                        precio = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
+                                                     total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
+                                                     estacionamientos=int(nrEstacionamientos))
                         text = "El precio tasado es UF " + str(precio)
 
                 else:
