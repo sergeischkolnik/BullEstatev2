@@ -5,6 +5,7 @@ import urllib
 import pymysql as mysql
 import datetime as dt
 import propManager as pm
+import googleMapApi as gm
 
 
 TOKEN = "633816057:AAE30k3FguvhUq5faEbtvsLWP_J6s2sqL5M"
@@ -14,8 +15,8 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
-comandosIndividuales = ['hola','portal','goplaceit','reporte']
-comandosMultiples = ['reporte']
+comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador']
+comandosMultiples = ['reporte','tasador']
 id_chats_updates = ["485728961","652659504"]
 
 def get_url(url):
@@ -73,7 +74,11 @@ def echo_all(updates):
               
                 #reportes
                 elif text==comandosIndividuales[3]:
-                    text = "Para usar reporte, escriba, separando por espacios:\nreporte region comuna operacion tipo estado dormitorios baños"
+                    text = "Para usar reporte, escriba, separando por espacios:\nreporte <region> <comuna> <operacion> <tipo> <estado> <dormitorios> <baños>"
+
+                #tasador
+                elif text==comandosIndividuales[3]:
+                    text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> <operacion> <tipo> <estado> <dormitorios> <baños>"
 
                 #no encontrado
                 else:
@@ -87,7 +92,8 @@ def echo_all(updates):
                 #reportes
                 if arr[0] == comandosMultiples[0]:
                     if len(arr)!=8:
-                        text = "Para usar reporte, escriba, separando por espacios:\nreporte region comuna operacion tipo estado dormitorios baños"
+                        text = "Para usar reporte, escriba, separando por espacios:\nreporte <region <comuna> " \
+                               "<operacion> <tipo> <estado> <dormitorios> <baños>"
                     else:
                         region = arr[1]
                         comuna = arr[2]
@@ -104,6 +110,33 @@ def echo_all(updates):
                         text += "\nEstado:" + estado
                         text += "\nDormitorios:" + dormitorios
                         text += "\nBaños:" + banos
+                        #Agregar codigo aca para generar reporte
+
+                #tasador
+                elif arr[0] == comandosMultiples[1]:
+                    if len(arr)!=16:
+                        text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> " \
+                               "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
+                               "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
+                    else:
+                        region = arr[1]
+                        comuna = arr[2]
+                        operacion = arr[3]
+                        tipo = arr[4]
+                        estado = arr[5]
+                        dormitorios = arr[6]
+                        banos = arr[7]
+                        mtUtiles = arr[8]
+                        mtTotales = arr[9]
+                        nrEstacionamientos = arr[10]
+                        ano = arr[11]
+                        piso = arr[12]
+                        orientacion = arr[13]
+                        calle = arr[14]
+                        nrCalle = arr[15]
+                        lat,lon = gm.getCoordsWithAdress(str(calle) + " " + str(nrCalle) + ", " + str(comuna) + ", Chile")
+
+
                         #Agregar codigo aca para generar reporte
 
                 else:
