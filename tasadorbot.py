@@ -166,89 +166,88 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     print("largo distancias 0 " +str(len(distanciat0)))
     print("largo distancias 1 " +str(len(distanciat1)))
-    print("largo distancias 2.2 " +str(len(distanciat2_1)))
+    print("largo distancias 2.1 " +str(len(distanciat2_1)))
 
-    for cot in range (1,6):
-        if len(distanciat0)>=cota:
-            distancia=distanciat0
+    if len(distanciat0)>=cota:
+        distancia=distanciat0
 
-        elif len(distanciat1)>=cota:
-            distancia=distanciat1
-            t_actual="1"
-        elif len(distanciat2_1)>=cota:
-            distancia=distanciat2_1
-            t_actual="2.1"
-        elif len(distanciat2_2)>=cota:
-            distancia=distanciat2_2
-            t_actual="2.2"
-        elif len(distanciat3_1)>=cota:
-            distancia=distanciat3_1
-            t_actual="3.1"
-        elif len(distanciat3_2)>=cota:
-            distancia=distanciat3_2
-            t_actual="3.2"
-        elif len(distanciat4_1)>=cota:
-            distancia=distanciat4_1
-            t_actual="4.1"
-        elif len(distanciat4_2)>=cota:
-            distancia=distanciat4_2
-            t_actual="4.2"
+    elif len(distanciat1)>=cota:
+        distancia=distanciat1
+        t_actual="1"
+    elif len(distanciat2_1)>=cota:
+        distancia=distanciat2_1
+        t_actual="2.1"
+    elif len(distanciat2_2)>=cota:
+        distancia=distanciat2_2
+        t_actual="2.2"
+    elif len(distanciat3_1)>=cota:
+        distancia=distanciat3_1
+        t_actual="3.1"
+    elif len(distanciat3_2)>=cota:
+        distancia=distanciat3_2
+        t_actual="3.2"
+    elif len(distanciat4_1)>=cota:
+        distancia=distanciat4_1
+        t_actual="4.1"
+    elif len(distanciat4_2)>=cota:
+        distancia=distanciat4_2
+        t_actual="4.2"
 
-        else:
-            print("no se han encontrado propiedades para comparar")
-            return -1
+    else:
+        print("no se han encontrado propiedades para comparar")
+        return -1
 
-        distancias=sorted(distancia,key=lambda x:x[14])
-        try:
-            distancias=distancias[:40]
-        except:
-            distancias=distancia
-
-
-        y_train = []
-        x_train = []
-        for e in distancias:
-            x_train.append([e[8],e[9],e[6],e[7],e[12]])
-            y_train.append(e[5])
-
-        #y2_train=[]
-        #y2_train.append(y_train)
-        #y_train=y2_train
-        x_train=np.array(x_train)
-        y_train=np.array(y_train)
-        #x_train=np.transpose(x_train)
+    distancias=sorted(distancia,key=lambda x:x[14])
+    try:
+        distancias=distancias[:40]
+    except:
+        distancias=distancia
 
 
-        #print (x_train)
-        #print(x_train.shape)
-        #print (y_train)
-        #print(y_train.shape)
+    y_train = []
+    x_train = []
+    for e in distancias:
+        x_train.append([e[8],e[9],e[6],e[7],e[12]])
+        y_train.append(e[5])
 
-        # Create linear regression object
-        regr = linear_model.LinearRegression()
+    #y2_train=[]
+    #y2_train.append(y_train)
+    #y_train=y2_train
+    x_train=np.array(x_train)
+    y_train=np.array(y_train)
+    #x_train=np.transpose(x_train)
 
-        # Train the model using the training sets
-        regr.fit(x_train, y_train)
-        #try:
-         #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
-        #except:
-         #   print("unable to print coef")
-        x_test = [util,total,dormitorios,banos,estacionamientos]
-        x_test=np.array(x_test)
-        x_test=np.transpose(x_test)
-        # Make predictions using the testing set
 
-        price=regr.intercept_
-        c=0
-        for coef in regr.coef_:
-            price=price+coef*x_test[c]
-            c=c+1
+    #print (x_train)
+    #print(x_train.shape)
+    #print (y_train)
+    #print(y_train.shape)
 
-        #print(price)
-        cota=len(distancias)+1
-    #print("y_pred = " + str(y_pred))
-    # The coefficients
-    #print('Coefficients: \n', regr.coef_)
+    # Create linear regression object
+    regr = linear_model.LinearRegression()
+
+    # Train the model using the training sets
+    regr.fit(x_train, y_train)
+    #try:
+     #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
+    #except:
+     #   print("unable to print coef")
+    x_test = [util,total,dormitorios,banos,estacionamientos]
+    x_test=np.array(x_test)
+    x_test=np.transpose(x_test)
+    # Make predictions using the testing set
+
+    price=regr.intercept_
+    c=0
+    for coef in regr.coef_:
+        price=price+coef*x_test[c]
+        c=c+1
+
+    #print(price)
+    cota=len(distancias)+1
+#print("y_pred = " + str(y_pred))
+# The coefficients
+#print('Coefficients: \n', regr.coef_)
 
     try:
         price = int(price/uf.getUf())
