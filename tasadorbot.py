@@ -164,9 +164,9 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     cota=5
 
 
-    print("largo distancias 0 " +len(distanciat0))
-    print("largo distancias 1 " +len(distanciat1))
-    print("largo distancias 2.2 " +len(distanciat2_1))
+    print("largo distancias 0 " +str(len(distanciat0)))
+    print("largo distancias 1 " +str(len(distanciat1)))
+    print("largo distancias 2.2 " +str(len(distanciat2_1)))
 
     for cot in range (1,6):
         if len(distanciat0)>=cota:
