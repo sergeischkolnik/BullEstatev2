@@ -396,9 +396,9 @@ for i in data:
     #print(i[34])
     #print("cliente")
     resultado=[]
-    if i[34]==0:
+    if i[36]==0:
         continue
-    elif i[34]==1:
+    elif i[36]==1:
         activo=2
         #actualizarActividad(i[0])
     else:
