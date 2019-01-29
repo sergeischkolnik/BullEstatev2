@@ -512,12 +512,6 @@ def tasador(cliente,tipo,operacion,region,comuna,direccion,util,total,dormitorio
     tasacion.append(piso)
     tasacion.append(orientacion)
 
-
-    if tasacion[13]=="usado":
-        print("buscando para cliente "+str(tasacion[1]))
-        return calcularTasacion(tasacion,data)
-
-    else:
-        return -1
+    return calcularTasacion(tasacion,data)
 
 

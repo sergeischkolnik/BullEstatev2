@@ -77,8 +77,10 @@ def echo_all(updates):
                     text = "Para usar reporte, escriba, separando por espacios:\nreporte <region> <comuna> <operacion> <tipo> <estado> <dormitorios> <baños>"
 
                 #tasador
-                elif text==comandosIndividuales[3]:
-                    text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> <operacion> <tipo> <estado> <dormitorios> <baños>"
+                elif text==comandosIndividuales[4]:
+                    text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> " \
+                               "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
+                               "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
 
                 #no encontrado
                 else:
@@ -141,7 +143,7 @@ def echo_all(updates):
                                    direccion=direccion,util=mtUtiles,total=mtTotales,dormitorios=dormitorios,banos=banos,
                                    estacionamientos=nrEstacionamientos,lat=lat,lon=lon,ano=ano,piso=piso,
                                    orientacion=orientacion)
-                        text += "El precio tasado es UF " + str(precio)
+                        text = "El precio tasado es UF " + str(precio)
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
