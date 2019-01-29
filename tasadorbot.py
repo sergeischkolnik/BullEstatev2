@@ -5,7 +5,7 @@ from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=90)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=60)
+yesterday = datetime.now() - timedelta(days=3)
 yesterday=datetime.date(yesterday)
 import numpy as np
 from sklearn import datasets, linear_model
@@ -86,7 +86,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     for j in data:
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
-        if (j[1]>past) and (operacion==j[3]) and (tipo==j[4]):
+        if (j[1]>past) and (j[2]>yesterday) and (operacion==j[3]) and (tipo==j[4]):
             lat1=lat
             long1=lon
             lat2=j[10]
@@ -204,11 +204,6 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     for props in distancias:
             links.append(props[13])
 
-    if __name__ == "__main__":
-        for props in distancias:
-            print(props[13])
-
-
     y_train = []
     x_train = []
     for e in distancias:
@@ -274,7 +269,9 @@ if __name__ == "__main__":
     banos = 3
     estacionamientos=2
 
-    precio,confianza,nrProps = calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos)
+    precio,confianza,nrProps,links = calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos)
     print("Precio:" + str(precio))
     print("confianza:" + str(confianza))
     print("comparado con:" + str(nrProps))
+    for link in links:
+            print(link)
