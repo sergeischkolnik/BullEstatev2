@@ -260,6 +260,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     #print('Coefficients: \n', regr.coef_)
 
     try:
+        price = int(price/uf.getUf())
         return(price)
 
     except:
