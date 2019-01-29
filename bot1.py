@@ -6,7 +6,7 @@ import pymysql as mysql
 import datetime as dt
 import propManager as pm
 import googleMapApi as gm
-
+import tasadorbot as tb
 
 TOKEN = "633816057:AAE30k3FguvhUq5faEbtvsLWP_J6s2sqL5M"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
@@ -134,10 +134,14 @@ def echo_all(updates):
                         orientacion = arr[13]
                         calle = arr[14]
                         nrCalle = arr[15]
-                        lat,lon = gm.getCoordsWithAdress(str(calle) + " " + str(nrCalle) + ", " + str(comuna) + ", Chile")
+                        direccion = str(calle) + " " + str(nrCalle) + ", " + str(comuna) + ", Chile"
+                        lat,lon = gm.getCoordsWithAdress(direccion)
 
-
-                        #Agregar codigo aca para generar reporte
+                        precio = tb.tasador(cliente="Cliente",tipo=tipo,operacion=operacion,region=region,comuna=comuna,
+                                   direccion=direccion,util=mtUtiles,total=mtTotales,dormitorios=dormitorios,banos=banos,
+                                   estacionamientos=nrEstacionamientos,lat=lat,lon=lon,ano=ano,piso=piso,
+                                   orientacion=orientacion)
+                        text += "El precio tasado es UF " + str(precio)
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"

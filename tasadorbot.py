@@ -487,7 +487,7 @@ def calcularTasacion(i,data):
 
     except:
 
-        return []
+        return -1
 
 def tasador(cliente,tipo,operacion,region,comuna,direccion,util,total,dormitorios,banos,estacionamientos,lat,lon,ano,piso,orientacion):
     data=from_portalinmobiliario()
@@ -515,16 +515,9 @@ def tasador(cliente,tipo,operacion,region,comuna,direccion,util,total,dormitorio
 
     if tasacion[13]=="usado":
         print("buscando para cliente "+str(tasacion[1]))
-        calcularTasacion(tasacion,data)
+        return calcularTasacion(tasacion,data)
+
+    else:
+        return -1
 
 
-# for i in tasaciones:
-#     if i[13]=="nuevo":
-#         t=Thread(target=calcularDistancia, args=(i,data2))
-#         t.start()
-#         print(str(b+1)+" Thread Started")
-#         b=b+1
-#         threadList.append(t)
-#         sleep(0.05)
-# for t in threadList:
-#     t.join
