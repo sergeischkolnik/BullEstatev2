@@ -65,16 +65,6 @@ def precio_from_portalinmobiliario(id2):
 
 def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos):
 
-    print(operacion)
-    print(tipo)
-    print(lat)
-    print(lon)
-    print(util)
-    print(total)
-    print(dormitorios)
-    print(banos)
-    print(estacionamientos)
-
 
     data = from_portalinmobiliario()
     distanciat0=[]
@@ -172,6 +162,12 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     t_actual="0"
     cota=5
+
+
+    print("largo distancias 0 " +len(distanciat0))
+    print("largo distancias 1 " +len(distanciat1))
+    print("largo distancias 2.2 " +len(distanciat2_1))
+
     for cot in range (1,6):
         if len(distanciat0)>=cota:
             distancia=distanciat0
@@ -207,23 +203,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
             distancias=distancias[:40]
         except:
             distancias=distancia
-        #print("propiedades encontradas "+str(len(distancias)))
-        #print ("nivel de confianza: "+str(t_actual))
-        #for link in [x[13] for x in distancias]:
-            #print (link)
 
-        # prices=[]
-        # count=0
-        # for d in distancias:
-        #     p=precio_from_portalinmobiliario(d[0])
-        #     if (count==1) and (q==p):
-        #         continue
-        #     else:
-        #         prices.append(p)
-        #         count=1
-        #         q=p
-
-        # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
 
         y_train = []
         x_train = []
