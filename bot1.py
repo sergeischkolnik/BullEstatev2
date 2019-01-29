@@ -153,7 +153,7 @@ def echo_all(updates):
 
                             calle = ""
                             for c in range(14+n,len(arr)-1):
-                                calle += c
+                                calle += arr[c]
                                 calle += " "
 
                             nrCalle = arr[len(arr)-1]
