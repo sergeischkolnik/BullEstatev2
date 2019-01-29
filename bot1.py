@@ -123,31 +123,49 @@ def echo_all(updates):
                     else:
                         region = arr[1]
                         comuna = arr[2]
-                        operacion = arr[3]
-                        tipo = arr[4]
-                        estado = arr[5]
-                        dormitorios = arr[6]
-                        banos = arr[7]
-                        mtUtiles = arr[8]
-                        mtTotales = arr[9]
-                        nrEstacionamientos = arr[10]
-                        ano = arr[11]
-                        piso = arr[12]
-                        orientacion = arr[13]
 
-                        calle = ""
-                        for c in range(14,len(arr)-1):
-                            calle += c
-                            calle += " "
+                        if arr[3]=="venta" or arr[3]=="arriendo": #1 palabra
+                            n=0
+                        elif arr[4]=="venta" or arr[4]=="arriendo": #2 palabras
+                            n=1
+                            comuna+=" "+arr[3]
+                        elif arr[5]=="venta" or arr[5]=="arriendo": #3 palabras
+                            n=2
+                            comuna+=" "+arr[3]+" "+arr[4]
+                        elif arr[6]=="venta" or arr[6]=="arriendo": #4 palabras
+                            n=2
+                            comuna+=" "+arr[3]+" "+arr[4]+" "+arr[5]
+                        else:
+                            n=-1
 
-                        nrCalle = arr[len(arr)-1]
-                        direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
-                        lat,lon = gm.getCoordsWithAdress(direccion)
+                        if n>0:
+                            operacion = arr[3+n]
+                            tipo = arr[4+n]
+                            estado = arr[5+n]
+                            dormitorios = arr[6+n]
+                            banos = arr[7+n]
+                            mtUtiles = arr[8+n]
+                            mtTotales = arr[9+n]
+                            nrEstacionamientos = arr[10+n]
+                            ano = arr[11+n]
+                            piso = arr[12+n]
+                            orientacion = arr[13+n]
 
-                        precio = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
-                                                     total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
-                                                     estacionamientos=int(nrEstacionamientos))
-                        text = "El precio tasado es UF " + str(precio)
+                            calle = ""
+                            for c in range(14+n,len(arr)-1):
+                                calle += c
+                                calle += " "
+
+                            nrCalle = arr[len(arr)-1]
+                            direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
+                            lat,lon = gm.getCoordsWithAdress(direccion)
+
+                            precio = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
+                                                         total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
+                                                         estacionamientos=int(nrEstacionamientos))
+                            text = "El precio tasado es UF " + str(precio)
+                        else:
+                            text = "Error de ingreso de datos."
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
