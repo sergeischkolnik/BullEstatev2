@@ -115,7 +115,7 @@ def createPdfReport(cliente, fileName, data, headers,operacion):
             prop[12] = platypus.Paragraph(linkHtml, PS('body'))
 
         else:
-           
+
             prop[8] = int(prop[8])
             prop[8] = format(prop[8], ',.2f')
             prop[8] =prop[8][:-3]
