@@ -8,6 +8,9 @@ from itertools import cycle
 import agentCreator
 import time
 import random
+from requests_html import HTMLSession
+session = HTMLSession()
+
 
 
 print("[SUPI] " + str(datetime.datetime.now()))
@@ -91,6 +94,21 @@ def insertarPropiedad(propiedad):
     mariadb_connection.commit()
     mariadb_connection.close()
 
+
+def insertarDueno(dueno):
+    #Inserta una propiedad en una base de datos
+
+    sql = """INSERT INTO duenos(idProp,mail)
+             VALUES(%s,%s) ON DUPLICATE KEY UPDATE mail=%s"""
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql, (dueno))
+
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
 def insertarRemate(propiedad):
     #En caso de ser remate, inserta en tabla de remates
     sql = """INSERT INTO remates(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,lat,lon,link)
@@ -103,6 +121,15 @@ def insertarRemate(propiedad):
 
     mariadb_connection.commit()
     mariadb_connection.close()
+
+def esDueno(mail):
+    if ("gmail" in mail) or ("hotmail" in mail) or ("yahoo" in mail) or ("vtr" in mail):
+        if ("propiedad" not in mail) and ("corredor" not in mail) and ("corretaje" not in mail) and ("inmueble" not in mail) and ("inmobiliari" not in mail) and ("casa" not in mail) and ("departamento" not in mail):
+            return "si"
+        else:
+            return "no"
+    else:
+        return "no"
 
 def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
@@ -124,6 +151,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
             priceSite = '//*[@id="wrapper"]/section[2]/div/div/div[1]/article/div[3]/div[' + str(i) + ']/div[2]/div/div[2]/p/span'
             meterSite = '//*[@id="wrapper"]/section[2]/div/div/div[1]/article/div[3]/div[' + str(i) + ']/div[2]/div/div[3]/p/span'
             stateSite =  '//*[@id="wrapper"]/section[2]/div/div/div[1]/article/div[3]/div[' + str(i) + ']/div[2]/div/div[1]/p[1]/span'
+
             code = tree2.xpath(codeSite)
 
             if len(code) == 0:
@@ -314,7 +342,22 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
                     baths = None
 
+                r = session.get(newLink)
+                mails = []
+                rtext=r.text
+                rtext=rtext.split(' ')
 
+                for x,a in enumerate(rtext):
+                    if 'emailVendedor' in a:
+                        emailvendedor=rtext[x+2]
+                        emailvendedor=emailvendedor.replace('\r\n','')
+                        emailvendedor=emailvendedor.replace('"','')
+                        dueno=[]
+                        dueno.append(code)
+                        dueno.append(emailvendedor)
+                        dueno.append(esDueno(emailvendedor))
+                        dueno.append(emailvendedor)
+                        dueno.append(esDueno(emailvendedor))
                 dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
                 date = tree3.xpath(dateSite)
                 if len(date) > 0:

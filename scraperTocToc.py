@@ -40,6 +40,7 @@ def diff(first, second):
 proxies=get_proxiestextweb()
 proxy_pool = cycle(proxies)
 
+megamatrix=[]
 
 x = [i for i in range(1000000)]
 shuffle(x)
@@ -73,121 +74,243 @@ for id in x:
     #in case the reproduced version is not "correct".
     # response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda?id=72601', headers=headers)
 
-
     json_data = json.loads(response.text)
 
-
-    bien = json_data['BienRaiz']
-
+    try:
+        bien = json_data['BienRaiz']
+        print(str(bien['IdBienRaiz']))
+    except:
+        continue
 
     if bien['Proyecto'] is not None:
-        proyecto=[]
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
-        proyecto.append(str(bien['Proyecto']['Id']))
+
+        if bien['Proyecto']['ProyectoEmpresaCliente'] is not None:
+            proyectoEmpresaCliente=[]
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Id']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Nombre']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Email']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Contacto']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Telefono']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Descripcion']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['LogoReal']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['LogoMedio']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Escliente']))
+            proyectoEmpresaCliente.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Direccion']))
+            megamatrix.append(proyectoEmpresaCliente) #ACA INSERTAR A BBDD
+
+            if bien['Proyecto']['ProyectoEmpresaCliente']['ContenidoEmpresa'] is not None:
+                if len(bien['Proyecto']['ProyectoEmpresaCliente']['ContenidoEmpresa'])>0:
+                    for cont in bien['Proyecto']['ProyectoEmpresaCliente']['ContenidoEmpresa']:
+                        contenidoEmpresa=[]
+                        contenidoEmpresa.append(str(bien['Proyecto']['ProyectoEmpresaCliente']['Id']))
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(str(cont['TipoContenido']))
+                        contenidoEmpresa.append(str(cont['Contenido']))
+                        contenidoEmpresa.append(str(cont['FechaCreacion']))
+                        contenidoEmpresa.append(str(cont['FechaModificacion']))
+                        megamatrix.append(contenidoEmpresa) #ACA INSERTAR A BBDD
+
+        if bien['Proyecto']['ProyectoEmpresaVende'] is not None:
+            proyectoEmpresaVende=[]
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Id']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Nombre']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Email']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Contacto']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Telefono']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Descripcion']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['LogoReal']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['LogoMedio']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Escliente']))
+            proyectoEmpresaVende.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Direccion']))
+            megamatrix.append(proyectoEmpresaVende) #ACA INSERTAR A BBDD
+
+
+            if bien['Proyecto']['ProyectoEmpresaVende']['ContenidoEmpresa'] is not None:
+                if len(bien['Proyecto']['ProyectoEmpresaVende']['ContenidoEmpresa'])>0:
+                    for cont in bien['Proyecto']['ProyectoEmpresaVende']['ContenidoEmpresa']:
+                        contenidoEmpresa=[]
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(str(bien['Proyecto']['ProyectoEmpresaVende']['Id']))
+                        contenidoEmpresa.append(str(cont['TipoContenido']))
+                        contenidoEmpresa.append(str(cont['Contenido']))
+                        contenidoEmpresa.append(str(cont['FechaCreacion']))
+                        contenidoEmpresa.append(str(cont['FechaModificacion']))
+                        megamatrix.append(contenidoEmpresa) #ACA INSERTAR A BBDD
+
+
+        if bien['Proyecto']['ProyectoEmpresaInmobiliaria'] is not None:
+            proyectoEmpresaInmobiliaria=[]
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Id']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Nombre']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Email']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Contacto']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Telefono']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Descripcion']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['LogoReal']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['LogoMedio']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Escliente']))
+            proyectoEmpresaInmobiliaria.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Direccion']))
+            megamatrix.append(proyectoEmpresaInmobiliaria) #ACA INSERTAR A BBDD
+
+            if bien['Proyecto']['ProyectoEmpresaInmobiliaria']['ContenidoEmpresa'] is not None:
+                if len(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['ContenidoEmpresa'])>0:
+                    for cont in bien['Proyecto']['ProyectoEmpresaInmobiliaria']['ContenidoEmpresa']:
+                        contenidoEmpresa=[]
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(str(bien['Proyecto']['ProyectoEmpresaInmobiliaria']['Id']))
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(str(cont['TipoContenido']))
+                        contenidoEmpresa.append(str(cont['Contenido']))
+                        contenidoEmpresa.append(str(cont['FechaCreacion']))
+                        contenidoEmpresa.append(str(cont['FechaModificacion']))
+                        megamatrix.append(contenidoEmpresa) #ACA INSERTAR A BBDD
+
+        if bien['Proyecto']['ProyectoEmpresaConstructora'] is not None:
+            proyectoEmpresaConstructora=[]
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Id']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Nombre']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Email']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Contacto']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Telefono']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Descripcion']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['LogoReal']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['LogoMedio']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Escliente']))
+            proyectoEmpresaConstructora.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Direccion']))
+            megamatrix.append(proyectoEmpresaConstructora) #ACA INSERTAR A BBDD
+
+            if bien['Proyecto']['ProyectoEmpresaConstructora']['ContenidoEmpresa'] is not None:
+                if len(bien['Proyecto']['ProyectoEmpresaConstructora']['ContenidoEmpresa'])>0:
+                    for cont in bien['Proyecto']['ProyectoEmpresaConstructora']['ContenidoEmpresa']:
+                        contenidoEmpresa=[]
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(str(bien['Proyecto']['ProyectoEmpresaConstructora']['Id']))
+                        contenidoEmpresa.append(None)
+                        contenidoEmpresa.append(str(cont['TipoContenido']))
+                        contenidoEmpresa.append(str(cont['Contenido']))
+                        contenidoEmpresa.append(str(cont['FechaCreacion']))
+                        contenidoEmpresa.append(str(cont['FechaModificacion']))
+                        megamatrix.append(contenidoEmpresa) #ACA INSERTAR A BBDD
+        if bien['Proyecto']['SalaVenta'] is not None:
+            salaVenta=[]
+            salaVenta.append(str(bien['Proyecto']['SalaVenta']['Direccion']))
+            salaVenta.append(str(bien['Proyecto']['SalaVenta']['Horario']))
+            salaVenta.append(str(bien['Proyecto']['SalaVenta']['Fono']))
+            salaVenta.append(str(bien['Proyecto']['SalaVenta']['Mail']))
+
+        # proyecto=[]
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
+        # proyecto.append(str(bien['Proyecto']['Id']))
 
 
     #PROPIEDAD
 
     propiedad=[]
-    print(str(bien['IdBienRaiz']))
+
     propiedad.append(str(bien['IdBienRaiz']))
     #propiedad.append(str(bien['Zona']['Id']))
     #propiedad.append(str(bien['EspacioComun']['Id']))
@@ -377,9 +500,10 @@ for id in x:
                 propiedad2.append(elem)
         else:
             propiedad2.append(elem)
+    megamatrix.append(propiedad2) #ACA INSERTAR A BBDD
 
     insertToctoc.insertar(propiedad2)
 
-
+    print("megamatrix tiene un largo de:"+str(len(megamatrix)))
     timeDelay = random.randrange(1, 2)
     time.sleep(timeDelay)
