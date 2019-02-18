@@ -492,9 +492,11 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 time.sleep(random.uniform(0.5,1.5))
                 time.sleep(random.uniform(0.5,1.5))
 
+                insertarDueno(dueno)
+
+
                 if remate==0:
                     try:
-                        insertarDueno(dueno)
                         insertarPropiedad(aux)
                     except:
                         continue
