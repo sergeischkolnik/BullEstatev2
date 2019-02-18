@@ -124,7 +124,7 @@ def insertarRemate(propiedad):
 
 def esDueno(mail):
     if ("gmail" in mail) or ("hotmail" in mail) or ("yahoo" in mail) or ("vtr" in mail):
-        if ("propiedad" not in mail) and ("corredor" not in mail) and ("corretaje" not in mail) and ("inmueble" not in mail) and ("inmobiliari" not in mail) and ("casa" not in mail) and ("departamento" not in mail):
+        if ("propiedad" not in mail) and ("corredor" not in mail) and ("corretaje" not in mail) and ("inmueble" not in mail) and ("inmobiliari" not in mail) and ("casa" not in mail) and ("departamento" not in mail) and ("consultor") not in mail:
             return "si"
         else:
             return "no"
