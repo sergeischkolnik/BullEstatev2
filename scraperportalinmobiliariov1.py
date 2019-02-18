@@ -488,6 +488,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
                 lista=lista+1
                 print ("[SUPI] "+ str(tipo) + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
+                print(str(esDueno(emailvendedor)))
                 time.sleep(random.uniform(0.5,1.5))
 
                 if remate==0:
