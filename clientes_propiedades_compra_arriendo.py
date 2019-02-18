@@ -303,7 +303,8 @@ def calcularDistanciaV(i,data):
             distancias=distancia
         #print("propiedades encontradas "+str(len(distancias)))
         #print ("nivel de confianza: "+str(t_actual))
-        for link in [x[13] for x in distancias]:
+        #for link in [x[13] for x in distancias]:
+             #print (link)
 
 
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
