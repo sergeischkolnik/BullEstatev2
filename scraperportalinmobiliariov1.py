@@ -358,6 +358,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                         dueno.append(esDueno(emailvendedor))
                         dueno.append(emailvendedor)
                         dueno.append(esDueno(emailvendedor))
+
                 dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
                 date = tree3.xpath(dateSite)
                 if len(date) > 0:
@@ -488,11 +489,12 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
                 lista=lista+1
                 print ("[SUPI] "+ str(tipo) + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
-                print(str(esDueno(emailvendedor)))
+                time.sleep(random.uniform(0.5,1.5))
                 time.sleep(random.uniform(0.5,1.5))
 
                 if remate==0:
                     try:
+                        insertarDueno(dueno)
                         insertarPropiedad(aux)
                     except:
                         continue
