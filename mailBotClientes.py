@@ -1,6 +1,8 @@
 
 import pymysql as mysql
 from datetime import datetime, timedelta
+import random
+import sendMailVendetudepto as mailer
 
 past = datetime.now() - timedelta(days=30)
 past=datetime.date(past)
@@ -9,9 +11,17 @@ yesterday=datetime.date(yesterday)
 
 print(yesterday)
 
+def checkClient(clientMail,comision):
+    sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail="+str(clientMail)
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
 
 def sendClientMails():
-    sql = "select duenos.mail from duenos inner join portalinmobiliario where duenos.idProp=portalinmobiliario.id2 and " \
+    sql = "select duenos.mail,portalinmobiliario.nombre from duenos inner join portalinmobiliario where " \
+          "duenos.idProp=portalinmobiliario.id2 and duenos.contactado!='si'" \
           "duenos.esDueno='si' and portalinmobiliario.operacion='venta' and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>'"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or portalinmobiliario.link like '%lo-barnechea%' or " \
@@ -21,13 +31,30 @@ def sendClientMails():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
-    cur.execute(sql)
 
     print(sql)
 
     lista = cur.fetchall()
     for i,l in enumerate(lista):
         print(str(i)+". " + str(l))
+
+        to = str(l[0])
+        nombreProp = str(l[0])
+
+        to = "sergei.schkolnik@gmail.com"
+
+        r = random.randint(1, 2)
+        if r == 1:
+            #gratis
+            mailer.sendMailGratis(to,nombreProp,gratis=True)
+            checkClient(str(l[0]),"0")
+        elif r == 2:
+            #0.5%
+            mailer.sendMailGratis(to,nombreProp,gratis=False)
+            checkClient(str(l[0]),"0.5")
+        if i==4:
+            break
+
 
     mariadb_connection.close()
 
