@@ -35,6 +35,7 @@ def sendClientMails():
     print(sql)
 
     lista = cur.fetchall()
+    mariadb_connection.close()
 
     for i,l in enumerate(lista):
         print(str(i)+". " + str(l[0]))
@@ -57,7 +58,7 @@ def sendClientMails():
             break
 
 
-    mariadb_connection.close()
+
 
 sendClientMails()
 
