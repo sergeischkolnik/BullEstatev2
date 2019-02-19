@@ -3,6 +3,7 @@ import pymysql as mysql
 from datetime import datetime, timedelta
 import random
 import sendMailVendetudepto as mailer
+import time
 
 past = datetime.now() - timedelta(days=30)
 past=datetime.date(past)
