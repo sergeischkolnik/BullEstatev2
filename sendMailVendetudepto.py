@@ -25,18 +25,19 @@ def sendMailGratis(to,nombreProp,gratis):
     body1 += "-Fotografía profesional: Tener fotografías profesionales agiliza la venta.\n"
     body1 += "-Publicación premium en principales portales: Las publicaciones premium alcanzan a más potenciales compradores.\n"
     body1 += "-Gestión de visitas: Nos encargamos de contactar, agendar y mostrar tu propiedad.\n"
-    body1 += "-Asesoría legal: Te orientamos en los tramites legales requeridos para una compraventa segura.\n\n\n"
+    body1 += "-Asesoría legal: Te orientamos en los trámites legales requeridos para una compraventa segura.\n\n\n"
 
     if gratis:
-        body1 += "Nuestra fuente se ingreso es el 2% del valor de la propiedad, correspondiente a la comisión del COMPRADOR (es decir, para ti no tendrá costo alguno).\n\n"
+        body1 += "Nuestra fuente de ingreso es el 2% del valor de la propiedad, correspondiente a la comisión del COMPRADOR (es decir, para ti no tendrá costo alguno).\n\n"
     else:
-        body1 += "Nuestra fuente se ingreso es el 2% del valor de la propiedad, correspondiente a la comisión del COMPRADOR y un 0,5% del vendedor (es decir, solo pagarás 1/4 de lo que pagarías en una corredora tradicional). \n\n"
+        body1 += "Nuestra fuente de ingreso es el 2% del valor de la propiedad, correspondiente a la comisión del COMPRADOR y un 0,5% del vendedor (es decir, solo pagarás 1/4 de lo que pagarías en una corredora tradicional). \n\n"
 
     body1 += "Nuestro único requisito, es exclusividad en el corretaje durante 60 días.\n\n"
     body1 += "Te invito a relajarte, y ser parte de nuestra cartera de clientes.\n\n"
-    body1 += "Si estás interesado en saber más, puedes escribirme a este correo.\n\n"
+    body1 += "Si estás interesada/o en saber más, puedes escribirme a este correo.\n\n"
     body1 += "Saludos cordiales,\n\n"
     body1 += "Francisca, \n"
+    body1 += "Whatsapp:+569 3391 1985\n"
     body1 += "www.vendetudepto.cl."
 
     msg.attach(MIMEText(body1, 'plain'))
@@ -50,3 +51,4 @@ def sendMailGratis(to,nombreProp,gratis):
     server.sendmail(fromaddr, toaddr, text)
 
     server.quit()
+    print("Mail sent to:" + toaddr)
