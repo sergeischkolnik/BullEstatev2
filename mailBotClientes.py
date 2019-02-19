@@ -24,8 +24,8 @@ def sendClientMails():
     cur.execute(sql)
 
     lista = cur.fetchall()
-    for l in lista:
-        print(l)
+    for i,l in enumerate(lista):
+        print(str(i)+". " + str(l))
 
     mariadb_connection.close()
 
