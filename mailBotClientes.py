@@ -12,7 +12,7 @@ yesterday=datetime.date(yesterday)
 print(yesterday)
 
 def checkClient(clientMail,comision):
-    sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail="+str(clientMail)
+    sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail='"+str(clientMail)+"'"
     print(sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
