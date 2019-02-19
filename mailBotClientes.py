@@ -33,7 +33,7 @@ def sendClientMails():
     cur = mariadb_connection.cursor()
 
     print(sql)
-
+    cur.execute(sql)
     lista = cur.fetchall()
     mariadb_connection.close()
 
