@@ -13,6 +13,7 @@ print(yesterday)
 
 def checkClient(clientMail,comision):
     sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail="+str(clientMail)
+    print(sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -41,7 +42,7 @@ def sendClientMails():
         print(str(i)+". " + str(l[0]))
 
         to = str(l[0])
-        nombreProp = str(l[0])
+        nombreProp = str(l[1])
 
         to = "sergei.schkolnik@gmail.com"
 
