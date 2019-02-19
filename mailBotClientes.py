@@ -35,8 +35,9 @@ def sendClientMails():
     print(sql)
 
     lista = cur.fetchall()
+
     for i,l in enumerate(lista):
-        print(str(i)+". " + str(l))
+        print(str(i)+". " + str(l[0]))
 
         to = str(l[0])
         nombreProp = str(l[0])
