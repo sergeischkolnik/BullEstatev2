@@ -48,7 +48,7 @@ def sendClientMails():
             mailer.sendMailGratis(to,nombreProp,gratis=False)
             checkClient(to,"0.5")
 
-        sleep(random.randint(200,300))
+        time.sleep(random.randint(200,300))
 		
 sendClientMails()
 hasSendDailyMails = True
@@ -60,3 +60,4 @@ while True:
             #mandar mails aca
             sendClientMails()
             hasSendDailyMails = True
+    time.sleep(600)
