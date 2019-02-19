@@ -23,6 +23,8 @@ def sendClientMails():
     cur = mariadb_connection.cursor()
     cur.execute(sql)
 
+    print(sql)
+
     lista = cur.fetchall()
     for i,l in enumerate(lista):
         print(str(i)+". " + str(l))
