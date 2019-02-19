@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 past = datetime.now() - timedelta(days=30)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=1)
+yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
 
 print(yesterday)
