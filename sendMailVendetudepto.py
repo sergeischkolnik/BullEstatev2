@@ -49,8 +49,4 @@ def sendMailGratis(to,nombreProp,gratis):
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
 
-
-
     server.quit()
-
-sendMail("demianschkolnik@gmail.com","Ñuñoa, Joa. Metro Ñuñoa. Metro Mons. Eyzaguirre.  Se vende., Ñuñoa")

@@ -47,11 +47,11 @@ def sendClientMails():
         if r == 1:
             #gratis
             mailer.sendMailGratis(to,nombreProp,gratis=True)
-            checkClient(str(l[0]),"0")
+            checkClient(to,"0")
         elif r == 2:
             #0.5%
             mailer.sendMailGratis(to,nombreProp,gratis=False)
-            checkClient(str(l[0]),"0.5")
+            checkClient(to,"0.5")
         if i==4:
             break
 
