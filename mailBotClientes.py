@@ -33,7 +33,7 @@ def sendClientMails():
     lista = cur.fetchall()
     mariadb_connection.close()
 
-    print("[" + str(datetime.now()) +"]Sending mails:")
+    print("[" + str(datetime.now()) +"]Sending mails to "+str(len(lista))+ " clients:")
     for i,l in enumerate(lista):
         to = str(l[0])
         nombreProp = str(l[1])
