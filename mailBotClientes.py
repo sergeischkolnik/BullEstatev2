@@ -21,7 +21,7 @@ def checkClient(clientMail,comision):
 
 def sendClientMails():
     sql = "select duenos.mail,portalinmobiliario.nombre from duenos inner join portalinmobiliario where " \
-          "duenos.idProp=portalinmobiliario.id2 and duenos.contactado!='si'" \
+          "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and portalinmobiliario.operacion='venta' and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>'"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or portalinmobiliario.link like '%lo-barnechea%' or " \
