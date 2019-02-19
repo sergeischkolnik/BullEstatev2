@@ -47,8 +47,6 @@ def sendClientMails():
             #0.5%
             mailer.sendMailGratis(to,nombreProp,gratis=False)
             checkClient(to,"0.5")
-        if i==4:
-            break
 
 sendClientMails()
 hasSendDailyMails = True
