@@ -1,0 +1,37 @@
+import math
+from lxml import html
+import requests
+import datetime
+from threading import Thread
+import pymysql as mysql
+from itertools import cycle
+import agentCreator
+import time
+import random
+from requests_html import HTMLSession
+session = HTMLSession()
+
+def getBanned():
+    sql="SELECT mail FROM baneados"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    baneados = cur.fetchall()
+    mariadb_connection.close()
+    return baneados
+
+def quitar(mail):
+
+    sql = "UPDATE duenos SET esDuenoo='no' WHERE mail='"+str(mail)+"'"
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
+banned=getBanned()
+for ban in banned:
+    quitar(ban)
+print("dueños actualizados")
