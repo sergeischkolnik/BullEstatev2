@@ -34,5 +34,5 @@ def quitarDueno(mail):
 banned=getBanned()
 print(banned)
 for ban in banned:
-    quitarDueno(ban)
+    quitarDueno(ban[0])
 print("dueños actualizados")
