@@ -10,13 +10,7 @@ past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
 
-def getBanned():
-    sql="SELECT mail FROM baneados"
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    cur = mariadb_connection.cursor()
-    cur.execute(sql)
-    baneados = cur.fetchall()
-    mariadb_connection.close()
+
     return baneados
 def checkClient(clientMail,comision):
     sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail='"+str(clientMail)+"'"
@@ -40,33 +34,24 @@ def sendClientMails():
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     lista = cur.fetchall()
-
-    sql2="SELECT mail FROM baneados"
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    cur = mariadb_connection.cursor()
-    cur.execute(sql2)
-    baneados = cur.fetchall()
-    mariadb_connection.close()
-
-
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails to "+str(len(lista))+ " clients:")
     for i,l in enumerate(lista):
 
-        if str(l[0]) not in baneados:
-            to = str(l[0])
-            nombreProp = str(l[1])
 
-            r = random.randint(1, 2)
-            if r == 1:
-                #gratis
-                mailer.sendMailGratis(to,nombreProp,gratis=True)
-                checkClient(to,"0")
-            elif r == 2:
-                #0.5%
-                mailer.sendMailGratis(to,nombreProp,gratis=False)
-                checkClient(to,"0.5")
+        to = str(l[0])
+        nombreProp = str(l[1])
+
+        r = random.randint(1, 2)
+        if r == 1:
+            #gratis
+            mailer.sendMailGratis(to,nombreProp,gratis=True)
+            checkClient(to,"0")
+        elif r == 2:
+            #0.5%
+            mailer.sendMailGratis(to,nombreProp,gratis=False)
+            checkClient(to,"0.5")
 
 
         time.sleep(random.randint(200,300))

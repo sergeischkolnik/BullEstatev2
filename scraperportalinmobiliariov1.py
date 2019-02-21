@@ -94,6 +94,14 @@ def insertarPropiedad(propiedad):
     mariadb_connection.commit()
     mariadb_connection.close()
 
+def getBanned():
+    sql="SELECT mail FROM baneados"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    baneados = cur.fetchall()
+    mariadb_connection.close()
+    return baneados
 
 def insertarDueno(dueno):
     #Inserta una propiedad en una base de datos
@@ -123,7 +131,13 @@ def insertarRemate(propiedad):
     mariadb_connection.close()
 
 def esDueno(mail):
-    if ("gmail" in mail) or ("hotmail" in mail) or ("yahoo" in mail) or ("vtr" in mail):
+
+    ban=getBanned()
+
+    if mail in ban:
+        return "no"
+
+    elif("gmail" in mail) or ("hotmail" in mail) or ("yahoo" in mail) or ("vtr" in mail):
         if ("propiedad" not in mail) and ("corredor" not in mail) and ("corretaje" not in mail) and ("inmueble" not in mail) and ("inmobiliari" not in mail) and ("casa" not in mail) and ("departamento" not in mail) and ("consultor") not in mail:
             return "si"
         else:

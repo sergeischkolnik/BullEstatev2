@@ -16,8 +16,16 @@ TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
 comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks']
-comandosMultiples = ['reporte','tasador','tasadorlinks']
+comandosMultiples = ['reporte','tasador','tasadorlinks','banear']
 id_chats_updates = ["485728961","652659504"]
+
+def insertarBanned(mail):
+    sql="INSERT INTO baneados(mail) VALUES(%s)"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql, (mail))
+    mariadb_connection.commit()
+    mariadb_connection.close()
 
 def get_url(url):
     response = requests.get(url)
@@ -230,6 +238,13 @@ def echo_all(updates):
                         else:
                             text = "Error de ingreso de datos."
 
+                #Banear corredores
+                elif arr[0] == comandosMultiples[3]:
+                    if len(arr)!=2:
+                        text="Para usar baneador, ingrese 'banear mail'"
+                    else:
+                        insertarBanned(arr[1])
+                        text=str(arr[1])+" agregado a la lista de Baneados."
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
                     for c in comandosIndividuales:
