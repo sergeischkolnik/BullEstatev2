@@ -361,7 +361,11 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
                 r = session.get(newLink)
                 mails = []
+                corredor="no"
                 rtext=r.text
+                if "empresas/ficha" in rtext:
+                    #no es dueño
+                    corredor="si"
                 rtext=rtext.split(' ')
 
                 for x,a in enumerate(rtext):
@@ -372,9 +376,14 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                         dueno=[]
                         dueno.append(code)
                         dueno.append(emailvendedor)
-                        dueno.append(esDueno(emailvendedor))
-                        dueno.append(emailvendedor)
-                        dueno.append(esDueno(emailvendedor))
+                        if (corredor=="si"):
+                            dueno.append("no")
+                            dueno.append(emailvendedor)
+                            dueno.append("no")
+                        else:
+                            dueno.append(esDueno(emailvendedor))
+                            dueno.append(emailvendedor)
+                            dueno.append(esDueno(emailvendedor))
 
                 dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
                 date = tree3.xpath(dateSite)
