@@ -31,7 +31,7 @@ def insertarBanned(mail):
 
 def quitarDueno(mail):
 
-    sql = "UPDATE duenos SET esDuenoo='no' WHERE mail='"+str(mail)+"'"
+    sql = "UPDATE duenos SET esDueno='no' WHERE mail='"+str(mail)+"'"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
