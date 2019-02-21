@@ -103,6 +103,8 @@ def getBanned():
     mariadb_connection.close()
     return baneados
 
+
+
 def insertarDueno(dueno):
     #Inserta una propiedad en una base de datos
 
@@ -131,6 +133,7 @@ def insertarRemate(propiedad):
     mariadb_connection.close()
 
 def esDueno(mail):
+
 
     ban=getBanned()
 

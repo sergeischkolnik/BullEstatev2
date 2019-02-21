@@ -27,6 +27,18 @@ def insertarBanned(mail):
     cur.execute(sql)
     mariadb_connection.commit()
     mariadb_connection.close()
+    quitarDueno(mail)
+
+def quitarDueno(mail):
+
+    sql = "UPDATE duenos SET esDuenoo='no' WHERE mail='"+str(mail)+"'"
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
 
 def get_url(url):
     response = requests.get(url)

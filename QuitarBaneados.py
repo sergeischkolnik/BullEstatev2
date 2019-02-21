@@ -20,7 +20,7 @@ def getBanned():
     mariadb_connection.close()
     return baneados
 
-def quitar(mail):
+def quitarDueno(mail):
 
     sql = "UPDATE duenos SET esDuenoo='no' WHERE mail='"+str(mail)+"'"
 
@@ -33,5 +33,5 @@ def quitar(mail):
 
 banned=getBanned()
 for ban in banned:
-    quitar(ban)
+    quitarDueno(ban)
 print("dueños actualizados")
