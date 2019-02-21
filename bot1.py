@@ -24,7 +24,7 @@ def insertarBanned(mail):
     print(sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    cur.execute(sql, (mail))
+    cur.execute(sql)
     mariadb_connection.commit()
     mariadb_connection.close()
 
