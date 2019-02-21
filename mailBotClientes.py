@@ -3,6 +3,7 @@ import pymysql as mysql
 from datetime import datetime, timedelta
 import random
 import sendMailVendetudepto as mailer
+import time
 
 past = datetime.now() - timedelta(days=30)
 past=datetime.date(past)
@@ -68,6 +69,8 @@ def sendClientMails():
                 checkClient(to,"0.5")
 
 
+        time.sleep(random.randint(200,300))
+		
 sendClientMails()
 hasSendDailyMails = True
 
@@ -78,3 +81,4 @@ while True:
             #mandar mails aca
             sendClientMails()
             hasSendDailyMails = True
+    time.sleep(600)
