@@ -20,7 +20,7 @@ comandosMultiples = ['reporte','tasador','tasadorlinks','banear']
 id_chats_updates = ["485728961","652659504"]
 
 def insertarBanned(mail):
-    sql="INSERT INTO baneados(mail) VALUES(%s) ON DUPLICATE KEY UPDATE mail=%"
+    sql="INSERT INTO baneados(mail) VALUES("+str(mail)+") ON DUPLICATE KEY UPDATE mail=%"+str(mail)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql, (mail))
@@ -243,10 +243,7 @@ def echo_all(updates):
                     if len(arr)!=2:
                         text="Para usar baneador, ingrese 'banear mail'"
                     else:
-                        correo=[]
-                        correo.append(arr[1])
-                        correo.append(arr[1])
-                        insertarBanned(correo)
+                        insertarBanned(arr[1])
                         text=str(arr[1])+" agregado a la lista de Baneados."
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
