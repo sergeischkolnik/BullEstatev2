@@ -21,6 +21,7 @@ id_chats_updates = ["485728961","652659504"]
 
 def insertarBanned(mail):
     sql="INSERT INTO baneados(mail) VALUES("+str(mail)+") ON DUPLICATE KEY UPDATE mail="+str(mail)
+    print(sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql, (mail))
