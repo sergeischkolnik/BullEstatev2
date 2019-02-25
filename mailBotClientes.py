@@ -20,7 +20,7 @@ def checkClient(clientMail,comision):
     mariadb_connection.close()
 
 def sendClientMails():
-    sql = "select duenos.mail,portalinmobiliario.nombre from duenos inner join portalinmobiliario where " \
+    sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and portalinmobiliario.operacion='venta' and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>'"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
@@ -36,6 +36,11 @@ def sendClientMails():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails to "+str(len(lista))+ " clients:")
+	
+	for elem in lista:
+		print(str(elem[0]) + " - " + str(elem[2]))
+	return
+	
     for i,l in enumerate(lista):
 
 
