@@ -36,9 +36,6 @@ def sendClientMails():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails to "+str(len(lista))+ " clients:")
-    for elem in lista:
-        print(str(elem[0]) + " - " + str(elem[2]))
-    return
 
     for i,l in enumerate(lista):
 
