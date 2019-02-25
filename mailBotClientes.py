@@ -11,7 +11,6 @@ yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
 
 
-    return baneados
 def checkClient(clientMail,comision):
     sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail='"+str(clientMail)+"'"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
