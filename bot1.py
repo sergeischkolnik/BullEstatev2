@@ -15,13 +15,24 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
-comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks']
+comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer']
 comandosMultiples = ['reporte','tasador','tasadorlinks','banear']
 id_chats_updates = ["485728961","652659504"]
 
+def getClientesMailer():
+    sql="SELECT * from duenos where estado IS NOT NULL"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    lista = cur.fetchall()
+    mariadb_connection.close()
+    text = ""
+    for elem in lista:
+        text += str(elem) + "\n\n"
+    return text
+
 def insertarBanned(mail):
     sql="INSERT INTO baneados(mail) VALUES('"+str(mail)+"') ON DUPLICATE KEY UPDATE mail='"+str(mail)+"'"
-    print(sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -108,6 +119,10 @@ def echo_all(updates):
                     text = "Para usar tasador con links, escriba, separando por espacios:\ntasadorlinks <region> <comuna> " \
                                "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
                                "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
+
+                #clientesmailer
+                elif text==commandosIndividuales[6]:
+                    text = getClientesMailer()
 
                 #no encontrado
                 else:
