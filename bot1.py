@@ -28,7 +28,12 @@ def getClientesMailer():
     mariadb_connection.close()
     text = ""
     for elem in lista:
-        text += str(elem) + "\n\n"
+        text += "Mail: " + str(elem[2]) + "\n"
+        text += "Comision: " + str(elem[5]) + "\n"
+        text += "Exclusividad: " + str(elem[6]) + "\n"
+        text += "Estado: " + str(elem[7]) + "\n"
+        text += "\n"
+
     return text
 
 def insertarBanned(mail):
