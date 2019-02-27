@@ -121,7 +121,7 @@ def echo_all(updates):
                                "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
 
                 #clientesmailer
-                elif text==commandosIndividuales[6]:
+                elif text==comandosIndividuales[6]:
                     text = getClientesMailer()
 
                 #no encontrado
