@@ -27,13 +27,15 @@ def getClientesMailer():
     lista = cur.fetchall()
     mariadb_connection.close()
     totalClients = len(lista)
-    text = "Clientes activos del mailer: " + str(totalClients) + "\n\n"
+    text = ""
     for elem in lista:
         text += "Mail: " + str(elem[2]) + "\n"
         text += "Comision: " + str(elem[5]) + "%\n"
         text += "Exclusividad: " + str(elem[6]) + "\n"
         text += "Estado: " + str(elem[7]) + "\n"
         text += "\n"
+
+    text += "Clientes activos del mailer: " + str(totalClients) + "\n"
 
     return text
 
