@@ -24,8 +24,8 @@ def getClientesMailer():
         "portalinmobiliario.link,portalinmobiliario.fechapublicacion from duenos inner join portalinmobiliario" \
         "where duenos.idProp=portalinmobiliario.id2 and duenos.estado IS NOT NULL"
 
-    sql = "SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado from duenos" \
-          "where duenos.estado IS NOT NULL"
+    sql = "SELECT mail, comision, exclusividad, estado from duenos" \
+          "where estado IS NOT NULL"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
