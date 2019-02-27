@@ -60,9 +60,9 @@ sendClientMails()
 hasSendDailyMails = True
 
 while True:
-    if hasSendDailyMails and datetime.now().hour == 10:
+    if hasSendDailyMails and datetime.now().hour == 13:
             hasSendDailyMails = False
-    if not hasSendDailyMails and datetime.now().hour == 11:
+    if not hasSendDailyMails and datetime.now().hour == 14:
             #mandar mails aca
             sendClientMails()
             hasSendDailyMails = True
