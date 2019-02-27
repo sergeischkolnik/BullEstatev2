@@ -23,6 +23,9 @@ def getClientesMailer():
     sql="SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado,portalinmobiliario.precio," \
         "portalinmobiliario.link,portalinmobiliario.fechapublicacion from duenos inner join portalinmobiliario" \
         "where duenos.idProp=portalinmobiliario.id2 and duenos.estado IS NOT NULL"
+
+    sql = "SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado from duenos" \
+          "where duenos.estado IS NOT NULL"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -35,8 +38,6 @@ def getClientesMailer():
         text += "Comision: " + str(elem[1]) + "%\n"
         text += "Exclusividad: " + str(elem[2]) + "\n"
         text += "Estado: " + str(elem[3]) + "\n"
-        text += "Fecha: " + str(elem[5]) + "\n"
-        text += "Link: " + str(elem[4]) + "\n"
         text += "\n"
 
     text += "Clientes activos del mailer: " + str(totalClients) + "\n"
