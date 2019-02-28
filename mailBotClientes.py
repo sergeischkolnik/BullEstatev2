@@ -11,7 +11,6 @@ yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
 
 
-    return baneados
 def checkClient(clientMail,comision):
     sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail='"+str(clientMail)+"'"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
@@ -21,7 +20,7 @@ def checkClient(clientMail,comision):
     mariadb_connection.close()
 
 def sendClientMails():
-    sql = "select duenos.mail,portalinmobiliario.nombre from duenos inner join portalinmobiliario where " \
+    sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and portalinmobiliario.operacion='venta' and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>'"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
@@ -37,6 +36,7 @@ def sendClientMails():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails to "+str(len(lista))+ " clients:")
+
     for i,l in enumerate(lista):
 
 
@@ -60,9 +60,9 @@ sendClientMails()
 hasSendDailyMails = True
 
 while True:
-    if hasSendDailyMails and datetime.now().hour == 10:
+    if hasSendDailyMails and datetime.now().hour == 13:
             hasSendDailyMails = False
-    if not hasSendDailyMails and datetime.now().hour == 11:
+    if not hasSendDailyMails and datetime.now().hour == 14:
             #mandar mails aca
             sendClientMails()
             hasSendDailyMails = True
