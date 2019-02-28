@@ -5,7 +5,7 @@ from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=90)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=3)
+yesterday = datetime.now() - timedelta(days=20)
 yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
