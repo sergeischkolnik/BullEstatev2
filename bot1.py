@@ -20,7 +20,7 @@ comandosMultiples = ['reporte','tasador','tasadorlinks','banear']
 id_chats_updates = ["485728961","652659504"]
 
 def getClientesMailer():
-    sql="SELECT * from duenos where estado IS NOT NULL"
+    sql="SELECT * from duenos inner join portalinmobiliario where duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
