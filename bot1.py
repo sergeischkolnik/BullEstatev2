@@ -20,7 +20,7 @@ comandosMultiples = ['reporte','tasador','tasadorlinks','banear']
 id_chats_updates = ["485728961","652659504"]
 
 def getClientesMailer():
-    sql="SELECT duenos.mail from duenos inner join portalinmobiliario where duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
+    sql="SELECT duenos.mail,duenos.comision from duenos inner join portalinmobiliario where duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -30,7 +30,7 @@ def getClientesMailer():
     text = ""
     for elem in lista:
         text += "Mail: " + str(elem[0]) + "\n"
-        #text += "Comision: " + str(elem[5]) + "%\n"
+        text += "Comision: " + str(elem[1]) + "%\n"
         #text += "Exclusividad: " + str(elem[6]) + "\n"
         #text += "Estado: " + str(elem[7]) + "\n"
         #text += "\n"
