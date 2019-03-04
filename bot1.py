@@ -33,7 +33,7 @@ def getClientesMailer():
         text += "Comision: " + str(elem[1]) + "%\n"
         text += "Exclusividad: " + str(elem[2]) + "\n"
         text += "Estado: " + str(elem[3]) + "\n"
-        text += "Precio Propiedad: $" + str(elem[4]) + " pesos\n"
+        text += "Precio Propiedad: $" + str("{:.}".format(int(elem[4]))) + " pesos\n"
         text += "\n"
 
     text += "Clientes activos del mailer: " + str(totalClients) + "\n"
