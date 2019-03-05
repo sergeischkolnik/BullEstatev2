@@ -119,3 +119,4 @@ dmypy.json
 .idea/workspace.xml
 *.pdf
 *.iml
+.idea/misc.xml
