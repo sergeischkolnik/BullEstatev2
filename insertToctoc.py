@@ -9,6 +9,7 @@ def insertarsql(sql,propiedad):
     cur.execute(sql,propiedad)
     mariadb_connection.commit()
     mariadb_connection.close()
+    print("Insertado:" + str(propiedad))
     return
 
 
@@ -22,3 +23,11 @@ def insertar(propiedad):
     else:
         a=1
         #insertar idProyecto=1
+
+def insertarLite(propiedad):
+    if propiedad[0] is not None:
+        sql = """INSERT INTO propiedadesLite(idPropiedad,Latitud,Longitud,Ano)
+             VALUES(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE Latitud=%s,Longitud=%s,Ano=%s"""
+        insertarsql(sql,propiedad)
+
+
