@@ -26,8 +26,8 @@ def insertar(propiedad):
 
 def insertarLite(propiedad):
     if propiedad[0] is not None:
-        sql = """INSERT INTO propiedadesLite(idProp,Latitud,Longitud,Ano)
-             VALUES(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE Latitud=%s,Longitud=%s,Ano=%s"""
+        sql = """INSERT INTO propiedadesLite(idProp,Lat,Lon,Ano)
+             VALUES(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE Lat=%s,Lon=%s,Ano=%s"""
         insertarsql(sql,propiedad)
 
 
