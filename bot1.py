@@ -20,7 +20,7 @@ comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarclie
 id_chats_updates = ["485728961","652659504"]
 
 def actualizarCliente(mail, nuevoEstado):
-    sql = "UPDATE duenos SET estado="+str(nuevoEstado)+" WHERE mail="+str(mail)
+    sql = "UPDATE duenos SET estado='"+str(nuevoEstado)+"' WHERE mail='"+str(mail)+"'"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
