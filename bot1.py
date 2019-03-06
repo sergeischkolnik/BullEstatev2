@@ -337,7 +337,8 @@ def echo_all(updates):
                     nuevoComentario = ""
                     for a in arr[2:]:
                         nuevoComentario += a + " "
-                        nuevoComentario = nuevoComentario[:-1]
+
+                    nuevoComentario = nuevoComentario[:-1]
                     text = actualizarcomentariodueno(mail=arr[1], nuevoComentario=nuevoComentario)
 
                 else:
