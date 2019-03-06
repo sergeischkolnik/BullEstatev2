@@ -15,11 +15,12 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
-comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer','actualizarcliente']
-comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarcliente']
+comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer',
+                        'actualizarestadodueno','actualizarcomentariodueno']
+comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno']
 id_chats_updates = ["485728961","652659504"]
 
-def actualizarCliente(mail, nuevoEstado):
+def actualizarestadodueno(mail, nuevoEstado):
     if nuevoEstado!="null":
         sql = "UPDATE duenos SET estado='"+str(nuevoEstado)+"' WHERE mail='"+str(mail)+"'"
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
@@ -36,6 +37,17 @@ def actualizarCliente(mail, nuevoEstado):
         mariadb_connection.commit()
         mariadb_connection.close()
         text = "Actualizado el estado de " + str(mail) + " a null"
+
+    return text
+
+def actualizarcomentariodueno(mail, nuevoComentario):
+    sql = "UPDATE duenos SET comentario='"+str(nuevoComentario)+"' WHERE mail='"+str(mail)+"'"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
+    text = "Actualizado el comentario de " + str(mail) + " a " + str(nuevoEstado)
 
     return text
 
@@ -155,9 +167,13 @@ def echo_all(updates):
                 elif text==comandosIndividuales[6]:
                     text = getClientesMailer()
 
-                #actualizarCliente
+                #actualizar estado dueño
                 elif text == comandosIndividuales[7]:
-                    text = "Para actualizar un cliente escriba:\nactualizarcliente <mail> <nuevo Estado>"
+                    text = "Para actualizar el estado de un dueño escriba:\nactualizarestadodueno <mail> <nuevo Estado>"
+
+                # actualizar comentario dueño
+                elif text == comandosIndividuales[9]:
+                    text = "Para actualizar un cliente escriba:\nactualizarcomentariodueno <mail> <nuevo comentario>"
 
                 #no encontrado
                 else:
@@ -315,7 +331,14 @@ def echo_all(updates):
                     for a in arr[2:]:
                         nuevoEstado += a + " "
                     nuevoEstado = nuevoEstado[:-1]
-                    text = actualizarCliente(mail=arr[1], nuevoEstado=nuevoEstado)
+                    text = actualizarestadodueno(mail=arr[1], nuevoEstado=nuevoEstado)
+
+                elif arr[0] == comandosMultiples[5]:
+                    nuevoComentario = ""
+                    for a in arr[2:]:
+                        nuevoComentario += a + " "
+                        nuevoComentario = nuevoComentario[:-1]
+                    text = actualizarcomentariodueno(mail=arr[1], nuevoComentario=nuevoComentario)
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
