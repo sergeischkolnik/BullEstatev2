@@ -47,7 +47,7 @@ def actualizarcomentariodueno(mail, nuevoComentario):
     cur.execute(sql)
     mariadb_connection.commit()
     mariadb_connection.close()
-    text = "Actualizado el comentario de " + str(mail) + " a " + str(nuevoEstado)
+    text = "Actualizado el comentario de " + str(mail) + " a " + str(nuevoComentario)
 
     return text
 
