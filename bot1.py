@@ -172,7 +172,7 @@ def echo_all(updates):
                     text = "Para actualizar el estado de un dueño escriba:\nactualizarestadodueno <mail> <nuevo Estado>"
 
                 # actualizar comentario dueño
-                elif text == comandosIndividuales[9]:
+                elif text == comandosIndividuales[8]:
                     text = "Para actualizar un cliente escriba:\nactualizarcomentariodueno <mail> <nuevo comentario>"
 
                 #no encontrado
