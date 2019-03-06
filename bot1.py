@@ -16,7 +16,7 @@ TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
 comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer',
-                        'actualizarestadodueno','actualizarcomentariodueno']
+                        'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno']
 comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno']
 id_chats_updates = ["485728961","652659504"]
 
@@ -52,6 +52,33 @@ def actualizarcomentariodueno(mail, nuevoComentario):
     return text
 
 def getClientesMailer(chatId):
+    sql="SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado,portalinmobiliario.precio," \
+        "portalinmobiliario.fechapublicacion,duenos.comentario from duenos inner join portalinmobiliario where " \
+        "duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    lista = cur.fetchall()
+    mariadb_connection.close()
+    totalClients = len(lista)
+
+    for elem in lista:
+        text = ""
+        text += "Mail: " + str(elem[0]) + "\n"
+        text += "Comision: " + str(elem[1]) + "%\n"
+        text += "Exclusividad: " + str(elem[2]) + "\n"
+        text += "Estado: " + str(elem[3]) + "\n"
+        text += "Precio Propiedad: $" + str('{:20,.0f}'.format((int(elem[4]))).replace(',','.').replace(' ','')) + " pesos\n"
+        text += "Fecha publicacion: " + str(elem[5]) + "\n"
+        text += "Comentario:" + str(elem[6]) + "\n"
+        text += "\n"
+        send_message(text,chatId,URL)
+
+    ret = "Clientes activos del mailer: " + str(totalClients) + "\n"
+
+    return ret
+
+def getClientesMailerLinks(chatId):
     sql="SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado,portalinmobiliario.precio," \
         "portalinmobiliario.fechapublicacion,portalinmobiliario.link,duenos.comentario from duenos inner join portalinmobiliario where " \
         "duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
@@ -173,12 +200,17 @@ def echo_all(updates):
                     chatId = update["message"]["chat"]["id"]
                     text = getClientesMailer(chatId)
 
+                # clientesmailerLinks
+                elif text==comandosIndividuales[7]:
+                    chatId = update["message"]["chat"]["id"]
+                    text = getClientesMailerLinks(chatId)
+
                 #actualizar estado dueño
-                elif text == comandosIndividuales[7]:
+                elif text == comandosIndividuales[8]:
                     text = "Para actualizar el estado de un dueño escriba:\nactualizarestadodueno <mail> <nuevo Estado>"
 
                 # actualizar comentario dueño
-                elif text == comandosIndividuales[8]:
+                elif text == comandosIndividuales[9]:
                     text = "Para actualizar un cliente escriba:\nactualizarcomentariodueno <mail> <nuevo comentario>"
 
                 #no encontrado
