@@ -52,7 +52,9 @@ def actualizarcomentariodueno(mail, nuevoComentario):
     return text
 
 def getClientesMailer():
-    sql="SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado,portalinmobiliario.precio,portalinmobiliario.fechapublicacion,portalinmobiliario.link from duenos inner join portalinmobiliario where duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
+    sql="SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado,portalinmobiliario.precio," \
+        "portalinmobiliario.fechapublicacion,portalinmobiliario.link,duenos.comentario from duenos inner join portalinmobiliario where " \
+        "duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -68,6 +70,7 @@ def getClientesMailer():
         text += "Precio Propiedad: $" + str('{:20,.0f}'.format((int(elem[4]))).replace(',','.').replace(' ','')) + " pesos\n"
         text += "Fecha publicacion: " + str(elem[5]) + "\n"
         text += "Link: " + str(elem[6]) + "\n"
+        text += "Comentario:" + str(elem[7]) + "\n"
         text += "\n"
 
     text += "Clientes activos del mailer: " + str(totalClients) + "\n"
@@ -325,7 +328,7 @@ def echo_all(updates):
                         insertarBanned(arr[1])
                         text=str(arr[1])+" agregado a la lista de Baneados."
 
-                #actualizar cliente
+                #actualizar estado cliente
                 elif arr[0] == comandosMultiples[4]:
                     nuevoEstado = ""
                     for a in arr[2:]:
@@ -333,6 +336,7 @@ def echo_all(updates):
                     nuevoEstado = nuevoEstado[:-1]
                     text = actualizarestadodueno(mail=arr[1], nuevoEstado=nuevoEstado)
 
+                # actualizar comentario cliente
                 elif arr[0] == comandosMultiples[5]:
                     nuevoComentario = ""
                     for a in arr[2:]:
