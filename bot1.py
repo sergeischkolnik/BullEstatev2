@@ -20,13 +20,23 @@ comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarclie
 id_chats_updates = ["485728961","652659504"]
 
 def actualizarCliente(mail, nuevoEstado):
-    sql = "UPDATE duenos SET estado='"+str(nuevoEstado)+"' WHERE mail='"+str(mail)+"'"
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    cur = mariadb_connection.cursor()
-    cur.execute(sql)
-    mariadb_connection.commit()
-    mariadb_connection.close()
-    text = "Actualizado el estado de " + str(mail) + " a " + str(nuevoEstado)
+    if nuevoEstado!="null":
+        sql = "UPDATE duenos SET estado='"+str(nuevoEstado)+"' WHERE mail='"+str(mail)+"'"
+        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+        cur = mariadb_connection.cursor()
+        cur.execute(sql)
+        mariadb_connection.commit()
+        mariadb_connection.close()
+        text = "Actualizado el estado de " + str(mail) + " a " + str(nuevoEstado)
+    else:
+        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+        cur = mariadb_connection.cursor()
+        value = None
+        cur.execute("UPDATE duenos SET estado=%s WHERE mail=%s", (value,mail))
+        mariadb_connection.commit()
+        mariadb_connection.close()
+        text = "Actualizado el estado de " + str(mail) + " a null"
+
     return text
 
 def getClientesMailer():
