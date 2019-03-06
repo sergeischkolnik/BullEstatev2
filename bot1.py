@@ -51,7 +51,7 @@ def actualizarcomentariodueno(mail, nuevoComentario):
 
     return text
 
-def getClientesMailer():
+def getClientesMailer(chatId):
     sql="SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado,portalinmobiliario.precio," \
         "portalinmobiliario.fechapublicacion,portalinmobiliario.link,duenos.comentario from duenos inner join portalinmobiliario where " \
         "duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
@@ -61,8 +61,9 @@ def getClientesMailer():
     lista = cur.fetchall()
     mariadb_connection.close()
     totalClients = len(lista)
-    text = ""
+
     for elem in lista:
+        text = ""
         text += "Mail: " + str(elem[0]) + "\n"
         text += "Comision: " + str(elem[1]) + "%\n"
         text += "Exclusividad: " + str(elem[2]) + "\n"
@@ -72,10 +73,11 @@ def getClientesMailer():
         text += "Link: " + str(elem[6]) + "\n"
         text += "Comentario:" + str(elem[7]) + "\n"
         text += "\n"
+        send_message(text,chatId,URL)
 
-    text += "Clientes activos del mailer: " + str(totalClients) + "\n"
+    ret = "Clientes activos del mailer: " + str(totalClients) + "\n"
 
-    return text
+    return ret
 
 def insertarBanned(mail):
     sql="INSERT INTO baneados(mail) VALUES('"+str(mail)+"') ON DUPLICATE KEY UPDATE mail='"+str(mail)+"'"
@@ -168,7 +170,8 @@ def echo_all(updates):
 
                 #clientesmailer
                 elif text==comandosIndividuales[6]:
-                    text = getClientesMailer()
+                    chatId = update["message"]["chat"]["id"]
+                    text = getClientesMailer(chatId)
 
                 #actualizar estado dueño
                 elif text == comandosIndividuales[7]:
