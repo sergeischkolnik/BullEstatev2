@@ -15,9 +15,19 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
-comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer']
-comandosMultiples = ['reporte','tasador','tasadorlinks','banear']
+comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer','actualizarcliente']
+comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarcliente']
 id_chats_updates = ["485728961","652659504"]
+
+def actualizarCliente(mail, nuevoEstado):
+    sql = "UPDATE duenos SET estado="+str(nuevoEstado)+" WHERE mail="+str(mail)
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
+    text = "Actualizado el estado de " + str(mail) + " a " + str(nuevoEstado)
+    return text
 
 def getClientesMailer():
     sql="SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado,portalinmobiliario.precio,portalinmobiliario.fechapublicacion,portalinmobiliario.link from duenos inner join portalinmobiliario where duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
@@ -134,6 +144,10 @@ def echo_all(updates):
                 #clientesmailer
                 elif text==comandosIndividuales[6]:
                     text = getClientesMailer()
+
+                #actualizarCliente
+                elif text == comandosIndividuales[7]:
+                    text = "Para actualizar un cliente escriba:\nactualizarcliente <mail> <nuevo Estado>"
 
                 #no encontrado
                 else:
@@ -284,6 +298,15 @@ def echo_all(updates):
                     else:
                         insertarBanned(arr[1])
                         text=str(arr[1])+" agregado a la lista de Baneados."
+
+                #actualizar cliente
+                elif arr[0] == comandosMultiples[4]:
+                    nuevoEstado = ""
+                    for a in arr[2:]:
+                        nuevoEstado += a + " "
+                    nuevoEstado = nuevoEstado[:-1]
+                    text = actualizarCliente(mail=arr[1], nuevoEstado=nuevoEstado)
+
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
                     for c in comandosIndividuales:
