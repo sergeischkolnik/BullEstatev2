@@ -11,8 +11,6 @@ import random
 from requests_html import HTMLSession
 session = HTMLSession()
 
-
-
 print("[SUPI] " + str(datetime.datetime.now()))
 
 def rotateToFirst(l, element):
@@ -40,7 +38,6 @@ def get_proxiestextweb():
     for proxy in ip:
             proxies.add(proxy)
     return proxies
-
 
 def getLast(operacion,tipo,region,proxi):
     #Obtiene el número de la última página con publicaciones
@@ -103,8 +100,6 @@ def getBanned():
     mariadb_connection.close()
     return baneados
 
-
-
 def insertarDueno(dueno):
     #Inserta una propiedad en una base de datos
 
@@ -147,6 +142,8 @@ def esDueno(mail):
             return "no"
     else:
         return "no"
+
+
 
 def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
@@ -516,7 +513,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 lista=lista+1
                 print ("[SUPI] "+ str(tipo) + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
                 time.sleep(random.uniform(0.5,1.5))
-                time.sleep(random.uniform(0.5,1.5))
 
                 try:
                     insertarDueno(dueno)
@@ -533,7 +529,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     insertarRemate(aux)
 
                 actualizar_checker(op,tip,reg,j)
-
 
 def scrap(d,h,operacion,tipo,region,lista,faillista):
 
@@ -583,10 +578,6 @@ def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
     proxies=get_proxiestextweb()
     proxy_pool=cycle(proxies)
 
-    print(region)
-    print(operacion)
-    print(tipo)
-
     while True:
         for reg in region:
             for tip in tipo:
@@ -605,6 +596,7 @@ def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                         isRecovery = False
                     else:
                         firstPage=0
+
                     scrap(firstPage,last,op,tip,reg,lista,faillista)
                     print("[SUPI] scraper ran")
 
