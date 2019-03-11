@@ -583,6 +583,10 @@ def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
     proxies=get_proxiestextweb()
     proxy_pool=cycle(proxies)
 
+    print(region)
+    print(operacion)
+    print(tipo)
+
     while True:
         for reg in region:
             for tip in tipo:
