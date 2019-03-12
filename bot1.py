@@ -45,12 +45,11 @@ def estadoScrapper(chatId):
                 lista = cur.fetchall()
                 mariadb_connection.close()
                 fecha = lista[0]
-                print(fecha[0])
-                print(fecha[1])
-                print(fecha[2])
-                dia = fecha.day
-                mes = fecha.month
-                anio = fecha.year
+                fecha = str(fecha[0])
+                split = fecha.split('-')
+                dia = split[2]
+                mes = split[1]
+                anio = split[0]
                 text = reg + " - " + tip + " - op :" + str(dia) + "/" + str(mes) + "/" + str(anio)
                 send_message(text,chatId,URL)
 
