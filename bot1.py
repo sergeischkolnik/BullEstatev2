@@ -20,6 +20,33 @@ comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasador
 comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno']
 id_chats_updates = ["485728961","652659504"]
 
+def estadoScrapper():
+
+    #Añadir regiones a arreglo
+    region = ["metropolitana","valparaiso","biobio"]
+
+    #Añadir operaciones a arreglo
+    operacion = ["venta", "arriendo"]
+
+    #Añadir tipo a arreglo
+    tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento"]
+
+    text = ""
+
+    for reg in region:
+        for tip in tipo:
+            for op in operacion:
+                sql = "SELECT MAX(fechascrap) from portalinmobiliario where region='"+reg+"',tipo='"+tip+"',operacion='"+op+"'"
+                mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1',
+                                                   database='bullestate')
+                cur = mariadb_connection.cursor()
+                cur.execute(sql)
+                lista = cur.fetchall()
+                mariadb_connection.close()
+                print(lista)
+                
+    return text
+
 def actualizarestadodueno(mail, nuevoEstado):
     if nuevoEstado!="null":
         sql = "UPDATE duenos SET estado='"+str(nuevoEstado)+"' WHERE mail='"+str(mail)+"'"
@@ -131,12 +158,10 @@ def get_url(url):
     content = response.content.decode("utf8")
     return content
 
-
 def get_json_from_url(url):
     content = get_url(url)
     js = json.loads(content)
     return js
-
 
 def get_updates(offset=None):
     url = URL + "getUpdates?timeout=100"
@@ -144,7 +169,6 @@ def get_updates(offset=None):
         url+="&offset={}".format(offset)
     js = get_json_from_url(url)
     return js
-
 
 def get_last_update_id(updates):
     update_ids = []
