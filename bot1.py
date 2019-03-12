@@ -36,7 +36,7 @@ def estadoScrapper():
     for reg in region:
         for tip in tipo:
             for op in operacion:
-                sql = "SELECT MAX(fechascrap) from portalinmobiliario where region='"+reg+"',tipo='"+tip+"',operacion='"+op+"'"
+                sql = "SELECT MAX(fechascrap) from portalinmobiliario where region='"+reg+"' and tipo='"+tip+"' and operacion='"+op+"'"
                 print(sql)
                 mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1',
                                                    database='bullestate')
