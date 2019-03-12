@@ -591,18 +591,14 @@ def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                     last=getLast(op,tip,reg,proxi)
                     print("[SUPI]" + str(last))
 
-                    # if isRecovery:
-                    #     firstPage = pagRec
-                    #     isRecovery = False
-                    # else:
-                    #     firstPage=0
-
-
                     if isRecovery:
-                        firstPage = (last-1)
+                        firstPage = pagRec
                         isRecovery = False
                     else:
-                        firstPage=(last-1)
+                        firstPage=0
+
+
+
 
                     scrap(firstPage,last,op,tip,reg,lista,faillista)
                     print("[SUPI] scraper ran")
