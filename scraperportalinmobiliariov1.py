@@ -13,11 +13,11 @@ session = HTMLSession()
 
 print("[SUPI] " + str(datetime.datetime.now()))
 
-def rotateToFirst(l, element):
-    if element in l:
-        return l[l.index(element):] + l[:l.index(element)]
-    else:
-        return l
+# def rotateToFirst(l, element):
+#     if element in l:
+#         return l[l.index(element):] + l[:l.index(element)]
+#     else:
+#         return l
 
 def actualizar_checker(operacion,tipo,region,pagina):
     d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -142,8 +142,6 @@ def esDueno(mail):
             return "no"
     else:
         return "no"
-
-
 
 def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
@@ -569,19 +567,19 @@ def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
     #Añadir tipo a arreglo
     tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento"]
 
-    #Hacer rotaciones para cada lista
-    region = rotateToFirst(region,regionRec)
-    operacion = rotateToFirst(operacion,operacionRec)
-    tipo = rotateToFirst(tipo,tipoRec)
-
     #Obtener proxies
     proxies=get_proxiestextweb()
     proxy_pool=cycle(proxies)
 
+    #sacar indices de splices
+    sregion = region.index(regionRec)
+    stipo = tipo.index(tipoRec)
+    soperacion = operacion.index(operacionRec)
+
     while True:
-        for reg in region:
-            for tip in tipo:
-                for op in operacion:
+        for reg in region[sregion:]:
+            for tip in tipo[stipo:]:
+                for op in operacion[soperacion:]:
 
                     proxi=next(proxy_pool)
                     lista=0
@@ -597,12 +595,12 @@ def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                     else:
                         firstPage=0
 
-
-
-
                     scrap(firstPage,last,op,tip,reg,lista,faillista)
                     print("[SUPI] scraper ran")
 
+                soperacion = 0
+            stipo = 0
+        sregion = 0
 
     print("[SUPI] Main Complete")
 
