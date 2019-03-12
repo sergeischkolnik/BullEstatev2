@@ -20,7 +20,7 @@ comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasador
 comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno']
 id_chats_updates = ["485728961","652659504"]
 
-def estadoScrapper():
+def estadoScrapper(chatId):
 
     #Añadir regiones a arreglo
     region = ["metropolitana","valparaiso","biobio"]
@@ -37,16 +37,19 @@ def estadoScrapper():
         for tip in tipo:
             for op in operacion:
                 sql = "SELECT MAX(fechascrap) from portalinmobiliario where region='"+reg+"' and tipo='"+tip+"' and operacion='"+op+"'"
-                print(sql)
+
                 mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1',
                                                    database='bullestate')
                 cur = mariadb_connection.cursor()
                 cur.execute(sql)
                 lista = cur.fetchall()
                 mariadb_connection.close()
-                print(lista)
-
-    return text
+                fecha = lista[0]
+                dia = fecha.day
+                mes = fecha.month
+                anio = fecha.year
+                text = reg + " - " + tip + " - op :" + str(dia) + "/" + str(mes) + "/" + str(anio)
+                send_message(text,chatId,URL)
 
 def actualizarestadodueno(mail, nuevoEstado):
     if nuevoEstado!="null":
@@ -240,8 +243,8 @@ def echo_all(updates):
 
                 # estado de ultimos scrapeos portal
                 elif text == comandosIndividuales[10]:
-                    text = "Calculando ultimos scrapeos de portal"
-                    estadoScrapper()
+                    text = "\n"
+                    estadoScrapper(chatId)
 
                 #no encontrado
                 else:
