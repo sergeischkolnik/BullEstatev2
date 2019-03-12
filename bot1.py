@@ -16,7 +16,7 @@ TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
 comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer',
-                        'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno']
+                        'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno','lastscrapportal']
 comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno']
 id_chats_updates = ["485728961","652659504"]
 
@@ -44,7 +44,7 @@ def estadoScrapper():
                 lista = cur.fetchall()
                 mariadb_connection.close()
                 print(lista)
-                
+
     return text
 
 def actualizarestadodueno(mail, nuevoEstado):
@@ -236,6 +236,11 @@ def echo_all(updates):
                 # actualizar comentario dueño
                 elif text == comandosIndividuales[9]:
                     text = "Para actualizar un cliente escriba:\nactualizarcomentariodueno <mail> <nuevo comentario>"
+
+                # estado de ultimos scrapeos portal
+                elif text == comandosIndividuales[10]:
+                    text = "Calculando ultimos scrapeos de portal"
+                    estadoScrapper()
 
                 #no encontrado
                 else:
