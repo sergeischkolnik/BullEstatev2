@@ -244,6 +244,7 @@ def echo_all(updates):
                 # estado de ultimos scrapeos portal
                 elif text == comandosIndividuales[10]:
                     text = "\n"
+                    chatId = update["message"]["chat"]["id"]
                     estadoScrapper(chatId)
 
                 #no encontrado
