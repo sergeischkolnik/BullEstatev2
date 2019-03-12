@@ -186,7 +186,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     elif len(distanciat4_1)>=cota:
         distancia=distanciat4_1
         t_actual="D+"
-    elif len(distanciat4_2)>=cota:
+    elif len(distanciat4_2)>=5:
         distancia=distanciat4_2
         t_actual="D-"
 
