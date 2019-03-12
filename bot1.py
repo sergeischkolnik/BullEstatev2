@@ -45,6 +45,7 @@ def estadoScrapper(chatId):
                 lista = cur.fetchall()
                 mariadb_connection.close()
                 fecha = lista[0]
+                print(fecha)
                 dia = fecha.day
                 mes = fecha.month
                 anio = fecha.year
