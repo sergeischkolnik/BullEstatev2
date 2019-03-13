@@ -57,6 +57,7 @@ def actualizarestadodueno(mail, nuevoEstado):
     if nuevoEstado!="null":
         sql = "UPDATE duenos SET estado='"+str(nuevoEstado)+"' WHERE mail='"+str(mail)+"'"
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+        print(sql)
         cur = mariadb_connection.cursor()
         cur.execute(sql)
         mariadb_connection.commit()
