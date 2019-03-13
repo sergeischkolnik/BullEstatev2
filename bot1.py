@@ -54,34 +54,51 @@ def estadoScrapper(chatId):
                 send_message(text,chatId,URL)
 
 def actualizarestadodueno(mail, nuevoEstado):
-    if nuevoEstado!="null":
-        sql = "UPDATE duenos SET estado='"+str(nuevoEstado)+"' WHERE mail='"+str(mail)+"'"
-        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-        print(sql)
-        cur = mariadb_connection.cursor()
-        cur.execute(sql)
-        mariadb_connection.commit()
-        mariadb_connection.close()
-        text = "Actualizado el estado de " + str(mail) + " a " + str(nuevoEstado)
+    sql = "SELECT * from duenos WHERE mail='"+str(mail)+"'"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    lista = cur.fetchall()
+    mariadb_connection.close()
+    if len(lista)>0:
+        if nuevoEstado!="null":
+            sql = "UPDATE duenos SET estado='"+str(nuevoEstado)+"' WHERE mail='"+str(mail)+"'"
+            mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+            cur = mariadb_connection.cursor()
+            cur.execute(sql)
+            mariadb_connection.commit()
+            mariadb_connection.close()
+            text = "Actualizado el estado de " + str(mail) + " a " + str(nuevoEstado)
+        else:
+            mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+            cur = mariadb_connection.cursor()
+            value = None
+            cur.execute("UPDATE duenos SET estado=%s WHERE mail=%s", (value,mail))
+            mariadb_connection.commit()
+            mariadb_connection.close()
+            text = "Actualizado el estado de " + str(mail) + " a null"
     else:
-        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-        cur = mariadb_connection.cursor()
-        value = None
-        cur.execute("UPDATE duenos SET estado=%s WHERE mail=%s", (value,mail))
-        mariadb_connection.commit()
-        mariadb_connection.close()
-        text = "Actualizado el estado de " + str(mail) + " a null"
+        text = "Mail equivocado."
 
     return text
 
 def actualizarcomentariodueno(mail, nuevoComentario):
-    sql = "UPDATE duenos SET comentario='"+str(nuevoComentario)+"' WHERE mail='"+str(mail)+"'"
+    sql = "SELECT * from duenos WHERE mail='" + str(mail) + "'"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
-    mariadb_connection.commit()
+    lista = cur.fetchall()
     mariadb_connection.close()
-    text = "Actualizado el comentario de " + str(mail) + " a " + str(nuevoComentario)
+    if len(lista)>0:
+        sql = "UPDATE duenos SET comentario='"+str(nuevoComentario)+"' WHERE mail='"+str(mail)+"'"
+        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+        cur = mariadb_connection.cursor()
+        cur.execute(sql)
+        mariadb_connection.commit()
+        mariadb_connection.close()
+        text = "Actualizado el comentario de " + str(mail) + " a " + str(nuevoComentario)
+    else:
+        text = "Mail equivocado."
 
     return text
 
