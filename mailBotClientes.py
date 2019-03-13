@@ -39,20 +39,12 @@ def sendClientMailsDeptos():
 
     for i,l in enumerate(lista):
 
-
         to = str(l[0])
         nombreProp = str(l[1])
 
-        r = random.randint(1, 2)
-        if r == 1:
-            #gratis
-            mailer.sendMailGratis(to,nombreProp,gratis=True)
-            checkClient(to,"0")
-        elif r == 2:
-            #0.5%
-            mailer.sendMailGratis(to,nombreProp,gratis=False)
-            checkClient(to,"0.5")
-
+        #gratis
+        mailer.sendMailGratis(to,nombreProp,gratis=True)
+        checkClient(to,"0")
 
         time.sleep(random.randint(200,300))
 
@@ -75,25 +67,16 @@ def sendClientMailsCasas():
     print("[" + str(datetime.now()) +"]Sending mails (casas) to "+str(len(lista))+ " clients:")
 
     for i,l in enumerate(lista):
-
-
         to = str(l[0])
         nombreProp = str(l[1])
 
-        r = random.randint(1, 2)
-        if r == 1:
-            #gratis
-            mailer.sendMailGratis(to,nombreProp,gratis=True)
-            checkClient(to,"0")
-        elif r == 2:
-            #0.5%
-            mailer.sendMailGratis(to,nombreProp,gratis=False)
-            checkClient(to,"0.5")
-
+        mailer.sendMailGratis(to,nombreProp,gratis=True)
+        checkClient(to,"0")
 
         time.sleep(random.randint(200,300))
 		
-sendClientMails()
+sendClientMailsDeptos()
+sendClientMailsCasas()
 hasSendDailyMails = True
 
 while True:
