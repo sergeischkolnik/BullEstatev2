@@ -104,7 +104,8 @@ def actualizarcomentariodueno(mail, nuevoComentario):
 
 def getClientesMailer(chatId):
     sql="SELECT duenos.mail,duenos.comision,duenos.exclusividad,duenos.estado,portalinmobiliario.precio," \
-        "portalinmobiliario.fechapublicacion,duenos.comentario from duenos inner join portalinmobiliario where " \
+        "portalinmobiliario.tipo,portalinmobiliario.fechapublicacion,duenos.comentario from " \
+        "duenos inner join portalinmobiliario where " \
         "duenos.idProp=portalinmobiliario.id2 and estado IS NOT NULL"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
@@ -120,8 +121,9 @@ def getClientesMailer(chatId):
         text += "Exclusividad: " + str(elem[2]) + "\n"
         text += "Estado: " + str(elem[3]) + "\n"
         text += "Precio Propiedad: $" + str('{:20,.0f}'.format((int(elem[4]))).replace(',','.').replace(' ','')) + " pesos\n"
-        text += "Fecha publicacion: " + str(elem[5]) + "\n"
-        text += "Comentario:" + str(elem[6]) + "\n"
+        text += "Tipo: " + str(elem[5]) + "\n"
+        text += "Fecha publicacion: " + str(elem[6]) + "\n"
+        text += "Comentario:" + str(elem[7]) + "\n"
         text += "\n"
         send_message(text,chatId,URL)
 
