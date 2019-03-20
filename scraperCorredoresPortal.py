@@ -40,6 +40,7 @@ def insertCorredores(mails):
             mariadb_connection.close()
 
 def scrapCorredor(link):
+    print("Screapeando:" + str(link))
     proxi = next(proxy_pool)
     response = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
     soup = BeautifulSoup(response.text, "lxml")
