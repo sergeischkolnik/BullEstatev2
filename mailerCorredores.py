@@ -16,7 +16,7 @@ def checkCorredor(corredorMail):
     mariadb_connection.close()
 
 def getCorredoresNoContactados():
-    sql = "SELECT mail FROM corredores WHERE contactado IS NULL"
+    sql = "SELECT mail FROM corredores WHERE contactado IS NULL OR contactado=''"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
