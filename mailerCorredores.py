@@ -45,17 +45,17 @@ def sendMail(to):
 
     body = "Estimadas/os:\n\n"
 
-    body += "Mi nombre es Francisca, y soy una de las Key Account Managers del área de inversiones de vendetudepto.cl.\n\n"
+    body += "Mi nombre es Francisca, y soy una de las Key Account Managers del area de inversiones de vendetudepto.cl.\n\n"
 
     body += "Estamos en proceso de expansión, y por este motivo buscamos corredoras interesadas en generar una alianza comercial.\n\n"
 
     body += "La idea es poder realizar canje por cualquiera de sus propiedades, en caso de nosotros tener un inversionista o comprador interesado. De igual manera, si ustedes tienen un cliente interesado en alguna de nuestras propiedades, nos comprometemos a hacer un canje. \n\n"
 
-    body += "Nuestra filosofía principal es la colaboración.\n\n"
+    body += "Nuestra idea principal colaborar.\n\n"
 
-    body += "Adicionalmente, te comento que contamos con servicio de tasación automatizada, cuya ventaja es que con los datos básicos de una propiedad inmediatamente obtiene un buen estimado de venta o arriendo según el mercado. \n\n\n"
+    body += "Adicionalmente, te comento que contamos con servicio para tasar de forma automatica, cuya ventaja es que con los datos basicos de una propiedad inmediatamente obtiene un buen estimado de venta o arriendo dependiendo del mercado. \n\n\n"
 
-    body += "Agradezco enormemente el tiempo brindado, ante cualquier duda o si están interesados no dudes en mandarme un correo.\n\n"
+    body += "Agradezco enormemente el tiempo brindado, ante cualquier duda o si estan interesados no dudes en mandarme un correo.\n\n"
 
     body += "Se despide atte.\n\n"
 
