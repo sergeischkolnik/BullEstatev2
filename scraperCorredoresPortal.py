@@ -24,20 +24,13 @@ proxies=get_proxiestextweb()
 proxy_pool = cycle(proxies)
 
 def insertCorredores(mails):
-    sql = "SELECT mail from corredores"
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    cur = mariadb_connection.cursor()
-    cur.execute(sql)
-    lista = cur.fetchall()
-    mariadb_connection.close()
     for mail in mails:
-        if mail not in lista:
-            sql = "INSERT INTO corredores (mail) (" + mail + ")"
-            mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-            cur = mariadb_connection.cursor()
-            cur.execute(sql)
-            mariadb_connection.commit()
-            mariadb_connection.close()
+        sql = "INSERT INTO corredores (mail) (" + mail + ")"
+        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+        cur = mariadb_connection.cursor()
+        cur.execute(sql)
+        mariadb_connection.commit()
+        mariadb_connection.close()
 
 def scrapCorredor(link):
     print("Screapeando:" + str(link))
@@ -48,8 +41,10 @@ def scrapCorredor(link):
     titulo = soup.find("h1")
     emails = []
     for v in valores:
-       if "@" in v:
-           emails.append(v)
+       if v.string is not None:
+           if "@" in v.string:
+               emails.append(v.string)
+
     insertCorredores(emails)
 
 
