@@ -22,7 +22,7 @@ def getCorredoresNoContactados():
     cur.execute(sql)
     lista = cur.fetchall()
     mariadb_connection.close()
-    return lista
+    return [item[0] for item in lista]
 
 def sendCorredoresMails():
     mails = getCorredoresNoContactados()
