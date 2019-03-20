@@ -25,15 +25,17 @@ proxy_pool = cycle(proxies)
 
 def insertCorredores(mails):
     for mail in mails:
-        sql = "INSERT INTO corredores (mail) VALUES ('" + mail + "')"
-        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-        cur = mariadb_connection.cursor()
-        cur.execute(sql)
-        mariadb_connection.commit()
-        mariadb_connection.close()
+        try:
+            sql = "INSERT INTO corredores (mail) VALUES ('" + mail + "')"
+            mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+            cur = mariadb_connection.cursor()
+            cur.execute(sql)
+            mariadb_connection.commit()
+            mariadb_connection.close()
+        except:
+            print("Mail repetido")
 
 def scrapCorredor(link):
-    print("Screapeando:" + str(link))
     proxi = next(proxy_pool)
     response = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
     soup = BeautifulSoup(response.text, "lxml")
@@ -51,6 +53,7 @@ def scrapCorredor(link):
 for id in range(1,219):
     proxi=next(proxy_pool)
     link = "https://www.portalinmobiliario.com/empresas/corredoraspresentes.aspx?p=" + str(id)
+    print(link)
     response = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
     soup = BeautifulSoup(response.text, "lxml")
     id = soup.find("table", {"id": "ContentPlaceHolder1_ListViewCorredorasPresentes_groupPlaceholderContainer"})
