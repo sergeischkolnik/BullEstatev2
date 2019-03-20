@@ -7,6 +7,7 @@ from itertools import cycle
 import requests
 from lxml import html
 from bs4 import BeautifulSoup
+import pymysql as mysql
 
 print(str(datetime.datetime.now()))
 
@@ -22,16 +23,33 @@ def get_proxiestextweb():
 proxies=get_proxiestextweb()
 proxy_pool = cycle(proxies)
 
+def insertCorredores(mails):
+    sql = "SELECT mail from corredores"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    lista = cur.fetchall()
+    mariadb_connection.close()
+    for mail in mails:
+        if mail not in lista:
+            sql = "INSERT INTO corredores (mail) (" + mail + ")"
+            mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+            cur = mariadb_connection.cursor()
+            cur.execute(sql)
+            mariadb_connection.commit()
+            mariadb_connection.close()
+
 def scrapCorredor(link):
     proxi = next(proxy_pool)
     response = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
     soup = BeautifulSoup(response.text, "lxml")
     valores = soup.find_all("td", {"class": "Valor"})
     titulo = soup.find("h1")
-    email = ""
+    emails = []
     for v in valores:
-        print(v.string)
-
+       if "@" in v:
+           emails.append(v)
+    insertCorredores(emails)
 
 
 for id in range(1,219):
@@ -49,5 +67,5 @@ for id in range(1,219):
     for l in linkList:
         scrapCorredor(l)
 
-    timeDelay = random.randrange(1, 2)
+    timeDelay = random.randrange(0, 1)
     time.sleep(timeDelay)
