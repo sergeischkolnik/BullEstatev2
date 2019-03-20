@@ -28,7 +28,7 @@ def scrapCorredor(link):
     soup = BeautifulSoup(response.text, "lxml")
     valores = soup.find_all("td", {"class": "Valor"})
     titulo = soup.find("h1")
-    print(titulo.string)
+    email = ""
     for v in valores:
         print(v.string)
 
