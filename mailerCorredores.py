@@ -29,7 +29,7 @@ def sendCorredoresMails():
 
     for i, l in enumerate(lista):
         to = str(l[0])
-        print(to)
+        print(str(i+1) + str(to))
         # gratis
         #mailer.sendMailGratis(to, nombreProp, gratis=True)
         #time.sleep(random.randint(200, 300))
