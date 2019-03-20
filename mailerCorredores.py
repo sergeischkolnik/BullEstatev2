@@ -75,6 +75,7 @@ def sendMail(to):
 
     server.quit()
     print("Mail sent to:" + toaddr)
+    checkCorredor(to)
 
 sendCorredoresMails()
 
