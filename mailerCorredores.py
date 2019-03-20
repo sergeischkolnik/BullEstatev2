@@ -30,7 +30,7 @@ def sendCorredoresMails():
     for i, l in enumerate(mails):
         to = str(l)
         print(str(i+1) + str(to))
-        mailer.sendMail(l)
+        sendMail(l)
         if i>=200:
             return
         time.sleep(random.randint(200, 300))
