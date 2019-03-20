@@ -25,7 +25,7 @@ proxy_pool = cycle(proxies)
 
 def insertCorredores(mails):
     for mail in mails:
-        sql = "INSERT INTO corredores (mail) (" + mail + ")"
+        sql = "INSERT INTO corredores (mail) VALUES ('" + mail + "')"
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
         cur.execute(sql)
