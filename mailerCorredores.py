@@ -26,6 +26,7 @@ def getCorredoresNoContactados():
 
 def sendCorredoresMails():
     mails = getCorredoresNoContactados()
+    print("Corredores no contactados:" + str(len(mails)))
     for i, l in enumerate(mails):
         to = str(l)
         print(str(i+1) + str(to))
@@ -77,5 +78,6 @@ def sendMail(to):
     print("Mail sent to:" + toaddr)
     checkCorredor(to)
 
+print("Partiendo envío de mails")
 sendCorredoresMails()
 
