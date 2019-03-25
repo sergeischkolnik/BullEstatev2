@@ -241,8 +241,12 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     price=regr.intercept_
     c=0
     for coef in regr.coef_:
+        print("\n")
+        print (coef)
+
         price=price+coef*x_test[c]
         c=c+1
+
 
     #print(price)
     cota=len(distancias)+1
