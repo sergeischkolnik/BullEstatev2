@@ -7,6 +7,8 @@ import datetime as dt
 import propManager as pm
 import googleMapApi as gm
 import tasadorbot as tb
+import tasadorbot2 as tb2
+
 
 TOKEN = "633816057:AAE30k3FguvhUq5faEbtvsLWP_J6s2sqL5M"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
@@ -347,7 +349,7 @@ def echo_all(updates):
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
 
-                            precio,nivel,nrcomp,links = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
+                            precio,nivel,nrcomp,links = tb2.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
                                                          total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
                                                          estacionamientos=int(nrEstacionamientos))
                             text = "El precio tasado es UF " + str(precio)+", con un nivel de confianza: "+str(nivel)+\
@@ -401,7 +403,7 @@ def echo_all(updates):
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
 
-                            precio,nivel,nrcomp,links = tb.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
+                            precio,nivel,nrcomp,links = tb2.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
                                                          total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
                                                          estacionamientos=int(nrEstacionamientos))
                             text = "El precio tasado es UF " + str(precio)+", con un nivel de confianza: "+str(nivel)+\

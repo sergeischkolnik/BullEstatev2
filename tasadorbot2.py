@@ -208,7 +208,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     x_train = []
 
     for e in distancias:
-        x_train.append([e[8],e[9],e[6],e[7],e[12]])
+        x_train.append([e[8],e[9],e[6],e[7],e[12],e[8]*e[8],e[8]*e[9],e[8]*e[6],e[8]*e[7],e[9]*e[9],e[9]*e[6],e[9]*e[7]],e[6]*e[7])
         y_train.append(e[5])
 
     #y2_train=[]
@@ -233,7 +233,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
      #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
     #except:
      #   print("unable to print coef")
-    x_test = [util,total,dormitorios,banos,estacionamientos]
+    x_test = [util,total,dormitorios,banos,estacionamientos,util*util,util*total,util*dormitorios,util*banos,total*dormitorios,total*banos,dormitorios*banos]
     x_test=np.array(x_test)
     x_test=np.transpose(x_test)
     # Make predictions using the testing set
