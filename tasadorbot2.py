@@ -256,7 +256,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     try:
         price = int(price/uf.getUf())
-        return(price,t_actual,len(distancias),links)
+        return(price,t_actual,len(distancias),links,coef)
 
     except:
 
