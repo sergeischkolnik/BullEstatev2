@@ -208,7 +208,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     x_train = []
 
     for e in distancias:
-        x_train.append([e[8],e[9],e[6],e[7],e[12],e[8]*e[8],e[8]*e[9],e[8]*e[6],e[8]*e[7],e[9]*e[9],e[9]*e[6],e[9]*e[7]],e[6]*e[7])
+        x_train.append([e[8],e[9],e[6],e[7],e[12],e[8]*e[8],e[8]*e[9],e[8]*e[6],e[8]*e[7],e[9]*e[9],e[9]*e[6],e[9]*e[7],e[6]*e[7]])
         y_train.append(e[5])
 
     #y2_train=[]
