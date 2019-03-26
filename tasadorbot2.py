@@ -15,6 +15,40 @@ import uf
 uf1=uf.getUf()
 
 
+def regresion(x_train,y_train,x_test):
+
+    x_train=np.array(x_train)
+    y_train=np.array(y_train)
+
+    regr = linear_model.LinearRegression()
+
+    regr.fit(x_train, y_train)
+
+    x_test = [util,(total-util),dormitorios,banos,estacionamientos,util*util,util*(total-util),util*dormitorios,util*banos,(total-util)*(total-util),(total-util)*dormitorios,(total-util)*banos,dormitorios*dormitorios,dormitorios*banos,banos*banos]
+    x_test=np.array(x_test)
+    x_test=np.transpose(x_test)
+    price=regr.intercept_
+    c=0
+
+    utilnegativa=False
+    terrazanegativa = False
+    estacionamientosnegativa = False
+
+    for i,coef in enumerate(regr.coef_):
+        print("\n")
+        print (coef)
+        if i==0 and coef<0:
+            #util negativa
+            utilnegativa=True
+        if i==1 and coef<0:
+            #terraza negativa
+            terrazanegativa=True
+        if i==4 and coef<0:
+            #estacionamiento negativa
+            estacionamientosnegativa=True
+        price=price+coef*x_test[c]
+        c=c+1
+    return price,utilnegativa,terrazanegativa,estacionamientosnegativa
 
 def insertarTasacion(precio,preciomin,preciomax,id):
     sql = "UPDATE tasaciones SET precio='"+str(precio)+"',preciomin='"+str(preciomin)+"',preciomax='"+str(preciomax)+"' WHERE id='"+str(id)+"'"
@@ -163,8 +197,6 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     t_actual="A+"
     cota=10
 
-
-
     if len(distanciat0)>=cota:
         distancia=distanciat0
 
@@ -208,52 +240,55 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     x_train = []
 
     for e in distancias:
-        auxterraza=(e[9]-e[8])
-        x_train.append([e[8],auxterraza,e[6],e[7],e[12],e[8]*e[8],e[8]*auxterraza,e[8]*e[6],e[8]*e[7],auxterraza*auxterraza,auxterraza*e[6],auxterraza*e[7],e[6]*e[6],e[6]*e[7],e[7]*e[7]])
-        y_train.append(e[5])
+        reg_terraza=(e[9]-e[8])
+        reg_util = e[8]
+        reg_dorms = e[6]
+        reg_banos = e[7]
+        reg_precio = e[5]
+        reg_estacionamientos = e[12]
+        x_train.append([reg_util,reg_terraza,reg_dorms,reg_banos,reg_estacionamientos,reg_util*reg_util,
+                        reg_util*reg_terraza,reg_util*reg_dorms,reg_util*reg_banos,reg_terraza*reg_terraza,reg_terraza*reg_dorms,
+                        reg_terraza*reg_banos,reg_dorms*reg_dorms,reg_dorms*reg_banos,reg_banos*reg_banos])
+        y_train.append(reg_precio)
 
     #y2_train=[]
     #y2_train.append(y_train)
     #y_train=y2_train
     x_train=np.array(x_train)
     y_train=np.array(y_train)
-    #x_train=np.transpose(x_train)
 
 
-    #print (x_train)
-    #print(x_train.shape)
-    #print (y_train)
-    #print(y_train.shape)
-
-    # Create linear regression object
-    regr = linear_model.LinearRegression()
-
-    # Train the model using the training sets
-    regr.fit(x_train, y_train)
-    #try:
-     #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
-    #except:
-     #   print("unable to print coef")
     x_test = [util,(total-util),dormitorios,banos,estacionamientos,util*util,util*(total-util),util*dormitorios,util*banos,(total-util)*(total-util),(total-util)*dormitorios,(total-util)*banos,dormitorios*dormitorios,dormitorios*banos,banos*banos]
     x_test=np.array(x_test)
     x_test=np.transpose(x_test)
     # Make predictions using the testing set
 
-    price=regr.intercept_
-    c=0
-    for coef in regr.coef_:
-        print("\n")
-        print (coef)
+    price,utilnegativo,terrazanegativo,estacionamientosnegativo=regresion(x_train,y_train,x_test)
 
-        price=price+coef*x_test[c]
-        c=c+1
+    for dato in x_train:
+        if utilnegativo:
+            dato[0]=0
+            dato[5] = 0
+            dato[6] = 0
+            dato[7] = 0
+            dato[8] = 0
 
 
-    #print(price)
-    cota=len(distancias)+1
-#print("y_pred = " + str(y_pred))
-# The coefficients
-#print('Coefficients: \n', regr.coef_)
+        if terrazanegativo:
+            dato[1]=0
+            dato[9]=0
+            dato[10]=0
+            dato[11]=0
+            dato[12]=0
+
+        if estacionamientosnegativo:
+            dato[4]=0
+    if utilnegativo or terrazanegativo or estacionamientosnegativo:
+        price, utilnegativo, terrazanegativo, estacionamientosnegativo = regresion(x_train, y_train, x_test)
+    if utilnegativo or terrazanegativo or estacionamientosnegativo:
+        print("ERROR COEFICIENTE NEGATIVO")
+
+
 
     try:
         price = int(price/uf.getUf())
