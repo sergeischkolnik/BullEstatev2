@@ -27,24 +27,17 @@ def regresion(x_train,y_train,x_test):
     price=regr.intercept_
     c=0
 
-    utilnegativa=False
-    terrazanegativa = False
-    estacionamientosnegativa = False
+    utilnegativa=regr.coef_[0]<0
+    terrazanegativa = regr.coef_[1]<0
+    estacionamientosnegativa =regr.coef_[4]<0
 
     print(regr.intercept_)
 
-    for i,coef in enumerate(regr.coef_):
+    for coef in regr.coef_:
+        
         print("\n")
         print (coef)
-        if i==0 and coef<0:
-            #util negativa
-            utilnegativa=True
-        if i==1 and coef<0:
-            #terraza negativa
-            terrazanegativa=True
-        if i==4 and coef<0:
-            #estacionamiento negativa
-            estacionamientosnegativa=True
+
         price=price+coef*x_test[c]
         c=c+1
     return price,utilnegativa,terrazanegativa,estacionamientosnegativa
