@@ -17,22 +17,21 @@ uf1=uf.getUf()
 
 def regresion(x_train,y_train,x_test):
 
-    x_train=np.array(x_train)
-    y_train=np.array(y_train)
+
 
     regr = linear_model.LinearRegression()
 
     regr.fit(x_train, y_train)
 
-    x_test = [util,(total-util),dormitorios,banos,estacionamientos,util*util,util*(total-util),util*dormitorios,util*banos,(total-util)*(total-util),(total-util)*dormitorios,(total-util)*banos,dormitorios*dormitorios,dormitorios*banos,banos*banos]
-    x_test=np.array(x_test)
-    x_test=np.transpose(x_test)
+
     price=regr.intercept_
     c=0
 
     utilnegativa=False
     terrazanegativa = False
     estacionamientosnegativa = False
+
+    print(regr.intercept_)
 
     for i,coef in enumerate(regr.coef_):
         print("\n")
