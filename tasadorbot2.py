@@ -257,7 +257,10 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     y_train=np.array(y_train)
 
 
-    x_test = [util,(total-util),dormitorios,banos,estacionamientos,util*util,util*(total-util),util*dormitorios,util*banos,(total-util)*(total-util),(total-util)*dormitorios,(total-util)*banos,dormitorios*dormitorios,dormitorios*banos,banos*banos]
+    x_test = [util,(total-util),dormitorios,banos,estacionamientos,
+              util*util,util*(total-util),util*dormitorios,util*banos,
+              (total-util)*(total-util),(total-util)*dormitorios,(total-util)*banos,
+              dormitorios*dormitorios,dormitorios*banos,banos*banos]
     x_test=np.array(x_test)
     x_test=np.transpose(x_test)
     # Make predictions using the testing set
@@ -275,13 +278,17 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
         if terrazanegativo:
             dato[1]=0
+            dato[6]=0
             dato[9]=0
             dato[10]=0
             dato[11]=0
-            dato[12]=0
+
 
         if estacionamientosnegativo:
             dato[4]=0
+
+    print(x_train)
+
     if utilnegativo or terrazanegativo or estacionamientosnegativo:
         price, utilnegativo, terrazanegativo, estacionamientosnegativo = regresion(x_train, y_train, x_test)
     if utilnegativo or terrazanegativo or estacionamientosnegativo:
