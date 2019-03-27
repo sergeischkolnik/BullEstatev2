@@ -685,9 +685,9 @@ for i in data:
         subresultado.append(estacioncercana[2])
 
         if (i[21]=="venta"):
-            tasacionVenta=tb2.calcularTasacion("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12])
+            tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
-            tasacionArriendo=tb2.calcularTasacion("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12])
+            tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
             precioV=tasacionVenta[0]
             precioA=tasacionArriendo[0]
@@ -742,7 +742,7 @@ for i in data:
             # if rentaV<rentmin and (i[37]=="venta"):
             #     continue
 
-            tasacionArriendo=tb2.calcularTasacion("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12])
+            tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
             precioA=tasacionArriendo[0]
 
