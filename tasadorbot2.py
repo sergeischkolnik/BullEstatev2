@@ -24,9 +24,9 @@ def regresion(x_train,y_train,x_test):
     price=regr.intercept_
     c=0
 
-    utilnegativa=regr.coef_[0]<0.001
-    terrazanegativa = regr.coef_[1]<0.001
-    estacionamientosnegativa =regr.coef_[4]<0.001
+    utilnegativa=regr.coef_[0]<-0.001
+    terrazanegativa = regr.coef_[1]<-0.001
+    estacionamientosnegativa =regr.coef_[4]<-0.001
 
 
 
@@ -259,19 +259,19 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     for dato in x_train:
         if utilnegativo:
-            dato[0] = float(0.001)
-            dato[5] = float(0.001)
-            dato[6] = float(0.001)
-            dato[7] = float(0.001)
-            dato[8] = float(0.001)
+            dato[0] = float(0.00000)
+            dato[5] = float(0.00000)
+            dato[6] = float(0.00000)
+            dato[7] = float(0.00000)
+            dato[8] = float(0.00000)
 
 
         if terrazanegativo:
-            dato[1]=float(0.001)
-            dato[6]=float(0.001)
-            dato[9]=float(0.001)
-            dato[10]=float(0.001)
-            dato[11]=float(0.001)
+            dato[1]=float(0.00000)
+            dato[6]=float(0.00000)
+            dato[9]=float(0.00000)
+            dato[10]=float(0.00000)
+            dato[11]=float(0.00000)
 
 
         if estacionamientosnegativo:
