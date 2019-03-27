@@ -83,6 +83,7 @@ def precio_from_portalinmobiliario(id2):
 
 def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos):
 
+    es_venta=operacion=="venta"
 
     data = from_portalinmobiliario()
     distanciat0=[]
@@ -276,8 +277,11 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
         price, utilnegativo, terrazanegativo, estacionamientosnegativo = regresion(x_train, y_train, x_test)
 
     try:
-        price = int(price/uf.getUf())
-        return(price,t_actual,len(distancias),links)
+        if es_venta:
+            price = int(price/uf.getUf())
+        else:
+            price = int(price)
+        return(price,t_actual,len(distancias),links,es_venta)
 
     except:
 

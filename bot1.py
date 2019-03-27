@@ -351,11 +351,16 @@ def echo_all(updates):
                             print(direccion)
                             print(lat)
                             print(lon)
-                            precio,nivel,nrcomp,links = tb2.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
+                            precio,nivel,nrcomp,links,es_venta = tb2.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
                                                          total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
                                                          estacionamientos=int(nrEstacionamientos))
-                            text = "El precio tasado es UF " + str(precio)+", con un nivel de confianza: "+str(nivel)+\
+                            if es_venta:
+                                text = "El precio tasado es UF " + str(precio)+", con un nivel de confianza: "+str(nivel)+\
                                    ", tasación realizada comparandose con "+str(nrcomp)+" propiedades."
+                            else:
+                                text = "El precio tasado es $" + str(precio)+", con un nivel de confianza: "+str(nivel)+\
+                                   ", tasación realizada comparandose con "+str(nrcomp)+" propiedades."
+
                         else:
                             text = "Error de ingreso de datos."
 
