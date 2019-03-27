@@ -5,7 +5,7 @@ from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=90)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=20)
+yesterday = datetime.now() - timedelta(days=5)
 yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
@@ -708,7 +708,10 @@ for i in data:
             subresultado.append(precioA)
             rentaA=(precioA*12/prop[5])
 
-            if rentaA>1:
+            if rentaA>0.15:
+                continue
+
+            if rentaA<0:
                 continue
 
             if rentaA<rentmin and (i[37]=="arriendo"):
