@@ -649,7 +649,7 @@ for i in data:
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
     #print(len(propiedades))
     estaciones1=estaciones()
-    for prop in propiedades:
+    for c,prop in enumerate(propiedades):
         estaciones2=[]
         for e in estaciones1:
             subestacion=[]
@@ -685,12 +685,16 @@ for i in data:
         subresultado.append(estacioncercana[2])
 
         if (i[21]=="venta"):
+            print(str(int(c*100/len(propiedades)))+"%")
             tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
             precioV=tasacionVenta[0]
             precioA=tasacionArriendo[0]
+
+            print(precioV)
+            print(precioA)
 
             if precioV is None:
                 continue
@@ -723,6 +727,8 @@ for i in data:
 
             if rentaA<rentmin and (i[37]=="arriendo"):
                 continue
+
+
 
             subresultado.append(float(rentaA))
         else:
