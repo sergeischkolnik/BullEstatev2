@@ -649,6 +649,7 @@ for i in data:
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
     #print(len(propiedades))
     estaciones1=estaciones()
+    print("total propiedades encontradas: "+str(len(propiedades)))
     for c,prop in enumerate(propiedades):
         estaciones2=[]
         for e in estaciones1:
@@ -694,6 +695,7 @@ for i in data:
             precioA=tasacionArriendo[0]
 
             print(precioV)
+            print(prop[5])
             print(precioA)
 
             if precioV is None:
