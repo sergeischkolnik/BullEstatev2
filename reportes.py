@@ -650,7 +650,9 @@ for i in data:
     #print(len(propiedades))
     estaciones1=estaciones()
     print("total propiedades encontradas: "+str(len(propiedades)))
-    for c,prop in enumerate(propiedades):
+    c=0
+    for prop in propiedades:
+        c=c+1
         estaciones2=[]
         for e in estaciones1:
             subestacion=[]
