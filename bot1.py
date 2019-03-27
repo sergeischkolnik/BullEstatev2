@@ -351,6 +351,9 @@ def echo_all(updates):
                             print(direccion)
                             print(lat)
                             print(lon)
+                            print(mtUtiles)
+                            print(mtTotales)
+                            
                             precio,nivel,nrcomp,links = tb2.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
                                                          total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
                                                          estacionamientos=int(nrEstacionamientos))
