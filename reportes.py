@@ -650,9 +650,9 @@ for i in data:
     #print(len(propiedades))
     estaciones1=estaciones()
     print("total propiedades encontradas: "+str(len(propiedades)))
-    c=0
+    count=0
     for prop in propiedades:
-        c=c+1
+        count=count+1
         estaciones2=[]
         for e in estaciones1:
             subestacion=[]
@@ -688,7 +688,7 @@ for i in data:
         subresultado.append(estacioncercana[2])
 
         if (i[21]=="venta"):
-            print(str(c*100/len(propiedades))+"%")
+            print(str(c)+"/"+str(len(propiedades)))
             tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
