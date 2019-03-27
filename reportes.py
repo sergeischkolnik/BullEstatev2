@@ -691,7 +691,7 @@ for i in data:
 
             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
-            precioV=tasacionVenta[0]
+            precioV=tasacionVenta[0]*uf.getUf()
             precioA=tasacionArriendo[0]
 
             print(precioV)
