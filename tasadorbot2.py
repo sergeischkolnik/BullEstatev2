@@ -28,12 +28,7 @@ def regresion(x_train,y_train,x_test):
     terrazanegativa = regr.coef_[1]<-0.001
     estacionamientosnegativa =regr.coef_[4]<-0.001
 
-
-
-    print("intercept:" + str(regr.intercept_))
-
     for coef in regr.coef_:
-        print(coef)
         price=price+coef*x_test[c]
         c=c+1
 
@@ -212,7 +207,6 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
         t_actual="D-"
 
     else:
-        print("no se han encontrado propiedades para comparar")
         return 0,"E",len(distanciat4_2),[]
 
     distancias=sorted(distancia,key=lambda x:x[14])
@@ -277,26 +271,9 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
         if estacionamientosnegativo:
             dato[4]=float(0.0000)
 
-    if utilnegativo:
-        print("utilnegativo")
-        for c in x_train:
-            print(c[0])
-
-    if terrazanegativo:
-        print("terrazanegativo")
-
-        for c in x_train:
-            print(c[1])
-
-
-
 
     if utilnegativo or terrazanegativo or estacionamientosnegativo:
         price, utilnegativo, terrazanegativo, estacionamientosnegativo = regresion(x_train, y_train, x_test)
-    if utilnegativo or terrazanegativo or estacionamientosnegativo:
-        print("ERROR COEFICIENTE NEGATIVO")
-
-
 
     try:
         price = int(price/uf.getUf())
@@ -319,8 +296,3 @@ if __name__ == "__main__":
     estacionamientos=2
 
     precio,confianza,nrProps,links = calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos)
-    print("Precio:" + str(precio))
-    print("confianza:" + str(confianza))
-    print("comparado con:" + str(nrProps))
-    for link in links:
-            print(link)
