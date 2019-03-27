@@ -348,6 +348,7 @@ def echo_all(updates):
                             nrCalle = arr[len(arr)-1]
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
+                            print(direccion)
                             print(lat)
                             print(lon)
                             precio,nivel,nrcomp,links = tb2.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
