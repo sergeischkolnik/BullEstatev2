@@ -16,8 +16,7 @@ uf1=uf.getUf()
 
 
 def regresion(x_train,y_train,x_test):
-    print("xtrain:")
-    print(x_train)
+
     regr = linear_model.LinearRegression()
 
     regr.fit(x_train, y_train)
@@ -25,9 +24,11 @@ def regresion(x_train,y_train,x_test):
     price=regr.intercept_
     c=0
 
-    utilnegativa=regr.coef_[0]<0
-    terrazanegativa = regr.coef_[1]<0
-    estacionamientosnegativa =regr.coef_[4]<0
+    utilnegativa=regr.coef_[0]<0.001
+    terrazanegativa = regr.coef_[1]<0.001
+    estacionamientosnegativa =regr.coef_[4]<0.001
+
+
 
     print("intercept:" + str(regr.intercept_))
 
@@ -258,23 +259,37 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     for dato in x_train:
         if utilnegativo:
-            dato[0] = float(0.0000)
-            dato[5] = float(0.0000)
-            dato[6] = float(0.0000)
-            dato[7] = float(0.0000)
-            dato[8] = float(0.0000)
+            dato[0] = float(0.001)
+            dato[5] = float(0.001)
+            dato[6] = float(0.001)
+            dato[7] = float(0.001)
+            dato[8] = float(0.001)
 
 
         if terrazanegativo:
-            dato[1]=float(0.0000)
-            dato[6]=float(0.0000)
-            dato[9]=float(0.0000)
-            dato[10]=float(0.0000)
-            dato[11]=float(0.0000)
+            dato[1]=float(0.001)
+            dato[6]=float(0.001)
+            dato[9]=float(0.001)
+            dato[10]=float(0.001)
+            dato[11]=float(0.001)
 
 
         if estacionamientosnegativo:
             dato[4]=float(0.0000)
+
+    if utilnegativo:
+        print("utilnegativo")
+        for c in x_train:
+            print(c[0])
+
+    if terrazanegativo:
+        print("terrazanegativo")
+
+        for c in x_train:
+            print(c[1])
+
+
+
 
     if utilnegativo or terrazanegativo or estacionamientosnegativo:
         price, utilnegativo, terrazanegativo, estacionamientosnegativo = regresion(x_train, y_train, x_test)
