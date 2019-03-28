@@ -707,7 +707,7 @@ for i in data:
 
             subresultado.append(precioA)
             rentaA=(precioA*12/prop[5])
-            rentaPP=(precioA*12/recioV)
+            rentaPP=(precioA*12/precioV)
             if rentaA>0.2:
                 continue
 
