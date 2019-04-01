@@ -5,7 +5,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 def sendMailGratis(to,nombreProp,gratis):
-    fromaddr = "francisca@vendetudepto.cl"
+    fromaddr = "carolina@vendetudepto.cl"
     toaddr = to
 
     msg = MIMEMultipart()
@@ -32,12 +32,11 @@ def sendMailGratis(to,nombreProp,gratis):
     else:
         body1 += "Nuestra fuente de ingreso es el 2% del valor de la propiedad, correspondiente a la comisión del COMPRADOR y un 0,5% del vendedor (es decir, solo pagarás 1/4 de lo que pagarías en una corredora tradicional). \n\n"
 
-    body1 += "Nuestro único requisito, es exclusividad en el corretaje durante 60 días.\n\n"
     body1 += "Te invito a relajarte, y ser parte de nuestra cartera de clientes.\n\n"
     body1 += "Si estás interesada/o en saber más, puedes escribirme a este correo.\n\n"
     body1 += "Saludos cordiales,\n\n"
-    body1 += "Francisca, \n"
-    body1 += "Whatsapp:+569 3391 1985\n"
+    body1 += "Carolina, \n"
+    body1 += "Whatsapp:+569 8936 6288\n"
     body1 += "www.vendetudepto.cl."
 
     msg.attach(MIMEText(body1, 'plain'))
@@ -46,7 +45,7 @@ def sendMailGratis(to,nombreProp,gratis):
 
     #server.starttls()
 
-    server.login(fromaddr, "Bullestate.123")
+    server.login(fromaddr, "Conita10.")
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
 
