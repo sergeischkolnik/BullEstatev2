@@ -680,7 +680,8 @@ for i in data:
         subresultado.append(int(prop[6]))
         subresultado.append(int(prop[7]))
         subresultado.append(int(prop[12]))
-        subresultado.append(estacioncercana[1])
+        auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
+        subresultado.append(auxestacion)
         subresultado.append(estacioncercana[2])
 
         if (i[21]=="venta"):
