@@ -15,6 +15,7 @@ import uf
 import numpy as np
 from sklearn import datasets, linear_model
 import sendmail
+import pubPortalExiste
 
 uf1=uf.getUf()
 
@@ -649,6 +650,10 @@ for i in data:
     #print(len(propiedades))
     estaciones1=estaciones()
     for prop in propiedades:
+
+        if not pubPortalExiste.publicacionExiste(prop[13]):
+            continue
+
         estaciones2=[]
         for e in estaciones1:
             subestacion=[]
