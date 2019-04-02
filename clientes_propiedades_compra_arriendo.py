@@ -695,7 +695,7 @@ for i in data:
             #     continue
             subresultado.append(float(rentaV))
 
-            if rentaV>0.4:
+            if rentaV>0.45:
                 continue
 
             if rentaV<rentmin and (i[37]=="venta"):
