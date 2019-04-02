@@ -701,6 +701,9 @@ for i in data:
             if rentaV<rentmin and (i[37]=="venta"):
                 continue
 
+            if rentaV<rentmin and (i[37]!="venta") and (i[37]!="arriendo"):
+                continue
+
             precioA=calcularDistanciaA(prop,props)
 
             if precioA is None:
