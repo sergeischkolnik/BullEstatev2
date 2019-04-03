@@ -782,6 +782,7 @@ for i in data:
             subresultado.append(float(rentaA))
 
         if not pubPortalExiste.publicacionExiste(prop[13]):
+            print("link no disponible man")
             continue
         else:
             subresultado.append(prop[13])
