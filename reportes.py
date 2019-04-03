@@ -787,7 +787,7 @@ for i in data:
         else:
             subresultado.append(prop[13])
 
-        #print("depto encontrado para "+str(i[1]))
+        print("depto encontrado para "+str(i[1]))
         resultado.append(subresultado)
         #print("sub appended")
 
