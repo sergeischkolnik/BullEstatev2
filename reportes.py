@@ -582,6 +582,7 @@ def from_portalinmobiliario(tipo,operacion,region):
             subdata.append(i[j])
         if (a==0):
             data.append(subdata)
+    print(len(data))
     return data
 
 data=clientes()
