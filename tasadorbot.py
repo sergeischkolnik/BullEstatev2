@@ -51,6 +51,7 @@ def from_portalinmobiliario():
             subdata.append(i[j])
         if (a==0):
             data.append(subdata)
+    print(len(data))
     return data
 
 def precio_from_portalinmobiliario(id2):
