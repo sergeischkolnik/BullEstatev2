@@ -566,10 +566,10 @@ def calcularDistanciaA(i,data):
     except:
         return -1
 
-def from_portalinmobiliario(tipo,operacion,region):
+def from_portalinmobiliario():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and operacion='"+str(operacion)+"' and region='"+str(region)+"'"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario"
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -584,6 +584,8 @@ def from_portalinmobiliario(tipo,operacion,region):
             data.append(subdata)
     print(len(data))
     return data
+
+props=from_portalinmobiliario()
 
 data=clientes()
 resultado=[]
