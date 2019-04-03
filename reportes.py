@@ -566,10 +566,10 @@ def calcularDistanciaA(i,data):
     except:
         return -1
 
-def from_portalinmobiliario():
+def from_portalinmobiliario(tipo,operacion,region):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and operacion='"+str(operacion)+"' and region='"+str(region)+"'"
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -584,7 +584,6 @@ def from_portalinmobiliario():
             data.append(subdata)
     return data
 
-props=from_portalinmobiliario()
 data=clientes()
 resultado=[]
 for i in data:
@@ -648,7 +647,9 @@ for i in data:
     if comuna6 is None:
         comuna6="abcdefghij"
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
-    #print(len(propiedades))
+
+    props=from_portalinmobiliario(tipo,operacion,region)
+
     estaciones1=estaciones()
     print("total propiedades encontradas: "+str(len(propiedades)))
     count=0
