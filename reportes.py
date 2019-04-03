@@ -16,6 +16,7 @@ import numpy as np
 from sklearn import datasets, linear_model
 import sendmail
 import tasadorbot2 as tb2
+import pubPortalExiste
 
 uf1=uf.getUf()
 
@@ -684,7 +685,8 @@ for i in data:
         subresultado.append(int(prop[6]))
         subresultado.append(int(prop[7]))
         subresultado.append(int(prop[12]))
-        subresultado.append(estacioncercana[1])
+        auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
+        subresultado.append(auxestacion)
         subresultado.append(estacioncercana[2])
 
         if (i[21]=="venta"):
@@ -706,21 +708,29 @@ for i in data:
             #     continue
             subresultado.append(float(rentaV))
 
-            if rentaV>0.3:
+            if rentaV>0.45:
                 continue
 
             if rentaV<rentmin and (i[37]=="venta"):
                 continue
 
-
+            if rentaV<rentmin and (i[37]!="venta") and (i[37]!="arriendo"):
+                continue
 
             if precioA is None:
                 continue
 
             subresultado.append(precioA)
             rentaA=(precioA*12/prop[5])
+            rentaPP=(precioA*12/precioV)
 
-            if rentaA>0.15:
+            if rentaA>0.2:
+                continue
+
+            if rentaPP<0.04:
+                continue
+
+            if rentaPP>0.15:
                 continue
 
             if rentaA<0:
@@ -769,8 +779,10 @@ for i in data:
 
             subresultado.append(float(rentaA))
 
-
-        subresultado.append(prop[13])
+        if not pubPortalExiste.publicacionExiste(prop[13]):
+            continue
+        else:
+            subresultado.append(prop[13])
 
         #print("depto encontrado para "+str(i[1]))
         resultado.append(subresultado)
@@ -786,6 +798,11 @@ for i in data:
             resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
         else:
             resultado=sorted(resultado, key=lambda x:x[0])
+
+
+
+
+
 
         if (i[21]=="venta"):
             if (i[37]=="venta"):
