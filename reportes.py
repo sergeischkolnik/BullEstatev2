@@ -651,8 +651,6 @@ for i in data:
         comuna6="abcdefghij"
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
 
-    props=from_portalinmobiliario(tipo,operacion,region)
-
     estaciones1=estaciones()
     print("total propiedades encontradas: "+str(len(propiedades)))
     count=0
