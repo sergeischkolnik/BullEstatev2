@@ -731,7 +731,7 @@ for i in data:
             subresultado.append(precioA)
             rentaA=(precioA*12/prop[5])
             rentaPP=(precioA*12/precioV)
-
+            print("rentapp: "+str(rentaPP))
             if rentaA>0.2:
                 print("renta de arriendo muy alta")
                 continue
