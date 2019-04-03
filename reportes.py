@@ -712,10 +712,6 @@ for i in data:
             #     continue
             subresultado.append(float(rentaV))
 
-            if rentaV>0.7:
-                print("renta de venta muy alta")
-                continue
-
             if rentaV<rentmin and (i[37]=="venta"):
                 print("renta de venta muy baja")
                 continue
@@ -737,12 +733,23 @@ for i in data:
                 continue
 
             if rentaPP<0.04:
-                print("renta pp muy baja")
+                print("renta pp muy baja, recalculando precio")
+                precioV=precioV*rentaPP/0.04
+                rentaV=((precioV-prop[5])/prop[5])
+
+            if rentaV<rentmin and (i[37]=="venta"):
+                print("renta de venta muy baja")
+                continue
+
+            if rentaV<rentmin and (i[37]!="venta") and (i[37]!="arriendo"):
+                print("renta de venta muy baja")
                 continue
 
             if rentaPP>0.15:
-                print("renta pp muy alta")
-                continue
+
+                print("renta pp muy alta, recalculando precio")
+                precioV=precioV*rentaPP/0.15
+                rentaV=((precioV-prop[5])/prop[5])
 
             if rentaA<0:
                 print("renta de arriendo muy baja")
