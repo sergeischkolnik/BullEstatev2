@@ -1,6 +1,8 @@
 from lxml import html
 import requests
 import agentCreator
+import time
+
 
 
 def publicacionExiste(link):
@@ -15,3 +17,4 @@ def publicacionExiste(link):
         return False
     else:
         return True
+    time.sleep(0.3)
