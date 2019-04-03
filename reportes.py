@@ -712,7 +712,7 @@ for i in data:
             #     continue
             subresultado.append(float(rentaV))
 
-            if rentaV>0.45:
+            if rentaV>0.7:
                 print("renta de venta muy alta")
                 continue
 
