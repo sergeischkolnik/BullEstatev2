@@ -701,7 +701,7 @@ for i in data:
 
             conftasacion=tasacionVenta[5]
 
-            if confmin>conftasacion:
+            if confmin>conftasacion and confmin is not None:
                 continue
 
             precioA=tasacionArriendo[0]
