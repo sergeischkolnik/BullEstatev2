@@ -716,11 +716,11 @@ for i in data:
 
                 continue
 
-            subresultado.append(precioV)
+
             rentaV=((precioV-prop[5])/prop[5])
             # if rentaV<rentmin or rentaV>1:
             #     continue
-            subresultado.append(float(rentaV))
+
 
             if rentaV<rentmin and (i[37]=="venta"):
                 print("renta de venta muy baja")
@@ -734,7 +734,7 @@ for i in data:
                 print("no existe precio de arriendo")
                 continue
 
-            subresultado.append(precioA)
+
             rentaA=(precioA*12/prop[5])
             rentaPP=(precioA*12/precioV)
             print("rentapp: "+str(rentaPP))
@@ -742,9 +742,9 @@ for i in data:
                 print("renta de arriendo muy alta")
                 continue
 
-            if rentaPP<0.04:
+            if rentaPP<0.06:
                 print("renta pp muy baja, recalculando precio")
-                precioV=precioA*12/0.04
+                precioV=precioA*12/0.06
                 rentaV=((precioV-prop[5])/prop[5])
                 rentaPP=(precioA*12/precioV)
                 print("rentapp: "+str(rentaPP))
@@ -770,9 +770,9 @@ for i in data:
             if rentaA<rentmin and (i[37]=="arriendo"):
                 print("renta de arriendo mas baja que minima")
                 continue
-
-
-
+            subresultado.append(precioV)
+            subresultado.append(float(rentaV))
+            subresultado.append(precioA)
             subresultado.append(float(rentaA))
             print("depto encontrado para "+str(i[1]))
 
