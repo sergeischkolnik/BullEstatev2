@@ -616,7 +616,7 @@ for i in data:
     metrodistance=(i[30])
     rentmin=float(i[35])
     estacionamientos=float(i[19])
-
+    confmin=(i[38])
     tipo=i[20]
     operacion=i[21]
     region=i[23]
@@ -698,6 +698,12 @@ for i in data:
             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
             precioV=tasacionVenta[0]*uf.getUf()
+
+            conftasacion=tasacionVenta[5]
+
+            if confmin>conftasacion:
+                continue
+
             precioA=tasacionArriendo[0]
 
 

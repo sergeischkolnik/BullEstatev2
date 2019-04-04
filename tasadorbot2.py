@@ -384,7 +384,10 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 k42=j
 
     t_actual="A+"
+    g_actual=1
     cota=10
+
+
 
     if len(distanciat0)>=cota:
         distancia=distanciat0
@@ -392,24 +395,31 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     elif len(distanciat1)>=cota:
         distancia=distanciat1
         t_actual="A-"
+        g_actual=2
     elif len(distanciat2_1)>=cota:
         distancia=distanciat2_1
         t_actual="B+"
+        g_actual=3
     elif len(distanciat2_2)>=cota:
         distancia=distanciat2_2
         t_actual="B-"
+        g_actual=4
     elif len(distanciat3_1)>=cota:
         distancia=distanciat3_1
         t_actual="C+"
+        g_actual=5
     elif len(distanciat3_2)>=cota:
         distancia=distanciat3_2
         t_actual="C-"
+        g_actual=6
     elif len(distanciat4_1)>=cota:
         distancia=distanciat4_1
         t_actual="D+"
+        g_actual=7
     elif len(distanciat4_2)>=5:
         distancia=distanciat4_2
         t_actual="D-"
+        g_actual=8
 
     else:
         return 0,"E",len(distanciat4_2),[]
@@ -485,7 +495,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             price = int(price/uf.getUf())
         else:
             price = int(price)
-        return(price,t_actual,len(distancias),links,es_venta)
+        return(price,t_actual,len(distancias),links,es_venta,g_actual)
 
     except:
 
