@@ -746,6 +746,8 @@ for i in data:
                 print("renta pp muy baja, recalculando precio")
                 precioV=precioA*12/0.04
                 rentaV=((precioV-prop[5])/prop[5])
+                rentaPP=(precioA*12/precioV)
+                print("rentapp: "+str(rentaPP))
 
             if rentaV<rentmin and (i[37]=="venta"):
                 print("renta de venta muy baja")
