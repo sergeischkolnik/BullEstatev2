@@ -616,7 +616,12 @@ for i in data:
     metrodistance=(i[30])
     rentmin=float(i[35])
     estacionamientos=float(i[19])
-    confmin=int(i[38])
+
+    if i[38] is not None:
+        confmin=int(i[38])
+    else:
+        confmin=i[38]
+
     tipo=i[20]
     operacion=i[21]
     region=i[23]
@@ -705,13 +710,14 @@ for i in data:
                 print(tasacionVenta)
                 continue
 
-            if confmin>conftasacion and confmin is not None:
-                continue
+            if confmin is not None:
+                if confmin>conftasacion:
+                    continue
 
             precioA=tasacionArriendo[0]
 
 
-            if precioV is None:
+            if precioV is None or precioV<0.1:
                 print("no hay precio predicho")
 
                 continue
