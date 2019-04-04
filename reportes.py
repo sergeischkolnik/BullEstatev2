@@ -699,7 +699,11 @@ for i in data:
 
             precioV=tasacionVenta[0]*uf.getUf()
 
-            conftasacion=tasacionVenta[5]
+            try:
+                conftasacion=tasacionVenta[5]
+            except:
+                print(tasacionVenta)
+                continue
 
             if confmin>conftasacion and confmin is not None:
                 continue
