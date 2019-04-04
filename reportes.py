@@ -616,7 +616,7 @@ for i in data:
     metrodistance=(i[30])
     rentmin=float(i[35])
     estacionamientos=float(i[19])
-    confmin=(i[38])
+    confmin=int(i[38])
     tipo=i[20]
     operacion=i[21]
     region=i[23]
