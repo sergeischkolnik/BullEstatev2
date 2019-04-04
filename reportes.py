@@ -736,7 +736,7 @@ for i in data:
                 print("renta de venta muy baja")
                 continue
 
-            if precioA is None:
+            if precioA is None or precioA<0.01:
                 print("no existe precio de arriendo")
                 continue
 
