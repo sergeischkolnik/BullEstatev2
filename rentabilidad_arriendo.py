@@ -40,9 +40,7 @@ def obtenercomunas():
         j=i[0].split('/')
         comuna=j[5]
         comunas.append(comuna)
-    for k in comunas:
-        if k not in comunas:
-            comunas2.append(k)
+    comunas2=np.unique(comunas)
     return comunas2
 
 comunas=obtenercomunas()
