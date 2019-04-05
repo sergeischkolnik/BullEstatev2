@@ -38,6 +38,7 @@ def obtenercomunas():
     for i in links:
         j=str(i[0].split('/'))
         comuna=j[5]
+        print(comuna)
         if comuna in comunas:
             continue
         else:
