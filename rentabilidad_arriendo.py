@@ -38,7 +38,8 @@ def obtenercomunas():
     for i in links:
         j=i[0].split('/')
         comuna=j[5]
-        comunas.append(comuna)
+        if (comuna not in comunas):
+            comunas.append(comuna)
     return comunas
 
 comunas=obtenercomunas()
