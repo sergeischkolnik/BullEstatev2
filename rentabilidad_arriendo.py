@@ -22,7 +22,7 @@ def obtenertipos():
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT tipo FROM portalinmobiliario"
+    sql = "SELECT DISTINCT tipo FROM portalinmobiliario"
     cur.execute(sql)
     tipos = cur.fetchall()
     return tipos
@@ -37,8 +37,9 @@ def obtenercomunas():
     comunas=[]
     for i in links:
         j=str(i[0].split('/'))
-        print (j)
+
         comuna=j[5]
+
         if comuna not in comunas:
             continue
         else:
