@@ -20,6 +20,26 @@ import pubPortalExiste
 
 uf1=uf.getUf()
 
+def rentaPProm(dormitorios,banos,estacionamientos,comuna):
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    cur.execute(sql)
+    arriendo = cur.fetchall()
+    cur = mariadb_connection.cursor()
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    cur.execute(sql)
+    venta = cur.fetchall()
+    arriendo=sorted(arriendo)
+    venta=sorted(venta)
+    larriendo=len(arriendo)
+    lventa=len(venta)
+
+
+
+    valor=arriendo*12/venta
+    return valor
+
 def estaciones():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
     cur = mariadb_connection.cursor()

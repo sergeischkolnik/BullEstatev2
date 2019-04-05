@@ -20,7 +20,7 @@ URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer',
                         'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno','lastscrapportal']
 comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno']
-id_chats_updates = ["485728961","652659504"]
+id_chats_updates = ["485728961","652659504","9561926"]
 
 def estadoScrapper(chatId):
 
