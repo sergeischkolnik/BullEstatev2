@@ -209,7 +209,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     else:
         return 0,"E",len(distanciat4_2),[]
-
+    print("t actual definido")
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
         distancias=distancias[:40]
@@ -275,7 +275,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     if utilnegativo or terrazanegativo or estacionamientosnegativo:
         price, utilnegativo, terrazanegativo, estacionamientosnegativo = regresion(x_train, y_train, x_test)
-
+    print("regresion hecha")
     try:
         if es_venta:
             price = int(price/uf.getUf())
