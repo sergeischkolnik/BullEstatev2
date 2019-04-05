@@ -41,6 +41,8 @@ def rentaPProm(dormitorios,banos,estacionamientos,comuna):
     maxventa=int(lventa*0.95)
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
+    print(math.fsum(arriendo))
+    print(math.fsum(venta))
     promarriendo=float(math.fsum(arriendo)) / max(len(arriendo), 1)
     promventa=float(math.fsum(venta))/max(len(venta),1)
 
