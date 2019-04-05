@@ -35,12 +35,16 @@ def obtenercomunas():
     cur.execute(sql)
     links = cur.fetchall()
     comunas=[]
+    comunas2=[]
     for i in links:
         j=i[0].split('/')
         comuna=j[5]
-        if (comuna not in comunas):
-            comunas.append(comuna)
-    return comunas
+
+        comunas.append(comuna)
+        for k in comunas:
+            if k not in comunas:
+                comunas2.append(k)
+    return comunas2
 
 comunas=obtenercomunas()
 tipos=obtenertipos()
