@@ -61,6 +61,11 @@ for comuna in comunas:
         for dormitorio in dormitorios:
             for bano in banos:
                 for estacionamiento in estacionamientos:
+                    print(comuna)
+                    print(tipo)
+                    print(dormitorio)
+                    print(bano)
+                    print(estacionamiento)
                     try:
                         rent=reportes.rentaPProm(tipo,dormitorio,bano,estacionamiento,comuna)
                         print ("la rentabilidad en "+str(comuna)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(rent)+"%."))
