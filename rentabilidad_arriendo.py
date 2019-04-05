@@ -37,13 +37,12 @@ def obtenercomunas():
     comunas=[]
     for i in links:
         j=(i[0].split('/'))
-        print(j[5])
 
         comuna=j[5]
-        if comuna in comunas:
-            continue
-        else:
+        if comuna not in comunas and ('valparaiso' in comuna or 'metropolitana' in comuna or 'biobio' in comuna):
+
             comunas.append(comuna)
+
     return comunas
 
 comunas=obtenercomunas()
