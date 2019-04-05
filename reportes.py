@@ -21,10 +21,10 @@ import math
 
 uf1=uf.getUf()
 
-def rentaPProm(dormitorios,banos,estacionamientos,comuna):
+def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
     cur.execute(sql)
     arriendo = cur.fetchall()
     cur = mariadb_connection.cursor()
@@ -39,7 +39,6 @@ def rentaPProm(dormitorios,banos,estacionamientos,comuna):
     minventa=int(lventa*0.1)
     maxarriendo=int(larriendo*0.9)
     maxventa=int(lventa*0.9)
-    print(arriendo)
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
     sumarriendo=0
@@ -48,8 +47,7 @@ def rentaPProm(dormitorios,banos,estacionamientos,comuna):
         sumarriendo+=i[0]
     for j in venta:
         sumventa+=j[0]
-    print(sumarriendo)
-    print(sumventa)
+
     promarriendo=(sumarriendo) / max(len(arriendo), 1)
     promventa=float(sumventa)/max(len(venta),1)
 
@@ -734,7 +732,8 @@ for i in data:
         link=prop[13]
         link=link.split('/')
         comuna=link[5]
-        rentaPromedio=rentaPProm(int(prop[6]),int(prop[7]),int(prop[12]),comuna)
+        rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
+        print("renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
         if (i[21]=="venta"):
             print(str(count)+"/"+str(len(propiedades)))
             tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
