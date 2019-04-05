@@ -209,7 +209,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
         t_actual="D-"
 
     else:
-        return 0,"E",len(distanciat4_2),[]
+        return 0,"E",len(distanciat4_2),[],False
     print("t actual definido")
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
