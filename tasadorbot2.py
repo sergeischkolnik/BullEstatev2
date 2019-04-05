@@ -5,7 +5,7 @@ from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=90)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=3)
+yesterday = datetime.now() - timedelta(days=15)
 yesterday=datetime.date(yesterday)
 import numpy as np
 from sklearn import datasets, linear_model
