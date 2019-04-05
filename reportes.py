@@ -50,9 +50,11 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
 
     promarriendo=(sumarriendo) / max(len(arriendo), 1)
     promventa=float(sumventa)/max(len(venta),1)
-
-    valor=promarriendo*12/promventa
-    return valor
+    try:
+        valor=promarriendo*12/promventa
+        return valor
+    except:
+        return 0
 
 def estaciones():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
@@ -695,6 +697,7 @@ for i in data:
     count=0
     for prop in propiedades:
         count=count+1
+        print(str(count)+"/"+str(len(propiedades)))
         estaciones2=[]
         for e in estaciones1:
             subestacion=[]
@@ -732,10 +735,14 @@ for i in data:
         link=prop[13]
         link=link.split('/')
         comuna=link[5]
+
         rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
+        if (rentaPromedio<=0):
+            continue
+
         print("renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
         if (i[21]=="venta"):
-            print(str(count)+"/"+str(len(propiedades)))
+
             tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
