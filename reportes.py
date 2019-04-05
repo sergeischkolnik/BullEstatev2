@@ -35,17 +35,23 @@ def rentaPProm(dormitorios,banos,estacionamientos,comuna):
     venta=sorted(venta)
     larriendo=len(arriendo)
     lventa=len(venta)
-    minarriendo=int(larriendo*0.05)
-    minventa=int(lventa*0.05)
-    maxarriendo=int(larriendo*0.95)
-    maxventa=int(lventa*0.95)
+    minarriendo=int(larriendo*0.1)
+    minventa=int(lventa*0.1)
+    maxarriendo=int(larriendo*0.9)
+    maxventa=int(lventa*0.9)
     print(arriendo)
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
-    print(sum(arriendo))
-    print(sum(venta))
-    promarriendo=(sum(arriendo)) / max(len(arriendo), 1)
-    promventa=float(math.fsum(venta))/max(len(venta),1)
+    sumarriendo=0
+    sumventa=0
+    for i in arriendo:
+        sumarriendo+=i
+    for j in venta:
+        sumventa+=j
+    print(sumarriendo)
+    print(sumventa)
+    promarriendo=(sumarriendo) / max(len(arriendo), 1)
+    promventa=float(sumventa)/max(len(venta),1)
 
     valor=promarriendo*12/promventa
     return valor
