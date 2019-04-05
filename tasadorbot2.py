@@ -102,7 +102,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
     k32=[0]*14
     k41=[0]*14
     k42=[0]*14
-
+    print("1 corte")
     for j in data:
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
         if (j[1]>past) and (j[2]>yesterday) and (operacion==j[3]) and (tipo==j[4]):
@@ -178,6 +178,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
                 distanciat4_2.append(j)
                 j=j[:-1]
                 k42=j
+    print("2 corte")
 
     t_actual="A+"
     cota=10
