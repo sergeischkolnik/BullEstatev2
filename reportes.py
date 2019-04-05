@@ -17,6 +17,7 @@ from sklearn import datasets, linear_model
 import sendmail
 import tasadorbot2 as tb2
 import pubPortalExiste
+import math
 
 uf1=uf.getUf()
 
@@ -34,10 +35,16 @@ def rentaPProm(dormitorios,banos,estacionamientos,comuna):
     venta=sorted(venta)
     larriendo=len(arriendo)
     lventa=len(venta)
+    minarriendo=int(larriendo*0.05)
+    minventa=int(lventa*0.05)
+    maxarriendo=int(larriendo*0.95)
+    maxventa=int(lventa*0.95)
+    arriendo=arriendo[minarriendo:maxarriendo]
+    venta=venta[minventa:maxventa]
+    promarriendo=float(sum(arriendo)) / max(len(arriendo), 1)
+    promventa=float(sum(venta))/max(len(venta),1)
 
-
-
-    valor=arriendo*12/venta
+    valor=promarriendo*12/promventa
     return valor
 
 def estaciones():
@@ -715,7 +722,10 @@ for i in data:
         auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
         subresultado.append(auxestacion)
         subresultado.append(estacioncercana[2])
-
+        link=prop[13]
+        link=link.split('/')
+        comuna=link[5]
+        rentaPromedio=rentaPProm(int(prop[6]),int(prop[7]),int(prop[12]),comuna)
         if (i[21]=="venta"):
             print(str(count)+"/"+str(len(propiedades)))
             tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
@@ -768,9 +778,9 @@ for i in data:
                 print("renta de arriendo muy alta")
                 continue
 
-            if rentaPP<0.06:
+            if rentaPP<rentaPromedio:
                 print("renta pp muy baja, recalculando precio")
-                precioV=precioA*12/0.06
+                precioV=precioA*12/rentaPromedio
                 rentaV=((precioV-prop[5])/prop[5])
                 rentaPP=(precioA*12/precioV)
                 print("rentapp: "+str(rentaPP))
