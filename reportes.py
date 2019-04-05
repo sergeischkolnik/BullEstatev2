@@ -39,6 +39,7 @@ def rentaPProm(dormitorios,banos,estacionamientos,comuna):
     minventa=int(lventa*0.05)
     maxarriendo=int(larriendo*0.95)
     maxventa=int(lventa*0.95)
+    print(arriendo)
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
     print(math.fsum(arriendo))
