@@ -36,11 +36,10 @@ def obtenercomunas():
     links = cur.fetchall()
     comunas=[]
     for i in links:
-        j=str(i[0].split('/'))
-        for z in j:
-            print (z)
+        j=(i[0].split('/'))
+        print(j[5])
 
-        comuna=j[6]
+        comuna=j[5]
         if comuna in comunas:
             continue
         else:
