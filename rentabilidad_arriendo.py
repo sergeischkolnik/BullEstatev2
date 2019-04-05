@@ -36,11 +36,11 @@ def obtenercomunas():
     links = cur.fetchall()
     comunas=[]
     for i in links:
-        j=i[0].split('/').text
+        j=str(i[0].split('/'))
         comuna=j[5]
-        comunas.append(comuna)
-    comunas2=np.unique(comunas,axis=0)
-    return comunas2
+        if comuna not in comunas:
+            comunas.append(comuna)
+    return comunas
 
 comunas=obtenercomunas()
 tipos=obtenertipos()
