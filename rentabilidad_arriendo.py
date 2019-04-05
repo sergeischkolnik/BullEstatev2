@@ -17,6 +17,7 @@ import sendmail
 import tasadorbot2 as tb2
 import pubPortalExiste
 import math
+import reportes
 
 def obtenertipos():
 
@@ -54,5 +55,14 @@ tipos=obtenertipos()
 dormitorios=[1,2,3,4,5]
 banos=[1,2,3,4,5]
 estacionamientos=[1,2,3]
-print(comunas)
-print(tipos)
+
+for comuna in comunas:
+    for tipo in tipos:
+        for dormitorio in dormitorios:
+            for bano in banos:
+                for estacionamiento in estacionamientos:
+                    try:
+                        rent=reportes.rentaPProm(tipo,dormitorio,bano,estacionamiento,comuna)
+                        print ("la rentabilidad en "+str(comuna)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(rent)+"%."))
+                    except:
+                        continue
