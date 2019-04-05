@@ -39,8 +39,7 @@ def obtenercomunas():
         j=str(i[0].split('/'))
         print(j)
         comuna=j[5]
-        print(comuna)
-        if comuna not in comunas:
+        if comuna in comunas:
             continue
         else:
             comunas.append(comuna)
