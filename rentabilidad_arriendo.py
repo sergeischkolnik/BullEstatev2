@@ -35,12 +35,11 @@ def obtenercomunas():
     cur.execute(sql)
     links = cur.fetchall()
     comunas=[]
-    comunas2=[]
     for i in links:
         j=i[0].split('/')
         comuna=j[5]
         comunas.append(comuna)
-    comunas2=np.unique(comunas)
+    comunas2=np.unique(comunas,axis=0)
     return comunas2
 
 comunas=obtenercomunas()
