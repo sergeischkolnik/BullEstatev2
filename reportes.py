@@ -45,9 +45,9 @@ def rentaPProm(dormitorios,banos,estacionamientos,comuna):
     sumarriendo=0
     sumventa=0
     for i in arriendo:
-        sumarriendo+=i
+        sumarriendo+=i[0]
     for j in venta:
-        sumventa+=j
+        sumventa+=j[0]
     print(sumarriendo)
     print(sumventa)
     promarriendo=(sumarriendo) / max(len(arriendo), 1)
