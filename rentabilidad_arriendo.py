@@ -37,13 +37,9 @@ def obtenercomunas():
     comunas=[]
     for i in links:
         j=str(i[0].split('/'))
-        print(j[0])
-        print(j[1])
-        print(j[2])
-        print(j[3])
-        print(j[4])
-        print(j[5])
-        print(j[6])
+        for z in j:
+            print (z)
+
         comuna=j[6]
         if comuna in comunas:
             continue
