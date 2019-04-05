@@ -25,7 +25,11 @@ def obtenertipos():
     sql = "SELECT DISTINCT tipo FROM portalinmobiliario"
     cur.execute(sql)
     tipos = cur.fetchall()
-    return tipos
+    tipos2=[]
+    for i in tipos:
+        tipos2.append(i[0])
+
+    return tipos2
 
 def obtenercomunas():
 
