@@ -285,7 +285,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
     except:
 
-        return -1,"ERROR",-1,[]
+        return -1,"ERROR",-1,[],False
 
 def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data):
 
