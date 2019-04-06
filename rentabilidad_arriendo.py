@@ -18,6 +18,20 @@ import tasadorbot2 as tb2
 import pubPortalExiste
 import math
 
+def insertarRentabilidad(rent):
+    #Inserta una propiedad en una base de datos
+
+    sql = """INSERT INTO rentabilidad(id2,comuna,tipo,dormitorios,banos,estacionamientos,rentabilidad)
+             VALUES(%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE rentabilidad=%s"""
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql, (rent))
+
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
 
 def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
@@ -102,6 +116,17 @@ for comuna in comunas:
                         rent,lena,lenv=rentaPProm(tipo,dormitorio,bano,estacionamiento,comuna)
                         if rent>0.01 and lena>99 and lenv>99:
                             comunasinmet=comuna[:-14]
+                            idrent=str(comuna)+str(tipo)+str(dormitorio)+str(bano)+str(estacionamiento)
+                            rentabilidad=[]
+                            rentabilidad.append(idrent)
+                            rentabilidad.append(comuna)
+                            rentabilidad.append(tipo)
+                            rentabilidad.append(dormitorio)
+                            rentabilidad.append(bano)
+                            rentabilidad.append(estacionamiento)
+                            rentabilidad.append(rent)
+                            rentabilidad.append(rent)
+                            insertarRentabilidad(rentabilidad)
                             print ("la rentabilidad en "+str(comunasinmet)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(float(int(rent*10000))/100)+"%."))
                     except:
                         continue
