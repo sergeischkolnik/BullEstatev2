@@ -93,13 +93,9 @@ banos=[1,2,3,4,5]
 estacionamientos=[0,1,2,3]
 
 for comuna in comunas:
-    print(comuna)
     for tipo in tipos:
-        print(tipo)
         for dormitorio in dormitorios:
-            print(dormitorio)
             for bano in banos:
-                print (bano)
                 for estacionamiento in estacionamientos:
 
                     try:
