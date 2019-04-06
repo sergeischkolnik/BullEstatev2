@@ -88,9 +88,9 @@ def obtenercomunas():
 
 comunas=obtenercomunas()
 tipos=obtenertipos()
-dormitorios=[1,2,3,4,5]
-banos=[1,2,3,4,5]
-estacionamientos=[0,1,2,3]
+dormitorios=[1,2,3,4]
+banos=[1,2,3,4]
+estacionamientos=[0,1,2]
 
 for comuna in comunas:
     for tipo in tipos:
