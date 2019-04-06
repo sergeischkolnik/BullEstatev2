@@ -94,7 +94,7 @@ def obtenercomunas():
         j=(i[0].split('/'))
 
         comuna=j[5]
-        if comuna not in comunas and ('valparaiso' in comuna or 'metropolitana' in comuna or 'biobio' in comuna):
+        if comuna not in comunas and ('metropolitana' in comuna):
 
             comunas.append(comuna)
 
