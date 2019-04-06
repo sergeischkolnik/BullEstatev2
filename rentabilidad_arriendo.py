@@ -50,7 +50,7 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
     promventa=float(sumventa)/max(len(venta),1)
     try:
         valor=promarriendo*12/promventa
-        return valor
+        return valor,len(arriendo),len(venta)
     except:
         return 0
 
@@ -99,8 +99,9 @@ for comuna in comunas:
                 for estacionamiento in estacionamientos:
 
                     try:
-                        rent=rentaPProm(tipo,dormitorio,bano,estacionamiento,comuna)
+                        rent,lena,lenv=rentaPProm(tipo,dormitorio,bano,estacionamiento,comuna)
                         if rent>0.01:
-                            print ("la rentabilidad en "+str(comuna)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(rent*100)+"%."))
+                            print ("la rentabilidad en "+str(comuna)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(float(int(rent*10000))/100)+"%."))
+                            print("Calculado en base a "+str(lena)+" publicaciones de arriendo, y "+str(lenv)+" publicaciones de venta.")
                     except:
                         continue
