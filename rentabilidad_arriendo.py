@@ -100,8 +100,8 @@ for comuna in comunas:
 
                     try:
                         rent,lena,lenv=rentaPProm(tipo,dormitorio,bano,estacionamiento,comuna)
-                        if rent>0.01:
-                            print ("la rentabilidad en "+str(comuna)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(float(int(rent*10000))/100)+"%."))
-                            print("Calculado en base a "+str(lena)+" publicaciones de arriendo, y "+str(lenv)+" publicaciones de venta.")
+                        if rent>0.01 and lena>99 and lenv>99:
+                            comunasinmet=comuna[:-14]
+                            print ("la rentabilidad en "+str(comunasinmet)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(float(int(rent*10000))/100)+"%."))
                     except:
                         continue
