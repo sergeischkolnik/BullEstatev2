@@ -90,7 +90,7 @@ comunas=obtenercomunas()
 tipos=obtenertipos()
 dormitorios=[1,2,3,4,5]
 banos=[1,2,3,4,5]
-estacionamientos=[1,2,3]
+estacionamientos=[0,1,2,3]
 
 for comuna in comunas:
     print(comuna)
