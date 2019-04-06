@@ -116,10 +116,10 @@ for comuna in comunas:
                         rent,lena,lenv=rentaPProm(tipo,dormitorio,bano,estacionamiento,comuna)
                         if rent>0.01 and lena>99 and lenv>99:
                             comunasinmet=comuna[:-14]
-                            idrent=str(comuna)+str(tipo)+str(dormitorio)+str(bano)+str(estacionamiento)
+                            idrent=str(comunasinmet)+str(tipo)+str(dormitorio)+str(bano)+str(estacionamiento)
                             rentabilidad=[]
                             rentabilidad.append(idrent)
-                            rentabilidad.append(comuna)
+                            rentabilidad.append(comunasinmet)
                             rentabilidad.append(tipo)
                             rentabilidad.append(dormitorio)
                             rentabilidad.append(bano)
