@@ -17,7 +17,43 @@ import sendmail
 import tasadorbot2 as tb2
 import pubPortalExiste
 import math
-from reportes import rentaPProm
+
+
+def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    cur.execute(sql)
+    arriendo = cur.fetchall()
+    cur = mariadb_connection.cursor()
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    cur.execute(sql)
+    venta = cur.fetchall()
+    arriendo=sorted(arriendo)
+    venta=sorted(venta)
+    larriendo=len(arriendo)
+    lventa=len(venta)
+    minarriendo=int(larriendo*0.1)
+    minventa=int(lventa*0.1)
+    maxarriendo=int(larriendo*0.9)
+    maxventa=int(lventa*0.9)
+    arriendo=arriendo[minarriendo:maxarriendo]
+    venta=venta[minventa:maxventa]
+    sumarriendo=0
+    sumventa=0
+    for i in arriendo:
+        sumarriendo+=i[0]
+    for j in venta:
+        sumventa+=j[0]
+
+    promarriendo=(sumarriendo) / max(len(arriendo), 1)
+    promventa=float(sumventa)/max(len(venta),1)
+    try:
+        valor=promarriendo*12/promventa
+        return valor
+    except:
+        return 0
+
 
 def obtenertipos():
 
@@ -57,10 +93,15 @@ banos=[1,2,3,4,5]
 estacionamientos=[1,2,3]
 
 for comuna in comunas:
+    print(comuna)
     for tipo in tipos:
+        print(tipo)
         for dormitorio in dormitorios:
+            print(dormitorio)
             for bano in banos:
+                print (bano)
                 for estacionamiento in estacionamientos:
+                    print (estacionamiento)
                     print(comuna)
                     print(tipo)
                     print(dormitorio)
