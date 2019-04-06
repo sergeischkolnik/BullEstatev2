@@ -101,14 +101,10 @@ for comuna in comunas:
             for bano in banos:
                 print (bano)
                 for estacionamiento in estacionamientos:
-                    print (estacionamiento)
-                    print(comuna)
-                    print(tipo)
-                    print(dormitorio)
-                    print(bano)
-                    print(estacionamiento)
+
                     try:
                         rent=rentaPProm(tipo,dormitorio,bano,estacionamiento,comuna)
-                        print ("la rentabilidad en "+str(comuna)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(rent)+"%."))
+                        if rent>0.01:
+                            print ("la rentabilidad en "+str(comuna)+" para el tipo de propiedad "+str(tipo)+" con "+str(dormitorio)+" dormitorio, "+(str(bano)+" baños, y "+str(estacionamiento)+" estacionamientos, es de "+str(rent*100)+"%."))
                     except:
                         continue
