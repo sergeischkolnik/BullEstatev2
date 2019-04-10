@@ -22,7 +22,7 @@ def checkClient(clientMail,comision):
 def sendClientMailsDeptos():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta' or portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacuraa%' or portalinmobiliario.link like '%providencia%' or " \
@@ -51,7 +51,7 @@ def sendClientMailsDeptos():
 def sendClientMailsCasas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta' or portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='casa' and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='casa' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacuraa%' or " \
