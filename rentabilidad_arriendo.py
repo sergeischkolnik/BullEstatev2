@@ -9,7 +9,7 @@ yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
 from datetime import datetime, timedelta
-import pdfCreatorPropiedadescompra_arriendo as pdfC
+import pdfCreatorReportes as pdfC
 import uf
 import numpy as np
 from sklearn import datasets, linear_model
