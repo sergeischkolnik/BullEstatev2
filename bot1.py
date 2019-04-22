@@ -8,6 +8,7 @@ import propManager as pm
 import googleMapApi as gm
 import tasadorbot as tb
 import tasadorbot2 as tb2
+import reportes as rp
 
 
 TOKEN = "633816057:AAE30k3FguvhUq5faEbtvsLWP_J6s2sqL5M"
@@ -286,50 +287,75 @@ def echo_all(updates):
 
                 #reportes
                 if arr[0] == comandosMultiples[0]:
-                    if len(arr)!=27:
+                    if len(arr)!=26:
                         text = "Para usar reporte, escriba, separando por espacios:\nreporte " \
                                "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
                                "<latMin> <latMax> <lonMin> <lonMax> <dormitoriosMin> <dormitoriosMax>" \
-                               "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion> <estado>" \
+                               "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion>" \
                                "<region> <comuna> <distanciaMetro> <rentMin> <prioridad (venta, arriendo, nada>" \
                                "<confianzaMinima (1-8)> <mail> <nombre>"
                     else:
-                        precioMin = arr[1]
-                        precioMax = arr[2]
-                        utilMin = arr[3]
-                        utilMax = arr[4]
-                        totalMin = arr[5]
-                        totalMax = arr[6]
-                        latMin = arr[7]
-                        latMax = arr[8]
-                        lonMin = arr[9]
-                        lonMax = arr[10]
-                        dormitoriosMin = arr[11]
-                        dormitoriosMax = arr[12]
-                        banosMin = arr[13]
-                        banosMax = arr[14]
+                        preciomin = arr[1]
+                        preciomax = arr[2]
+                        utilmin = arr[3]
+                        utilmax = arr[4]
+                        totalmin = arr[5]
+                        totalmax = arr[6]
+                        latmin = arr[7]
+                        latmax = arr[8]
+                        lonmin = arr[9]
+                        lonmax = arr[10]
+                        dormitoriosmin = arr[11]
+                        dormitoriosmax = arr[12]
+                        banosmin = arr[13]
+                        banosmax = arr[14]
                         estacionamientos = arr[15]
                         tipo = arr[16]
                         operacion = arr[17]
-                        estado = arr[18]
-                        region = arr[19]
-                        comuna = arr[20]
-                        distanciaMetro = arr[21]
-                        rentMin = arr[22]
-                        prioridad = arr[23]
-                        confianzaMinima = arr[24]
-                        mail = arr[25]
-                        nombre = arr[26]
+                        region = arr[18]
+                        comuna = arr[19]
+                        distanciaMetro = arr[20]
+                        rentMin = arr[21]
+                        prioridad = arr[22]
+                        confianzaMinima = arr[23]
+                        mail = arr[24]
+                        nombre = arr[25]
 
-                        text = "Generando reporte para:"
-                        text += "\nRegion:" + region
-                        text += "\nComuna:" + comuna
-                        text += "\nOperacion:" + operacion
-                        text += "\nTipo:" + tipo
-                        text += "\nEstado:" + estado
-                        text += "\nDormitorios:" + dormitorios
-                        text += "\nBaños:" + banos
-                        #Agregar codigo aca para generar reporte
+                        text = "Generando reporte para:" + nombre
+                        rp.generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax,
+                                          lonmin, lonmax,dormitoriosmin,dormitoriosmax, banosmin, banosmax, confianzaMinima,
+                                          rentMin, estacionamientos, distanciaMetro, tipo, operacion, region, comuna1=comuna,
+                                          comuna2="abcdefgh", comuna3="abcdefgh", comuna4="abcdefgh", comuna5="abcdefgh",
+                                          comuna6="abcdefgh", prioridad=prioridad, flagMail=1, mail=mail, nombreCliente=nombre)
+
+                        text += "\n\n"
+                        text += "preciomin:" + preciomin + "\n"
+                        text += "preciomax:" +  preciomax+ "\n"
+                        text += "utilmin:" + utilmin+ "\n"
+                        text += "utilmax:" + utilmax+ "\n"
+                        text += "totalmin:" + totalmin+ "\n"
+                        text += "totalmax:" + totalmax+ "\n"
+                        text += "latmin:" + latmin+ "\n"
+                        text += "latmax:" + latmax+ "\n"
+                        text += "lonmin:" + lonmin+ "\n"
+                        text += "lonmax:" + lonmax+ "\n"
+                        text += "dormitoriosmin:" + dormitoriosmin+ "\n"
+                        text += "dormitoriosmax:" + dormitoriosmax+ "\n"
+                        text += "banosmin:" + banosmin+ "\n"
+                        text += "banosmax:" + banosmax+ "\n"
+                        text += "estacionamientos:" + estacionamientos+ "\n"
+                        text += "tipo:" + tipo+ "\n"
+                        text += "operacion:" + operacion+ "\n"
+                        text += "region:" + region+ "\n"
+                        text += "comuna:" + comuna+ "\n"
+                        text += "distanciaMetro:" + distanciaMetro+ "\n"
+                        text += "rentMin:" + rentMin+ "\n"
+                        text += "prioridad:" + prioridad+ "\n"
+                        text += "confianzaMinima:" + confianzaMinima+ "\n"
+                        text += "mail:" + mail + "\n"
+                        text += "nombre:" + nombre+ "\n"
+
+
 
                 #tasador
                 elif arr[0] == comandosMultiples[1]:
