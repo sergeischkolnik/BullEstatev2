@@ -18,7 +18,7 @@ TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
 comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer',
-                        'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno','lastscrapportal']
+                        'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno','lastscrapportal',]
 comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno']
 id_chats_updates = ["485728961","652659504","9561926"]
 
@@ -233,8 +233,12 @@ def echo_all(updates):
               
                 #reportes
                 elif text==comandosIndividuales[3]:
-                    text = "Para usar reporte, escriba, separando por espacios:\nreporte <region> <comuna> <operacion> <tipo> <estado> <dormitorios> <baños>"
-
+                    text = "Para usar reporte, escriba, separando por espacios:\nreporte " \
+                           "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
+                           "<latMin> <latMax> <lonMin> <lonMax> <dormitoriosMin> <dormitoriosMax>" \
+                           "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion> <estado>" \
+                           "<region> <comuna> <distanciaMetro> <rentMin> <prioridad (venta, arriendo, nada>" \
+                           "<confianzaMinima (1-8)> <mail> <nombre>"
                 #tasador
                 elif text==comandosIndividuales[4]:
                     text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> " \
@@ -282,17 +286,41 @@ def echo_all(updates):
 
                 #reportes
                 if arr[0] == comandosMultiples[0]:
-                    if len(arr)!=8:
-                        text = "Para usar reporte, escriba, separando por espacios:\nreporte <region <comuna> " \
-                               "<operacion> <tipo> <estado> <dormitorios> <baños>"
+                    if len(arr)!=27:
+                        text = "Para usar reporte, escriba, separando por espacios:\nreporte " \
+                               "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
+                               "<latMin> <latMax> <lonMin> <lonMax> <dormitoriosMin> <dormitoriosMax>" \
+                               "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion> <estado>" \
+                               "<region> <comuna> <distanciaMetro> <rentMin> <prioridad (venta, arriendo, nada>" \
+                               "<confianzaMinima (1-8)> <mail> <nombre>"
                     else:
-                        region = arr[1]
-                        comuna = arr[2]
-                        operacion = arr[3]
-                        tipo = arr[4]
-                        estado = arr[5]
-                        dormitorios = arr[6]
-                        banos = arr[7]
+                        precioMin = arr[1]
+                        precioMax = arr[2]
+                        utilMin = arr[3]
+                        utilMax = arr[4]
+                        totalMin = arr[5]
+                        totalMax = arr[6]
+                        latMin = arr[7]
+                        latMax = arr[8]
+                        lonMin = arr[9]
+                        lonMax = arr[10]
+                        dormitoriosMin = arr[11]
+                        dormitoriosMax = arr[12]
+                        banosMin = arr[13]
+                        banosMax = arr[14]
+                        estacionamientos = arr[15]
+                        tipo = arr[16]
+                        operacion = arr[17]
+                        estado = arr[18]
+                        region = arr[19]
+                        comuna = arr[20]
+                        distanciaMetro = arr[21]
+                        rentMin = arr[22]
+                        prioridad = arr[23]
+                        confianzaMinima = arr[24]
+                        mail = arr[25]
+                        nombre = arr[26]
+
                         text = "Generando reporte para:"
                         text += "\nRegion:" + region
                         text += "\nComuna:" + comuna
