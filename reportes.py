@@ -621,79 +621,96 @@ def from_portalinmobiliario(tipo,region):
     print(len(data))
     return data
 
+def main():
+    data=clientes()
+    for i in data:
 
-data=clientes()
-resultado=[]
-for i in data:
+        print("Buscando propiedades para el cliente "+str(i[1]))
+        if i[34]==0:
+            continue
+        elif i[34]==1:
+            activo=2
+            #actualizarActividad(i[0])
+        else:
+            past = datetime.now() - timedelta(days=1)
 
 
-    print("Buscando propiedades para el cliente "+str(i[1]))
-    resultado=[]
-    if i[34]==0:
-        continue
-    elif i[34]==1:
-        activo=2
-        #actualizarActividad(i[0])
-    else:
-        past = datetime.now() - timedelta(days=1)
-    preciomin=float(i[5])
-    preciomax=float(i[6])
-    utilmin=float(i[7])
-    utilmax=float(i[8])
-    totalmin=float(i[9])
-    totalmax=float(i[10])
-    latmin=float(i[11])
-    latmax=float(i[12])
-    lonmin=float(i[13])
-    lonmax=float(i[14])
-    dormitoriosmin=float(i[15])
-    dormitoriosmax=float(i[16])
-    banosmin=float(i[17])
-    banosmax=float(i[18])
-    metrodistance=(i[30])
-    rentmin=float(i[35])
-    estacionamientos=float(i[19])
+        nombreCliente=str(i[1])
+        mail = str(i[3])
 
-    if i[38] is not None:
-        confmin=int(i[38])
-    else:
-        confmin=i[38]
+        preciomin=float(i[5])
+        preciomax=float(i[6])
+        utilmin=float(i[7])
+        utilmax=float(i[8])
+        totalmin=float(i[9])
+        totalmax=float(i[10])
+        latmin=float(i[11])
+        latmax=float(i[12])
+        lonmin=float(i[13])
+        lonmax=float(i[14])
+        dormitoriosmin=float(i[15])
+        dormitoriosmax=float(i[16])
+        banosmin=float(i[17])
+        banosmax=float(i[18])
 
-    tipo=i[20]
-    operacion=i[21]
-    region=i[23]
-    comuna1=i[24]
-    if comuna1 is None:
-        comuna1=""
-    comuna2=i[25]
-    if comuna2 is None:
-        comuna2="abcdefghij"
-    comuna3=i[26]
-    if comuna3 is None:
-        comuna3="abcdefghij"
-    metrodistance=i[30]
-    linea1=i[31]
-    if linea1 is None:
-        linea1="abcdefghij"
-    linea2=i[32]
-    if linea2 is None:
-        linea2="abcdefghij"
-    linea3=i[33]
-    if linea3 is None:
-        linea3="abcdefghij"
+        rentmin=float(i[35])
+        estacionamientos=float(i[19])
 
-    comuna4=i[27]
-    if comuna4 is None:
-        comuna4="abcdefghij"
-    comuna5=i[28]
-    if comuna5 is None:
-        comuna5="abcdefghij"
-    comuna6=i[29]
-    if comuna6 is None:
-        comuna6="abcdefghij"
+        if i[38] is not None:
+            confmin=int(i[38])
+        else:
+            confmin=i[38]
+
+        tipo=i[20]
+        operacion=i[21]
+        region=i[23]
+        comuna1=i[24]
+        if comuna1 is None:
+            comuna1=""
+        comuna2=i[25]
+        if comuna2 is None:
+            comuna2="abcdefghij"
+        comuna3=i[26]
+        if comuna3 is None:
+            comuna3="abcdefghij"
+        metrodistance=i[30]
+        linea1=i[31]
+        if linea1 is None:
+            linea1="abcdefghij"
+        linea2=i[32]
+        if linea2 is None:
+            linea2="abcdefghij"
+        linea3=i[33]
+        if linea3 is None:
+            linea3="abcdefghij"
+
+        comuna4=i[27]
+        if comuna4 is None:
+            comuna4="abcdefghij"
+        comuna5=i[28]
+        if comuna5 is None:
+            comuna5="abcdefghij"
+        comuna6=i[29]
+        if comuna6 is None:
+            comuna6="abcdefghij"
+
+        prioridad = i[37]
+        flagMail = int(i[36])
+
+
+        generarReporte(preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,
+                       dormitoriosmax,banosmin,banosmax,confmin,rentmin, estacionamientos,metrodistance,tipo,operacion,region,comuna1,comuna2,
+                       comuna3,comuna4,comuna5,comuna6,prioridad,flagMail,mail,nombreCliente)
+
+def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
+                       dormitoriosmin,
+                       dormitoriosmax, banosmin, banosmax, confmin, rentmin, estacionamientos, metrodistance, tipo,
+                       operacion, region, comuna1, comuna2,
+                       comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente):
+
     props=from_portalinmobiliario(tipo,region)
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
-
+    resultado = []
     estaciones1=estaciones()
     print("total propiedades encontradas: "+str(len(propiedades)))
     count=0
@@ -723,8 +740,6 @@ for i in data:
 
 
         subresultado=[]
-        uni=str(prop[0])+"000"+str(i[0])
-        uni=int(uni)
         subresultado.append(int(prop[5]))
         subresultado.append(int(prop[8]))
         subresultado.append(int(prop[9]))
@@ -743,7 +758,7 @@ for i in data:
             continue
 
         print("renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
-        if (i[21]=="venta"):
+        if (operacion=="venta"):
 
             tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
@@ -775,11 +790,11 @@ for i in data:
             #     continue
 
 
-            if rentaV<rentmin and (i[37]=="venta"):
+            if rentaV<rentmin and (prioridad=="venta"):
                 print("renta de venta muy baja")
                 continue
 
-            if rentaV<rentmin and (i[37]!="venta") and (i[37]!="arriendo"):
+            if rentaV<rentmin and (prioridad!="venta") and (prioridad!="arriendo"):
                 print("renta de venta muy baja")
                 continue
 
@@ -802,11 +817,11 @@ for i in data:
                 rentaPP=(precioA*12/precioV)
                 print("rentapp: "+str(rentaPP))
 
-            if rentaV<rentmin and (i[37]=="venta"):
+            if rentaV<rentmin and (prioridad=="venta"):
                 print("renta de venta muy baja")
                 continue
 
-            if rentaV<rentmin and (i[37]!="venta") and (i[37]!="arriendo"):
+            if rentaV<rentmin and (prioridad!="venta") and (prioridad!="arriendo"):
                 print("renta de venta muy baja")
                 continue
 
@@ -820,31 +835,16 @@ for i in data:
                 print("renta de arriendo muy baja")
                 continue
 
-            if rentaA<rentmin and (i[37]=="arriendo"):
+            if rentaA<rentmin and (prioridad=="arriendo"):
                 print("renta de arriendo mas baja que minima")
                 continue
             subresultado.append(precioV)
             subresultado.append(float(rentaV))
             subresultado.append(precioA)
             subresultado.append(float(rentaA))
-            print("depto encontrado para "+str(i[1]))
+            print("depto encontrado para "+nombreCliente)
 
         else:
-            # precioV=calcularDistanciaV(prop,props)
-            # if precioV is None:
-            #     continue
-
-            # subresultado.append(precioV)
-            # rentaV=(prop[5]*12/precioV)
-            # # if rentaV<rentmin or rentaV>1:
-            # #     continue
-            # subresultado.append(float(rentaV))
-            #
-            # if rentaV>0.3:
-            #     continue
-            #
-            # if rentaV<rentmin and (i[37]=="venta"):
-            #     continue
 
             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
 
@@ -861,7 +861,7 @@ for i in data:
             if rentaA>1:
                 continue
 
-            if rentaA<rentmin and (i[37]=="arriendo"):
+            if rentaA<rentmin and (prioridad=="arriendo"):
                 continue
 
             subresultado.append(float(rentaA))
@@ -872,28 +872,24 @@ for i in data:
         else:
             subresultado.append(prop[13])
 
-        print("depto encontrado para "+str(i[1]))
+        print("depto encontrado para "+nombreCliente)
         resultado.append(subresultado)
         #print("sub appended")
 
 
     if len(resultado)>0:
-        print("Generando Reporte para el cliente "+str(i[1]))
+        print("Generando Reporte para el cliente "+nombreCliente)
 
-        if (i[37]=="arriendo"):
+        if (prioridad=="arriendo"):
             resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
-        if (i[37]=="venta"):
+        if (prioridad=="venta"):
             resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
         else:
             resultado=sorted(resultado, key=lambda x:x[0])
 
 
-
-
-
-
-        if (i[21]=="venta"):
-            if (i[37]=="venta"):
+        if (operacion=="venta"):
+            if (prioridad=="venta"):
                 resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
             columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
         else:
@@ -901,18 +897,20 @@ for i in data:
 
 
         today = datetime.today().strftime('%Y-%m-%d')
-        nombreArchivo = i[1] + " propiedades usadas VA " +str(tipo)+" "+ today
-        pdfC.createPdfReport(i[1], "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
+        nombreArchivo = nombreCliente + " propiedades usadas VA " +str(tipo)+" "+ today
+        pdfC.createPdfReport(nombreCliente, "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
 
-        if ((int(i[36]))==1):
-            sendmail.sendMail(i[3],i[1],("reporte "+str(nombreArchivo)+".pdf"))
-            print("Enviando reporte a cliente "+str(i[1]))
+        if (flagMail==1):
+            sendmail.sendMail(mail,nombreCliente,("reporte "+str(nombreArchivo)+".pdf"))
+            print("Enviando reporte a cliente "+nombreCliente)
 
     else:
-        print("No se han encontrado propiedades para el cliente "+i[1])
+        print("No se han encontrado propiedades para el cliente "+nombreCliente)
 
 
 
    #insertarClientes_Propiedades(subresultado)
 
 
+if __name__ == '__main__':
+    main()
