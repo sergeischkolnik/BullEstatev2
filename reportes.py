@@ -175,6 +175,8 @@ def clientes():
     sql = "SELECT * FROM clientes"
     cur.execute(sql)
     tupla = cur.fetchall()
+    if tupla[38] is None:
+        tupla[38]=8
     return tupla
 
 def insertarClientes_Propiedades(resultado):
