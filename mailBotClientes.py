@@ -24,9 +24,9 @@ def sendClientMailsDeptos():
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "(portalinmobiliario.link like '%santiago-metropolitana%' or portalinmobiliario.link like '%lo-barnechea%' or " \
-          "portalinmobiliario.link like '%vitacuraa%' or portalinmobiliario.link like '%providencia%' or " \
-           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%nunoa%' or portalinmobiliario.link like '%san-miguel%');"
+          "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
+          "portalinmobiliario.link like '%providencia%' or " \
+           "portalinmobiliario.link like '%nunoa%' or portalinmobiliario.link like '%san-miguel%');"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
