@@ -78,9 +78,9 @@ sendClientMailsCasas()
 hasSendDailyMails = True
 
 while True:
-    if hasSendDailyMails and datetime.now().hour == 13:
+    if hasSendDailyMails and datetime.now().hour == 17:
             hasSendDailyMails = False
-    if not hasSendDailyMails and datetime.now().hour == 14:
+    if not hasSendDailyMails and datetime.now().hour == 22:
             #mandar mails aca
             sendClientMailsDeptos()
             sendClientMailsCasas()
