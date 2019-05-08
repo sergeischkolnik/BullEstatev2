@@ -29,7 +29,6 @@ def sendClientMailsDeptos():
            "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%');"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    print("conexion ok")
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     lista = cur.fetchall()
@@ -44,7 +43,7 @@ def sendClientMailsDeptos():
 
         #gratis
         mailer.sendMailGratis(to,nombreProp,gratis=False)
-        checkClient(to,"0")
+        checkClient(to,"1")
 
         time.sleep(random.randint(200,300))
 
@@ -56,9 +55,8 @@ def sendClientMailsCasas():
           "(portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacuraa%' or " \
            "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%la-reina%');"
-
+    print(sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    print("conexion ok")
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     lista = cur.fetchall()
@@ -71,7 +69,7 @@ def sendClientMailsCasas():
         nombreProp = str(l[1])
 
         mailer.sendMailGratis(to,nombreProp,gratis=False)
-        checkClient(to,"0")
+        checkClient(to,"1")
 
         time.sleep(random.randint(200,300))
 		
