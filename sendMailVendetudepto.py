@@ -20,7 +20,7 @@ def sendMailGratis(to,nombreProp,gratis):
     if gratis:
         body1 += "Como oferta de lanzamiento, hoy te puedo ofrecer lo siguiente de forma TOTALMENTE GRATUITA:\n\n"
     else:
-        body1 += "Como oferta de lanzamiento, hoy te puedo ofrecer un descuento de un 75% en nuestros servicios, que consisten en lo siguiente:\n\n"
+        body1 += "Como oferta de lanzamiento, hoy te puedo ofrecer un descuento de un 50% en nuestros servicios, que consisten en lo siguiente:\n\n"
     body1 += "-Tasación: te ayudamos a encontrar el precio que maximice tu ganancia.\n"
     body1 += "-Fotografía profesional: Tener fotografías profesionales agiliza la venta o arriendo.\n"
     body1 += "-Publicación en principales portales.\n"
@@ -30,7 +30,7 @@ def sendMailGratis(to,nombreProp,gratis):
     if gratis:
         body1 += "Nuestra fuente de ingreso es la comisión cobrada al COMPRADOR (es decir, para ti no tendrá costo alguno).\n\n"
     else:
-        body1 += "Nuestra fuente de ingreso es el 2% del valor de la propiedad, correspondiente a la comisión del COMPRADOR y un 0,5% del vendedor (es decir, solo pagarás 1/4 de lo que pagarías en una corredora tradicional). \n\n"
+        body1 += "Nuestra fuente de ingreso es el 2% del valor de la propiedad, correspondiente a la comisión del COMPRADOR y un 1% del vendedor (es decir, solo pagarás la mitad de lo que pagarías en una corredora tradicional). \n\n"
 
     body1 += "Te invito a relajarte, y ser parte de nuestra cartera de clientes.\n\n"
     body1 += "Si estás interesada/o en saber más, puedes escribirme a este correo.\n\n"

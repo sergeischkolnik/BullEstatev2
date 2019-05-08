@@ -43,7 +43,7 @@ def sendClientMailsDeptos():
         nombreProp = str(l[1])
 
         #gratis
-        mailer.sendMailGratis(to,nombreProp,gratis=True)
+        mailer.sendMailGratis(to,nombreProp,gratis=False)
         checkClient(to,"0")
 
         time.sleep(random.randint(200,300))
@@ -70,7 +70,7 @@ def sendClientMailsCasas():
         to = str(l[0])
         nombreProp = str(l[1])
 
-        mailer.sendMailGratis(to,nombreProp,gratis=True)
+        mailer.sendMailGratis(to,nombreProp,gratis=False)
         checkClient(to,"0")
 
         time.sleep(random.randint(200,300))
