@@ -26,7 +26,7 @@ def sendClientMailsDeptos():
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
           "portalinmobiliario.link like '%providencia%' or " \
-           "portalinmobiliario.link like '%nunoa%' or portalinmobiliario.link like '%san-miguel%');"
+           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%');"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
