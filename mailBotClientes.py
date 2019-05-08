@@ -29,7 +29,7 @@ def sendClientMailsDeptos():
            "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%');"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-
+    print("conexion ok")
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     lista = cur.fetchall()
@@ -58,7 +58,7 @@ def sendClientMailsCasas():
            "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%la-reina%');"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-
+    print("conexion ok")
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     lista = cur.fetchall()
