@@ -22,11 +22,11 @@ def checkClient(clientMail,comision):
 def sendClientMailsDeptos():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
           "portalinmobiliario.link like '%providencia%' or " \
-           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%');"
+           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%' or portalinmobiliario.link like 'san-miguel');"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     print(sql)
@@ -51,7 +51,7 @@ def sendClientMailsDeptos():
 def sendClientMailsCasas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='casa' and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='casa' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacuraa%' or " \
@@ -72,7 +72,8 @@ def sendClientMailsCasas():
         checkClient(to,"1")
 
         time.sleep(random.randint(200,300))
-		
+        time.sleep(random.randint(200,300))
+
 sendClientMailsDeptos()
 sendClientMailsCasas()
 hasSendDailyMails = True
