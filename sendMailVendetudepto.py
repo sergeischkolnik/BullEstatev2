@@ -16,8 +16,10 @@ def sendMailGratis(to,nombreProp,gratis):
 
     body1 = "Hola!\n\n"
     body1 += "Te escribo por tu publicación en portalinmobiliario " + nombreProp + ".\n\n"
-    body1 += "Mi nombre es Francisca de vendetudepto.cl. Como promoción de lanzamiento, estamos ofreciendo servicios de corretaje gratuitos.\n\n"
+    body1 += "Mi nombre es Francisca de vendetudepto.cl. Como promoción de lanzamiento, estamos ofreciendo servicios gratuitos de difusión inmobiliaria.\n\n"
     body1 += "Esto puede acelerar bastante tu proceso, y no pierdes nada, ya que no te cobraremos ni exigimos exclusividad (y si lo deseas, puedes seguir gestionandolo por tu lado).\n"
+    body1 += "El servicio incluye publicaciones con cuentas pagadas en principales portales de compraventa inmobiliaria, difusión en nuestra cartera de clientes, y gestión de visitas.\n"
+    body1 += "Además, realizamos el acompañamiento hasta la firma final de compraventa o de arriendo de la propiedad\n"
     body1 += "Si tienes interés o quieres resolver dudas, por favor escríbeme a mi correo francisca@vendetudepto.cl o a nuestro WhatsApp +569 3391 1985, y con gusto te asignaremos un corredor para tu propiedad\n"
     body1 += "De antemano muchas gracias por tu tiempo,\n\n"
     body1 += "Saludos cordiales,\n\n"
