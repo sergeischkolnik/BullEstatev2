@@ -471,6 +471,7 @@ def echo_all(updates):
                                    ", tasación realizada comparandose con "+str(nrcomp)+" propiedades.\nLinks:"
                             for link in links:
                                 text += "\n\n" + str(link)
+                            text=text[:4000]
                         else:
                             text = "Error de ingreso de datos."
 
