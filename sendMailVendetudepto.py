@@ -26,7 +26,7 @@ def sendMailGratis(to,nombreProp,link):
     body1 += "Saludos cordiales,\n\n"
     body1 += "Francisca, \n"
     body1 += "www.vendetudepto.cl\n\n"
-    body1 += "Si usted es corredor de propiedades, favor indicar si la propiedad está disponible para canje"
+    body1 += "PD: Si usted es corredor de propiedades, rogamos indicar si la propiedad está disponible para canje."
 
     msg.attach(MIMEText(body1, 'plain'))
 
