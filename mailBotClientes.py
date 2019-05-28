@@ -29,7 +29,7 @@ def sendClientMailsDeptos():
           "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'450000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'550000') or (portalinmobiliario.dormitorios>'2') )) or "\
           "(portalinmobiliario.link like '%estacion-central%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'250000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'320000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'370000'))) or "\
           "(portalinmobiliario.link like '%vitacura%') or "\
-          "(portalinmobiliario.link like '%nunoa%' and (portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'430000') or portalinmobiliario.dormitorios>'1') or "\
+          "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'430000') or portalinmobiliario.dormitorios>'1')) or "\
           "(portalinmobiliario.link like 'san-miguel' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'300000') or (portalinmobiliario.dormitorios>'1'))));"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
