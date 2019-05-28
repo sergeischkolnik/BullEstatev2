@@ -4,7 +4,7 @@ from email.mime.text import  MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 
-def sendMailGratis(to,nombreProp,gratis):
+def sendMailGratis(to,nombreProp,link):
     fromaddr = "fernanda@vendetudepto.cl"
     toaddr = to
 
@@ -15,17 +15,18 @@ def sendMailGratis(to,nombreProp,gratis):
     msg['Subject'] = nombreProp
 
     body1 = "Hola!\n\n"
-    body1 += "Te escribo por tu publicación en portalinmobiliario " + nombreProp + ".\n\n"
-    body1 += "Mi nombre es Fernanda de vendetudepto.cl. Como promoción de lanzamiento, estamos ofreciendo servicios gratuitos de difusión inmobiliaria.\n\n"
-    body1 += "Esto puede acelerar bastante tu proceso, y no pierdes nada, ya que no te cobraremos ni exigimos exclusividad (y si lo deseas, puedes seguir gestionandolo por tu lado).\n\n"
-    body1 += "El servicio incluye publicaciones con cuentas pagadas en principales portales de compraventa inmobiliaria, difusión en nuestra cartera de clientes, y gestión de visitas.\n"
-    body1 += "Además, realizamos el acompañamiento hasta la firma final de compraventa o de arriendo de la propiedad\n\n"
-    body1 += "Si tienes interés o quieres resolver dudas, por favor escríbeme a mi correo fernanda@vendetudepto.cl o a nuestro WhatsApp +569 3391 1985, y con gusto te atenderé personalmente.\n"
+    body1 += "Te escribo por tu publicación de venta en Portalinmobiliario " + nombreProp + ", link: "+ link + ".\n\n"
+    body1 += "Mi nombre es Fernanda, trabajo en Vendetudepto.cl, y como promoción de lanzamiento, estamos ofreciendo servicios Totalmente Gratuitos de difusión inmobiliaria.\n\n"
+    body1 += "Esto puede acelerar bastante tu proceso, y no pierdes nada, ya que no te cobraremos ni exigimos exclusividad (y si lo deseas, puedes seguir gestionándolo por tu lado).\n\n"
+    body1 += "El servicio incluye publicaciones con cuentas pagadas en principales portales de compraventa inmobiliaria, difusión en nuestra cartera de clientes, y gestión de visitas. Como te mencioné anteriormente, esto no tiene absolutamente ningún costo para ti.\n"
+    body1 += "Además, realizamos el acompañamiento hasta la firma final de compraventa o de arriendo de la propiedad.\n\n"
+    body1 += "Si tienes interés, te solicito enviar toda la información de tu propiedad a mi correo fernanda@vendetudepto.cl (precio, características, horarios de visita, etc), y con gusto asignaremos un corredor para tu propiedad. Junto con esto, rogamos enviarnos tu número de contacto.\n\n"
+    body1 += "Ante cualquier dudas, por favor escríbeme al correo o a nuestro WhatsApp +569 3391 1985.\n"
     body1 += "De antemano muchas gracias por tu tiempo,\n\n"
     body1 += "Saludos cordiales,\n\n"
-    body1 += "Fernanda, \n"
-    body1 += "Whatsapp: +569 3391 1985\n"
-    body1 += "www.vendetudepto.cl"
+    body1 += "Fernanda Errázuriz, \n"
+    body1 += "www.vendetudepto.cl\n\n"
+    body1 += "PD: Si usted es corredor de propiedades, rogamos indicar si la propiedad está disponible para canje."
 
     msg.attach(MIMEText(body1, 'plain'))
 

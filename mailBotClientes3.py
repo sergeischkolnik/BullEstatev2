@@ -24,9 +24,13 @@ def sendClientMailsDeptos():
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
-          "portalinmobiliario.link like '%providencia%' or " \
-           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%' or portalinmobiliario.link like 'san-miguel');"
+          "((portalinmobiliario.link like '%santiago-metropolitana%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'55000000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'70000000') or (portalinmobiliario.dormitorios>'2'and portalinmobiliario.precio<'90000000' and portalinmobiliario.banos>'1'))) or "\
+          "(portalinmobiliario.link like '%providencia%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'110000000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'150000000') or (portalinmobiliario.dormitorios>'2'and portalinmobiliario.precio<'170000000' and portalinmobiliario.banos>'1'))) or "\
+          "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'100000000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'150000000') or (portalinmobiliario.dormitorios>'2'and portalinmobiliario.precio<'170000000' and portalinmobiliario.banos>'1'))) or "\
+          "(portalinmobiliario.link like '%estacion-central%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'35000000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'45000000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'55000000'))) or "\
+          "(portalinmobiliario.link like '%vitacura%') and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'120000000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'160000000') or (portalinmobiliario.dormitorios>'2'and portalinmobiliario.precio<'180000000' and portalinmobiliario.banos>'1'))) or "\
+          "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'80000000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'110000000') or (portalinmobiliario.dormitorios>'2'and portalinmobiliario.precio<'140000000' and portalinmobiliario.banos>'1'))) or "\
+          "(portalinmobiliario.link like 'san-miguel' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'60000000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'70000000') or (portalinmobiliario.dormitorios>'2'and portalinmobiliario.precio<'80000000' and portalinmobiliario.banos>'1'))) or "\
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     print(sql)
@@ -41,12 +45,13 @@ def sendClientMailsDeptos():
 
         to = str(l[0])
         nombreProp = str(l[1])
+        linkProp=str(l[2])
 
         #gratis
-        mailer.sendMailGratis(to,nombreProp,gratis=False)
+        mailer.sendMailGratis(to,nombreProp,linkProp)
         checkClient(to,"1")
 
-        time.sleep(random.randint(200,300))
+        time.sleep(random.randint(150,250))
 
 def sendClientMailsCasas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
@@ -101,7 +106,7 @@ def sendClientMailsOficinas():
         time.sleep(random.randint(200,300))
 
 
-sendClientMailsOficinas()
+sendClientMailsDeptos()
 hasSendDailyMails = True
 
 while True:
