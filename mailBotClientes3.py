@@ -5,7 +5,7 @@ import random
 import sendMailVendetudepto3 as mailer
 import time
 
-past = datetime.now() - timedelta(days=30)
+past = datetime.now() - timedelta(days=60)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
@@ -56,11 +56,13 @@ def sendClientMailsDeptos():
 def sendClientMailsCasas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='casa' and " \
+          "duenos.esDueno='si' and portalinmobiliario.precio>'129900000' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='casa' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacuraa%' or " \
-           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%la-reina%');"
+          "portalinmobiliario.link like '%nunoaa%' or " \
+          "portalinmobiliario.link like '%maipu%' or " \
+          "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%la-reina%');"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -73,11 +75,11 @@ def sendClientMailsCasas():
         to = str(l[0])
         nombreProp = str(l[1])
 
-        mailer.sendMailGratis(to,nombreProp,gratis=False)
+        linkProp=str(l[2])
+        mailer.sendMailGratis(to,nombreProp,linkProp)
         checkClient(to,"1")
 
-        time.sleep(random.randint(200,300))
-        time.sleep(random.randint(200,300))
+        time.sleep(random.randint(150,250))
 
 def sendClientMailsOficinas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
@@ -106,7 +108,7 @@ def sendClientMailsOficinas():
         time.sleep(random.randint(200,300))
 
 
-sendClientMailsDeptos()
+sendClientMailsCasas()
 hasSendDailyMails = True
 
 while True:
