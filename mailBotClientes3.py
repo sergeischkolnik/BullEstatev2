@@ -108,7 +108,7 @@ def sendClientMailsOficinas():
         time.sleep(random.randint(200,300))
         time.sleep(random.randint(200,300))
 
-
+sendClientMailsDeptos()
 sendClientMailsCasas()
 hasSendDailyMails = True
 
