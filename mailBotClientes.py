@@ -56,11 +56,14 @@ def sendClientMailsDeptos():
 def sendClientMailsCasas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='casa' and " \
+          "duenos.esDueno='si' and portalinmobiliario.precio>'500000' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='casa' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%lo-barnechea%' or " \
-          "portalinmobiliario.link like '%vitacuraa%' or " \
-           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%la-reina%');"
+          "portalinmobiliario.link like '%vitacura%' or " \
+          "portalinmobiliario.link like '%nunoa%' or " \
+          "(portalinmobiliario.link like '%colina%' and ((lat<'-33.264536' and lat>'-33.308362' and lon<'-70.618245' and lon>'-70.699193') or (lat<'-33.301430' and lat>'-33.335555' and lon<'-70.622641' and lon>'-70.666652'))) or " \
+          "portalinmobiliario.link like '%maipu%' or " \
+          "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%la-reina%');"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -72,15 +75,16 @@ def sendClientMailsCasas():
     for i,l in enumerate(lista):
         to = str(l[0])
         nombreProp = str(l[1])
+        linkProp=str(l[2])
 
-        mailer.sendMailGratis(to,nombreProp,gratis=False)
+        mailer.sendMailGratis(to,nombreProp,linkProp)
         checkClient(to,"1")
 
-        time.sleep(random.randint(200,300))
-        time.sleep(random.randint(200,300))
+        time.sleep(random.randint(150,250))
+
 
 sendClientMailsDeptos()
-#sendClientMailsCasas()
+sendClientMailsCasas()
 hasSendDailyMails = True
 
 while True:
