@@ -109,7 +109,6 @@ def sendClientMailsOficinas():
         checkClient(to,"1")
 
         time.sleep(random.randint(150,250))
-        time.sleep(random.randint(200,300))
 
 sendClientMailsDeptos()
 sendClientMailsCasas()
