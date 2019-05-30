@@ -113,6 +113,7 @@ def sendClientMailsOficinas():
 
 sendClientMailsDeptos()
 sendClientMailsCasas()
+sendClientMailsOficinas()
 hasSendDailyMails = True
 
 while True:
