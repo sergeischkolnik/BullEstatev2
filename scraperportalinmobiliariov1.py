@@ -215,8 +215,11 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                         minMeters = (meters[0])[:-1]
                         maxMeters = (meters[1])[:-3]
                         maxMeters = maxMeters[1:]
+                        minMeters = (minMeters.replace('.',''))
+                        maxMeters = (maxMeters.replace('.',''))
                         minMeters = float(minMeters.replace(',','.'))
                         maxMeters = float(maxMeters.replace(',','.'))
+
 
 
                     elif 'missing' in meters:
@@ -224,9 +227,12 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                         maxMeters = -1
                     else:
                         meters = meters[:-3]
+                        meters = (meters.replace('.',''))
                         meters = float(meters.replace(',','.'))
                         minMeters = meters
                         maxMeters = meters
+
+
 
                 except:
                     try:
