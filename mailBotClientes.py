@@ -90,7 +90,7 @@ def sendClientMailsOficinas():
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and (portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial') and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
-          "(portalinmobiliario.link like '%lo-barnechea%' or " \    
+          "(portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacura%' or " \
           "portalinmobiliario.link like '%nunoa%' or " \
           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%providencia%');"
