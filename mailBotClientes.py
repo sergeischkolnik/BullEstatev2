@@ -62,7 +62,8 @@ def sendClientMailsCasas():
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacura%' or " \
-          "portalinmobiliario.link like '%la-florida%' or " \
+          "portalinmobiliario.link like '%vitacura%' or " \    
+          "portalinmobiliario.link like '%providencia%' or " \
           "portalinmobiliario.link like '%nunoa%' or " \
           "(portalinmobiliario.link like '%colina%' and ((portalinmobiliario.lat<'-33.264536' and portalinmobiliario.lat>'-33.308362' and portalinmobiliario.lon<'-70.618245' and portalinmobiliario.lon>'-70.699193') or (portalinmobiliario.lat<'-33.301430' and portalinmobiliario.lat>'-33.335555' and portalinmobiliario.lon<'-70.622641' and portalinmobiliario.lon>'-70.666652'))) or " \
           "portalinmobiliario.link like '%maipu%' or " \
@@ -93,6 +94,7 @@ def sendClientMailsOficinas():
           "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
           "portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacura%' or " \
+          "(portalinmobiliario.link like '%huechuraba%' and ((portalinmobiliario.lat<'-33.374926' and portalinmobiliario.lat>'-33.396264' and portalinmobiliario.lon<'-70.603082' and portalinmobiliario.lon>'-70.630241'))) or " \
           "portalinmobiliario.link like '%nunoa%' or " \
           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%providencia%');"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
