@@ -27,6 +27,7 @@ def sendClientMailsDeptos():
           "((portalinmobiliario.link like '%santiago-metropolitana%' and (portalinmobiliario.dormitorios>'2' or portalinmobiliario.precio<'290000')) or " \
           "(portalinmobiliario.link like '%providencia%' and portalinmobiliario.dormitorios='1') or " \
           "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'450000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'550000') or (portalinmobiliario.dormitorios>'2') )) or "\
+          "(portalinmobiliario.link like '%la-florida%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'300000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'370000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.banos>2 and portalinmobiliario.precio<420000) )) or "\          
           "(portalinmobiliario.link like '%estacion-central%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'250000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'320000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'370000'))) or "\
           "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'600000') or"\
           "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'430000') or portalinmobiliario.dormitorios>'1')) or "\
@@ -60,6 +61,7 @@ def sendClientMailsCasas():
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacura%' or " \
+          "portalinmobiliario.link like '%la-florida%' or " \
           "portalinmobiliario.link like '%nunoa%' or " \
           "(portalinmobiliario.link like '%colina%' and ((portalinmobiliario.lat<'-33.264536' and portalinmobiliario.lat>'-33.308362' and portalinmobiliario.lon<'-70.618245' and portalinmobiliario.lon>'-70.699193') or (portalinmobiliario.lat<'-33.301430' and portalinmobiliario.lat>'-33.335555' and portalinmobiliario.lon<'-70.622641' and portalinmobiliario.lon>'-70.666652'))) or " \
           "portalinmobiliario.link like '%maipu%' or " \
@@ -88,6 +90,7 @@ def sendClientMailsOficinas():
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and (portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial') and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
+          "(portalinmobiliario.link like '%lo-barnechea%' or " \    
           "portalinmobiliario.link like '%vitacura%' or " \
           "portalinmobiliario.link like '%nunoa%' or " \
           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%providencia%');"
