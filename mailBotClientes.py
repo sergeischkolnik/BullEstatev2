@@ -27,11 +27,11 @@ def sendClientMailsDeptos():
           "((portalinmobiliario.link like '%santiago-metropolitana%' and (portalinmobiliario.dormitorios>'2' or portalinmobiliario.precio<'290000')) or " \
           "(portalinmobiliario.link like '%providencia%' and portalinmobiliario.dormitorios='1') or " \
           "(portalinmobiliario.link like '%huechuraba%' and ((portalinmobiliario.lat<'-33.374926' and portalinmobiliario.lat>'-33.396264' and portalinmobiliario.lon<'-70.603082' and portalinmobiliario.lon>'-70.630241'))) or " \
-          "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'450000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'550000') or (portalinmobiliario.dormitorios>'2') )) or "\
+          "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'450000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'600000') or (portalinmobiliario.dormitorios>'2') )) or "\
           "(portalinmobiliario.link like '%la-florida%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'300000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'370000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.banos>'1' and portalinmobiliario.precio<'420000'))) or "\
           "(portalinmobiliario.link like '%estacion-central%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'280000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'330000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'380000'))) or "\
           "(portalinmobiliario.link like '%independencia%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'280000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'330000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'380000'))) or "\
-          "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'600000') or"\
+          "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'500000') or"\
           "(portalinmobiliario.link like '%recoleta%' and portalinmobiliario.precio>'450000') or"\
           "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'430000') or portalinmobiliario.dormitorios>'1')) or "\
           "(portalinmobiliario.link like 'san-miguel' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'300000') or (portalinmobiliario.dormitorios>'1'))));"
@@ -60,7 +60,7 @@ def sendClientMailsDeptos():
 def sendClientMailsCasas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and portalinmobiliario.precio>'450000' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='casa' and " \
+          "duenos.esDueno='si' and portalinmobiliario.precio>'400000' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='casa' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%lo-barnechea%' or " \
           "portalinmobiliario.link like '%vitacura%' or " \
