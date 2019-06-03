@@ -31,7 +31,7 @@ def sendClientMailsDeptos():
           "(portalinmobiliario.link like '%la-florida%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'300000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'370000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.banos>'1' and portalinmobiliario.precio<'420000'))) or "\
           "(portalinmobiliario.link like '%estacion-central%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'280000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'330000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'380000'))) or "\
           "(portalinmobiliario.link like '%independencia%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'280000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'330000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'380000'))) or "\
-          "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'500000') or"\
+          "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'400000') or"\
           "(portalinmobiliario.link like '%recoleta%' and portalinmobiliario.precio>'450000') or"\
           "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'430000') or portalinmobiliario.dormitorios>'1')) or "\
           "(portalinmobiliario.link like 'san-miguel' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'300000') or (portalinmobiliario.dormitorios>'1'))));"
@@ -91,7 +91,7 @@ def sendClientMailsCasas():
 def sendClientMailsOficinas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and (portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial' or portalinmobiliario.tipo='estacionamiento') and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and (portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial') and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
           "portalinmobiliario.link like '%lo-barnechea%' or " \
