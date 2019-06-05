@@ -24,17 +24,17 @@ def sendClientMailsDeptos():
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "((portalinmobiliario.link like '%santiago-metropolitana%' and (portalinmobiliario.dormitorios>'2' or portalinmobiliario.precio<'290000')) or " \
-          "(portalinmobiliario.link like '%providencia%' and portalinmobiliario.dormitorios='1') or " \
+          "((portalinmobiliario.link like '%santiago-metropolitana%' and (portalinmobiliario.dormitorios>'2' or portalinmobiliario.precio<'790000')) or " \
+          "(portalinmobiliario.link like '%providencia%' or " \
           "(portalinmobiliario.link like '%huechuraba%' and ((portalinmobiliario.lat<'-33.374926' and portalinmobiliario.lat>'-33.396264' and portalinmobiliario.lon<'-70.603082' and portalinmobiliario.lon>'-70.630241'))) or " \
-          "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'450000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'600000') or (portalinmobiliario.dormitorios>'2') )) or "\
-          "(portalinmobiliario.link like '%la-florida%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'300000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'370000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.banos>'1' and portalinmobiliario.precio<'420000'))) or "\
-          "(portalinmobiliario.link like '%estacion-central%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'280000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'330000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'380000'))) or "\
-          "(portalinmobiliario.link like '%independencia%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'280000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'330000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'380000'))) or "\
+          "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'950000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'1100000') or (portalinmobiliario.dormitorios>'2') )) or "\
+          "(portalinmobiliario.link like '%la-florida%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'850000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'920000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.banos>'1' and portalinmobiliario.precio<'970000'))) or "\
+          "(portalinmobiliario.link like '%estacion-central%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'830000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'880000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'930000'))) or "\
+          "(portalinmobiliario.link like '%independencia%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'830000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'880000') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<'9430000'))) or "\
           "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'400000') or"\
           "(portalinmobiliario.link like '%recoleta%' and portalinmobiliario.precio>'450000') or"\
-          "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'430000') or portalinmobiliario.dormitorios>'1')) or "\
-          "(portalinmobiliario.link like 'san-miguel' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'300000') or (portalinmobiliario.dormitorios>'1'))));"
+          "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'930000') or portalinmobiliario.dormitorios>'1')) or "\
+          "(portalinmobiliario.link like 'san-miguel' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'600000') or (portalinmobiliario.dormitorios>'1'))));"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     print(sql)
