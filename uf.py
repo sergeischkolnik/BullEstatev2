@@ -17,10 +17,14 @@ def getUf():
     tree3 = html.fromstring(page3.content)
     xpath='/html/body/div[1]/div[1]/h1/span'
     uf=tree3.xpath(xpath)
-    uf=uf[0]
-    uf=uf.text
-    uf=uf[2:]
-    uf=uf.replace(".","")
-    uf=uf.replace(",",".")
+    try:
+        uf=uf[0]
+        uf=uf.text
+        uf=uf[2:]
+        uf=uf.replace(".","")
+        uf=uf.replace(",",".")
+    except:
+        uf=27778.65
     uf=float(uf)
     return(uf)
+
