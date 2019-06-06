@@ -15,7 +15,8 @@ def getUf():
     link='https://valoruf.cl/'
     page3 = requests.get(link)
     tree3 = html.fromstring(page3.content)
-    xpath='/html/body/div[1]/div[1]/h1/span'
+    xpath='/html/body/div[2]/h1/span'
+    '/html/body/div[2]/h1/span'
     uf=tree3.xpath(xpath)
     try:
         uf=uf[0]
@@ -24,7 +25,7 @@ def getUf():
         uf=uf.replace(".","")
         uf=uf.replace(",",".")
     except:
-        uf=27778.65
+        uf=27778.60
     uf=float(uf)
     return(uf)
 
