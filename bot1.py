@@ -48,6 +48,10 @@ id_chats_updates = ["485728961","652659504","9561926"]
 
 t = -1
 
+franciscaAndando = False
+
+
+
 def estadoScrapper(chatId):
 
     #Añadir regiones a arreglo
@@ -311,15 +315,21 @@ def echo_all(updates):
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
-                    text = "Partiendo Francisca - captadora de arriendos."
-                    t = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails(), args=())
-                    t.setDaemon(True)
-                    t.start()
+                    if(not franciscaAndando):
+                        text = "Partiendo Francisca - captadora de arriendos."
+                        t = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
+                        t.setDaemon(True)
+                        t.start()
+                    else:
+                        text="Francisca ya esta andando."
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
-                    text = "Parando Francisca - captadora de arriendos."
-                    t.do_run = False
+                    if(franciscaAndando):
+                        text = "Parando Francisca - captadora de arriendos."
+                        t.do_run = False
+                    else:
+                        text = "Francisca ya esta detenida."
 
                 #no encontrado
                 else:
