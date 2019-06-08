@@ -806,7 +806,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
                 continue
 
             if confmin is not None:
-                if confmin>conftasacion:
+                if confmin<conftasacion:
                     continue
 
             precioA=tasacionArriendo[0]
