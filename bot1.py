@@ -18,10 +18,28 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
-comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer',
-                        'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno','lastscrapportal',
-                        'goFernanda','stopFernanda','goFrancisca','stopFrancisca']
-comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno',]
+comandosIndividuales = ['hola',
+                        'portal',
+                        'goplaceit',
+                        'reporte',
+                        'tasador',
+                        'tasadorlinks',
+                        'clientesmailer',
+                        'clientesmailerlinks',
+                        'actualizarestadodueno',
+                        'actualizarcomentariodueno',
+                        'lastscrapportal',
+                        'goFernanda',
+                        'stopFernanda',
+                        'goFrancisca',
+                        'stopFrancisca']
+
+comandosMultiples = ['reporte',
+                     'tasador',
+                     'tasadorlinks',
+                     'banear',
+                     'actualizarestadodueno',
+                     'actualizarcomentariodueno',]
 id_chats_updates = ["485728961","652659504","9561926"]
 
 def estadoScrapper(chatId):
@@ -563,7 +581,7 @@ def main():
             if len(result) > 0:
                 last_update_id = get_last_update_id(updates) + 1
                 echo_all(updates)
-                
+
         if dt.datetime.now().minute != currentMinute:
             currentMinute = dt.datetime.now().minute
             lastScrap = pm.getLastScrap()
