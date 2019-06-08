@@ -19,8 +19,9 @@ TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
 comandosIndividuales = ['hola','portal','goplaceit','reporte','tasador','tasadorlinks','clientesmailer',
-                        'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno','lastscrapportal',]
-comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno']
+                        'clientesmailerlinks','actualizarestadodueno','actualizarcomentariodueno','lastscrapportal',
+                        'goFernanda','stopFernanda','goFrancisca','stopFrancisca']
+comandosMultiples = ['reporte','tasador','tasadorlinks','banear','actualizarestadodueno','actualizarcomentariodueno',]
 id_chats_updates = ["485728961","652659504","9561926"]
 
 def estadoScrapper(chatId):
@@ -275,6 +276,22 @@ def echo_all(updates):
                     text = "\n"
                     chatId = update["message"]["chat"]["id"]
                     estadoScrapper(chatId)
+
+                #go Fernanda - venta
+                elif text == comandosIndividuales[11]:
+                    text="Partiendo Fernanda - captadora de ventas."
+
+                #stop Fernanda  venta
+                elif text == comandosIndividuales[12]:
+                    text = "Parando Fernanda - captadora de ventas."
+
+                # go Francisca - arriendo
+                elif text == comandosIndividuales[13]:
+                    text = "Partiendo Francisca - captadora de arriendos."
+
+                # stop Francisca  arriendo
+                elif text == comandosIndividuales[14]:
+                    text = "Parando Francisca - captadora de arriendos."
 
                 #no encontrado
                 else:
