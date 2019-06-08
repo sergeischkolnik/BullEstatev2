@@ -18,6 +18,7 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
+#TODOS LOS COMANDOS SIEMPRE SOLO MINUSCULAS
 comandosIndividuales = ['hola',
                         'portal',
                         'goplaceit',
