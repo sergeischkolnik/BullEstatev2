@@ -9,6 +9,8 @@ import googleMapApi as gm
 import tasadorbot as tb
 import tasadorbot2 as tb2
 import reportes as rp
+import threading
+import mailBotClientesArriendoFrancisca
 
 
 TOKEN = "633816057:AAE30k3FguvhUq5faEbtvsLWP_J6s2sqL5M"
@@ -42,6 +44,9 @@ comandosMultiples = ['reporte',
                      'actualizarestadodueno',
                      'actualizarcomentariodueno',]
 id_chats_updates = ["485728961","652659504","9561926"]
+
+
+t = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails(), args=())
 
 def estadoScrapper(chatId):
 
@@ -307,10 +312,14 @@ def echo_all(updates):
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
                     text = "Partiendo Francisca - captadora de arriendos."
+                    t = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails(), args=())
+                    t.setDaemon(True)
+                    t.start()
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
                     text = "Parando Francisca - captadora de arriendos."
+                    t.do_run = False
 
                 #no encontrado
                 else:
