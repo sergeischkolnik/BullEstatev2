@@ -122,14 +122,14 @@ def sendClientMailsOficinas():
 sendClientMailsDeptos()
 sendClientMailsCasas()
 sendClientMailsOficinas()
-hasSendDailyMails = True
 
-while True:
-    if hasSendDailyMails and datetime.now().hour == 17:
-            hasSendDailyMails = False
-    if not hasSendDailyMails and datetime.now().hour == 22:
-            #mandar mails aca
-            sendClientMailsDeptos()
-            sendClientMailsCasas()
-            hasSendDailyMails = True
-    time.sleep(600)
+# hasSendDailyMails = True
+# while True:
+#     if hasSendDailyMails and datetime.now().hour == 17:
+#             hasSendDailyMails = False
+#     if not hasSendDailyMails and datetime.now().hour == 22:
+#             #mandar mails aca
+#             sendClientMailsDeptos()
+#             sendClientMailsCasas()
+#             hasSendDailyMails = True
+#     time.sleep(600)
