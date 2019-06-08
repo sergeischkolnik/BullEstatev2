@@ -315,6 +315,7 @@ def echo_all(updates):
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
+                    global franciscaAndando
                     if(not franciscaAndando):
                         text = "Partiendo Francisca - captadora de arriendos."
                         t = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
@@ -326,6 +327,7 @@ def echo_all(updates):
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
+                    global franciscaAndando
                     if(franciscaAndando):
                         text = "Parando Francisca - captadora de arriendos."
                         t.do_run = False
