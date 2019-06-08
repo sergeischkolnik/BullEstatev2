@@ -558,9 +558,12 @@ def main():
 
     while True:
         updates = get_updates(last_update_id)
-        if len(updates["result"]) > 0:
-            last_update_id = get_last_update_id(updates) + 1
-            echo_all(updates)
+        result = updates.get("result")
+        if result:
+            if len(result) > 0:
+                last_update_id = get_last_update_id(updates) + 1
+                echo_all(updates)
+                
         if dt.datetime.now().minute != currentMinute:
             currentMinute = dt.datetime.now().minute
             lastScrap = pm.getLastScrap()
