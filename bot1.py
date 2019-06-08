@@ -46,8 +46,9 @@ comandosMultiples = ['reporte',
 id_chats_updates = ["485728961","652659504","9561926"]
 
 
-t = -1
+global thr
 
+global franciscaAndando
 franciscaAndando = False
 
 
@@ -315,22 +316,20 @@ def echo_all(updates):
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
-                    global franciscaAndando
                     if(not franciscaAndando):
                         text = "Partiendo Francisca - captadora de arriendos."
-                        t = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
-                        t.setDaemon(True)
-                        t.start()
+                        thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
+                        thr.setDaemon(True)
+                        thr.start()
                         franciscaAndando = True
                     else:
                         text="Francisca ya esta andando."
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
-                    global franciscaAndando
                     if(franciscaAndando):
                         text = "Parando Francisca - captadora de arriendos."
-                        t.do_run = False
+                        thr.do_run = False
                         franciscaAndando = False
                     else:
                         text = "Francisca ya esta detenida."
