@@ -320,6 +320,7 @@ def echo_all(updates):
                         t = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
                         t.setDaemon(True)
                         t.start()
+                        franciscaAndando = True
                     else:
                         text="Francisca ya esta andando."
 
@@ -328,6 +329,7 @@ def echo_all(updates):
                     if(franciscaAndando):
                         text = "Parando Francisca - captadora de arriendos."
                         t.do_run = False
+                        franciscaAndando = False
                     else:
                         text = "Francisca ya esta detenida."
 
