@@ -29,10 +29,10 @@ comandosIndividuales = ['hola',
                         'actualizarestadodueno',
                         'actualizarcomentariodueno',
                         'lastscrapportal',
-                        'goFernanda',
-                        'stopFernanda',
-                        'goFrancisca',
-                        'stopFrancisca']
+                        'gofernanda',
+                        'stopfernanda',
+                        'gofrancisca',
+                        'stopfrancisca']
 
 comandosMultiples = ['reporte',
                      'tasador',
@@ -297,7 +297,7 @@ def echo_all(updates):
 
                 #go Fernanda - venta
                 elif text == comandosIndividuales[11]:
-                    text="Partiendo Fernanda - captadora de ventas."
+                    text = "Partiendo Fernanda - captadora de ventas."
 
                 #stop Fernanda  venta
                 elif text == comandosIndividuales[12]:
