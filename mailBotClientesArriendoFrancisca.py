@@ -185,10 +185,10 @@ def threadSendMails():
 
         time.sleep(sleepTime)
 
-
-sendClientMailsDeptos()
-sendClientMailsCasas()
-sendClientMailsOficinas()
+def main():
+    sendClientMailsDeptos()
+    sendClientMailsCasas()
+    sendClientMailsOficinas()
 
 
 # hasSendDailyMails = True
@@ -201,3 +201,6 @@ sendClientMailsOficinas()
 #             sendClientMailsCasas()
 #             hasSendDailyMails = True
 #     time.sleep(600)
+
+if __name__ == '__main__':
+    main()
