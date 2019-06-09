@@ -256,11 +256,19 @@ def echo_all(updates):
                
                 #propiedades portal
                 elif text==comandosIndividuales[1]:
-                    text="Propiedades de portal scrapeadas:" + str(pm.selectorPortal())
+                    sp = pm.selectorPortal()
+                    if sp != -1:
+                        text="Propiedades de portal scrapeadas:" + str(sp)
+                    else:
+                        text="Hubo un error de base de datos."
               
                 #propiedades gp
                 elif text==comandosIndividuales[2]:
-                    text="Propiedades de GP scrapeadas:" + str(pm.selectorGP())
+                    gp = pm.selectorGP()
+                    if gp != -1:
+                        text="Propiedades de GP scrapeadas:" + str(gp)
+                    else:
+                        text="Error de base de datos."
               
                 #reportes
                 elif text==comandosIndividuales[3]:
@@ -590,9 +598,6 @@ def send_message(text, chat_id,urlP):
 
 def main():
     currentMinute= dt.datetime.now().minute
-    currentPropsPortal = pm.selectorPortal()
-    currentPropsGP = pm.selectorGP()
-    hasChecked = False
     last_update_id = None
     avisado = False
     print("Bot andando.")
@@ -608,13 +613,14 @@ def main():
         if dt.datetime.now().minute != currentMinute:
             currentMinute = dt.datetime.now().minute
             lastScrap = pm.getLastScrap()
-            if dt.datetime.now()-dt.timedelta(minutes=10) > lastScrap:
-                if not avisado:
-                    for idchat in id_chats_updates:
-                        send_message("Falla en portal", idchat,URL2)
-                    avisado = True
-            else:
-                avisado = False
+            if lastScrap != -1:
+                if dt.datetime.now()-dt.timedelta(minutes=10) > lastScrap:
+                    if not avisado:
+                        for idchat in id_chats_updates:
+                            send_message("Falla en portal", idchat,URL2)
+                        avisado = True
+                else:
+                    avisado = False
         time.sleep(5)
 
 def selectorPortal():
