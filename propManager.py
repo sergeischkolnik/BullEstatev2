@@ -6,7 +6,8 @@ def fetchFromTable(db,sql):
 		cur = conn.cursor()
 		cur.execute(sql)
 		return cur.fetchall()
-	except:
+	except Exception as e:
+		print("[ERROR] propmanager.py -> fetchFrom table:" + str(e))
 		return -1
 
 def selectorPortal():
