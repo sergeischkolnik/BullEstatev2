@@ -22,6 +22,3 @@ def publicacionExiste(link):
         return True
     time.sleep(0.3)
 
-
-link="https://www.portalinmobiliario.com/venta/departamento/santiago-metropolitana/4557130-uda?tp=2&op=1&iug=441&ca=2&ts=1&mn=1&or=&sf=0&sp=0&at=0&i=7"
-print(publicacionExiste(link))
