@@ -322,15 +322,7 @@ def echo_all(updates):
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
                     global thr
-                    print("GO FRANCISCA!")
-                    
-                    print("THR:" + str(thr))
-                    if thr == -1:
-                        text = "Partiendo Francisca - captadora de arriendos."
-                        thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
-                        thr.setDaemon(True)
-                        thr.start()
-                    elif not thr.isAlive():
+                    if thr == -1 or not thr.isAlive():
                         text = "Partiendo Francisca - captadora de arriendos."
                         thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
                         thr.setDaemon(True)
@@ -340,6 +332,7 @@ def echo_all(updates):
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
+                    global thr
                     if thr != -1 and thr.isAlive():
                         text = "Parando Francisca - captadora de arriendos."
                         thr.do_run = False
