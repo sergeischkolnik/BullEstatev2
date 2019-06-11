@@ -46,7 +46,7 @@ comandosMultiples = ['reporte',
 id_chats_updates = ["485728961","652659504","9561926"]
 
 
-global thr
+thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
 
 
 def estadoScrapper(chatId):
