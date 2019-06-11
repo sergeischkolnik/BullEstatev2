@@ -10,7 +10,8 @@ past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
 
-sleepTime=random.randint(150,250)
+#sleepTime=random.randint(150,250)
+sleepTime=20
 
 sqlDeptos = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
@@ -143,45 +144,48 @@ def threadSendMails():
 
     mariadb_connection.close()
 
-    print("[" + str(datetime.now()) + "]Sending mails (dptos) to " + str(len(listaDeptos)) + " clients:")
+    print("[mailbotFran][" + str(datetime.now()) + "]Sending mails (dptos) to " + str(len(listaDeptos)) + " clients:")
     for i,l in enumerate(listaDeptos):
         if getattr(t, "do_run", False):
-            return "Detenido Bot Francisca - Arriendos"
+            print("[mailbotFran] Deteniendo mailer")
+            return
         to = str(l[0])
         nombreProp = str(l[1])
         linkProp=str(l[2])
 
         #gratis
-        mailer.sendMailGratis(to,nombreProp,linkProp)
-        checkClient(to,"1")
+        #mailer.sendMailGratis(to,nombreProp,linkProp)
+        #checkClient(to,"1")
         time.sleep(sleepTime)
 
-    print("[" + str(datetime.now()) +"]Sending mails (casas) to "+str(len(listaCasas))+ " clients:")
+    print("[mailbotFran][" + str(datetime.now()) +"]Sending mails (casas) to "+str(len(listaCasas))+ " clients:")
 
     for i,l in enumerate(listaCasas):
         if getattr(t, "do_run", False):
-            return "Detenido Bot Francisca - Arriendos"
+            print("[mailbotFran] Deteniendo mailer")
+            return
         to = str(l[0])
         nombreProp = str(l[1])
         linkProp=str(l[2])
 
-        mailer.sendMailGratis(to,nombreProp,linkProp)
-        checkClient(to,"1")
+        #mailer.sendMailGratis(to,nombreProp,linkProp)
+        #checkClient(to,"1")
 
         time.sleep(sleepTime)
 
-    print("[" + str(datetime.now()) +"]Sending mails (oficinas) to "+str(len(listaOficinas))+ " clients:")
+    print("[mailbotFran][" + str(datetime.now()) +"]Sending mails (oficinas) to "+str(len(listaOficinas))+ " clients:")
 
     for i,l in enumerate(listaOficinas):
         if getattr(t, "do_run", False):
-            return "Detenido Bot Francisca - Arriendos"
+            print("[mailbotFran] Deteniendo mailer")
+            return
         to = str(l[0])
         nombreProp = str(l[1])
 
         linkProp=str(l[2])
 
-        mailer.sendMailGratis(to,nombreProp,linkProp)
-        checkClient(to,"1")
+        #mailer.sendMailGratis(to,nombreProp,linkProp)
+        #checkClient(to,"1")
 
         time.sleep(sleepTime)
 
