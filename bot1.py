@@ -48,10 +48,6 @@ id_chats_updates = ["485728961","652659504","9561926"]
 
 global thr
 
-global franciscaAndando
-franciscaAndando = False
-
-
 
 def estadoScrapper(chatId):
 
@@ -324,21 +320,19 @@ def echo_all(updates):
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
-                    if(not franciscaAndando):
+                    if(not thr.isAlive()):
                         text = "Partiendo Francisca - captadora de arriendos."
                         thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
                         thr.setDaemon(True)
                         thr.start()
-                        franciscaAndando = True
                     else:
                         text="Francisca ya esta andando."
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
-                    if(franciscaAndando):
+                    if(thr.isAlive()):
                         text = "Parando Francisca - captadora de arriendos."
                         thr.do_run = False
-                        franciscaAndando = False
                     else:
                         text = "Francisca ya esta detenida."
 
