@@ -318,17 +318,17 @@ def echo_all(updates):
                         thrFer = threading.Thread(target=mailBotClientesVentaFernanda.threadSendMails, args=())
                         thrFer.setDaemon(True)
                         thrFer.start()
-                        text = "Partiendo Fernanda - captadora de arriendos."
+                        text = "Partiendo Fernanda (captadora de ventas)"
                     else:
-                        text = "Fernanda ya esta andando."
+                        text = "Fernanda (captadora de ventas.) ya esta andando."
 
                 #stop Fernanda  venta
                 elif text == comandosIndividuales[12]:
                     if thrFer != -1 and thrFer.isAlive():
                         thrFer.do_run = False
-                        text = "Parando Fernanda - captadora de arriendos."
+                        text = "Parando Fernanda (captadora de ventas)"
                     else:
-                        text = "Fernanda ya esta detenida."
+                        text = "Fernanda (captadora de ventas) ya esta detenida."
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
@@ -336,17 +336,17 @@ def echo_all(updates):
                         thrFran = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
                         thrFran.setDaemon(True)
                         thrFran.start()
-                        text = "Partiendo Francisca - captadora de arriendos."
+                        text = "Partiendo Francisca (captadora de arriendos)."
                     else:
-                        text="Francisca ya esta andando."
+                        text="Francisca (captadora de arriendos) ya esta andando."
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
                     if thrFran != -1 and thrFran.isAlive():
                         thrFran.do_run = False
-                        text = "Parando Francisca - captadora de arriendos."
+                        text = "Parando Francisca (captadora de arriendos)."
                     else:
-                        text = "Francisca ya esta detenida."
+                        text = "Francisca (captadora de arriendos) ya esta detenida."
 
                 #no encontrado
                 else:
