@@ -12,7 +12,6 @@ yesterday = datetime.now() - timedelta(days=2)
 yesterday = datetime.date(yesterday)
 
 sleeptime = random.randint(150, 250)
-sleeptime = 3
 
 sqlDptos = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
@@ -155,10 +154,9 @@ def threadSendMails():
         linkProp=str(l[2])
 
         #gratis
-        #mailer.sendMailGratis(to,nombreProp,linkProp)
-        #checkClient(to,"1")
+        mailer.sendMailGratis(to,nombreProp,linkProp)
+        checkClient(to,"1")
 
-        print("[mailbotFer] sending mail to " + str(to))
 
         time.sleep(sleeptime)
 
@@ -172,8 +170,8 @@ def threadSendMails():
         nombreProp = str(l[1])
         linkProp=str(l[2])
 
-        #mailer.sendMailGratis(to,nombreProp,linkProp)
-        #checkClient(to,"1")
+        mailer.sendMailGratis(to,nombreProp,linkProp)
+        checkClient(to,"1")
 
         time.sleep(sleeptime)
 
@@ -188,8 +186,8 @@ def threadSendMails():
 
         linkProp=str(l[2])
 
-        #mailer.sendMailGratis(to,nombreProp,linkProp)
-        #checkClient(to,"1")
+        mailer.sendMailGratis(to,nombreProp,linkProp)
+        checkClient(to,"1")
 
         time.sleep(sleeptime)
 
