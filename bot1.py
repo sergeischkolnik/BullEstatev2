@@ -233,6 +233,7 @@ def get_last_update_id(updates):
     return max(update_ids)
 
 def echo_all(updates):
+    global thr
     for update in updates["result"]:
         try:
             text = update["message"]["text"]
@@ -321,7 +322,6 @@ def echo_all(updates):
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
-                    global thr
                     if thr == -1 or not thr.isAlive():
                         text = "Partiendo Francisca - captadora de arriendos."
                         thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
@@ -332,10 +332,9 @@ def echo_all(updates):
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
-                    global thr
                     if thr != -1 and thr.isAlive():
                         text = "Parando Francisca - captadora de arriendos."
-                        thr._stop()
+                        thr.do_run = False
                     else:
                         text = "Francisca ya esta detenida."
 
