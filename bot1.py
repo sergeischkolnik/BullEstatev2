@@ -320,7 +320,12 @@ def echo_all(updates):
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
-                    if thr == -1 or not thr.isAlive():
+                    if thr == -1:
+                        text = "Partiendo Francisca - captadora de arriendos."
+                        thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
+                        thr.setDaemon(True)
+                        thr.start()
+                    elif not thr.isAlive():
                         text = "Partiendo Francisca - captadora de arriendos."
                         thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
                         thr.setDaemon(True)
