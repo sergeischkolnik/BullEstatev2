@@ -320,6 +320,7 @@ def echo_all(updates):
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
+                    print("GO FRANCISCA!")
                     print("THR:" + str(thr))
                     if thr == -1:
                         text = "Partiendo Francisca - captadora de arriendos."
