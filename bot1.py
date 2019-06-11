@@ -6,7 +6,6 @@ import pymysql as mysql
 import datetime as dt
 import propManager as pm
 import googleMapApi as gm
-import tasadorbot as tb
 import tasadorbot2 as tb2
 import reportes as rp
 import threading
@@ -47,6 +46,7 @@ comandosMultiples = ['reporte',
                      'banear',
                      'actualizarestadodueno',
                      'actualizarcomentariodueno',]
+
 id_chats_updates = ["485728961","652659504","9561926"]
 
 
@@ -371,7 +371,7 @@ def echo_all(updates):
                     else:
 
                         if thrReportes!= -1 and thrReportes.isAlive():
-                            text = "Ya es está generando un reporte. Espere a que termine antes de generar otro para" \
+                            text = "Ya se está generando un reporte. Espere a que termine antes de generar otro para " \
                                    "no colapsar nuestros servidores."
 
                         else:
@@ -610,7 +610,6 @@ def echo_all(updates):
         except Exception as e:
             print("[tgBot]" + str(e))
 
-
 def get_last_chat_id_and_text(updates):
     num_updates = len(updates["result"])
     last_update = num_updates - 1
@@ -618,13 +617,11 @@ def get_last_chat_id_and_text(updates):
     chat_id = updates["result"][last_update]["message"]["chat"]["id"]
     return (text, chat_id)
 
-
 def send_message(text, chat_id,urlP):
     text = urllib.parse.quote_plus(text)
     url = urlP + "sendMessage?text={}&chat_id={}".format(text, chat_id)
     get_url(url)
     print("[tgBot] send to:" + str(chat_id) + " -> " + str(text))
-
 
 def main():
     currentMinute= dt.datetime.now().minute
