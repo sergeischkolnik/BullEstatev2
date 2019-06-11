@@ -146,7 +146,7 @@ def threadSendMails():
 
     print("[mailbotFran][" + str(datetime.now()) + "]Sending mails (dptos) to " + str(len(listaDeptos)) + " clients:")
     for i,l in enumerate(listaDeptos):
-        if getattr(t, "do_run", False):
+        if not getattr(t, "do_run", True):
             print("[mailbotFran] Deteniendo mailer")
             return
         to = str(l[0])
