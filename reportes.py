@@ -701,13 +701,13 @@ def main():
 
         generarReporte(preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,
                        dormitoriosmax,banosmin,banosmax,confmin,rentmin, estacionamientos,metrodistance,tipo,operacion,region,comuna1,comuna2,
-                       comuna3,comuna4,comuna5,comuna6,prioridad,flagMail,mail,nombreCliente)
+                       comuna3,comuna4,comuna5,comuna6,prioridad,flagMail,mail,nombreCliente,True)
 
 def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,
                        dormitoriosmax, banosmin, banosmax, confmin, rentmin, estacionamientos, metrodistance, tipo,
                        operacion, region, comuna1, comuna2,
-                       comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente):
+                       comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente,verboso):
 
     preciomin=int(preciomin)
     preciomax=int(preciomax)
@@ -744,11 +744,13 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
     resultado = []
     estaciones1=estaciones()
-    print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
+    if verboso:
+        print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
     count=0
     for prop in propiedades:
         count=count+1
-        print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
+        if verboso:
+            print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
         estaciones2=[]
         for e in estaciones1:
             subestacion=[]
@@ -789,7 +791,8 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
         if (rentaPromedio<=0):
             continue
 
-        print("[GeneradorReportes] renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
+        if verboso:
+            print("[GeneradorReportes] renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
         if (operacion=="venta"):
 
             tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
@@ -801,7 +804,8 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
             try:
                 conftasacion=tasacionVenta[5]
             except:
-                print("[GeneradorReportes] " + str(tasacionVenta))
+                if verboso:
+                    print("[GeneradorReportes] " + str(tasacionVenta))
                 continue
 
             if confmin is not None:
@@ -812,7 +816,8 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
 
             if precioV is None or precioV<0.1:
-                print("[GeneradorReportes] no hay precio predicho")
+                if verboso:
+                    print("[GeneradorReportes] no hay precio predicho")
 
                 continue
 
@@ -823,15 +828,18 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
 
             if rentaV<rentmin and (prioridad=="venta"):
-                print("[GeneradorReportes] renta de venta muy baja")
+                if verboso:
+                    print("[GeneradorReportes] renta de venta muy baja")
                 continue
 
             if rentaV<rentmin and (prioridad!="venta") and (prioridad!="arriendo"):
-                print("[GeneradorReportes] renta de venta muy baja")
+                if verboso:
+                    print("[GeneradorReportes] renta de venta muy baja")
                 continue
 
             if precioA is None or precioA<0.01:
-                print("[GeneradorReportes] no existe precio de arriendo")
+                if verboso:
+                    print("[GeneradorReportes] no existe precio de arriendo")
                 continue
 
 
@@ -839,42 +847,51 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
             rentaPP=(precioA*12/precioV)
             print("[GeneradorReportes] rentapp: "+str(rentaPP))
             if rentaA>0.2:
-                print("[GeneradorReportes] renta de arriendo muy alta")
+                if verboso:
+                    print("[GeneradorReportes] renta de arriendo muy alta")
                 continue
 
             if rentaPP<rentaPromedio:
-                print("[GeneradorReportes] renta pp muy baja, recalculando precio")
+                if verboso:
+                    print("[GeneradorReportes] renta pp muy baja, recalculando precio")
                 precioV=precioA*12/rentaPromedio
                 rentaV=((precioV-prop[5])/prop[5])
                 rentaPP=(precioA*12/precioV)
-                print("[GeneradorReportes] rentapp: "+str(rentaPP))
+                if verboso:
+                    print("[GeneradorReportes] rentapp: "+str(rentaPP))
 
             if rentaV<rentmin and (prioridad=="venta"):
-                print("[GeneradorReportes] renta de venta muy baja")
+                if verboso:
+                    print("[GeneradorReportes] renta de venta muy baja")
                 continue
 
             if rentaV<rentmin and (prioridad!="venta") and (prioridad!="arriendo"):
-                print("[GeneradorReportes] renta de venta muy baja")
+                if verboso:
+                    print("[GeneradorReportes] renta de venta muy baja")
                 continue
 
             if rentaPP>0.15:
 
-                print("[GeneradorReportes] renta pp muy alta, recalculando precio")
+                if verboso:
+                    print("[GeneradorReportes] renta pp muy alta, recalculando precio")
                 precioV=precioA*12/0.15
                 rentaV=((precioV-prop[5])/prop[5])
 
             if rentaA<0:
-                print("[GeneradorReportes] renta de arriendo muy baja")
+                if verboso:
+                    print("[GeneradorReportes] renta de arriendo muy baja")
                 continue
 
             if rentaA<rentmin and (prioridad=="arriendo"):
-                print("[GeneradorReportes] renta de arriendo mas baja que minima")
+                if verboso:
+                    print("[GeneradorReportes] renta de arriendo mas baja que minima")
                 continue
             subresultado.append(precioV)
             subresultado.append(float(rentaV))
             subresultado.append(precioA)
             subresultado.append(float(rentaA))
-            print("[GeneradorReportes] depto encontrado para "+nombreCliente)
+            if verboso:
+                print("[GeneradorReportes] depto encontrado para "+nombreCliente)
 
         else:
 
@@ -887,9 +904,12 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
             subresultado.append(precioA)
             rentaA=((precioA-prop[5])/prop[5])
-            print("[GeneradorReportes] arriendo real: "+str(prop[5]))
-            print("[GeneradorReportes] arriendo predicho: "+str(precioA))
-            print("[GeneradorReportes] rentabildiad: "+str(rentaA))
+            if verboso:
+                print("[GeneradorReportes] arriendo real: "+str(prop[5]))
+            if verboso:
+                print("[GeneradorReportes] arriendo predicho: "+str(precioA))
+            if verboso:
+                print("[GeneradorReportes] rentabildiad: "+str(rentaA))
             if rentaA>1:
                 continue
 
@@ -899,18 +919,21 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
             subresultado.append(float(rentaA))
 
         if not pubPortalExiste.publicacionExiste(prop[13]):
-            print("[GeneradorReportes] link no disponible")
+            if verboso:
+                print("[GeneradorReportes] link no disponible")
             continue
         else:
             subresultado.append(prop[13])
 
-        print("[GeneradorReportes] depto encontrado para "+nombreCliente)
+        if verboso:
+            print("[GeneradorReportes] depto encontrado para "+nombreCliente)
         resultado.append(subresultado)
         #print("sub appended")
 
 
     if len(resultado)>0:
-        print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
+        if verboso:
+            print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
 
         if (prioridad=="arriendo"):
             resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
@@ -932,10 +955,12 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
         if (flagMail==1):
             sendmail.sendMail(mail,nombreCliente,("reporte "+str(nombreArchivo)+".pdf"))
-            print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
+            if verboso:
+                print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
 
     else:
-        print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
+        if verboso:
+            print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
 
 
 
