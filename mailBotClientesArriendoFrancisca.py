@@ -156,6 +156,8 @@ def threadSendMails():
         #gratis
         #mailer.sendMailGratis(to,nombreProp,linkProp)
         #checkClient(to,"1")
+        
+        print("[mailbotFran] sending mail to " + str(to))
         time.sleep(sleepTime)
 
     print("[mailbotFran][" + str(datetime.now()) +"]Sending mails (casas) to "+str(len(listaCasas))+ " clients:")
