@@ -12,6 +12,7 @@ import reportes as rp
 import threading
 import mailBotClientesArriendoFrancisca
 
+thr = -1
 
 TOKEN = "633816057:AAE30k3FguvhUq5faEbtvsLWP_J6s2sqL5M"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
@@ -37,7 +38,7 @@ comandosIndividuales = ['hola',
                         'gofrancisca',
                         'stopfrancisca']
 
-comandosMultiples = ['reporte',
+comandosMultiples = ['reporte2',
                      'tasador',
                      'tasadorlinks',
                      'banear',
@@ -228,7 +229,8 @@ def get_last_update_id(updates):
         update_ids.append(int(update["update_id"]))
     return max(update_ids)
 
-def echo_all(updates,thr):
+def echo_all(updates):
+    global thr
     for update in updates["result"]:
         try:
             text = update["message"]["text"]
@@ -567,7 +569,7 @@ def echo_all(updates,thr):
                     text+="\n" + c
 
             chat = update["message"]["chat"]["id"]
-            send_message(text, chat,URL)
+            send_message(text, chat, URL)
         except Exception as e:
             print(e)
 
@@ -593,15 +595,13 @@ def main():
     avisado = False
     print("Bot andando.")
 
-    thr = -1
-
     while True:
         updates = get_updates(last_update_id)
         result = updates.get("result")
         if result:
             if len(result) > 0:
                 last_update_id = get_last_update_id(updates) + 1
-                echo_all(updates,thr)
+                echo_all(updates)
 
         if dt.datetime.now().minute != currentMinute:
             currentMinute = dt.datetime.now().minute
