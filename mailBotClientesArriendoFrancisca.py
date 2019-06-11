@@ -11,7 +11,7 @@ yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
 
 #sleepTime=random.randint(150,250)
-sleepTime=20
+sleepTime=5
 
 sqlDeptos = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
