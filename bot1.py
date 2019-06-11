@@ -334,7 +334,7 @@ def echo_all(updates):
                 elif text == comandosIndividuales[14]:
                     if thr != -1 and thr.isAlive():
                         text = "Parando Francisca - captadora de arriendos."
-                        thr.do_run = False
+                        thr._stop()
                     else:
                         text = "Francisca ya esta detenida."
 
