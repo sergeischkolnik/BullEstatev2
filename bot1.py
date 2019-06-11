@@ -11,8 +11,10 @@ import tasadorbot2 as tb2
 import reportes as rp
 import threading
 import mailBotClientesArriendoFrancisca
+import mailBotClientesVentaFernanda
 
-thr = -1
+thrFran = -1
+thrFer = -1
 
 TOKEN = "633816057:AAE30k3FguvhUq5faEbtvsLWP_J6s2sqL5M"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
@@ -230,7 +232,8 @@ def get_last_update_id(updates):
     return max(update_ids)
 
 def echo_all(updates):
-    global thr
+    global thrFran
+    global thrFer
     for update in updates["result"]:
         try:
             text = update["message"]["text"]
@@ -311,27 +314,37 @@ def echo_all(updates):
 
                 #go Fernanda - venta
                 elif text == comandosIndividuales[11]:
-                    text = "Partiendo Fernanda - captadora de ventas."
+                    if thrFer == -1 or not thrFer.isAlive():
+                        thrFer = threading.Thread(target=mailBotClientesVentaFernanda.threadSendMails, args=())
+                        thrFer.setDaemon(True)
+                        thrFer.start()
+                        text = "Partiendo Fernanda - captadora de arriendos."
+                    else:
+                        text = "Fernanda ya esta andando."
 
                 #stop Fernanda  venta
                 elif text == comandosIndividuales[12]:
-                    text = "Parando Fernanda - captadora de ventas."
+                    if thrFer != -1 and thrFer.isAlive():
+                        thrFer.do_run = False
+                        text = "Parando Fernanda - captadora de arriendos."
+                    else:
+                        text = "Fernanda ya esta detenida."
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
-                    if thr == -1 or not thr.isAlive():
+                    if thrFran == -1 or not thrFran.isAlive():
+                        thrFran = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
+                        thrFran.setDaemon(True)
+                        thrFran.start()
                         text = "Partiendo Francisca - captadora de arriendos."
-                        thr = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
-                        thr.setDaemon(True)
-                        thr.start()
                     else:
                         text="Francisca ya esta andando."
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
-                    if thr != -1 and thr.isAlive():
+                    if thrFran != -1 and thrFran.isAlive():
+                        thrFran.do_run = False
                         text = "Parando Francisca - captadora de arriendos."
-                        thr.do_run = False
                     else:
                         text = "Francisca ya esta detenida."
 
