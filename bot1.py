@@ -332,6 +332,7 @@ def echo_all(updates):
 
                 # stop Francisca  arriendo
                 elif text == comandosIndividuales[14]:
+                    global thr
                     if thr != -1 and thr.isAlive():
                         text = "Parando Francisca - captadora de arriendos."
                         thr._stop()
