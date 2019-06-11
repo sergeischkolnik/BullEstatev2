@@ -46,6 +46,7 @@ comandosMultiples = ['reporte',
 id_chats_updates = ["485728961","652659504","9561926"]
 
 
+global thr
 thr = -1
 
 
@@ -320,7 +321,9 @@ def echo_all(updates):
 
                 # go Francisca - arriendo
                 elif text == comandosIndividuales[13]:
+                    global thr
                     print("GO FRANCISCA!")
+                    
                     print("THR:" + str(thr))
                     if thr == -1:
                         text = "Partiendo Francisca - captadora de arriendos."
