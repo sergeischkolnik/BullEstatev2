@@ -845,7 +845,8 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
             rentaA=(precioA*12/prop[5])
             rentaPP=(precioA*12/precioV)
-            print("[GeneradorReportes] rentapp: "+str(rentaPP))
+            if verboso:
+                print("[GeneradorReportes] rentapp: "+str(rentaPP))
             if rentaA>0.2:
                 if verboso:
                     print("[GeneradorReportes] renta de arriendo muy alta")
