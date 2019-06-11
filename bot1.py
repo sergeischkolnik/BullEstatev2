@@ -46,10 +46,6 @@ comandosMultiples = ['reporte',
 id_chats_updates = ["485728961","652659504","9561926"]
 
 
-global thr
-thr = -1
-
-
 def estadoScrapper(chatId):
 
     #Añadir regiones a arreglo
@@ -232,8 +228,7 @@ def get_last_update_id(updates):
         update_ids.append(int(update["update_id"]))
     return max(update_ids)
 
-def echo_all(updates):
-    global thr
+def echo_all(updates,thr):
     for update in updates["result"]:
         try:
             text = update["message"]["text"]
@@ -598,13 +593,15 @@ def main():
     avisado = False
     print("Bot andando.")
 
+    thr = -1
+
     while True:
         updates = get_updates(last_update_id)
         result = updates.get("result")
         if result:
             if len(result) > 0:
                 last_update_id = get_last_update_id(updates) + 1
-                echo_all(updates)
+                echo_all(updates,thr)
 
         if dt.datetime.now().minute != currentMinute:
             currentMinute = dt.datetime.now().minute
