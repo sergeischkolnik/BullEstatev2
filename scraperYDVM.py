@@ -21,7 +21,7 @@ def actualizar_checker(operacion,tipo,region,pagina):
     try:
         cur.execute(sql)
         mariadb_connection.commit()
-    except
+    except:
         pass
 
     mariadb_connection.close()
