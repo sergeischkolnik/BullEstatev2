@@ -187,7 +187,6 @@ def main():
                     ggcc = row.find("td").text[2:]
                     ggcc = ggcc.replace('.','')
                     ggcc = float(ggcc)
-                    print(a)
 
             propiedad = []
             propiedad.append(codigo)
