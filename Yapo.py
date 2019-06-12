@@ -233,7 +233,7 @@ def main():
 
                 insertarPropiedad(propiedad)
 
-                print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + str(i) + "/" + str(last))
+                print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
                 time.sleep(random.uniform(1, 1.5))
 
 
