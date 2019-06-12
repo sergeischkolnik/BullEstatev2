@@ -5,7 +5,7 @@ import time
 import random
 
 
-sleepTime=random.randint(1,5)
+sleepTime=random.randint(200,350)
 
 mensaje = "Hola! Te escribo por tu publicación de venta en Yapo. \n" \
         "Mi nombre es Fernanda, trabajo en Vendetudepto.cl, y como promoción de lanzamiento, estamos ofreciendo servicios " \
@@ -70,7 +70,7 @@ def sendMails():
     lista = cur.fetchall()
     mariadb_connection.close()
 
-    for p in lista:
+    for i,p in enumerate(lista):
         idProp = p[0]
         link = p[1]
         sender = "Fernanda Errázuriz"
@@ -86,11 +86,19 @@ def sendMails():
         print(mensaje)
         print("-----------")
 
+        print("[mailerYapo] Enviando mail a id:" + str(idProp) + " " + str(i+1) + "/" + str(len(lista)))
 
         #sendMail(idProp=idProp,link=link,sender=sender,mail=mail,phone=phone,message=mensaje)
         time.sleep(sleepTime)
 
+def main():
+    sendMails()
+
+
+if __name__ == '__main__':
+    main()
+
+
 #resp = sendMail(idProp="64216799",link="https://www.yapo.cl/region_metropolitana/arrendar/arriendo_depto_2d_1b_con_est__metro_nunoa__l3_l6__64216799.htm",sender="Fernanda Errázuriz",mail="fernanda@vendetudepto.cl",phone="+56933911985",message=mensaje)
 #a =2
 
-sendMails()
