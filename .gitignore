@@ -138,3 +138,4 @@ venv1/bin/python3.7
 venv1/bin/wheel
 venv1/include/python3.7m
 venv1/pip-selfcheck.json
+venv1/bin/tqdm
