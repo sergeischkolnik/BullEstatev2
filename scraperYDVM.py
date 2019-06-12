@@ -253,14 +253,14 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 propiedad.append(ggcc)
                 propiedad.append(link3)
 
-                insertarPropiedad(propiedad)
+                #insertarPropiedad(propiedad)
 
                 print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
                 time.sleep(random.uniform(1, 1.5))
 
-            actualizar_checker(operacion='venta',tipo='departamento',region='15',pagina=i)
+            #actualizar_checker(operacion='venta',tipo='departamento',region='15',pagina=i)
 
 
 
 if __name__=="__main__":
-    main()
+    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=6,isRecovery=True)
