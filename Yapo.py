@@ -11,6 +11,21 @@ import random
 from requests_html import HTMLSession
 import json
 
+def actualizar_checker(operacion,tipo,region,pagina):
+    d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='sydvm'"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+
+    try:
+        cur.execute(sql)
+        mariadb_connection.commit()
+    except
+        pass
+
+    mariadb_connection.close()
+
 def insertarPropiedad(propiedad):
     #Inserta una propiedad en una base de datos
 
@@ -30,7 +45,9 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 
-def main():
+def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False):
+
+
 
     while(True):
         link='https://www.yapo.cl/region_metropolitana/comprar?ca=15_s&ret=1&cg=1220&o=1'
@@ -44,9 +61,14 @@ def main():
         last=int(last)
         last=int(last/50)+1
 
+        if isRecovery:
+            isRecovery = False
+            ran = range(pagRec,last)
+        else:
+            ran = range(1,last)
 
+        for i in ran:
 
-        for i in range(1,last):
 
             link2='https://www.yapo.cl/region_metropolitana/comprar?ca=15_s&ret=1&cg=1220&o='+str(i)
             session = HTMLSession()
@@ -235,6 +257,8 @@ def main():
 
                 print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
                 time.sleep(random.uniform(1, 1.5))
+
+            actualizar_checker(operacion='venta',tipo='departamento',region='15',pagina=i)
 
 
 
