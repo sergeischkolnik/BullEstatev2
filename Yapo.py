@@ -186,7 +186,7 @@ def main():
                 elif rowname == "Año de construcción":
                     anoconstruccion = row.find("td").text
                 elif rowname == "Gastos comunes":
-                    ggcc = row.find("td")[2:]
+                    ggcc = row.find("td").text[2:]
                     ggcc.replace('.',' ')
                     ggcc = float(ggcc)
 
@@ -211,7 +211,7 @@ def main():
             propiedad.append(lon)
             propiedad.append(anoconstruccion)
             propiedad.append(ggcc)
-            propiedad.append(link)
+            propiedad.append(link3)
             propiedad.append(idregion)
             propiedad.append(comuna)
             propiedad.append(tipo)
@@ -231,7 +231,7 @@ def main():
             propiedad.append(lon)
             propiedad.append(anoconstruccion)
             propiedad.append(ggcc)
-            propiedad.append(link)
+            propiedad.append(link3)
 
             insertarPropiedad(propiedad)
             time.sleep(random.uniform(1, 1.5))
