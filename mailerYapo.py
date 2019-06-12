@@ -1,6 +1,11 @@
 import requests
 import agentCreator
 import pymysql as mysql
+import time
+import random
+
+
+sleepTime=random.randint(1,5)
 
 mensaje = "Hola! Te escribo por tu publicación de venta en Yapo. \n" \
         "Mi nombre es Fernanda, trabajo en Vendetudepto.cl, y como promoción de lanzamiento, estamos ofreciendo servicios " \
@@ -57,14 +62,25 @@ def sendMails():
 
     for p in lista:
         idProp = p[0]
+        link = p[1]
         sender = "Fernanda Errázuriz"
         mail = "fernanda@vendetudepto.cl"
         phone = "+56933911985"
 
 
+        print(idProp)
+        print(link)
+        print(sender)
+        print(mail)
+        print(phone)
+        print(mensaje)
+        print("-----------")
 
-        print(p)
-        print
 
-resp = sendMail(idProp="64216799",link="https://www.yapo.cl/region_metropolitana/arrendar/arriendo_depto_2d_1b_con_est__metro_nunoa__l3_l6__64216799.htm",sender="Fernanda Errázuriz",mail="fernanda@vendetudepto.cl",phone="+56933911985",message=mensaje)
-a =2
+        #sendMail(idProp=idProp,link=link,sender=sender,mail=mail,phone=phone,message=mensaje)
+        time.sleep(sleepTime)
+
+#resp = sendMail(idProp="64216799",link="https://www.yapo.cl/region_metropolitana/arrendar/arriendo_depto_2d_1b_con_est__metro_nunoa__l3_l6__64216799.htm",sender="Fernanda Errázuriz",mail="fernanda@vendetudepto.cl",phone="+56933911985",message=mensaje)
+#a =2
+
+sendMails()
