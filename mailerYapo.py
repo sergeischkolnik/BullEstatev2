@@ -26,6 +26,15 @@ mensaje = "Hola! Te escribo por tu publicación de venta en Yapo. \n" \
         "PD: Si usted es corredor de propiedades, rogamos indicar si la " \
         "propiedad está disponible para canje."
 
+def checkClient(idProp):
+    sql = "UPDATE duepnos SET esdueno=-1, WHERE id2='" + str(idProp) + "'"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
+
 def sendMail(idProp,link,sender,mail,phone,message):
 
     headers = {
@@ -50,6 +59,7 @@ def sendMail(idProp,link,sender,mail,phone,message):
     }
 
     response = requests.post('https://www.yapo.cl/send_ar', headers=headers, data=data)
+    checkClient(idProp)
     return response
 
 def sendMails():
