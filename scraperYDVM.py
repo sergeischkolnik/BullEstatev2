@@ -30,11 +30,11 @@ def insertarPropiedad(propiedad):
     #Inserta una propiedad en una base de datos
 
     sql = """INSERT INTO propiedades(id2,idregion,comuna,tipo,titulo,operacion,preciouf,preciopesos,fechapublicacion,
-    fechascrap,metrosmin,metrosmax,dormitorios,banos,estacionamientos,descripcion,lat,lon,anoconstruccion,ggcc,link)
-             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE idregion=%s,
+    fechascrap,metrosmin,metrosmax,dormitorios,banos,estacionamientos,descripcion,lat,lon,anoconstruccion,ggcc,link,esdueno)
+             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE idregion=%s,
              comuna=%s,tipo=%s,titulo=%s,operacion=%s,preciouf=%s,preciopesos=%s,fechapublicacion=%s,fechascrap=%s,
              metrosmin=%s,metrosmax=%s,dormitorios=%s,banos=%s,estacionamientos=%s,descripcion=%s,lat=%s, lon=%s, 
-             anoconstruccion=%s, ggcc=%s, link=%s"""
+             anoconstruccion=%s, ggcc=%s, link=%s, esdueno=%s"""
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
 
@@ -109,6 +109,11 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 anoconstruccion = -1
                 ggcc = -1
                 estacionamientos = -1
+
+                esdueno = 0
+
+                if dueno:
+                    esdueno = 1
 
 
                 page = requests.get(link3, headers={'User-Agent': agentCreator.generateAgent()})
@@ -240,6 +245,8 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 propiedad.append(anoconstruccion)
                 propiedad.append(ggcc)
                 propiedad.append(link3)
+                propiedad.append(esdueno)
+
                 propiedad.append(idregion)
                 propiedad.append(comuna)
                 propiedad.append(tipo)
@@ -260,6 +267,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 propiedad.append(anoconstruccion)
                 propiedad.append(ggcc)
                 propiedad.append(link3)
+                propiedad.append(esdueno)
 
                 insertarPropiedad(propiedad)
 
