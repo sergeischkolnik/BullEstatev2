@@ -15,7 +15,6 @@ def insertarPropiedad(propiedad):
     #Inserta una propiedad en una base de datos
 
     sql = """INSERT INTO propiedades(id2,idregion,comuna,tipo,titulo,operacion,preciouf,preciopesos,fechapublicacion,
-    fechascrap,metrosmin,metrosmax,dormitorios,banos,estacioanmieINSERT INTO propiedades(id2,idregion,comuna,tipo,titulo,operacion,preciouf,preciopesos,fechapublicacion,
     fechascrap,metrosmin,metrosmax,dormitorios,banos,estacionamientos,descripcion,lat,lon,anoconstruccion,ggcc,link)
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE idregion=%s,
              comuna=%s,tipo=%s,titulo=%s,operacion=%s,preciouf=%s,preciopesos=%s,fechapublicacion=%s,fechascrap=%s,
