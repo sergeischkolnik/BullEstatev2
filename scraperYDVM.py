@@ -84,7 +84,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 company_ad = piece.find('.company_ad')
                 duenos.append(len(company_ad) == 0)
 
-            props = zip(link3,duenos)
+            props = zip(links3,duenos)
 
             for link3,dueno in props:
 
