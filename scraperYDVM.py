@@ -34,7 +34,7 @@ def insertarPropiedad(propiedad):
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE idregion=%s,
              comuna=%s,tipo=%s,titulo=%s,operacion=%s,preciouf=%s,preciopesos=%s,fechapublicacion=%s,fechascrap=%s,
              metrosmin=%s,metrosmax=%s,dormitorios=%s,banos=%s,estacionamientos=%s,descripcion=%s,lat=%s, lon=%s, 
-             anoconstruccion=%s, ggcc=%s, link=%s, esdueno=%s"""
+             anoconstruccion=%s, ggcc=%s, link=%s"""
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
 
@@ -267,7 +267,6 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 propiedad.append(anoconstruccion)
                 propiedad.append(ggcc)
                 propiedad.append(link3)
-                propiedad.append(esdueno)
 
                 insertarPropiedad(propiedad)
 
