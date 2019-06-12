@@ -27,7 +27,7 @@ mensaje = "Hola! Te escribo por tu publicación de venta en Yapo. \n" \
         "propiedad está disponible para canje."
 
 def checkClient(idProp):
-    sql = "UPDATE propiedades SET esdueno=-1, WHERE id2='" + str(idProp) + "'"
+    sql = "UPDATE propiedades SET esdueno=-1, WHERE id2=" + str(idProp) + ""
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
