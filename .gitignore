@@ -140,3 +140,4 @@ venv1/include/python3.7m
 venv1/pip-selfcheck.json
 venv1/bin/tqdm
 venv1/bin/pyppeteer-install
+.idea/BullEstatev2.iml
