@@ -21,7 +21,7 @@ while True:
     region=last[2]
     pagina=last[3]
     try:
-        scraper.Main(tipo,op,region,pagina,True)
+        scraper.main(tipo,op,region,pagina,True)
     except:
         print("[SYDVM] ERROR DE SCRAPER. INICIANDO NUEVAMENTE EN 60 SEGUNDOS")
         time.sleep(60)
