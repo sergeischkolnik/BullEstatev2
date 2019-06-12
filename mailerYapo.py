@@ -1,5 +1,25 @@
 import requests
 import agentCreator
+import pymysql as mysql
+
+mensaje = "Hola! Te escribo por tu publicación de venta en Yapo. \n" \
+        "Mi nombre es Fernanda, trabajo en Vendetudepto.cl, y como promoción de lanzamiento, estamos ofreciendo servicios " \
+        "Totalmente Gratuitos de difusión inmobiliaria.\n" \
+        "Esto puede acelerar bastante tu proceso, y no pierdes nada, ya que no te cobraremos ni exigimos exclusividad " \
+        "(y si lo deseas, puedes seguir gestionándolo por tu lado). El servicio incluye publicaciones con cuentas " \
+        "pagadas en principales portales de compraventa inmobiliaria, difusión en nuestra cartera de clientes, y gestión" \
+        " de visitas. Como te mencioné anteriormente, esto no tiene absolutamente ningún costo para ti.\n" \
+        "Además, realizamos el acompañamiento hasta la firma final de compraventa o de arriendo de la propiedad. Si tienes " \
+        "interés, te solicito enviar toda la información de tu propiedad a mi correo fernanda@vendetudepto.cl " \
+        "(precio, características, horarios de visita, fotografías, etc), y con gusto asignaremos un corredor para tu " \
+        "propiedad. Junto con esto, rogamos enviarnos tu número de contacto.\n" \
+        "Ante cualquier duda, por favor escríbeme al correo o a nuestro WhatsApp +569 3391 1985. \n" \
+        "De antemano muchas gracias por tu tiempo. \n" \
+        "Saludos cordiales. \n" \
+        "Fernanda Errázuriz \n" \
+        "www.vendetudepto.cl. \n" \
+        "PD: Si usted es corredor de propiedades, rogamos indicar si la " \
+        "propiedad está disponible para canje."
 
 def sendMail(idProp,link,sender,mail,phone,message):
 
@@ -26,3 +46,25 @@ def sendMail(idProp,link,sender,mail,phone,message):
 
     response = requests.post('https://www.yapo.cl/send_ar', headers=headers, data=data)
     return response
+
+def sendMails():
+    sql = """SELECT id2,link from propiedades where esdueno=1"""
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    lista = cur.fetchall()
+    mariadb_connection.close()
+
+    for p in lista:
+        idProp = p[0]
+        sender = "Fernanda Errázuriz"
+        mail = "fernanda@vendetudepto.cl"
+        phone = "+56933911985"
+
+
+
+        print(p)
+        print
+
+resp = sendMail(idProp="64216799",link="https://www.yapo.cl/region_metropolitana/arrendar/arriendo_depto_2d_1b_con_est__metro_nunoa__l3_l6__64216799.htm",sender="Fernanda Errázuriz",mail="fernanda@vendetudepto.cl",phone="+56933911985",message=mensaje)
+a =2
