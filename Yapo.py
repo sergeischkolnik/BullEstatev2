@@ -115,7 +115,6 @@ def main():
             aux = aux[-2]
             aux = aux.split('_')
             codigo = int(aux[-1])
-            print("codigo:" + str(codigo) + "-> " + str(link3))
 
             utag_data = tree.xpath("/html/body/script[1]/text()")[0]
             text = str(utag_data.split('=')[1])
@@ -186,8 +185,9 @@ def main():
                     anoconstruccion = row.find("td").text
                 elif rowname == "Gastos comunes":
                     ggcc = row.find("td").text[2:]
-                    ggcc.replace('.',' ')
+                    ggcc = ggcc.replace('.','')
                     ggcc = float(ggcc)
+                    print(a)
 
             propiedad = []
             propiedad.append(codigo)
