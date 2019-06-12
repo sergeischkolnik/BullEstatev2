@@ -27,7 +27,7 @@ mensaje = "Hola! Te escribo por tu publicación de venta en Yapo. \n" \
         "propiedad está disponible para canje."
 
 def checkClient(idProp):
-    sql = "UPDATE duepnos SET esdueno=-1, WHERE id2='" + str(idProp) + "'"
+    sql = "UPDATE propiedades SET esdueno=-1, WHERE id2='" + str(idProp) + "'"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -63,7 +63,7 @@ def sendMail(idProp,link,sender,mail,phone,message):
     return response
 
 def sendMails():
-    sql = """SELECT id2,link from propiedades where esdueno=1"""
+    sql = """SELECT id2,link from propiedades where esdueno=1 and comuna like "%condes%" """
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
     cur = mariadb_connection.cursor()
     cur.execute(sql)
@@ -78,17 +78,9 @@ def sendMails():
         phone = "+56933911985"
 
 
-        print(idProp)
-        print(link)
-        print(sender)
-        print(mail)
-        print(phone)
-        print(mensaje)
-        print("-----------")
-
         print("[mailerYapo] Enviando mail a id:" + str(idProp) + " " + str(i+1) + "/" + str(len(lista)))
 
-        #sendMail(idProp=idProp,link=link,sender=sender,mail=mail,phone=phone,message=mensaje)
+        print(str(sendMail(idProp=idProp,link=link,sender=sender,mail=mail,phone=phone,message=mensaje)))
         time.sleep(sleepTime)
 
 def main():
