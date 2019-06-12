@@ -74,11 +74,19 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
             session = HTMLSession()
             r = session.get(link2)
             links3 = []
+            duenos = []
 
             for a in r.html.find('.title'):
+                list = []
                 links3.append(a.links.pop())
 
-            for link3 in links3:
+            for piece in r.html.find('.clean_links'):
+                company_ad = piece.find('.company_ad')
+                duenos.append(len(company_ad) == 0)
+
+            props = zip(link3,duenos)
+
+            for link3,dueno in props:
 
                 codigo = -1
                 idregion = -1
@@ -256,6 +264,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 insertarPropiedad(propiedad)
 
                 print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
+
                 time.sleep(random.uniform(1, 1.5))
 
             actualizar_checker(operacion='venta',tipo='departamento',region='15',pagina=i)
