@@ -150,7 +150,7 @@ def main():
             except:
                 pass
             try:
-                dormitorios = int(value["roms"])
+                dormitorios = int(value["rooms"])
             except:
                 pass
             try:
