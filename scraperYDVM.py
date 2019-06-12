@@ -155,7 +155,10 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 text = str(utag_data.split('=')[1])
                 text = text[:-5] + "}"
 
-                value = json.loads(text)
+                try:
+                    value = json.loads(text)
+                except:
+                    continue
 
 
                 try:
@@ -279,4 +282,4 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
 
 
 if __name__=="__main__":
-    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=14,isRecovery=True)
+    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False)
