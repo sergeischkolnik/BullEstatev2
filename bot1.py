@@ -501,7 +501,7 @@ def echo_all(updates):
 
 
 
-                            thrReportes = threading.Thread(target=rp.generarReporteinterno, args=(preciomin, preciomax,
+                            thrReportes = threading.Thread(target=rp.generarReporteInterno, args=(preciomin, preciomax,
                                                                                            utilmin,utilmax, totalmin,
                                                                                            totalmax, latmin, latmax,
                                                                                            lonmin, lonmax,dormitoriosmin,
