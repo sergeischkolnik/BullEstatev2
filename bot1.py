@@ -463,7 +463,7 @@ def echo_all(updates):
                                "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
                                "<latMin> <latMax> <lonMin> <lonMax> <dormitoriosMin> <dormitoriosMax>" \
                                "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion>" \
-                               "<region> <comuna> <distanciaMetro> <rentMin> <prioridad (venta, arriendo, nada>" \
+                               "<region> <comuna> <distanciaMetro> <rentMinVenta> <rentMinArriendo> <prioridad (venta, arriendo, nada>" \
                                "<confianzaMinima (1-8)> <mail> <nombre>"
                     else:
 
@@ -492,21 +492,22 @@ def echo_all(updates):
                             region = arr[18]
                             comuna = arr[19]
                             distanciaMetro = arr[20]
-                            rentMin = arr[21]
-                            prioridad = arr[22]
-                            confianzaMinima = arr[23]
-                            mail = arr[24]
-                            nombre = arr[25]
+                            rentMinVenta = arr[21]
+                            rentMinArriendo = arr[22]
+                            prioridad = arr[23]
+                            confianzaMinima = arr[24]
+                            mail = arr[25]
+                            nombre = arr[26]
 
 
 
-                            thrReportes = threading.Thread(target=rp.generarReporte, args=(preciomin, preciomax,
+                            thrReportes = threading.Thread(target=rp.generarReporteinterno, args=(preciomin, preciomax,
                                                                                            utilmin,utilmax, totalmin,
                                                                                            totalmax, latmin, latmax,
                                                                                            lonmin, lonmax,dormitoriosmin,
                                                                                            dormitoriosmax, banosmin,
                                                                                            banosmax, confianzaMinima,
-                                                                                           rentMin, estacionamientos,
+                                                                                           rentMinVenta,rentMinArriendo, estacionamientos,
                                                                                            distanciaMetro, tipo,
                                                                                            operacion, region, comuna,
                                                                                            "abcdefgh", "abcdefgh",

@@ -1,7 +1,7 @@
 import csv
 import uf
 
-def writeCsv(file, data,columnnames, operacion):
+def writeCsv(file, data, columnnames, operacion):
 
     data = [list(elem) for elem in data]
 
