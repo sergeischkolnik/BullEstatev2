@@ -1,7 +1,7 @@
 import csv
 import uf
 
-def writeCsv(file, data, operacion):
+def writeCsv(file, data,columnnames, operacion):
 
     data = [list(elem) for elem in data]
 
@@ -11,13 +11,11 @@ def writeCsv(file, data, operacion):
         rent = float(prop[9])
         rent = int(rent*1000)
         rent = float(rent/10)
-        rent = str(rent)+"%"
         prop[9] = rent
         if (operacion=="venta"):
             rent = float(prop[11])
             rent = int(rent*1000)
             rent = float(rent/10)
-            rent = str(rent)+"%"
             prop[11] = rent
 
         #arreglar precio
@@ -63,8 +61,8 @@ def writeCsv(file, data, operacion):
             prop[8] =str(prop[8])
 
 
-
-    with open(file, 'w') as csvfile:
-        writer = csv.writer(csvfile)
+    with open(file, 'w',newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=';',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(columnnames)
         for row in data:
             writer.writerow(row)
