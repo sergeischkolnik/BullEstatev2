@@ -41,7 +41,7 @@ comandosIndividuales = ['hola',
                         'stopfrancisca']
 
 comandosMultiples = ['reporte',
-                     'reporteinterno'
+                     'reporteinterno',
                      'tasador',
                      'tasadorlinks',
                      'banear',
