@@ -46,7 +46,7 @@ comandosMultiples = ['reporte',
                      'tasadorlinks',
                      'banear',
                      'actualizarestadodueno',
-                     'actualizarcomentariodueno',]
+                     'actualizarcomentariodueno']
 
 id_chats_updates = ["485728961","652659504","9561926"]
 

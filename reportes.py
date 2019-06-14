@@ -971,7 +971,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
         #FLAGMAIL=2 Si es reporte interno
         elif (flagMail==2):
-            writeCsv("reporte " + nombreArchivo+'.csv', resultado, columnNames)
+            writeCsv("reporte " + nombreArchivo+'.csv', resultado, columnNames, operacion)
             sendmail.sendMail(mail,nombreCliente,("reporte "+str(nombreArchivo)+".csv"))
 
             if verboso:
