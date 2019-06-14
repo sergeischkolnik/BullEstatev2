@@ -18,6 +18,8 @@ import sendmail
 import tasadorbot2 as tb2
 import pubPortalExiste
 import math
+import csv
+
 
 uf1=uf.getUf()
 
@@ -55,6 +57,13 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
         return valor
     except:
         return 0
+
+def writeCsv(file, data, namecolumns):
+    with open(file, 'w',newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=';',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(namecolumns)
+        for row in data:
+            writer.writerow(row)
 
 def estaciones():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
@@ -952,13 +961,21 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = nombreCliente + " propiedades usadas VA " +str(tipo)+" "+ today
-        pdfC.createPdfReport(nombreCliente, "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
-
+        #FLAGMAIL=1 Si es reporte normal
         if (flagMail==1):
+            pdfC.createPdfReport(nombreCliente, "reporte " + nombreArchivo + ".pdf", resultado, columnNames,operacion)
             sendmail.sendMail(mail,nombreCliente,("reporte "+str(nombreArchivo)+".pdf"))
+
             if verboso:
                 print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
 
+        #FLAGMAIL=2 Si es reporte interno
+        elif (flagMail==2):
+            writeCsv("reporte " + nombreArchivo+'.csv', resultado, columnNames)
+            sendmail.sendMail(mail,nombreCliente,("reporte "+str(nombreArchivo)+".csv"))
+
+            if verboso:
+                print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
     else:
         if verboso:
             print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)

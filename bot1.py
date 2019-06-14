@@ -41,6 +41,7 @@ comandosIndividuales = ['hola',
                         'stopfrancisca']
 
 comandosMultiples = ['reporte',
+                     'reporteinterno'
                      'tasador',
                      'tasadorlinks',
                      'banear',
@@ -455,8 +456,104 @@ def echo_all(updates):
                             text += "mail:" + mail + "\n"
                             text += "nombre:" + nombre+ "\n"
 
-                #tasador
+                #reporte interno
                 elif arr[0] == comandosMultiples[1]:
+                    if len(arr)!=26:
+                        text = "Para usar reporte, escriba, separando por espacios:\nreporte " \
+                               "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
+                               "<latMin> <latMax> <lonMin> <lonMax> <dormitoriosMin> <dormitoriosMax>" \
+                               "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion>" \
+                               "<region> <comuna> <distanciaMetro> <rentMin> <prioridad (venta, arriendo, nada>" \
+                               "<confianzaMinima (1-8)> <mail> <nombre>"
+                    else:
+
+                        if thrReportes!= -1 and thrReportes.isAlive():
+                            text = "Ya se está generando un reporte. Espere a que termine antes de generar otro para " \
+                                   "no colapsar nuestros servidores."
+
+                        else:
+                            preciomin = arr[1]
+                            preciomax = arr[2]
+                            utilmin = arr[3]
+                            utilmax = arr[4]
+                            totalmin = arr[5]
+                            totalmax = arr[6]
+                            latmin = arr[7]
+                            latmax = arr[8]
+                            lonmin = arr[9]
+                            lonmax = arr[10]
+                            dormitoriosmin = arr[11]
+                            dormitoriosmax = arr[12]
+                            banosmin = arr[13]
+                            banosmax = arr[14]
+                            estacionamientos = arr[15]
+                            tipo = arr[16]
+                            operacion = arr[17]
+                            region = arr[18]
+                            comuna = arr[19]
+                            distanciaMetro = arr[20]
+                            rentMin = arr[21]
+                            prioridad = arr[22]
+                            confianzaMinima = arr[23]
+                            mail = arr[24]
+                            nombre = arr[25]
+
+
+
+                            thrReportes = threading.Thread(target=rp.generarReporte, args=(preciomin, preciomax,
+                                                                                           utilmin,utilmax, totalmin,
+                                                                                           totalmax, latmin, latmax,
+                                                                                           lonmin, lonmax,dormitoriosmin,
+                                                                                           dormitoriosmax, banosmin,
+                                                                                           banosmax, confianzaMinima,
+                                                                                           rentMin, estacionamientos,
+                                                                                           distanciaMetro, tipo,
+                                                                                           operacion, region, comuna,
+                                                                                           "abcdefgh", "abcdefgh",
+                                                                                           "abcdefgh","abcdefgh",
+                                                                                           "abcdefgh", prioridad, 2,
+                                                                                           mail, nombre,False,))
+
+                            thrReportes.setDaemon(True)
+                            thrReportes.start()
+
+                            # rp.generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax,
+                            #               lonmin, lonmax,dormitoriosmin,dormitoriosmax, banosmin, banosmax, confianzaMinima,
+                            #               rentMin, estacionamientos, distanciaMetro, tipo, operacion, region, comuna1=comuna,
+                            #               comuna2="abcdefgh", comuna3="abcdefgh", comuna4="abcdefgh", comuna5="abcdefgh",
+                            #               comuna6="abcdefgh", prioridad=prioridad, flagMail=1, mail=mail, nombreCliente=nombre)
+
+
+                            text = "Generando reporte para:" + nombre
+                            text += "\n\n"
+                            text += "preciomin:" + preciomin + "\n"
+                            text += "preciomax:" +  preciomax+ "\n"
+                            text += "utilmin:" + utilmin+ "\n"
+                            text += "utilmax:" + utilmax+ "\n"
+                            text += "totalmin:" + totalmin+ "\n"
+                            text += "totalmax:" + totalmax+ "\n"
+                            text += "latmin:" + latmin+ "\n"
+                            text += "latmax:" + latmax+ "\n"
+                            text += "lonmin:" + lonmin+ "\n"
+                            text += "lonmax:" + lonmax+ "\n"
+                            text += "dormitoriosmin:" + dormitoriosmin+ "\n"
+                            text += "dormitoriosmax:" + dormitoriosmax+ "\n"
+                            text += "banosmin:" + banosmin+ "\n"
+                            text += "banosmax:" + banosmax+ "\n"
+                            text += "estacionamientos:" + estacionamientos+ "\n"
+                            text += "tipo:" + tipo+ "\n"
+                            text += "operacion:" + operacion+ "\n"
+                            text += "region:" + region+ "\n"
+                            text += "comuna:" + comuna+ "\n"
+                            text += "distanciaMetro:" + distanciaMetro+ "\n"
+                            text += "rentMin:" + rentMin+ "\n"
+                            text += "prioridad:" + prioridad+ "\n"
+                            text += "confianzaMinima:" + confianzaMinima+ "\n"
+                            text += "mail:" + mail + "\n"
+                            text += "nombre:" + nombre+ "\n"
+
+                #tasador
+                elif arr[0] == comandosMultiples[2]:
                     if len(arr)< 16:
                         text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> " \
                                "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
@@ -515,7 +612,7 @@ def echo_all(updates):
                             text = "Error de ingreso de datos."
 
                 #tasador con links
-                elif arr[0] == comandosMultiples[2]:
+                elif arr[0] == comandosMultiples[3]:
                     if len(arr)< 16:
                         text = "Para usar tasador con links, escriba, separando por espacios:\ntasadorlinks <region> <comuna> " \
                                "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
@@ -572,7 +669,7 @@ def echo_all(updates):
                             text = "Error de ingreso de datos."
 
                 #Banear corredores
-                elif arr[0] == comandosMultiples[3]:
+                elif arr[0] == comandosMultiples[4]:
                     if len(arr)!=2:
                         text="Para usar baneador, ingrese 'banear mail'"
                     else:
@@ -580,7 +677,7 @@ def echo_all(updates):
                         text=str(arr[1])+" agregado a la lista de Baneados."
 
                 #actualizar estado cliente
-                elif arr[0] == comandosMultiples[4]:
+                elif arr[0] == comandosMultiples[5]:
                     nuevoEstado = ""
                     for a in arr[2:]:
                         nuevoEstado += a + " "
@@ -588,7 +685,7 @@ def echo_all(updates):
                     text = actualizarestadodueno(mail=arr[1], nuevoEstado=nuevoEstado)
 
                 # actualizar comentario cliente
-                elif arr[0] == comandosMultiples[5]:
+                elif arr[0] == comandosMultiples[6]:
                     nuevoComentario = ""
                     for a in arr[2:]:
                         nuevoComentario += a + " "
