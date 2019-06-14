@@ -44,21 +44,21 @@ def writeCsv(file, data, columnnames, operacion):
 
         if (operacion=="venta"):
             prop[8] = int(prop[8]/ufn)
-            prop[8] = format(prop[8], ',.2f')
-            prop[8] =prop[8][:-3]
-            prop[8] = str(prop[8])
+            # prop[8] = format(prop[8], ',.2f')
+            # prop[8] =prop[8][:-3]
+            # prop[8] = str(prop[8])
             prop[10] = int(prop[10])
-            prop[10] = format(prop[10], ',.2f')
-            prop[10] =prop[10][:-3]
-            prop[10] =str(prop[10])
+            # prop[10] = format(prop[10], ',.2f')
+            # prop[10] =prop[10][:-3]
+            # prop[10] =str(prop[10])
 
 
         else:
 
             prop[8] = int(prop[8])
-            prop[8] = format(prop[8], ',.2f')
-            prop[8] =prop[8][:-3]
-            prop[8] =str(prop[8])
+            # prop[8] = format(prop[8], ',.2f')
+            # prop[8] =prop[8][:-3]
+            # prop[8] =str(prop[8])
 
 
     with open(file, 'w',newline='') as csvfile:
