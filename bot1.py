@@ -458,7 +458,7 @@ def echo_all(updates):
 
                 #reporte interno
                 elif arr[0] == comandosMultiples[1]:
-                    if len(arr)!=26:
+                    if len(arr)!=27:
                         text = "Para usar reporte, escriba, separando por espacios:\nreporte " \
                                "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
                                "<latMin> <latMax> <lonMin> <lonMax> <dormitoriosMin> <dormitoriosMax>" \
@@ -525,7 +525,7 @@ def echo_all(updates):
                             #               comuna6="abcdefgh", prioridad=prioridad, flagMail=1, mail=mail, nombreCliente=nombre)
 
 
-                            text = "Generando reporte para:" + nombre
+                            text = "Generando reporte Interno para:" + nombre
                             text += "\n\n"
                             text += "preciomin:" + preciomin + "\n"
                             text += "preciomax:" +  preciomax+ "\n"
@@ -547,7 +547,8 @@ def echo_all(updates):
                             text += "region:" + region+ "\n"
                             text += "comuna:" + comuna+ "\n"
                             text += "distanciaMetro:" + distanciaMetro+ "\n"
-                            text += "rentMin:" + rentMin+ "\n"
+                            text += "rentMinVenta:" + rentMinVenta+ "\n"
+                            text += "rentMinArriendo:" + rentMinArriendo+ "\n"
                             text += "prioridad:" + prioridad+ "\n"
                             text += "confianzaMinima:" + confianzaMinima+ "\n"
                             text += "mail:" + mail + "\n"
