@@ -445,7 +445,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     elif ('stacionamiento: N' in texto) or ('stacionamiento: n' in texto) or ('STACIONAMIENTO: N' in texto) or ('STACIONAMIENTO: n' in texto) or ('stacionamientos: N' in texto) or ('stacionamientos: n' in texto) or ('STACIONAMIENTOS: N' in texto) or ('STACIONAMIENTOS: n' in texto):
                         estacionamientos=0
                         break
-                    elif ('estaciomamiento' in texto) or ('Estacionamiento' in texto) or ('ESTACIONAMIENTO' in texto):
+                    elif ('estacionamiento' in texto) or ('Estacionamiento' in texto) or ('ESTACIONAMIENTO' in texto):
                         estacionamientos=1
                         if (('INCLUYE' in texto) or ('Incluye' in texto) or ('incluye' in texto)) and (('ESTACIONAMIENTO' in texto) or ('Estacionamiento' in texto) or ('estacionamiento' in texto)):
                             if (('No' in texto) or ('NO' in texto) or ('no' in texto)):
