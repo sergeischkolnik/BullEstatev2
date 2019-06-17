@@ -207,6 +207,8 @@ def obtenerBodegas(texts):
                         bodegas=0
                     else:
                         bodegas=1
+                else:
+                    bodegas=1
             elif (('ni bodega' in texto) or ('no bodega' in texto)):
                 bodegas=0
 
@@ -298,6 +300,8 @@ def obtenerEstacionamientos(texts):
                         estacionamientos=0
                     else:
                         estacionamientos=1
+                else:
+                    estacionamientos=1
             elif (('ni estacionamiento' in texto) or ('no estacionamiento' in texto)):
                 estacionamientos=0
 
