@@ -80,8 +80,8 @@ def getLast(operacion,tipo,region,proxi):
 def insertarPropiedad(propiedad):
     #Inserta una propiedad en una base de datos
 
-    sql = """INSERT INTO portalinmobiliario(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,lat,lon,link)
-             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,lat=%s,lon=%s,link=%s"""
+    sql = """INSERT INTO portalinmobiliario(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link)
+             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,bodegas=%s,lat=%s,lon=%s,link=%s"""
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
@@ -142,6 +142,190 @@ def esDueno(mail):
             return "no"
     else:
         return "no"
+
+
+def obtenerBodegas(texts):
+    bodegas=0
+    for texto in texts:
+        texto=texto.lower()
+
+        visitas=['bodega de visita','bodegas de visita','bodega visita','bodegas visita','bodega para visita', 'bodegas para visita']
+        for vis in visitas:
+            if(vis in texto):
+                texto=texto.replace(vis,'')
+
+        if 'bodegas: 0' in texto:
+            bodegas=0
+            break
+        elif 'bodegas: 1' in texto:
+            bodegas=1
+            break
+        elif 'bodegas: 2' in texto:
+            bodegas=2
+            break
+        elif 'bodegas: 3' in texto:
+            bodegas=3
+            break
+        elif ('in bodega' in texto):
+            bodegas=0
+            break
+        elif ('bodega: n' in texto):
+            bodegas=0
+            break
+        elif ('bodega' in texto):
+            if ('incluye bodega' in texto):
+                if ('no incluye bodega' in texto):
+                    bodegas=0
+                elif ('ni incluye bodega' in texto):
+                    bodegas=0
+                elif ('tampoco incluye bodega' in texto):
+                    bodegas=0
+                else:
+                     bodegas=1
+
+            elif ('tiene bodega' in texto):
+                if ('no tiene bodega' in texto):
+                    bodegas=0
+                elif ('ni tiene bodega' in texto):
+                    bodegas=0
+                else:
+                     bodegas=1
+
+            elif ('con bodega' in texto):
+                if ('cuenta con bodega' in texto):
+                    if ('no cuenta con bodega' in texto):
+                        bodegas=0
+                    elif ('ni cuenta con bodega' in texto):
+                        bodegas=0
+                    elif ('tampoco cuenta con bodega' in texto):
+                        bodegas=0
+                    else:
+                        bodegas=1
+                elif ('viene con bodega' in texto):
+                    if ('no viene con bodega' in texto):
+                        bodegas=0
+                    elif ('ni viene con bodega' in texto):
+                        bodegas=0
+                    else:
+                        bodegas=1
+            elif (('ni bodega' in texto) or ('no bodega' in texto)):
+                bodegas=0
+
+            elif (('sin bodega' in texto)):
+                bodegas=0
+
+            elif ('tiene bodega' in texto):
+                if ('no tiene bodega' in texto):
+                    bodegas=0
+                elif ('ni tiene bodega' in texto):
+                    bodegas=0
+                else:
+                    bodegas=1
+            elif ('posee bodega' in texto):
+                if ('no posee bodega' in texto):
+                    bodegas=0
+                elif ('ni posee bodega' in texto):
+                    bodegas=0
+                else:
+                    bodegas=1
+
+            else:
+                bodegas=1
+
+            break
+    return bodegas
+
+def obtenerEstacionamientos(texts):
+    estacionamientos=0
+    for texto in texts:
+        texto=texto.lower()
+
+        visitas=['estacionamiento de visita','estacionamientos de visita','estacionamiento visita','estacionamientos visita','estacionamiento para visita', 'estacionamientos para visita']
+        for vis in visitas:
+            if(vis in texto):
+                texto=texto.replace(vis,'')
+
+        if 'estacionamientos: 0' in texto:
+            estacionamientos=0
+            break
+        elif 'estacionamientos: 1' in texto:
+            estacionamientos=1
+            break
+        elif 'estacionamientos: 2' in texto:
+            estacionamientos=2
+            break
+        elif 'estacionamientos: 3' in texto:
+            estacionamientos=3
+            break
+        elif ('in estacionamiento' in texto):
+            estacionamientos=0
+            break
+        elif ('estacionamiento: n' in texto):
+            estacionamientos=0
+            break
+        elif ('estacionamiento' in texto):
+            if ('incluye estacionamiento' in texto):
+                if ('no incluye estacionamiento' in texto):
+                    estacionamientos=0
+                elif ('ni incluye estacionamiento' in texto):
+                    estacionamientos=0
+                elif ('tampoco incluye estacionamiento' in texto):
+                    estacionamientos=0
+                else:
+                     estacionamientos=1
+
+            elif ('tiene estacionamiento' in texto):
+                if ('no tiene estacionamiento' in texto):
+                    estacionamientos=0
+                elif ('ni tiene estacionamiento' in texto):
+                    estacionamientos=0
+                else:
+                     estacionamientos=1
+
+            elif ('con estacionamiento' in texto):
+                if ('cuenta con estacionamiento' in texto):
+                    if ('no cuenta con estacionamiento' in texto):
+                        estacionamientos=0
+                    elif ('ni cuenta con estacionamiento' in texto):
+                        estacionamientos=0
+                    elif ('tampoco cuenta con estacionamiento' in texto):
+                        estacionamientos=0
+                    else:
+                        estacionamientos=1
+                elif ('viene con estacionamiento' in texto):
+                    if ('no viene con estacionamiento' in texto):
+                        estacionamientos=0
+                    elif ('ni viene con estacionamiento' in texto):
+                        estacionamientos=0
+                    else:
+                        estacionamientos=1
+            elif (('ni estacionamiento' in texto) or ('no estacionamiento' in texto)):
+                estacionamientos=0
+
+            elif (('sin estacionamiento' in texto)):
+                estacionamientos=0
+
+            elif ('tiene estacionamiento' in texto):
+                if ('no tiene estacionamiento' in texto):
+                    estacionamientos=0
+                elif ('ni tiene estacionamiento' in texto):
+                    estacionamientos=0
+                else:
+                    estacionamientos=1
+            elif ('posee estacionamiento' in texto):
+                if ('no posee estacionamiento' in texto):
+                    estacionamientos=0
+                elif ('ni posee estacionamiento' in texto):
+                    estacionamientos=0
+                else:
+                    estacionamientos=1
+
+            else:
+                estacionamientos=1
+
+            break
+    return estacionamientos
+
 
 def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
@@ -397,7 +581,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 split2 = split[5].split('?')
                 region = split2[0]
 
-                estacionamientos=0
                 texts=[]
                 for p in range (1,20):
                     try:
@@ -411,66 +594,8 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     except:
                         continue
 
-
-                remate=0
-                for texto in texts:
-
-                    if (('studio' in texto) or ('Studio' in texto) or ('STUDIO' in texto)):
-                        if (('estudio' not in texto) or ('Estudio' not in texto) or ('ESTUDIO' not in texto)):
-                            dorms=0
-
-                    if (('fecha de remate' in texto) or ('Fecha de Remate' in texto) or ('FECHA DE REMATE' in texto) or ('Fecha de remate' in texto)or ('Fecha De Remate' in texto)):
-                        remate=1
-                    else:
-                        remate=0
-
-                    if 'Estacionamientos: 1' in texto:
-                            estacionamientos=1
-                            break
-                    elif 'Estacionamientos: 2' in texto:
-                        estacionamientos=2
-                        break
-                    elif 'Estacionamientos: 3' in texto:
-                        estacionamientos=3
-                        break
-                    elif ('in Estacionamiento' in texto) or ('in estacionamiento' in texto) or ('IN ESTACIONAMIENTO' in texto) or ('IN estacionamiento' in texto) or ('IN Estacionamiento' in texto):
-                        estacionamientos=0
-                        break
-                    elif ('stacionamiento: N' in texto) or ('stacionamiento: n' in texto) or ('STACIONAMIENTO: N' in texto) or ('STACIONAMIENTO: n' in texto) or ('stacionamientos: N' in texto) or ('stacionamientos: n' in texto) or ('STACIONAMIENTOS: N' in texto) or ('STACIONAMIENTOS: n' in texto):
-                        estacionamientos=0
-                        break
-                    elif ('estacionamiento' in texto) or ('Estacionamiento' in texto) or ('ESTACIONAMIENTO' in texto):
-                        estacionamientos=1
-                        if (('INCLUYE' in texto) or ('Incluye' in texto) or ('incluye' in texto)) and (('ESTACIONAMIENTO' in texto) or ('Estacionamiento' in texto) or ('estacionamiento' in texto)):
-                            if (('No' in texto) or ('NO' in texto) or ('no' in texto)):
-                                estacionamientos=0
-                            elif (('Ni' in texto) or ('NI' in texto) or ('ni' in texto)):
-                                estacionamientos=0
-                            else:
-                                 estacionamientos=1
-
-                        elif (('TIENE' in texto) or ('Tiene' in texto) or ('tiene' in texto)) and (('ESTACIONAMIENTO' in texto) or ('Estacionamiento' in texto) or ('estacionamiento' in texto)):
-                            if (('No' in texto) or ('NO' in texto) or ('no' in texto)):
-                                estacionamientos=0
-                            elif (('Ni' in texto) or ('NI' in texto) or ('ni' in texto)):
-                                estacionamientos=0
-                            else:
-                                 estacionamientos=1
-
-                        elif ('Visita' in texto) or ('visita' in texto) or ('VISITA' in texto):
-                             estacionamientos=0
-
-                        #elif ('' in texto) or ('' in texto) or ('' in texto) or ('' in texto) or ('' in texto) or ('' in texto):
-                        else:
-                            if (('Sin' in texto) or ('SIN' in texto) or ('sin' in texto)):
-                                estacionamientos=0
-                            #elif (('Ni' in texto) or ('NI' in texto) or ('ni' in texto)):
-                                #estacionamientos=0
-                            else:
-                                 estacionamientos=1
-
-                        break
-
+                bodegas=obtenerBodegas(texts)
+                estacionamientos=obtenerEstacionamientos(texts)
 
                 fechahoy = datetime.datetime.now()
                 fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
@@ -488,6 +613,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 aux.append(minMeters)
                 aux.append(maxMeters)
                 aux.append(estacionamientos)
+                aux.append(bodegas)
                 aux.append(lat)
                 aux.append(lon)
                 aux.append(newLink)
@@ -504,6 +630,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 aux.append(minMeters)
                 aux.append(maxMeters)
                 aux.append(estacionamientos)
+                aux.append(bodegas)
                 aux.append(lat)
                 aux.append(lon)
                 aux.append(newLink)
@@ -518,13 +645,12 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     abdcedf=0
 
 
-                if remate==0:
-                    try:
-                        insertarPropiedad(aux)
-                    except:
-                        continue
-                else:
-                    insertarRemate(aux)
+
+                try:
+                    insertarPropiedad(aux)
+                except:
+                    continue
+
 
                 actualizar_checker(op,tip,reg,j)
 
