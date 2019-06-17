@@ -658,13 +658,11 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     abdcedf=0
 
 
-                if remate==0:
-                    try:
-                        insertarPropiedad(aux)
-                    except:
-                        continue
-                else:
-                    insertarRemate(aux)
+
+                try:
+                    insertarPropiedad(aux)
+                except:
+                    continue
 
                 actualizar_checker(op,tip,reg,j)
 
