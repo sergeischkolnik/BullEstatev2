@@ -20,6 +20,7 @@ import pubPortalExiste
 import math
 import csv
 from csvWriter import writeCsv
+import bot1 as tgbot
 
 
 uf1=uf.getUf()
@@ -711,7 +712,8 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
                        dormitoriosmin,
                        dormitoriosmax, banosmin, banosmax, confmin, rentmin, estacionamientos, metrodistance, tipo,
                        operacion, region, comuna1, comuna2,
-                       comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente,verboso):
+                       comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente,verboso,
+                   enviarActualizacionTG=False,chat="",URL=""):
 
     preciomin=int(preciomin)
     preciomax=int(preciomax)
@@ -755,9 +757,16 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     for i,prop in enumerate(propiedades):
         porc_listo = (i/len(propiedades))*100
 
-        if len(milestonesPrints) > 0 and porc_listo > milestonesPrints[0]:
-            print(str(milestonesPrints[0])+"% de reporte listo")
-            milestonesPrints.pop(0)
+        #imprimir % a telegram
+        if enviarActualizacionTG:
+            if len(propiedades>10):
+                if len(milestonesPrints) > 0 and porc_listo > milestonesPrints[0]:
+                    text = str(milestonesPrints[0])+"% de reporte listo"
+                    milestonesPrints.pop(0)
+                    tgbot.send_message(text,chat,URL)
+            elif len(propiedades)>0:
+                text = str(porc_listo)+ "% de reporte listo"
+                tgbot.send_message(text, chat, URL)
 
         count=count+1
         if verboso:

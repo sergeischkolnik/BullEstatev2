@@ -416,7 +416,7 @@ def echo_all(updates):
                                                                                            "abcdefgh", "abcdefgh",
                                                                                            "abcdefgh","abcdefgh",
                                                                                            "abcdefgh", prioridad, 1,
-                                                                                           mail, nombre,False,))
+                                                                                           mail, nombre,False,chat,url))
 
                             thrReportes.setDaemon(True)
                             thrReportes.start()
@@ -513,7 +513,7 @@ def echo_all(updates):
                                                                                            "abcdefgh", "abcdefgh",
                                                                                            "abcdefgh","abcdefgh",
                                                                                            "abcdefgh", prioridad, 2,
-                                                                                           mail, nombre,False,))
+                                                                                           mail, nombre,False))
 
                             thrReportes.setDaemon(True)
                             thrReportes.start()
