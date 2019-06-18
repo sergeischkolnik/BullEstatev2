@@ -245,6 +245,8 @@ def echo_all(updates):
 
             arr = text.split(' ')
 
+            chat = update["message"]["chat"]["id"]
+
             if len(arr)==1:
                 #comandos simples
                 text = arr[0]
@@ -704,7 +706,7 @@ def echo_all(updates):
                 for c in comandosIndividuales:
                     text+="\n" + c
 
-            chat = update["message"]["chat"]["id"]
+
             send_message(text, chat, URL)
         except Exception as e:
             print("[tgBot]" + str(e))
