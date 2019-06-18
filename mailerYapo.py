@@ -59,7 +59,7 @@ def sendMail(idProp,link,sender,mail,phone,message):
     }
 
     response = requests.post('https://www.yapo.cl/send_ar', headers=headers, data=data)
-    checkClient(idProp)
+    #checkClient(idProp)
     return response
 
 def sendMails():
@@ -88,9 +88,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    #main()
+    resp = sendMail(idProp="64216799",
+                        link="https://www.yapo.cl/region_metropolitana/arrendar/arriendo_depto_2d_1b_con_est__metro_nunoa__l3_l6__64216799.htm",
+                        sender="Fernanda Errázuriz", mail="fernanda@vendetudepto.cl", phone="+56933911985", message=mensaje)
+    print(resp)
 
 
-#resp = sendMail(idProp="64216799",link="https://www.yapo.cl/region_metropolitana/arrendar/arriendo_depto_2d_1b_con_est__metro_nunoa__l3_l6__64216799.htm",sender="Fernanda Errázuriz",mail="fernanda@vendetudepto.cl",phone="+56933911985",message=mensaje)
-#a =2
 
