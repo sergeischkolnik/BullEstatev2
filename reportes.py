@@ -756,7 +756,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
         milestonesPrints = [10,20,30,40,50,60,70,80,90]
         if len(milestonesPrints) > 0 and porc_listo > milestonesPrints[0]:
             print(str(milestonesPrints[0])+"% de reporte listo")
-            milestonesPrints.pop()
+            milestonesPrints.pop(0)
 
         count=count+1
         if verboso:
