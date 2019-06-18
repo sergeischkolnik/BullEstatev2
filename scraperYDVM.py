@@ -36,8 +36,6 @@ def insertarPropiedad(propiedad):
              metrosmin=%s,metrosmax=%s,dormitorios=%s,banos=%s,estacionamientos=%s,descripcion=%s,lat=%s, lon=%s, 
              anoconstruccion=%s, ggcc=%s, link=%s"""
 
-    print("id:" + str(propiedad[0]) + " - preciopesos:" + str(propiedad[7]))
-
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
 
     cur = mariadb_connection.cursor()
@@ -284,4 +282,4 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
 
 
 if __name__=="__main__":
-    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=153,isRecovery=True)
+    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False)
