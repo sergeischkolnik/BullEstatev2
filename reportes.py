@@ -759,7 +759,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
         #imprimir % a telegram
         if enviarActualizacionTG:
-            if len(propiedades>10):
+            if len(propiedades)>10:
                 if len(milestonesPrints) > 0 and porc_listo > milestonesPrints[0]:
                     text = str(milestonesPrints[0])+"% de reporte listo"
                     milestonesPrints.pop(0)
