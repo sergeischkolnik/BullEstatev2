@@ -282,4 +282,4 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
 
 
 if __name__=="__main__":
-    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False)
+    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=153,isRecovery=True)
