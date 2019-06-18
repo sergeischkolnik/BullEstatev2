@@ -1249,4 +1249,10 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
 
 
 if __name__ == '__main__':
-    main()
+    #main()
+    generarReporte(preciomin=70000000, preciomax=140000000,utilmin=0,utilmax=99,totalmin=0,totalmax=99,latmin=-9999,
+                   latmax=9999,lonmin=-9999,lonmax=9999,dormitoriosmin=1,dormitoriosmax=2,banosmin=1,banosmax=2,
+                   confmin=2,rentmin=0.03,estacionamientos=1,metrodistance=999,tipo='departamento',operacion='venta',
+                   region='metropolitana',comuna1='vitacura',comuna2='asdasdasd',comuna3='asdasd',comuna4='asdasdasd',
+                   comuna5='asdasd',comuna6='asdasdasd',prioridad='venta',flagMail=1,mail='sergei.schkolnik@gmail.com',
+                   nombreCliente='PruebaSergei',verboso=True)
