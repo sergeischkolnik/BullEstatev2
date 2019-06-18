@@ -1254,5 +1254,5 @@ if __name__ == '__main__':
                    latmax=9999,lonmin=-9999,lonmax=9999,dormitoriosmin=1,dormitoriosmax=2,banosmin=1,banosmax=2,
                    confmin=2,rentmin=0.00,estacionamientos=1,metrodistance=9999,tipo='departamento',operacion='venta',
                    region='metropolitana',comuna1='vitacura',comuna2='asdasdasd',comuna3='asdasd',comuna4='asdasdasd',
-                   comuna5='asdasd',comuna6='asdasdasd',prioridad='venta',flagMail=1,mail='joaquin.gonzalez@alumnos.usm.cl',
+                   comuna5='asdasd',comuna6='asdasdasd',prioridad='arriendo',flagMail=1,mail='joaquin.gonzalez@alumnos.usm.cl',
                    nombreCliente='PruebaSergei',verboso=True)
