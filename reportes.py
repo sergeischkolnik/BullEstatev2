@@ -751,7 +751,13 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     if verboso:
         print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
     count=0
-    for prop in propiedades:
+    for i,prop in enumerate(propiedades):
+        porc_listo = (i/len(propiedades))*100
+        milestonesPrints = [10,20,30,40,50,60,70,80,90]
+        if len(milestonesPrints) > 0 and porc_listo > milestonesPrints[0]:
+            print(str(milestonesPrints[0])+"% de reporte listo")
+            milestonesPrints.pop()
+
         count=count+1
         if verboso:
             print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
