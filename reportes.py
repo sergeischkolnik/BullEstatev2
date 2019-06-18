@@ -761,11 +761,11 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
         if enviarActualizacionTG:
             if len(propiedades)>10:
                 if len(milestonesPrints) > 0 and porc_listo > milestonesPrints[0]:
-                    text = str(milestonesPrints[0])+"% de reporte listo"
+                    text = str(milestonesPrints[0])+" porciento de reporte listo"
                     milestonesPrints.pop(0)
                     tgbot.send_message(text,chat,URL)
             elif len(propiedades)>0:
-                text = str(porc_listo)+ "% de reporte listo"
+                text = str(porc_listo)+ " porciento de reporte listo"
                 tgbot.send_message(text, chat, URL)
 
         count=count+1
