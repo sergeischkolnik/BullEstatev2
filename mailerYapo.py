@@ -7,7 +7,7 @@ import random
 
 sleepTime=random.randint(200,350)
 
-mensaje = "Hola! Te escribo por tu publicación de venta en Yapo. \n" \
+mensaje = "PRUEBA SERVER - Hola! Te escribo por tu publicación de venta en Yapo. \n" \
         "Mi nombre es Fernanda, trabajo en Vendetudepto.cl, y como promoción de lanzamiento, estamos ofreciendo servicios " \
         "Totalmente Gratuitos de difusión inmobiliaria.\n" \
         "Esto puede acelerar bastante tu proceso, y no pierdes nada, ya que no te cobraremos ni exigimos exclusividad " \
