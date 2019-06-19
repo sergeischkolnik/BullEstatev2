@@ -997,8 +997,8 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
                        operacion, region, comuna1, comuna2,
                        comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente,verboso):
 
-    preciomin=int(preciomin)
-    preciomax=int(preciomax)
+    preciomin=float(preciomin)
+    preciomax=float(preciomax)
     utilmin=int(utilmin)
     utilmax=int(utilmax)
     totalmin=int(totalmin)
