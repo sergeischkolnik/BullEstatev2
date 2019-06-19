@@ -1267,8 +1267,8 @@ if __name__ == '__main__':
     #                nombreCliente='PruebaSergei',verboso=True)
 
     generarReporteInterno(preciomin=40000000, preciomax=80000000,utilmin=0,utilmax=99,totalmin=0,totalmax=99,latmin=-9999,
-                   latmax=9999,lonmin=-9999,lonmax=9999,dormitoriosmin=2,dormitoriosmax=2,banosmin=1,banosmax=2,
-                   confmin=8,rentminventa=0.1,rentminarriendo=0.04,estacionamientos=1,metrodistance=9999,tipo='departamento',operacion='venta',
-                   region='metropolitana',comuna1='nunoa',comuna2='asdasdasd',comuna3='asdasd',comuna4='asdasdasd',
+                   latmax=9999,lonmin=-9999,lonmax=9999,dormitoriosmin=2,dormitoriosmax=2,banosmin=1,banosmax=1,
+                   confmin=8,rentminventa=0.15,rentminarriendo=0.06,estacionamientos=1,metrodistance=9999,tipo='departamento',operacion='venta',
+                   region='metropolitana',comuna1='santiago-metropolitana',comuna2='asdasdasd',comuna3='asdasd',comuna4='asdasdasd',
                    comuna5='asdasd',comuna6='asdasdasd',prioridad='venta',flagMail=2,mail='joaquin.gonzalez@alumnos.usm.cl',
-                   nombreCliente='PruebaSergei',verboso=True)
+                   nombreCliente='StgoCentro-2-1',verboso=True)
