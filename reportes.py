@@ -1269,6 +1269,6 @@ if __name__ == '__main__':
     generarReporteInterno(preciomin=20000000, preciomax=60000000,utilmin=0,utilmax=99,totalmin=0,totalmax=99,latmin=-9999,
                    latmax=9999,lonmin=-9999,lonmax=9999,dormitoriosmin=1,dormitoriosmax=1,banosmin=1,banosmax=2,
                    confmin=8,rentminventa=0.15,rentminarriendo=0.05,estacionamientos=0,metrodistance=9999,tipo='departamento',operacion='venta',
-                   region='metropolitana',comuna1='san-miguel',comuna2='asdasdasd',comuna3='asdasd',comuna4='asdasdasd',
+                   region='metropolitana',comuna1='la-cisterna',comuna2='asdasdasd',comuna3='asdasd',comuna4='asdasdasd',
                    comuna5='asdasd',comuna6='asdasdasd',prioridad='venta',flagMail=2,mail='joaquin.gonzalez@alumnos.usm.cl',
                    nombreCliente='la-cisterna-1-1',verboso=True)
