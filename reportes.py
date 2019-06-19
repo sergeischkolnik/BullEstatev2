@@ -5,7 +5,7 @@ from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=90)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=30)
+yesterday = datetime.now() - timedelta(days=10)
 yesterday=datetime.date(yesterday)
 from threading import Thread
 from time import sleep
@@ -169,7 +169,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        #print(sql)
+        print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
         return tupla
