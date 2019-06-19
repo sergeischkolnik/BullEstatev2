@@ -1266,7 +1266,7 @@ if __name__ == '__main__':
     #                comuna5='asdasd',comuna6='asdasdasd',prioridad='arriendo',flagMail=1,mail='joaquin.gonzalez@alumnos.usm.cl',
     #                nombreCliente='PruebaSergei',verboso=True)
 
-    generarReporteInterno(preciomin=40000000, preciomax=650000000,utilmin=0,utilmax=99,totalmin=0,totalmax=99,latmin=-9999,
+    generarReporteInterno(preciomin=40000000, preciomax=550000000,utilmin=0,utilmax=99,totalmin=0,totalmax=99,latmin=-9999,
                    latmax=9999,lonmin=-9999,lonmax=9999,dormitoriosmin=2,dormitoriosmax=2,banosmin=1,banosmax=1,
                    confmin=8,rentminventa=0.2,rentminarriendo=0.07,estacionamientos=0,metrodistance=9999,tipo='departamento',operacion='venta',
                    region='metropolitana',comuna1='santiago-metropolitana',comuna2='asdasdasd',comuna3='asdasd',comuna4='asdasdasd',
