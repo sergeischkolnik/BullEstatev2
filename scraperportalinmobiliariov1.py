@@ -692,8 +692,6 @@ def scrap(d,h,operacion,tipo,region,lista,faillista):
     for i in range(1,nrPages+1):
         subsites.append(subsiteBasicUrl + str(i))
 
-    print(subsites)
-
     getInfo(subsites,d,h,lista,faillista,operacion,tipo,region)
 
 def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=0,isRecovery=False):
