@@ -250,7 +250,7 @@ def echo_all(updates):
             if len(arr)==1:
                 #comandos simples
                 text = arr[0]
-                
+
                 #Hola y bienvenida
                 if text==comandosIndividuales[0]:
                     text="Hola! Los comandos son:"
@@ -521,7 +521,8 @@ def echo_all(updates):
                                                                                            "abcdefgh", "abcdefgh",
                                                                                            "abcdefgh","abcdefgh",
                                                                                            "abcdefgh", prioridad, 2,
-                                                                                           mail, nombre,verboso))
+                                                                                           mail, nombre,verboso,
+                                                                                                  True,chat,URL))
 
                             thrReportes.setDaemon(True)
                             thrReportes.start()
