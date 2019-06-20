@@ -1051,7 +1051,7 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
         print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
 
     if enviarActualizacionTG:
-        tgbot.send_message("[GeneradorReportes] Encontradas " + str(len(propiedades)) + "propiedades.", chat, URL)
+        tgbot.send_message("[GeneradorReportes] Encontradas " + str(len(propiedades)) + " propiedades.", chat, URL)
 
     count=0
 
