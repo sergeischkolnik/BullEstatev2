@@ -20,6 +20,7 @@ import pubPortalExiste
 import math
 import csv
 from csvWriter import writeCsv
+from csvWriter import writeCsvCanje
 import bot1 as tgbot
 
 
@@ -1410,8 +1411,6 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
         subresultado.append(int(prop[6]))
         subresultado.append(int(prop[7]))
         subresultado.append(int(prop[12]))
-        link=prop[13]
-        link=link.split('/')
 
         if not pubPortalExiste.publicacionExiste(prop[13]):
             if verboso:
@@ -1442,7 +1441,7 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = nombreCliente + " propiedades canje " +str(tipo)+" "+ today
 
-        writeCsv(nombreArchivo+'.csv', resultado, columnNames, operacion)
+        writeCsvCanje(nombreArchivo+'.csv', resultado, columnNames, operacion)
         sendmail.sendMail(mail,nombreCliente,("reporte "+str(nombreArchivo)+".csv"))
 
         if verboso:
