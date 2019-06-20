@@ -1330,6 +1330,129 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
 
    #insertarClientes_Propiedades(subresultado)
 
+def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, lat,lon,
+                       dormitoriosmin, dormitoriosmax, banosmin, banosmax, estacionamientos, tipo,
+                       operacion, region, mail,nombreCliente,distancia,verboso,
+                          enviarActualizacionTG=False,chat="",URL=""):
+
+    preciomin=float(preciomin)
+    preciomax=float(preciomax)
+    utilmin=int(utilmin)
+    utilmax=int(utilmax)
+    totalmin=int(totalmin)
+    totalmax=int(totalmax)
+
+    distancia = int(distancia)
+
+    lat = float(lat)
+    lon = float(lon)
+
+    latmin = lat-((0.009/1000)*distancia)
+    latmax = lat+((0.009/1000)*distancia)
+    lonmin = lon-((0.01/1000)*distancia)
+    lonmax = lon+((0.01/1000)*distancia)
+
+
+    dormitoriosmin=int(dormitoriosmin)
+    dormitoriosmax=int(dormitoriosmax)
+    banosmax=int(banosmax)
+
+    estacionamientos=int(estacionamientos)
+
+    tipo=str(tipo)
+    operacion=str(operacion)
+    region=str(region)
+
+    mail=str(mail)
+    nombreCliente=str(nombreCliente)
+
+    propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
+                                               latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
+                                               banosmax,estacionamientos,tipo,operacion,region,verboso)
+
+    if verboso:
+        print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
+
+    if enviarActualizacionTG:
+        tgbot.send_message("[GeneradorReportes] Encontradas " + str(len(propiedades)) + " propiedades.", chat, URL)
+
+    count=0
+
+    porc25 = int(len(propiedades)/4)
+    porc50 = int(len(propiedades)/2)
+    porc75 = porc25+porc50
+
+    resultado = []
+
+    for prop in propiedades:
+        count=count+1
+
+        if verboso:
+            print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
+
+        if enviarActualizacionTG:
+            if porc25!=0 and count>porc25 and count < porc50:
+                tgbot.send_message("[GeneradorReportes] 25 porciento filtrado. ", chat, URL)
+                porc25 = 0
+            elif porc50 != 0 and count > porc50 and count < porc75:
+                tgbot.send_message("[GeneradorReportes] 50 porciento filtrado. ", chat, URL)
+                porc50 = 0
+            elif porc75 != 0 and count > porc75:
+                tgbot.send_message("[GeneradorReportes] 75 porciento filtrado. ", chat, URL)
+                porc75 = 0
+
+        subresultado=[]
+        subresultado.append(int(prop[5]))
+        subresultado.append(int(prop[8]))
+        subresultado.append(int(prop[9]))
+        subresultado.append(int(prop[6]))
+        subresultado.append(int(prop[7]))
+        subresultado.append(int(prop[12]))
+        link=prop[13]
+        link=link.split('/')
+
+        if not pubPortalExiste.publicacionExiste(prop[13]):
+            if verboso:
+                print("[GeneradorReportes] link no disponible")
+            continue
+        else:
+            subresultado.append(prop[13])
+
+        if verboso:
+            print("[GeneradorReportes] depto encontrado para "+ nombreCliente)
+
+        resultado.append(subresultado)
+
+    if enviarActualizacionTG:
+        tgbot.send_message("[GeneradorReportes] 100 porciento filtrado.", chat, URL)
+
+    if len(resultado)>0:
+        if verboso:
+            print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
+
+        if enviarActualizacionTG:
+            tgbot.send_message("[GeneradorReportes] Generando reporte para cliente " + nombreCliente, chat, URL)
+
+        resultado=sorted(resultado, key=lambda x:x[0])
+
+        columnNames=["Precio","Útil","Tot","D","B","E","Link"]
+
+        today = datetime.today().strftime('%Y-%m-%d')
+        nombreArchivo = nombreCliente + " propiedades canje " +str(tipo)+" "+ today
+
+        writeCsv(nombreArchivo+'.csv', resultado, columnNames, operacion)
+        sendmail.sendMail(mail,nombreCliente,("reporte "+str(nombreArchivo)+".csv"))
+
+        if verboso:
+            print("[GeneradorReportes] Enviando canjes de cliente "+nombreCliente)
+        if enviarActualizacionTG:
+                tgbot.send_message("[GeneradorReportes] Enviando canjes de cliente " + str(nombreCliente), chat, URL)
+
+    else:
+        if enviarActualizacionTG:
+            tgbot.send_message("[GeneradorReportes] No se han encontrado propiedades de canje para el cliente " + str(nombreCliente), chat, URL)
+        if verboso:
+            print("[GeneradorReportes] No se han encontrado propiedades de canje para el cliente "+nombreCliente)
 
 if __name__ == '__main__':
     #main()
