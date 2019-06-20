@@ -1024,7 +1024,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
                 print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
     else:
         if enviarActualizacionTG:
-            tgbot.send_message("[GeneradorReportes]No se han encontrado propiedades para el cliente " + str(nombreCliente), chat, URL)
+            tgbot.send_message("[GeneradorReportes] No se han encontrado propiedades para el cliente " + str(nombreCliente), chat, URL)
         if verboso:
             print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
 
@@ -1324,7 +1324,7 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
 
     else:
         if enviarActualizacionTG:
-            tgbot.send_message("[GeneradorReportes]No se han encontrado propiedades para el cliente " + str(nombreCliente), chat, URL)
+            tgbot.send_message("[GeneradorReportes] No se han encontrado propiedades para el cliente " + str(nombreCliente), chat, URL)
         if verboso:
             print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
 
