@@ -774,13 +774,33 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     estaciones1=estaciones()
     if verboso:
         print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
+
+    if enviarActualizacionTG:
+        tgbot.send_message("[GeneradorReportes] Encontradas " + str(len(propiedades)) + " propiedades.", chat, URL)
+
     count=0
+
+    porc25 = int(len(propiedades)/4)
+    porc50 = int(len(propiedades)/2)
+    porc75 = porc25+porc50
 
     for i,prop in enumerate(propiedades):
 
         count=count+1
         if verboso:
             print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
+
+        if enviarActualizacionTG:
+            if porc25!=0 and count>porc25 and count < porc50:
+                tgbot.send_message("[GeneradorReportes] 25 porciento filtrado. ", chat, URL)
+                porc25 = 0
+            elif porc50 != 0 and count > porc50 and count < porc75:
+                tgbot.send_message("[GeneradorReportes] 50 porciento filtrado. ", chat, URL)
+                porc50 = 0
+            elif porc75 != 0 and count > porc75:
+                tgbot.send_message("[GeneradorReportes] 75 porciento filtrado. ", chat, URL)
+                porc75 = 0
+
         estaciones2=[]
         for e in estaciones1:
             subestacion=[]
@@ -961,10 +981,15 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
         resultado.append(subresultado)
         #print("sub appended")
 
+    if enviarActualizacionTG:
+        tgbot.send_message("[GeneradorReportes] 100 porciento filtrado.", chat, URL)
 
     if len(resultado)>0:
         if verboso:
             print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
+
+        if enviarActualizacionTG:
+            tgbot.send_message("[GeneradorReportes] Generando reporte para cliente " + nombreCliente, chat, URL)
 
         if (prioridad=="arriendo"):
             resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
@@ -998,6 +1023,8 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
             if verboso:
                 print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
     else:
+        if enviarActualizacionTG:
+            tgbot.send_message("[GeneradorReportes]No se han encontrado propiedades para el cliente " + str(nombreCliente), chat, URL)
         if verboso:
             print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
 
@@ -1067,13 +1094,13 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
 
         if enviarActualizacionTG:
             if porc25!=0 and count>porc25 and count < porc50:
-                tgbot.send_message("[GeneradorReportes] 25 porciento listo. ", chat, URL)
+                tgbot.send_message("[GeneradorReportes] 25 porciento filtrado. ", chat, URL)
                 porc25 = 0
             elif porc50 != 0 and count > porc50 and count < porc75:
-                tgbot.send_message("[GeneradorReportes] 50 porciento listo. ", chat, URL)
+                tgbot.send_message("[GeneradorReportes] 50 porciento filtrado. ", chat, URL)
                 porc50 = 0
             elif porc75 != 0 and count > porc75:
-                tgbot.send_message("[GeneradorReportes] 75 porciento listo. ", chat, URL)
+                tgbot.send_message("[GeneradorReportes] 75 porciento filtrado. ", chat, URL)
                 porc75 = 0
 
 
@@ -1251,10 +1278,15 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
         resultado.append(subresultado)
         #print("sub appended")
 
+    if enviarActualizacionTG:
+        tgbot.send_message("[GeneradorReportes] 100 porciento filtrado.", chat, URL)
 
     if len(resultado)>0:
         if verboso:
             print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
+
+        if enviarActualizacionTG:
+            tgbot.send_message("[GeneradorReportes] Generando reporte para cliente " + nombreCliente, chat, URL)
 
         if (prioridad=="arriendo"):
             resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
