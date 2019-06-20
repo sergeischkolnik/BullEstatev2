@@ -775,20 +775,8 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     if verboso:
         print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
     count=0
-    milestonesPrints = [10,20,30,40,50,60,70,80,90]
-    for i,prop in enumerate(propiedades):
-        porc_listo = (i/len(propiedades))*100
 
-        #imprimir % a telegram
-        if enviarActualizacionTG:
-            if len(propiedades)>10:
-                if len(milestonesPrints) > 0 and porc_listo > milestonesPrints[0]:
-                    text = str(milestonesPrints[0])+" porciento de reporte listo"
-                    milestonesPrints.pop(0)
-                    tgbot.send_message(text,chat,URL)
-            elif len(propiedades)>0:
-                text = str(porc_listo)+ " porciento de reporte listo"
-                tgbot.send_message(text, chat, URL)
+    for i,prop in enumerate(propiedades):
 
         count=count+1
         if verboso:
@@ -1020,11 +1008,6 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
                        comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente,verboso,
                           enviarActualizacionTG=False,chat="",URL=""):
 
-    if enviarActualizacionTG:
-        print("ENVIANDO MENSAJE A TG")
-        tgbot.send_message("Enviado desde hilo", chat, URL)
-
-
     preciomin=float(preciomin)
     preciomax=float(preciomax)
     utilmin=int(utilmin)
@@ -1066,11 +1049,34 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
     estaciones1=estaciones()
     if verboso:
         print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
+
+    if enviarActualizacionTG:
+        tgbot.send_message("[GeneradorReportes] Encontradas " + str(len(propiedades)) + "propiedades.", chat, URL)
+
     count=0
+
+    porc25 = int(len(propiedades)/4)
+    porc50 = int(len(propiedades)/2)
+    porc75 = porc25+porc50
+
     for prop in propiedades:
         count=count+1
+
         if verboso:
             print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
+
+        if enviarActualizacionTG:
+            if porc25!=0 and count>porc25 and count < porc50:
+                tgbot.send_message("[GeneradorReportes] 25 porciento listo. ", chat, URL)
+                porc25 = 0
+            elif porc50 != 0 and count > porc50 and count < porc75:
+                tgbot.send_message("[GeneradorReportes] 50 porciento listo. ", chat, URL)
+                porc50 = 0
+            elif porc75 != 0 and count > porc75:
+                tgbot.send_message("[GeneradorReportes] 75 porciento listo. ", chat, URL)
+                porc75 = 0
+
+
         estaciones2=[]
         for e in estaciones1:
             subestacion=[]
@@ -1281,7 +1287,12 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
 
             if verboso:
                 print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
+            if enviarActualizacionTG:
+                tgbot.send_message("[GeneradorReportes]Enviando reporte a cliente " + str(nombreCliente), chat, URL)
+
     else:
+        if enviarActualizacionTG:
+            tgbot.send_message("[GeneradorReportes]No se han encontrado propiedades para el cliente " + str(nombreCliente), chat, URL)
         if verboso:
             print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
 
