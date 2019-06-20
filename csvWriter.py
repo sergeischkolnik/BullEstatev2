@@ -66,3 +66,39 @@ def writeCsv(file, data, columnnames, operacion):
         writer.writerow(columnnames)
         for row in data:
             writer.writerow(row)
+
+def writeCsvCanje(file, data, columnnames, operacion):
+
+    data = [list(elem) for elem in data]
+
+    #creacion de precios, porcentajes y link
+    for i,prop in enumerate(data):
+
+        #arreglar precio
+        precio = prop[0]
+        if operacion=="venta":
+            unf=uf.getUf()
+            precio=precio/unf
+            precio=int(precio)
+            precioStr =  format(precio, ',.2f')
+            precioStr = precioStr[:-3]
+            precioStr = precioStr.replace(",",".")
+        else:
+            precioStr = format(precio, ',.2f')
+            precioStr = precioStr[:-3]
+            precioStr = str(precioStr)
+
+        prop[0] = precioStr
+        ufn=uf.getUf()
+        #quitar decimales a valores
+        prop[1] = int(prop[1])
+        prop[2] = int(prop[2])
+        prop[3] = int(prop[3])
+        prop[4] = int(prop[4])
+        prop[5] = int(prop[5])
+
+    with open(file, 'w',newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=';',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(columnnames)
+        for row in data:
+            writer.writerow(row)
