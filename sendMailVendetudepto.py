@@ -39,4 +39,4 @@ def sendMailGratis(to,nombreProp,link):
     server.sendmail(fromaddr, toaddr, text)
 
     server.quit()
-    print("Mail sent to:" + toaddr)
+    #print("Mail sent to:" + toaddr)
