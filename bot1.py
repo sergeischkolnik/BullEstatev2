@@ -463,7 +463,7 @@ def echo_all(updates):
 
                 #reporte interno
                 elif arr[0] == comandosMultiples[1]:
-                    if len(arr)!=27:
+                    if len(arr)!=27 and len(arr)!=28:
                         text = "Para usar reporte, escriba, separando por espacios:\nreporte " \
                                "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
                                "<latMin> <latMax> <lonMin> <lonMax> <dormitoriosMin> <dormitoriosMax>" \
@@ -504,7 +504,10 @@ def echo_all(updates):
                             mail = arr[25]
                             nombre = arr[26]
 
+                            verboso = False
 
+                            if len(arr) == 28:
+                                verboso = True
 
                             thrReportes = threading.Thread(target=rp.generarReporteInterno, args=(preciomin, preciomax,
                                                                                            utilmin,utilmax, totalmin,
@@ -518,7 +521,7 @@ def echo_all(updates):
                                                                                            "abcdefgh", "abcdefgh",
                                                                                            "abcdefgh","abcdefgh",
                                                                                            "abcdefgh", prioridad, 2,
-                                                                                           mail, nombre,False))
+                                                                                           mail, nombre,verboso))
 
                             thrReportes.setDaemon(True)
                             thrReportes.start()
