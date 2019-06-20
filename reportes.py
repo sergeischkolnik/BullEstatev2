@@ -1439,10 +1439,10 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
         columnNames=["Precio","Útil","Tot","D","B","E","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
-        nombreArchivo = nombreCliente + " propiedades canje " +str(tipo)+" "+ today
+        nombreArchivo = nombreCliente + " propiedades canje " +str(tipo)+" "+ today +'.csv'
 
-        writeCsvCanje(nombreArchivo+'.csv', resultado, columnNames, operacion)
-        sendmail.sendMail(mail,nombreCliente,("reporte "+str(nombreArchivo)+".csv"))
+        writeCsvCanje(nombreArchivo, resultado, columnNames, operacion)
+        sendmail.sendMail(mail,nombreCliente,(nombreArchivo))
 
         if verboso:
             print("[GeneradorReportes] Enviando canjes de cliente "+nombreCliente)
