@@ -712,8 +712,8 @@ def echo_all(updates):
                         text = "Para usar canjeador, escriba, separando por espacios:\ncanjeador " \
                                "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
                                "<dormitoriosMin> <dormitoriosMax>" \
-                               "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion>" \
-                               "<region> <mail> <nombre> <distancia> <direccion>"
+                               "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion> " \
+                               "<region> <comuna> <mail> <nombre> <distancia> <direccion>"
                     else:
 
                         if thrReportes!= -1 and thrReportes.isAlive():
@@ -735,11 +735,12 @@ def echo_all(updates):
                             tipo = arr[12]
                             operacion = arr[13]
                             region = arr[14]
-                            mail = arr[15]
-                            nombre = arr[16]
-                            distancia = arr[17]
+                            comuna = arr[15]
+                            mail = arr[16]
+                            nombre = arr[17]
+                            distancia = arr[18]
                             calle = ""
-                            for c in range(18, len(arr) - 1):
+                            for c in range(19, len(arr) - 1):
                                 calle += arr[c]
                                 calle += " "
 
