@@ -1332,7 +1332,7 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
 
 def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, lat,lon,
                        dormitoriosmin, dormitoriosmax, banosmin, banosmax, estacionamientos, tipo,
-                       operacion, region, mail,nombreCliente,distancia,verboso,
+                       operacion, region,comuna, mail,nombreCliente,distancia,verboso,
                           enviarActualizacionTG=False,chat="",URL=""):
 
     preciomin=float(preciomin)
@@ -1362,13 +1362,15 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
     tipo=str(tipo)
     operacion=str(operacion)
     region=str(region)
+    comuna=str(comuna)
 
     mail=str(mail)
     nombreCliente=str(nombreCliente)
 
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
-                                               banosmax,estacionamientos,tipo,operacion,region,verboso)
+                                               banosmax,estacionamientos,tipo,operacion,region,comuna,"asdddd","asdddd",
+                                               "asdddd","asdddd","asdddd",verboso)
 
     if verboso:
         print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
