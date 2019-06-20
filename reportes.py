@@ -1495,6 +1495,8 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
 
         subresultado=[]
 
+        print(prop)
+
         subresultado.append(int(prop[5]))
         subresultado.append(int(prop[8]))
         subresultado.append(int(prop[9]))
