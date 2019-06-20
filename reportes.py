@@ -99,7 +99,13 @@ def mean(numbers):
     cosa.append(desvest)
     return cosa
 
-def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6):
+def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,
+                                   lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,
+                                   operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,verboso=False):
+
+        if verboso:
+            print("----------------------")
+            print("Seleccionando propiedades especificas de portal.")
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
 
@@ -169,9 +175,12 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
+        print("Consulta:")
         print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
+        print("Datos de consulta especifica de portal listos")
+        print("----------------------")
         return tupla
 
 def clientes():
@@ -609,10 +618,16 @@ def calcularDistanciaA(i,data):
     except:
         return -1
 
-def from_portalinmobiliario(tipo,region):
+def from_portalinmobiliario(tipo,region,verboso=False):
+    if verboso:
+        print("----------------------")
+        print("Extrayendo propiedades de portal.")
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and region='"+str(region)+"'"
+    if verboso:
+        print("Consulta:")
+        print(sql)
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -625,6 +640,10 @@ def from_portalinmobiliario(tipo,region):
             subdata.append(i[j])
         if (a==0):
             data.append(subdata)
+
+    if verboso:
+        print("Data de portal Lista.")
+        print("----------------------")
     return data
 
 def main():
@@ -746,8 +765,11 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     mail=str(mail)
     nombreCliente=str(nombreCliente)
 
-    props=from_portalinmobiliario(tipo,region)
-    propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
+    props=from_portalinmobiliario(tipo,region,verboso)
+    propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
+                                               latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
+                                               banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,
+                                               comuna4,comuna5,comuna6,verboso)
     resultado = []
     estaciones1=estaciones()
     if verboso:
@@ -1029,8 +1051,11 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
     mail=str(mail)
     nombreCliente=str(nombreCliente)
 
-    props=from_portalinmobiliario(tipo,region)
-    propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6)
+    props=from_portalinmobiliario(tipo,region,verboso)
+    propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
+                                               latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
+                                               banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,
+                                               comuna4,comuna5,comuna6,verboso)
     resultado = []
     estaciones1=estaciones()
     if verboso:
