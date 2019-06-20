@@ -199,7 +199,7 @@ def from_portalinmobiliario_select_canje(past, yesterday, preciomin, preciomax, 
 
     sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,mail,esDueno,link FROM portalinmobiliario INNER JOIN duenos WHERE "
 
-    sqlwhere = "id2=idProp" + "' AND "
+    sqlwhere = "id2=idProp" + " AND "
     sql = sqlselect + sqlwhere
 
     sqlwhere = "fechascrap>='" + str(yesterday) + "' AND "
