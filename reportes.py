@@ -197,7 +197,7 @@ def from_portalinmobiliario_select_canje(past, yesterday, preciomin, preciomax, 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
 
-    sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,mail,esDueno,link FROM portalinmobiliario INNER JOIN duenos WHERE "
+    sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link,mail,esDueno FROM portalinmobiliario INNER JOIN duenos WHERE "
 
     sqlwhere = "id2=idProp" + " AND "
     sql = sqlselect + sqlwhere
