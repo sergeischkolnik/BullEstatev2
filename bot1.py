@@ -507,7 +507,8 @@ def echo_all(updates):
                             verboso = False
 
                             if len(arr) == 28:
-                                verboso = True
+                                if arr[27] == "v":
+                                    verboso = True
 
                             thrReportes = threading.Thread(target=rp.generarReporteInterno, args=(preciomin, preciomax,
                                                                                            utilmin,utilmax, totalmin,
