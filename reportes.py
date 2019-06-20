@@ -184,6 +184,95 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         print("----------------------")
         return tupla
 
+
+def from_portalinmobiliario_select_canje(past, yesterday, preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin,
+                                   latmax,
+                                   lonmin, lonmax, dormitoriosmin, dormitoriosmax, banosmin, banosmax, estacionamientos,
+                                   tipo,
+                                   operacion, region, comuna1, comuna2, comuna3, comuna4, comuna5, comuna6,
+                                   verboso=False):
+    if verboso:
+        print("----------------------")
+        print("Seleccionando propiedades especificas de portal.")
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+
+    sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,mail,esDueno,link FROM portalinmobiliario INNER JOIN duenos WHERE "
+
+    sqlwhere = "id2=idProp" + "' AND "
+    sql = sqlselect + sqlwhere
+
+    sqlwhere = "fechascrap>='" + str(yesterday) + "' AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "fechapublicacion>='" + str(past) + "' AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "precio>=" + str(preciomin) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "precio<=" + str(preciomax) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "metrosmin>=" + str(utilmin) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "metrosmin<=" + str(utilmax) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "metrosmax>=" + str(totalmin) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "metrosmax<=" + str(totalmax) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "lat>=" + str(latmin) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "lat<=" + str(latmax) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "lon>=" + str(lonmin) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "lon<=" + str(lonmax) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "dormitorios>=" + str(dormitoriosmin) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "dormitorios<=" + str(dormitoriosmax) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "banos>=" + str(banosmin) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "banos<=" + str(banosmax) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "estacionamientos>=" + str(estacionamientos) + " AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "tipo LIKE '%" + str(tipo) + "%' AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "operacion LIKE '%" + str(operacion) + "%' AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "region LIKE '%" + str(region) + "%' AND "
+    sql = sql + sqlwhere
+
+    sqlwhere = "(link LIKE '%" + comuna1 + "%' or link LIKE '%" + comuna2 + "%' or link LIKE '%" + comuna3 + "%' or link LIKE '%" + comuna4 + "%' or link LIKE '%" + comuna5 + "%' or link LIKE '%" + comuna6 + "%')"
+    sql = sql + sqlwhere
+
+    print("Consulta:")
+    print(sql)
+    cur.execute(sql)
+    tupla = cur.fetchall()
+    print("Datos de consulta especifica de portal listos")
+    print("----------------------")
+    return tupla
+
 def clientes():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
@@ -1368,7 +1457,7 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
     mail=str(mail)
     nombreCliente=str(nombreCliente)
 
-    propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
+    propiedades=from_portalinmobiliario_select_canje(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
                                                banosmax,estacionamientos,tipo,operacion,region,comuna,"asdddd","asdddd",
                                                "asdddd","asdddd","asdddd",verboso)
@@ -1405,12 +1494,15 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
                 porc75 = 0
 
         subresultado=[]
+
         subresultado.append(int(prop[5]))
         subresultado.append(int(prop[8]))
         subresultado.append(int(prop[9]))
         subresultado.append(int(prop[6]))
         subresultado.append(int(prop[7]))
         subresultado.append(int(prop[12]))
+        subresultado.append(str(prop[14]))
+        subresultado.append(str(prop[15]))
 
         if not pubPortalExiste.publicacionExiste(prop[13]):
             if verboso:
@@ -1436,7 +1528,7 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
 
         resultado=sorted(resultado, key=lambda x:x[0])
 
-        columnNames=["Precio","Útil","Tot","D","B","E","Link"]
+        columnNames=["Precio","Útil","Total","Dormitorios","Banos","Estacionamientos","Mail","esDueno","Link"]
 
         today = datetime.today().strftime('%Y-%m-%d')
         nombreArchivo = nombreCliente + " propiedades canje " +str(tipo)+" "+ today +'.csv'
