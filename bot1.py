@@ -753,7 +753,8 @@ def echo_all(updates):
                                                                                            totalmax,lat,lon,dormitoriosmin,
                                                                                            dormitoriosmax, banosmin,
                                                                                            banosmax, estacionamientos, tipo,
-                                                                                           operacion, region, mail, nombre,distancia,
+                                                                                           operacion, region, comuna, mail,
+                                                                                             nombre,distancia,
                                                                                              True, True,chat,URL))
 
                             thrReportes.setDaemon(True)
