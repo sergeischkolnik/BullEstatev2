@@ -80,13 +80,10 @@ def writeCsvCanje(file, data, columnnames, operacion):
             unf=uf.getUf()
             precio=precio/unf
             precio=int(precio)
-            precioStr =  format(precio, ',.2f')
-            precioStr = precioStr[:-3]
-            precioStr = precioStr.replace(",",".")
+            precioStr = str(precio)
         else:
-            precioStr = format(precio, ',.2f')
-            precioStr = precioStr[:-3]
-            precioStr = str(precioStr)
+
+            precioStr = str(precio)
 
         prop[0] = precioStr
         ufn=uf.getUf()
