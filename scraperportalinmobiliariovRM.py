@@ -103,8 +103,8 @@ def getBanned():
 def insertarDueno(dueno):
     #Inserta una propiedad en una base de datos
 
-    sql = """INSERT INTO duenos(idProp,mail,esDueno)
-             VALUES(%s,%s,%s) ON DUPLICATE KEY UPDATE mail=%s, esDueno=%s"""
+    sql = """INSERT INTO duenos(idProp,mail,esDueno,telefono)
+             VALUES(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE mail=%s, esDueno=%s, telefono=%s"""
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
@@ -552,7 +552,18 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 rtext=rtext.split(' ')
 
                 for x,a in enumerate(rtext):
+                    if 'telefonosVendedor' in a:
+
+                        telefonoVendedor=rtext[x+2]
+                        telefonoVendedor=telefonoVendedor.replace('nbsp;','')
+                        telefonoVendedor=telefonoVendedor.replace('"','')
+                        telefonoVendedor=telefonoVendedor.replace('&','')
+                        telefonoVendedor="+"+str(telefonoVendedor)
+
+
+                for x,a in enumerate(rtext):
                     if 'emailVendedor' in a:
+
                         emailvendedor=rtext[x+2]
                         emailvendedor=emailvendedor.replace('\r\n','')
                         emailvendedor=emailvendedor.replace('"','')
@@ -561,12 +572,16 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                         dueno.append(emailvendedor)
                         if (corredor=="si"):
                             dueno.append("no")
+                            dueno.append(telefonoVendedor)
                             dueno.append(emailvendedor)
                             dueno.append("no")
+                            dueno.append(telefonoVendedor)
                         else:
                             dueno.append(esDueno(emailvendedor))
+                            dueno.append(telefonoVendedor)
                             dueno.append(emailvendedor)
                             dueno.append(esDueno(emailvendedor))
+                            dueno.append(telefonoVendedor)
 
                 dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
                 date = tree3.xpath(dateSite)
