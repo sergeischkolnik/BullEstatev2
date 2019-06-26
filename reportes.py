@@ -111,7 +111,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
 
-        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE "
+        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link,id FROM portalinmobiliario WHERE "
 
         sqlwhere="fechascrap>='"+str(yesterday)+"' AND "
         sql=sqlselect+sqlwhere
@@ -1548,10 +1548,42 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
         if verboso:
             print("[GeneradorReportes] No se han encontrado propiedades de canje para el cliente "+nombreCliente)
 
+
+def yaReportado(idCliente,idProp):
+    sql = "SELECT * from clientes_propiedades WHERE cliente =" + str(idCliente) + " and prop=" + str(idProp)
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    result = cur.fetchall()
+    if len(result) > 0:
+        return True
+    else:
+        return False
+
+def guardarRegistro(idCliente,idProp):
+    sql = """INSERT INTO clientes_propiedades(cliente,prop)
+             VALUES(%s,%s) ON DUPLICATE KEY UPDATE prop=%s"""
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    resultado = [idCliente,idProp,idProp]
+    cur = mariadb_connection.cursor()
+    cur.execute(sql, (resultado))
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
+
+def getDatosDueno(idProp2):
+    sql = "SELECT mail,telefono,esDueno from duenos WHERE idProp =" + str(idProp2)
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    result = cur.fetchall()
+    result = result[0]
+    return result[0],result[1],result[2]
+
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
                            estacionamientos, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
-                           nombreCliente,direccion,radioDireccion,verboso):
+                           nombreCliente,idCliente,direccion,radioDireccion,verboso):
 
     columnNames = []
 
@@ -1727,6 +1759,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     props=from_portalinmobiliario(tipo,region,verboso)
     estaciones1 = estaciones()
     columnNames.append("Link")
+
+    columnNames.append("Mail")
+    columnNames.append("Telefono")
+    columnNames.append("es dueno")
+
     listaAdjuntos=[]
 
     for comuna in listaComunas:
@@ -1746,6 +1783,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                 for prop in propiedades:
                     count=count+1
+
+                    idProp = prop[14]
+                    if yaReportado(idCliente=idCliente,idProp=idProp):
+                        continue
+
 
                     if verboso:
                         print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
@@ -1928,6 +1970,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         # link
                         subresultado.append(prop[13])
 
+
+                    #agregar mail, telefono y dueño
+                    mail,telefono,dueno = getDatosDueno(prop[0])
+
                     if verboso:
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
                     resultado.append(subresultado)
@@ -1960,6 +2006,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     writeCsv(nombreArchivo, resultado, columnNames, operacion)
+
+                    guardarRegistro(idCliente,idProp)
 
                     listaAdjuntos.append(nombreArchivo)
 
