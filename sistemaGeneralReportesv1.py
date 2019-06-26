@@ -32,9 +32,9 @@ def main():
         banosMin = int(cliente[17])
         banosMax = int(cliente[18])
         for comuna in comunas:
-            for b in range(banosMin,banosMax+1):
-                for d in range(dormitoriosMin,dormitoriosMax+1):
-                    print(str(comuna)+","+str(b)+","+str(d))
+            for d in range(dormitoriosMin,dormitoriosMax+1):
+                for b in range(banosMin, banosMax + 1):
+                    print(str(comuna)+","+str(d)+","+str(b))
 
 if __name__ == '__main__':
     main()
