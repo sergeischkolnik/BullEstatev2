@@ -27,7 +27,14 @@ def main():
             comunas.append(cliente[28])
         if cliente[29] is not None:
             comunas.append(cliente[29])
-        print(comunas)
+        dormitoriosMin = int(cliente[15])
+        dormitoriosMax = int(cliente[16])
+        banosMin = int(cliente[17])
+        banosMax = int(cliente[18])
+        for comuna in comunas:
+            for b in range(banosMin,banosMax+1):
+                for d in range(dormitoriosMin,dormitoriosMax+1):
+                    print(str(comuna)+","+str(b)+","+str(d))
 
 if __name__ == '__main__':
     main()
