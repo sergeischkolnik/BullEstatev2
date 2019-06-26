@@ -1931,9 +1931,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     if (prioridad=="arriendo"):
-                        resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
+                        index = columnNames.index("Rentabilidad Arriendo")
+                        resultado=sorted(resultado, key=lambda x:x[index],reverse=True)
                     elif (prioridad=="venta"):
-                        resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
+                        index = columnNames.index("Rentabilidad Venta")
+                        resultado=sorted(resultado, key=lambda x:x[index],reverse=True)
                     else:
                         resultado=sorted(resultado, key=lambda x:x[0])
 
