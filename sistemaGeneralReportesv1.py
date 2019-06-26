@@ -35,7 +35,7 @@ def main(verboso):
                                banosmax=cliente[18], confmin=cliente[39], rentminventa=cliente[35],rentminarriendo=cliente[36],
                                estacionamientos=cliente[19], metrodistance=cliente[30], tipo=cliente[20], operacion=cliente[21],
                                region=cliente[23], listaComunas=comunas, prioridad=cliente[38], mail=cliente[3],
-                               nombreCliente=cliente[1], direccion=cliente[41], radioDireccion=cliente[42], verboso=verboso)
+                               nombreCliente=cliente[1],idCliente=cliente[0], direccion=cliente[41], radioDireccion=cliente[42], verboso=verboso)
 
 
 if __name__ == '__main__':
