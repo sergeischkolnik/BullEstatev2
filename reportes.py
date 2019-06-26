@@ -22,6 +22,7 @@ import csv
 from csvWriter import writeCsv
 from csvWriter import writeCsvCanje
 import bot1 as tgbot
+import googleMapApi as gm
 
 
 uf1=uf.getUf()
@@ -1551,11 +1552,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
                            estacionamientos, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
                            nombreCliente,direccion,radioDireccion,verboso):
+    columnNames = []
 
     if preciomin is not None:
         preciomin = float(preciomin)
     else:
         preciomin=0
+    columnNames.append("Precio")
 
     if preciomax is not None:
         preciomax = float(preciomax)
@@ -1566,6 +1569,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         utilmin = int(utilmin)
     else:
         utilmin=0
+    columnNames.append("Util")
 
     if utilmax is not None:
         utilmax = int(utilmax)
@@ -1576,6 +1580,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         totalmin = int(totalmin)
     else:
         totalmin=0
+    columnNames.append("Total")
+    columnNames.append("Estacionamientos")
 
     if totalmax is not None:
         totalmax = int(totalmax)
@@ -1622,6 +1628,15 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         banosmax=6
 
+    if metrodistance is not None:
+        metrodistance = int(metrodistance)
+        columnNames.append("Metro")
+        columnNames.append("Distancia metro")
+
+
+    else:
+        metrodistance=999999999
+
     if confmin is not None:
         confmin = int(confmin)
     else:
@@ -1629,11 +1644,17 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
     if rentminventa is not None:
         rentminventa = float(rentminventa)
+        columnNames.append("Precio Venta Tasado")
+        columnNames.append("Rentabilidad Venta")
+
+
     else:
         rentminventa=-1
 
     if rentminarriendo is not None:
         rentminarriendo = float(rentminarriendo)
+        columnNames.append("Precio Arriendo Tasado")
+        columnNames.append("Rentabilidad Arriendo")
     else:
         rentminarriendo=0
 
@@ -1642,10 +1663,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         estacionamientos=0
 
-    if metrodistance is not None:
-        metrodistance = int(metrodistance)
-    else:
-        metrodistance=999999999
 
     if tipo is not None:
         tipo = str(tipo)
@@ -1682,15 +1699,28 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         print("Error, debe haber nombre Cliente")
         return
 
-    if direccion is not None:
+    if direccion is not None and radioDireccion is not None:
         direccion = str(direccion)
+        distancia = int(radioDireccion)
+        latD, lonD = gm.getCoordsWithAdress(direccion)
 
-    if radioDireccion is not None:
-        radioDireccion = int(radioDireccion)
+        latD = float(latD)
+        lonD = float(lonD)
+
+        latminD = latD - ((0.009 / 1000) * distancia)
+        latmaxD = latD + ((0.009 / 1000) * distancia)
+        lonminD = lonD - ((0.01 / 1000) * distancia)
+        lonmaxD = lonD + ((0.01 / 1000) * distancia)
+
+        latmin = max(latmin,latminD)
+        latmax = min(latmax,latmaxD)
+        lonmin = max(lonmin,lonminD)
+        lonmax = min(lonmax,lonmaxD)
+
     
     props=from_portalinmobiliario(tipo,region,verboso)
     estaciones1 = estaciones()
-
+    columnNames.append("Link")
     listaAdjuntos=[]
 
     for comuna in listaComunas:
@@ -1737,18 +1767,24 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     subresultado=[]
+
+
+
+
                     subresultado.append(int(prop[5]))
+
                     subresultado.append(int(prop[8]))
+
                     subresultado.append(int(prop[9]))
-                    subresultado.append(int(prop[6]))
-                    subresultado.append(int(prop[7]))
+
                     subresultado.append(int(prop[12]))
+
                     auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
-                    subresultado.append(auxestacion)
-                    subresultado.append(estacioncercana[2])
-                    link=prop[13]
-                    link=link.split('/')
-                    comuna=link[5]
+                    if metrodistance < 999999999:
+                        subresultado.append(auxestacion)
+
+                        subresultado.append(estacioncercana[2])
+
 
                     rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
                     if (rentaPromedio<=0):
@@ -1756,7 +1792,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     if verboso:
                         print("[GeneradorReportes] renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
-                    if (operacion=="venta"):
+                    if (operacion=="venta" and (rentminventa>-1 or rentminarriendo>0)):
+
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         precioV=tasacionVenta[0]*uf.getUf()
@@ -1835,22 +1872,23 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             if verboso:
                                 print("[GeneradorReportes] renta de arriendo mas baja que minima")
                             continue
-                        subresultado.append(precioV)
-                        subresultado.append(float(rentaV))
-                        subresultado.append(precioA)
-                        subresultado.append(float(rentaA))
+                        if rentminventa>-1:
+                            subresultado.append(precioV)
+                            subresultado.append(float(rentaV))
+
+                        if rentminarriendo>0:
+                            subresultado.append(precioA)
+                            subresultado.append(float(rentaA))
                         if verboso:
                             print("[GeneradorReportes] depto encontrado para "+nombreCliente)
 
                     else:
-
-                        tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
-
-                        precioA=tasacionArriendo[0]
+                        if rentminarriendo>0:
+                            tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
+                            precioA=tasacionArriendo[0]
 
                         if precioA is None:
                             continue
-
                         subresultado.append(precioA)
                         rentaA=((precioA-prop[5])/prop[5])
                         if verboso:
@@ -1893,10 +1931,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         resultado=sorted(resultado, key=lambda x:x[0])
 
 
-                    if (operacion=="venta"):
-                        columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
-                    else:
-                        columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","Arriendo","Rent.A","Link"]
+                    #if (operacion=="venta"):
+                     #   columnNames=["Precio","Útil","Tot","Estacionamiento","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
+                    #else:
+                     #   columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","Arriendo","Rent.A","Link"]
 
 
                     today = datetime.today().strftime('%Y-%m-%d')
