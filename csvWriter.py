@@ -12,8 +12,17 @@ def writeCsv(file, data, columnnames, operacion):
             index = columnnames.index("Rentabilidad Venta")
             rent = float(prop[index])
             rent = int(rent*1000)
-            rent = float(rent/10)
-            prop[index] = rent
+            rent = float(rent/1000)
+            rentS = str(rent).replace('.',',')
+            prop[index] = rentS
+
+        if "Rentabilidad Arriendo" in columnnames:
+            index = columnnames.index("Rentabilidad Arriendo")
+            rent = float(prop[index])
+            rent = int(rent*1000)
+            rent = float(rent/1000)
+            rentS = str(rent).replace('.',',')
+            prop[index] = rentS
 
         unf = uf.getUf()
 
