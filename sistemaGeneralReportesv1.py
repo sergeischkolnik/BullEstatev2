@@ -1,6 +1,6 @@
 
 import pymysql as mysql
-import reportes.py
+import reportes
 
 def getClientes():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
