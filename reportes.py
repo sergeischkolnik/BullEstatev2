@@ -1552,34 +1552,142 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                            estacionamientos, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
                            nombreCliente,direccion,radioDireccion,verboso):
 
-    preciomin = float(preciomin)
-    preciomax = float(preciomax)
-    utilmin = int(utilmin)
-    utilmax = int(utilmax)
-    totalmin = int(totalmin)
-    totalmax = int(totalmax)
-    latmin = float(latmin)
-    latmax = float(latmax)
-    lonmin = float(lonmin)
-    lonmax = float(lonmax)
-    dormitoriosmin = int(dormitoriosmin)
-    dormitoriosmax = int(dormitoriosmax)
-    banosmin = int(banosmin)
-    banosmax = int(banosmax)
-    confmin = int(confmin)
-    rentminventa = float(rentminventa)
-    rentminarriendo = float(rentminarriendo)
-    estacionamientos = int(estacionamientos)
-    metrodistance = int(metrodistance)
-    tipo = str(tipo)
-    operacion = str(operacion)
-    region = str(region)
-    prioridad = str(prioridad)
-    mail = str(mail)
-    nombreCliente = str(nombreCliente)
-    direccion = str(direccion)
-    radioDireccion = int(radioDireccion)
+    if preciomin is not None:
+        preciomin = float(preciomin)
+    else:
+        preciomin=0
 
+    if preciomax is not None:
+        preciomax = float(preciomax)
+    else:
+        preciomax=999999999999
+
+    if utilmin is not None:
+        utilmin = int(utilmin)
+    else:
+        utilmin=0
+
+    if utilmax is not None:
+        utilmax = int(utilmax)
+    else:
+        utilmax=99999999
+
+    if totalmin is not None:
+        totalmin = int(totalmin)
+    else:
+        totalmin=0
+
+    if totalmax is not None:
+        totalmax = int(totalmax)
+    else:
+        totalmax=99999999
+
+    if latmin is not None:
+        latmin = float(latmin)
+    else:
+        latmin=-999999
+
+    if latmax is not None:
+        latmax = float(latmax)
+    else:
+        latmax=999999
+
+    if lonmin is not None:
+        lonmin = float(lonmin)
+    else:
+        lonmin=-9999999
+
+    if lonmax is not None:
+        lonmax = float(lonmax)
+    else:
+        lonmax=9999999
+
+    if dormitoriosmin is not None:
+        dormitoriosmin = int(dormitoriosmin)
+    else:
+        dormitoriosmin=1
+
+    if dormitoriosmax is not None:
+        dormitoriosmax = int(dormitoriosmax)
+    else:
+        dormitoriosmax=10
+
+    if banosmin is not None:
+        banosmin = int(banosmin)
+    else:
+        banosmin=1
+
+    if banosmax is not None:
+        banosmax = int(banosmax)
+    else:
+        banosmax=6
+
+    if confmin is not None:
+        confmin = int(confmin)
+    else:
+        confmin=1
+
+    if rentminventa is not None:
+        rentminventa = float(rentminventa)
+    else:
+        rentminventa=-1
+
+    if rentminarriendo is not None:
+        rentminarriendo = float(rentminarriendo)
+    else:
+        rentminarriendo=0
+
+    if estacionamientos is not None:
+        estacionamientos = int(estacionamientos)
+    else:
+        estacionamientos=0
+
+    if metrodistance is not None:
+        metrodistance = int(metrodistance)
+    else:
+        metrodistance=999999999
+
+    if tipo is not None:
+        tipo = str(tipo)
+    else:
+        print("Error, debe haber tipo")
+        return
+
+
+    if operacion is not None:
+        operacion = str(operacion)
+    else:
+        print("Error, debe haber operacion")
+        return
+
+    if region is not None:
+        region = str(region)
+    else:
+        print("Error, debe haber region")
+        return
+
+    if region is not None:
+        prioridad = str(prioridad)
+
+
+    if mail is not None:
+        mail = str(mail)
+    else:
+        print("Error, debe haber mail")
+        return
+
+    if nombreCliente is not None:
+        nombreCliente = str(nombreCliente)
+    else:
+        print("Error, debe haber nombre Cliente")
+        return
+
+    if direccion is not None:
+        direccion = str(direccion)
+
+    if radioDireccion is not None:
+        radioDireccion = int(radioDireccion)
+    
     props=from_portalinmobiliario(tipo,region,verboso)
     estaciones1 = estaciones()
 
