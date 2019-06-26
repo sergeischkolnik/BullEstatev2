@@ -17,13 +17,13 @@ def main():
         comunas=[]
         if cliente[24] is not None:
             comunas.append(cliente[24])
-        if cliente[25] != 'None':
+        if cliente[25] is not None:
             comunas.append(cliente[25])
-        if cliente[26] != 'None':
+        if cliente[26] is not None:
             comunas.append(cliente[26])
-        if cliente[27] != 'None':
+        if cliente[27] is not None:
             comunas.append(cliente[27])
-        if cliente[28] != 'None':
+        if cliente[28] is not None:
             comunas.append(cliente[28])
         if cliente[29] is not None:
             comunas.append(cliente[29])
