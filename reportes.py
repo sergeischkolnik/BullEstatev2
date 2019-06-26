@@ -1547,6 +1547,268 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
         if verboso:
             print("[GeneradorReportes] No se han encontrado propiedades de canje para el cliente "+nombreCliente)
 
+def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
+                       dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
+                           estacionamientos, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
+                           nombreCliente,direccion,radioDireccion,verboso):
+
+    preciomin = float(preciomin)
+    preciomax = float(preciomax)
+    utilmin = int(utilmin)
+    utilmax = int(utilmax)
+    totalmin = int(totalmin)
+    totalmax = int(totalmax)
+    latmin = float(latmin)
+    latmax = float(latmax)
+    lonmin = float(lonmin)
+    lonmax = float(lonmax)
+    dormitoriosmin = int(dormitoriosmin)
+    dormitoriosmax = int(dormitoriosmax)
+    banosmin = int(banosmin)
+    banosmax = int(banosmax)
+    confmin = int(confmin)
+    rentminventa = float(rentminventa)
+    rentminarriendo = float(rentminarriendo)
+    estacionamientos = int(estacionamientos)
+    metrodistance = int(metrodistance)
+    tipo = str(tipo)
+    operacion = str(operacion)
+    region = str(region)
+    prioridad = str(prioridad)
+    mail = str(mail)
+    nombreCliente = str(nombreCliente)
+    direccion = str(direccion)
+    radioDireccion = int(radioDireccion)
+
+    props=from_portalinmobiliario(tipo,region,verboso)
+    estaciones1 = estaciones()
+
+    listaAdjuntos=[]
+
+    for comuna in listaComunas:
+        for d in range(dormitoriosmin, dormitoriosmax + 1):
+            for b in range(banosmin, banosmax + 1):
+
+                propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
+                                               latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
+                                               banosmax,estacionamientos,tipo,operacion,region,comuna,"asdasd","asdasd",
+                                               "asdasd","asdasd","asdasd",verboso)
+                resultado = []
+
+                if verboso:
+                    print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
+
+                count=0
+
+                for prop in propiedades:
+                    count=count+1
+
+                    if verboso:
+                        print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
+
+                    estaciones2=[]
+                    for e in estaciones1:
+                        subestacion=[]
+                        late=e[3]
+                        lone=e[4]
+                        lat1=prop[10]
+                        long1=prop[11]
+                        r=6371000
+                        c=pi/180
+                        distance= 2*r*asin(sqrt(sin(c*(late-lat1)/2)**2 + cos(c*lat1)*cos(c*late)*sin(c*(lone-long1)/2)**2))
+                        subestacion.append(e[1])
+                        subestacion.append(e[2])
+                        subestacion.append(distance)
+                        estaciones2.append(subestacion)
+                    estaciones2=sorted(estaciones2,key=lambda x:x[2])
+                    estacioncercana=estaciones2[0]
+
+                    if metrodistance != None:
+                        if estacioncercana[2]>float(metrodistance):
+                            continue
+
+
+                    subresultado=[]
+                    subresultado.append(int(prop[5]))
+                    subresultado.append(int(prop[8]))
+                    subresultado.append(int(prop[9]))
+                    subresultado.append(int(prop[6]))
+                    subresultado.append(int(prop[7]))
+                    subresultado.append(int(prop[12]))
+                    auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
+                    subresultado.append(auxestacion)
+                    subresultado.append(estacioncercana[2])
+                    link=prop[13]
+                    link=link.split('/')
+                    comuna=link[5]
+
+                    rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
+                    if (rentaPromedio<=0):
+                        continue
+
+                    if verboso:
+                        print("[GeneradorReportes] renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
+                    if (operacion=="venta"):
+                        tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
+                        tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
+                        precioV=tasacionVenta[0]*uf.getUf()
+
+                        try:
+                            conftasacion=tasacionVenta[5]
+                        except:
+                            if verboso:
+                                print("[GeneradorReportes] " + str(tasacionVenta))
+                            continue
+
+                        if confmin is not None:
+                            if confmin<conftasacion:
+                                continue
+
+                        precioA=tasacionArriendo[0]
+
+
+                        if precioV is None or precioV<0.1:
+                            if verboso:
+                                print("[GeneradorReportes] no hay precio predicho")
+                            continue
+
+
+                        rentaV=((precioV-prop[5])/prop[5])
+                        # if rentaV<rentmin or rentaV>1:
+                        #     continue
+
+
+                        if rentaV<rentminventa:
+                            if verboso:
+                                print("[GeneradorReportes] renta de venta muy baja")
+                            continue
+
+                        if precioA is None or precioA<0.01:
+                            if verboso:
+                                print("[GeneradorReportes] no existe precio de arriendo")
+                            continue
+
+                        rentaA=(precioA*12/prop[5])
+                        rentaPP=(precioA*12/precioV)
+                        if verboso:
+                            print("[GeneradorReportes] rentapp: "+str(rentaPP))
+                        if rentaA>0.2:
+                            if verboso:
+                                print("[GeneradorReportes] renta de arriendo muy alta")
+                            continue
+
+                        if rentaPP<rentaPromedio:
+                            if verboso:
+                                print("[GeneradorReportes] renta pp muy baja, recalculando precio")
+                            precioV=precioA*12/rentaPromedio
+                            rentaV=((precioV-prop[5])/prop[5])
+                            rentaPP=(precioA*12/precioV)
+                            if verboso:
+                                print("[GeneradorReportes] rentapp: "+str(rentaPP))
+
+                        if rentaV<rentminventa:
+                            if verboso:
+                                print("[GeneradorReportes] renta de venta muy baja")
+                            continue
+
+                        if rentaPP>0.15:
+
+                            if verboso:
+                                print("[GeneradorReportes] renta pp muy alta, recalculando precio")
+                            precioV=precioA*12/0.15
+                            rentaV=((precioV-prop[5])/prop[5])
+
+                        if rentaA<0:
+                            if verboso:
+                                print("[GeneradorReportes] renta de arriendo muy baja")
+                            continue
+
+                        if rentaA<rentminarriendo:
+                            if verboso:
+                                print("[GeneradorReportes] renta de arriendo mas baja que minima")
+                            continue
+                        subresultado.append(precioV)
+                        subresultado.append(float(rentaV))
+                        subresultado.append(precioA)
+                        subresultado.append(float(rentaA))
+                        if verboso:
+                            print("[GeneradorReportes] depto encontrado para "+nombreCliente)
+
+                    else:
+
+                        tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
+
+                        precioA=tasacionArriendo[0]
+
+                        if precioA is None:
+                            continue
+
+                        subresultado.append(precioA)
+                        rentaA=((precioA-prop[5])/prop[5])
+                        if verboso:
+                            print("[GeneradorReportes] arriendo real: "+str(prop[5]))
+                        if verboso:
+                            print("[GeneradorReportes] arriendo predicho: "+str(precioA))
+                        if verboso:
+                            print("[GeneradorReportes] rentabildiad: "+str(rentaA))
+                        if rentaA>1:
+                            continue
+
+                        if rentaA<rentminarriendo:
+                            continue
+
+                        subresultado.append(float(rentaA))
+
+                    if not pubPortalExiste.publicacionExiste(prop[13]):
+                        if verboso:
+                            print("[GeneradorReportes] link no disponible")
+                        continue
+                    else:
+                        subresultado.append(prop[13])
+
+                    if verboso:
+                        print("[GeneradorReportes] depto encontrado para "+nombreCliente)
+                    resultado.append(subresultado)
+                    #print("sub appended")
+
+
+                if len(resultado)>0:
+                    if verboso:
+                        print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
+
+
+                    if (prioridad=="arriendo"):
+                        resultado=sorted(resultado, key=lambda x:x[11],reverse=True)
+                    elif (prioridad=="venta"):
+                        resultado=sorted(resultado, key=lambda x:x[9],reverse=True)
+                    else:
+                        resultado=sorted(resultado, key=lambda x:x[0])
+
+
+                    if (operacion=="venta"):
+                        columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
+                    else:
+                        columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","Arriendo","Rent.A","Link"]
+
+
+                    today = datetime.today().strftime('%Y-%m-%d')
+                    nombreArchivo = "reporte "+ nombreCliente + str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + today+'.csv'
+
+
+                    writeCsv(nombreArchivo, resultado, columnNames, operacion)
+
+                    listaAdjuntos.append(nombreArchivo)
+
+                    if verboso:
+                        print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
+
+                else:
+                    if verboso:
+                        print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
+
+    sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
+
+
 if __name__ == '__main__':
     #main()
     # generarReporte(preciomin=70000000, preciomax=140000000,utilmin=0,utilmax=99,totalmin=0,totalmax=99,latmin=-9999,
