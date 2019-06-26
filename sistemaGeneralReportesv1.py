@@ -13,7 +13,21 @@ def main():
 
     clientes = getClientes()
     for cliente in clientes:
-        print(cliente)
+        #juntar comunas
+        comunas=[]
+        if cliente[24] != 'None':
+            comunas.append(cliente[24])
+        if cliente[25] != 'None':
+            comunas.append(cliente[25])
+        if cliente[26] != 'None':
+            comunas.append(cliente[26])
+        if cliente[27] != 'None':
+            comunas.append(cliente[27])
+        if cliente[28] != 'None':
+            comunas.append(cliente[28])
+        if cliente[29] != 'None':
+            comunas.append(cliente[29])
+        print(comunas)
 
 if __name__ == '__main__':
     main()
