@@ -8,42 +8,70 @@ def writeCsv(file, data, columnnames, operacion):
     #creacion de precios, porcentajes y link
     for i,prop in enumerate(data):
         #porcentaje
-        rent = float(prop[9])
-        rent = int(rent*1000)
-        rent = float(rent/10)
-        prop[9] = rent
-        if (operacion=="venta"):
-            rent = float(prop[11])
+        if "Rentabilidad Venta" in columnnames:
+            index = columnnames.index("Rentabilidad Venta")
+            rent = float(prop[index])
             rent = int(rent*1000)
             rent = float(rent/10)
-            prop[11] = rent
+            prop[index] = rent
+
+        unf = uf.getUf()
 
         #arreglar precio
         precio = prop[0]
+
+        #venta
         if operacion=="venta":
-            unf=uf.getUf()
             precio=precio/unf
             precio=int(precio)
             precioStr =  format(precio, ',.2f')
             precioStr = precioStr[:-3]
             precioStr = precioStr.replace(",",".")
+
+            if "Precio Venta Tasado" in columnnames:
+                index = columnnames.index("Precio Venta Tasado")
+                precio2 = prop[index]/unf
+                precio2 = int(precio2)
+                precioStr2 = format(precio2, ',.2f')
+                precioStr2 = precioStr2[:-3]
+                precioStr2 = precioStr2.replace(",", ".")
+                prop[index] = precioStr2
+
+        #arriendo
         else:
             precioStr = format(precio, ',.2f')
             precioStr = precioStr[:-3]
             precioStr = str(precioStr)
+            if "Precio Arriendo Tasado" in columnnames:
+                index = columnnames.index("Precio Arriendo Tasado")
+                precio2 = int(prop[index])
+                precioStr2 = format(precio2, ',.2f')
+                precioStr2 = precioStr2[:-3]
+                prop[index] = precioStr2
 
         prop[0] = precioStr
-        ufn=uf.getUf()
+
         #quitar decimales a valores
-        prop[1] = int(prop[1])
-        prop[2] = int(prop[2])
-        prop[3] = int(prop[3])
-        prop[4] = int(prop[4])
-        prop[5] = int(prop[5])
-        prop[7] = int(prop[7])
+        if "Utiles" in columnnames:
+            index = columnnames.index("Utiles")
+            prop[index] = int(prop[index])
+
+        if "Total" in columnnames:
+            index = columnnames.index("Total")
+            prop[index] = int(prop[index])
+
+        if "Estacionamientos" in columnnames:
+            index = columnnames.index("Estacionamientos")
+            prop[index] = int(prop[index])
+
+        if "Distancia metro" in columnnames:
+            index = columnnames.index("Distancia metro")
+            prop[index] = int(prop[index])
+
+
 
         if (operacion=="venta"):
-            prop[8] = int(prop[8]/ufn)
+            prop[8] = int(prop[8]/unf)
             # prop[8] = format(prop[8], ',.2f')
             # prop[8] =prop[8][:-3]
             # prop[8] = str(prop[8])
