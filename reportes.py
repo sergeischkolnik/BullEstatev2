@@ -1698,8 +1698,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
             for b in range(banosmin, banosmax + 1):
 
                 propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
-                                               latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
-                                               banosmax,estacionamientos,tipo,operacion,region,comuna,"asdasd","asdasd",
+                                               latmin,latmax,lonmin,lonmax,d,d,b,
+                                               b,estacionamientos,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
                 resultado = []
 
