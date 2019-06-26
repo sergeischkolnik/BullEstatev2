@@ -1768,16 +1768,21 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     subresultado=[]
-
-                    subresultado.append(int(prop[5])) #precio
-                    subresultado.append(int(prop[8])) #util
-                    subresultado.append(int(prop[9])) #total
-                    subresultado.append(int(prop[12])) #estacionamiento
+                    # precio
+                    subresultado.append(int(prop[5]))
+                    # util
+                    subresultado.append(int(prop[8]))
+                    # total
+                    subresultado.append(int(prop[9]))
+                    # estacionamiento
+                    subresultado.append(int(prop[12]))
 
                     auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
                     if metrodistance < 999999999:
-                        subresultado.append(auxestacion) #metro
-                        subresultado.append(estacioncercana[2]) #distancia metro
+                        # metro
+                        subresultado.append(auxestacion)
+                        # distancia metro
+                        subresultado.append(estacioncercana[2])
 
 
                     rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
@@ -1867,12 +1872,16 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                 print("[GeneradorReportes] renta de arriendo mas baja que minima")
                             continue
                         if rentminventa>-1:
-                            subresultado.append(precioV) #precio venta tasado
-                            subresultado.append(float(rentaV)) #rentabilidad de venta
+                            # precio venta tasado
+                            subresultado.append(precioV)
+                            # rentabilidad de venta
+                            subresultado.append(float(rentaV))
 
                         if rentminarriendo>0:
-                            subresultado.append(precioA) #precio arriendo tasado
-                            subresultado.append(float(rentaA)) #rentabilidad de arriendo
+                            # precio arriendo tasado
+                            subresultado.append(precioA)
+                            # rentabilidad de arriendo
+                            subresultado.append(float(rentaA))
                         if verboso:
                             print("[GeneradorReportes] depto encontrado para "+nombreCliente)
 
@@ -1883,7 +1892,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                         if precioA is None:
                             continue
-                        subresultado.append(precioA) #precio arriendo tasado
+
+                        # precio arriendo tasado
+                        subresultado.append(precioA)
                         rentaA=((precioA-prop[5])/prop[5])
                         if verboso:
                             print("[GeneradorReportes] arriendo real: "+str(prop[5]))
@@ -1897,14 +1908,16 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         if rentaA<rentminarriendo:
                             continue
 
-                        subresultado.append(float(rentaA))#rentabilidad arriendo
+                        # rentabilidad arriendo
+                        subresultado.append(float(rentaA))
 
                     if not pubPortalExiste.publicacionExiste(prop[13]):
                         if verboso:
                             print("[GeneradorReportes] link no disponible")
                         continue
                     else:
-                        subresultado.append(prop[13]) #link
+                        # link
+                        subresultado.append(prop[13])
 
                     if verboso:
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
