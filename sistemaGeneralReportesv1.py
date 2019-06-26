@@ -15,7 +15,7 @@ def main():
     for cliente in clientes:
         #juntar comunas
         comunas=[]
-        if cliente[24] != 'None':
+        if len(cliente[24]) > 0:
             comunas.append(cliente[24])
         if cliente[25] != 'None':
             comunas.append(cliente[25])
@@ -25,7 +25,7 @@ def main():
             comunas.append(cliente[27])
         if cliente[28] != 'None':
             comunas.append(cliente[28])
-        if cliente[29] != 'None':
+        if len(cliente[29]) > 0:
             comunas.append(cliente[29])
         print(comunas)
 
