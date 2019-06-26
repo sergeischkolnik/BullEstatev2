@@ -1582,6 +1582,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         totalmin=0
     columnNames.append("Total")
+
+    columnNames.append("Dormitorios")
+
+    columnNames.append("Banos")
+
     columnNames.append("Estacionamientos")
 
     if totalmax is not None:
@@ -1774,6 +1779,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     subresultado.append(int(prop[8]))
                     # total
                     subresultado.append(int(prop[9]))
+                    #Dormitorios
+                    subresultado.append(int(d))
+                    #Baños
+                    subresultado.append(int(b))
                     # estacionamiento
                     subresultado.append(int(prop[12]))
 
