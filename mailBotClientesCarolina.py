@@ -20,7 +20,7 @@ sqlDeptos = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.lin
           "(portalinmobiliario.link like '%huechuraba%' and ((portalinmobiliario.lat<'-33.374926' and portalinmobiliario.lat>'-33.396264' and portalinmobiliario.lon<'-70.603082' and portalinmobiliario.lon>'-70.630241'))) or " \
           "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'950000') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'1100000') or (portalinmobiliario.dormitorios>'2') )) or "\
           "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'400000') or "\
-          "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'930000') or portalinmobiliario.dormitorios>'1'))))";
+          "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'930000') or (portalinmobiliario.dormitorios>'1'))))";
 
 sqlCasas = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
       "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
