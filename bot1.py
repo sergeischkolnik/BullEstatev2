@@ -37,8 +37,8 @@ comandosIndividuales = ['hola',
                         'lastscrapportal',
                         'gopahola',
                         'stoppahola',
-                        'gofrancisca',
-                        'stopfrancisca']
+                        'gocarolina',
+                        'stopcarolina']
 
 comandosMultiples = ['reporte',
                      'reporteinterno',
