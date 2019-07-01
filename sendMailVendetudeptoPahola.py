@@ -15,7 +15,7 @@ def sendMailGratis(to,nombreProp,link):
     msg['Subject'] = nombreProp
 
     body1 = "Hola!\n\n"
-    body1 += "Te escribo por tu publicación de arriendo en Portalinmobiliario " + nombreProp + ", link: " + link + ".\n\n"
+    body1 += "Te escribo por tu publicación en Portalinmobiliario " + nombreProp + ", link: " + link + ".\n\n"
     body1 += "Mi nombre es Pahola, trabajo en Vendetudepto.cl, y como promoción de lanzamiento, estamos ofreciendo servicios Totalmente Gratuitos de difusión inmobiliaria.\n\n"
     body1 += "Esto puede acelerar bastante tu proceso, y no pierdes nada, ya que no te cobraremos ni exigimos exclusividad (y si lo deseas, puedes seguir gestionándolo por tu lado).\n\n"
     body1 += "El servicio incluye publicaciones con cuentas pagadas en principales portales de compraventa inmobiliaria, difusión en nuestra cartera de clientes, y gestión de visitas. Como te mencioné anteriormente, esto no tiene absolutamente ningún costo para ti.\n"
