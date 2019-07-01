@@ -2,7 +2,7 @@
 import pymysql as mysql
 from datetime import datetime, timedelta
 import random
-import sendMailVendetudepto2 as mailer
+import sendMailVendetudeptoPahola as mailer
 import time
 
 past = datetime.now() - timedelta(days=30)
@@ -22,11 +22,15 @@ def checkClient(clientMail,comision):
 def sendClientMailsDeptos():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
-          "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
+          "duenos.esDueno='si' and ((portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
+          "portalinmobiliario.fechascrap>='" + str(yesterday) + "' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
+          "((portalinmobiliario.precio<320001 and portalinmobiliario.dormitorios='1') or (portalinmobiliario.precio<450001 and portalinmobiliario.dormitorios='2') or " \
+          "(portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<550001)) and " \
           "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
-          "portalinmobiliario.link like '%providencia%' or " \
-           "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%' or portalinmobiliario.link like 'san-miguel');"
+          "portalinmobiliario.link like '%estacion-central%' or portalinmobiliario.link like '%maipu%' or " \
+          "portalinmobiliario.link like '%san-miguel%' or portalinmobiliario.link like '%san-joaquin%' or portalinmobiliario.link like 'macul') or " \
+          "(portalinmobiliario.operacion='venta' and portalinmobiliario.tipo='departamento' and portalinmobiliario.fechascrap>='" + str(yesterday) + "' and  " \
+          "portalinmobiliario.fechapublicacion>'" + str(past) + "' and portalinmobiliario.link like '%santiago-metropolitana%'));"
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     print(sql)
@@ -41,12 +45,13 @@ def sendClientMailsDeptos():
 
         to = str(l[0])
         nombreProp = str(l[1])
+        linkProp=str(l[2])
 
         #gratis
-        mailer.sendMailGratis(to,nombreProp,gratis=False)
+        mailer.sendMailGratis(to,nombreProp,linkProp)
         checkClient(to,"1")
 
-        time.sleep(random.randint(200,300))
+        time.sleep(random.randint(150,200))
 
 def sendClientMailsCasas():
     sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
@@ -75,7 +80,7 @@ def sendClientMailsCasas():
         time.sleep(random.randint(200,300))
 
 sendClientMailsDeptos()
-sendClientMailsCasas()
+#sendClientMailsCasas()
 hasSendDailyMails = True
 
 while True:
