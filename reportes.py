@@ -24,7 +24,8 @@ from csvWriter import writeCsvCanje
 import bot1 as tgbot
 import googleMapApi as gm
 
-
+fechahoy = datetime.datetime.now()
+fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 uf1=uf.getUf()
 
 def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
@@ -1555,14 +1556,14 @@ def yaReportado(idCliente,idProp):
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     result = cur.fetchall()
+    fechareporte=result[3]
     if len(result) > 0:
-        return True
+        return True,fechareporte
     else:
         return False
 
-def guardarRegistro(idCliente,idProp):
-    sql = """INSERT INTO clientes_propiedades(cliente,prop)
-             VALUES(%s,%s) ON DUPLICATE KEY UPDATE prop=%s"""
+def guardarRegistro(idCliente,idProp,fechareporte):
+    sql = "INSERT INTO clientes_propiedades(cliente,prop,fecha) VALUES('" + str(idCliente) + "','" + str(idProp) + "','" + str(fechareporte) + "') ON DUPLICATE KEY UPDATE prop='" + str(idProp) + "';"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     resultado = [idCliente,idProp,idProp]
     cur = mariadb_connection.cursor()
@@ -1785,9 +1786,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     count=count+1
 
                     idProp = prop[14]
-                    if yaReportado(idCliente=idCliente,idProp=idProp):
-                        continue
-
+                    ya=yaReportado(idCliente=idCliente,idProp=idProp):
+                    if ya[0]:
+                        fechareporte=ya[1]
+                    else:
+                        fechareporte=fechahoy
 
                     if verboso:
                         print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
@@ -1974,6 +1977,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     #agregar mail, telefono y dueño
                     mail,telefono,dueno = getDatosDueno(prop[0])
 
+                    columnNames.append('fecha encontrado')
+                    subresultado.append(fechahoy)
+
                     if verboso:
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
                     resultado.append(subresultado)
@@ -2007,7 +2013,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     writeCsv(nombreArchivo, resultado, columnNames, operacion)
 
-                    guardarRegistro(idCliente,idProp)
+                    guardarRegistro(idCliente,idProp,fechareporte)
 
                     listaAdjuntos.append(nombreArchivo)
 
