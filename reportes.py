@@ -712,13 +712,13 @@ def calcularDistanciaA(i,data):
     except:
         return -1
 
-def from_portalinmobiliario(tipo,region,verboso=False):
+def from_portalinmobiliario(tipo,region,comuna,verboso=False):
     if verboso:
         print("----------------------")
-        print("Extrayendo propiedades de portal.")
+        print("Extrayendo propiedades de "+str(comuna)+" de portalinmobiliario.")
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and region='"+str(region)+"'"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%' and region='"+str(region)+"'"
     if verboso:
         print("Consulta:")
         print(sql)
@@ -1760,7 +1760,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         lonmax = min(lonmax,lonmaxD)
 
     
-    props=from_portalinmobiliario(tipo,region,verboso)
     estaciones1 = estaciones()
     columnNames.append("Link")
 
@@ -1772,6 +1771,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     listaAdjuntos=[]
 
     for comuna in listaComunas:
+        props=from_portalinmobiliario(tipo,region,comuna,verboso)
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
 
