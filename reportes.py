@@ -1568,9 +1568,8 @@ def yaReportado(idCliente,idProp):
 def guardarRegistro(idCliente,idProp,fechareporte):
     sql = "INSERT INTO clientes_propiedades(cliente,prop,fecha) VALUES('" + str(idCliente) + "','" + str(idProp) + "','" + str(fechareporte) + "') ON DUPLICATE KEY UPDATE prop='" + str(idProp) + "';"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    resultado = [idCliente,idProp,idProp]
     cur = mariadb_connection.cursor()
-    cur.execute(sql, (resultado))
+    cur.execute(sql)
     mariadb_connection.commit()
     mariadb_connection.close()
 
