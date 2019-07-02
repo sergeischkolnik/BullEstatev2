@@ -23,6 +23,8 @@ from csvWriter import writeCsv
 from csvWriter import writeCsvCanje
 import bot1 as tgbot
 import googleMapApi as gm
+import datetime
+
 
 fechahoy = datetime.datetime.now()
 fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
