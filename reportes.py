@@ -2010,8 +2010,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                      #   columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","Arriendo","Rent.A","Link"]
 
 
-                    today = datetime.today().strftime('%Y-%m-%d')
-                    nombreArchivo = "reporte "+ nombreCliente + str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + today+'.csv'
+                    nombreArchivo = "reporte "+ nombreCliente + str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + str(fechahoy)+'.csv'
 
 
                     writeCsv(nombreArchivo, resultado, columnNames, operacion)
