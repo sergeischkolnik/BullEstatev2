@@ -1987,7 +1987,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
 
-                    subresultado.append(fechahoy)
+                    subresultado.append(fechareporte)
 
                     if verboso:
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
