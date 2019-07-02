@@ -1559,7 +1559,7 @@ def yaReportado(idCliente,idProp):
     cur.execute(sql)
     result = cur.fetchall()
 
-    if len(result) > 3:
+    if len(result) > 0:
         fechareporte=result[3]
         return True,fechareporte
     else:
