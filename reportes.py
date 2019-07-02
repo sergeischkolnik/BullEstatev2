@@ -1977,7 +1977,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     #agregar mail, telefono y dueño
-                    mail,telefono,dueno = getDatosDueno(prop[0])
+                    email,telefono,dueno = getDatosDueno(prop[0])
 
                     columnNames.append('fecha encontrado')
                     subresultado.append(fechahoy)
