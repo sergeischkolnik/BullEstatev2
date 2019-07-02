@@ -1560,6 +1560,7 @@ def yaReportado(idCliente,idProp):
     result = cur.fetchall()
 
     if len(result) > 0:
+        result=result[0]
         fechareporte=result[3]
         return True,fechareporte
     else:
