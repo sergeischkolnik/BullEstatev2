@@ -1558,7 +1558,10 @@ def yaReportado(idCliente,idProp):
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     result = cur.fetchall()
-    fechareporte=result[3]
+    try:
+        fechareporte=result[3]
+    except:
+        fechareporte='2000-01-01'
     if len(result) > 0:
         return True,fechareporte
     else:
