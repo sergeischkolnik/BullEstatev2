@@ -1993,7 +1993,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     resultado.append(subresultado)
                     #print("sub appended")
 
-
+                    guardarRegistro(idCliente, idProp, fechareporte)
                 if len(resultado)>0:
                     if verboso:
                         print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
@@ -2020,7 +2020,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     writeCsv(nombreArchivo, resultado, columnNames, operacion)
 
-                    guardarRegistro(idCliente,idProp,fechareporte)
+
 
                     listaAdjuntos.append(nombreArchivo)
 
