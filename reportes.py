@@ -1786,7 +1786,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     count=count+1
 
                     idProp = prop[14]
-                    ya=yaReportado(idCliente=idCliente,idProp=idProp):
+                    ya=yaReportado(idCliente=idCliente,idProp=idProp)
                     if ya[0]:
                         fechareporte=ya[1]
                     else:
