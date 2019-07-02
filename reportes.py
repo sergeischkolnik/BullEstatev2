@@ -1766,6 +1766,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     columnNames.append("Mail")
     columnNames.append("Telefono")
     columnNames.append("es dueno")
+    columnNames.append('fecha encontrado')
 
     listaAdjuntos=[]
 
@@ -1979,7 +1980,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     #agregar mail, telefono y dueño
                     email,telefono,dueno = getDatosDueno(prop[0])
 
-                    columnNames.append('fecha encontrado')
+                    subresultado.append(email)
+                    subresultado.append(telefono)
+                    subresultado.append(dueno)
+
+
+
                     subresultado.append(fechahoy)
 
                     if verboso:
