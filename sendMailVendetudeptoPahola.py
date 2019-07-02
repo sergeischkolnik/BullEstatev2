@@ -20,7 +20,7 @@ def sendMailGratis(to,nombreProp,link):
     body1 += "Esto puede acelerar bastante tu proceso, y no pierdes nada, ya que no te cobraremos ni exigimos exclusividad (y si lo deseas, puedes seguir gestionándolo por tu lado).\n\n"
     body1 += "El servicio incluye publicaciones con cuentas pagadas en principales portales de compraventa inmobiliaria, difusión en nuestra cartera de clientes, y gestión de visitas. Como te mencioné anteriormente, esto no tiene absolutamente ningún costo para ti.\n"
     body1 += "Además, realizamos el acompañamiento hasta la firma final de compraventa o de arriendo de la propiedad.\n\n"
-    body1 += "Si tienes interés, te solicito enviar toda la información de tu propiedad a mi correo carolina@vendetudepto.cl (precio, características, horarios de visita, fotografías, etc), y con gusto asignaremos un corredor para tu propiedad. Junto con esto, rogamos enviarnos tu número de contacto.\n\n"
+    body1 += "Si tienes interés, te solicito enviar toda la información de tu propiedad a mi correo pahola@vendetudepto.cl (precio, características, horarios de visita, fotografías, etc), y con gusto asignaremos un corredor para tu propiedad. Junto con esto, rogamos enviarnos tu número de contacto.\n\n"
     body1 += "Ante cualquier dudas, por favor escríbeme al correo o a nuestro WhatsApp +569 6344 7843.\n"
     body1 += "De antemano muchas gracias por tu tiempo,\n\n"
     body1 += "Saludos cordiales,\n\n"
