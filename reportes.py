@@ -1558,14 +1558,12 @@ def yaReportado(idCliente,idProp):
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     result = cur.fetchall()
-    try:
+
+    if len(result) > 3:
         fechareporte=result[3]
-    except:
-        fechareporte='2000-01-01'
-    if len(result) > 0:
         return True,fechareporte
     else:
-        return False
+        return False,'2000-01-01'
 
 def guardarRegistro(idCliente,idProp,fechareporte):
     sql = "INSERT INTO clientes_propiedades(cliente,prop,fecha) VALUES('" + str(idCliente) + "','" + str(idProp) + "','" + str(fechareporte) + "') ON DUPLICATE KEY UPDATE prop='" + str(idProp) + "';"
