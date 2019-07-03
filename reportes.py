@@ -105,7 +105,7 @@ def mean(numbers):
     return cosa
 
 def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,
-                                   lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,
+                                   lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,bodegas,tipo,
                                    operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,verboso=False):
 
         if verboso:
@@ -165,6 +165,10 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sql=sql+sqlwhere
 
         sqlwhere="estacionamientos>="+str(estacionamientos)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="bodegas>="+str(bodegas)+" AND "
+
         sql=sql+sqlwhere
 
 
@@ -774,7 +778,7 @@ def main():
 
         rentmin=float(i[35])
         estacionamientos=float(i[19])
-
+        bodegas=float(i[20])
         if i[38] is not None:
             confmin=int(i[38])
         else:
@@ -823,7 +827,7 @@ def main():
 
 def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,
-                       dormitoriosmax, banosmin, banosmax, confmin, rentmin, estacionamientos, metrodistance, tipo,
+                       dormitoriosmax, banosmin, banosmax, confmin, rentmin, estacionamientos,metrodistance, tipo,
                        operacion, region, comuna1, comuna2,
                        comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente,verboso,
                    enviarActualizacionTG=False,chat="",URL=""):
@@ -844,8 +848,9 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     confmin=int(confmin)
     rentmin=float(rentmin)
     estacionamientos=int(estacionamientos)
+    bodegas=0
     metrodistance=int(metrodistance)
-    tipo=str(tipo)
+    tipo=0
     operacion=str(operacion)
     region=str(region)
     comuna1=str(comuna1)
@@ -862,7 +867,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     props=from_portalinmobiliario(tipo,region,verboso)
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
-                                               banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,
+                                               banosmax,estacionamientos,bodegas,tipo,operacion,region,comuna1,comuna2,comuna3,
                                                comuna4,comuna5,comuna6,verboso)
     resultado = []
     estaciones1=estaciones()
@@ -1146,6 +1151,7 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
     rentminventa=float(rentminventa)
     rentminarriendo=float(rentminarriendo)
     estacionamientos=int(estacionamientos)
+    bodegas=0
     metrodistance=int(metrodistance)
     tipo=str(tipo)
     operacion=str(operacion)
@@ -1164,7 +1170,7 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
     props=from_portalinmobiliario(tipo,region,verboso)
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
-                                               banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,
+                                               banosmax,estacionamientos,bodegas,tipo,operacion,region,comuna1,comuna2,comuna3,
                                                comuna4,comuna5,comuna6,verboso)
     resultado = []
     estaciones1=estaciones()
@@ -1452,7 +1458,7 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
     banosmax=int(banosmax)
 
     estacionamientos=int(estacionamientos)
-
+    bodegas=0
     tipo=str(tipo)
     operacion=str(operacion)
     region=str(region)
@@ -1463,7 +1469,7 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
 
     propiedades=from_portalinmobiliario_select_canje(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
-                                               banosmax,estacionamientos,tipo,operacion,region,comuna,"asdddd","asdddd",
+                                               banosmax,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdddd","asdddd",
                                                "asdddd","asdddd","asdddd",verboso)
 
     if verboso:
@@ -1586,7 +1592,7 @@ def getDatosDueno(idProp2):
 
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
-                           estacionamientos, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
+                           estacionamientos,bodegas, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
                            nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
 
     columnNames = []
@@ -1624,7 +1630,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     columnNames.append("Banos")
 
     columnNames.append("Estacionamientos")
-
+    columnNames.append("Bodegas")
     if totalmax is not None:
         totalmax = int(totalmax)
     else:
@@ -1710,6 +1716,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         estacionamientos=0
 
+    if bodegas is not None:
+        bodegas = int(bodegas)
+    else:
+        bodegas=0
 
     if tipo is not None:
         tipo = str(tipo)
@@ -1787,7 +1797,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                 propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,d,d,b,
-                                               b,estacionamientos,tipo,operacion,region,comuna,"asdasd","asdasd",
+                                               b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
                 resultado = []
 
