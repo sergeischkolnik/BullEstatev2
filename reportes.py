@@ -1807,7 +1807,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                 if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
-                    for est in range(1,4):
+                    for est in range(0,4):
                         rentaPromedio = rentaPProm(tipo, d, b, est, comuna)
                         rentasPromedios.append(rentaPromedio)
                         if verboso:
@@ -1891,10 +1891,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         precioV=tasacionVenta[0]*uf.getUf()
 
-                        if prop[12]>=3:
-                            rentaPromedio = rentasPromedios[int(prop[12])-1]
+                        if prop[12]<=3:
+                            rentaPromedio = rentasPromedios[int(prop[12])]
                         else:
-                            rentaPromedio = rentasPromedios[2]
+                            rentaPromedio = rentasPromedios[3]
 
                         if (rentaPromedio <= 0):
                             continue
@@ -1913,6 +1913,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                         if confmin is not None:
                             if confmin<conftasacion:
+                                if verboso:
+                                    print("[GeneradorReportes] La Confianza de la tasación es peor que la requerida")
                                 continue
 
                         precioA=tasacionArriendo[0]
@@ -2036,6 +2038,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         telefono="NN"
                         dueno="NN"
                     if (str(dueno)==corredor or (dueno=="NN" and corredor!="a")):
+                        if verboso:
+                            print("[GeneradorReportes] La propiedad encontrada "+str(corredor)+" es gestionada por un corredor")
                         continue
                     subresultado.append(email)
                     subresultado.append(telefono)
