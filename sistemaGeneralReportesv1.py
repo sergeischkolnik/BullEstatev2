@@ -16,17 +16,17 @@ def main(verboso):
     for cliente in clientes:
         #juntar comunas
         comunas=[]
-        if cliente[24] is not None:
-            comunas.append(cliente[25])
         if cliente[25] is not None:
-            comunas.append(cliente[26])
+            comunas.append(cliente[25])
         if cliente[26] is not None:
-            comunas.append(cliente[27])
+            comunas.append(cliente[26])
         if cliente[27] is not None:
-            comunas.append(cliente[28])
+            comunas.append(cliente[27])
         if cliente[28] is not None:
-            comunas.append(cliente[29])
+            comunas.append(cliente[28])
         if cliente[29] is not None:
+            comunas.append(cliente[29])
+        if cliente[30] is not None:
             comunas.append(cliente[30])
 
         reportes.generarReporteSeparado(preciomin=cliente[5], preciomax=cliente[6], utilmin=cliente[7], utilmax=cliente[8],
