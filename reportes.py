@@ -1847,20 +1847,25 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         # distancia metro
                         subresultado.append(estacioncercana[2])
 
-                    datosrentaPromedioA=[prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna]
-                    if (datosrentaPromedioA!=datosrentaPromedioB):
-                        rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
-                    datosrentaPromedioB=datosrentaPromedioA
-                    if (rentaPromedio<=0):
-                        continue
 
-                    if verboso:
-                        print("[GeneradorReportes] renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
-                    if (operacion=="venta" and (rentminventa>-1 or rentminarriendo>0)):
+
+                  if (operacion=="venta" and (rentminventa>-1 or rentminarriendo>0)):
 
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         precioV=tasacionVenta[0]*uf.getUf()
+
+                        datosrentaPromedioA = [prop[4], int(prop[6]), int(prop[7]), int(prop[12]), comuna]
+                        if (datosrentaPromedioA != datosrentaPromedioB):
+                            rentaPromedio = rentaPProm(prop[4], int(prop[6]), int(prop[7]), int(prop[12]), comuna)
+                        datosrentaPromedioB = datosrentaPromedioA
+                        if (rentaPromedio <= 0):
+                            continue
+                        if verboso:
+                            print("[GeneradorReportes] renta promedio para la comuna de: " + str(
+                                comuna) + " para propiedades tipo " + str(tipo) + " de " + str(
+                                int(prop[6])) + " dormitorios, " + str(int(prop[7])) + " baños , y " + str(
+                                int(prop[12])) + " estacionamientos, es de: " + str(rentaPromedio))
 
                         try:
                             conftasacion=tasacionVenta[5]
