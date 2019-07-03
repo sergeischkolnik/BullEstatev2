@@ -17,6 +17,7 @@ def writeCsv(file, data, columnnames, operacion):
                 rentS = str(rent).replace('.',',')
                 prop[index] = rentS
             except:
+                print(prop)
                 print("error de transformacion de rentabilidiad")
         if "Rentabilidad Arriendo" in columnnames:
             index = columnnames.index("Rentabilidad Arriendo")
