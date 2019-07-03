@@ -1993,7 +1993,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     #agregar mail, telefono y dueño
                     email,telefono,dueno = getDatosDueno(prop[0])
                     if (str(dueno)==corredor):
-                        print(str(dueno)+"=="+corredor)
                         continue
                     subresultado.append(email)
                     subresultado.append(telefono)
