@@ -1891,7 +1891,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             conftasacion=tasacionVenta[5]
                         except:
                             if verboso:
-                                print("[GeneradorReportes] " + str(tasacionVenta))
+                                print("[GeneradorReportes] La tasación no se ha podido realizar adecuadamente" + str(tasacionVenta))
                             continue
 
                         if confmin is not None:
@@ -1961,13 +1961,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             if verboso:
                                 print("[GeneradorReportes] renta de arriendo mas baja que minima")
                             continue
-                        if rentminventa:
+                        if rentminventa is not False:
                             # precio venta tasado
                             subresultado.append(precioV)
                             # rentabilidad de venta
                             subresultado.append(float(rentaV))
 
-                        if rentminarriendo:
+                        if rentminarriendo is not False:
                             # precio arriendo tasado
                             subresultado.append(precioA)
                             # rentabilidad de arriendo
@@ -1976,7 +1976,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             print("[GeneradorReportes] depto encontrado para "+nombreCliente)
 
                     else:
-                        if rentminarriendo>0:
+                        if rentminarriendo:
                             BooleanTasacionArriendo=True
                             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                             precioA=tasacionArriendo[0]
