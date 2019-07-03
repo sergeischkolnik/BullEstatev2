@@ -1587,7 +1587,7 @@ def getDatosDueno(idProp2):
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
                            estacionamientos, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
-                           nombreCliente,idCliente,direccion,radioDireccion,verboso):
+                           nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
 
     columnNames = []
 
@@ -1682,7 +1682,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     if confmin is not None:
         confmin = int(confmin)
     else:
-        confmin=1
+        confmin=9
 
     if rentminventa is not None:
         rentminventa = float(rentminventa)
@@ -1692,6 +1692,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
     else:
         rentminventa=-1
+
+    if corredor is not None:
+        corredor=str(corredor)
+    else:
+        corredor="a"
 
     if rentminarriendo is not None:
         rentminarriendo = float(rentminarriendo)
@@ -1980,7 +1985,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     #agregar mail, telefono y dueño
                     email,telefono,dueno = getDatosDueno(prop[0])
-
+                    if (str(dueno)==corredor):
+                        continue
                     subresultado.append(email)
                     subresultado.append(telefono)
                     subresultado.append(dueno)
