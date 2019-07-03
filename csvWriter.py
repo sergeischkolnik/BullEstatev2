@@ -18,12 +18,14 @@ def writeCsv(file, data, columnnames, operacion):
 
         if "Rentabilidad Arriendo" in columnnames:
             index = columnnames.index("Rentabilidad Arriendo")
-            rent = float(prop[index])
-            rent = int(rent*1000)
-            rent = float(rent/1000)
-            rentS = str(rent).replace('.',',')
-            prop[index] = rentS
-
+            try:
+                rent = float(prop[index])
+                rent = int(rent*1000)
+                rent = float(rent/1000)
+                rentS = str(rent).replace('.',',')
+                prop[index] = rentS
+            except:
+                print("error de transformacion de rentabilidiad")
         unf = uf.getUf()
 
         #arreglar precio
@@ -71,6 +73,10 @@ def writeCsv(file, data, columnnames, operacion):
 
         if "Estacionamientos" in columnnames:
             index = columnnames.index("Estacionamientos")
+            prop[index] = int(prop[index])
+
+        if "Bodegas" in columnnames:
+            index = columnnames.index("Bodegas")
             prop[index] = int(prop[index])
 
         if "Distancia metro" in columnnames:
