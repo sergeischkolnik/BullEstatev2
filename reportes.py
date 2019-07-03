@@ -1953,26 +1953,26 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                             precioA=tasacionArriendo[0]
 
-                        if precioA is None:
-                            continue
+                            if precioA is None:
+                                continue
 
-                        # precio arriendo tasado
-                        subresultado.append(precioA)
-                        rentaA=((precioA-prop[5])/prop[5])
-                        if verboso:
-                            print("[GeneradorReportes] arriendo real: "+str(prop[5]))
-                        if verboso:
-                            print("[GeneradorReportes] arriendo predicho: "+str(precioA))
-                        if verboso:
-                            print("[GeneradorReportes] rentabildiad: "+str(rentaA))
-                        if rentaA>1:
-                            continue
+                            # precio arriendo tasado
+                            subresultado.append(precioA)
+                            rentaA=((precioA-prop[5])/prop[5])
+                            if verboso:
+                                print("[GeneradorReportes] arriendo real: "+str(prop[5]))
+                            if verboso:
+                                print("[GeneradorReportes] arriendo predicho: "+str(precioA))
+                            if verboso:
+                                print("[GeneradorReportes] rentabildiad: "+str(rentaA))
+                            if rentaA>1:
+                                continue
 
-                        if rentaA<rentminarriendo:
-                            continue
+                            if rentaA<rentminarriendo:
+                                continue
 
-                        # rentabilidad arriendo
-                        subresultado.append(float(rentaA))
+                            # rentabilidad arriendo
+                            subresultado.append(float(rentaA))
 
                     if not pubPortalExiste.publicacionExiste(prop[13]):
                         if verboso:
