@@ -716,15 +716,15 @@ def calcularDistanciaA(i,data):
     except:
         return -1
 
-def from_portalinmobiliario(tipo,region,comuna,verboso=False):
+def from_portalinmobiliario(tipo,region,verboso=False):
     if verboso:
         print("----------------------")
-        print("Extrayendo propiedades de "+str(comuna)+" de portalinmobiliario.")
+        print("Extrayendo propiedades de region: "+str(region)+" de portalinmobiliario.")
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%' and region='"+str(region)+"'"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and region='"+str(region)+"'"
     if verboso:
-        print("Consulta:")
+        print("Consulta: ")
         print(sql)
     cur.execute(sql)
     tupla = cur.fetchall()
@@ -1784,14 +1784,17 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     columnNames.append('fecha encontrado')
 
     if rentminventa is not None:
-        columnNames.append("Calidad Tasación Venta")
+        columnNames.append("Calidad Tasacion Venta")
     if rentminarriendo is not None:
-        columnNames.append("Calidad Tasación Arriendo")
+        columnNames.append("Calidad Tasacion Arriendo")
 
     listaAdjuntos=[]
-
+    props=from_portalinmobiliario(tipo,region,verboso)
     for comuna in listaComunas:
-        props=from_portalinmobiliario(tipo,region,comuna,verboso)
+
+
+
+
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
 
@@ -1800,6 +1803,19 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                                b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
                 resultado = []
+                rentasPromedios=[]
+
+
+                if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
+                    for est in range(1,4):
+                        rentaPromedio = rentaPProm(tipo, d, b, est, comuna)
+                        rentasPromedios.append(rentaPromedio)
+                        if verboso:
+                            print("[GeneradorReportes] renta promedio para la comuna de: " + str(
+                                comuna) + " para propiedades tipo " + str(tipo) + " de " + str(
+                                int(d)) + " dormitorios, " + str(int(b)) + " baños , y " + str(
+                                int(est)) + " estacionamientos, es de: " + str(rentaPromedio))
+
 
                 if verboso:
                     print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
@@ -1875,10 +1891,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         precioV=tasacionVenta[0]*uf.getUf()
 
-                        datosrentaPromedioA = [prop[4], int(prop[6]), int(prop[7]), int(prop[12]), comuna]
-                        if (datosrentaPromedioA != datosrentaPromedioB):
-                            rentaPromedio = rentaPProm(prop[4], int(prop[6]), int(prop[7]), int(prop[12]), comuna)
-                        datosrentaPromedioB = datosrentaPromedioA
+                        if prop[12]>=3:
+                            rentaPromedio = rentasPromedios[int(prop[12])-1]
+                        else:
+                            rentaPromedio = rentasPromedios[2]
+
                         if (rentaPromedio <= 0):
                             continue
                         if verboso:
