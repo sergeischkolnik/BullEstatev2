@@ -114,7 +114,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
 
-        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link,id FROM portalinmobiliario WHERE "
+        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,bodegas,link,id FROM portalinmobiliario WHERE "
 
         sqlwhere="fechascrap>='"+str(yesterday)+"' AND "
         sql=sqlselect+sqlwhere
@@ -1592,7 +1592,7 @@ def getDatosDueno(idProp2):
 
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
-                           estacionamientos,bodegas, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
+                           estacionamientos, bodegas, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
                            nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
 
     columnNames = []
@@ -1809,7 +1809,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                 for prop in propiedades:
                     count=count+1
 
-                    idProp = prop[14]
+                    idProp = prop[15]
                     ya=yaReportado(idCliente=idCliente,idProp=idProp)
                     if ya[0]:
                         fechareporte=ya[1]
@@ -1854,6 +1854,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     subresultado.append(int(b))
                     # estacionamiento
                     subresultado.append(int(prop[12]))
+                    # Bodega
+                    subresultado.append(int(prop[13]))
 
                     auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
                     if metrodistance < 999999999:
@@ -2000,13 +2002,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             # rentabilidad arriendo
                             subresultado.append(float(rentaA))
 
-                    if not pubPortalExiste.publicacionExiste(prop[13]):
+                    if not pubPortalExiste.publicacionExiste(prop[14]):
                         if verboso:
                             print("[GeneradorReportes] link no disponible")
                         continue
                     else:
                         # link
-                        subresultado.append(prop[13])
+                        subresultado.append(prop[14])
 
 
                     #agregar mail, telefono y dueño
