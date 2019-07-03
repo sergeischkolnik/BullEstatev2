@@ -1849,7 +1849,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
 
-                  if (operacion=="venta" and (rentminventa>-1 or rentminarriendo>0)):
+                    if (operacion=="venta" and (rentminventa>-1 or rentminarriendo>0)):
 
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
