@@ -1697,7 +1697,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
     else:
-        rentminventa=-1
+        rentminventa=False
 
     if corredor is not None:
         corredor=str(corredor)
@@ -1709,7 +1709,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         columnNames.append("Precio Arriendo Tasado")
         columnNames.append("Rentabilidad Arriendo")
     else:
-        rentminarriendo=0
+        rentminarriendo=False
 
     if estacionamientos is not None:
         estacionamientos = int(estacionamientos)
@@ -1866,7 +1866,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     BooleanTasacionVenta=False
                     BooleanTasacionArriendo=False
 
-                    if (operacion=="venta" and (rentminventa>-1 or rentminarriendo>0)):
+                    if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
                         BooleanTasacionVenta=True
                         BooleanTasacionArriendo=True
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
@@ -1959,13 +1959,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             if verboso:
                                 print("[GeneradorReportes] renta de arriendo mas baja que minima")
                             continue
-                        if rentminventa>-1:
+                        if rentminventa>=-1:
                             # precio venta tasado
                             subresultado.append(precioV)
                             # rentabilidad de venta
                             subresultado.append(float(rentaV))
 
-                        if rentminarriendo>0:
+                        if rentminarriendo>=0:
                             # precio arriendo tasado
                             subresultado.append(precioA)
                             # rentabilidad de arriendo
