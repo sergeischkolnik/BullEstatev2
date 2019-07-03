@@ -10,12 +10,13 @@ def writeCsv(file, data, columnnames, operacion):
         #porcentaje
         if "Rentabilidad Venta" in columnnames:
             index = columnnames.index("Rentabilidad Venta")
-            rent = float(prop[index])
-            rent = int(rent*1000)
-            rent = float(rent/1000)
-            rentS = str(rent).replace('.',',')
-            prop[index] = rentS
-
+            try:
+                rent = float(prop[index])
+                rent = int(rent*1000)
+                rent = float(rent/1000)
+                rentS = str(rent).replace('.',',')
+                prop[index] = rentS
+            print("error de transformacion de rentabilidiad")
         if "Rentabilidad Arriendo" in columnnames:
             index = columnnames.index("Rentabilidad Arriendo")
             try:
