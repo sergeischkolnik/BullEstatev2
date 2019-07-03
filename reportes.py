@@ -1959,13 +1959,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             if verboso:
                                 print("[GeneradorReportes] renta de arriendo mas baja que minima")
                             continue
-                        if rentminventa>=-1:
+                        if rentminventa:
                             # precio venta tasado
                             subresultado.append(precioV)
                             # rentabilidad de venta
                             subresultado.append(float(rentaV))
 
-                        if rentminarriendo>=0:
+                        if rentminarriendo:
                             # precio arriendo tasado
                             subresultado.append(precioA)
                             # rentabilidad de arriendo
