@@ -1773,6 +1773,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     columnNames.append("es dueno")
     columnNames.append('fecha encontrado')
 
+    if rentminventa is not None:
+        columnNames.append("Calidad Tasación Venta")
+    if rentminarriendo is not None:
+        columnNames.append("Calidad Tasación Arriendo")
+
     listaAdjuntos=[]
 
     for comuna in listaComunas:
@@ -1848,9 +1853,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         subresultado.append(estacioncercana[2])
 
 
+                    BooleanTasacionVenta=False
+                    BooleanTasacionArriendo=False
 
                     if (operacion=="venta" and (rentminventa>-1 or rentminarriendo>0)):
-
+                        BooleanTasacionVenta=True
+                        BooleanTasacionArriendo=True
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         precioV=tasacionVenta[0]*uf.getUf()
@@ -1957,6 +1965,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     else:
                         if rentminarriendo>0:
+                            BooleanTasacionArriendo=True
                             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                             precioA=tasacionArriendo[0]
 
@@ -2002,10 +2011,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     subresultado.append(email)
                     subresultado.append(telefono)
                     subresultado.append(dueno)
-
-
-
                     subresultado.append(fechareporte)
+
+                    if BooleanTasacionVenta:
+                        subresultado.append(tasacionVenta[1])
+                    if BooleanTasacionArriendo:
+                        subresultado.append(tasacionArriendo[1])
 
                     if verboso:
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)

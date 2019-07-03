@@ -324,7 +324,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             c=pi/180
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
 
-            #T000 (AAA+)
+            #T000 (AA+)
             if (distance < 50) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k000[5]!=j[5]) or (k000[8]!=j[8]) or (k000[9]!=j[9]) or (k000[6]!=j[6]) or (k000[7]!=j[7]) or (k000[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
@@ -333,7 +333,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 j=j[:-1]
 
 
-            #T00 (AA+)
+            #T00 (AA-)
             if (distance < 500) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k00[5]!=j[5]) or (k00[8]!=j[8]) or (k00[9]!=j[9]) or (k00[6]!=j[6]) or (k00[7]!=j[7]) or (k00[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
@@ -406,7 +406,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 j=j[:-1]
                 k42=j
 
-    t_actual="AAA+"
+    t_actual="AA+"
     g_actual=1
     cota=10
 
@@ -416,7 +416,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         distancia=distanciat000
     elif len(distanciat00)>=8:
         distancia=distanciat00
-        t_actual="AA+"
+        t_actual="AA-"
         g_actual=1
     elif len(distanciat0)>=cota:
         distancia=distanciat0
