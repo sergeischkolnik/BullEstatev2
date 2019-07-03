@@ -559,7 +559,10 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                         telefonoVendedor=telefonoVendedor.replace('"','')
                         telefonoVendedor=telefonoVendedor.replace('&','')
                         telefonoVendedor="+"+str(telefonoVendedor)
-
+                        if ("span" in telefonoVendedor):
+                            telefonoVendedor=rtext[x+3]
+                            telefonoVendedor=str(telefonoVendedor)
+                            telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
 
                 for x,a in enumerate(rtext):
                     if 'emailVendedor' in a:
