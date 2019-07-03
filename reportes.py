@@ -1590,7 +1590,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                            nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
 
     columnNames = []
-
+    datosrentaPromedioB=[]
     if preciomin is not None:
         preciomin = float(preciomin)
     else:
@@ -1847,8 +1847,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         # distancia metro
                         subresultado.append(estacioncercana[2])
 
-
-                    rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
+                    datosrentaPromedioA=[prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna]
+                    if (datosrentaPromedioA!=datosrentaPromedioB):
+                        rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
+                    datosrentaPromedioB=datosrentaPromedioA
                     if (rentaPromedio<=0):
                         continue
 
