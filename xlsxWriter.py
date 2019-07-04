@@ -94,16 +94,13 @@ def writeXlsx(file, data, columnnames, operacion):
     perc = workbook.add_format({'num_format': '0.0%'})
 
     # Write some data headers.
-    worksheet.write_row(row=1,col=1,data=columnnames,cell_format=bold)
-
-    # Start from the first cell below the headers.
-    row = 1
-    col = 0
+    worksheet.write_row(row=0,col=0,data=columnnames,cell_format=bold)
 
     # Iterate over the data and write it out row by row.
-    for d in data:
-        worksheet.write(row, col, d[0])
-        row += 1
+    for i,c in enumerate(data):
+        for j,f in enumerate(c):
+            worksheet.write(i+1, j, f)
+
 
     workbook.close()
 
