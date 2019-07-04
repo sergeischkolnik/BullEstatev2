@@ -564,7 +564,10 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                         telefonoVendedor=telefonoVendedor.replace('"','')
                         telefonoVendedor=telefonoVendedor.replace('&','')
                         telefonoVendedor="+"+str(telefonoVendedor)
-
+                        if ("span" in telefonoVendedor):
+                            telefonoVendedor=rtext[x+3]
+                            telefonoVendedor=str(telefonoVendedor)
+                            telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
 
                 for x,a in enumerate(rtext):
                     if 'emailVendedor' in a:
@@ -717,7 +720,7 @@ def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
     operacion = ["venta", "arriendo"]
 
     #Añadir tipo a arreglo
-    tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento"]
+    tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento", "loteo", "industrial", "agrocola", "bodega", "parcela", "terreno-en-construccion"]
 
     #Obtener proxies
     proxies=get_proxiestextweb()

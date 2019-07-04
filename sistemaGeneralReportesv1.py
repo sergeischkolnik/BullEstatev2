@@ -16,8 +16,6 @@ def main(verboso):
     for cliente in clientes:
         #juntar comunas
         comunas=[]
-        if cliente[24] is not None:
-            comunas.append(cliente[24])
         if cliente[25] is not None:
             comunas.append(cliente[25])
         if cliente[26] is not None:
@@ -28,14 +26,16 @@ def main(verboso):
             comunas.append(cliente[28])
         if cliente[29] is not None:
             comunas.append(cliente[29])
+        if cliente[30] is not None:
+            comunas.append(cliente[30])
 
         reportes.generarReporteSeparado(preciomin=cliente[5], preciomax=cliente[6], utilmin=cliente[7], utilmax=cliente[8],
                                totalmin=cliente[9], totalmax=cliente[10], latmin=cliente[11], latmax=cliente[12], lonmin=cliente[13],
                                lonmax=cliente[14], dormitoriosmin=cliente[15], dormitoriosmax=cliente[16], banosmin=cliente[17],
-                               banosmax=cliente[18], confmin=cliente[39], rentminventa=cliente[35],rentminarriendo=cliente[36],
-                               estacionamientos=cliente[19], metrodistance=cliente[30], tipo=cliente[20], operacion=cliente[21],
-                               region=cliente[23], listaComunas=comunas, prioridad=cliente[38], mail=cliente[3],
-                               nombreCliente=cliente[1],idCliente=cliente[0], direccion=cliente[41], radioDireccion=cliente[42], verboso=verboso)
+                               banosmax=cliente[18], confmin=cliente[40], rentminventa=cliente[36],rentminarriendo=cliente[37],
+                               estacionamientos=cliente[19],bodegas=cliente[20], metrodistance=cliente[31], tipo=cliente[21], operacion=cliente[22],
+                               region=cliente[24], listaComunas=comunas, prioridad=cliente[39], mail=cliente[3],
+                               nombreCliente=cliente[1],idCliente=cliente[0], direccion=cliente[42], radioDireccion=cliente[43],corredor=cliente[41], verboso=verboso)
 
 
 if __name__ == '__main__':

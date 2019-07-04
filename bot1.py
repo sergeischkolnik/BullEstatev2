@@ -9,8 +9,8 @@ import googleMapApi as gm
 import tasadorbot2 as tb2
 import reportes as rp
 import threading
-import mailBotClientesArriendoFrancisca
-import mailBotClientesVentaFernanda
+import mailBotClientesCarolina
+import mailBotClientesPahola
 
 thrFran = -1
 thrFer = -1
@@ -35,10 +35,10 @@ comandosIndividuales = ['hola',
                         'actualizarestadodueno',
                         'actualizarcomentariodueno',
                         'lastscrapportal',
-                        'gofernanda',
-                        'stopfernanda',
-                        'gofrancisca',
-                        'stopfrancisca']
+                        'gopahola',
+                        'stoppahola',
+                        'gocarolina',
+                        'stopcarolina']
 
 comandosMultiples = ['reporte',
                      'reporteinterno',
@@ -318,41 +318,41 @@ def echo_all(updates):
                     chatId = update["message"]["chat"]["id"]
                     estadoScrapper(chatId)
 
-                #go Fernanda - venta
+                #go Pahola
                 elif text == comandosIndividuales[11]:
                     if thrFer == -1 or not thrFer.isAlive():
-                        thrFer = threading.Thread(target=mailBotClientesVentaFernanda.threadSendMails, args=())
+                        thrFer = threading.Thread(target=mailBotClientesPahola.threadSendMails, args=())
                         thrFer.setDaemon(True)
                         thrFer.start()
-                        text = "Partiendo Fernanda (captadora de ventas)"
+                        text = "Partiendo Pahola (captadora)"
                     else:
-                        text = "Fernanda (captadora de ventas.) ya esta andando."
+                        text = "Pahola (captadora) ya esta andando."
 
-                #stop Fernanda  venta
+                #stop Pahola
                 elif text == comandosIndividuales[12]:
                     if thrFer != -1 and thrFer.isAlive():
                         thrFer.do_run = False
-                        text = "Parando Fernanda (captadora de ventas)"
+                        text = "Parando Pahola (captadora)"
                     else:
-                        text = "Fernanda (captadora de ventas) ya esta detenida."
+                        text = "Pahola (captadora) ya esta detenida."
 
-                # go Francisca - arriendo
+                # go Carolina
                 elif text == comandosIndividuales[13]:
                     if thrFran == -1 or not thrFran.isAlive():
-                        thrFran = threading.Thread(target=mailBotClientesArriendoFrancisca.threadSendMails, args=())
+                        thrFran = threading.Thread(target=mailBotClientesCarolina.threadSendMails, args=())
                         thrFran.setDaemon(True)
                         thrFran.start()
-                        text = "Partiendo Francisca (captadora de arriendos)."
+                        text = "Partiendo Carolina (captadora)."
                     else:
-                        text="Francisca (captadora de arriendos) ya esta andando."
+                        text = "Carolina (captadora) ya esta andando."
 
-                # stop Francisca  arriendo
+                # stop Carolina
                 elif text == comandosIndividuales[14]:
                     if thrFran != -1 and thrFran.isAlive():
                         thrFran.do_run = False
-                        text = "Parando Francisca (captadora de arriendos)."
+                        text = "Parando Carolina (captadora)."
                     else:
-                        text = "Francisca (captadora de arriendos) ya esta detenida."
+                        text = "Carolina (captadora) ya esta detenida."
 
                 #no encontrado
                 else:

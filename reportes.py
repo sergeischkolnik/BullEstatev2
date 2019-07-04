@@ -23,8 +23,11 @@ from csvWriter import writeCsv
 from csvWriter import writeCsvCanje
 import bot1 as tgbot
 import googleMapApi as gm
+import datetime
 
 
+fechahoy = datetime.datetime.now()
+fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 uf1=uf.getUf()
 
 def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
@@ -102,7 +105,7 @@ def mean(numbers):
     return cosa
 
 def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,
-                                   lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,tipo,
+                                   lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,bodegas,tipo,
                                    operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,verboso=False):
 
         if verboso:
@@ -111,7 +114,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
 
-        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link,id FROM portalinmobiliario WHERE "
+        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,bodegas,link,id FROM portalinmobiliario WHERE "
 
         sqlwhere="fechascrap>='"+str(yesterday)+"' AND "
         sql=sqlselect+sqlwhere
@@ -162,6 +165,10 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sql=sql+sqlwhere
 
         sqlwhere="estacionamientos>="+str(estacionamientos)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="bodegas>="+str(bodegas)+" AND "
+
         sql=sql+sqlwhere
 
 
@@ -712,12 +719,12 @@ def calcularDistanciaA(i,data):
 def from_portalinmobiliario(tipo,region,verboso=False):
     if verboso:
         print("----------------------")
-        print("Extrayendo propiedades de portal.")
+        print("Extrayendo propiedades de region: "+str(region)+" de portalinmobiliario.")
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and region='"+str(region)+"'"
     if verboso:
-        print("Consulta:")
+        print("Consulta: ")
         print(sql)
     cur.execute(sql)
     tupla = cur.fetchall()
@@ -771,7 +778,7 @@ def main():
 
         rentmin=float(i[35])
         estacionamientos=float(i[19])
-
+        bodegas=float(i[20])
         if i[38] is not None:
             confmin=int(i[38])
         else:
@@ -820,7 +827,7 @@ def main():
 
 def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,
-                       dormitoriosmax, banosmin, banosmax, confmin, rentmin, estacionamientos, metrodistance, tipo,
+                       dormitoriosmax, banosmin, banosmax, confmin, rentmin, estacionamientos,metrodistance, tipo,
                        operacion, region, comuna1, comuna2,
                        comuna3, comuna4, comuna5, comuna6,prioridad, flagMail, mail,nombreCliente,verboso,
                    enviarActualizacionTG=False,chat="",URL=""):
@@ -841,8 +848,9 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     confmin=int(confmin)
     rentmin=float(rentmin)
     estacionamientos=int(estacionamientos)
+    bodegas=0
     metrodistance=int(metrodistance)
-    tipo=str(tipo)
+    tipo=0
     operacion=str(operacion)
     region=str(region)
     comuna1=str(comuna1)
@@ -859,7 +867,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
     props=from_portalinmobiliario(tipo,region,verboso)
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
-                                               banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,
+                                               banosmax,estacionamientos,bodegas,tipo,operacion,region,comuna1,comuna2,comuna3,
                                                comuna4,comuna5,comuna6,verboso)
     resultado = []
     estaciones1=estaciones()
@@ -1143,6 +1151,7 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
     rentminventa=float(rentminventa)
     rentminarriendo=float(rentminarriendo)
     estacionamientos=int(estacionamientos)
+    bodegas=0
     metrodistance=int(metrodistance)
     tipo=str(tipo)
     operacion=str(operacion)
@@ -1161,7 +1170,7 @@ def generarReporteInterno(preciomin, preciomax, utilmin, utilmax, totalmin, tota
     props=from_portalinmobiliario(tipo,region,verboso)
     propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
-                                               banosmax,estacionamientos,tipo,operacion,region,comuna1,comuna2,comuna3,
+                                               banosmax,estacionamientos,bodegas,tipo,operacion,region,comuna1,comuna2,comuna3,
                                                comuna4,comuna5,comuna6,verboso)
     resultado = []
     estaciones1=estaciones()
@@ -1449,7 +1458,7 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
     banosmax=int(banosmax)
 
     estacionamientos=int(estacionamientos)
-
+    bodegas=0
     tipo=str(tipo)
     operacion=str(operacion)
     region=str(region)
@@ -1460,7 +1469,7 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
 
     propiedades=from_portalinmobiliario_select_canje(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,
-                                               banosmax,estacionamientos,tipo,operacion,region,comuna,"asdddd","asdddd",
+                                               banosmax,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdddd","asdddd",
                                                "asdddd","asdddd","asdddd",verboso)
 
     if verboso:
@@ -1555,18 +1564,19 @@ def yaReportado(idCliente,idProp):
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     result = cur.fetchall()
-    if len(result) > 0:
-        return True
-    else:
-        return False
 
-def guardarRegistro(idCliente,idProp):
-    sql = """INSERT INTO clientes_propiedades(cliente,prop)
-             VALUES(%s,%s) ON DUPLICATE KEY UPDATE prop=%s"""
+    if len(result) > 0:
+        result=result[0]
+        fechareporte=result[3]
+        return True,fechareporte
+    else:
+        return False,'2000-01-01'
+
+def guardarRegistro(idCliente,idProp,fechareporte):
+    sql = "INSERT INTO clientes_propiedades(cliente,prop,fecha) VALUES('" + str(idCliente) + "','" + str(idProp) + "','" + str(fechareporte) + "') ON DUPLICATE KEY UPDATE prop='" + str(idProp) + "';"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-    resultado = [idCliente,idProp,idProp]
     cur = mariadb_connection.cursor()
-    cur.execute(sql, (resultado))
+    cur.execute(sql)
     mariadb_connection.commit()
     mariadb_connection.close()
 
@@ -1582,11 +1592,11 @@ def getDatosDueno(idProp2):
 
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
-                           estacionamientos, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
-                           nombreCliente,idCliente,direccion,radioDireccion,verboso):
+                           estacionamientos, bodegas, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
+                           nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
 
     columnNames = []
-
+    datosrentaPromedioB=[]
     if preciomin is not None:
         preciomin = float(preciomin)
     else:
@@ -1620,7 +1630,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     columnNames.append("Banos")
 
     columnNames.append("Estacionamientos")
-
+    columnNames.append("Bodegas")
     if totalmax is not None:
         totalmax = int(totalmax)
     else:
@@ -1678,7 +1688,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     if confmin is not None:
         confmin = int(confmin)
     else:
-        confmin=1
+        confmin=9
 
     if rentminventa is not None:
         rentminventa = float(rentminventa)
@@ -1687,20 +1697,29 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
     else:
-        rentminventa=-1
+        rentminventa=False
+
+    if corredor is not None:
+        corredor=str(corredor)
+    else:
+        corredor="a"
 
     if rentminarriendo is not None:
         rentminarriendo = float(rentminarriendo)
         columnNames.append("Precio Arriendo Tasado")
         columnNames.append("Rentabilidad Arriendo")
     else:
-        rentminarriendo=0
+        rentminarriendo=False
 
     if estacionamientos is not None:
         estacionamientos = int(estacionamientos)
     else:
         estacionamientos=0
 
+    if bodegas is not None:
+        bodegas = int(bodegas)
+    else:
+        bodegas=0
 
     if tipo is not None:
         tipo = str(tipo)
@@ -1756,25 +1775,47 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         lonmax = min(lonmax,lonmaxD)
 
     
-    props=from_portalinmobiliario(tipo,region,verboso)
     estaciones1 = estaciones()
     columnNames.append("Link")
 
     columnNames.append("Mail")
     columnNames.append("Telefono")
     columnNames.append("es dueno")
+    columnNames.append('fecha encontrado')
+
+    if rentminventa is not None:
+        columnNames.append("Calidad Tasacion Venta")
+    if rentminarriendo is not None:
+        columnNames.append("Calidad Tasacion Arriendo")
 
     listaAdjuntos=[]
-
+    props=from_portalinmobiliario(tipo,region,verboso)
     for comuna in listaComunas:
+
+
+
+
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
 
                 propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,d,d,b,
-                                               b,estacionamientos,tipo,operacion,region,comuna,"asdasd","asdasd",
+                                               b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
                 resultado = []
+                rentasPromedios=[]
+
+
+                if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
+                    for est in range(0,4):
+                        rentaPromedio = rentaPProm(tipo, d, b, est, comuna)
+                        rentasPromedios.append(rentaPromedio)
+                        if verboso:
+                            print("[GeneradorReportes] renta promedio para la comuna de: " + str(
+                                comuna) + " para propiedades tipo " + str(tipo) + " de " + str(
+                                int(d)) + " dormitorios, " + str(int(b)) + " baños , y " + str(
+                                int(est)) + " estacionamientos, es de: " + str(rentaPromedio))
+
 
                 if verboso:
                     print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
@@ -1784,10 +1825,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                 for prop in propiedades:
                     count=count+1
 
-                    idProp = prop[14]
-                    if yaReportado(idCliente=idCliente,idProp=idProp):
-                        continue
-
+                    idProp = prop[15]
+                    ya=yaReportado(idCliente=idCliente,idProp=idProp)
+                    if ya[0]:
+                        fechareporte=ya[1]
+                    else:
+                        fechareporte=fechahoy
 
                     if verboso:
                         print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
@@ -1827,6 +1870,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     subresultado.append(int(b))
                     # estacionamiento
                     subresultado.append(int(prop[12]))
+                    # Bodega
+                    subresultado.append(int(prop[13]))
 
                     auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
                     if metrodistance < 999999999:
@@ -1836,27 +1881,40 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         subresultado.append(estacioncercana[2])
 
 
-                    rentaPromedio=rentaPProm(prop[4],int(prop[6]),int(prop[7]),int(prop[12]),comuna)
-                    if (rentaPromedio<=0):
-                        continue
+                    BooleanTasacionVenta=False
+                    BooleanTasacionArriendo=False
 
-                    if verboso:
-                        print("[GeneradorReportes] renta promedio para la comuna de: "+str(comuna)+" para propiedades tipo "+str(tipo)+" de "+str(int(prop[6]))+" dormitorios, "+str(int(prop[7]))+" baños , y "+str(int(prop[12]))+" estacionamientos, es de: "+str(rentaPromedio))
-                    if (operacion=="venta" and (rentminventa>-1 or rentminarriendo>0)):
-
+                    if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
+                        BooleanTasacionVenta=True
+                        BooleanTasacionArriendo=True
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         precioV=tasacionVenta[0]*uf.getUf()
+
+                        if prop[12]<=3:
+                            rentaPromedio = rentasPromedios[int(prop[12])]
+                        else:
+                            rentaPromedio = rentasPromedios[3]
+
+                        if (rentaPromedio <= 0):
+                            continue
+                        if verboso:
+                            print("[GeneradorReportes] renta promedio para la comuna de: " + str(
+                                comuna) + " para propiedades tipo " + str(tipo) + " de " + str(
+                                int(prop[6])) + " dormitorios, " + str(int(prop[7])) + " baños , y " + str(
+                                int(prop[12])) + " estacionamientos, es de: " + str(rentaPromedio))
 
                         try:
                             conftasacion=tasacionVenta[5]
                         except:
                             if verboso:
-                                print("[GeneradorReportes] " + str(tasacionVenta))
+                                print("[GeneradorReportes] La tasación no se ha podido realizar adecuadamente" + str(tasacionVenta))
                             continue
 
                         if confmin is not None:
                             if confmin<conftasacion:
+                                if verboso:
+                                    print("[GeneradorReportes] La Confianza de la tasación es peor que la requerida")
                                 continue
 
                         precioA=tasacionArriendo[0]
@@ -1922,64 +1980,82 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             if verboso:
                                 print("[GeneradorReportes] renta de arriendo mas baja que minima")
                             continue
-                        if rentminventa>-1:
+                        if rentminventa is not False:
                             # precio venta tasado
                             subresultado.append(precioV)
                             # rentabilidad de venta
                             subresultado.append(float(rentaV))
 
-                        if rentminarriendo>0:
+                        if rentminarriendo is not False:
                             # precio arriendo tasado
                             subresultado.append(precioA)
                             # rentabilidad de arriendo
                             subresultado.append(float(rentaA))
-                        if verboso:
-                            print("[GeneradorReportes] depto encontrado para "+nombreCliente)
+
 
                     else:
-                        if rentminarriendo>0:
+                        if rentminarriendo:
+                            BooleanTasacionArriendo=True
                             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                             precioA=tasacionArriendo[0]
 
-                        if precioA is None:
-                            continue
+                            if precioA is None:
+                                continue
 
-                        # precio arriendo tasado
-                        subresultado.append(precioA)
-                        rentaA=((precioA-prop[5])/prop[5])
-                        if verboso:
-                            print("[GeneradorReportes] arriendo real: "+str(prop[5]))
-                        if verboso:
-                            print("[GeneradorReportes] arriendo predicho: "+str(precioA))
-                        if verboso:
-                            print("[GeneradorReportes] rentabildiad: "+str(rentaA))
-                        if rentaA>1:
-                            continue
+                            # precio arriendo tasado
+                            subresultado.append(precioA)
+                            rentaA=((precioA-prop[5])/prop[5])
+                            if verboso:
+                                print("[GeneradorReportes] arriendo real: "+str(prop[5]))
+                            if verboso:
+                                print("[GeneradorReportes] arriendo predicho: "+str(precioA))
+                            if verboso:
+                                print("[GeneradorReportes] rentabildiad: "+str(rentaA))
+                            if rentaA>1:
+                                continue
 
-                        if rentaA<rentminarriendo:
-                            continue
+                            if rentaA<rentminarriendo:
+                                continue
 
-                        # rentabilidad arriendo
-                        subresultado.append(float(rentaA))
+                            # rentabilidad arriendo
+                            subresultado.append(float(rentaA))
 
-                    if not pubPortalExiste.publicacionExiste(prop[13]):
+                    if not pubPortalExiste.publicacionExiste(prop[14]):
                         if verboso:
                             print("[GeneradorReportes] link no disponible")
                         continue
                     else:
                         # link
-                        subresultado.append(prop[13])
+                        subresultado.append(prop[14])
 
 
                     #agregar mail, telefono y dueño
-                    mail,telefono,dueno = getDatosDueno(prop[0])
+                    try:
+                        email,telefono,dueno = getDatosDueno(prop[0])
+                    except:
+                        email="NN"
+                        telefono="NN"
+                        dueno="NN"
+                    if (str(dueno)==corredor or (dueno=="NN" and corredor!="a")):
+                        if verboso:
+                            print("[GeneradorReportes] La propiedad encontrada "+str(corredor)+" es gestionada por un corredor")
+                        continue
+                    subresultado.append(email)
+                    subresultado.append(telefono)
+                    subresultado.append(dueno)
+                    subresultado.append(fechareporte)
+
+                    if BooleanTasacionVenta:
+                        subresultado.append(tasacionVenta[1])
+                    if BooleanTasacionArriendo:
+                        subresultado.append(tasacionArriendo[1])
 
                     if verboso:
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
                     resultado.append(subresultado)
                     #print("sub appended")
 
-
+                    guardarRegistro(idCliente, idProp, fechareporte)
                 if len(resultado)>0:
                     if verboso:
                         print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
@@ -2001,13 +2077,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                      #   columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","Arriendo","Rent.A","Link"]
 
 
-                    today = datetime.today().strftime('%Y-%m-%d')
-                    nombreArchivo = "reporte "+ nombreCliente + str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + today+'.csv'
+                    nombreArchivo = "reporte "+ nombreCliente +" "+str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + str(fechahoy)+'.csv'
 
 
                     writeCsv(nombreArchivo, resultado, columnNames, operacion)
 
-                    guardarRegistro(idCliente,idProp)
+
 
                     listaAdjuntos.append(nombreArchivo)
 
