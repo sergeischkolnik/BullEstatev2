@@ -21,6 +21,9 @@ import math
 import csv
 from csvWriter import writeCsv
 from csvWriter import writeCsvCanje
+
+from xlsxWriter import writeXlsx
+
 import bot1 as tgbot
 import googleMapApi as gm
 import datetime
@@ -2080,8 +2083,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     nombreArchivo = "reporte "+ nombreCliente +" "+str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + str(fechahoy)+'.csv'
 
 
-                    writeCsv(nombreArchivo, resultado, columnNames, operacion)
-
+                    #writeCsv(nombreArchivo, resultado, columnNames, operacion)
+                    writeXlsx(nombreArchivo,resultado,columnNames,operacion)
 
 
                     listaAdjuntos.append(nombreArchivo)
