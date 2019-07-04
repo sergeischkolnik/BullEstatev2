@@ -1783,9 +1783,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     columnNames.append("es dueno")
     columnNames.append('fecha encontrado')
 
-    if rentminventa is not None:
+    if rentminventa is not False:
         columnNames.append("Calidad Tasacion Venta")
-    if rentminarriendo is not None:
+    if rentminarriendo is not False:
         columnNames.append("Calidad Tasacion Arriendo")
 
     listaAdjuntos=[]
@@ -2038,7 +2038,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         dueno="NN"
                     if (str(dueno)==corredor or (dueno=="NN" and corredor!="a")):
                         if verboso:
-                            print("[GeneradorReportes] La propiedad encontrada "+str(corredor)+" es gestionada por un corredor")
+                            print("[GeneradorReportes] La propiedad encontrada "+str(dueno)+" es gestionada por un dueño")
                         continue
                     subresultado.append(email)
                     subresultado.append(telefono)
