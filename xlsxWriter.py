@@ -94,7 +94,7 @@ def writeXlsx(file, data, columnnames, operacion):
     perc = workbook.add_format({'num_format': '0.0%'})
 
     # Write some data headers.
-    worksheet.write_row(row=1,data=columnnames,cell_format=bold)
+    worksheet.write_row(row=1,col=1,data=columnnames,cell_format=bold)
 
     # Start from the first cell below the headers.
     row = 1
