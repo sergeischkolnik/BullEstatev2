@@ -1599,7 +1599,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                            nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
 
     columnNames = []
-    datosrentaPromedioB=[]
     if preciomin is not None:
         preciomin = float(preciomin)
     else:
@@ -1884,12 +1883,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         subresultado.append(estacioncercana[2])
 
 
-                    BooleanTasacionVenta=False
-                    BooleanTasacionArriendo=False
 
                     if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
-                        BooleanTasacionVenta=True
-                        BooleanTasacionArriendo=True
+
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         precioV=tasacionVenta[0]*uf.getUf()
@@ -2048,9 +2044,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     subresultado.append(dueno)
                     subresultado.append(fechareporte)
 
-                    if BooleanTasacionVenta:
+                    if rentminventa is not False:
                         subresultado.append(tasacionVenta[1])
-                    if BooleanTasacionArriendo:
+                    if rentminarriendo is not False:
                         subresultado.append(tasacionArriendo[1])
 
                     if verboso:
