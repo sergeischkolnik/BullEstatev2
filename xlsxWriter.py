@@ -7,17 +7,6 @@ def writeXlsx(file, data, columnnames, operacion):
 
     #creacion de precios, porcentajes y link
     for i,prop in enumerate(data):
-        #porcentaje
-        if "Rentabilidad Venta" in columnnames:
-            index = columnnames.index("Rentabilidad Venta")
-            rent = float(prop[index])
-            rent = int(rent*1000)
-            rent = float(rent/1000)
-            rentS = str(rent).replace('.',',')
-            prop[index] = rentS
-        if "Rentabilidad Arriendo" in columnnames:
-            index = columnnames.index("Rentabilidad Arriendo")
-            rent = float(prop[index])
 
         unf = uf.getUf()
 
@@ -28,32 +17,21 @@ def writeXlsx(file, data, columnnames, operacion):
         if operacion=="venta":
             precio=precio/unf
             precio=int(precio)
-            precioStr =  format(precio, ',.2f')
-            precioStr = precioStr[:-3]
-            precioStr = precioStr.replace(",",".")
+            prop[0] = precio
 
             if "Precio Venta Tasado" in columnnames:
                 index = columnnames.index("Precio Venta Tasado")
                 precio2 = prop[index]/unf
                 precio2 = int(precio2)
-                precioStr2 = format(precio2, ',.2f')
-                precioStr2 = precioStr2[:-3]
-                precioStr2 = precioStr2.replace(",", ".")
-                prop[index] = precioStr2
+                prop[index] = precio2
 
         #arriendo
         else:
-            precioStr = format(precio, ',.2f')
-            precioStr = precioStr[:-3]
-            precioStr = str(precioStr)
+
             if "Precio Arriendo Tasado" in columnnames:
                 index = columnnames.index("Precio Arriendo Tasado")
                 precio2 = int(prop[index])
-                precioStr2 = format(precio2, ',.2f')
-                precioStr2 = precioStr2[:-3]
-                prop[index] = precioStr2
-
-        prop[0] = precioStr
+                prop[index] = precio2
 
         #quitar decimales a valores
         if "Utiles" in columnnames:
@@ -90,6 +68,9 @@ def writeXlsx(file, data, columnnames, operacion):
     # Add a number format for cells with percentage
     perc = workbook.add_format({'num_format': '0.0%'})
 
+    # Add a date format
+    date = workbook.add_format({'num_format': 'dd/mm/yy'})
+
     # Write some data headers.
     worksheet.write_row(row=0,col=0,data=columnnames,cell_format=bold)
 
@@ -98,6 +79,7 @@ def writeXlsx(file, data, columnnames, operacion):
     index_r_a = columnnames.index("Rentabilidad Arriendo") if "Rentabilidad Arriendo" in columnnames else -1
     index_precio = columnnames.index("Precio") if "Precio" in columnnames else -1
     index_precio_a_t = columnnames.index("Precio Arriendo Tasado") if "Precio Arriendo Tasado" in columnnames else -1
+    index_fecha_e = columnnames.index("fecha encontrado") if "fecha encontrado" in columnnames else -1
 
     # Iterate over the data and write it out row by row.
     for i,c in enumerate(data):
@@ -113,6 +95,10 @@ def writeXlsx(file, data, columnnames, operacion):
                 worksheet.write(i + 1, j, f, money)
             elif j==index_precio_a_t:
                 worksheet.write(i + 1, j, f, money)
+
+            #caso fechas
+            elif j==index_fecha_e:
+                worksheet.write(i + 1, j, f, date)
 
             else:
                 worksheet.write(i+1, j, f)
