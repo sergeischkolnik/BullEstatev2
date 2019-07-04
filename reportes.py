@@ -2080,8 +2080,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                      #   columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","Arriendo","Rent.A","Link"]
 
 
-                    nombreArchivo = "reporte "+ nombreCliente +" "+str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + str(fechahoy)+'.csv'
-
+                    #nombreArchivo = "reporte "+ nombreCliente +" "+str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + str(fechahoy)+'.csv'
+                    nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + str(comuna) + " " + str(
+                        d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
 
                     #writeCsv(nombreArchivo, resultado, columnNames, operacion)
                     writeXlsx(nombreArchivo,resultado,columnNames,operacion)
