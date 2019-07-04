@@ -1991,7 +1991,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             subresultado.append(precioA)
                             # rentabilidad de arriendo
                             subresultado.append(float(rentaA))
-                        
+
 
                     else:
                         if rentminarriendo:

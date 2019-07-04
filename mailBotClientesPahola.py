@@ -192,8 +192,8 @@ def threadSendMails():
 
 def main():
     sendClientMailsDeptos()
-    sendClientMailsCasas()
-    sendClientMailsOficinas()
+    #sendClientMailsCasas()
+    #sendClientMailsOficinas()
 
 
 # hasSendDailyMails = True
