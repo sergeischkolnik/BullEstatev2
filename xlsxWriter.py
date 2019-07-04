@@ -96,10 +96,29 @@ def writeXlsx(file, data, columnnames, operacion):
     # Write some data headers.
     worksheet.write_row(row=0,col=0,data=columnnames,cell_format=bold)
 
+    #encontrar indices de rentabilidad y arriendo
+    index_r_v = columnnames.index("Rentabilidad Venta") if "Rentabilidad Venta" in columnnames else -1
+    index_r_a = columnnames.index("Rentabilidad Arriendo") if "Rentabilidad Arriendo" in columnnames else -1
+    index_precio = columnnames.index("Precio") if "Precio" in columnnames else -1
+    index_precio_a_t = columnnames.index("Precio Arriendo Tasado") if "Precio Arriendo Tasado" in columnnames else -1
+
     # Iterate over the data and write it out row by row.
     for i,c in enumerate(data):
         for j,f in enumerate(c):
-            worksheet.write(i+1, j, f)
+            #caso rentabilidad venta y arriendo
+            if j==index_r_v:
+                worksheet.write(i + 1, j, f, perc)
+            elif j==index_r_a:
+                worksheet.write(i + 1, j, f, perc)
+
+            #caso precios
+            elif j==index_precio and operacion=="arriendo":
+                worksheet.write(i + 1, j, f, money)
+            elif j==index_precio_a_t:
+                worksheet.write(i + 1, j, f, money)
+
+            else:
+                worksheet.write(i+1, j, f)
 
 
     workbook.close()
