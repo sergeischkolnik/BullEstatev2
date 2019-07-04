@@ -74,17 +74,34 @@ def writeXlsx(file, data, columnnames, operacion):
     # Write some data headers.
     worksheet.write_row(row=0,col=0,data=columnnames,cell_format=bold)
 
-    #set auto width
-    length_list = [len(x) for x in columnnames]
-    for i, width in enumerate(length_list):
-        worksheet.set_column(i, i, width)
-
-    #encontrar indices de rentabilidad y arriendo
+    #encontrar indices
     index_r_v = columnnames.index("Rentabilidad Venta") if "Rentabilidad Venta" in columnnames else -1
     index_r_a = columnnames.index("Rentabilidad Arriendo") if "Rentabilidad Arriendo" in columnnames else -1
     index_precio = columnnames.index("Precio") if "Precio" in columnnames else -1
     index_precio_a_t = columnnames.index("Precio Arriendo Tasado") if "Precio Arriendo Tasado" in columnnames else -1
     index_fecha_e = columnnames.index("fecha encontrado") if "fecha encontrado" in columnnames else -1
+    index_metro = columnnames.index("Metro") if "Metro" in columnnames else -1
+    index_link = columnnames.index("Link") if "Link" in columnnames else -1
+    index_mail = columnnames.index("Mail") if "Mail" in columnnames else -1
+    index_tel = columnnames.index("Telefono") if "Telefono" in columnnames else -1
+    index_obs = columnnames.index("Observaciones") if "Observaciones" in columnnames else -1
+
+    #ancho de columnas
+    length_list = [len(x) for x in columnnames]
+    for i, width in enumerate(length_list):
+        worksheet.set_column(i, i, width+2)
+    if index_metro!=-1:
+        worksheet.set_column(index_metro, index_metro, 15)
+    if index_link!=-1:
+        worksheet.set_column(index_link, index_link, 10)
+    if index_mail!=-1:
+        worksheet.set_column(index_mail, index_mail, 30)
+    if index_tel != -1:
+        worksheet.set_column(index_tel, index_tel, 15)
+    if index_obs != -1:
+        worksheet.set_column(index_obs, index_obs, 50)
+
+
 
     # Iterate over the data and write it out row by row.
     for i,c in enumerate(data):
