@@ -1997,7 +1997,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     else:
-                        if rentminarriendo:
+                        if rentminarriendo is not False:
                             BooleanTasacionArriendo=True
                             tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                             precioA=tasacionArriendo[0]
