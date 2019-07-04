@@ -1789,7 +1789,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         columnNames.append("Calidad Tasacion Venta")
     if rentminarriendo is not False:
         columnNames.append("Calidad Tasacion Arriendo")
-
+    columnNames.append("Observaciones")
     listaAdjuntos=[]
     props=from_portalinmobiliario(tipo,region,verboso)
     for comuna in listaComunas:
@@ -2076,7 +2076,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         resultado=sorted(resultado, key=lambda x:x[0])
 
 
-                    columnNames.append("Observaciones")
+
 
                     #if (operacion=="venta"):
                      #   columnNames=["Precio","Útil","Tot","Estacionamiento","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
