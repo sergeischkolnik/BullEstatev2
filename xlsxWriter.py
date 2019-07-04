@@ -18,10 +18,7 @@ def writeXlsx(file, data, columnnames, operacion):
         if "Rentabilidad Arriendo" in columnnames:
             index = columnnames.index("Rentabilidad Arriendo")
             rent = float(prop[index])
-            rent = int(rent*1000)
-            rent = float(rent/1000)
-            rentS = str(rent).replace('.',',')
-            prop[index] = rentS
+
         unf = uf.getUf()
 
         #arreglar precio
