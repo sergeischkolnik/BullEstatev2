@@ -1804,6 +1804,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                                latmin,latmax,lonmin,lonmax,d,d,b,
                                                b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
+
+
+
                 resultado = []
                 rentasPromedios=[]
 
@@ -1837,26 +1840,28 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     if verboso:
                         print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
 
-                    estaciones2=[]
-                    for e in estaciones1:
-                        subestacion=[]
-                        late=e[3]
-                        lone=e[4]
-                        lat1=prop[10]
-                        long1=prop[11]
-                        r=6371000
-                        c=pi/180
-                        distance= 2*r*asin(sqrt(sin(c*(late-lat1)/2)**2 + cos(c*lat1)*cos(c*late)*sin(c*(lone-long1)/2)**2))
-                        subestacion.append(e[1])
-                        subestacion.append(e[2])
-                        subestacion.append(distance)
-                        estaciones2.append(subestacion)
-                    estaciones2=sorted(estaciones2,key=lambda x:x[2])
-                    estacioncercana=estaciones2[0]
 
-                    if metrodistance != None:
-                        if estacioncercana[2]>float(metrodistance):
-                            continue
+                    if metrodistance<999999999:
+                        estaciones2=[]
+                        for e in estaciones1:
+                            subestacion=[]
+                            late=e[3]
+                            lone=e[4]
+                            lat1=prop[10]
+                            long1=prop[11]
+                            r=6371000
+                            c=pi/180
+                            distance= 2*r*asin(sqrt(sin(c*(late-lat1)/2)**2 + cos(c*lat1)*cos(c*late)*sin(c*(lone-long1)/2)**2))
+                            subestacion.append(e[1])
+                            subestacion.append(e[2])
+                            subestacion.append(distance)
+                            estaciones2.append(subestacion)
+                        estaciones2=sorted(estaciones2,key=lambda x:x[2])
+                        estacioncercana=estaciones2[0]
+
+                        if metrodistance != None:
+                            if estacioncercana[2]>float(metrodistance):
+                                continue
 
 
                     subresultado=[]
@@ -1875,8 +1880,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     # Bodega
                     subresultado.append(int(prop[13]))
 
-                    auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
+
                     if metrodistance < 999999999:
+                        auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
                         # metro
                         subresultado.append(auxestacion)
                         # distancia metro
