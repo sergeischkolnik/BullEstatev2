@@ -74,6 +74,11 @@ def writeXlsx(file, data, columnnames, operacion):
     # Write some data headers.
     worksheet.write_row(row=0,col=0,data=columnnames,cell_format=bold)
 
+    #set auto width
+    length_list = [len(x) for x in columnnames]
+    for i, width in enumerate(length_list):
+        worksheet.set_column(i, i, width)
+
     #encontrar indices de rentabilidad y arriendo
     index_r_v = columnnames.index("Rentabilidad Venta") if "Rentabilidad Venta" in columnnames else -1
     index_r_a = columnnames.index("Rentabilidad Arriendo") if "Rentabilidad Arriendo" in columnnames else -1
