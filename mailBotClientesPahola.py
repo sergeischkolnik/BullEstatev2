@@ -14,13 +14,30 @@ sleepTime=random.randint(150,250)
 
 sqlAux="((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'320001') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'450001') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<550001))"
 
-sqlDeptos = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
+sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo' or portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "((portalinmobiliario.link like '%santiago-metropolitana%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%santiago-metropolitana%' and portalinmobiliario.precio>20000000) or " \
           "(portalinmobiliario.link like '%san-miguel' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%macul%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%la-florida%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%maipu%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%recoleta%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%independencia%' and "+sqlAux+"));"
+
+sqlAux="((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'60000001') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'80000001') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<100000001))"
+
+sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
+          "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
+          "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
+          "((portalinmobiliario.link like '%santiago-metropolitana%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%san-miguel' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%macul%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux+") or " \
@@ -63,15 +80,36 @@ def checkClient(clientMail,comision):
     mariadb_connection.commit()
     mariadb_connection.close()
 
-def sendClientMailsDeptos():
+def sendClientMailsDeptosArriendo():
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    cur.execute(sqlDeptos)
+    cur.execute(sqlDeptosArriendo)
     lista = cur.fetchall()
     mariadb_connection.close()
 
-    print("[" + str(datetime.now()) +"]Sending mails (dptos) to "+str(len(lista))+ " clients:")
+    print("[" + str(datetime.now()) +"]Sending mails (dptos arriendo) to "+str(len(lista))+ " clients:")
+
+    for i,l in enumerate(lista):
+
+        to = str(l[0])
+        nombreProp = str(l[1])
+        linkProp=str(l[2])
+
+        #gratis
+        mailer.sendMailGratis(to,nombreProp,linkProp)
+        checkClient(to,"1")
+
+        time.sleep(sleepTime)
+def sendClientMailsDeptosVenta():
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sqlDeptosVenta)
+    lista = cur.fetchall()
+    mariadb_connection.close()
+
+    print("[" + str(datetime.now()) +"]Sending mails (dptos arriendo) to "+str(len(lista))+ " clients:")
 
     for i,l in enumerate(lista):
 
@@ -191,7 +229,8 @@ def threadSendMails():
     #     time.sleep(sleepTime)
 
 def main():
-    sendClientMailsDeptos()
+    sendClientMailsDeptosArriendo()
+    sendClientMailsDeptosVenta()
     #sendClientMailsCasas()
     #sendClientMailsOficinas()
 
