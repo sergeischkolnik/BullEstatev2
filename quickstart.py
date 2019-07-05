@@ -25,7 +25,7 @@ def main():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+                'client_secret_1076097949935-8pmrubf5l03dkvmjdi213r6cih8irve1.apps.googleusercontent.com.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
