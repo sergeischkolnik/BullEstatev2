@@ -38,7 +38,8 @@ comandosIndividuales = ['hola',
                         'gopahola',
                         'stoppahola',
                         'gocarolina',
-                        'stopcarolina']
+                        'stopcarolina',
+                        'canjeador']
 
 comandosMultiples = ['reporte',
                      'reporteinterno',
@@ -353,6 +354,14 @@ def echo_all(updates):
                         text = "Parando Carolina (captadora)."
                     else:
                         text = "Carolina (captadora) ya esta detenida."
+
+                    # stop Carolina
+                elif text == comandosIndividuales[14]:
+                    text = "Para usar canjeador, escriba, separando por espacios:\ncanjeador " \
+                           "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
+                           "<dormitoriosMin> <dormitoriosMax>" \
+                           "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion> " \
+                           "<region> <comuna> <mail> <nombre> <distancia> <direccion>"
 
                 #no encontrado
                 else:
@@ -716,85 +725,80 @@ def echo_all(updates):
                                "<region> <comuna> <mail> <nombre> <distancia> <direccion>"
                     else:
 
-                        if thrReportes!= -1 and thrReportes.isAlive():
-                            text = "Ya se está generando un reporte. Espere a que termine antes de generar otro para " \
-                                   "no colapsar nuestros servidores."
-
-                        else:
-                            preciomin = arr[1]
-                            preciomax = arr[2]
-                            utilmin = arr[3]
-                            utilmax = arr[4]
-                            totalmin = arr[5]
-                            totalmax = arr[6]
-                            dormitoriosmin = arr[7]
-                            dormitoriosmax = arr[8]
-                            banosmin = arr[9]
-                            banosmax = arr[10]
-                            estacionamientos = arr[11]
-                            tipo = arr[12]
-                            operacion = arr[13]
-                            region = arr[14]
-                            comuna = arr[15]
-                            mail = arr[16]
-                            nombre = arr[17]
-                            distancia = arr[18]
-                            calle = ""
-                            for c in range(19, len(arr) - 1):
-                                calle += arr[c]
-                                calle += " "
-
-                            nrCalle = arr[len(arr) - 1]
-                            direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
-                            lat, lon = gm.getCoordsWithAdress(direccion)
-
-                            thrReportes = threading.Thread(target=rp.generarCanjeador, args=(preciomin, preciomax,
-                                                                                           utilmin,utilmax, totalmin,
-                                                                                           totalmax,lat,lon,dormitoriosmin,
-                                                                                           dormitoriosmax, banosmin,
-                                                                                           banosmax, estacionamientos, tipo,
-                                                                                           operacion, region, comuna, mail,
-                                                                                             nombre,distancia,
-                                                                                             True, True,chat,URL))
-
-                            thrReportes.setDaemon(True)
-                            thrReportes.start()
-
-                            # rp.generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax,
-                            #               lonmin, lonmax,dormitoriosmin,dormitoriosmax, banosmin, banosmax, confianzaMinima,
-                            #               rentMin, estacionamientos, distanciaMetro, tipo, operacion, region, comuna1=comuna,
-                            #               comuna2="abcdefgh", comuna3="abcdefgh", comuna4="abcdefgh", comuna5="abcdefgh",
-                            #               comuna6="abcdefgh", prioridad=prioridad, flagMail=1, mail=mail, nombreCliente=nombre)
+                        # if thrReportes!= -1 and thrReportes.isAlive():
+                        #     text = "Ya se está generando un reporte. Espere a que termine antes de generar otro para " \
+                        #            "no colapsar nuestros servidores."
 
 
-                            text = "Generando reporte Interno para:" + nombre
-                            text += "\n\n"
-                            text += "preciomin:" + preciomin + "\n"
-                            text += "preciomax:" +  preciomax+ "\n"
-                            text += "utilmin:" + utilmin+ "\n"
-                            text += "utilmax:" + utilmax+ "\n"
-                            text += "totalmin:" + totalmin+ "\n"
-                            text += "totalmax:" + totalmax+ "\n"
-                            text += "latmin:" + latmin+ "\n"
-                            text += "latmax:" + latmax+ "\n"
-                            text += "lonmin:" + lonmin+ "\n"
-                            text += "lonmax:" + lonmax+ "\n"
-                            text += "dormitoriosmin:" + dormitoriosmin+ "\n"
-                            text += "dormitoriosmax:" + dormitoriosmax+ "\n"
-                            text += "banosmin:" + banosmin+ "\n"
-                            text += "banosmax:" + banosmax+ "\n"
-                            text += "estacionamientos:" + estacionamientos+ "\n"
-                            text += "tipo:" + tipo+ "\n"
-                            text += "operacion:" + operacion+ "\n"
-                            text += "region:" + region+ "\n"
-                            text += "comuna:" + comuna+ "\n"
-                            text += "distanciaMetro:" + distanciaMetro+ "\n"
-                            text += "rentMinVenta:" + rentMinVenta+ "\n"
-                            text += "rentMinArriendo:" + rentMinArriendo+ "\n"
-                            text += "prioridad:" + prioridad+ "\n"
-                            text += "confianzaMinima:" + confianzaMinima+ "\n"
-                            text += "mail:" + mail + "\n"
-                            text += "nombre:" + nombre+ "\n"
+                        preciomin = arr[1]
+                        preciomax = arr[2]
+                        utilmin = arr[3]
+                        utilmax = arr[4]
+                        totalmin = arr[5]
+                        totalmax = arr[6]
+                        dormitoriosmin = arr[7]
+                        dormitoriosmax = arr[8]
+                        banosmin = arr[9]
+                        banosmax = arr[10]
+                        estacionamientos = arr[11]
+                        tipo = arr[12]
+                        operacion = arr[13]
+                        region = arr[14]
+                        comuna = arr[15]
+                        mail = arr[16]
+                        nombre = arr[17]
+                        distancia = arr[18]
+                        calle = ""
+                        for c in range(19, len(arr) - 1):
+                            calle += arr[c]
+                            calle += " "
+
+                        nrCalle = arr[len(arr) - 1]
+                        direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
+                        lat, lon = gm.getCoordsWithAdress(direccion)
+
+                        rp.generarReporteSeparado(preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,None,None,None,None,
+                                                  dormitoriosmin,dormitoriosmax,banosmin,banosmax,None,None,None,estacionamientos,
+                                                  0,None,tipo,operacion,region,comuna,None,mail,nombre,None,direccion,distancia,None,True)
+
+                        # thrReportes = threading.Thread(target=rp.generarCanjeador, args=(preciomin, preciomax,
+                        #                                                                utilmin,utilmax, totalmin,
+                        #                                                                totalmax,lat,lon,dormitoriosmin,
+                        #                                                                dormitoriosmax, banosmin,
+                        #                                                                banosmax, estacionamientos, tipo,
+                        #                                                                operacion, region, comuna, mail,
+                        #                                                                  nombre,distancia,
+                        #                                                                  True, True,chat,URL))
+                        #
+                        # thrReportes.setDaemon(True)
+                        # thrReportes.start()
+
+                        # rp.generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax,
+                        #               lonmin, lonmax,dormitoriosmin,dormitoriosmax, banosmin, banosmax, confianzaMinima,
+                        #               rentMin, estacionamientos, distanciaMetro, tipo, operacion, region, comuna1=comuna,
+                        #               comuna2="abcdefgh", comuna3="abcdefgh", comuna4="abcdefgh", comuna5="abcdefgh",
+                        #               comuna6="abcdefgh", prioridad=prioridad, flagMail=1, mail=mail, nombreCliente=nombre)
+
+
+                        text = "Generando reporte de Canjes para:" + nombre
+                        text += "\n\n"
+                        text += "preciomin:" + preciomin + "\n"
+                        text += "preciomax:" +  preciomax+ "\n"
+                        text += "utilmin:" + utilmin+ "\n"
+                        text += "utilmax:" + utilmax+ "\n"
+                        text += "totalmin:" + totalmin+ "\n"
+                        text += "totalmax:" + totalmax+ "\n"
+                        text += "dormitoriosmin:" + dormitoriosmin+ "\n"
+                        text += "dormitoriosmax:" + dormitoriosmax+ "\n"
+                        text += "banosmin:" + banosmin+ "\n"
+                        text += "banosmax:" + banosmax+ "\n"
+                        text += "estacionamientos:" + estacionamientos+ "\n"
+                        text += "tipo:" + tipo+ "\n"
+                        text += "operacion:" + operacion+ "\n"
+                        text += "region:" + region+ "\n"
+                        text += "comuna:" + comuna+ "\n"
+                        text += "mail:" + mail + "\n"
+                        text += "nombre:" + nombre+ "\n"
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
