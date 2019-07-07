@@ -2062,8 +2062,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
                     resultado.append(subresultado)
                     #print("sub appended")
-
-                    guardarRegistro(idCliente, idProp, fechareporte)
+                    if idCliente is not None:
+                        guardarRegistro(idCliente, idProp, fechareporte)
                 if len(resultado)>0:
                     if verboso:
                         print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
