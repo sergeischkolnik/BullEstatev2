@@ -1837,6 +1837,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             fechareporte=ya[1]
                         else:
                             fechareporte=fechahoy
+                    else:
+                        fechareporte = fechahoy
 
                     if verboso:
                         print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
