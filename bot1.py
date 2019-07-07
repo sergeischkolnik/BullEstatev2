@@ -752,14 +752,14 @@ def echo_all(updates):
                         for c in range(19, len(arr) - 1):
                             calle += arr[c]
                             calle += " "
-
+                        comunas=[comuna,"asdf"]
                         nrCalle = arr[len(arr) - 1]
                         direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                         lat, lon = gm.getCoordsWithAdress(direccion)
 
                         rp.generarReporteSeparado(preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,None,None,None,None,
                                                   dormitoriosmin,dormitoriosmax,banosmin,banosmax,None,None,None,estacionamientos,
-                                                  0,None,tipo,operacion,region,comuna,None,mail,nombre,None,direccion,distancia,None,True)
+                                                  0,None,tipo,operacion,region,comunas,None,mail,nombre,None,direccion,distancia,None,True)
 
                         # thrReportes = threading.Thread(target=rp.generarCanjeador, args=(preciomin, preciomax,
                         #                                                                utilmin,utilmax, totalmin,
