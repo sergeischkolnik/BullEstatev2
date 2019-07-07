@@ -355,8 +355,8 @@ def echo_all(updates):
                     else:
                         text = "Carolina (captadora) ya esta detenida."
 
-                    # stop Carolina
-                elif text == comandosIndividuales[14]:
+                # canjeador
+                elif text == comandosIndividuales[15]:
                     text = "Para usar canjeador, escriba, separando por espacios:\ncanjeador " \
                            "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
                            "<dormitoriosMin> <dormitoriosMax>" \
