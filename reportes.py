@@ -1831,11 +1831,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     count=count+1
 
                     idProp = prop[15]
-                    ya=yaReportado(idCliente=idCliente,idProp=idProp)
-                    if ya[0]:
-                        fechareporte=ya[1]
-                    else:
-                        fechareporte=fechahoy
+                    if idCliente is not None:
+                        ya=yaReportado(idCliente=idCliente,idProp=idProp)
+                        if ya[0]:
+                            fechareporte=ya[1]
+                        else:
+                            fechareporte=fechahoy
 
                     if verboso:
                         print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
