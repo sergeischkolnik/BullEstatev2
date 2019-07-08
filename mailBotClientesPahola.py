@@ -5,29 +5,29 @@ import random
 import sendMailVendetudeptoPahola as mailer
 import time
 
-past = datetime.now() - timedelta(days=30)
+past = datetime.now() - timedelta(days=60)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
 
 sleepTime=random.randint(150,250)
 
-sqlAux="((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'320001') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'450001') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<550001))"
+sqlAux1="((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'350001') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'450001') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<550001))"
 
 sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "((portalinmobiliario.link like '%santiago-metropolitana%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%san-miguel' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%macul%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%la-florida%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%maipu%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%recoleta%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%independencia%' and "+sqlAux+"));"
+          "((portalinmobiliario.link like '%santiago-metropolitana%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%san-miguel' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%la-florida%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%maipu%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%recoleta%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%independencia%' and "+sqlAux1+"));"
 
 sqlAux="((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'60000001') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'80000001') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<100000001))"
 

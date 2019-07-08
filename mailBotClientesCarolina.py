@@ -5,7 +5,7 @@ import random
 import sendMailVendetudeptoCarolina as mailer
 import time
 
-past = datetime.now() - timedelta(days=30)
+past = datetime.now() - timedelta(days=60)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
