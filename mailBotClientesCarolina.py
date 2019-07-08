@@ -29,7 +29,7 @@ sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliari
           "((portalinmobiliario.link like '%providencia%') or " \
           "(portalinmobiliario.link like '%huechuraba%' and ((portalinmobiliario.lat<'-33.374926' and portalinmobiliario.lat>'-33.396264' and portalinmobiliario.lon<'-70.603082' and portalinmobiliario.lon>'-70.630241'))) or " \
           "(portalinmobiliario.link like '%las-condes%' and ((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios='2') or (portalinmobiliario.dormitorios>'2') )) or "\
-          "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'100000000') or "\
+          "(portalinmobiliario.link like '%vitacura%') or (portalinmobiliario.link like '%lo-barnechea%' and portalinmobiliario.precio>'80000000') or "\
           "(portalinmobiliario.link like '%nunoa%' and ((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios>'1'))))";
 
 sqlCasas = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
@@ -52,8 +52,7 @@ sqlOficinas = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.l
       "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo' or portalinmobiliario.operacion='venta') and (portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial') and " \
       "portalinmobiliario.fechascrap>='" + str(yesterday) + "' and portalinmobiliario.fechapublicacion>'" + str(
     past) + "' and " \
-            "(portalinmobiliario.link like '%santiago-metropolitana%' or " \
-            "portalinmobiliario.link like '%lo-barnechea%' or " \
+            "(portalinmobiliario.link like '%lo-barnechea%' or " \
             "portalinmobiliario.link like '%vitacura%' or " \
             "(portalinmobiliario.link like '%huechuraba%' and ((portalinmobiliario.lat<'-33.374926' and portalinmobiliario.lat>'-33.396264' and portalinmobiliario.lon<'-70.603082' and portalinmobiliario.lon>'-70.630241'))) or " \
             "portalinmobiliario.link like '%nunoa%' or " \
