@@ -1595,7 +1595,7 @@ def getDatosDueno(idProp2):
 
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
-                           estacionamientos, bodegas, metrodistance,l1,l2,l3, tipo,operacion, region, listaComunas,prioridad, mail,
+                           estacionamientos, bodegas, metrodistance, l1, l2, l3, tipo,operacion, region, listaComunas, prioridad, mail,
                            nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
 
     columnNames = []
