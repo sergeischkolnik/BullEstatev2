@@ -1777,6 +1777,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         lonmax = min(lonmax,lonmaxD)
 
     if ((l1 is not None) or (l2 is not None) or (l3 is not None)):
+        print("entre al cambio, cuek")
+        print(str(l1))
+        print(str(l2))
+        print(str(l3))
+
         if l1 is None:
             l1='abcdeFG'
         if l2 is None:
@@ -1853,8 +1858,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     if metrodistance<999999999:
                         estaciones2=[]
+                        print("largo de estaciones totales es "+str(len(estaciones1)))
                         for e in estaciones1:
-                            print("largo de estaciones totales es "+str(len(estaciones1)))
                             subestacion=[]
                             late=e[3]
                             lone=e[4]
