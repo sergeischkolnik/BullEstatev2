@@ -1595,7 +1595,7 @@ def getDatosDueno(idProp2):
 
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
-                           estacionamientos, bodegas, metrodistance, tipo,operacion, region, listaComunas,prioridad, mail,
+                           estacionamientos, bodegas, metrodistance,l1,l2,l3, tipo,operacion, region, listaComunas,prioridad, mail,
                            nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
 
     columnNames = []
@@ -1858,7 +1858,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             subestacion.append(e[1])
                             subestacion.append(e[2])
                             subestacion.append(distance)
-                            estaciones2.append(subestacion)
+                            if (l1 in e[1]) or (l2 in e[1]) or (l3 in e[1]) or (l1,l2,l3 is None):
+                                estaciones2.append(subestacion)
                         estaciones2=sorted(estaciones2,key=lambda x:x[2])
                         estacioncercana=estaciones2[0]
 
