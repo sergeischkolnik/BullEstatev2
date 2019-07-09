@@ -69,7 +69,15 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
         return 0
 
 
-def estaciones(l1,l2,l3):
+def estaciones():
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT * FROM estaciones"
+    cur.execute(sql)
+    tupla = cur.fetchall()
+    return tupla
+
+def estacionesSelect(l1,l2,l3):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
     cur = mariadb_connection.cursor()
     sql = "SELECT * FROM estaciones where linea like '%"+str(l1)+"%' or linea like '%"+str(l2)+"%' or linea like '%"+str(l3)+"%'"
@@ -1777,10 +1785,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         lonmax = min(lonmax,lonmaxD)
 
     if ((l1 is not None) or (l2 is not None) or (l3 is not None)):
-        print("entre al cambio, cuek")
-        print(str(l1))
-        print(str(l2))
-        print(str(l3))
 
         if l1 is None:
             l1='abcdeFG'
@@ -1789,7 +1793,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         if l3 is None:
             l3='abcdeFG'
 
-    estaciones1 = estaciones(l1,l2,l3)
+        estaciones1 = estacionesSelect(l1,l2,l3)
+    else:
+        estaciones1=estaciones()
     columnNames.append("Link")
 
     columnNames.append("Mail")
