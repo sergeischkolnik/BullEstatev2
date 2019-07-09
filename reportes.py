@@ -1861,10 +1861,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             if (l1,l2,l3 is None):
                                 if l1 is None:
                                     l1='abcdeFG'
-                                if l1 is None:
-                                    l1='abcdeFG'
-                                if l1 is None:
-                                    l1='abcdeFG'
+                                if l2 is None:
+                                    l2='abcdeFG'
+                                if l3 is None:
+                                    l3='abcdeFG'
                                 if (l1 in e[1]) or (l2 in e[1]) or (l3 in e[1]):
                                     estaciones2.append(subestacion)
                         estaciones2=sorted(estaciones2,key=lambda x:x[2])
