@@ -1854,6 +1854,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     if metrodistance<999999999:
                         estaciones2=[]
                         for e in estaciones1:
+                            print("largo de estaciones totales es "+str(len(estaciones1)))
                             subestacion=[]
                             late=e[3]
                             lone=e[4]
@@ -1866,6 +1867,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             subestacion.append(e[2])
                             subestacion.append(distance)
                             estaciones2.append(subestacion)
+                        print("largo de estaciones apendeadas es es "+str(len(estaciones2)))
+
                         estaciones2=sorted(estaciones2,key=lambda x:x[2])
                         estacioncercana=estaciones2[0]
 
