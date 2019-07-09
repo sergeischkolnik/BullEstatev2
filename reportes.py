@@ -1858,8 +1858,15 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             subestacion.append(e[1])
                             subestacion.append(e[2])
                             subestacion.append(distance)
-                            if (l1 in e[1]) or (l2 in e[1]) or (l3 in e[1]) or (l1,l2,l3 is None):
-                                estaciones2.append(subestacion)
+                            if (l1,l2,l3 is None):
+                                if l1 is None:
+                                    l1='abcdeFG'
+                                if l1 is None:
+                                    l1='abcdeFG'
+                                if l1 is None:
+                                    l1='abcdeFG'
+                                if (l1 in e[1]) or (l2 in e[1]) or (l3 in e[1]):
+                                    estaciones2.append(subestacion)
                         estaciones2=sorted(estaciones2,key=lambda x:x[2])
                         estacioncercana=estaciones2[0]
 
