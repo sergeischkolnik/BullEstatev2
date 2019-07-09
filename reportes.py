@@ -69,10 +69,10 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
         return 0
 
 
-def estaciones():
+def estaciones(l1,l2,l3):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
     cur = mariadb_connection.cursor()
-    sql = "SELECT * FROM estaciones"
+    sql = "SELECT * FROM estaciones where linea like '%"+str(l1)+"%' or linea like '%"+str(l2)+"%' or linea like '%"+str(l3)+"%'"
     cur.execute(sql)
     tupla = cur.fetchall()
     return tupla
@@ -1776,8 +1776,15 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         lonmin = max(lonmin,lonminD)
         lonmax = min(lonmax,lonmaxD)
 
-    
-    estaciones1 = estaciones()
+    if ((l1 is not None) or (l2 is not None) or (l3 is not None)):
+        if l1 is None:
+            l1='abcdeFG'
+        if l2 is None:
+            l2='abcdeFG'
+        if l3 is None:
+            l3='abcdeFG'
+
+    estaciones1 = estaciones(l1,l2,l3)
     columnNames.append("Link")
 
     columnNames.append("Mail")
@@ -1858,17 +1865,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             subestacion.append(e[1])
                             subestacion.append(e[2])
                             subestacion.append(distance)
-                            if (l1,l2,l3 is None):
-                                if l1 is None:
-                                    l1='abcdeFG'
-                                if l2 is None:
-                                    l2='abcdeFG'
-                                if l3 is None:
-                                    l3='abcdeFG'
-                                if (l1 in e[1]) or (l2 in e[1]) or (l3 in e[1]):
-                                    estaciones2.append(subestacion)
+                            estaciones2.append(subestacion)
                         estaciones2=sorted(estaciones2,key=lambda x:x[2])
                         estacioncercana=estaciones2[0]
+
 
                         if metrodistance != None:
                             if estacioncercana[2]>float(metrodistance):
