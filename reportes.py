@@ -2276,6 +2276,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
 
+
+
                     if topx is not None:
                         resultado=resultado[:topx]
                     #if (operacion=="venta"):
