@@ -193,7 +193,7 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
         sqlwhere="operacion LIKE '%"+str(operacion)+"%' AND "
         sql=sql+sqlwhere
 
-        sqlwhere="region LIKE '%"+str(region)+"%' AND "
+        sqlwhere="idregion LIKE '%"+str(region)+"%' AND "
         sql=sql+sqlwhere
 
         sqlwhere="(comuna LIKE '%" + comuna1 + "%' or comuna LIKE '%"+ comuna2 + "%' or comuna LIKE '%"+ comuna3 + "%' or comuna LIKE '%"+ comuna4 + "%' or comuna LIKE '%"+ comuna5 +"%' or comuna LIKE '%"+ comuna6 +"%')"
