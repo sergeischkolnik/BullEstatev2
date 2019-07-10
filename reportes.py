@@ -1962,8 +1962,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                 for prop in propiedades:
                     count=count+1
 
-                    if ("portalinmobiliario" in prop[14]):
-                        portalinmobiliario=True
+                    portalinmobiliario= "portalinmobiliario" in prop[14]
 
                     idProp = prop[15]
                     if portalinmobiliario:
