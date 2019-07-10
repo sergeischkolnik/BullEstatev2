@@ -1698,6 +1698,13 @@ def guardarRegistro(idCliente,idProp,fechareporte):
     mariadb_connection.commit()
     mariadb_connection.close()
 
+def guardarRegistroYapo(idCliente,idProp,fechareporte):
+    sql = "INSERT INTO clientes_propiedades(cliente,prop,fecha) VALUES('" + str(idCliente) + "','" + str(idProp) + "','" + str(fechareporte) + "') ON DUPLICATE KEY UPDATE prop='" + str(idProp) + "';"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
 
 def getDatosDueno(idProp2):
     sql = "SELECT mail,telefono,esDueno from duenos WHERE idProp =" + str(idProp2)
@@ -2207,8 +2214,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
                     resultado.append(subresultado)
                     #print("sub appended")
+
                     if idCliente is not None:
-                        guardarRegistro(idCliente, idProp, fechareporte)
+                        if portalinmobiliario:
+                            guardarRegistro(idCliente, idProp, fechareporte)
+                        else:
+                            guardarRegistroYapo(idCliente,idProp,fechareporte)
+
                 if len(resultado)>0:
                     if verboso:
                         print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
