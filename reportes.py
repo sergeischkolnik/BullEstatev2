@@ -858,7 +858,7 @@ def from_yapo(tipo,region,verboso=False):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
     cur = mariadb_connection.cursor()
 
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE tipo='"+str(tipo)+"' AND region='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
     if verboso:
         print("Consulta: ")
         print(sql)
