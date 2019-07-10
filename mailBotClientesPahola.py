@@ -77,7 +77,7 @@ sqlOficinasArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobi
           "(portalinmobiliario.link like '%recoleta%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%independencia%' and "+sqlAux1+"));"
 
-sqlAux="((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'60000001') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'80000001') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<100000001))"
+sqlAux=""
 
 sqlOficinasVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
