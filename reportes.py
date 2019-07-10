@@ -115,6 +115,100 @@ def mean(numbers):
     cosa.append(desvest)
     return cosa
 
+
+
+def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,
+                                   lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,bodegas,tipo,
+                                   operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,verboso=False):
+
+        if region=="metropolitana":
+            region="15"
+
+        if verboso:
+            print("----------------------")
+            print("Seleccionando propiedades especificas de portal.")
+        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
+        cur = mariadb_connection.cursor()
+
+        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link,id FROM propiedades WHERE "
+
+        #clausulas de integridad de datos
+        sqlwhere = "lat!='-999' AND metrosmin!=-1 AND metrosmax!=-1"
+        sql = sqlselect + sqlwhere
+
+        sqlwhere="fechascrap>='"+str(yesterday)+"' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="fechapublicacion>='"+str(past)+"' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="precio>="+str(preciomin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="precio<="+str(preciomax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="metrosmin>="+str(utilmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="metrosmin<="+str(utilmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="metrosmax>="+str(totalmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="metrosmax<="+str(totalmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="lat>="+str(latmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="lat<="+str(latmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="lon>="+str(lonmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="lon<="+str(lonmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="dormitorios>="+str(dormitoriosmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="dormitorios<="+str(dormitoriosmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="banos>="+str(banosmin)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="banos<="+str(banosmax)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="estacionamientos>="+str(estacionamientos)+" AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="tipo LIKE '%" + str(tipo) + "%' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="operacion LIKE '%"+str(operacion)+"%' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="region LIKE '%"+str(region)+"%' AND "
+        sql=sql+sqlwhere
+
+        sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
+        sql=sql+sqlwhere
+
+        print("Consulta YAPO:")
+        print(sql)
+        cur.execute(sql)
+        tupla = cur.fetchall()
+        print("Datos de consulta especifica de YAPO listos")
+        print("----------------------")
+        return tupla
+
+
+
 def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,
                                    lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,bodegas,tipo,
                                    operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,verboso=False):
@@ -1812,9 +1906,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     props=from_portalinmobiliario(tipo,region,verboso)
     for comuna in listaComunas:
 
-
-
-
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
 
@@ -1822,6 +1913,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                                latmin,latmax,lonmin,lonmax,d,d,b,
                                                b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
+
+                propiedadesY = from_yapo_select(past, yesterday, preciomin, preciomax, utilmin, utilmax,
+                                                             totalmin, totalmax,
+                                                             latmin, latmax, lonmin, lonmax, d, d, b,
+                                                             b, estacionamientos, bodegas, tipo, operacion, region,
+                                                             comuna, "asdasd", "asdasd",
+                                                             "asdasd", "asdasd", "asdasd", verboso)
 
 
 
@@ -1845,7 +1943,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                 count=0
 
-                for prop in propiedades:
+                for prop in propiedades + propiedadesY:
                     count=count+1
 
                     idProp = prop[15]
