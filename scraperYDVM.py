@@ -108,7 +108,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 lon = -999
                 anoconstruccion = -1
                 ggcc = -1
-                estacionamientos = -1
+                estacionamientos = 0
 
                 esdueno = 0
 
