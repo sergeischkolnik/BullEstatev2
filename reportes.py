@@ -130,7 +130,7 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
         cur = mariadb_connection.cursor()
 
-        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link,id FROM propiedades WHERE "
+        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,estacionamientos,link,id FROM propiedades WHERE "
 
         #clausulas de integridad de datos
         sqlwhere = "lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1' AND "
