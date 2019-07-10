@@ -12,7 +12,7 @@ yesterday=datetime.date(yesterday)
 
 sleepTime=random.randint(150,250)
 
-sqlAux1="((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'350001') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'450001') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<550001))"
+sqlAux1="((portalinmobiliario.dormitorios='1' and portalinmobiliario.precio<'355001') or (portalinmobiliario.dormitorios='2' and portalinmobiliario.precio<'455001') or (portalinmobiliario.dormitorios>'2' and portalinmobiliario.precio<555001))"
 
 sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
@@ -26,6 +26,7 @@ sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobili
           "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%la-florida%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%maipu%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%la-cisterna%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%recoleta%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%independencia%' and "+sqlAux1+"));"
 
@@ -43,6 +44,7 @@ sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliari
           "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%la-florida%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%maipu%' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%la-cisterna%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%recoleta%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%independencia%' and "+sqlAux+"));"
 
