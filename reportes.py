@@ -1604,7 +1604,7 @@ def getDatosDueno(idProp2):
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
                            estacionamientos, bodegas, metrodistance, l1, l2, l3, tipo,operacion, region, listaComunas, prioridad, mail,
-                           nombreCliente,idCliente,direccion,radioDireccion,corredor,verboso):
+                           nombreCliente,idCliente,direccion,radioDireccion,corredor,topx,verboso):
 
     columnNames = []
     if preciomin is not None:
@@ -2100,7 +2100,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
 
-
+                    if topx is not None:
+                        resultado=resultado[:topx]
                     #if (operacion=="venta"):
                      #   columnNames=["Precio","Útil","Tot","Estacionamiento","Metro","Dist-est.","P.P","Rent.V","Arriendo","Rent.A","Link"]
                     #else:
