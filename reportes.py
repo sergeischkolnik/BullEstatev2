@@ -133,7 +133,7 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
         sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link,id FROM propiedades WHERE "
 
         #clausulas de integridad de datos
-        sqlwhere = "lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1' AND"
+        sqlwhere = "lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1' AND "
         sql = sqlselect + sqlwhere
 
         sqlwhere="fechascrap>='"+str(yesterday)+"' AND "
