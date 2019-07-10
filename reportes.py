@@ -199,11 +199,12 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
         sqlwhere="(comuna LIKE '%" + comuna1 + "%' or comuna LIKE '%"+ comuna2 + "%' or comuna LIKE '%"+ comuna3 + "%' or comuna LIKE '%"+ comuna4 + "%' or comuna LIKE '%"+ comuna5 +"%' or comuna LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        print("Consulta YAPO:")
-        print(sql)
+        # print("Consulta YAPO:")
+        # print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
         print("Datos de consulta especifica de YAPO listos")
+        print("Se han encontrado "+str(len(tupla))+" propiedades.")
         print("----------------------")
         return tupla
 
@@ -289,11 +290,12 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        print("Consulta:")
-        print(sql)
+        # print("Consulta:")
+        # print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
         print("Datos de consulta especifica de portal listos")
+        print("Se han encontrado "+str(len(tupla))+" propiedades.")
         print("----------------------")
         return tupla
 
@@ -828,9 +830,9 @@ def from_portalinmobiliario(tipo,region,verboso=False):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and region='"+str(region)+"'"
-    if verboso:
-        print("Consulta: ")
-        print(sql)
+    # if verboso:
+    #     print("Consulta: ")
+    #     print(sql)
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -846,6 +848,7 @@ def from_portalinmobiliario(tipo,region,verboso=False):
 
     if verboso:
         print("Data de portal Lista.")
+        print("Se han encontrado "+str(len(data))+" propiedades.")
         print("----------------------")
     return data
 def from_yapo(tipo,region,verboso=False):
@@ -859,9 +862,9 @@ def from_yapo(tipo,region,verboso=False):
     cur = mariadb_connection.cursor()
 
     sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
-    if verboso:
-        print("Consulta: ")
-        print(sql)
+    # if verboso:
+    #     print("Consulta: ")
+    #     print(sql)
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -877,6 +880,7 @@ def from_yapo(tipo,region,verboso=False):
 
     if verboso:
         print("Data de Yapo Lista.")
+        print("Se han encontrado "+str(len(data))+" propiedades.")
         print("----------------------")
     return data
 
