@@ -848,6 +848,37 @@ def from_portalinmobiliario(tipo,region,verboso=False):
         print("Data de portal Lista.")
         print("----------------------")
     return data
+def from_yapo(tipo,region,verboso=False):
+    if region=="metropolitana":
+            region="15"
+
+    if verboso:
+        print("----------------------")
+        print("Extrayendo propiedades de region: "+str(region)+" de yapo.")
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
+    cur = mariadb_connection.cursor()
+
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE tipo='"+str(tipo)+"' and region='"+str(region)+" and lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
+    if verboso:
+        print("Consulta: ")
+        print(sql)
+    cur.execute(sql)
+    tupla = cur.fetchall()
+    data = []
+    for i in tupla:
+        subdata=[]
+        a=0
+        for j in range (0,len(i)):
+            if (i[j]==None):
+                a=1
+            subdata.append(i[j])
+        if (a==0):
+            data.append(subdata)
+
+    if verboso:
+        print("Data de Yapo Lista.")
+        print("----------------------")
+    return data
 
 def main():
     data=clientes()
@@ -1923,13 +1954,15 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         columnNames.append("Calidad Tasacion Arriendo")
     columnNames.append("Observaciones")
     listaAdjuntos=[]
-    props=from_portalinmobiliario(tipo,region,verboso)
+    propsP=from_portalinmobiliario(tipo,region,verboso)
+    propsY=from_yapo(tipo,region,verboso)
+    props=propsP+propsY
     for comuna in listaComunas:
 
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
 
-                propiedades=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
+                propiedadesP=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,d,d,b,
                                                b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
@@ -1959,7 +1992,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
 
-                propiedades=propiedades+propiedadesY
+                propiedades=propiedadesP+propiedadesY
 
                 if verboso:
                     print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
