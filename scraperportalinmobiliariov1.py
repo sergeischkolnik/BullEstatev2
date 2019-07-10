@@ -711,7 +711,7 @@ def scrap(d,h,operacion,tipo,region,lista,faillista):
 
     getInfo(subsites,d,h,lista,faillista,operacion,tipo,region)
 
-def Main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=0,isRecovery=False):
+def Main(tipoRec="departamento",operacionRec="arriendo", regionRec="valparaiso",pagRec=0,isRecovery=False):
 
     #Añadir regiones a arreglo
     region= ["tarapaca","metropolitana","valparaiso","biobio"]
