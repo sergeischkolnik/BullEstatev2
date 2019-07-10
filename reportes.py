@@ -1937,13 +1937,14 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                 int(d)) + " dormitorios, " + str(int(b)) + " baños , y " + str(
                                 int(est)) + " estacionamientos, es de: " + str(rentaPromedio))
 
+                propiedades=propiedadesY
 
                 if verboso:
                     print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
 
                 count=0
 
-                for prop in propiedades + propiedadesY:
+                for prop in propiedades:
                     count=count+1
 
                     idProp = prop[15]
