@@ -556,6 +556,8 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     corredor="si"
                 rtext=rtext.split(' ')
 
+                telefonoVendedor = "No"
+
                 for x,a in enumerate(rtext):
                     if 'telefonosVendedor' in a:
 
