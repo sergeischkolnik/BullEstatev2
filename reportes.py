@@ -1662,6 +1662,19 @@ def generarCanjeador(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax,
         if verboso:
             print("[GeneradorReportes] No se han encontrado propiedades de canje para el cliente "+nombreCliente)
 
+def yaReportadoYapo(idCliente,idProp):
+    sql = "SELECT * from clientes_propiedades WHERE cliente =" + str(idCliente) + " and prop=" + str(idProp)
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    result = cur.fetchall()
+
+    if len(result) > 0:
+        result=result[0]
+        fechareporte=result[3]
+        return True,fechareporte
+    else:
+        return False,'2000-01-01'
 
 def yaReportado(idCliente,idProp):
     sql = "SELECT * from clientes_propiedades WHERE cliente =" + str(idCliente) + " and prop=" + str(idProp)
@@ -1937,7 +1950,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                 int(d)) + " dormitorios, " + str(int(b)) + " baños , y " + str(
                                 int(est)) + " estacionamientos, es de: " + str(rentaPromedio))
 
-                propiedades=propiedadesY
+
+
+                propiedades=propiedades+propiedadesY
 
                 if verboso:
                     print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
@@ -1947,16 +1962,28 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                 for prop in propiedades:
                     count=count+1
 
-                    idProp = prop[15]
-                    if idCliente is not None:
-                        ya=yaReportado(idCliente=idCliente,idProp=idProp)
-                        if ya[0]:
-                            fechareporte=ya[1]
-                        else:
-                            fechareporte=fechahoy
-                    else:
-                        fechareporte = fechahoy
+                    if ("portalinmobiliario" in prop[14]):
+                        portalinmobiliario=True
 
+                    idProp = prop[15]
+                    if portalinmobiliario:
+                        if idCliente is not None:
+                            ya=yaReportado(idCliente=idCliente,idProp=idProp)
+                            if ya[0]:
+                                fechareporte=ya[1]
+                            else:
+                                fechareporte=fechahoy
+                        else:
+                            fechareporte = fechahoy
+                    else:
+                         if idCliente is not None:
+                            ya=yaReportadoYapo(idCliente=idCliente,idProp=idProp)
+                            if ya[0]:
+                                fechareporte=ya[1]
+                            else:
+                                fechareporte=fechahoy
+                         else:
+                            fechareporte = fechahoy
                     if verboso:
                         print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
 
