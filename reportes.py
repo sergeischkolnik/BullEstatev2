@@ -2291,10 +2291,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
 
 
-                    if (prioridad=="arriendo"):
+                    if ((prioridad=="arriendo") and rentminarriendo is not None):
                         index = columnNames.index("Rentabilidad Arriendo")
                         resultado=sorted(resultado, key=lambda x:x[index],reverse=True)
-                    elif (prioridad=="venta"):
+                    elif ((prioridad=="venta") and (rentminventa is not None)):
                         index = columnNames.index("Rentabilidad Venta")
                         resultado=sorted(resultado, key=lambda x:x[index],reverse=True)
                     else:
