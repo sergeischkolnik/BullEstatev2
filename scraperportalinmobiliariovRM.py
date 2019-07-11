@@ -664,9 +664,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 try:
                     insertarDueno(dueno)
                 except:
-                    abdcedf=0
-
-
+                    pass
 
                 try:
                     insertarPropiedad(aux)
