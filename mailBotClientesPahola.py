@@ -19,7 +19,7 @@ sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobili
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "((portalinmobiliario.link like '%santiago-metropolitana%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%san-miguel' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%san-miguel%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
@@ -37,7 +37,7 @@ sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliari
           "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "((portalinmobiliario.link like '%santiago-metropolitana%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%san-miguel' and "+sqlAux+") or " \
+          "(portalinmobiliario.link like '%san-miguel%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux+") or " \
           "(portalinmobiliario.link like '%macul%' and "+sqlAux+") or " \
@@ -66,16 +66,16 @@ sqlOficinasArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobi
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and (portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial') and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "((portalinmobiliario.link like '%santiago-metropolitana%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%san-miguel' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%la-florida%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%maipu%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%recoleta%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%independencia%' and "+sqlAux1+"));"
+          "((portalinmobiliario.link like '%santiago-metropolitana%') or " \
+          "(portalinmobiliario.link like '%san-miguel%') or " \
+          "(portalinmobiliario.link like '%estacion-central%') or " \
+          "(portalinmobiliario.link like '%macul%') or " \
+          "(portalinmobiliario.link like '%quinta-normall%') or " \
+          "(portalinmobiliario.link like '%san-joaquin%') or " \
+          "(portalinmobiliario.link like '%la-florida%') or " \
+          "(portalinmobiliario.link like '%maipu%') or " \
+          "(portalinmobiliario.link like '%recoleta%') or " \
+          "(portalinmobiliario.link like '%independencia%'));"
 
 sqlAux=""
 
@@ -83,16 +83,16 @@ sqlOficinasVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobilia
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and (portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial') and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "((portalinmobiliario.link like '%santiago-metropolitana%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%san-miguel' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%macul%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%la-florida%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%maipu%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%recoleta%' and "+sqlAux+") or " \
-          "(portalinmobiliario.link like '%independencia%' and "+sqlAux+"));"
+          "((portalinmobiliario.link like '%santiago-metropolitana%') or " \
+          "(portalinmobiliario.link like '%san-miguel%') or " \
+          "(portalinmobiliario.link like '%quinta-normall%') or " \
+          "(portalinmobiliario.link like '%estacion-central%') or " \
+          "(portalinmobiliario.link like '%macul%') or " \
+          "(portalinmobiliario.link like '%san-joaquin%') or " \
+          "(portalinmobiliario.link like '%la-florida%') or " \
+          "(portalinmobiliario.link like '%maipu%') or " \
+          "(portalinmobiliario.link like '%recoleta%') or " \
+          "(portalinmobiliario.link like '%independencia%'));"
 
 def checkClient(clientMail,comision):
     sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail='"+str(clientMail)+"'"
@@ -131,7 +131,7 @@ def sendClientMailsDeptosVenta():
     lista = cur.fetchall()
     mariadb_connection.close()
 
-    print("[" + str(datetime.now()) +"]Sending mails (dptos arriendo) to "+str(len(lista))+ " clients:")
+    print("[" + str(datetime.now()) +"]Sending mails (dptos venta) to "+str(len(lista))+ " clients:")
 
     for i,l in enumerate(lista):
 
@@ -174,7 +174,7 @@ def sendClientMailsOficinasArriendo():
     lista = cur.fetchall()
     mariadb_connection.close()
 
-    print("[" + str(datetime.now()) +"]Sending mails (oficinas) to "+str(len(lista))+ " clients:")
+    print("[" + str(datetime.now()) +"]Sending mails (oficinas arriendo) to "+str(len(lista))+ " clients:")
 
     for i,l in enumerate(lista):
         to = str(l[0])
@@ -196,7 +196,7 @@ def sendClientMailsOficinasVenta():
     lista = cur.fetchall()
     mariadb_connection.close()
 
-    print("[" + str(datetime.now()) +"]Sending mails (oficinas) to "+str(len(lista))+ " clients:")
+    print("[" + str(datetime.now()) +"]Sending mails (oficinas venta) to "+str(len(lista))+ " clients:")
 
     for i,l in enumerate(lista):
         to = str(l[0])
