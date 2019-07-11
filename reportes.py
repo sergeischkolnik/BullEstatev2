@@ -1973,8 +1973,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         latlonyapo=False
 
 
-    propsP=from_portalinmobiliario(tipo,region,latlonyapo,verboso)
-    propsY=from_yapo(tipo,region,verboso)
+    propsP=from_portalinmobiliario(tipo,region,verboso)
+    propsY=from_yapo(tipo,region,latlonyapo,verboso)
 
     props=propsP+propsY
     for comuna in listaComunas:
