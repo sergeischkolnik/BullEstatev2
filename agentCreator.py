@@ -27,4 +27,10 @@ def generateAgent():
     finalUser = mozillaFinal + " " + osFinal + " (KHTML, like Gecko) " + browserFinal
     return finalUser
 
+def main():
+    for i in range(0,10):
+        print(generateAgent())
+
+if __name__ == '__main__':
+    main()
 
