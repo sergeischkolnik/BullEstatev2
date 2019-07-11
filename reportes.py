@@ -23,7 +23,7 @@ from csvWriter import writeCsv
 from csvWriter import writeCsvCanje
 
 from xlsxWriter import writeXlsx
-
+import os
 import bot1 as tgbot
 import googleMapApi as gm
 import datetime
@@ -1758,10 +1758,16 @@ def getDatosDueno(idProp2):
     result = result[0]
     return result[0],result[1],result[2]
 
+def crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy):
+    # Create target Directory if don't exist
+    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(fechahoy))
+    if not os.path.exists(path):
+        os.mkdir(path)
+
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
                            estacionamientos, bodegas, metrodistance, l1, l2, l3, tipo,operacion, region, listaComunas, prioridad, mail,
-                           nombreCliente,idCliente,direccion,radioDireccion,corredor,topx,verboso):
+                           nombreCliente,nombrecarpetadb,idCliente,direccion,radioDireccion,corredor,topx,verboso):
 
     columnNames = []
     if preciomin is not None:
@@ -2316,9 +2322,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + str(comuna) + " " + str(
                         d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
 
-                    #writeCsv(nombreArchivo, resultado, columnNames, operacion)
-                    writeXlsx(nombreArchivo,resultado,columnNames,operacion)
+                    crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy)
 
+                    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(fechahoy),nombreArchivo)
+
+                    #writeCsv(nombreArchivo, resultado, columnNames, operacion)
+                    writeXlsx(path,resultado,columnNames,operacion)
 
                     listaAdjuntos.append(nombreArchivo)
 
