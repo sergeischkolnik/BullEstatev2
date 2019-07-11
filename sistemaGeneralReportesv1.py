@@ -36,7 +36,7 @@ def main(verboso):
                                estacionamientos=cliente[19],bodegas=cliente[20], metrodistance=cliente[31],l1=cliente[32],l2=cliente[33],l3=cliente[34],
                                tipo=cliente[21], operacion=cliente[22],
                                region=cliente[24], listaComunas=comunas, prioridad=cliente[39], mail=cliente[3],nombreCliente=cliente[1],
-                               idCliente=cliente[0], direccion=cliente[42], radioDireccion=cliente[43],corredor=cliente[41],topx=cliente[44], verboso=verboso)
+                               idCliente=cliente[0],nombrecarpetadb=cliente[45], direccion=cliente[42], radioDireccion=cliente[43],corredor=cliente[41],topx=cliente[44], verboso=verboso)
 
 
 if __name__ == '__main__':
