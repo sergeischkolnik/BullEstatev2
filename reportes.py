@@ -119,7 +119,7 @@ def mean(numbers):
 
 def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,
                                    lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,bodegas,tipo,
-                                   operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,verboso=False):
+                                   operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,latlonyapo,verboso=False):
 
         if region=="metropolitana":
             region="15"
@@ -130,11 +130,15 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
         cur = mariadb_connection.cursor()
 
-        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,estacionamientos,link,id FROM propiedades WHERE "
+        sqlselect = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,estacionamientos,link,id,esdueno FROM propiedades WHERE "
+
+
+        sql=sqlselect
 
         #clausulas de integridad de datos
-        sqlwhere = "lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1' AND "
-        sql = sqlselect + sqlwhere
+        if latlonyapo:
+            sqlwhere = "lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1' AND "
+            sql = sql + sqlwhere
 
         sqlwhere="fechascrap>='"+str(yesterday)+"' AND "
         sql=sql+sqlwhere
@@ -851,7 +855,8 @@ def from_portalinmobiliario(tipo,region,verboso=False):
         print("Se han encontrado "+str(len(data))+" propiedades.")
         print("----------------------")
     return data
-def from_yapo(tipo,region,verboso=False):
+
+def from_yapo(tipo,region,latlonyapo,verboso=False):
     if region=="metropolitana":
             region="15"
 
@@ -860,8 +865,11 @@ def from_yapo(tipo,region,verboso=False):
         print("Extrayendo propiedades de region: "+str(region)+" de yapo.")
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
     cur = mariadb_connection.cursor()
+    if latlonyapo:
+        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
+    else:
+        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE tipo='"+str(tipo)+"'"
 
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
     # if verboso:
     #     print("Consulta: ")
     #     print(sql)
@@ -1798,7 +1806,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     if latmin is not None:
         latmin = float(latmin)
     else:
-        latmin=-999999
+        latmin=-9998
 
     if latmax is not None:
         latmax = float(latmax)
@@ -1959,7 +1967,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     columnNames.append("Observaciones")
     listaAdjuntos=[]
 
-    propsP=from_portalinmobiliario(tipo,region,verboso)
+    if (rentminventa is not False or rentminarriendo is not False):
+        latlonyapo=True
+    else:
+        latlonyapo=False
+
+
+    propsP=from_portalinmobiliario(tipo,region,latlonyapo,verboso)
     propsY=from_yapo(tipo,region,verboso)
 
     props=propsP+propsY
@@ -1978,7 +1992,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                                              latmin, latmax, lonmin, lonmax, d, d, b,
                                                              b, estacionamientos, bodegas, tipo, operacion, region,
                                                              comuna, "asdasd", "asdasd",
-                                                             "asdasd", "asdasd", "asdasd", verboso)
+                                                             "asdasd", "asdasd", "asdasd",latlonyapo, verboso)
 
 
 
@@ -2229,15 +2243,27 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     #agregar mail, telefono y dueño
-                    try:
-                        email,telefono,dueno = getDatosDueno(prop[0])
-                    except:
-                        email="NN"
-                        telefono="NN"
-                        dueno="NN"
-                    if (str(dueno)==corredor or (dueno=="NN" and corredor!="a")):
+                    if portalinmobiliario:
+                        try:
+                            email,telefono,dueno = getDatosDueno(prop[0])
+                        except:
+                            email="NN"
+                            telefono="NN"
+                            dueno="NN"
+
+                    else:
+                        email = "NN"
+                        telefono = "NN"
+                        if (prop[16]==1):
+                            dueno='si'
+                        elif (prop[16]==0):
+                            dueno='no'
+                        else:
+                            dueno='NN'
+                    if (str(dueno) == corredor or (dueno == "NN" and corredor != "a")):
                         if verboso:
-                            print("[GeneradorReportes] La propiedad encontrada "+str(dueno)+" es gestionada por un dueño")
+                            print("[GeneradorReportes] La propiedad encontrada " + str(
+                                dueno) + " es gestionada por un dueño")
                         continue
                     subresultado.append(email)
                     subresultado.append(telefono)
