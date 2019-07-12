@@ -2339,7 +2339,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
 
     #Arreglar Mandada de mails
-    if nombrecarpetadb is not None:
+    if nombrecarpetadb is None:
         sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
 
 
