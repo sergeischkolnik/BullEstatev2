@@ -2329,7 +2329,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     #writeCsv(nombreArchivo, resultado, columnNames, operacion)
                     writeXlsx(path,resultado,columnNames,operacion)
 
-                    listaAdjuntos.append(nombreArchivo)
+                    listaAdjuntos.append(path)
 
                     if verboso:
                         print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
@@ -2339,8 +2339,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
 
     #Arreglar Mandada de mails
-    if nombrecarpetadb is None:
-        sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
+
+    sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
 
 
 if __name__ == '__main__':
