@@ -2334,7 +2334,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
 
-                    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(nombreCliente),str(nombreCliente),str(fechahoy))
+                    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(nombreCliente),str(fechahoy))
 
                     #writeCsv(nombreArchivo, resultado, columnNames, operacion)
                     writeXlsx(path,resultado,columnNames,operacion)
