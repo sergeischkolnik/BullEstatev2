@@ -2324,7 +2324,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy)
 
-                    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(fechahoy),nombreArchivo)
+                    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(fechahoy),str(nombrecliente),nombreArchivo)
 
                     #writeCsv(nombreArchivo, resultado, columnNames, operacion)
                     writeXlsx(path,resultado,columnNames,operacion)
