@@ -1758,9 +1758,9 @@ def getDatosDueno(idProp2):
     result = result[0]
     return result[0],result[1],result[2]
 
-def crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy):
+def crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy,nombreCliente):
     # Create target Directory if don't exist
-    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(fechahoy))
+    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(fechahoy),str(nombreCliente))
     if not os.path.exists(path):
         os.mkdir(path)
 
@@ -2322,9 +2322,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + str(comuna) + " " + str(
                         d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
 
-                    crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy)
+                    crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy,nombreCliente)
 
-                    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(fechahoy),str(nombrecliente),nombreArchivo)
+                    path = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(fechahoy),str(nombreCliente),nombreArchivo)
 
                     #writeCsv(nombreArchivo, resultado, columnNames, operacion)
                     writeXlsx(path,resultado,columnNames,operacion)
