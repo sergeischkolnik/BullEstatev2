@@ -19,8 +19,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     operacion=str(propiedad[2])
     tipo=str(propiedad[3])
     precio=int(propiedad[4])
-    preciouf=str(int(precio/uf1))
-    precio=str(format(precio,'.2f'))
+    preciouf=(int(precio/uf1))
+    preciouf=str(preciouf)
+    preciouf=preciouf.replace(',','.')
+    precio=str(format(precio,','))
+    precio=precio.replace(',','.')
     dormitorios=str(int(propiedad[5]))
     banos=str(int(propiedad[6]))
     metrosmin=str(int(propiedad[7]))
@@ -65,11 +68,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(Spacer(1, 12))
 
     if operacion=='venta':
-        ptext = '<font size=12>Precio: UF'+str(preciouf)+'</font>'
+        ptext = '<font size=12>Precio: UF '+str(preciouf)+'</font>'
         Story.append(Paragraph(ptext, styles["Justify"]))
         Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>Precio: $'+str(precio)+'</font>'
+    ptext = '<font size=12>Precio: $ '+str(precio)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
