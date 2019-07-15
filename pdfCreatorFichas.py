@@ -74,7 +74,7 @@ def crearPdfFicha(id,propiedad,fotos):
     for x,foto in enumerate(fotos):
 
         pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
-        Story.append(Image(pathfoto))
+        Story.append(Image(pathfoto)._restrictSize(2 * inch, 3 * inch))
 
 
 
