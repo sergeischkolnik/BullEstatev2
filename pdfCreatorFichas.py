@@ -60,7 +60,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>Tipo: '+str(tipo.caputalize())+'</font>'
+    ptext = '<font size=12>Tipo: '+str(tipo.capitalize())+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
