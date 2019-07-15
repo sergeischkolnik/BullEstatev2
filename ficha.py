@@ -81,7 +81,7 @@ def crearFicha(sitio,id,mail):
 
     #sacar informacion de bbdd, y chequear que propiedad existe:
     propiedad=obtenerProp(id,sitio)
-
+    propiedad=list(propiedad)
     if len(propiedad)<1:
         text='¨Propiedad no se encuentra en la base de datos.'
         return(text)
