@@ -71,7 +71,7 @@ def crearPdfFicha(id,propiedad,fotos):
     Story.append(Spacer(1, 12))
 
     for foto in fotos:
-        Story.append(foto)
+        Story.append(Image(foto))
 
 
 
