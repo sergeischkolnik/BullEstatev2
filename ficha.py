@@ -41,7 +41,7 @@ def obtenerProp(id,sitio):
         sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link from propiedades WHERE id2="+str(id)
     cur.execute(sql)
     propiedad = cur.fetchall()
-    return propiedad
+    return propiedad[0]
 
 
 def crearFicha(sitio,id,mail):
