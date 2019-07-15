@@ -38,7 +38,7 @@ def crearPdfFicha(fileName,id,propiedad,fotos):
 
     Story=[]
 
-    ptext = '<font size=12>FICHA PROPIEDAD</font>'
+    ptext = '<font size=12>FICHA PROPIEDAD:'+str(id)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
@@ -51,6 +51,10 @@ def crearPdfFicha(fileName,id,propiedad,fotos):
     Story.append(Spacer(1, 12))
 
     ptext = '<font size=12>Tipo: '+str(tipo)+'</font>'
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(1, 12))
+
+    ptext = '<font size=12>Precio: $'+str(precio)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
@@ -70,10 +74,10 @@ def crearPdfFicha(fileName,id,propiedad,fotos):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    # for x,foto in enumerate(fotos):
-    #
-    #     pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
-    #     Story.append(Image(pathfoto)._restrictSize(2 * inch, 3 * inch))
+    for x,foto in enumerate(fotos):
+
+        pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
+        Story.append(Image(pathfoto)._restrictSize(2 * inch, 3 * inch))
 
 
     Story=list(Story)
