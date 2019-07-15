@@ -11,6 +11,7 @@ import reportes as rp
 import threading
 import mailBotClientesCarolina
 import mailBotClientesPahola
+import ficha
 
 thrFran = -1
 thrFer = -1
@@ -39,7 +40,8 @@ comandosIndividuales = ['hola',
                         'stoppahola',
                         'gocarolina',
                         'stopcarolina',
-                        'canjeador']
+                        'canjeador',
+                        'ficha']
 
 comandosMultiples = ['reporte',
                      'reporteinterno',
@@ -48,7 +50,8 @@ comandosMultiples = ['reporte',
                      'banear',
                      'actualizarestadodueno',
                      'actualizarcomentariodueno',
-                     'canjeador']
+                     'canjeador',
+                     'ficha']
 
 id_chats_updates = ["485728961","652659504","9561926"]
 
@@ -362,6 +365,11 @@ def echo_all(updates):
                            "<dormitoriosMin> <dormitoriosMax>" \
                            "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion> " \
                            "<region> <comuna> <mail> <nombre> <distancia> <direccion>"
+
+                # ficha
+                elif text == comandosIndividuales[16]:
+                    text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
 
                 #no encontrado
                 else:
@@ -799,6 +807,17 @@ def echo_all(updates):
                         text += "comuna:" + comuna+ "\n"
                         text += "mail:" + mail + "\n"
                         text += "nombre:" + nombre+ "\n"
+
+                # Ficha
+                elif arr[0] == comandosMultiples[16]:
+                    if (len(arr)!=4):
+                        text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                    else:
+                        sitio=str(arr[1])
+                        id=int(arr[2])
+                        mail=str(arr[3])
+                        ficha.crearFicha(sitio,id,mail)
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
