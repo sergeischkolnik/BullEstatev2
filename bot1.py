@@ -809,7 +809,7 @@ def echo_all(updates):
                         text += "nombre:" + nombre+ "\n"
 
                 # Ficha
-                elif arr[0] == comandosMultiples[16]:
+                elif arr[0] == comandosMultiples[8]:
                     if (len(arr)!=4):
                         text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
                            "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
