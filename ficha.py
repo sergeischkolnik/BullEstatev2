@@ -110,6 +110,7 @@ def crearFicha(sitio,id,mail):
         return(text)
     #sacar informacion de la publicacion
     fotos=[]
+    #sacar urls fotos portal
     if sitio=='portal':
         url=[]
         link='http://www.portalinmobiliario.com/venta/casa/quinta-normal-metropolitana/3920266-casa-con-taller-mecanico-uda?tp=1&op=1&iug=441&ca=2&ts=1&mn=1&or=&sf=0&sp=0&at=0&i=78'
@@ -119,10 +120,23 @@ def crearFicha(sitio,id,mail):
         for meta in metatext:
             if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '1200' in meta:
                 meta=meta.split('"')
-                print(str(meta[1]))
+
                 url.append(str(meta[1]))
-                propiedad.append(str(meta[1]))
-    print(propiedad)
+     #Sacar urls fotos yapo
+    else:
+        text='aun no se desarrolla Yapo'
+        return (text)
+    #Sacar fotos de urls
+    if len(url)==0:
+        print("la propiedad no cuenta con fotografias")
+    else:
+        for u in url:
+            response = requests.get(u)
+            img = Image.open(BytesIO(response.content))
+            fotos.append(img)
+            img.save()
+
+
     #Crear PDF
 
     #Enviar PDF
