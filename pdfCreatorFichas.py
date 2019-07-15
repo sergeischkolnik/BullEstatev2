@@ -93,7 +93,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>Dormitorios/Baños: '+str(dormitorios)+'/'+str(banos)+'</font>'
+    ptext = '<font size=12>Dormitorios: '+str(dormitorios)+'</font>'
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(1, 12))
+
+    ptext = '<font size=12>Baños: '+str(banos)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
@@ -101,9 +105,13 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>Estacionamientos/Bodegas: '+str(estacionamientos)+'/'+str(bodegas)+'</font>'
+    ptext = '<font size=12>Estacionamientos: '+str(estacionamientos)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
+
+    ptext = '<font size=12>Bodegas: '+str(bodegas)+'</font>'
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(3, 36))
 
     for x in range(0,lenfotos):
 
