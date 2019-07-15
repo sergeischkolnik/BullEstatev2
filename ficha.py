@@ -53,7 +53,7 @@ def obtenerProp(id,sitio):
     else:
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
         cur = mariadb_connection.cursor()
-        sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link from propiedades WHERE id2="+str(id)
+        sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link,comuna from propiedades WHERE id2="+str(id)
     cur.execute(sql)
     propiedad = cur.fetchall()
     return propiedad[0]
@@ -102,6 +102,19 @@ def crearFicha(sitio,id,mail):
         lat=str(propiedad[11])
         lon=str(propiedad[12])
         link=str(propiedad[13])
+        if sitio=='portal':
+            if operacion=='venta':
+                comuna=str(link.split('/')[5])
+                comuna=comuna.replace('-metropolitana','')
+                comuna=comuna.replace('-',' ')
+                comuna=comuna.capitalize()
+            else:
+                comuna=str(link.split('/')[6])
+                comuna=comuna.replace('-metropolitana','')
+                comuna=comuna.replace('-',' ')
+                comuna=comuna.capitalize()
+        else:
+            comuna=str(propiedad[14])
 
 
     #Revisar si existe aun la publicacion
@@ -136,7 +149,7 @@ def crearFicha(sitio,id,mail):
     lenfotos=len(url)
     #Crear PDF
     nombrearchivo="Ficha Propiedad id:"+str(id)+" ("+str(nombre[:30]+").pdf")
-    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos)
+    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,comuna)
     print("pdf generado con exito")
     #Enviar PDF
     sendmail.sendMail(mail,"",nombrearchivo)
