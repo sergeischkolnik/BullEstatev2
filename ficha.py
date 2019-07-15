@@ -120,8 +120,8 @@ def crearFicha(sitio,id,mail):
             if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '1200' in meta:
                 meta=meta.split('"')
                 print(str(meta[1]))
-                #url.append(str(meta[1]))
-                #propiedad.append(meta[1])
+                url.append(str(meta[1]))
+                propiedad.append(str(meta[1]))
     print(propiedad)
     #Crear PDF
 
