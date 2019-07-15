@@ -13,23 +13,32 @@ import os
 
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
+
     uf1=uf.getUf()
+
     nombre=str(propiedad[0])
     region=str(propiedad[1])
     operacion=str(propiedad[2])
     tipo=str(propiedad[3])
+
     precio=int(propiedad[4])
+
     preciouf=(int(precio/uf1))
-    preciouf=str(preciouf)
+    preciouf=str(format(preciouf,','))
     preciouf=preciouf.replace(',','.')
+
     precio=str(format(precio,','))
     precio=precio.replace(',','.')
+
     dormitorios=str(int(propiedad[5]))
     banos=str(int(propiedad[6]))
+
     metrosmin=str(int(propiedad[7]))
     metrosmax=str(int(propiedad[8]))
+
     estacionamientos=str(int(propiedad[9]))
     bodegas=str(int(propiedad[10]))
+
     lat=str(propiedad[11])
     lon=str(propiedad[12])
     link=str(propiedad[13])
@@ -51,7 +60,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(image)
     Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>FICHA PROPIEDAD:'+str(id)+'</font>'
+    ptext = '<font size=14,font-weight: bold>FICHA PROPIEDAD:'+str(id)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
