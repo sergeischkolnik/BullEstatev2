@@ -133,9 +133,7 @@ def crearFicha(sitio,id,mail):
         for x,u in enumerate (url):
             response = requests.get(u)
             img = Image.open(BytesIO(response.content))
-            fotos.append(img)
-            pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
-            img.save(pathfoto)
+            img.save(str(x)+" foto.jpg")
     lenfotos=len(fotos)
     #Crear PDF
     nombrearchivo="Ficha Propiedad id:"+str(id)+" ("+str(nombre[:30]+").pdf")
