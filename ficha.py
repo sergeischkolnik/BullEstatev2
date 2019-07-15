@@ -106,7 +106,7 @@ def crearFicha(sitio,id,mail):
 
     #Revisar si existe aun la publicacion
     if not pubPortalExiste.publicacionExiste(link):
-        text='¨Propiedad ya no se encuentra disponible en el sitio.'
+        text='Propiedad ya no se encuentra disponible en el sitio.'
         return(text)
     #sacar informacion de la publicacion
     fotos=[]
@@ -119,8 +119,9 @@ def crearFicha(sitio,id,mail):
         for meta in metatext:
             if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '1200' in meta:
                 meta=meta.split('"')
-                url.append(meta[1])
-                propiedad.append(meta[1])
+                print(meta[1])
+                #url.append(meta[1])
+                #propiedad.append(meta[1])
     print(propiedad)
     #Crear PDF
 
