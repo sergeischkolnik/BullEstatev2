@@ -72,6 +72,7 @@ def crearFicha(sitio,id,mail):
         return(text)
     else:
 
+        print(propiedad)
 
         nombre=str(propiedad[0])
         region=str(propiedad[1])
