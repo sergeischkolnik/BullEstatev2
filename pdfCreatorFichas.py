@@ -77,5 +77,5 @@ def crearPdfFicha(id,propiedad,fotos):
         Story.append(Image(pathfoto)._restrictSize(2 * inch, 3 * inch))
 
 
-
+    Story=list(Story)
     doc.build(Story)
