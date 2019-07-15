@@ -142,7 +142,7 @@ def crearFicha(sitio,id,mail):
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,fotos)
     print("pdf generado con exito")
     #Enviar PDF
-
+    sendmail.sendMail(mail,"",nombrearchivo)
     #Retornar exito
     text = "Ficha creada para la propiedad: "+str(id)+" obtenida del sitio: "+str(sitio)+", enviada con éxito al correo: "+str(mail)+"."
     return(text)
