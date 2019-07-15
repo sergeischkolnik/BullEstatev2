@@ -43,3 +43,22 @@ comuna=comuna.replace('-metropolitana','')
 comuna=comuna.replace('-',' ')
 comuna=comuna.capitalize()
 print(comuna)
+
+sqlAux1="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios='2'))"
+
+sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
+          "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
+          "portalinmobiliario.fechascrap>='2019-07-09' and portalinmobiliario.fechapublicacion>'2019-04-15' and " \
+          "((portalinmobiliario.link like '%con-con%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%renaca%' and "+sqlAux1+"));"
+          # "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
+          # "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
+          # "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
+          # "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux1+") or " \
+          # "(portalinmobiliario.link like '%la-florida%' and "+sqlAux1+") or " \
+          # "(portalinmobiliario.link like '%maipu%' and "+sqlAux1+") or " \
+          # "(portalinmobiliario.link like '%la-cisterna%' and "+sqlAux1+") or " \
+          # "(portalinmobiliario.link like '%recoleta%' and "+sqlAux1+") or " \
+          # "(portalinmobiliario.link like '%renaca%'));"
+print(sqlDeptosArriendo)

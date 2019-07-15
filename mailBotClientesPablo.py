@@ -18,7 +18,7 @@ sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobili
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "((portalinmobiliario.link like '%con-con%' and "+sqlAux1+") or " \
+          "((portalinmobiliario.link like '%concon%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%renaca%' and "+sqlAux1+"));"
           # "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
