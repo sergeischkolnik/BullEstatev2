@@ -817,7 +817,7 @@ def echo_all(updates):
                         sitio=str(arr[1])
                         id=int(arr[2])
                         mail=str(arr[3])
-                        ficha.crearFicha(sitio,id,mail)
+                        text=ficha.crearFicha(sitio,id,mail)
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
