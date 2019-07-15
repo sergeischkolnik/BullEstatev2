@@ -74,10 +74,10 @@ def crearPdfFicha(fileName,id,propiedad,fotos):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    for x,foto in enumerate(fotos):
-
-        pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
-        Story.append(Image(pathfoto)._restrictSize(2 * inch, 3 * inch))
+    # for x,foto in enumerate(fotos):
+    #
+    #     pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
+    #     Story.append(Image(pathfoto)._restrictSize(2 * inch, 3 * inch))
 
 
     Story=list(Story)
