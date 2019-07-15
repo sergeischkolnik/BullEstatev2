@@ -20,7 +20,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     tipo=str(propiedad[3])
     precio=int(propiedad[4])
     preciouf=str(int(precio/uf1))
-    precio=str(precio)
+    precio=str(format(precio,'.2f'))
     dormitorios=str(int(propiedad[5]))
     banos=str(int(propiedad[6]))
     metrosmin=str(int(propiedad[7]))
@@ -46,6 +46,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     image = Image('bull_logo2.png', hAlign='LEFT')
     image._restrictSize(2 * inch, 3 * inch)
     Story.append(image)
+    Story.append(Spacer(1, 12))
 
     ptext = '<font size=12>FICHA PROPIEDAD:'+str(id)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
@@ -55,11 +56,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>Operacion: '+str(operacion)+'</font>'
+    ptext = '<font size=12>Operacion: '+str(operacion.capitalize())+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>Tipo: '+str(tipo)+'</font>'
+    ptext = '<font size=12>Tipo: '+str(tipo.caputalize())+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
@@ -72,7 +73,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>Región: '+str(region)+'</font>'
+    ptext = '<font size=12>Región: '+str(region.capitalize())+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
@@ -84,7 +85,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>Superficies: '+str(metrosmin)+'/'+str(metrosmax)+'</font>'
+    ptext = '<font size=12>Superficies: '+str(metrosmin)+'mts2/'+str(metrosmax)+'mts2</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
@@ -95,7 +96,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     for x in range(0,lenfotos):
 
         image = Image(str(x)+" foto.jpg", hAlign='LEFT')
-        image._restrictSize(4 * inch, 6 * inch)
+        image._restrictSize(6 * inch, 9 * inch)
         Story.append(image)
 
     Story=list(Story)
