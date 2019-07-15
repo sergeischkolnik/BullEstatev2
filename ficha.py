@@ -146,11 +146,9 @@ def crearFicha(sitio,id,mail):
             response = requests.get(u)
             img = Image.open(BytesIO(response.content))
             img.save(str(x)+" foto.jpg")
-            print(str(x)+" foto.jpg")
     lenfotos=len(url)
     #Crear PDF
-    print(str(nombre[:30])+".pdf")
-    nombrearchivo="Ficha Propiedad id:"+str(id)+" ("+str(nombre[:30]+").pdf")
+    nombrearchivo="Ficha Propiedad id:"+str(id)+" ("+str(nombre(' ','')[:30]+").pdf")
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,comuna)
     print("pdf generado con exito")
     #Enviar PDF
