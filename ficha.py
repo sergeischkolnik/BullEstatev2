@@ -139,10 +139,9 @@ def crearFicha(sitio,id,mail):
 
     #Crear PDF
     nombrearchivo="Ficha Propiedad id:"+str(id)+" ("+str(nombre[:30]+").pdf")
-    pdf=pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,fotos)
+    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,fotos)
     print("pdf generado con exito")
     patharchivo = os.path.join(os.path.expanduser('~'), 'fotos',nombrearchivo)
-    pdf.save(patharchivo)
     #Enviar PDF
 
     #Retornar exito
