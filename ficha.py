@@ -42,7 +42,7 @@ from requests_html import HTMLSession
 session = HTMLSession()
 from PIL import Image
 from io import BytesIO
-
+import pdfCreatorFichas
 
 def obtenerProp(id,sitio):
 
@@ -134,11 +134,14 @@ def crearFicha(sitio,id,mail):
             response = requests.get(u)
             img = Image.open(BytesIO(response.content))
             fotos.append(img)
-            patharchivo = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
-            img.save(patharchivo)
+            pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
+            img.save(pathfoto)
 
     #Crear PDF
-
+    pdf=pdfCreatorFichas.crearPdfFicha(id,propiedad,fotos)
+    print("pdf generado con exito")
+    patharchivo = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" ficha.pdf")
+    pdf.save()
     #Enviar PDF
 
     #Retornar exito
