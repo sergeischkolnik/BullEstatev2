@@ -140,6 +140,17 @@ def crearFicha(sitio,id,mail):
     print("pdf generado con exito")
     #Enviar PDF
     sendmail.sendMail(mail,"",nombrearchivo)
+
+    #Eliminar del servidor
+
+    if len(url)==0:
+        pass
+    else:
+        for x,u in enumerate (url):
+            os.remove(str(x)+" foto.jpg")
+
+    os.remove(nombrearchivo)
+
     #Retornar exito
     text = "Ficha creada para la propiedad: "+str(id)+" obtenida del sitio: "+str(sitio)+", enviada con éxito al correo: "+str(mail)+"."
     return(text)
