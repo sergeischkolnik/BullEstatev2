@@ -11,23 +11,38 @@ from time import sleep
 from datetime import datetime, timedelta
 import pdfCreatorReportes as pdfC
 import uf
-# import numpy as np
-# from sklearn import datasets, linear_model
-# import sendmail
-# import tasadorbot2 as tb2
+import numpy as np
+from sklearn import datasets, linear_model
+import sendmail
+import tasadorbot2 as tb2
 import pubPortalExiste
-# import math
-# import csv
-# from csvWriter import writeCsv
-# from csvWriter import writeCsvCanje
-# from xlsxWriter import writeXlsx
-# import os
-# import bot1 as tgbot
-# import googleMapApi as gm
+import math
+import csv
+from csvWriter import writeCsv
+from csvWriter import writeCsvCanje
+from xlsxWriter import writeXlsx
+import os
+import bot1 as tgbot
+import googleMapApi as gm
 import datetime
 fechahoy = datetime.datetime.now()
 fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 uf1=uf.getUf()
+import math
+from lxml import html
+import requests
+import datetime
+from threading import Thread
+import pymysql as mysql
+from itertools import cycle
+import agentCreator
+import time
+import random
+from requests_html import HTMLSession
+session = HTMLSession()
+from PIL import Image
+from io import BytesIO
+
 
 def obtenerProp(id,sitio):
 
@@ -95,7 +110,17 @@ def crearFicha(sitio,id,mail):
         text='¨Propiedad ya no se encuentra disponible en el sitio.'
         return(text)
     #sacar informacion de la publicacion
-
+    fotos=[]
+    if sitio=='portal':
+        page2 = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
+        tree2 = html.fromstring(page2.content)
+        xpath='//*[@id="miniGaleriaLateral"]/div/ul/li[1]/a/img'
+        url=tree2.xpath(xpath)
+        print(url)
+        # response = requests.get(url)
+        # img = Image.open(BytesIO(response.content))
+        # fotos.append(img)
+        # print(len(fotos))
     #Crear PDF
 
     #Enviar PDF
