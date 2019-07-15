@@ -130,12 +130,12 @@ def crearFicha(sitio,id,mail):
     if len(url)==0:
         print("la propiedad no cuenta con fotografias")
     else:
-        for u in url:
+        for x,u in enumerate (url):
             response = requests.get(u)
             img = Image.open(BytesIO(response.content))
             fotos.append(img)
-            img.save()
-
+            patharchivo = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
+            img.save(patharchivo)
 
     #Crear PDF
 
