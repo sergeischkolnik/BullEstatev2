@@ -136,10 +136,10 @@ def crearFicha(sitio,id,mail):
             fotos.append(img)
             pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
             img.save(pathfoto)
-
+    lenfotos=len(fotos)
     #Crear PDF
     nombrearchivo="Ficha Propiedad id:"+str(id)+" ("+str(nombre[:30]+").pdf")
-    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,fotos)
+    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos)
     print("pdf generado con exito")
     #Enviar PDF
     sendmail.sendMail(mail,"",nombrearchivo)
