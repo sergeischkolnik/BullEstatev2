@@ -77,6 +77,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos):
     for x in range(0,lenfotos):
 
         image = Image(str(x)+" foto.jpg", hAlign='LEFT')
+        image._restrictSize(4 * inch, 6 * inch)
         Story.append(image)
 
     Story=list(Story)

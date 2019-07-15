@@ -109,7 +109,6 @@ def crearFicha(sitio,id,mail):
         text='Propiedad ya no se encuentra disponible en el sitio.'
         return(text)
     #sacar informacion de la publicacion
-    fotos=[]
     #sacar urls fotos portal
     if sitio=='portal':
         url=[]
@@ -118,7 +117,7 @@ def crearFicha(sitio,id,mail):
         metatext=page.text
         metatext=metatext.split(' ')
         for meta in metatext:
-            if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '270' in meta:
+            if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '1200' in meta:
                 meta=meta.split('"')
 
                 url.append(str(meta[1]))
@@ -134,7 +133,7 @@ def crearFicha(sitio,id,mail):
             response = requests.get(u)
             img = Image.open(BytesIO(response.content))
             img.save(str(x)+" foto.jpg")
-    lenfotos=len(fotos)
+    lenfotos=len(url)
     #Crear PDF
     nombrearchivo="Ficha Propiedad id:"+str(id)+" ("+str(nombre[:30]+").pdf")
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos)
