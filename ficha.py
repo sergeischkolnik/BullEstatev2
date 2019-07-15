@@ -118,7 +118,7 @@ def crearFicha(sitio,id,mail):
         metatext=page.text
         metatext=metatext.split(' ')
         for meta in metatext:
-            if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '1200' in meta:
+            if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '270' in meta:
                 meta=meta.split('"')
 
                 url.append(str(meta[1]))
