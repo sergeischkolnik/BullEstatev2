@@ -148,9 +148,7 @@ def crearFicha(sitio,id,mail):
             img.save(str(x)+" foto.jpg")
     lenfotos=len(url)
     #Crear PDF
-    nombrearchivo="Ficha Propiedad Id:"+str(id)+" ("+str(nombre)[:30]+").pdf"
-    nombrearchivo=nombrearchivo.encode('utf-8',errors='ignore')
-    nombrearchivo=nombrearchivo[1:]
+    nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+" Id:"+str(id)+".pdf"
     print(nombrearchivo)
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,comuna)
     print("pdf generado con exito")
