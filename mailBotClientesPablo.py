@@ -12,7 +12,7 @@ yesterday=datetime.date(yesterday)
 
 sleepTime=random.randint(150,250)
 
-sqlAux1="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios='2')"
+sqlAux1="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios='2'))"
 
 sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
@@ -30,7 +30,7 @@ sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobili
           # "(portalinmobiliario.link like '%recoleta%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%renaca%'));"
 
-sqlAux="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios='2')"
+sqlAux="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios='2'))"
 
 sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
