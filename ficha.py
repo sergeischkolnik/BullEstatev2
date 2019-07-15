@@ -157,7 +157,7 @@ def crearFicha(sitio,id,mail):
 
 
 def main():
-    texto=crearFicha('portal',3893924,'sergei@bullestate.cl')
+    texto=crearFicha('portal',3893924,'sergei.schkolnik@gmail.com')
     print(texto)
 
 if __name__ == '__main__':
