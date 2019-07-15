@@ -125,7 +125,6 @@ def crearFicha(sitio,id,mail):
     #sacar urls fotos portal
     if sitio=='portal':
         url=[]
-        link='http://www.portalinmobiliario.com/venta/casa/quinta-normal-metropolitana/3920266-casa-con-taller-mecanico-uda?tp=1&op=1&iug=441&ca=2&ts=1&mn=1&or=&sf=0&sp=0&at=0&i=78'
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
         metatext=page.text
         metatext=metatext.split(' ')
