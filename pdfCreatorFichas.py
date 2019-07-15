@@ -58,11 +58,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     image = Image('bull_logo2.png', hAlign='LEFT')
     image._restrictSize(2 * inch, 3 * inch)
     Story.append(image)
-    Story.append(Spacer(1, 12))
+    Story.append(Spacer(1, 14))
 
     ptext = '<font size=14>FICHA PROPIEDAD:'+str(id)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
+    Story.append(Spacer(1, 16))
 
     ptext = '<font size=12>Nombre: '+str(nombre)+'.</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
