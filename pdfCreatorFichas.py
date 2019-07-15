@@ -9,6 +9,7 @@ from reportlab import platypus
 from  reportlab.lib.styles import ParagraphStyle as PS
 import locale
 import uf
+import os
 
 def crearPdfFicha(id,propiedad,fotos):
 
@@ -70,8 +71,10 @@ def crearPdfFicha(id,propiedad,fotos):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    for foto in fotos:
-        Story.append(Image(foto))
+    for x,foto in enumerate(fotos):
+
+        pathfoto = os.path.join(os.path.expanduser('~'), 'fotos',str(x)+" foto.jpg")
+        Story.append(Image(pathfoto))
 
 
 
