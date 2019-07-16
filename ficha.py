@@ -128,7 +128,21 @@ def crearFicha(sitio,id,mail):
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
         metatext=page.text
         metatext=metatext.split(' ')
+        descripcion=[]
+        savedescripcion=False
+        for texto in metatext:
+
+            if 'propiedad-descr' in texto:
+                savedescripcion=True
+            if '/div' in texto:
+                savedescripcion = False
+            if savedescripcion:
+                descripcion.append(str(texto))
+        descripcion=descripcion[2:]
+        descripcion=descripcion.join(' ')
+        propiedad.append(descripcion)
         for meta in metatext:
+
             if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '1200' in meta:
                 meta=meta.split('"')
 

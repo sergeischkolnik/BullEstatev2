@@ -46,6 +46,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     lon=str(propiedad[12])
     link=str(propiedad[13])
 
+    descripcion=propiedad{15}
+
 
 
     styles=getSampleStyleSheet()
@@ -116,12 +118,20 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(PageBreak())
 
+    ptext = '<font size=14>DESCRIPCIÓN:</font>'
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(1, 12))
+
+    ptext = '<font size=12>' + str(descripcion) + '</font>'
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(PageBreak())
+
     for x in range(0,lenfotos):
 
         image = Image(str(x)+" foto.jpg", hAlign='LEFT')
         image._restrictSize(6 * inch, 9 * inch)
         Story.append(image)
-        Story.append(Spacer(1, 2))
+        Story.append(Spacer(1, 4))
 
     Story=list(Story)
     doc.build(Story)
