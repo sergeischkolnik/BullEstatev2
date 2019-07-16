@@ -14,12 +14,10 @@ import os
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
 
-    print(propiedad)
     uf1=uf.getUf()
     for x,p in enumerate (propiedad):
         if p is None:
             propiedad[x]=0
-    print(propiedad)
     nombre=str(propiedad[0])
     region=str(propiedad[1])
     operacion=str(propiedad[2])
