@@ -74,6 +74,7 @@ def echo_all(updates):
             print(arr[0])
 
             if len(arr) == 1:
+                print("ejecutando comando simple")
                 # comandos simples
                 text = arr[0]
 
@@ -97,7 +98,7 @@ def echo_all(updates):
 
             elif len(arr) > 1:
                 # comandos multiples
-
+                print('ejecutando comando multiple')
                 # Ficha
                 if arr[0] == comandosMultiples[1]:
                     if (len(arr)!=4):
