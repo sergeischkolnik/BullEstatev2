@@ -190,7 +190,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         if operacion=='venta':
 
 
-            rentaPromedio = rentaPProm(tipo, dormitorios, banos, estacionamientos, comuna)
+            rentaPromedio = reportes.rentaPProm(tipo, dormitorios, banos, estacionamientos, comuna)
             tasacionVenta = tb2.calcularTasacionData("venta", tipo, lat, lon, metrosmin,metrosmax,dormitorios,
                                                      banos, estacionamientos, props)
             tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, lat, lon, metrosmin,metrosmax,dormitorios,
