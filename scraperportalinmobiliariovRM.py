@@ -650,12 +650,8 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 bodegas=obtenerBodegas(texts)
                 estacionamientos=obtenerEstacionamientos(texts)
                 metatext = page3.text
-                print("metatext obtenido")
                 descripcion=obtenerDescripcion(metatext)
-                print(descripcion)
-                print("descripcion obtenida")
-                insertarDescripcion(descripcion,code)
-                print("descripcion insertada")
+                #insertarDescripcion(descripcion,code)
                 fechahoy = datetime.datetime.now()
                 fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 
