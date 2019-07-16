@@ -61,6 +61,8 @@ def echo_all(updates):
     global thrReportes
     for update in updates["result"]:
         try:
+            print(arr)
+            print(arr{0})
             text = update["message"]["text"]
             text = text.strip(' ')
             text = text.lower()
