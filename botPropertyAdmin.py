@@ -11,6 +11,9 @@ import reportes as rp
 import threading
 import ficha
 import types
+import telebot as tb
+from telebot import types
+
 
 
 TOKEN = "864014186:AAGrFbg92jxFplBVlYSXh9brToc2aal3RMg"
@@ -72,11 +75,10 @@ def echo_all(updates):
 
             chat = update["message"]["chat"]["id"]
 
-            menuKeyboard = types.InlineKeyboardMarkup()
-            menuKeyboard.add(types.InlineKeyboardButton('Button1', callback_data='button1'),
-                             types.InlineKeyboardButton('Button2', callback_data='button2'))
-
-            bot.send_message("Menu",chat, reply_markup=menuKeyboard)
+            markup = types.ReplyKeyboardMarkup()
+            markup.row('a', 'v')
+            markup.row('c', 'd', 'e')
+            tb.send_message(chat,"teclado", None, None, markup)
 
             if len(arr) == 1:
                 print("ejecutando comando simple")
