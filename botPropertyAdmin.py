@@ -11,13 +11,26 @@ import reportes as rp
 import threading
 import ficha
 import telebot
-from telebot import types
+import telegram
+import os, sys                # Basic python libraries
+import os.path as path        # Basic python libraries
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
+import time
+from datetime import datetime # Basic python libraries
+from errores import key_b,key_ed,key_o, key_eden, key_oen
+from pafy_test import key_f, key_fen   # From file "pafy_test.py"
+from sender import sender
+from curl import descarga              # From file "curl.py"
+from get_Vid_Id import get_yt_video_id # From file "get_Vid_Id.py"
+from database import write_database,read_database,write_os,read_os,read_audio,set_audio
+
+
 
 
 
 TOKEN = "864014186:AAGrFbg92jxFplBVlYSXh9brToc2aal3RMg"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
-tb = telebot.TeleBot(TOKEN)
 
 
 # TODOS LOS COMANDOS SIEMPRE SOLO MINUSCULAS
@@ -74,10 +87,13 @@ def echo_all(updates):
 
             chat = update["message"]["chat"]["id"]
 
-            markup = types.ReplyKeyboardMarkup()
-            markup.row('a', 'v')
-            markup.row('c', 'd', 'e')
-            tb.send_message(chat,"teclado", None, None, markup)
+            keyboard = [[InlineKeyboardButton("Español 🇪🇸", callback_data='es'),
+                         InlineKeyboardButton("English 🇬🇧", callback_data='en')]]
+
+            reply_markup2 = InlineKeyboardMarkup(keyboard)
+
+            bot.sendMessage(text='Elige tu idioma / choose your language:',
+                            parse_mode=telegram.ParseMode.MARKDOWN, reply_markup=reply_markup2, chat_id=chat)
 
             if len(arr) == 1:
                 print("ejecutando comando simple")
@@ -140,6 +156,13 @@ def get_last_chat_id_and_text(updates):
     chat_id = updates["result"][last_update]["message"]["chat"]["id"]
     return (text, chat_id)
 
+def key_l(bot, update,chat_id):
+    keyboard = [[InlineKeyboardButton("Español 🇪🇸", callback_data='es'),InlineKeyboardButton("English 🇬🇧", callback_data='en')]]
+
+    reply_markup2 = InlineKeyboardMarkup(keyboard)
+
+    bot.sendMessage(text='Elige tu idioma / choose your language:',
+      parse_mode=telegram.ParseMode.MARKDOWN, reply_markup=reply_markup2, chat_id=chat_id)
 
 def send_message(text, chat_id, urlP):
     text = urllib.parse.quote_plus(text)
