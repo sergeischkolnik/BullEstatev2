@@ -144,6 +144,37 @@ def esDueno(mail):
         return "no"
 
 
+def obtenerDescripcion(metatext):
+    metatext = metatext.split(' ')
+    descripcion = []
+    savedescripcion = False
+    for texto in metatext:
+
+        if 'propiedad-descr' in texto:
+            savedescripcion = True
+        if '/div' in texto:
+            savedescripcion = False
+        if savedescripcion:
+            descripcion.append(str(texto))
+    descripcion = descripcion[2:]
+
+    descripcion = ' '.join(descripcion)
+    descripcion = descripcion.replace('   ', '')
+    descripcion = descripcion.replace('<br />', '\n')
+    return descripcion
+
+def insertarDescripcion(descripcion,id2):
+    sql = "INSERT INTO tags(idProp,descripcion) VALUES('"+str(id2)+"','"+str(descripcion)+"' ON DUPLICATE KEY UPDATE descripcion=descripcion"+str(descripcion)+"'"
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
+
 def obtenerBodegas(texts):
     bodegas=0
     for texto in texts:
@@ -618,7 +649,9 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
                 bodegas=obtenerBodegas(texts)
                 estacionamientos=obtenerEstacionamientos(texts)
-
+                metatext = page3.text
+                descripcion=obtenerDescripcion(metatext)
+                insertarDescripcion(descripcion)
                 fechahoy = datetime.datetime.now()
                 fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 
