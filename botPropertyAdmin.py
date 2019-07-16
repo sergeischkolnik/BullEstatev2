@@ -70,8 +70,7 @@ def echo_all(updates):
 
             chat = update["message"]["chat"]["id"]
 
-            print(arr)
-            print(arr[0])
+
 
             if len(arr) == 1:
                 print("ejecutando comando simple")
@@ -99,8 +98,13 @@ def echo_all(updates):
             elif len(arr) > 1:
                 # comandos multiples
                 print('ejecutando comando multiple')
+
+                print(arr[0])
+                print(comandosMultiples[1])
                 # Ficha
+                
                 if arr[0] == comandosMultiples[1]:
+                    print("ejecutando creacion de ficha")
                     if (len(arr)!=4):
                         text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
                            "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
