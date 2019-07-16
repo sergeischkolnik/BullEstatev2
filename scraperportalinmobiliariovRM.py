@@ -654,7 +654,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 descripcion=obtenerDescripcion(metatext)
                 print(descripcion)
                 print("descripcion obtenida")
-                insertarDescripcion(descripcion)
+                insertarDescripcion(descripcion,code)
                 print("descripcion insertada")
                 fechahoy = datetime.datetime.now()
                 fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
