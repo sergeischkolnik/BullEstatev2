@@ -141,6 +141,9 @@ def crearFicha(sitio,id,mail):
         descripcion=descripcion[2:]
 
         descripcion=' '.join(descripcion)
+        descripcion=descripcion.replace('   ','')
+        descripcion=descripcion.replace('<br />','\n')
+
         propiedad.append(descripcion)
         for meta in metatext:
 

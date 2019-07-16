@@ -46,7 +46,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     lon=str(propiedad[12])
     link=str(propiedad[13])
 
-    descripcion=propiedad[15]
+    descripcion=propiedad[14]
 
 
 
