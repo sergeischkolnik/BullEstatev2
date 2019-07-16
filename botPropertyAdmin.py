@@ -9,6 +9,7 @@ import googleMapApi as gm
 import tasadorbot2 as tb2
 import reportes as rp
 import threading
+import ficha
 
 
 TOKEN = "864014186:AAGrFbg92jxFplBVlYSXh9brToc2aal3RMg"
@@ -97,18 +98,16 @@ def echo_all(updates):
 
             elif len(arr) > 1:
                 # comandos multiples
-                print('ejecutando comando multiple')
 
-                print(arr[0])
-                print(comandosMultiples[1])
+
                 # Ficha
-                
+
                 if arr[0] == comandosMultiples[1]:
-                    print("ejecutando creacion de ficha")
                     if (len(arr)!=4):
                         text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
                            "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
                     else:
+                        print("ejecutando creacion de ficha")
                         sitio=str(arr[1])
                         id=int(arr[2])
                         mail=str(arr[3])
