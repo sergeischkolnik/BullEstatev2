@@ -141,7 +141,6 @@ def crearFicha(sitio,id,mail):
         descripcion=descripcion[2:]
 
         descripcion=' '.join(descripcion)
-        print(descripcion)
         propiedad.append(descripcion)
         for meta in metatext:
 
@@ -165,6 +164,8 @@ def crearFicha(sitio,id,mail):
     #Crear PDF
     nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+" Id:"+str(id)+".pdf"
     print(nombrearchivo)
+    for p in propiedad:
+        print p
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,comuna)
     print("pdf generado con exito")
     #Enviar PDF
