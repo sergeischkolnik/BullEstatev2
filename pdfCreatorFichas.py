@@ -16,9 +16,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
 
     print(propiedad)
     uf1=uf.getUf()
-    for p in propiedad:
+    for x,p in enumerate (propiedad):
         if p is None:
-            p=0
+            propiedad[x]=0
     print(propiedad)
     nombre=str(propiedad[0])
     region=str(propiedad[1])
