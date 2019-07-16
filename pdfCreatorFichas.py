@@ -15,6 +15,9 @@ import os
 def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
 
     uf1=uf.getUf()
+    for p in propiedad:
+        if p is None:
+            p=0
 
     nombre=str(propiedad[0])
     region=str(propiedad[1])
@@ -29,6 +32,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
 
     precio=str(format(precio,','))
     precio=precio.replace(',','.')
+
 
     dormitorios=str(int(propiedad[5]))
     banos=str(int(propiedad[6]))
