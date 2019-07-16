@@ -138,8 +138,17 @@ def main():
     currentMinute = dt.datetime.now().minute
     last_update_id = None
     avisado = False
+    activo=True
     print("[tgBotPropertyAdmin] Bot andando.")
+    while True:
+        updates = get_updates(last_update_id)
+        result = updates.get("result")
+        if result:
+            if len(result) > 0:
+                last_update_id = get_last_update_id(updates) + 1
+                echo_all(updates)
 
+        time.sleep(5)
 
 def selectorPortal():
     sql = "SELECT COUNT(id) from portalinmobiliario"
