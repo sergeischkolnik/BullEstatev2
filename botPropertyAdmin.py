@@ -10,20 +10,6 @@ import tasadorbot2 as tb2
 import reportes as rp
 import threading
 import ficha
-import telebot
-import telegram
-import os, sys                # Basic python libraries
-import os.path as path        # Basic python libraries
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply
-from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
-import time
-from datetime import datetime # Basic python libraries
-from errores import key_b,key_ed,key_o, key_eden, key_oen
-from pafy_test import key_f, key_fen   # From file "pafy_test.py"
-from sender import sender
-from curl import descarga              # From file "curl.py"
-from get_Vid_Id import get_yt_video_id # From file "get_Vid_Id.py"
-from database import write_database,read_database,write_os,read_os,read_audio,set_audio
 
 
 
@@ -87,13 +73,6 @@ def echo_all(updates):
 
             chat = update["message"]["chat"]["id"]
 
-            keyboard = [[InlineKeyboardButton("Español 🇪🇸", callback_data='es'),
-                         InlineKeyboardButton("English 🇬🇧", callback_data='en')]]
-
-            reply_markup2 = InlineKeyboardMarkup(keyboard)
-
-            bot.sendMessage(text='Elige tu idioma / choose your language:',
-                            parse_mode=telegram.ParseMode.MARKDOWN, reply_markup=reply_markup2, chat_id=chat)
 
             if len(arr) == 1:
                 print("ejecutando comando simple")
