@@ -10,6 +10,7 @@ import tasadorbot2 as tb2
 import reportes as rp
 import threading
 import ficha
+import types
 
 
 TOKEN = "864014186:AAGrFbg92jxFplBVlYSXh9brToc2aal3RMg"
@@ -75,7 +76,7 @@ def echo_all(updates):
             menuKeyboard.add(types.InlineKeyboardButton('Button1', callback_data='button1'),
                              types.InlineKeyboardButton('Button2', callback_data='button2'))
 
-            bot.send_message(chat, "Menu", reply_markup=menuKeyboard)
+            bot.send_message("Menu",chat, reply_markup=menuKeyboard)
 
             if len(arr) == 1:
                 print("ejecutando comando simple")
