@@ -43,6 +43,8 @@ session = HTMLSession()
 from PIL import Image
 from io import BytesIO
 import pdfCreatorFichas
+import reportes
+import tasadorbot2 as tb2
 
 def obtenerProp(id,sitio):
 
@@ -59,7 +61,21 @@ def obtenerProp(id,sitio):
     return propiedad[0]
 
 
-def crearFicha(sitio,id,mail):
+def crearFicha(sitio,id,mail,tipoficha):
+
+    #Determinar tipo de informe
+    pro=False
+    interna=False
+    full=False
+
+    if tipoficha==2:
+        pro=True
+    elif tipoficha==3:
+        interna=True
+    elif tipoficha==4:
+        interna=True
+        pro=True
+
 
     #Chequear que sitio este bien
     sitio=sitio.lower()
@@ -115,8 +131,7 @@ def crearFicha(sitio,id,mail):
                 comuna=comuna.capitalize()
         else:
             comuna=str(propiedad[14])
-
-
+        propiedad.append(comuna)
     #Revisar si existe aun la publicacion
     if not pubPortalExiste.publicacionExiste(link):
         text='Propiedad ya no se encuentra disponible en el sitio.'
@@ -164,12 +179,154 @@ def crearFicha(sitio,id,mail):
             img = Image.open(BytesIO(response.content))
             img.save(str(x)+" foto.jpg")
     lenfotos=len(url)
+
+    datospro = []
+    if pro:
+
+        propsP = reportes.from_portalinmobiliario(tipo, region, True)
+        propsY = reportes.from_yapo(tipo, region, True, True)
+        props = propsP + propsY
+
+        if operacion=='venta':
+
+
+            rentaPromedio = rentaPProm(tipo, dormitorios, banos, estacionamientos, comuna)
+            tasacionVenta = tb2.calcularTasacionData("venta", tipo, lat, lon, metrosmin,metrosmax,dormitorios,
+                                                     banos, estacionamientos, props)
+            tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, lat, lon, metrosmin,metrosmax,dormitorios,
+                                                     banos, estacionamientos, props)
+            precioV = tasacionVenta[0] * uf.getUf()
+            precioA = tasacionArriendo[0]
+
+            if (rentaPromedio <= 0):
+                pro=False
+
+            try:
+                conftasacionV = tasacionVenta[5]
+                conftasacionA = tasacionArriendo[5]
+
+            except:
+                pro=False
+
+
+
+
+            if precioV is None or precioV < 0.1:
+                pro=False
+
+            try:
+                precioA = tasacionArriendo[0]
+                rentaV = ((precioV - prop[5]) / prop[5])
+            except:
+                pro=False
+
+
+
+            if precioA is None or precioA < 0.01:
+                pro=False
+            try:
+                rentaA = (precioA * 12 / prop[5])
+                rentaPP = (precioA * 12 / precioV)
+            except:
+                pro=False
+            if rentaA > 0.2:
+                pro=False
+
+            if rentaPP < rentaPromedio:
+
+                try:
+                    precioV = precioA * 12 / rentaPromedio
+                    rentaV = ((precioV - prop[5]) / prop[5])
+                    rentaPP = (precioA * 12 / precioV)
+                except:
+                    pro=False
+
+
+
+            if rentaPP > 0.15:
+
+                try:
+                    precioV = precioA * 12 / 0.15
+                    rentaV = ((precioV - prop[5]) / prop[5])
+                except:
+                    pro=False
+            if rentaA < 0:
+                pro=False
+
+
+
+            # precio venta tasado
+            datospro.append(precioV)
+            # rentabilidad de venta
+            datospro.append(float(rentaV))
+            datospro.append(float(conftasacionV))
+
+            # precio arriendo tasado
+            datospro.append(precioA)
+            # rentabilidad de arriendo
+            datospro.append(float(rentaA))
+            datospro.append(float(conftasacionA))
+
+
+        else:
+            try:
+                tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, lat, lon, metrosmin, metrosmax, dormitorios,
+                                                        banos, estacionamientos, props)
+            except:
+                pro=False
+            try:
+                conftasacion = tasacionArriendo[5]
+            except:
+                pro = False
+
+            try:
+                precioA = tasacionArriendo[0]
+            except:
+                pro=False
+
+
+            if precioA is None or precioA < 0.01:
+                pro = False
+            try:
+                rentaA = (precioA * 12 / prop[5])
+            except:
+                pro=False
+
+            if rentaA < 0:
+                pro = False
+
+            # precio arriendo tasado
+            datospro.append(precioA)
+            # rentabilidad de arriendo
+            datospro.append(float(rentaA))
+            datospro.append(float(conftasacion))
+
+    datoscontacto = []
+    if interna:
+
+        if sitio=='portal':
+            try:
+                email, telefono, dueno = reportes.getDatosDueno(prop[0])
+            except:
+                email = "NN"
+                telefono = "NN"
+                dueno = "NN"
+
+        else:
+            email = "NN"
+            telefono = "NN"
+            dueno = 'NN'
+        datoscontacto.append(email)
+        datoscontacto.append(telefono)
+        datoscontacto.append(dueno)
+
+
     #Crear PDF
     nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+" Id:"+str(id)+".pdf"
     print(nombrearchivo)
     for p in propiedad:
         print (p)
-    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,comuna)
+    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datosinterna)
     print("pdf generado con exito")
     #Enviar PDF
     sendmail.sendMail(mail,"",nombrearchivo)
@@ -190,7 +347,7 @@ def crearFicha(sitio,id,mail):
 
 
 def main():
-    texto=crearFicha('portal',4927298,'sergei.schkolnik@gmail.com')
+    texto=crearFicha('portal',4927298,'sergei.schkolnik@gmail.com',4)
     print(texto)
 
 if __name__ == '__main__':

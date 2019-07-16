@@ -12,7 +12,7 @@ import uf
 import os
 
 
-def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
+def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
 
     uf1=uf.getUf()
     for x,p in enumerate (propiedad):
@@ -20,6 +20,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
             propiedad[x]=0
     nombre=str(propiedad[0])
     region=str(propiedad[1])
+    comuna=str(propiedad[14])
     operacion=str(propiedad[2])
     tipo=str(propiedad[3])
 
@@ -46,8 +47,25 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     lon=str(propiedad[12])
     link=str(propiedad[13])
 
-    descripcion=propiedad[14]
+    descripcion=propiedad[15]
 
+    if pro:
+        if operacion=='venta':
+            precioV=datospro[0]
+            rentV=datospro[1]
+            confV=datospro[2]
+            precioA=datospro[3]
+            rentA=datospro[4]
+            confA=datospro[5]
+        else:
+            precioA =datospro[0]
+            rentA =datospro[1]
+            confA =datospro[2]
+
+    if interna:
+        mail=datosinterna[0]
+        telefono=datosinterna[1]
+        dueno=datosinterna[2]
 
 
     styles=getSampleStyleSheet()
@@ -68,6 +86,10 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
     ptext = '<font size=14>FICHA PROPIEDAD:'+str(id)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 16))
+
+    ptext = '<font size=12>extras: '+str(precioV)+'/'+str(rentV)+'/'+str(confV)+'/'+str(precioA)+'/'+str(rentA)+'/'+str(confA)+'/'+str(mail)+'/'+str(relefono)+'/'+str(dueno)+'.</font>'
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(1, 12))
 
     ptext = '<font size=12>Nombre: '+str(nombre)+'.</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))

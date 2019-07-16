@@ -21,10 +21,16 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 # TODOS LOS COMANDOS SIEMPRE SOLO MINUSCULAS
 comandosIndividuales = ['hola',
-                        'ficha']
+                        'ficha',
+                        'fichapro',
+                        'fichainterna',
+                        'fichafull']
 
-comandosMultiples = ['hola',
-                    'ficha']
+comandosMultiples =['hola',
+                    'ficha',
+                    'fichapro',
+                    'fichainterna',
+                    'fichafull']
 
 id_chats_updates = ["485728961", "652659504", "9561926"]
 
@@ -90,6 +96,18 @@ def echo_all(updates):
                 elif text == comandosIndividuales[1]:
                     text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
                            "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                #ficha Pro
+                elif text == comandosIndividuales[2]:
+                    text = "Para usar la emisión de ficha pro, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                #ficha interna
+                elif text == comandosIndividuales[3]:
+                    text = "Para usar la emisión de ficha interna, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                #ficha full
+                elif text == comandosIndividuales[4]:
+                    text = "Para usar la emisión de ficha full, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
 
                 # no encontrado
                 else:
@@ -102,17 +120,57 @@ def echo_all(updates):
 
 
                 # Ficha
-
                 if arr[0] == comandosMultiples[1]:
                     if (len(arr)!=4):
                         text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
                            "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
                     else:
                         print("ejecutando creacion de ficha")
+                        tipoficha=1
                         sitio=str(arr[1])
                         id=int(arr[2])
                         mail=str(arr[3])
-                        text=ficha.crearFicha(sitio,id,mail)
+                        text=ficha.crearFicha(sitio,id,mail,tipoficha)
+
+                # Ficha Pro
+                elif arr[0] == comandosMultiples[2]:
+                    if (len(arr) != 4):
+                        text = "Para usar la emisión de ficha pro, escriba, separando por espacios:\nficha " \
+                               "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                    else:
+                        tipoficha=2
+                        print("ejecutando creacion de ficha pro")
+                        sitio = str(arr[1])
+                        id = int(arr[2])
+                        mail = str(arr[3])
+                        text = ficha.crearFicha(sitio, id, mail,tipoficha)
+
+                # Ficha Interna
+                elif arr[0] == comandosMultiples[3]:
+                    if (len(arr) != 4):
+                        text = "Para usar la emisión de ficha interna, escriba, separando por espacios:\nficha " \
+                               "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                    else:
+                        tipoficha=3
+                        print("ejecutando creacion de ficha interna")
+                        sitio = str(arr[1])
+                        id = int(arr[2])
+                        mail = str(arr[3])
+                        text = ficha.crearFicha(sitio, id, mail,tipoficha)
+
+                # Ficha Full
+                elif arr[0] == comandosMultiples[4]:
+                    if (len(arr) != 4):
+                        text = "Para usar la emisión de ficha full, escriba, separando por espacios:\nficha " \
+                               "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                    else:
+                        tipoficha=4
+                        print("ejecutando creacion de ficha full")
+                        sitio = str(arr[1])
+                        id = int(arr[2])
+                        mail = str(arr[3])
+                        text = ficha.crearFicha(sitio, id, mail,tipoficha)
+
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
