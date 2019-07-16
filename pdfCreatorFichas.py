@@ -1,6 +1,6 @@
 import time
 from reportlab.lib.enums import TA_JUSTIFY
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, inch
@@ -114,13 +114,14 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,comuna):
 
     ptext = '<font size=12>Bodegas: '+str(bodegas)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(3, 36))
+    Story.append(PageBreak())
 
     for x in range(0,lenfotos):
 
         image = Image(str(x)+" foto.jpg", hAlign='LEFT')
         image._restrictSize(6 * inch, 9 * inch)
         Story.append(image)
+        Story.append(Spacer(1, 2))
 
     Story=list(Story)
     doc.build(Story)
