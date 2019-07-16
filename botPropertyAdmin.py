@@ -71,7 +71,11 @@ def echo_all(updates):
 
             chat = update["message"]["chat"]["id"]
 
+            menuKeyboard = types.InlineKeyboardMarkup()
+            menuKeyboard.add(types.InlineKeyboardButton('Button1', callback_data='button1'),
+                             types.InlineKeyboardButton('Button2', callback_data='button2'))
 
+            bot.send_message(chat, "Menu", reply_markup=menuKeyboard)
 
             if len(arr) == 1:
                 print("ejecutando comando simple")
@@ -149,6 +153,7 @@ def main():
     activo=True
     print("[tgBotPropertyAdmin] Bot andando.")
     while True:
+
         updates = get_updates(last_update_id)
         result = updates.get("result")
         if result:
