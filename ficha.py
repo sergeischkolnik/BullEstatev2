@@ -165,7 +165,7 @@ def crearFicha(sitio,id,mail):
     nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+" Id:"+str(id)+".pdf"
     print(nombrearchivo)
     for p in propiedad:
-        print p
+        print (p)
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,comuna)
     print("pdf generado con exito")
     #Enviar PDF
