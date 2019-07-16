@@ -10,14 +10,14 @@ import tasadorbot2 as tb2
 import reportes as rp
 import threading
 import ficha
-import telegram
-from telegram import types
+import telebot
+from telebot import types
 
 
 
 TOKEN = "864014186:AAGrFbg92jxFplBVlYSXh9brToc2aal3RMg"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
-tb = telegram.TeleBot(TOKEN)
+tb = telebot.TeleBot(TOKEN)
 
 
 # TODOS LOS COMANDOS SIEMPRE SOLO MINUSCULAS
