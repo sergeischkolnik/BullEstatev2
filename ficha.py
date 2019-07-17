@@ -230,11 +230,11 @@ def crearFicha(sitio,id,mail,tipoficha):
             print(precioA)
             print(precio)
 
-            #try:
-            rentaA = (precioA * 12 / precio)
-            rentaPP = (precioA * 12 / precioV)
-            #except:
-                #pro=False
+            try:
+                rentaA = (precioA * 12 / precio)
+                rentaPP = (precioA * 12 / precioV)
+            except:
+                pro=False
 
             if pro:
                 if rentaA > 0.2:
@@ -251,15 +251,15 @@ def crearFicha(sitio,id,mail,tipoficha):
 
 
 
-            if rentaPP > 0.15:
+                if rentaPP > 0.15:
 
-                try:
-                    precioV = precioA * 12 / 0.15
-                    rentaV = ((precioV - precio) / precio)
-                except:
+                    try:
+                        precioV = precioA * 12 / 0.15
+                        rentaV = ((precioV - precio) / precio)
+                    except:
+                        pro=False
+                if rentaA < 0:
                     pro=False
-            if rentaA < 0:
-                pro=False
 
 
 
@@ -292,9 +292,9 @@ def crearFicha(sitio,id,mail,tipoficha):
             except:
                 pro=False
 
-
-            if precioA is None or precioA < 0.01:
-                pro = False
+            if pro:
+                if precioA is None or precioA < 0.01:
+                    pro = False
 
 
 
@@ -329,7 +329,7 @@ def crearFicha(sitio,id,mail,tipoficha):
     print(nombrearchivo)
     for p in propiedad:
         print (p)
-    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datosinterna)
+    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datoscontacto)
     print("pdf generado con exito")
     #Enviar PDF
     sendmail.sendMail(mail,"",nombrearchivo)
