@@ -59,8 +59,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             confA=datospro[5]
         else:
             precioA =datospro[0]
-            rentA =datospro[1]
-            confA =datospro[2]
+            confA =datospro[1]
 
     if interna:
         mail=datosinterna[0]
@@ -87,7 +86,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 16))
 
-    ptext = '<font size=12>extras: '+str(precioV)+'/'+str(rentV)+'/'+str(confV)+'/'+str(precioA)+'/'+str(rentA)+'/'+str(confA)+'/'+str(mail)+'/'+str(relefono)+'/'+str(dueno)+'.</font>'
+    ptext = '<font size=12>extras: '+str(precioV)+'/'+str(rentV)+'/'+str(confV)+'/'+str(precioA)+'/'+str(confA)+'/'+str(mail)+'/'+str(telefono)+'/'+str(dueno)+'.</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 

@@ -216,7 +216,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             try:
                 precioA = tasacionArriendo[0]
-                rentaV = ((precioV - prop[5]) / prop[5])
+                rentaV = ((precioV - precio) / precio)
             except:
                 pro=False
 
@@ -225,7 +225,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             if precioA is None or precioA < 0.01:
                 pro=False
             try:
-                rentaA = (precioA * 12 / prop[5])
+                rentaA = (precioA * 12 / precio)
                 rentaPP = (precioA * 12 / precioV)
             except:
                 pro=False
@@ -236,7 +236,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
                 try:
                     precioV = precioA * 12 / rentaPromedio
-                    rentaV = ((precioV - prop[5]) / prop[5])
+                    rentaV = ((precioV - precio) / precio)
                     rentaPP = (precioA * 12 / precioV)
                 except:
                     pro=False
@@ -247,7 +247,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
                 try:
                     precioV = precioA * 12 / 0.15
-                    rentaV = ((precioV - prop[5]) / prop[5])
+                    rentaV = ((precioV - precio) / precio)
                 except:
                     pro=False
             if rentaA < 0:
@@ -287,18 +287,13 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if precioA is None or precioA < 0.01:
                 pro = False
-            try:
-                rentaA = (precioA * 12 / prop[5])
-            except:
-                pro=False
 
-            if rentaA < 0:
-                pro = False
+
+
 
             # precio arriendo tasado
             datospro.append(precioA)
             # rentabilidad de arriendo
-            datospro.append(float(rentaA))
             datospro.append(float(conftasacion))
 
     datoscontacto = []
