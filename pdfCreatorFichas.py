@@ -85,10 +85,10 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     ptext = '<font size=14>FICHA PROPIEDAD:'+str(id)+'</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 16))
-
-    ptext = '<font size=12>extras: '+str(precioV)+'/'+str(rentV)+'/'+str(confV)+'/'+str(precioA)+'/'+str(confA)+'/'+str(mail)+'/'+str(telefono)+'/'+str(dueno)+'.</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
+    if pro:
+        ptext = '<font size=12>extras: '+str(precioV)+'/'+str(rentV)+'/'+str(confV)+'/'+str(precioA)+'/'+str(confA)+'/'+str(mail)+'/'+str(telefono)+'/'+str(dueno)+'.</font>'
+        Story.append(Paragraph(ptext, styles["Justify"]))
+        Story.append(Spacer(1, 12))
 
     ptext = '<font size=12>Nombre: '+str(nombre)+'.</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
