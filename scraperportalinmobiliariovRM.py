@@ -164,7 +164,7 @@ def obtenerDescripcion(metatext):
     return descripcion
 
 def insertarDescripcion(descripcion,id2):
-    sql = "INSERT INTO tags(idProp,descripcion) VALUES('"+str(id2)+"','"+str(descripcion)+"' ON DUPLICATE KEY UPDATE descripcion='"+str(descripcion)+"'"
+    sql = "INSERT INTO tags(idProp,descripcion) VALUES('"+str(id2)+"','"+str(descripcion)+"') ON DUPLICATE KEY UPDATE descripcion='"+str(descripcion)+"'"
     print (sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
