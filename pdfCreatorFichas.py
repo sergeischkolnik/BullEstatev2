@@ -34,13 +34,13 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     tipo=str(propiedad[3])
 
     headerslocalizacion.append("Operación")
-    headerslocalizacion.append("Tipo de Propiedad")
+    headerslocalizacion.append("Tipo de Prop.")
     headerslocalizacion.append("Región")
     headerslocalizacion.append("Comuna")
 
-    datoslocalizacion.append(operacion)
-    datoslocalizacion.append(tipo)
-    datoslocalizacion.append(region)
+    datoslocalizacion.append(operacion.capitalize())
+    datoslocalizacion.append(tipo.capitalize())
+    datoslocalizacion.append(region.capitalize())
     datoslocalizacion.append(comuna)
 
     precio=int(propiedad[4])
@@ -91,6 +91,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     if pro:
         if operacion=='venta':
             precioV=datospro[0]
+            precioV=precioV/uf1
             precioV=str(format(precioV,','))
             precioV=precioV.replace(',','.')
             precioV='UF '+precioV
@@ -109,11 +110,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             rentA = str(rentA)+"%"
             confA=datospro[5]
 
-            headersrentabilidad.append("Precio Tasado")
-            headersrentabilidad.append("Rentabilidad Venta")
-            headersrentabilidad.append("Confianza Venta")
-            headersrentabilidad.append("Tasacion Arriendo")
-            headersrentabilidad.append("Rentabilidad Arriendo")
+            headersrentabilidad.append("Tasación Venta")
+            headersrentabilidad.append("Rent. Venta")
+            headersrentabilidad.append("Conf. Venta")
+            headersrentabilidad.append("Tasación Arriendo")
+            headersrentabilidad.append("Rent. Arriendo")
 
             datosrentabilidad.append(precioV)
             datosrentabilidad.append(rentV)
@@ -127,11 +128,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             precioA=precioA.replace(',','.')
             precioA='$ '+precioA
             confA =datospro[1]
-            headersrentabilidad.append("Precio Arriendo")
+            headersrentabilidad.append("Tasación Arriendo")
             datosrentabilidad.append(precioA)
 
 
-        headersrentabilidad.append("Confianza Arriendo")
+        headersrentabilidad.append("Conf. Arriendo")
         datosrentabilidad.append(confA)
 
     if interna:
@@ -145,7 +146,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
         dueno=datosinterna[2]
         headerscontacto.append("Dueño")
-        datoscontacto.append(dueno)
+        datoscontacto.append(dueno.capitalize())
 
 
 
@@ -169,6 +170,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
+                           ('BACKGROUND',(0,0), (-1,0),colors.blue)
+                           ('TEXTCOLOR',(0,0), (-1,0),colors.white)
                            ]))
     tabla=[]
     tabla.append(headerspropiedad)
