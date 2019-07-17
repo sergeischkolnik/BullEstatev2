@@ -190,11 +190,11 @@ def crearFicha(sitio,id,mail,tipoficha):
         if operacion=='venta':
 
 
-            rentaPromedio = reportes.rentaPProm(tipo, dormitorios, banos, estacionamientos, comuna)
-            tasacionVenta = tb2.calcularTasacionData("venta", tipo, lat, lon, metrosmin,metrosmax,dormitorios,
-                                                     banos, estacionamientos, props)
-            tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, lat, lon, metrosmin,metrosmax,dormitorios,
-                                                     banos, estacionamientos, props)
+            rentaPromedio = reportes.rentaPProm(tipo, int(dormitorios), int(banos), int(estacionamientos), comuna)
+            tasacionVenta = tb2.calcularTasacionData("venta", tipo, float(lat), float(lon), int(metrosmin),int(metrosmax),int(dormitorios),
+                                                     int(banos), int(estacionamientos), props)
+            tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), int(metrosmin),int(metrosmax),int(dormitorios),
+                                                     int(banos), int(estacionamientos), props)
             precioV = tasacionVenta[0] * uf.getUf()
             precioA = tasacionArriendo[0]
 
@@ -270,8 +270,8 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         else:
             try:
-                tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, lat, lon, metrosmin, metrosmax, dormitorios,
-                                                        banos, estacionamientos, props)
+                tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), int(metrosmin),int(metrosmax),int(dormitorios),
+                                                     int(banos), int(estacionamientos), props)
             except:
                 pro=False
             try:
