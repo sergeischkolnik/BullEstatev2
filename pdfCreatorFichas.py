@@ -174,7 +174,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     tabla.append(headerspropiedad)
     tabla.append(datospropiedad)
 
-    t2=Table(headerspropiedad+datospropiedad)
+    t2=Table(tabla)
     t2.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
@@ -184,7 +184,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     tabla.append(headersrentabilidad)
     tabla.append(datosrentabilidad)
 
-    t3=Table(headersrentabilidad+datospropiedad)
+    t3=Table(tabla)
     t3.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
@@ -194,7 +194,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     tabla.append(headerscontacto)
     tabla.append(datoscontacto)
 
-    t4=Table(headerscontacto+datoscontacto)
+    t4=Table(tabla)
     t4.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
