@@ -160,12 +160,19 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
     Story=[]
 
-    t1=Table(headerslocalizacion+datoslocalizacion)
+    tabla=[]
+    tabla.append(headerslocalizacion)
+    tabla.append(datoslocalizacion)
+
+    t1=Table(tabla)
     t1.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
                            ]))
+    tabla=[]
+    tabla.append(headerspropiedad)
+    tabla.append(datospropiedad)
 
     t2=Table(headerspropiedad+datospropiedad)
     t2.setStyle(TableStyle([
@@ -173,6 +180,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
                            ]))
+    tabla=[]
+    tabla.append(headersrentabilidad)
+    tabla.append(datosrentabilidad)
 
     t3=Table(headersrentabilidad+datospropiedad)
     t3.setStyle(TableStyle([
@@ -180,6 +190,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
                            ]))
+    tabla=[]
+    tabla.append(headerscontacto)
+    tabla.append(datoscontacto)
 
     t4=Table(headerscontacto+datoscontacto)
     t4.setStyle(TableStyle([
