@@ -12,14 +12,14 @@ yesterday=datetime.date(yesterday)
 
 sleepTime=random.randint(150,250)
 
-sqlAux1="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios='2'))"
+sqlAux1="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios>'1'))"
 
 sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "((portalinmobiliario.link like '%concon%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%renaca%' and "+sqlAux1+"));"
+          "(portalinmobiliario.link like '%vina-del-mar%' and "+sqlAux1+"));"
           # "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
@@ -30,14 +30,14 @@ sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobili
           # "(portalinmobiliario.link like '%recoleta%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%renaca%'));"
 
-sqlAux="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios='2'))"
+sqlAux="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios>'1'))"
 
 sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "((portalinmobiliario.link like '%con-con%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%renaca%' and "+sqlAux1+"));"
+          "(portalinmobiliario.link like '%vina-del-mar%' and "+sqlAux1+"));"
           # "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
