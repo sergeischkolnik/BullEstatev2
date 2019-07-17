@@ -14,6 +14,8 @@ import os
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
 
+
+
     headerslocalizacion=[]
     headerspropiedad=[]
     headersrentabilidad=[]
@@ -170,7 +172,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
-                           ('BACKGROUND',(0,0), (-1,0),colors.blue),
+                           ('BACKGROUND',(0,0), (-1,0),colors.bluebullestate),
                            ('TEXTCOLOR',(0,0), (-1,0),colors.white),
                            ]))
     tabla=[]
