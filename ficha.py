@@ -206,14 +206,11 @@ def crearFicha(sitio,id,mail,tipoficha):
             try:
                 conftasacionV = tasacionVenta[5]
                 conftasacionA = tasacionArriendo[5]
-                print(
-                    'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular confianzas')
 
             except:
                 pro=False
-
-
-
+                 print(
+                'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular confianzas')
 
             if precioV is None or precioV < 0.1:
                 pro=False
@@ -227,7 +224,10 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if precioA is None or precioA < 0.01:
                 pro=False
-            print(precioV)
+                print(
+                    'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion arriendo, muy baja o none')
+
+        print(precioV)
             print(precioA)
             print(precio)
 
