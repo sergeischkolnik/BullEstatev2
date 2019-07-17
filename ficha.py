@@ -195,10 +195,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                                                      float(banos), float(estacionamientos), props)
             tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
                                                      float(banos), float(estacionamientos), props)
-            print("imprimiendo rent promedio, y tasaciones")
-            print(rentaPromedio)
-            print(tasacionVenta)
-            print(tasacionArriendo)
+            
 
             precioV = tasacionVenta[0] * uf.getUf()
             precioA = tasacionArriendo[0]
@@ -229,8 +226,14 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if precioA is None or precioA < 0.01:
                 pro=False
+            print(precioV)
+            print(precioA)
+            print(precio)
+
             try:
+                print("entro al try")
                 rentaA = (precioA * 12 / precio)
+                print("rentA calculada")
                 rentaPP = (precioA * 12 / precioV)
             except:
                 pro=False
