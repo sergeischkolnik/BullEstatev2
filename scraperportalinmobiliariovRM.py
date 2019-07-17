@@ -165,7 +165,7 @@ def obtenerDescripcion(metatext):
 
 def insertarDescripcion(descripcion,id2):
     sql = "INSERT INTO tags(idProp,descripcion) VALUES('"+str(id2)+"','"+str(descripcion)+"' ON DUPLICATE KEY UPDATE descripcion=descripcion"+str(descripcion)+"'"
-
+    print (sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
@@ -651,7 +651,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 estacionamientos=obtenerEstacionamientos(texts)
                 metatext = page3.text
                 descripcion=obtenerDescripcion(metatext)
-                #insertarDescripcion(descripcion,code)
+                insertarDescripcion(descripcion,code)
                 fechahoy = datetime.datetime.now()
                 fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 
