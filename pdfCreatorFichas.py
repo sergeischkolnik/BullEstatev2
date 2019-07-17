@@ -211,7 +211,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('BACKGROUND',(0,0), (-1,0),colors.aqua),
-                           ('TEXTCOLOR',(0,0), (-1,0),colors.grey)
+                           ('TEXTCOLOR',(0,0), (-1,0),colors.grey),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
                            ]))
 
