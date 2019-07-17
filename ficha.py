@@ -108,7 +108,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         region=str(propiedad[1])
         operacion=str(propiedad[2])
         tipo=str(propiedad[3])
-        precio=str(propiedad[4])
+        precio=float(propiedad[4])
         dormitorios=str(propiedad[5])
         banos=str(propiedad[6])
         metrosmin=str(propiedad[7])
