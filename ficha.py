@@ -190,11 +190,11 @@ def crearFicha(sitio,id,mail,tipoficha):
         if operacion=='venta':
 
 
-            rentaPromedio = reportes.rentaPProm(tipo, int(dormitorios), int(banos), int(estacionamientos), comuna)
-            tasacionVenta = tb2.calcularTasacionData("venta", tipo, float(lat), float(lon), int(metrosmin),int(metrosmax),int(dormitorios),
-                                                     int(banos), int(estacionamientos), props)
-            tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), int(metrosmin),int(metrosmax),int(dormitorios),
-                                                     int(banos), int(estacionamientos), props)
+            rentaPromedio = reportes.rentaPProm(tipo, float(dormitorios), float(banos), float(estacionamientos), comuna)
+            tasacionVenta = tb2.calcularTasacionData("venta", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
+                                                     float(banos), float(estacionamientos), props)
+            tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
+                                                     float(banos), float(estacionamientos), props)
             precioV = tasacionVenta[0] * uf.getUf()
             precioA = tasacionArriendo[0]
 
@@ -270,8 +270,8 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         else:
             try:
-                tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), int(metrosmin),int(metrosmax),int(dormitorios),
-                                                     int(banos), int(estacionamientos), props)
+                tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
+                                                     float(banos), float(estacionamientos), props)
             except:
                 pro=False
             try:
