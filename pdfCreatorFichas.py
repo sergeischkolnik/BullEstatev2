@@ -170,7 +170,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     tabla.append(headerslocalizacion)
     tabla.append(datoslocalizacion)
 
-    t1=Table(tabla)
+    t1=Table(tabla,hAlign='LEFT')
     t1.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
@@ -182,7 +182,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     tabla.append(headerspropiedad)
     tabla.append(datospropiedad)
 
-    t2=Table(tabla)
+    t2=Table(tabla,hAlign='LEFT')
     t2.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
@@ -194,7 +194,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     tabla.append(headersrentabilidad)
     tabla.append(datosrentabilidad)
 
-    t3=Table(tabla)
+    t3=Table(tabla,hAlign='LEFT')
     t3.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
@@ -206,7 +206,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     tabla.append(headerscontacto)
     tabla.append(datoscontacto)
 
-    t4=Table(tabla)
+    t4=Table(tabla,hAlign='LEFT')
     t4.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
@@ -233,15 +233,15 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(Paragraph(ptext, styles["Justify"]))
         Story.append(Spacer(1, 16))
 
-    Story.append(t1(styles["Justify"]))
+    Story.append(t1)
     Story.append(Spacer(1, 16))
-    Story.append(t2(styles["Justify"]))
+    Story.append(t2)
     Story.append(Spacer(1, 16))
     if pro:
-        Story.append(t3(styles["Justify"]))
+        Story.append(t3)
         Story.append(Spacer(1, 16))
     if interna:
-        Story.append(t4(styles["Justify"]))
+        Story.append(t4)
         Story.append(Spacer(1, 16))
 
     ptext = '<font size=14>DESCRIPCIÓN:</font>'
