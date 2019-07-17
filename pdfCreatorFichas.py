@@ -170,8 +170,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
-                           ('BACKGROUND',(0,0), (-1,0),colors.blue)
-                           ('TEXTCOLOR',(0,0), (-1,0),colors.white)
+                           ('BACKGROUND',(0,0), (-1,0),colors.blue),
+                           ('TEXTCOLOR',(0,0), (-1,0),colors.white),
                            ]))
     tabla=[]
     tabla.append(headerspropiedad)
