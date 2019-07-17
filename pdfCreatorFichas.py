@@ -14,6 +14,15 @@ import os
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
 
+    headerslocalizacion=[]
+    headerspropiedad=[]
+    headersrentabilidad=[]
+    headerscontacto=[]
+    datoslocalizacion=[]
+    datospropiedad=[]
+    datosrentabilidad=[]
+    datoscontacto=[]
+
     uf1=uf.getUf()
     for x,p in enumerate (propiedad):
         if p is None:
@@ -23,6 +32,16 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     comuna=str(propiedad[14])
     operacion=str(propiedad[2])
     tipo=str(propiedad[3])
+
+    headerslocalizacion.append("Operación")
+    headerslocalizacion.append("Tipo de Propiedad")
+    headerslocalizacion.append("Región")
+    headerslocalizacion.append("Comuna")
+
+    datoslocalizacion.append(operacion)
+    datoslocalizacion.append(tipo)
+    datoslocalizacion.append(region)
+    datoslocalizacion.append(comuna)
 
     precio=int(propiedad[4])
 
@@ -47,24 +66,88 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     lon=str(propiedad[12])
     link=str(propiedad[13])
 
+    headerspropiedad.append("Precio $")
+    if operacion=='venta':
+        headerspropiedad.append("Precio UF")
+    headerspropiedad.append("Sup. Util")
+    headerspropiedad.append("Sup. Total")
+    headerspropiedad.append("Dormitorios")
+    headerspropiedad.append("Baños")
+    headerspropiedad.append("Estacionamientos")
+    headerspropiedad.append("Bodegas")
+
+    datospropiedad.append(precio)
+    if operacion=='venta':
+        datospropiedad.append(preciouf)
+    datospropiedad.append(metrosmin)
+    datospropiedad.append(metrosmax)
+    datospropiedad.append(dormitorios)
+    datospropiedad.append(banos)
+    datospropiedad.append(estacionamientos)
+    datospropiedad.append(bodegas)
+
     descripcion=propiedad[15]
 
     if pro:
         if operacion=='venta':
             precioV=datospro[0]
-            rentV=datospro[1]
+            precioV=str(format(precioV,','))
+            precioV=precioV.replace(',','.')
+            precioV='UF '+precioV
+            rentV = float(datospro[1])
+            rentV = int(rentV*1000)
+            rentV = float(rentV/10)
+            rentV = str(rentV)+"%"
             confV=datospro[2]
             precioA=datospro[3]
-            rentA=datospro[4]
+            precioA=str(format(precioA,','))
+            precioA=precioA.replace(',','.')
+            precioA='$ '+precioA
+            rentA = float(datospro[4])
+            rentA = int(rentA*1000)
+            rentA = float(rentA/10)
+            rentA = str(rentA)+"%"
             confA=datospro[5]
+
+            headersrentabilidad.append("Precio Tasado")
+            headersrentabilidad.append("Rentabilidad Venta")
+            headersrentabilidad.append("Confianza Venta")
+            headersrentabilidad.append("Tasacion Arriendo")
+            headersrentabilidad.append("Rentabilidad Arriendo")
+
+            datosrentabilidad.append(precioV)
+            datosrentabilidad.append(rentV)
+            datosrentabilidad.append(confV)
+            datosrentabilidad.append(precioA)
+            datosrentabilidad.append(rentA)
+
         else:
             precioA =datospro[0]
+            precioA=str(format(precioA,','))
+            precioA=precioA.replace(',','.')
+            precioA='$ '+precioA
             confA =datospro[1]
+            headersrentabilidad.append("Precio Arriendo")
+            datosrentabilidad.append(precioA)
+
+
+        headersrentabilidad.append("Confianza Arriendo")
+        datosrentabilidad.append(confA)
 
     if interna:
         mail=datosinterna[0]
+        headerscontacto.append("Mail")
+        datoscontacto.append(mail)
+
         telefono=datosinterna[1]
+        headerscontacto.append("Telefono")
+        datoscontacto.append(telefono)
+
         dueno=datosinterna[2]
+        headerscontacto.append("Dueño")
+        datoscontacto.append(dueno)
+
+
 
 
     styles=getSampleStyleSheet()
@@ -77,67 +160,62 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
     Story=[]
 
+    t1=Table(headerslocalizacion+datoslocalizacion)
+    t1.setStyle(TableStyle([
+                           ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                           ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                           ('FONTSIZE', (0,0), (-1,-1), 9),
+                           ]))
+
+    t2=Table(headerspropiedad+datospropiedad)
+    t2.setStyle(TableStyle([
+                           ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                           ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                           ('FONTSIZE', (0,0), (-1,-1), 9),
+                           ]))
+
+    t3=Table(headersrentabilidad+datospropiedad)
+    t3.setStyle(TableStyle([
+                           ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                           ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                           ('FONTSIZE', (0,0), (-1,-1), 9),
+                           ]))
+
+    t4=Table(headerscontacto+datoscontacto)
+    t4.setStyle(TableStyle([
+                           ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                           ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                           ('FONTSIZE', (0,0), (-1,-1), 9),
+                           ]))
+
     image = Image('bull_logo2.png', hAlign='LEFT')
     image._restrictSize(2 * inch, 3 * inch)
     Story.append(image)
     Story.append(Spacer(1, 14))
 
-    ptext = '<font size=14>FICHA PROPIEDAD:'+str(id)+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
+    if interna:
+        ptext = '<font size=14>FICHA PROPIEDAD: '+str(id)+'</font>'
+        Story.append(Paragraph(ptext, styles["Justify"]))
+        Story.append(Spacer(1, 16))
+
+        ptext = '<font size=12>Nombre: '+str(nombre)+'.</font>'
+        Story.append(Paragraph(ptext, styles["Justify"]))
+        Story.append(Spacer(1, 12))
+    else:
+        ptext = '<font size=14>FICHA PROPIEDAD</font>'
+        Story.append(Paragraph(ptext, styles["Justify"]))
+        Story.append(Spacer(1, 16))
+
+    Story.append(t1)
+    Story.append(Spacer(1, 16))
+    Story.append(t2)
     Story.append(Spacer(1, 16))
     if pro:
-        ptext = '<font size=12>extras: '+str(precioV)+'/'+str(rentV)+'/'+str(confV)+'/'+str(precioA)+'/'+str(confA)+'/'+str(mail)+'/'+str(telefono)+'/'+str(dueno)+'.</font>'
-        Story.append(Paragraph(ptext, styles["Justify"]))
-        Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Nombre: '+str(nombre)+'.</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Operacion: '+str(operacion.capitalize())+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Tipo: '+str(tipo.capitalize())+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    if operacion=='venta':
-        ptext = '<font size=12>Precio: UF '+str(preciouf)+'</font>'
-        Story.append(Paragraph(ptext, styles["Justify"]))
-        Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Precio: $ '+str(precio)+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Región: '+str(region.capitalize())+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Comuna: '+str(comuna)+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Dormitorios: '+str(dormitorios)+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Baños: '+str(banos)+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Superficies: '+str(metrosmin)+'mts2/'+str(metrosmax)+'mts2</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Estacionamientos: '+str(estacionamientos)+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Bodegas: '+str(bodegas)+'</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(PageBreak())
+        Story.append(t3)
+        Story.append(Spacer(1, 16))
+    if interna:
+        Story.append(t4)
+        Story.append(Spacer(1, 16))
 
     ptext = '<font size=14>DESCRIPCIÓN:</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
