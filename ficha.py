@@ -245,18 +245,20 @@ def crearFicha(sitio,id,mail,tipoficha):
 
 
                 if rentaPP < rentaPromedio:
+                    print("renta PP muy baja")
 
                     try:
                         precioV = precioA * 12 / rentaPromedio
                         rentaV = ((precioV - precio) / precio)
                         rentaPP = (precioA * 12 / precioV)
+
                     except:
                         pro=False
                         print(
                             'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de venta con PP variable')
 
                 if rentaPP > 0.15:
-
+                    print("renta PP muy alta")
                     try:
                         precioV = precioA * 12 / 0.15
                         rentaV = ((precioV - precio) / precio)
@@ -283,7 +285,19 @@ def crearFicha(sitio,id,mail,tipoficha):
             datospro.append(float(rentaA))
             datospro.append(float(conftasacionA))
 
-
+            print('Datos tasacion')
+            print('precioV:')
+            print(precioV)
+            print('rentaV:')
+            print(rentaV)
+            print('conftasacionV')
+            print(conftasacionV)
+            print('precioA')
+            print(precioA)
+            print('rentaA')
+            print(rentaA)
+            print('conftasacionA')
+            print(conftasacionA)
         else:
             try:
                 tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
