@@ -188,9 +188,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         props = propsP + propsY
 
         if operacion=='venta':
-            print("operacion es venta")
-            print(pro)
-
+            print(tipo,dormitorios,banos,estacionamientos,comuna)
             rentaPromedio = reportes.rentaPProm(tipo, float(dormitorios), float(banos), float(estacionamientos), comuna)
             tasacionVenta = tb2.calcularTasacionData("venta", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
                                                      float(banos), float(estacionamientos), props)
@@ -203,7 +201,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if (rentaPromedio <= 0):
                 pro=False
-                print("renta promedio menor a 0")
+                print("renta promedio es igual a:"+str(rentaPromedio))
 
             try:
                 conftasacionV = tasacionVenta[5]
@@ -211,11 +209,9 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             except:
                 pro=False
-                print('No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular confianzas')
 
             if precioV is None or precioV < 0.1:
                 pro=False
-                print('No se puede obtener reporte con Rentabilidades,tasacion de venta es none o menor a 0,1')
 
 
             try:
@@ -223,34 +219,23 @@ def crearFicha(sitio,id,mail,tipoficha):
                 rentaV = ((precioV - precio) / precio)
             except:
                 pro=False
-                print('No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de arriendo o rentabilidad de venta')
 
             if precioA is None or precioA < 0.01:
                 pro=False
-                print(
-                    'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion arriendo, muy baja o none')
 
-            print(precioV)
-            print(precioA)
-            print(pro)
-            print(precio)
 
             try:
                 rentaA = (precioA * 12 / precio)
                 rentaPP = (precioA * 12 / precioV)
             except:
                 pro=False
-                print(
-                    'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de arriendo o renta PP')
 
             if pro:
                 if rentaA > 0.2:
                     pro=False
-                    print('No se puede obtener reporte con Rentabilidades, pq no rent venta muy alta')
 
 
                 if rentaPP < rentaPromedio:
-                    print("renta PP muy baja")
 
                     try:
                         precioV = precioA * 12 / rentaPromedio
@@ -259,22 +244,16 @@ def crearFicha(sitio,id,mail,tipoficha):
 
                     except:
                         pro=False
-                        print(
-                            'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de venta con PP variable')
 
                 if rentaPP > 0.15:
-                    print("renta PP muy alta")
                     try:
                         precioV = precioA * 12 / 0.15
                         rentaV = ((precioV - precio) / precio)
                     except:
                         pro=False
-                        print(
-                            'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de venta con PPfijo')
 
                 if rentaA < 0:
                     pro=False
-                    print('No se puede obtener reporte con Rentabilidades, rent arriendo muy baja')
 
 
 
@@ -290,46 +269,27 @@ def crearFicha(sitio,id,mail,tipoficha):
             datospro.append(float(rentaA))
             datospro.append(float(conftasacionA))
 
-            print('Datos tasacion')
-            print('precioV:')
-            print(precioV)
-            print('rentaV:')
-            print(rentaV)
-            print('conftasacionV')
-            print(conftasacionV)
-            print('precioA')
-            print(precioA)
-            print('rentaA')
-            print(rentaA)
-            print('conftasacionA')
-            print(conftasacionA)
+
         else:
             try:
                 tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
                                                      float(banos), float(estacionamientos), props)
             except:
                 pro=False
-                print(
-                    'No se puede obtener reporte con Rentabilidades, pq no se ha falla algoritmo de tasacion')
 
             try:
                 conftasacion = tasacionArriendo[5]
             except:
                 pro = False
-                print(
-                    'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular conftasacionarriendo')
 
             try:
                 precioA = tasacionArriendo[0]
             except:
                 pro=False
-                print(
-                    'No se puede obtener reporte con Rentabilidades, pq no se FALLA tasacion de arriendo')
 
             if pro:
                 if precioA is None or precioA < 0.01:
                     pro = False
-                    print('No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de arriendo')
 
 
 
@@ -361,9 +321,7 @@ def crearFicha(sitio,id,mail,tipoficha):
     #Crear PDF
     nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+" Id:"+str(id)+".pdf"
     print(nombrearchivo)
-    for p in propiedad:
-        print (p)
-    print(pro)
+
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datoscontacto)
     print("pdf generado con exito")
     #Enviar PDF
