@@ -175,7 +175,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
-                           ('BACKGROUND',(0,0), (-1,0),bluebullestate),
+                           ('BACKGROUND',(0,0), (-1,0),colors.blue),
                            ('TEXTCOLOR',(0,0), (-1,0),colors.grey),
                            ]))
     tabla=[]
@@ -187,6 +187,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
+                           ('BACKGROUND',(0,0), (-1,0),colors.blue),
+                           ('TEXTCOLOR',(0,0), (-1,0),colors.grey),
                            ]))
     tabla=[]
     tabla.append(headersrentabilidad)
@@ -196,6 +198,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     t3.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                           ('BACKGROUND',(0,0), (-1,0),colors.blue),
+                           ('TEXTCOLOR',(0,0), (-1,0),colors.grey)
                            ('FONTSIZE', (0,0), (-1,-1), 9),
                            ]))
     tabla=[]
@@ -206,6 +210,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     t4.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                           ('BACKGROUND',(0,0), (-1,0),colors.aqua),
+                           ('TEXTCOLOR',(0,0), (-1,0),colors.grey)
                            ('FONTSIZE', (0,0), (-1,-1), 9),
                            ]))
 
@@ -227,15 +233,15 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(Paragraph(ptext, styles["Justify"]))
         Story.append(Spacer(1, 16))
 
-    Story.append(t1)
+    Story.append(t1(styles["Justify"]))
     Story.append(Spacer(1, 16))
-    Story.append(t2)
+    Story.append(t2(styles["Justify"]))
     Story.append(Spacer(1, 16))
     if pro:
-        Story.append(t3)
+        Story.append(t3(styles["Justify"]))
         Story.append(Spacer(1, 16))
     if interna:
-        Story.append(t4)
+        Story.append(t4(styles["Justify"]))
         Story.append(Spacer(1, 16))
 
     ptext = '<font size=14>DESCRIPCIÓN:</font>'
