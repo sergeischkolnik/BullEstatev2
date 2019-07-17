@@ -195,6 +195,11 @@ def crearFicha(sitio,id,mail,tipoficha):
                                                      float(banos), float(estacionamientos), props)
             tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
                                                      float(banos), float(estacionamientos), props)
+            print("imprimiendo rent promedio, y tasaciones")
+            print(rentaPromedio)
+            print(tasacionVenta)
+            print(tasacionArriendo)
+
             precioV = tasacionVenta[0] * uf.getUf()
             precioA = tasacionArriendo[0]
 
