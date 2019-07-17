@@ -10,11 +10,14 @@ from  reportlab.lib.styles import ParagraphStyle as PS
 import locale
 import uf
 import os
+from collections import namedtuple
 
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
 
+    Color = namedtuple("Color", "R G B")
 
+    bluebullestate = Color(0x52, 0x186, 0x175)
 
     headerslocalizacion=[]
     headerspropiedad=[]
@@ -172,8 +175,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
-                           ('BACKGROUND',(0,0), (-1,0),colors.bluebullestate),
-                           ('TEXTCOLOR',(0,0), (-1,0),colors.white),
+                           ('BACKGROUND',(0,0), (-1,0),bluebullestate),
+                           ('TEXTCOLOR',(0,0), (-1,0),colors.grey),
                            ]))
     tabla=[]
     tabla.append(headerspropiedad)
