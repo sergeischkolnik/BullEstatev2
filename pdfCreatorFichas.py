@@ -187,33 +187,35 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                            ('FONTSIZE', (0,0), (-1,-1), 9),
-                           ('BACKGROUND',(0,0), (-1,0),colors.lightslategrey),
+                           ('BACKGROUND',(0,0), (-1,0),colors.lightgrey),
                            ('TEXTCOLOR',(0,0), (-1,0),colors.black),
                            ]))
-    tabla=[]
-    tabla.append(headersrentabilidad)
-    tabla.append(datosrentabilidad)
+    if pro:
+        tabla=[]
+        tabla.append(headersrentabilidad)
+        tabla.append(datosrentabilidad)
 
-    t3=Table(tabla,hAlign='LEFT')
-    t3.setStyle(TableStyle([
-                           ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                           ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-                           ('BACKGROUND',(0,0), (-1,0),colors.slategray),
-                           ('TEXTCOLOR',(0,0), (-1,0),colors.black),
-                           ('FONTSIZE', (0,0), (-1,-1), 9),
-                           ]))
-    tabla=[]
-    tabla.append(headerscontacto)
-    tabla.append(datoscontacto)
+        t3=Table(tabla,hAlign='LEFT')
+        t3.setStyle(TableStyle([
+                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BACKGROUND',(0,0), (-1,0),colors.lightgrey),
+                               ('TEXTCOLOR',(0,0), (-1,0),colors.black),
+                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ]))
+    if interna:
+        tabla=[]
+        tabla.append(headerscontacto)
+        tabla.append(datoscontacto)
 
-    t4=Table(tabla,hAlign='LEFT')
-    t4.setStyle(TableStyle([
-                           ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                           ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-                           ('BACKGROUND',(0,0), (-1,0),colors.slategrey),
-                           ('TEXTCOLOR',(0,0), (-1,0),colors.black),
-                           ('FONTSIZE', (0,0), (-1,-1), 9),
-                           ]))
+        t4=Table(tabla,hAlign='LEFT')
+        t4.setStyle(TableStyle([
+                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BACKGROUND',(0,0), (-1,0),colors.lightgrey),
+                               ('TEXTCOLOR',(0,0), (-1,0),colors.black),
+                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ]))
 
     image = Image('bull_logo2.png', hAlign='LEFT')
     image._restrictSize(2 * inch, 3 * inch)
