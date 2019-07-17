@@ -206,6 +206,8 @@ def crearFicha(sitio,id,mail,tipoficha):
             try:
                 conftasacionV = tasacionVenta[5]
                 conftasacionA = tasacionArriendo[5]
+                print(
+                    'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular confianzas')
 
             except:
                 pro=False
@@ -221,8 +223,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 rentaV = ((precioV - precio) / precio)
             except:
                 pro=False
-
-
+                print('No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de arriendo o rentabilidad de venta')
 
             if precioA is None or precioA < 0.01:
                 pro=False
@@ -235,10 +236,14 @@ def crearFicha(sitio,id,mail,tipoficha):
                 rentaPP = (precioA * 12 / precioV)
             except:
                 pro=False
+                print(
+                    'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de arriendo o renta PP')
 
             if pro:
                 if rentaA > 0.2:
                     pro=False
+                    print('No se puede obtener reporte con Rentabilidades, pq no rent venta muy alta')
+
 
                 if rentaPP < rentaPromedio:
 
@@ -248,8 +253,8 @@ def crearFicha(sitio,id,mail,tipoficha):
                         rentaPP = (precioA * 12 / precioV)
                     except:
                         pro=False
-
-
+                        print(
+                            'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de venta con PP variable')
 
                 if rentaPP > 0.15:
 
@@ -258,8 +263,12 @@ def crearFicha(sitio,id,mail,tipoficha):
                         rentaV = ((precioV - precio) / precio)
                     except:
                         pro=False
+                        print(
+                            'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de venta con PPfijo')
+
                 if rentaA < 0:
                     pro=False
+                    print('No se puede obtener reporte con Rentabilidades, rent arriendo muy baja')
 
 
 
@@ -282,20 +291,27 @@ def crearFicha(sitio,id,mail,tipoficha):
                                                      float(banos), float(estacionamientos), props)
             except:
                 pro=False
+                print(
+                    'No se puede obtener reporte con Rentabilidades, pq no se ha falla algoritmo de tasacion')
+
             try:
                 conftasacion = tasacionArriendo[5]
             except:
                 pro = False
+                print(
+                    'No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular conftasacionarriendo')
 
             try:
                 precioA = tasacionArriendo[0]
             except:
                 pro=False
+                print(
+                    'No se puede obtener reporte con Rentabilidades, pq no se FALLA tasacion de arriendo')
 
             if pro:
                 if precioA is None or precioA < 0.01:
                     pro = False
-
+                    print('No se puede obtener reporte con Rentabilidades, pq no se ha podido calcular tasacion de arriendo')
 
 
 
