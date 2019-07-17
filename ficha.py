@@ -202,6 +202,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if (rentaPromedio <= 0):
                 pro=False
+                print("renta promedio menor a 0")
 
             try:
                 conftasacionV = tasacionVenta[5]
@@ -228,6 +229,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             print(precioV)
             print(precioA)
+            print(pro)
             print(precio)
 
             try:
