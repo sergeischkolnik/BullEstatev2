@@ -294,8 +294,8 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        # print("Consulta:")
-        # print(sql)
+        print("Consulta:")
+        print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
         print("Datos de consulta especifica de portal listos")
