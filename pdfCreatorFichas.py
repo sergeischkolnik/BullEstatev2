@@ -14,6 +14,8 @@ import os
 from collections import namedtuple
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+import base64
+
 
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
@@ -249,6 +251,21 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     ptext = '<font size=11>' + str(descripcion) + '</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(PageBreak())
+
+    imgdata = base64.b64decode(imgstring)
+    filename = 'gifimage1.gif'  # I assume you have a way of picking unique filenames
+    with open(filename, 'wb') as f:
+        f.write(imgdata)
+
+    imgdata = base64.b64decode(imgstring)
+    filename = 'pngimage2.png'  # I assume you have a way of picking unique filenames
+    with open(filename, 'wb') as f:
+        f.write(imgdata)
+
+    imgdata = base64.b64decode(imgstring)
+    filename = 'jpgimage3.jpg'  # I assume you have a way of picking unique filenames
+    with open(filename, 'wb') as f:
+        f.write(imgdata)
 
     for x in range(0,lenfotos):
 
