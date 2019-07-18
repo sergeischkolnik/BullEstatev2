@@ -16,18 +16,6 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import base64
 from PIL import Image
-from PIL import Image.ImageDraw
-from PIL import Image.ImageFont
-
-
-import ImageDraw
-import ImageFont
-
-def getSize(txt, font):
-    testImg = Image.new('RGB', (1, 1))
-    testDraw = ImageDraw.Draw(testImg)
-    return testDraw.textsize(txt, font)
-
 
 
 
@@ -266,22 +254,6 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(PageBreak())
 
-    fontname = "Arial.ttf"
-    fontsize = 11
-    text = descripcion
-
-    colorText = "black"
-    colorOutline = "red"
-    colorBackground = "white"
-
-    font = ImageFont.truetype(fontname, fontsize)
-    width, height = getSize(text, font)
-    img = Image.new('RGB', (width + 4, height + 4), colorBackground)
-    d = ImageDraw.Draw(img)
-    d.text((2, height / 2), text, fill=colorText, font=font)
-    d.rectangle((0, 0, width + 3, height + 3), outline=colorOutline)
-
-    img.save("imagetest.png")
 
     for x in range(0,lenfotos):
 
