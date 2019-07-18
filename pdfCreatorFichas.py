@@ -15,7 +15,7 @@ from collections import namedtuple
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import base64
-from PIL import Image
+
 
 
 
