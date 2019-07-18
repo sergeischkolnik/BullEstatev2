@@ -17,8 +17,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
-    pdfmetrics.registerFont(TTFont('Calibri', 'Calibri.ttf'))
-    pdfmetrics.registerFont(TTFont('Inconsolata', 'Inconsolata-Regular.ttf'))
+
     headerslocalizacion=[]
     headerspropiedad=[]
     headersrentabilidad=[]
@@ -157,7 +156,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
 
     styles=getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY,spaceAfter=6, spaceBefore=6,))
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY,spaceAfter=6, spaceBefore=6))
 
 
     doc = SimpleDocTemplate(fileName,pagesize=letter,
