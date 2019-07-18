@@ -16,8 +16,8 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import base64
 from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
+from PIL import Image.ImageDraw
+from PIL import Image.ImageFont
 
 
 import ImageDraw
