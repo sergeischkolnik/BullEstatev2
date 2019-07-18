@@ -185,7 +185,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     t2.setStyle(TableStyle([
                            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-                           ('FONTSIZE', (0,0), (-1,-1), 9),
+                           ('FONTSIZE', (0,0), (-1,-1), 11),
                            ('BACKGROUND',(0,0), (-1,0),colors.lightgrey),
                            ('TEXTCOLOR',(0,0), (-1,0),colors.black),
                            ]))
@@ -200,7 +200,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                                ('BACKGROUND',(0,0), (-1,0),colors.lightgrey),
                                ('TEXTCOLOR',(0,0), (-1,0),colors.black),
-                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ('FONTSIZE', (0,0), (-1,-1), 11),
                                ]))
     if interna:
         tabla=[]
@@ -213,26 +213,24 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                                ('BACKGROUND',(0,0), (-1,0),colors.lightgrey),
                                ('TEXTCOLOR',(0,0), (-1,0),colors.black),
-                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ('FONTSIZE', (0,0), (-1,-1), 11),
                                ]))
 
     image = Image('bull_logo2.png', hAlign='LEFT')
     image._restrictSize(2 * inch, 3 * inch)
     Story.append(image)
-    Story.append(Spacer(1, 14))
+    Story.append(Spacer(1, 16))
 
     if interna:
-        ptext = '<font size=12><b>FICHA PROPIEDAD</b>: '+str(id)+'</font>'
+        ptext = '<font size=11><b>FICHA PROPIEDAD</b>: '+str(id)+'</font>'
         Story.append(Paragraph(ptext, styles["Justify"]))
-        Story.append(Spacer(1, 16))
+        Story.append(Spacer(1, 14))
 
-        ptext = '<font size=12>Nombre: '+str(nombre)+'.</font>'
-        Story.append(Paragraph(ptext, styles["Justify"]))
-        Story.append(Spacer(1, 12))
+
     else:
-        ptext = '<font size=12><b>FICHA PROPIEDAD</b></font>'
+        ptext = '<font size=11><b>FICHA PROPIEDAD</b></font>'
         Story.append(Paragraph(ptext, styles["Justify"]))
-        Story.append(Spacer(1, 16))
+        Story.append(Spacer(1, 14))
 
     Story.append(t1)
     Story.append(Spacer(1, 16))
@@ -245,11 +243,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(t4)
         Story.append(Spacer(1, 16))
 
-    ptext = '<font size=12><b>DESCRIPCIÓN</b>:</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
 
-    ptext = '<font size=12>' + str(descripcion) + '</font>'
+
+    ptext = '<font size=11><b>Descripción:</b><br>' + str(descripcion) + '</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(PageBreak())
 
