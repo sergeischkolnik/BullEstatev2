@@ -767,7 +767,8 @@ def echo_all(updates):
 
                         rp.generarReporteSeparado(preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,None,None,None,None,
                                                   dormitoriosmin,dormitoriosmax,banosmin,banosmax,None,None,None,estacionamientos,
-                                                  0,None,tipo,operacion,region,comunas,None,mail,nombre,None,direccion,distancia,None,True)
+                                                  0,None,None,None,None,tipo,operacion,region,comunas,None,mail,
+                                                  nombre,None,None,direccion,distancia,None,None,True)
 
                         # thrReportes = threading.Thread(target=rp.generarCanjeador, args=(preciomin, preciomax,
                         #                                                                utilmin,utilmax, totalmin,
