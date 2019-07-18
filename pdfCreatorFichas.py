@@ -245,7 +245,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
 
 
-    ptext = '<font size=11><b>Descripción:</b><br>' + str(descripcion) + '</font>'
+    ptext = '<font size=11><b>Descripción:<br></b>' + str(descripcion) + '</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(PageBreak())
 
