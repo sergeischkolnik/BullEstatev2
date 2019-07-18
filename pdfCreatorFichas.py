@@ -153,7 +153,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
 
     styles=getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY,spaceAfter=6, spaceBefore=6, fontName=Calibri))
 
 
     doc = SimpleDocTemplate(fileName,pagesize=letter,
