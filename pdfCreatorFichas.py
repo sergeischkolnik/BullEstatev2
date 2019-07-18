@@ -1,5 +1,6 @@
 import time
 from reportlab.lib.enums import TA_JUSTIFY
+from reportlab.pdfbase.pdfmetrics import registerFont
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
@@ -14,7 +15,7 @@ from collections import namedtuple
 
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
-
+    registerFont(TTFont('Calibri', 'Calibri.ttf'))
     headerslocalizacion=[]
     headerspropiedad=[]
     headersrentabilidad=[]
@@ -153,7 +154,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
 
     styles=getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY,spaceAfter=6, spaceBefore=6, fontName=Calibri))
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY,spaceAfter=6, spaceBefore=6,))
 
 
     doc = SimpleDocTemplate(fileName,pagesize=letter,
