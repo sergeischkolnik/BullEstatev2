@@ -12,10 +12,13 @@ import locale
 import uf
 import os
 from collections import namedtuple
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
-    registerFont(TTFont('Calibri', 'Calibri.ttf'))
+    pdfmetrics.registerFont(TTFont('Calibri', 'Calibri.ttf'))
+    pdfmetrics.registerFont(TTFont('Inconsolata', 'Inconsolata-Regular.ttf'))
     headerslocalizacion=[]
     headerspropiedad=[]
     headersrentabilidad=[]
