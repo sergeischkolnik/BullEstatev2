@@ -244,6 +244,7 @@ def echo_all(updates):
     global thrReportes
     for update in updates["result"]:
         try:
+            textout=''
             text = update["message"]["text"]
             text = text.strip(' ')
             text = text.lower()
@@ -360,7 +361,7 @@ def echo_all(updates):
 
                 # canjeador
                 elif text == comandosIndividuales[15]:
-                    text = "Para usar canjeador, escriba, separando por espacios:\ncanjeador " \
+                    textout = "Para usar canjeador, escriba, separando por espacios:\ncanjeador " \
                            "<precioMin> <precioMax> <utilMin> <utilMax> <totalMin> <totalMax> " \
                            "<dormitoriosMin> <dormitoriosMax>" \
                            "<banosMin> <banosMax> <estacionamientos> <tipo> <operacion> " \
@@ -831,6 +832,7 @@ def echo_all(updates):
 
 
             send_message(text, chat, URL)
+            send_message(textout, chat, URL)
         except Exception as e:
             print("[tgBot]" + str(e))
 
