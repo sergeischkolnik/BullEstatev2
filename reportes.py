@@ -2345,7 +2345,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
                     return 0
     #Arreglar Mandada de mails
-
+    print('proceder a mandar correo')
     sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
 
 
