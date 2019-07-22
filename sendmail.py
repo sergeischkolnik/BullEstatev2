@@ -67,4 +67,5 @@ def sendMailMultiple(to,cliente,files):
     server.login(fromaddr, "Bullestate.123")
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
+    print('mandando mail')
     server.quit()

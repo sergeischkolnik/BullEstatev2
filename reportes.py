@@ -2327,16 +2327,17 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     #nombreArchivo = "reporte "+ nombreCliente +" "+str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + str(fechahoy)+'.csv'
                     nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + str(comuna) + " " + str(
                         d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
-
+                    print (nombreArchivo)
                     crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy,nombreCliente)
-
+                    print("carpeta encontrada,  o creada")
 
                     patharchivo = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(nombreCliente),str(fechahoy),nombreArchivo)
+                    print(patharchivo)
                     #writeCsv(nombreArchivo, resultado, columnNames, operacion)
                     writeXlsx(patharchivo,resultado,columnNames,operacion)
 
                     listaAdjuntos.append(patharchivo)
-
+                    print(listaAdjuntos)
                     if verboso:
                         print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
                 else:
