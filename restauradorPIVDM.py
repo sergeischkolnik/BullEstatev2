@@ -20,8 +20,11 @@ while True:
     op=last[0]
     region=last[2]
     pagina=last[3]
+    pagina=+saltopagina
+    saltopagina=0
     try:
         scraper.Main(tipo,op,region,pagina,True)
     except:
         print("[SPIVM] ERROR DE SCRAPER. INICIANDO NUEVAMENTE EN 60 SEGUNDOS")
         time.sleep(60)
+        saltopagina=1
