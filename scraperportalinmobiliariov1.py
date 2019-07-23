@@ -722,7 +722,7 @@ def Main(tipoRec="departamento",operacionRec="arriendo", regionRec="valparaiso",
     operacion = ["venta", "arriendo"]
 
     #Añadir tipo a arreglo
-    tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento", "loteo", "industrial", "agrocola", "bodega", "parcela", "terreno-en-construccion"]
+    tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento", "loteo", "industrial", "agriocola", "bodega", "parcela", "terreno-en-construccion"]
 
     #Obtener proxies
     proxies=get_proxiestextweb()

@@ -59,6 +59,18 @@ sqlOficinas = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.l
             "portalinmobiliario.link like '%nunoa%' or " \
             "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%providencia%');"
 
+sqlTerrenos = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
+      "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
+      "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and " \
+      "(portalinmobiliario.tipo='sitio' or portalinmobiliario.tipo='loteo' or portalinmobiliario.tipo='industrial' or portalinmobiliario.tipo='agricola' or portalinmobiliario.tipo='parcela' or portalinmobiliario.tipo='terreno-en-construccion') and " \
+      "portalinmobiliario.fechascrap>='" + str(yesterday) + "' and portalinmobiliario.fechapublicacion>'" + str(
+    past) + "' and " \
+            "(portalinmobiliario.link like '%lo-barnechea%' or " \
+            "portalinmobiliario.link like '%vitacura%' or " \
+            "(portalinmobiliario.link like '%huechuraba%' and ((portalinmobiliario.lat<'-33.374926' and portalinmobiliario.lat>'-33.396264' and portalinmobiliario.lon<'-70.603082' and portalinmobiliario.lon>'-70.630241'))) or " \
+            "portalinmobiliario.link like '%nunoa%' or " \
+            "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%providencia%');"
+
 def checkClient(clientMail,comision):
     sql = "UPDATE duenos SET contactado='si',comision='"+str(comision)+"' WHERE mail='"+str(clientMail)+"'"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
@@ -142,6 +154,28 @@ def sendClientMailsOficinas():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails (oficinas) to "+str(len(lista))+ " clients:")
+
+    for i,l in enumerate(lista):
+        to = str(l[0])
+        nombreProp = str(l[1])
+
+        linkProp=str(l[2])
+
+        mailer.sendMailGratis(to,nombreProp,linkProp)
+        checkClient(to,"1")
+
+        time.sleep(sleepTime)
+
+def sendClientMailsTerrenos():
+
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sqlTerrenos)
+    lista = cur.fetchall()
+    mariadb_connection.close()
+
+    print("[" + str(datetime.now()) +"]Sending mails (terrenos) to "+str(len(lista))+ " clients:")
 
     for i,l in enumerate(lista):
         to = str(l[0])
