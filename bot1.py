@@ -12,6 +12,7 @@ import threading
 import mailBotClientesCarolina
 import mailBotClientesPahola
 import ficha
+import reportes
 
 thrFran = -1
 thrFer = -1
@@ -629,9 +630,16 @@ def echo_all(updates):
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
 
-                            precio,nivel,nrcomp,links,es_venta = tb2.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
-                                                         total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
-                                                         estacionamientos=int(nrEstacionamientos))
+                            latlonyapo=True
+                            propsP=reportes.from_portalinmobiliario(tipo,region,verboso)
+                            propsY=reportes.from_yapo(tipo,region,latlonyapo,verboso)
+                            props=propsP+propsY
+
+                            #operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data
+
+                            precio,nivel,nrcomp,links,es_venta,nivelNumerico = tb2.calcularTasacionData(operacion,tipo,float(lat),float(lon),float(mtUtiles),
+                                                         float(mtTotales),int(dormitorios),int(banos),
+                                                         int(nrEstacionamientos),props)
                             if es_venta:
                                 text = "El precio tasado es UF " + str(precio)+", con un nivel de confianza: "+str(nivel)+\
                                    ", tasación realizada comparandose con "+str(nrcomp)+" propiedades."
@@ -687,10 +695,16 @@ def echo_all(updates):
                             nrCalle = arr[len(arr)-1]
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
+                            latlonyapo=True
+                            propsP=reportes.from_portalinmobiliario(tipo,region,verboso)
+                            propsY=reportes.from_yapo(tipo,region,latlonyapo,verboso)
+                            props=propsP+propsY
 
-                            precio,nivel,nrcomp,links,es_venta = tb2.calcularTasacion(operacion=operacion,tipo=tipo,lat=float(lat),lon=float(lon),util=float(mtUtiles),
-                                                         total=float(mtTotales),dormitorios=int(dormitorios),banos=int(banos),
-                                                         estacionamientos=int(nrEstacionamientos))
+
+
+                            precio,nivel,nrcomp,links,es_venta,nivelNumerico = tb2.calcularTasacionData(operacion,tipo,float(lat),float(lon),float(mtUtiles),
+                                                         float(mtTotales),int(dormitorios),int(banos),
+                                                         int(nrEstacionamientos),props)
                             text = "El precio tasado es UF " + str(precio)+", con un nivel de confianza: "+str(nivel)+\
                                    ", tasación realizada comparandose con "+str(nrcomp)+" propiedades.\nLinks:"
                             for link in links:
