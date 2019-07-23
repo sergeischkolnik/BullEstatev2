@@ -695,6 +695,7 @@ def echo_all(updates):
                             nrCalle = arr[len(arr)-1]
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
+                            verboso=True
                             latlonyapo=True
                             propsP=reportes.from_portalinmobiliario(tipo,region,verboso)
                             propsY=reportes.from_yapo(tipo,region,latlonyapo,verboso)
