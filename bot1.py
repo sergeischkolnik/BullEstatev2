@@ -689,7 +689,7 @@ def echo_all(updates):
                             # orientacion = arr[13+n]
 
                             calle = ""
-                            for c in range(114+n,len(arr)-1):
+                            for c in range(11+n,len(arr)-1):
                                 calle += arr[c]
                                 calle += " "
 
