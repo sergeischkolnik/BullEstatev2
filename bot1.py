@@ -292,13 +292,13 @@ def echo_all(updates):
                 elif text==comandosIndividuales[4]:
                     text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> " \
                                "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
-                               "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
+                               "<nrEstacionamientos> <nombreCalle> <numeroDireccion>"
 
                 #tasadorlinks
                 elif text==comandosIndividuales[5]:
                     text = "Para usar tasador con links, escriba, separando por espacios:\ntasadorlinks <region> <comuna> " \
                                "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
-                               "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
+                               "<nrEstacionamientos> <nombreCalle> <numeroDireccion>"
 
                 #clientesmailer
                 elif text==comandosIndividuales[6]:
@@ -586,10 +586,10 @@ def echo_all(updates):
 
                 #tasador
                 elif arr[0] == comandosMultiples[2]:
-                    if len(arr)< 16:
+                    if len(arr)< 13:
                         text = "Para usar tasador, escriba, separando por espacios:\ntasador <region> <comuna> " \
                                "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
-                               "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
+                               "<nrEstacionamientos> <nombreCalle> <numeroDireccion>"
                     else:
                         region = arr[1]
                         comuna = arr[2]
@@ -617,12 +617,12 @@ def echo_all(updates):
                             mtUtiles = arr[8+n]
                             mtTotales = arr[9+n]
                             nrEstacionamientos = arr[10+n]
-                            ano = arr[11+n]
-                            piso = arr[12+n]
-                            orientacion = arr[13+n]
+                            # ano = arr[11+n]
+                            # piso = arr[12+n]
+                            # orientacion = arr[13+n]
 
                             calle = ""
-                            for c in range(14+n,len(arr)-1):
+                            for c in range(11+n,len(arr)-1):
                                 calle += arr[c]
                                 calle += " "
 
@@ -653,10 +653,10 @@ def echo_all(updates):
 
                 #tasador con links
                 elif arr[0] == comandosMultiples[3]:
-                    if len(arr)< 16:
+                    if len(arr)< 13:
                         text = "Para usar tasador con links, escriba, separando por espacios:\ntasadorlinks <region> <comuna> " \
                                "<operacion> <tipo> <estado> <dormitorios> <baños> <mtUtiles> <mtTotales> " \
-                               "<nrEstacionamientos> <año> <piso> <orientacion> <nombreCalle> <numeroDireccion>"
+                               "<nrEstacionamientos> <nombreCalle> <numeroDireccion>"
                     else:
                         region = arr[1]
                         comuna = arr[2]
@@ -684,12 +684,12 @@ def echo_all(updates):
                             mtUtiles = arr[8+n]
                             mtTotales = arr[9+n]
                             nrEstacionamientos = arr[10+n]
-                            ano = arr[11+n]
-                            piso = arr[12+n]
-                            orientacion = arr[13+n]
+                            # ano = arr[11+n]
+                            # piso = arr[12+n]
+                            # orientacion = arr[13+n]
 
                             calle = ""
-                            for c in range(14+n,len(arr)-1):
+                            for c in range(114+n,len(arr)-1):
                                 calle += arr[c]
                                 calle += " "
 
