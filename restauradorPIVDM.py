@@ -13,7 +13,7 @@ def ultimo():
     tupla = cur.fetchall()
     return tupla
 
-
+saltopagina=0
 while True:
     last=ultimo()[0]
     tipo=last[1]
