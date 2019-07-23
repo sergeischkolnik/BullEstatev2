@@ -34,12 +34,12 @@ sqlAux="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios
 
 sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
+          "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and (portalinmobiliario.tipo='departamento' or portalinmobiliario.tipo='casa' or portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial') and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "((portalinmobiliario.link like '%con-con%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%vina-del-mar%' and "+sqlAux1+"));"
-          # "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
-          # "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%vina-del-mar%' and "+sqlAux1+") or" \
+          "(portalinmobiliario.link like '%quilpue%' and "+sqlAux1+") or " \
+          "(portalinmobiliario.link like '%valparaiso%' and "+sqlAux1+")); "
           # "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%la-florida%' and "+sqlAux1+") or " \
