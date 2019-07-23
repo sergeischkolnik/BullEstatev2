@@ -21,7 +21,7 @@ print("[SUPI] " + str(datetime.datetime.now()))
 
 def actualizar_checker(operacion,tipo,region,pagina):
     d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='supi'"
+    sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='spir'"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
@@ -716,13 +716,13 @@ def scrap(d,h,operacion,tipo,region,lista,faillista):
 def Main(tipoRec="departamento",operacionRec="arriendo", regionRec="valparaiso",pagRec=0,isRecovery=False):
 
     #Añadir regiones a arreglo
-    region= ["metropolitana"]
+    region= ["tarapaca","antofagasta","valparaiso","bernardo-ohiggins","biobio"]
 
     #Añadir operaciones a arreglo
     operacion = ["venta", "arriendo"]
 
     #Añadir tipo a arreglo
-    tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento", "loteo", "industrial", "agriocola", "bodega", "parcela", "terreno-en-construccion"]
+    tipo = ["departamento", "casa", "oficina","sitio", "comercial", "estacionamiento", "loteo", "industrial", "agrocola", "bodega", "parcela", "terreno-en-construccion"]
 
     #Obtener proxies
     proxies=get_proxiestextweb()

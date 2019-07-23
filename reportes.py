@@ -294,8 +294,8 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        # print("Consulta:")
-        # print(sql)
+        print("Consulta:")
+        print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
         print("Datos de consulta especifica de portal listos")
@@ -1985,13 +1985,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
     propsP=from_portalinmobiliario(tipo,region,verboso)
     propsY=from_yapo(tipo,region,latlonyapo,verboso)
-
     props=propsP+propsY
     for comuna in listaComunas:
 
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
-
                 propiedadesP=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
                                                latmin,latmax,lonmin,lonmax,d,d,b,
                                                b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
@@ -2329,25 +2327,24 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     #nombreArchivo = "reporte "+ nombreCliente +" "+str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + str(fechahoy)+'.csv'
                     nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + str(comuna) + " " + str(
                         d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
-
+                    print (nombreArchivo)
                     crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy,nombreCliente)
-
+                    print("carpeta encontrada,  o creada")
 
                     patharchivo = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(nombreCliente),str(fechahoy),nombreArchivo)
+                    print(patharchivo)
                     #writeCsv(nombreArchivo, resultado, columnNames, operacion)
                     writeXlsx(patharchivo,resultado,columnNames,operacion)
 
                     listaAdjuntos.append(patharchivo)
-
+                    print(listaAdjuntos)
                     if verboso:
                         print("[GeneradorReportes] Enviando reporte a cliente "+nombreCliente)
-
                 else:
                     if verboso:
                         print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
-
     #Arreglar Mandada de mails
-
+    print('proceder a mandar correo')
     sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
 
 

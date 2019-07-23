@@ -37,6 +37,7 @@ def sendMail(to,cliente,file):
     server.quit()
 
 def sendMailMultiple(to,cliente,files):
+    print('entrando a enviador de correos')
     fromaddr = "contacto@bullestate.cl"
     toaddr = to
 
@@ -50,7 +51,7 @@ def sendMailMultiple(to,cliente,files):
     body = "Estimado " + str(cliente) + " :\n\nAdjunto informe solicitado."
 
     msg.attach(MIMEText(body, 'plain'))
-
+    print('entrando a file attacher')
     for file in files:
         filename = file
         attachment = open(file, "rb")
@@ -61,10 +62,11 @@ def sendMailMultiple(to,cliente,files):
         part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
 
         msg.attach(part)
-
+    print('mensajes atachados')
     server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
     #server.starttls()
     server.login(fromaddr, "Bullestate.123")
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
+    print('mandando mail')
     server.quit()
