@@ -20,7 +20,7 @@ while True:
     op=last[0]
     region=last[2]
     pagina=last[3]
-    pagina=+saltopagina
+    pagina+=saltopagina
     saltopagina=0
     try:
         scraper.Main(tipo,op,region,pagina,True)
