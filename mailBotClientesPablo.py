@@ -10,7 +10,7 @@ past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=5)
 yesterday=datetime.date(yesterday)
 
-sleepTime=random.randint(150,250)
+sleepTime=random.randint(45,75)
 
 sqlAux1="((portalinmobiliario.dormitorios='1') or (portalinmobiliario.dormitorios>'1'))"
 
