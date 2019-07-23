@@ -629,6 +629,7 @@ def echo_all(updates):
                             nrCalle = arr[len(arr)-1]
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
+                            print('Propiedad ubicada en: '+str(direccion)+", Localizada en Lat: "+str(lat)+", Lon: "+str(lon))
                             verboso=True
                             latlonyapo=True
                             propsP=reportes.from_portalinmobiliario(tipo,region,verboso)
@@ -695,6 +696,7 @@ def echo_all(updates):
                             nrCalle = arr[len(arr)-1]
                             direccion = str(calle) + str(nrCalle) + ", " + str(comuna) + ", Chile"
                             lat,lon = gm.getCoordsWithAdress(direccion)
+                            print('Propiedad ubicada en: '+str(direccion)+", Localizada en Lat: "+str(lat)+", Lon: "+str(lon))
                             verboso=True
                             latlonyapo=True
                             propsP=reportes.from_portalinmobiliario(tipo,region,verboso)
