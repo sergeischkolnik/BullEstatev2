@@ -83,7 +83,7 @@ def set_region(bot, update):
         STATE = MENU
         imprimirRM(bot,update)
         return MENU
-    elif update.message.text == "valpo":
+    elif update.message.text == "Valpo":
         STATE = MENU
         imprimirRM(bot, update)
         return MENU
