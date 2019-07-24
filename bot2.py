@@ -14,8 +14,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Global vars:
-LANG = "EN"
-MENU, REPORTE , RM= range(3)
+
+MENU, SELECT_OP, SELECT_REGION = range(3)
 STATE = MENU
 
 vars_us = dict()
@@ -28,7 +28,9 @@ def start(bot, update):
     """
 
     user = update.message.from_user
-    print(user)
+    if user.id not in vars_us:
+        vars_us[user.id] = dict()
+
 
     return menu(bot, update)
 
@@ -54,6 +56,33 @@ def menu(bot, update):
 
     return MENU
 
+def select_region(bot, update):
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+    # Create buttons to slect language:
+    keyboard = [["RM","Valpo"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    logger.info("Menu command requested by {}.".format(user.first_name))
+    update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
+
+    return SELECT_REGION
+
+def select_comuna(bot,update):
+
+    user = update.message.from_user
+    print(vars_us[user.id])
+
+    global STATE
+    STATE = MENU
+    menu(bot,update)
 
 def set_state(bot, update):
     """
@@ -63,9 +92,9 @@ def set_state(bot, update):
     global STATE
     user = update.message.from_user
     if update.message.text == "Reporte":
-        STATE = REPORTE
+        STATE = SELECT_OP
         report(bot, update)
-        return REPORTE
+        return SELECT_OP
     elif update.message.text == "Ficha":
         faq(bot, update)
         menu(bot, update)
@@ -86,13 +115,15 @@ def set_operacion(bot, update):
     global STATE
     user = update.message.from_user
     if update.message.text == "Comprar":
-        STATE = MENU
-        imprimirRM(bot,update)
-        return MENU
-    elif update.message.text == "Crrendar":
-        STATE = MENU
-        imprimirRM(bot, update)
-        return MENU
+        STATE = SELECT_REGION
+        vars_us[user.id]["OP"] = "Comprar"
+        select_region(bot,update)
+        return SELECT_REGION
+    elif update.message.text == "Arrendar":
+        STATE = SELECT_REGION
+        vars_us[user.id]["OP"] = "Arrendar"
+        select_region(bot, update)
+        return SELECT_REGION
     elif update.message.text == "Atras":
         STATE = MENU
         menu(bot, update)
@@ -101,11 +132,41 @@ def set_operacion(bot, update):
         menu(bot, update)
         return MENU
     else:
-        update.message.reply_text("Valor invalido. Elija algun boton.")
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         report(bot, update)
-        STATE = REPORTE
-        return REPORTE
+        STATE = SELECT_OP
+        return SELECT_OP
 
+
+def set_region(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+    user = update.message.from_user
+    if update.message.text == "RM":
+        STATE = SELECT_COMUNA
+        vars_us[user.id]["Region"] = "RM"
+        select_comuna(bot,update)
+        return SELECT_COMUNA
+    elif update.message.text == "Valpo":
+        STATE = SELECT_COMUNA
+        vars_us[user.id]["Region"] = "Valpo"
+        select_comuna(bot, update)
+        return SELECT_COMUNA
+    elif update.message.text == "Atras":
+        STATE = SELECT_OP
+        report(bot, update)
+        return SELECT_OP
+    elif update.message.text == "Salir":
+        menu(bot, update)
+        return MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        set_region(bot, update)
+        STATE = SELECT_REGION
+        return SELECT_REGION
 
 def report(bot, update):
 
@@ -123,7 +184,7 @@ def report(bot, update):
     logger.info("Reporte pedido por {}.".format(user.first_name))
     update.message.reply_text("Ingrese region", reply_markup=reply_markup)
 
-    return REPORTE
+    return SELECT_OP
 
 
 def faq(bot, update):
@@ -207,8 +268,11 @@ def main():
             MENU: [RegexHandler(
                         '^({}|{}|{})$'.format("reporte", "ficha", "ayuda"),set_state)],
 
-            REPORTE: [RegexHandler(
+            SELECT_OP: [RegexHandler(
                         '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set_operacion)],
+
+            SELECT_REGION: [RegexHandler(
+                '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set_region)],
 
         },
 
