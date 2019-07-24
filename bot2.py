@@ -15,8 +15,8 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 LANG = "EN"
-SET_LANG, MENU, SET_STAT, REPORT, MAP, FAQ, ABOUT = range(7)
-STATE = SET_LANG
+MENU, SET_STAT, REPORT, MAP, FAQ, ABOUT = range(6)
+STATE = MENU
 
 
 def start(bot, update):
@@ -28,31 +28,11 @@ def start(bot, update):
     keyboard = [['ES', 'EN']]
 
     # Create initial message:
-    message = "Hola, soy el bot de admin de props. Elije una opcion de idioma"
-
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=True,
-                                       resize_keyboard=True)
-    update.message.reply_text(message, reply_markup=reply_markup)
-
-    return SET_LANG
-
-
-def set_lang(bot, update):
-    """
-    First handler with received data to set language globally.
-    """
-    # Set language:
-    global LANG
-    LANG = update.message.text
-    user = update.message.from_user
-
-    logger.info("Language set by {} to {}.".format(user.first_name, LANG))
-    update.message.reply_text("Lenguaje seleccionado",
-                              reply_markup=ReplyKeyboardRemove())
+    message = "Hola, soy el bot de admin de props. "
+    
+    menu(bot, update)
 
     return MENU
-
 
 def menu(bot, update):
     """
