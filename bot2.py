@@ -181,8 +181,8 @@ def report(bot, update):
                                        resize_keyboard=True)
 
     user = update.message.from_user
-    logger.info("Reporte pedido por {}.".format(user.first_name))
-    update.message.reply_text("Ingrese region", reply_markup=reply_markup)
+    logger.info("{} está eligigiendo operacion.".format(user.first_name))
+    update.message.reply_text("Seleccione operacion", reply_markup=reply_markup)
 
     return SELECT_OP
 
