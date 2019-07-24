@@ -24,7 +24,7 @@ def start(bot, update):
     Start function. Displayed whenever the /start command is called.
     This function sets the language of the bot.
     """
-    menu(bot, update)
+    return menu(bot, update)
 
 def menu(bot, update):
     """
@@ -143,7 +143,7 @@ def main():
     states on each step of the flow. Each state has its own
     handler for the interaction with the user.
     """
-    global LANG
+
     # Create the EventHandler and pass it your bot's token.
     updater = Updater(telegram_token)
 
