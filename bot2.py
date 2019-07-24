@@ -104,7 +104,7 @@ def report(bot, update):
     user = update.message.from_user
     logger.info("Report requested by {}.".format(user.first_name))
 
-    keyboard = [["RM"],["Valpo"]
+    keyboard = [["RM","Valpo"],
                 ["atras", "salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
