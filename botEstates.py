@@ -1,3 +1,2 @@
 def main():
-    id
-    INICIAL,
+

@@ -21,7 +21,7 @@ sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobili
           "((portalinmobiliario.link like '%con-con%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%vina-del-mar%' and "+sqlAux1+") or" \
           "(portalinmobiliario.link like '%quilpue%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%valparaiso%' and "+sqlAux1+")); "
+          "(portalinmobiliario.link like '%valparaiso-valparaiso%' and "+sqlAux1+")); "
           # "(portalinmobiliario.link like '%estacion-central%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%macul%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
@@ -41,7 +41,7 @@ sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliari
           "((portalinmobiliario.link like '%con-con%' and "+sqlAux1+") or " \
           "(portalinmobiliario.link like '%vina-del-mar%' and "+sqlAux1+") or" \
           "(portalinmobiliario.link like '%quilpue%' and "+sqlAux1+") or " \
-          "(portalinmobiliario.link like '%valparaiso%' and "+sqlAux1+")); "
+          "(portalinmobiliario.link like '%valparaiso-valparaiso%' and "+sqlAux1+")); "
           # "(portalinmobiliario.link like '%quinta-normall%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%san-joaquin%' and "+sqlAux1+") or " \
           # "(portalinmobiliario.link like '%la-florida%' and "+sqlAux1+") or " \
