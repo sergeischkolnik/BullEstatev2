@@ -29,7 +29,7 @@ def start(bot, update):
 
     # Create initial message:
     message = "Hola, soy el bot de admin de props. "
-    
+
     menu(bot, update)
 
     return MENU
@@ -160,7 +160,6 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
-            SET_LANG: [RegexHandler('^(ES|EN)$', set_lang)],
 
             MENU: [CommandHandler('menu', menu)],
 
