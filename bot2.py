@@ -150,12 +150,12 @@ def set_region(bot, update):
         STATE = SELECT_COMUNA
         vars_us[user.id]["Region"] = "RM"
         select_comuna(bot,update)
-        return SELECT_COMUNA
+        return MENU
     elif update.message.text == "Valpo":
         STATE = SELECT_COMUNA
         vars_us[user.id]["Region"] = "Valpo"
         select_comuna(bot, update)
-        return SELECT_COMUNA
+        return MENU
     elif update.message.text == "Atras":
         STATE = SELECT_OP
         report(bot, update)
