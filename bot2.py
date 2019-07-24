@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 # Global vars:
 LANG = "EN"
 MENU, SET_STAT, REPORT, MAP, FAQ, ABOUT = range(6)
-STATE = MENU
+STATE = SET_STAT
 
 
 def start(bot, update):
