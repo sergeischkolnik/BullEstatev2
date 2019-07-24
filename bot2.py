@@ -29,7 +29,7 @@ def start(bot, update):
                                        resize_keyboard=True)
     update.message.reply_text(message, reply_markup=reply_markup)
 
-    return MENU
+    return TASACION
 
 def tasacion(bot, update):
     """
