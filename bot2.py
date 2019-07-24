@@ -184,7 +184,7 @@ def main():
             MENU: [CommandHandler('menu', menu)],
 
             SET_STAT: [RegexHandler(
-                        '^({}|{}|{}|{})$'.format("reporte", "faq", "acerca"),set_state)]
+                        '^({}|{}|{})$'.format("reporte", "faq", "acerca"),set_state)]
         },
 
         fallbacks=[CommandHandler('cancel', cancel),
