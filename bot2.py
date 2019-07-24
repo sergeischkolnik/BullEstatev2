@@ -36,6 +36,7 @@ def start(bot, update):
     return MENU
 
 def menu(bot, update):
+    global STATE
     print(STATE)
     """
     Main menu function.
@@ -53,9 +54,8 @@ def menu(bot, update):
     logger.info("{} está en el menu principal.".format(user.first_name))
     update.message.reply_text("menu principal", reply_markup=reply_markup)
 
-    global STATE
-    STATE = MENU
 
+    STATE = MENU
     return MENU
 
 def select_region(bot, update):
