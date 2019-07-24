@@ -24,15 +24,7 @@ def start(bot, update):
     Start function. Displayed whenever the /start command is called.
     This function sets the language of the bot.
     """
-    # Create buttons to slect language:
-    keyboard = [['ES', 'EN']]
-
-    # Create initial message:
-    message = "Hola, soy el bot de admin de props. "
-
     menu(bot, update)
-
-    return MENU
 
 def menu(bot, update):
     """
@@ -65,7 +57,7 @@ def set_state(bot, update):
         STATE = REPORT
         report(bot, update)
         menu(bot, update)
-        return SET_STAT
+        return MENU
     elif update.message.text == "faq":
         STATE = FAQ
         faq(bot, update)
