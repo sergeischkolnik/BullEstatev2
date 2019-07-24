@@ -32,9 +32,11 @@ def start(bot, update):
         vars_us[user.id] = dict()
 
 
-    return menu(bot, update)
+    menu(bot, update)
+    return MENU
 
 def menu(bot, update):
+    print(STATE)
     """
     Main menu function.
     This will display the options from the main menu.
@@ -48,11 +50,8 @@ def menu(bot, update):
                                        resize_keyboard=True)
 
     user = update.message.from_user
-    logger.info("Menu command requested by {}.".format(user.first_name))
+    logger.info("{} está en el menu principal.".format(user.first_name))
     update.message.reply_text("menu principal", reply_markup=reply_markup)
-
-    global STATE
-    STATE = MENU
 
     return MENU
 
@@ -70,13 +69,13 @@ def select_region(bot, update):
                                        resize_keyboard=True)
 
     user = update.message.from_user
-    logger.info("Menu command requested by {}.".format(user.first_name))
+    logger.info("{} está seleccionando region.".format(user.first_name))
     update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
 
     return SELECT_REGION
 
 def select_comuna(bot,update):
-
+    print(STATE)
     user = update.message.from_user
     print(vars_us[user.id])
 
@@ -185,23 +184,6 @@ def report(bot, update):
 
     return SELECT_OP
 
-
-def faq(bot, update):
-    """
-    FAQ function. Displays FAQ about disaster situations.
-    """
-    user = update.message.from_user
-    logger.info("FAQ requested by {}.".format(user.first_name))
-    bot.send_message(chat_id=update.message.chat_id, text="FAQ")
-    bot.send_message(chat_id=update.message.chat_id, text="volviendo a menu")
-    return
-
-def imprimirRM(bot, update):
-
-    user = update.message.from_user
-    logger.info("RM requested by {}.".format(user.first_name))
-    bot.send_message(chat_id=update.message.chat_id, text="Reporte RM")
-    menu(bot, update)
 
 
 def about_bot(bot, update):
