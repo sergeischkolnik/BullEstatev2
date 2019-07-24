@@ -7,7 +7,7 @@ import logging
 telegram_token = "666842820:AAGg1F_NjlQBL7IPv9XlfMEC0PJ6iWlVLj0"
 
 LANG = "EN"
-MENU, TASACION, SET_STAT, REPORT, MAP, FAQ, ABOUT, LOCATION = range(8)
+MENU, TAS, SET_STAT, REPORT, MAP, FAQ, ABOUT, LOCATION = range(8)
 STATE = MENU
 
 def start(bot, update):
@@ -29,7 +29,7 @@ def start(bot, update):
                                        resize_keyboard=True)
     update.message.reply_text(message, reply_markup=reply_markup)
 
-    return TASACION
+    return TAS
 
 def tasacion(bot, update):
     """
@@ -67,6 +67,27 @@ def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
 
+def set_state(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+    user = update.message.from_user
+    if update.message.text == "tasacion":
+        STATE = TAS
+        tasacion(bot, update)
+        return MENU
+
+    #elif update.message.text == view_map[LANG]:
+     #   STATE = MAP
+      #  vmap(bot, update)
+       # return MENU
+
+    else:
+        STATE = MENU
+        return MENU
+
 def main():
     """
     Main function.
@@ -87,7 +108,7 @@ def main():
 
         states={
 
-            TASACION: [CommandHandler('tasacion', tasacion)],
+            TAS: [CommandHandler('tasacion', tasacion)],
 
         },
 
