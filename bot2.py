@@ -43,6 +43,9 @@ def menu(bot, update):
     logger.info("Menu command requested by {}.".format(user.first_name))
     update.message.reply_text("menu principal", reply_markup=reply_markup)
 
+    global STATE
+    STATE = SET_STAT
+
     return SET_STAT
 
 
