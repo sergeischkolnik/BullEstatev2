@@ -51,7 +51,7 @@ def menu(bot, update):
     logger.info("Menu command requested by {}.".format(user.first_name))
     update.message.reply_text("menu principal", reply_markup=reply_markup)
 
-    return MENU
+    return SET_STAT
 
 
 def set_state(bot, update):
