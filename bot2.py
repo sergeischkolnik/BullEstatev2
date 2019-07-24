@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 LANG = "EN"
-SET_LANG, MENU, SET_STAT, REPORT, MAP, FAQ, ABOUT, LOCATION = range(8)
+SET_LANG, MENU, SET_STAT, REPORT, MAP, FAQ, ABOUT = range(7)
 STATE = SET_LANG
 
 
@@ -184,9 +184,7 @@ def main():
             MENU: [CommandHandler('menu', menu)],
 
             SET_STAT: [RegexHandler(
-                        '^({}|{}|{}|{})$'.format(
-                            "reporte", "faq", "acerca"),
-                        set_state)]
+                        '^({}|{}|{}|{})$'.format("reporte", "faq", "acerca"),set_state)]
         },
 
         fallbacks=[CommandHandler('cancel', cancel),
