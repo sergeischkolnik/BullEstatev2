@@ -85,7 +85,7 @@ def set_state(bot, update):
         STATE = REPORT
         report(bot, update)
         menu(bot, update)
-        return MENU
+        return SET_STAT
     elif update.message.text == "faq":
         STATE = FAQ
         faq(bot, update)
