@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 LANG = "EN"
-MENU, REPORT, MAP, FAQ, ABOUT = range(5)
+MENU, REPORTE , RM= range(3)
 STATE = MENU
 
 
@@ -43,6 +43,9 @@ def menu(bot, update):
     logger.info("Menu command requested by {}.".format(user.first_name))
     update.message.reply_text("menu principal", reply_markup=reply_markup)
 
+    global STATE
+    STATE = MENU
+
     return MENU
 
 
@@ -54,17 +57,42 @@ def set_state(bot, update):
     global STATE
     user = update.message.from_user
     if update.message.text == "reporte":
-        STATE = REPORT
+        STATE = REPORTE
         report(bot, update)
+        return REPORTE
+    elif update.message.text == "faq":
+        faq(bot, update)
         menu(bot, update)
         return MENU
-    elif update.message.text == "faq":
-        STATE = FAQ
-        faq(bot, update)
-        return MENU
     elif update.message.text == "acerca":
-        STATE = ABOUT
         about_bot(bot, update)
+        menu(bot, update)
+        return MENU
+    else:
+        STATE = MENU
+        return MENU
+
+def set_region(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+    user = update.message.from_user
+    if update.message.text == "RM":
+        STATE = MENU
+        imprimirRM(bot,update)
+        return MENU
+    elif update.message.text == "valpo":
+        STATE = MENU
+        imprimirRM(bot, update)
+        return MENU
+    elif update.message.text == "atras":
+        STATE = REPORTE
+        report(bot, update)
+        return REPORTE
+    elif update.message.text == "salir":
+        menu(bot, update)
         return MENU
     else:
         STATE = MENU
@@ -72,14 +100,22 @@ def set_state(bot, update):
 
 
 def report(bot, update):
-    """
-    FAQ function. Displays FAQ about disaster situations.
-    """
+
     user = update.message.from_user
     logger.info("Report requested by {}.".format(user.first_name))
-    update.message.reply_text("generando reporte")
-    bot.send_message(chat_id=update.message.chat_id, text="volviendo a menu")
-    return
+
+    keyboard = [["RM"],["Valpo"]
+                ["atras", "salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    logger.info("Reporte pedido por {}.".format(user.first_name))
+    update.message.reply_text("Ingrese region", reply_markup=reply_markup)
+
+    return REPORTE
 
 
 def faq(bot, update):
@@ -91,6 +127,13 @@ def faq(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="FAQ")
     bot.send_message(chat_id=update.message.chat_id, text="volviendo a menu")
     return
+
+def imprimirRM(bot, update):
+
+    user = update.message.from_user
+    logger.info("RM requested by {}.".format(user.first_name))
+    bot.send_message(chat_id=update.message.chat_id, text="Reporte RM")
+    menu(bot, update)
 
 
 def about_bot(bot, update):
@@ -154,7 +197,11 @@ def main():
         states={
 
             MENU: [RegexHandler(
-                        '^({}|{}|{})$'.format("reporte", "faq", "acerca"),set_state)]
+                        '^({}|{}|{})$'.format("reporte", "faq", "acerca"),set_state)],
+
+            REPORTE: [RegexHandler(
+                        '^({}|{}|{}|{})$'.format("RM", "Valpo", "atras", "salir"),set_region)],
+
         },
 
         fallbacks=[CommandHandler('cancel', cancel),
