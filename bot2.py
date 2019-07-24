@@ -6,67 +6,73 @@ import logging
 
 telegram_token = "666842820:AAGg1F_NjlQBL7IPv9XlfMEC0PJ6iWlVLj0"
 
-LANG = "EN"
-MENU, TAS, SET_STAT, REPORT, MAP, FAQ, ABOUT, LOCATION = range(8)
+# Enable logging
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO)
 
-STATE = MENU
+logger = logging.getLogger(__name__)
+
+# Global vars:
+LANG = "EN"
+SET_LANG, MENU, SET_STAT, REPORT, MAP, FAQ, ABOUT, LOCATION = range(8)
+STATE = SET_LANG
+
 
 def start(bot, update):
     """
     Start function. Displayed whenever the /start command is called.
     This function sets the language of the bot.
     """
-    # Create buttons
-    keyboard = [["tasacion", "fun2"],
-                ["fun3", "fun4"],
-                ["fun5", "fun6"],
-                ["gun7", "fun8"]]
+    # Create buttons to slect language:
+    keyboard = [['ES', 'EN']]
 
     # Create initial message:
-    message = "Hola, soy el admin de propiedades. \n\n "
+    message = "Hola, soy el bot de admin de props. Elije una opcion de idioma"
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
     update.message.reply_text(message, reply_markup=reply_markup)
 
+    return SET_LANG
+
+
+def set_lang(bot, update):
+    """
+    First handler with received data to set language globally.
+    """
+    # Set language:
+    global LANG
+    LANG = update.message.text
+    user = update.message.from_user
+
+    logger.info("Language set by {} to {}.".format(user.first_name, LANG))
+    update.message.reply_text("Lenguaje seleccionado",
+                              reply_markup=ReplyKeyboardRemove())
+
     return MENU
 
-def tasacion(bot, update):
+
+def menu(bot, update):
     """
-    About function. Displays info about DisAtBot.
+    Main menu function.
+    This will display the options from the main menu.
     """
+    # Create buttons to slect language:
+    keyboard = [["reporte"],
+                ["faq", "acerca"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
     user = update.message.from_user
-    logger.info("About info requested by {}.".format(user.first_name))
-    bot.send_message(chat_id=update.message.chat_id, text="Estoy tasando bla bla")
-    bot.send_message(chat_id=update.message.chat_id, text="volviendo a menu")
-    return
+    logger.info("Menu command requested by {}.".format(user.first_name))
+    update.message.reply_text("menu principal", reply_markup=reply_markup)
 
-def help(bot, update):
-    """
-    Help function.
-    This displays a set of commands available for the bot.
-    """
-    user = update.message.from_user
-    logger.info("User {} asked for help.".format(user.first_name))
-    update.message.reply_text("Texto de ayuda bla bla",
-                              reply_markup=ReplyKeyboardRemove())
+    return SET_STAT
 
-def cancel(bot, update):
-    """
-    User cancelation function.
-    Cancel conersation by user.
-    """
-    user = update.message.from_user
-    logger.info("User {} canceled the conversation.".format(user.first_name))
-    update.message.reply_text("ADIOS",
-                              reply_markup=ReplyKeyboardRemove())
-
-    return ConversationHandler.END
-
-def error(bot, update, error):
-    """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, error)
 
 def set_state(bot, update):
     """
@@ -75,19 +81,84 @@ def set_state(bot, update):
     # Set state:
     global STATE
     user = update.message.from_user
-    if update.message.text == "tasacion":
-        STATE = TAS
-        tasacion(bot, update)
+    if update.message.text == "reporte":
+        STATE = REPORT
+        report(bot, update)
+        return LOCATION
+    elif update.message.text == "faq":
+        STATE = FAQ
+        faq(bot, update)
         return MENU
-
-    #elif update.message.text == view_map[LANG]:
-     #   STATE = MAP
-      #  vmap(bot, update)
-       # return MENU
-
+    elif update.message.text == "acerca":
+        STATE = ABOUT
+        about_bot(bot, update)
+        return MENU
     else:
         STATE = MENU
         return MENU
+
+
+def report(bot, update):
+    """
+    FAQ function. Displays FAQ about disaster situations.
+    """
+    user = update.message.from_user
+    logger.info("Report requested by {}.".format(user.first_name))
+    update.message.reply_text("generando reporte")
+    bot.send_message(chat_id=update.message.chat_id, text="volviendo a menu")
+    return
+
+
+def faq(bot, update):
+    """
+    FAQ function. Displays FAQ about disaster situations.
+    """
+    user = update.message.from_user
+    logger.info("FAQ requested by {}.".format(user.first_name))
+    bot.send_message(chat_id=update.message.chat_id, text="FAQ")
+    bot.send_message(chat_id=update.message.chat_id, text="volviendo a menu")
+    return
+
+
+def about_bot(bot, update):
+    """
+    About function. Displays info about DisAtBot.
+    """
+    user = update.message.from_user
+    logger.info("About info requested by {}.".format(user.first_name))
+    bot.send_message(chat_id=update.message.chat_id, text="acerca de ...")
+    bot.send_message(chat_id=update.message.chat_id, text="volviendo a menu")
+    return
+
+
+def help(bot, update):
+    """
+    Help function.
+    This displays a set of commands available for the bot.
+    """
+    user = update.message.from_user
+    logger.info("User {} asked for help.".format(user.first_name))
+    update.message.reply_text("texto de ayuda",
+                              reply_markup=ReplyKeyboardRemove())
+
+
+def cancel(bot, update):
+    """
+    User cancelation function.
+    Cancel conersation by user.
+    """
+    user = update.message.from_user
+    logger.info("User {} canceled the conversation.".format(user.first_name))
+    update.message.reply_text("mensaje adiuos",
+                              reply_markup=ReplyKeyboardRemove())
+
+    return ConversationHandler.END
+
+
+def error(bot, update, error):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, error)
+
 
 def main():
     """
@@ -108,9 +179,14 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
+            SET_LANG: [RegexHandler('^(ES|EN)$', set_lang)],
 
-            TAS: [CommandHandler('tasacion', tasacion)],
+            MENU: [CommandHandler('menu', menu)],
 
+            SET_STAT: [RegexHandler(
+                        '^({}|{}|{}|{})$'.format(
+                            "reporte", "faq", "acerca"),
+                        set_state)]
         },
 
         fallbacks=[CommandHandler('cancel', cancel),
@@ -125,12 +201,9 @@ def main():
     # Start DisAtBot:
     updater.start_polling()
 
-    print("Bot andando.")
-
     # Run the bot until the user presses Ctrl-C or the process
     # receives SIGINT, SIGTERM or SIGABRT:
     updater.idle()
-
 
 
 if __name__ == '__main__':
