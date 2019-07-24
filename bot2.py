@@ -18,12 +18,18 @@ LANG = "EN"
 MENU, REPORTE , RM= range(3)
 STATE = MENU
 
+vars_us = dict()
+
 
 def start(bot, update):
     """
     Start function. Displayed whenever the /start command is called.
     This function sets the language of the bot.
     """
+
+    user = update.message.from_user
+    print(user)
+
     return menu(bot, update)
 
 def menu(bot, update):
@@ -32,8 +38,8 @@ def menu(bot, update):
     This will display the options from the main menu.
     """
     # Create buttons to slect language:
-    keyboard = [["reporte"],
-                ["faq", "acerca"]]
+    keyboard = [["Reporte"],
+                ["Ficha", "Ayuda"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -56,15 +62,15 @@ def set_state(bot, update):
     # Set state:
     global STATE
     user = update.message.from_user
-    if update.message.text == "reporte":
+    if update.message.text == "Reporte":
         STATE = REPORTE
         report(bot, update)
         return REPORTE
-    elif update.message.text == "faq":
+    elif update.message.text == "Ficha":
         faq(bot, update)
         menu(bot, update)
         return MENU
-    elif update.message.text == "acerca":
+    elif update.message.text == "Ayuda":
         about_bot(bot, update)
         menu(bot, update)
         return MENU
@@ -72,31 +78,33 @@ def set_state(bot, update):
         STATE = MENU
         return MENU
 
-def set_region(bot, update):
+def set_operacion(bot, update):
     """
     Set option selected from menu.
     """
     # Set state:
     global STATE
     user = update.message.from_user
-    if update.message.text == "RM":
+    if update.message.text == "Comprar":
         STATE = MENU
         imprimirRM(bot,update)
         return MENU
-    elif update.message.text == "Valpo":
+    elif update.message.text == "Crrendar":
         STATE = MENU
         imprimirRM(bot, update)
         return MENU
-    elif update.message.text == "atras":
-        STATE = REPORTE
-        report(bot, update)
-        return REPORTE
-    elif update.message.text == "salir":
+    elif update.message.text == "Atras":
+        STATE = MENU
+        menu(bot, update)
+        return MENU
+    elif update.message.text == "Salir":
         menu(bot, update)
         return MENU
     else:
-        STATE = MENU
-        return MENU
+        update.message.reply_text("Valor invalido. Elija algun boton.")
+        report(bot, update)
+        STATE = REPORTE
+        return REPORTE
 
 
 def report(bot, update):
@@ -104,8 +112,8 @@ def report(bot, update):
     user = update.message.from_user
     logger.info("Report requested by {}.".format(user.first_name))
 
-    keyboard = [["RM","Valpo"],
-                ["atras", "salir"]]
+    keyboard = [["Comprar","Arrendar"],
+                ["Atras", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -197,10 +205,10 @@ def main():
         states={
 
             MENU: [RegexHandler(
-                        '^({}|{}|{})$'.format("reporte", "faq", "acerca"),set_state)],
+                        '^({}|{}|{})$'.format("reporte", "ficha", "ayuda"),set_state)],
 
             REPORTE: [RegexHandler(
-                        '^({}|{}|{}|{})$'.format("RM", "Valpo", "atras", "salir"),set_region)],
+                        '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set_operacion)],
 
         },
 
