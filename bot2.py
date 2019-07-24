@@ -7,8 +7,8 @@ import logging
 telegram_token = "666842820:AAGg1F_NjlQBL7IPv9XlfMEC0PJ6iWlVLj0"
 
 LANG = "EN"
-SET_LANG, MENU, SET_STAT, REPORT, MAP, FAQ, ABOUT, LOCATION = range(8)
-STATE = SET_LANG
+MENU, TASACION, SET_STAT, REPORT, MAP, FAQ, ABOUT, LOCATION = range(8)
+STATE = MENU
 
 def start(bot, update):
     """
@@ -16,7 +16,7 @@ def start(bot, update):
     This function sets the language of the bot.
     """
     # Create buttons to select language:
-    keyboard = [["fun1", "fun2"],
+    keyboard = [["tasacion", "fun2"],
                 ["fun3", "fun4"]]
 
     # Create initial message:
@@ -27,27 +27,27 @@ def start(bot, update):
                                        resize_keyboard=True)
     update.message.reply_text(message, reply_markup=reply_markup)
 
-    return SET_LANG
+    return MENU
 
-
-def menu(bot, update):
+def tasacion(bot, update):
     """
-    Main menu function.
-    This will display the options from the main menu.
+    About function. Displays info about DisAtBot.
     """
-    # Create buttons to slect language:
-    keyboard = [["Menu1", "menu2"],
-                ["menu3", "menu4"]]
-
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=True,
-                                       resize_keyboard=True)
-
     user = update.message.from_user
-    logger.info("Menu command requested by {}.".format(user.first_name))
-    update.message.reply_text("mein menu66", reply_markup=reply_markup)
+    logger.info("About info requested by {}.".format(user.first_name))
+    bot.send_message(chat_id=update.message.chat_id, text="Estoy tasando bla bla")
+    bot.send_message(chat_id=update.message.chat_id, text="volviendo a menu")
+    return
 
-    return SET_STAT
+def help(bot, update):
+    """
+    Help function.
+    This displays a set of commands available for the bot.
+    """
+    user = update.message.from_user
+    logger.info("User {} asked for help.".format(user.first_name))
+    update.message.reply_text("Texto de ayuda bla bla",
+                              reply_markup=ReplyKeyboardRemove())
 
 def cancel(bot, update):
     """
@@ -60,7 +60,6 @@ def cancel(bot, update):
                               reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END
-
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
@@ -86,7 +85,7 @@ def main():
 
         states={
 
-            MENU: [CommandHandler('menu', menu)],
+            TASACION: [CommandHandler('tasacion', tasacion)],
 
         },
 
@@ -102,11 +101,13 @@ def main():
     # Start DisAtBot:
     updater.start_polling()
 
+    print("Bot andando.")
+
     # Run the bot until the user presses Ctrl-C or the process
     # receives SIGINT, SIGTERM or SIGABRT:
     updater.idle()
 
-    print("Bot andando.")
+
 
 if __name__ == '__main__':
     main()
