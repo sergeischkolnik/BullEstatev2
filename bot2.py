@@ -8,6 +8,7 @@ telegram_token = "666842820:AAGg1F_NjlQBL7IPv9XlfMEC0PJ6iWlVLj0"
 
 LANG = "EN"
 MENU, TAS, SET_STAT, REPORT, MAP, FAQ, ABOUT, LOCATION = range(8)
+
 STATE = MENU
 
 def start(bot, update):
@@ -15,7 +16,7 @@ def start(bot, update):
     Start function. Displayed whenever the /start command is called.
     This function sets the language of the bot.
     """
-    # Create buttons to select language:
+    # Create buttons
     keyboard = [["tasacion", "fun2"],
                 ["fun3", "fun4"],
                 ["fun5", "fun6"],
@@ -29,7 +30,7 @@ def start(bot, update):
                                        resize_keyboard=True)
     update.message.reply_text(message, reply_markup=reply_markup)
 
-    return TAS
+    return MENU
 
 def tasacion(bot, update):
     """
