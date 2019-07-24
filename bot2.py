@@ -15,8 +15,8 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 LANG = "EN"
-MENU, SET_STAT, REPORT, MAP, FAQ, ABOUT = range(6)
-STATE = SET_STAT
+MENU, REPORT, MAP, FAQ, ABOUT = range(5)
+STATE = MENU
 
 
 def start(bot, update):
@@ -43,10 +43,7 @@ def menu(bot, update):
     logger.info("Menu command requested by {}.".format(user.first_name))
     update.message.reply_text("menu principal", reply_markup=reply_markup)
 
-    global STATE
-    STATE = SET_STAT
-
-    return SET_STAT
+    return MENU
 
 
 def set_state(bot, update):
@@ -156,9 +153,7 @@ def main():
 
         states={
 
-            MENU: [CommandHandler('menu', menu)],
-
-            SET_STAT: [RegexHandler(
+            MENU: [RegexHandler(
                         '^({}|{}|{})$'.format("reporte", "faq", "acerca"),set_state)]
         },
 
