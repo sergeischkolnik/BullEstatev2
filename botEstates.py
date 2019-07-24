@@ -1,0 +1,3 @@
+def main():
+    id
+    INICIAL,
