@@ -80,7 +80,8 @@ def select_comuna(bot,update):
     user = update.message.from_user
     print(vars_us[user.id])
 
-    return menu(bot,update)
+    menu(bot,update)
+    return MENU
 
 def set_state(bot, update):
     """
