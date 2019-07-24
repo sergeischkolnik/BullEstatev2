@@ -16,12 +16,11 @@ def start(bot, update):
     This function sets the language of the bot.
     """
     # Create buttons to select language:
-    keyboard = [['ES', 'EN']]
+    keyboard = [["fun1", "fun2"],
+                ["fun3", "fun4"]]
 
     # Create initial message:
-    message = "Hey, I'm DisAtBot! / ¡Hey, soy DisAtBot! \n\n\
-Please select a language to start. / Por favor selecciona un idioma \
-para comenzar."
+    message = "Hola, soy el admin de propiedades. Para ver opciones pon /menu. \n\n "
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -107,6 +106,7 @@ def main():
     # receives SIGINT, SIGTERM or SIGABRT:
     updater.idle()
 
+    print("Bot andando.")
 
 if __name__ == '__main__':
     main()
