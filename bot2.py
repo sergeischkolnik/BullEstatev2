@@ -17,10 +17,12 @@ def start(bot, update):
     """
     # Create buttons to select language:
     keyboard = [["tasacion", "fun2"],
-                ["fun3", "fun4"]]
+                ["fun3", "fun4"],
+                ["fun5", "fun6"],
+                ["gun7", "fun8"]]
 
     # Create initial message:
-    message = "Hola, soy el admin de propiedades. Para ver opciones pon /menu. \n\n "
+    message = "Hola, soy el admin de propiedades. \n\n "
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
