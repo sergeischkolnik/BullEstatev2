@@ -19,6 +19,11 @@ MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA = range(4)
 STATE = MENU
 
 vars_us = dict()
+comunas = {
+  "RM": ["Las Condes","Providencia","Santiago","Vitacura"],
+  "Valpo": ["Viña","Valpo"],
+  "Otros": ["Otros"]
+}
 
 
 def start(bot, update):
@@ -78,12 +83,21 @@ def select_region(bot, update):
     return SELECT_REGION
 
 def select_comuna(bot,update):
-    print(STATE)
     user = update.message.from_user
-    print(vars_us[user.id])
+    reg = vars_us[user.id]["Region"]
+    lista_comunas = comunas[reg]
 
-    menu(bot,update)
-    return MENU
+
+    keyboard = [lista_comunas,
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+
+    logger.info("{} está seleccionando region.".format(user.first_name))
+    update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
 
 def set_state(bot, update):
     """
@@ -257,6 +271,10 @@ def main():
 
             SELECT_REGION: [RegexHandler(
                 '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set_region)],
+
+            SELECT_COMUNA: [RegexHandler(
+                '^(*)$'.format("RM", "Valpo", "Atras", "Salir"), set_region)]
+
 
         },
 
