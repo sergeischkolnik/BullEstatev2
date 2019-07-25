@@ -212,7 +212,9 @@ def crearFicha(sitio,id,mail,tipoficha):
         if len(url)==0:
             print("la propiedad no cuenta con fotografias")
         else:
+            print('total fotos: '+str(len(url)))
             for x,u in enumerate (url):
+                print('Guardando la foto n°:'+str(x)+' con url: '+str(u))
                 response = requests.get(u)
                 img = Image.open(BytesIO(response.content))
                 img.save(str(x)+" foto.jpg")
