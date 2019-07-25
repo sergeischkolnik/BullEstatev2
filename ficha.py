@@ -214,6 +214,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         else:
             print('total fotos: '+str(len(url)))
             for x,u in enumerate (url):
+                u=u.replace('"','')
                 print('Guardando la foto n°:'+str(x)+' con url: '+str(u))
                 response = requests.get(u)
                 img = Image.open(BytesIO(response.content))
