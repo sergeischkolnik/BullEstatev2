@@ -62,7 +62,7 @@ def obtenerProp(id,sitio):
 
 
 def crearFicha(sitio,id,mail,tipoficha):
-
+    text2=''
     #Determinar tipo de informe
     pro=False
     interna=False
@@ -243,15 +243,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             precioV = tasacionVenta[0] * uf.getUf()
             precioA = tasacionArriendo[0]
 
-            if (rentaPromedio <= 0):
-                pro=False
 
-            try:
-                conftasacionV = tasacionVenta[5]
-                conftasacionA = tasacionArriendo[5]
-
-            except:
-                pro=False
 
             if precioV is None or precioV < 0.1:
                 pro=False
@@ -262,6 +254,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 rentaV = ((precioV - precio) / precio)
             except:
                 pro=False
+                text2='No se ha podido realizar tasación'
 
             if precioA is None or precioA < 0.01:
                 pro=False
@@ -272,6 +265,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 rentaPP = (precioA * 12 / precioV)
             except:
                 pro=False
+                text2='No se ha podido realizar tasación'
 
             if pro:
                 if rentaA > 0.2:
@@ -285,8 +279,10 @@ def crearFicha(sitio,id,mail,tipoficha):
                         rentaV = ((precioV - precio) / precio)
                         rentaPP = (precioA * 12 / precioV)
 
+
                     except:
                         pro=False
+                        text2='No se ha podido realizar tasación'
 
                 if rentaPP > 0.15:
                     try:
@@ -294,6 +290,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                         rentaV = ((precioV - precio) / precio)
                     except:
                         pro=False
+                        text2='No se ha podido realizar tasación'
 
                 if rentaA < 0:
                     pro=False
@@ -304,13 +301,11 @@ def crearFicha(sitio,id,mail,tipoficha):
                 datospro.append(precioV)
                 # rentabilidad de venta
                 datospro.append(float(rentaV))
-                datospro.append(float(conftasacionV))
 
                 # precio arriendo tasado
                 datospro.append(precioA)
                 # rentabilidad de arriendo
                 datospro.append(float(rentaA))
-                datospro.append(float(conftasacionA))
 
 
         else:
@@ -319,27 +314,25 @@ def crearFicha(sitio,id,mail,tipoficha):
                                                      float(banos), float(estacionamientos), props)
             except:
                 pro=False
+                text2='No se ha podido realizar tasación'
 
-            try:
-                conftasacion = tasacionArriendo[5]
-            except:
-                pro = False
 
             try:
                 precioA = tasacionArriendo[0]
             except:
                 pro=False
+                text2='No se ha podido realizar tasación'
 
             if pro:
                 if precioA is None or precioA < 0.01:
                     pro = False
+                    text2='No se ha podido realizar tasación'
 
 
             if pro:
                 # precio arriendo tasado
                 datospro.append(precioA)
                 # rentabilidad de arriendo
-                datospro.append(float(conftasacion))
 
     datoscontacto = []
     if interna:
@@ -382,6 +375,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     #Retornar exito
     text = "Ficha creada para la propiedad: "+str(id)+" obtenida del sitio: "+str(sitio)+", enviada con éxito al correo: "+str(mail)+"."
+    text=text2+'. '+text
     return(text)
 
 
