@@ -213,7 +213,6 @@ def crearFicha(sitio,id,mail,tipoficha):
                 texto=texto[1]
                 auxPhone=texto
                 auxPhone='https://www.yapo.cl'+auxPhone
-                print(auxPhone)
         descripcion=descripcion[1:]
 
         descripcion=' '.join(descripcion)
@@ -233,14 +232,14 @@ def crearFicha(sitio,id,mail,tipoficha):
                 response = requests.get(u)
                 img = Image.open(BytesIO(response.content))
                 img.save(str(x)+" foto.jpg")
-            auxPhone=auxPhone.replace('"','')
-            #try:
-            response = requests.get(auxPhone)
-            img = Image.open(BytesIO(response.content))
-            img.save("AuxPhone.gif")
-            auxPhone=1
-            #except:
-                #pass
+        #try:
+        print(auxPhone)
+        response = requests.get(auxPhone)
+        img = Image.open(BytesIO(response.content))
+        img.save("auxphone.gif")
+        auxPhone=1
+        #except:
+            #pass
         lenfotos=len(url)
 
     datospro = []
