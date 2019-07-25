@@ -240,6 +240,8 @@ def crearFicha(sitio,id,mail,tipoficha):
         response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
         auxphone2=auxPhone
         img = Image.open(BytesIO(response.content))
+        img=img.convert('L')
+        img=img.convert('1')
         img.save("auxphone.gif")
         auxPhone=1
         #except:
