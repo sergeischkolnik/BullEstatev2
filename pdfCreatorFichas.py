@@ -21,7 +21,8 @@ import base64
 
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
-
+    #Propiedad:
+    #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]
     headerspropiedad=[]
     headersrentabilidad=[]
@@ -107,28 +108,24 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             rentV = int(rentV*1000)
             rentV = float(rentV/10)
             rentV = str(rentV)+"%"
-            confV=datospro[2]
-            precioA=datospro[3]
+            precioA=datospro[2]
             precioA=str(format(precioA,','))
             precioA=precioA.replace(',','.')
             precioA='$ '+precioA
-            rentA = float(datospro[4])
+            rentA = float(datospro[3])
             rentA = int(rentA*1000)
             rentA = float(rentA/10)
             rentA = str(rentA)+"%"
-            confA=datospro[5]
 
             headersrentabilidad.append("Tasación Venta")
             headersrentabilidad.append("Rent. Venta")
-            if interna:
-                headersrentabilidad.append("Conf. Venta")
+
             headersrentabilidad.append("Tasación Arriendo")
             headersrentabilidad.append("Rent. Arriendo")
 
             datosrentabilidad.append(precioV)
             datosrentabilidad.append(rentV)
-            if interna:
-                datosrentabilidad.append(confV)
+
             datosrentabilidad.append(precioA)
             datosrentabilidad.append(rentA)
 
@@ -137,13 +134,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             precioA=str(format(precioA,','))
             precioA=precioA.replace(',','.')
             precioA='$ '+precioA
-            confA =datospro[1]
             headersrentabilidad.append("Tasación Arriendo")
             datosrentabilidad.append(precioA)
 
-        if interna:
-            headersrentabilidad.append("Conf. Arriendo")
-            datosrentabilidad.append(confA)
 
     if interna:
         mail=datosinterna[0]
