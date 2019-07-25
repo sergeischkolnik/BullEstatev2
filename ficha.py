@@ -421,10 +421,10 @@ def crearFicha(sitio,id,mail,tipoficha):
         os.remove("auxphone.gif")
     except:
         pass
-    try:
-        os.remove("imagenDescripcion.png")
-    except:
-        pass
+    # try:
+    #     os.remove("imagenDescripcion.png")
+    # except:
+    #     pass
     os.remove(nombrearchivo)
 
     #Retornar exito
