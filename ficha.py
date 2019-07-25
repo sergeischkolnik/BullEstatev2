@@ -107,6 +107,12 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         nombre=str(propiedad[0])
         region=str(propiedad[1])
+        regionP=region
+        regionY=region
+        if region=='15':
+            regionP='metropolitana'
+        if region=='metropolitana':
+            regionY='15'
         operacion=str(propiedad[2])
         tipo=str(propiedad[3])
         precio=float(propiedad[4])
@@ -238,12 +244,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     datospro = []
     if pro:
-        regionP=region
-        regionY=region
-        if region=='15':
-            regionP='metropolitana'
-        if region=='metropolitana':
-            regionY='15'
+
         propsP = reportes.from_portalinmobiliario(tipo, regionP, True)
         propsY = reportes.from_yapo(tipo, regionY, True, True)
         props = propsP + propsY
