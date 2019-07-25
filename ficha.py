@@ -264,6 +264,8 @@ def crearFicha(sitio,id,mail,tipoficha):
             try:
                 rentaA = (precioA * 12 / precio)
                 print('succes 2.1')
+                print(precioA)
+                print(precioV)
                 rentaPP = (precioA * 12 / precioV)
                 print('succes 2.2')
             except:
