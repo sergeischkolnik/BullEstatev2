@@ -20,7 +20,7 @@ import base64
 
 
 
-def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna):
+def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]
@@ -49,7 +49,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
     datoslocalizacion.append(operacion.capitalize())
     datoslocalizacion.append(tipo.capitalize())
-    datoslocalizacion.append(region.capitalize())
+    datoslocalizacion.append(regionP.capitalize())
     datoslocalizacion.append(comuna.capitalize())
 
     precio=int(propiedad[4])
