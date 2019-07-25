@@ -238,6 +238,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 response = requests.get(auxPhone)
                 img = Image.open(BytesIO(response.content))
                 img.save("AuxPhone.gif")
+                auxPhone=1
             except:
                 pass
         lenfotos=len(url)
@@ -378,7 +379,10 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         else:
             email = "NN"
-            telefono = "NN"
+            if auxPhone == 1:
+                telefono="-"
+            else:
+                telefono = "NN"
             dueno = 'NN'
         datoscontacto.append(email)
         datoscontacto.append(telefono)
