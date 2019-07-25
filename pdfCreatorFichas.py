@@ -149,7 +149,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         if 'yapo' in link and telefono!='NN':
             try:
                 image = Image("auxphone.gif")
-                image._restrictSize(1.5 * inch, 2 * inch)
+                image._restrictSize(1.2 * inch, 1.7 * inch)
                 datoscontacto.append(image)
             except:
                 datoscontacto.append('NN')
