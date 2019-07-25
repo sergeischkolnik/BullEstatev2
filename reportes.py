@@ -2029,7 +2029,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                 count=0
 
                 for prop in propiedades:
-                    print(prop)
                     count=count+1
 
                     portalinmobiliario= "portalinmobiliario" in prop[14]
@@ -2084,7 +2083,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     subresultado=[]
                     #id
-                    subresultado.append(prop[0])
+                    print('id2=')
+                    print(int(prop[0]))
+                    subresultado.append(int(prop[0]))
                     # precio
                     subresultado.append(int(prop[5]))
                     # util
