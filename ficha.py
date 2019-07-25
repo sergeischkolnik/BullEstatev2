@@ -226,6 +226,8 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     datospro = []
     if pro:
+        regionP=region
+        regionY=region
         if region=='15':
             regionP='metropolitana'
         if region=='metropolitana':
