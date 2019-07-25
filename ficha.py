@@ -124,14 +124,16 @@ def crearFicha(sitio,id,mail,tipoficha):
                 comuna=comuna.replace('-metropolitana','')
                 comuna=comuna.replace('-',' ')
                 comuna=comuna.capitalize()
+                propiedad.append(comuna)
+
             else:
                 comuna=str(link.split('/')[6])
                 comuna=comuna.replace('-metropolitana','')
                 comuna=comuna.replace('-',' ')
                 comuna=comuna.capitalize()
+                propiedad.append(comuna)
         else:
             comuna=str(propiedad[14])
-        propiedad.append(comuna)
     #Revisar si existe aun la publicacion
     if not pubPortalExiste.publicacionExiste(link):
         text='Propiedad ya no se encuentra disponible en el sitio.'
@@ -183,20 +185,21 @@ def crearFicha(sitio,id,mail,tipoficha):
         saveimg=False
         for texto in metatext:
 
-            if 'description' in texto:
+            if '<h4>Descripción</h4>' in texto:
                 savedescripcion=True
-            if '<meta' in texto:
+            if '</div>' in texto:
                 savedescripcion = False
+            if 'img.yapo.cl/images' in texto:
                 saveimg=True
             if 'img/yapo' in texto:
                 saveimg=False
             if savedescripcion:
                 descripcion.append(str(texto))
             if saveimg and 'images/01' in texto:
-                texto.replace('content="','')
-                texto.replace('"','')
+                texto.replace('itemprop="description">"','')
+                texto.replace('</p>','')
                 url.append(texto)
-        descripcion=descripcion[1:]
+        descripcion=descripcion[2:]
 
         descripcion=' '.join(descripcion)
         descripcion=descripcion.replace('"/>','')
