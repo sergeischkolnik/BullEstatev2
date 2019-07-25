@@ -15,6 +15,7 @@ from collections import namedtuple
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import base64
+from PIL import Image
 
 
 
@@ -154,7 +155,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                 image._restrictSize(0.5 * inch, 1 * inch)
                 datoscontacto.append(image)
             except:
-                datoscontacto.append(telefono)
+                datoscontacto.append('NN')
         else:
             datoscontacto.append(telefono)
 
