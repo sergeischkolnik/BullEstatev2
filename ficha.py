@@ -234,16 +234,13 @@ def crearFicha(sitio,id,mail,tipoficha):
                 img = Image.open(BytesIO(response.content))
                 img.save(str(x)+" foto.jpg")
         #try:
+
+
         print(auxPhone)
         response = requests.get(auxPhone)
-        byteImgIO = io.BytesIO()
-        byteImg = Image.open(response.content)
-        byteImg.save(byteImgIO, "GIF")
-
-        # print(auxPhone)
-        # response = requests.get(auxPhone)
-        # img = Image.open(BytesIO(response.content))
-        # img.save("auxphone.gif")
+        auxphone2=auxPhone
+        img = Image.open(BytesIO(response.content))
+        img.save()
         auxPhone=1
         #except:
             #pass
@@ -386,7 +383,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         else:
             email = "NN"
             if auxPhone == 1:
-                telefono="-"
+                telefono=auxphone2
             else:
                 telefono = "NN"
             dueno = 'NN'
