@@ -299,18 +299,18 @@ def crearFicha(sitio,id,mail,tipoficha):
                     pro=False
 
 
+            if pro:
+                # precio venta tasado
+                datospro.append(precioV)
+                # rentabilidad de venta
+                datospro.append(float(rentaV))
+                datospro.append(float(conftasacionV))
 
-            # precio venta tasado
-            datospro.append(precioV)
-            # rentabilidad de venta
-            datospro.append(float(rentaV))
-            datospro.append(float(conftasacionV))
-
-            # precio arriendo tasado
-            datospro.append(precioA)
-            # rentabilidad de arriendo
-            datospro.append(float(rentaA))
-            datospro.append(float(conftasacionA))
+                # precio arriendo tasado
+                datospro.append(precioA)
+                # rentabilidad de arriendo
+                datospro.append(float(rentaA))
+                datospro.append(float(conftasacionA))
 
 
         else:
@@ -335,11 +335,11 @@ def crearFicha(sitio,id,mail,tipoficha):
                     pro = False
 
 
-
-            # precio arriendo tasado
-            datospro.append(precioA)
-            # rentabilidad de arriendo
-            datospro.append(float(conftasacion))
+            if pro:
+                # precio arriendo tasado
+                datospro.append(precioA)
+                # rentabilidad de arriendo
+                datospro.append(float(conftasacion))
 
     datoscontacto = []
     if interna:
