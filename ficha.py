@@ -237,10 +237,10 @@ def crearFicha(sitio,id,mail,tipoficha):
 
 
         print(auxPhone)
-        response = requests.get(auxPhone)
+        response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
         auxphone2=auxPhone
         img = Image.open(BytesIO(response.content))
-        img.save()
+        img.save("auxphone.gif")
         auxPhone=1
         #except:
             #pass

@@ -151,7 +151,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                 image = Image(telefono)
                 datoscontacto.append(image)
             except:
-                datoscontacto.append(telefono)
+                datoscontacto.append("auxphone.gif")
         else:
             datoscontacto.append(telefono)
 
