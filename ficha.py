@@ -40,7 +40,7 @@ import time
 import random
 from requests_html import HTMLSession
 session = HTMLSession()
-from PIL import Image
+from PIL import Image, ImageDraw
 from io import BytesIO
 import pdfCreatorFichas
 import reportes
@@ -224,6 +224,14 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         propiedad.append(descripcion)
 
+        imagenDescripcion = Image.new('RGB', (100, 100), color = (255, 255, 255))
+
+        d = ImageDraw.Draw(imagenDescripcion)
+        d.text((100,100), descripcion, fill=(0,0,0))
+
+        imagenDescripcion.save('imagenDescripcion.png')
+
+
         if len(url)==0:
             print("la propiedad no cuenta con fotografias")
         else:
@@ -233,19 +241,18 @@ def crearFicha(sitio,id,mail,tipoficha):
                 response = requests.get(u)
                 img = Image.open(BytesIO(response.content))
                 img.save(str(x)+" foto.jpg")
-        #try:
 
-
-        print(auxPhone)
-        response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
-        auxphone2=auxPhone
-        img = Image.open(BytesIO(response.content))
-        img=img.convert('L')
-        img=img.convert('1')
-        img.save("auxphone.gif")
-        auxPhone=1
-        #except:
-            #pass
+        try:
+            print(auxPhone)
+            response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
+            auxphone2=auxPhone
+            img = Image.open(BytesIO(response.content))
+            img=img.convert('L')
+            img=img.convert('1')
+            img.save("auxphone.gif")
+            auxPhone=1
+        except:
+            pass
         lenfotos=len(url)
 
     datospro = []
@@ -411,10 +418,13 @@ def crearFicha(sitio,id,mail,tipoficha):
         for x,u in enumerate (url):
             os.remove(str(x)+" foto.jpg")
     try:
-        os.remove("AuxPhone.gif")
+        os.remove("auxphone.gif")
     except:
         pass
-
+    try:
+        os.remove("imagenDescripcion.png")
+    except:
+        pass
     os.remove(nombrearchivo)
 
     #Retornar exito
