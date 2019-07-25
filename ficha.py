@@ -202,12 +202,14 @@ def crearFicha(sitio,id,mail,tipoficha):
                 texto=texto.replace('content="','')
                 texto.replace('"','')
                 url.append(texto)
-        descripcion=descripcion[2:]
+        descripcion=descripcion[1:]
 
         descripcion=' '.join(descripcion)
         descripcion=descripcion.replace('"/>','')
         descripcion=descripcion.replace('content="','')
         descripcion=descripcion.replace('<br />','\n')
+        descripcion=descripcion.replace('<br />','\n')
+
 
         propiedad.append(descripcion)
 
