@@ -153,6 +153,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 savedescripcion = False
             if savedescripcion:
                 descripcion.append(str(texto))
+
         descripcion=descripcion[2:]
 
         descripcion=' '.join(descripcion)
@@ -166,19 +167,51 @@ def crearFicha(sitio,id,mail,tipoficha):
                 meta=meta.split('"')
 
                 url.append(str(meta[1]))
+
+
+
+
      #Sacar urls fotos yapo
     else:
-        text='aun no se desarrolla Yapo'
-        return (text)
-    #Sacar fotos de urls
-    if len(url)==0:
-        print("la propiedad no cuenta con fotografias")
-    else:
-        for x,u in enumerate (url):
-            response = requests.get(u)
-            img = Image.open(BytesIO(response.content))
-            img.save(str(x)+" foto.jpg")
-    lenfotos=len(url)
+
+        url=[]
+        page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
+        metatext=page.text
+        metatext=metatext.split(' ')
+        descripcion=[]
+        savedescripcion=False
+        saveimg=False
+        for texto in metatext:
+
+            if 'description' in texto:
+                savedescripcion=True
+            if '<meta' in texto:
+                savedescripcion = False
+                saveimg=True
+            if 'img/yapo' in texto:
+                saveimg=False
+            if savedescripcion:
+                descripcion.append(str(texto))
+            if saveimg and 'images/01' in texto:
+                texto.replace('content="','')
+                texto.replace('"','')
+                url.append(texto)
+        descripcion=descripcion[1:]
+
+        descripcion=' '.join(descripcion)
+        descripcion=descripcion.replace('"/>','')
+        descripcion=descripcion.replace('content="','')
+
+        propiedad.append(descripcion)
+
+        if len(url)==0:
+            print("la propiedad no cuenta con fotografias")
+        else:
+            for x,u in enumerate (url):
+                response = requests.get(u)
+                img = Image.open(BytesIO(response.content))
+                img.save(str(x)+" foto.jpg")
+        lenfotos=len(url)
 
     datospro = []
     if pro:
