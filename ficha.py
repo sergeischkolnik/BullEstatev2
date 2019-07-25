@@ -189,7 +189,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 savedescripcion=True
             if '</div>' in texto:
                 savedescripcion = False
-            if 'img.yapo.cl/images' in texto:
+            if 'og:image' in texto:
                 saveimg=True
                 print(texto)
             if 'img/yapo' in texto:
