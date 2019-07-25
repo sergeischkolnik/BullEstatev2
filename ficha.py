@@ -263,7 +263,9 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             try:
                 rentaA = (precioA * 12 / precio)
+                print('succes 2.1')
                 rentaPP = (precioA * 12 / precioV)
+                print('succes 2.2')
             except:
                 pro=False
                 text2='No se ha podido realizar tasación'
