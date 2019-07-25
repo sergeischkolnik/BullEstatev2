@@ -200,7 +200,6 @@ def crearFicha(sitio,id,mail,tipoficha):
             if og and 'og:image' in texto:
                 saveimg=True
                 og=False
-                print(texto)
             if 'img/yapo' in texto:
                 saveimg=False
             if savedescripcion:
@@ -213,6 +212,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 texto=texto.split('"')
                 texto=texto[1]
                 auxPhone=texto
+                print(texto)
         descripcion=descripcion[1:]
 
         descripcion=' '.join(descripcion)
@@ -229,7 +229,6 @@ def crearFicha(sitio,id,mail,tipoficha):
             print('total fotos: '+str(len(url)))
             for x,u in enumerate (url):
                 u=u.replace('"','')
-                print('Guardando la foto n°:'+str(x)+' con url: '+str(u))
                 response = requests.get(u)
                 img = Image.open(BytesIO(response.content))
                 img.save(str(x)+" foto.jpg")
