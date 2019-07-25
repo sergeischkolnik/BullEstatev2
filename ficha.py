@@ -405,10 +405,10 @@ def crearFicha(sitio,id,mail,tipoficha):
     else:
         for x,u in enumerate (url):
             os.remove(str(x)+" foto.jpg")
-    try:
-        os.remove("AuxPhone.gif")
-    except:
-        pass
+    # try:
+    #     os.remove("AuxPhone.gif")
+    # except:
+    #     pass
 
     os.remove(nombrearchivo)
 
