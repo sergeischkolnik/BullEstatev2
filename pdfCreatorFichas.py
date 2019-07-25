@@ -15,7 +15,6 @@ from collections import namedtuple
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import base64
-from PIL import Image
 
 
 
@@ -150,8 +149,6 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         if 'yapo' in link and telefono!='NN':
             try:
                 image = Image("auxphone.gif")
-                image= image.convert('L') # convert image to monochrome - this works
-                image= image.convert('1')
                 image._restrictSize(0.5 * inch, 1 * inch)
                 datoscontacto.append(image)
             except:
