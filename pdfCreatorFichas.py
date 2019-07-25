@@ -101,9 +101,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         if operacion=='venta':
             precioV=datospro[0]
             precioV=precioV/uf1
+            precioV=int(precioV)
             precioV=str(format(precioV,','))
             precioV=precioV.replace(',','.')
-            precioV=int(precioV)
             precioV='UF '+precioV
             rentV = float(datospro[1])
             rentV = int(rentV*1000)

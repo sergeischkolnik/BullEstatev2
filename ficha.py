@@ -393,7 +393,8 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     #Retornar exito
     text = "Ficha creada para la propiedad: "+str(id)+" obtenida del sitio: "+str(sitio)+", enviada con éxito al correo: "+str(mail)+"."
-    text=text2+'. '+text
+    if text2!='':
+        text=text2+'. '+text
     return(text)
 
 
