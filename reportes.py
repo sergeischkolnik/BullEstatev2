@@ -1774,6 +1774,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                            nombreCliente,nombrecarpetadb,idCliente,direccion,radioDireccion,corredor,topx,verboso):
 
     columnNames = []
+    columnNames.append('Código')
     if preciomin is not None:
         preciomin = float(preciomin)
     else:
@@ -2081,6 +2082,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     subresultado=[]
+                    #id
+                    subresultado.append(prop[0])
                     # precio
                     subresultado.append(int(prop[5]))
                     # util
