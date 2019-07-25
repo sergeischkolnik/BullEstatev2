@@ -50,7 +50,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     datoslocalizacion.append(operacion.capitalize())
     datoslocalizacion.append(tipo.capitalize())
     datoslocalizacion.append(region.capitalize())
-    datoslocalizacion.append(comuna)
+    datoslocalizacion.append(comuna.capitalize())
 
     precio=int(propiedad[4])
 
