@@ -234,13 +234,13 @@ def crearFicha(sitio,id,mail,tipoficha):
                 img = Image.open(BytesIO(response.content))
                 img.save(str(x)+" foto.jpg")
             auxPhone=auxPhone.replace('"','')
-            try:
-                response = requests.get(auxPhone)
-                img = Image.open(BytesIO(response.content))
-                img.save("AuxPhone.gif")
-                auxPhone=1
-            except:
-                pass
+            #try:
+            response = requests.get(auxPhone)
+            img = Image.open(BytesIO(response.content))
+            img.save("AuxPhone.gif")
+            auxPhone=1
+            #except:
+                #pass
         lenfotos=len(url)
 
     datospro = []
@@ -405,10 +405,10 @@ def crearFicha(sitio,id,mail,tipoficha):
     else:
         for x,u in enumerate (url):
             os.remove(str(x)+" foto.jpg")
-    # try:
-    #     os.remove("AuxPhone.gif")
-    # except:
-    #     pass
+    try:
+        os.remove("AuxPhone.gif")
+    except:
+        pass
 
     os.remove(nombrearchivo)
 
