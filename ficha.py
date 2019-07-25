@@ -235,8 +235,9 @@ def crearFicha(sitio,id,mail,tipoficha):
                 img.save(str(x)+" foto.jpg")
         #try:
         print(auxPhone)
+        response = requests.get(auxPhone)
         byteImgIO = io.BytesIO()
-        byteImg = Image.open(auxPhone)
+        byteImg = Image.open(response.content)
         byteImg.save(byteImgIO, "GIF")
 
         # print(auxPhone)
