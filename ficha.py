@@ -63,6 +63,7 @@ def obtenerProp(id,sitio):
 
 def crearFicha(sitio,id,mail,tipoficha):
     text2=''
+    auxPhone=0
     #Determinar tipo de informe
     pro=False
     interna=False
@@ -202,6 +203,10 @@ def crearFicha(sitio,id,mail,tipoficha):
                 texto=texto.replace('content="','')
                 texto.replace('"','')
                 url.append(texto)
+            if 'phone-url' in texto:
+                texto=texto.split('"')
+                texto=texto[1]
+                auxPhone=texto
         descripcion=descripcion[1:]
 
         descripcion=' '.join(descripcion)
@@ -222,6 +227,13 @@ def crearFicha(sitio,id,mail,tipoficha):
                 response = requests.get(u)
                 img = Image.open(BytesIO(response.content))
                 img.save(str(x)+" foto.jpg")
+            auxPhone=auxPhone.replace('"','')
+            try:
+                response = requests.get(auxPhone)
+                img = Image.open(BytesIO(response.content))
+                img.save("AuxPhone.gif")
+            except:
+                pass
         lenfotos=len(url)
 
     datospro = []
