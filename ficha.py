@@ -208,7 +208,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion=descripcion.replace('"/>','')
         descripcion=descripcion.replace('content="','')
         descripcion=descripcion.replace('<br />','\n')
-        descripcion=descripcion.replace('<br />','\n')
+        descripcion=descripcion.replace('<br>','\n')
 
 
         propiedad.append(descripcion)
