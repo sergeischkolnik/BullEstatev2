@@ -226,9 +226,12 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     datospro = []
     if pro:
-
-        propsP = reportes.from_portalinmobiliario(tipo, region, True)
-        propsY = reportes.from_yapo(tipo, region, True, True)
+        if region=='15':
+            regionP='metropolitana'
+        if region=='metropolitana':
+            regionY='15'
+        propsP = reportes.from_portalinmobiliario(tipo, regionP, True)
+        propsY = reportes.from_yapo(tipo, regionY, True, True)
         props = propsP + propsY
 
         if operacion=='venta':
