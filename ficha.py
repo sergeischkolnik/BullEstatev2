@@ -255,6 +255,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             except:
                 pro=False
                 text2='No se ha podido realizar tasación'
+                print('fail 1')
 
             if precioA is None or precioA < 0.01:
                 pro=False
@@ -266,10 +267,13 @@ def crearFicha(sitio,id,mail,tipoficha):
             except:
                 pro=False
                 text2='No se ha podido realizar tasación'
+                print('fail 2')
+
 
             if pro:
                 if rentaA > 0.2:
                     pro=False
+                    print('fail 3')
 
 
                 if rentaPP < rentaPromedio:
@@ -283,6 +287,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                     except:
                         pro=False
                         text2='No se ha podido realizar tasación'
+                        print('fail 4')
 
                 if rentaPP > 0.15:
                     try:
@@ -291,6 +296,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                     except:
                         pro=False
                         text2='No se ha podido realizar tasación'
+                        print('fail 52')
 
                 if rentaA < 0:
                     pro=False
@@ -315,6 +321,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             except:
                 pro=False
                 text2='No se ha podido realizar tasación'
+                print('fail 6')
 
 
             try:
@@ -322,11 +329,13 @@ def crearFicha(sitio,id,mail,tipoficha):
             except:
                 pro=False
                 text2='No se ha podido realizar tasación'
+                print('fail 72')
 
             if pro:
                 if precioA is None or precioA < 0.01:
                     pro = False
                     text2='No se ha podido realizar tasación'
+                    print('fail 8')
 
 
             if pro:
