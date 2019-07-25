@@ -45,6 +45,7 @@ from io import BytesIO
 import pdfCreatorFichas
 import reportes
 import tasadorbot2 as tb2
+import io
 
 def obtenerProp(id,sitio):
 
@@ -180,7 +181,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
 
 
-     #Sacar urls fotos yapo
+    #Sacar urls fotos yapo
     else:
 
         url=[]
@@ -234,9 +235,14 @@ def crearFicha(sitio,id,mail,tipoficha):
                 img.save(str(x)+" foto.jpg")
         #try:
         print(auxPhone)
-        response = requests.get(auxPhone)
-        img = Image.open(BytesIO(response.content))
-        img.save("auxphone.gif")
+        byteImgIO = io.BytesIO()
+        byteImg = Image.open(auxPhone)
+        byteImg.save(byteImgIO, "GIF")
+
+        # print(auxPhone)
+        # response = requests.get(auxPhone)
+        # img = Image.open(BytesIO(response.content))
+        # img.save("auxphone.gif")
         auxPhone=1
         #except:
             #pass
