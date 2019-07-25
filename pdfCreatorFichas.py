@@ -120,13 +120,15 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
             headersrentabilidad.append("Tasación Venta")
             headersrentabilidad.append("Rent. Venta")
-            headersrentabilidad.append("Conf. Venta")
+            if interna:
+                headersrentabilidad.append("Conf. Venta")
             headersrentabilidad.append("Tasación Arriendo")
             headersrentabilidad.append("Rent. Arriendo")
 
             datosrentabilidad.append(precioV)
             datosrentabilidad.append(rentV)
-            datosrentabilidad.append(confV)
+            if interna:
+                datosrentabilidad.append(confV)
             datosrentabilidad.append(precioA)
             datosrentabilidad.append(rentA)
 
@@ -139,9 +141,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             headersrentabilidad.append("Tasación Arriendo")
             datosrentabilidad.append(precioA)
 
-
-        headersrentabilidad.append("Conf. Arriendo")
-        datosrentabilidad.append(confA)
+        if interna:
+            headersrentabilidad.append("Conf. Arriendo")
+            datosrentabilidad.append(confA)
 
     if interna:
         mail=datosinterna[0]
