@@ -183,14 +183,16 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion=[]
         savedescripcion=False
         saveimg=False
+        og=True
         for texto in metatext:
 
             if '<h4>Descripción</h4>' in texto:
                 savedescripcion=True
             if '</div>' in texto:
                 savedescripcion = False
-            if 'og:image' in texto:
+            if og and 'og:image' in texto:
                 saveimg=True
+                og=False
                 print(texto)
             if 'img/yapo' in texto:
                 saveimg=False
