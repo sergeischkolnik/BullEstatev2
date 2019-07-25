@@ -11,13 +11,13 @@ def writeXlsx(file, data, columnnames, operacion):
         unf = uf.getUf()
 
         #arreglar precio
-        precio = prop[0]
+        precio = prop[1]
 
         #venta
         if operacion=="venta":
             precio=precio/unf
             precio=int(precio)
-            prop[0] = precio
+            prop[1] = precio
 
             if "Precio Venta Tasado" in columnnames:
                 index = columnnames.index("Precio Venta Tasado")
