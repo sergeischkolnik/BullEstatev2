@@ -191,19 +191,21 @@ def crearFicha(sitio,id,mail,tipoficha):
                 savedescripcion = False
             if 'img.yapo.cl/images' in texto:
                 saveimg=True
+                print(texto)
             if 'img/yapo' in texto:
                 saveimg=False
             if savedescripcion:
                 descripcion.append(str(texto))
-            if saveimg and 'images/01' in texto:
-                texto.replace('itemprop="description">"','')
-                texto.replace('</p>','')
+            if saveimg and 'img.yapo.cl/images' in texto:
+                texto=texto.replace('content="','')
+                texto.replace('"','')
                 url.append(texto)
         descripcion=descripcion[2:]
 
         descripcion=' '.join(descripcion)
         descripcion=descripcion.replace('"/>','')
         descripcion=descripcion.replace('content="','')
+        descripcion=descripcion.replace('<br />','\n')
 
         propiedad.append(descripcion)
 
