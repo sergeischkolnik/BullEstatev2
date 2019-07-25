@@ -212,7 +212,8 @@ def crearFicha(sitio,id,mail,tipoficha):
                 texto=texto.split('"')
                 texto=texto[1]
                 auxPhone=texto
-                print(texto)
+                auxPhone='https://www.yapo.cl'+auxPhone
+                print(auxPhone)
         descripcion=descripcion[1:]
 
         descripcion=' '.join(descripcion)
