@@ -216,14 +216,15 @@ def crearFicha(sitio,id,mail,tipoficha):
                 auxPhone=texto
                 auxPhone='https://www.yapo.cl'+auxPhone
         descripcion=descripcion[1:]
-
+        print(descripcion)
         descripcion=' '.join(descripcion)
         descripcion=descripcion.replace('<br />','\n')
         descripcion=descripcion.replace('<br>','\n')
         descripcion=descripcion.replace('itemprop="description">',"")
         descripcion=descripcion.replace('</p>','\n')
-        print(descripcion)
         propiedad.append(descripcion)
+        if ('  ' in descripcion):
+            print('hay doble espacios')
         imagenDescripcion = Image.new('RGB', (456, 600), color = (255, 255, 255))
 
         d = ImageDraw.Draw(imagenDescripcion)
