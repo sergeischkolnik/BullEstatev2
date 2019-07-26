@@ -154,6 +154,7 @@ def crearFicha(sitio,id,mail,tipoficha):
     matrixdescripcion.append('')
 
     if sitio=='portal':
+        first=True
         url=[]
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
         metatext=page.text
@@ -170,7 +171,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 descripcion.append(str(texto))
 
         descripcion=descripcion[2:]
-
+        print(descripcion)
 
         if not interna:
             for desc in descripcion:
@@ -183,10 +184,13 @@ def crearFicha(sitio,id,mail,tipoficha):
                     matrixdescripcion.append('')
                     matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
                 else:
-                    matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
-                    print(matrixdescripcion)
-                    descripcion='\n'.join(matrixdescripcion)
-                    propiedad.append(descripcion)
+                    if first:
+                        matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
+                        first=False
+                    else:
+                        matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
+            descripcion='\n'.join(matrixdescripcion)
+            propiedad.append(descripcion)
 
         else:
             descripcion=' '.join(descripcion)
