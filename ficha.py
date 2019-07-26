@@ -179,9 +179,6 @@ def crearFicha(sitio,id,mail,tipoficha):
         if not interna:
             for desc in descripcion:
                 desc=desc.replace('   ','')
-                desc=desc.replace('<br /><br />','\n')
-                desc=desc.replace('<br/>\r\n','\n')
-                desc=desc.replace('</b><br/>','\n')
                 desc=desc.replace('<br />','\n')
                 desc=desc.replace('<br/>','\n')
                 desc=desc.replace('<br>','\n')
@@ -208,6 +205,12 @@ def crearFicha(sitio,id,mail,tipoficha):
                         if desc!= '':
                             matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
             print(matrixdescripcion)
+            for matrix in matrixdescripcion:
+                matrix=matrix.replace('<br />','\n')
+                matrix=matrix.replace('<br/>','\n')
+                matrix=matrix.replace('<br>','\n')
+                matrix=matrix.replace('<b/>','')
+                matrix=matrix.replace('<b>','')
             descripcion='\n'.join(matrixdescripcion)
             propiedad.append(descripcion)
 
