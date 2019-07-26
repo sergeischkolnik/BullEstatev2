@@ -230,7 +230,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             if ((len(matrixdescripcion[matrixcounter])+len(desc))>=75):
                 while ((len(matrixdescripcion[matrixcounter]))>75):
                      matrixdescripcion[matrixcounter]+='#'
-                matrixdescripcion[matrixcounter]+='<br>'
+                matrixdescripcion[matrixcounter]+='\n'
                 matrixcounter+=1
                 matrixdescripcion.append('')
                 matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
@@ -238,11 +238,11 @@ def crearFicha(sitio,id,mail,tipoficha):
                 matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
 
         print(matrixdescripcion)
-        descripcion='<br>'.join(matrixdescripcion)
+        descripcion='\n'.join(matrixdescripcion)
 
-        propiedad.append(descripcion.center(40))
+        propiedad.append(descripcion)
 
-        imagenDescripcion = Image.new('RGB', (456, 600), color = (255, 255, 255))
+        imagenDescripcion = Image.new('RGB', (456, 345), color = (255, 255, 255))
 
         d = ImageDraw.Draw(imagenDescripcion)
         f= ImageFont.truetype('Calibri.ttf',11)
