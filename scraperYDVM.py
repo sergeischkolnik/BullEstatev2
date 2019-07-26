@@ -151,9 +151,13 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                         auxPhone=texto
                         auxPhone='https://www.yapo.cl'+auxPhone
 
-                response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
-                img = Image.open(BytesIO(response.content))
-                img.save("auxphone.gif")
+                try:
+                    response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
+                    img = Image.open(BytesIO(response.content))
+                    img.save("auxphone.gif")
+                    telefono=ocr("auxphone.gif")
+                except:
+                    telefono='NN'
 
                 precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
                 precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
@@ -263,8 +267,6 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                         ggcc = ggcc.replace('.','')
                         ggcc = float(ggcc)
 
-                telefono=ocr("auxphone.gif")
-
 
                 propiedad = []
                 propiedad.append(codigo)
@@ -315,10 +317,10 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 propiedad.append(telefono)
 
                 insertarPropiedad(propiedad)
-                # try:
-                #     os.remove("auxphone.gif")
-                # except:
-                #     pass
+                try:
+                    os.remove("auxphone.gif")
+                except:
+                    pass
                 print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
 
                 time.sleep(random.uniform(1, 1.5))
