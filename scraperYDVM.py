@@ -152,10 +152,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                         auxPhone='https://www.yapo.cl'+auxPhone
 
                 response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
-                auxphone2=auxPhone
                 img = Image.open(BytesIO(response.content))
-                img=img.convert('L')
-                img=img.convert('1')
                 img.save("auxphone.gif")
 
                 precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
