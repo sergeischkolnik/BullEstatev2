@@ -50,10 +50,10 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 
-def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False):
+def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False,ocr=None):
 
 
-    ocr=yapo_ocr()
+
     while(True):
         link='https://www.yapo.cl/region_metropolitana/comprar?ca=15_s&ret=1&cg=1220&o=1'
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
@@ -332,4 +332,5 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
 
 
 if __name__=="__main__":
-    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False)
+    ocr=yapo_ocr()
+    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False,ocr=ocr)
