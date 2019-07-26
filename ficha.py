@@ -218,11 +218,11 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion=descripcion[1:]
         print(descripcion)
         descripcion=' '.join(descripcion)
+        descripcion=descripcion.replace('\n','')
         descripcion=descripcion.replace('<br />','\n')
         descripcion=descripcion.replace('<br>','\n')
         descripcion=descripcion.replace('itemprop="description">',"")
         descripcion=descripcion.replace('</p>','\n')
-        descripcion=descripcion.replace('\n',' ')
         propiedad.append(descripcion.center(40))
         if ('  ' in descripcion):
             print('hay doble espacios')
