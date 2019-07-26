@@ -40,7 +40,7 @@ import time
 import random
 from requests_html import HTMLSession
 session = HTMLSession()
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 import pdfCreatorFichas
 import reportes
@@ -223,13 +223,15 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion=descripcion.replace('</p>','\n')
 
         propiedad.append(descripcion)
+        imagenesDescripciones=[]
+        for i in range (0,20):
+            imagenDescripcion = Image.new('RGB', (456, 690), color = (255, 255, 255))
 
-        imagenDescripcion = Image.new('RGB', (456, 690), color = (255, 255, 255))
+            f= ImageFont.load("arial.pil")
+            d = ImageDraw.Draw(imagenDescripcion)
+            d.text((22.5*(i+1), 34*(i+1)), descripcion, font=f)
 
-        d = ImageDraw.Draw(imagenDescripcion)
-        d.text((45, 68), descripcion, fill=(1,0,0))
-
-        imagenDescripcion.save('imagenDescripcion.png')
+            imagenDescripcion.save('imagenDescripcion.png'+str(i))
 
 
         if len(url)==0:
