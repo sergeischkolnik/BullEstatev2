@@ -227,8 +227,8 @@ def crearFicha(sitio,id,mail,tipoficha):
             desc=desc.replace('itemprop="description">',"")
             desc=desc.replace('</p>','\n')
             desc=desc.replace('\n',' ')
-            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=75):
-                while ((len(matrixdescripcion[matrixcounter]))>75):
+            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=80):
+                while ((len(matrixdescripcion[matrixcounter]))<80):
                      matrixdescripcion[matrixcounter]+='#'
                 matrixdescripcion[matrixcounter]+='\n'
                 matrixcounter+=1
@@ -245,8 +245,8 @@ def crearFicha(sitio,id,mail,tipoficha):
         imagenDescripcion = Image.new('RGB', (456, 345), color = (255, 255, 255))
 
         d = ImageDraw.Draw(imagenDescripcion)
-        f= ImageFont.truetype('Calibri.ttf',11)
-        d.text((0,0), descripcion,font=f, fill=(1,0,0))
+        f= ImageFont.truetype('arial.ttf',12)
+        d.text((0,0), descripcion,font=f, fill=(0,0,0))
 
         imagenDescripcion.save('imagenDescripcion.png')
 
