@@ -269,15 +269,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
 
 
-        if len(url)==0:
-            print("la propiedad no cuenta con fotografias")
-        else:
-            print('total fotos: '+str(len(url)))
-            for x,u in enumerate (url):
-                u=u.replace('"','')
-                response = requests.get(u)
-                img = Image.open(BytesIO(response.content))
-                img.save(str(x)+" foto.jpg")
+
 
         try:
             print(auxPhone)
@@ -291,6 +283,16 @@ def crearFicha(sitio,id,mail,tipoficha):
         except:
             pass
     lenfotos=len(url)
+
+    if len(url)==0:
+        print("la propiedad no cuenta con fotografias")
+    else:
+        print('total fotos: '+str(len(url)))
+        for x,u in enumerate (url):
+            u=u.replace('"','')
+            response = requests.get(u)
+            img = Image.open(BytesIO(response.content))
+            img.save(str(x)+" foto.jpg")
 
     if not interna:
         imagenDescripcion = Image.new('RGB', (456, 345), color = (255, 255, 255))
