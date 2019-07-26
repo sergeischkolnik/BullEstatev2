@@ -197,8 +197,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if '<h4>Descripción</h4>' in texto:
                 savedescripcion=True
-            if '</div>' in texto:
-                savedescripcion = False
+
             if og and 'og:image' in texto:
                 saveimg=True
                 og=False
@@ -206,6 +205,8 @@ def crearFicha(sitio,id,mail,tipoficha):
                 saveimg=False
             if savedescripcion:
                 descripcion.append(str(texto))
+            if '</div>' in texto:
+                savedescripcion = False
             if saveimg and 'img.yapo.cl/images' in texto:
                 texto=texto.replace('content="','')
                 texto.replace('"','')
@@ -223,13 +224,13 @@ def crearFicha(sitio,id,mail,tipoficha):
         for desc in descripcion:
             desc=desc.replace('\n',' ')
             desc=desc.replace('<br />','\n')
+            desc=desc.replace('</div>','\n')
             desc=desc.replace('<br>','\n')
             desc=desc.replace('itemprop="description">',"")
             desc=desc.replace('</p>','\n')
             desc=desc.replace('\n',' ')
-            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=80):
-                while ((len(matrixdescripcion[matrixcounter]))<80):
-                     matrixdescripcion[matrixcounter]+='#'
+            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
+
                 matrixdescripcion[matrixcounter]+='\n'
                 matrixcounter+=1
                 matrixdescripcion.append('')
@@ -241,14 +242,14 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion='\n'.join(matrixdescripcion)
 
         propiedad.append(descripcion)
+        if not interna:
+            imagenDescripcion = Image.new('RGB', (456, 345), color = (255, 255, 255))
 
-        imagenDescripcion = Image.new('RGB', (456, 345), color = (255, 255, 255))
+            d = ImageDraw.Draw(imagenDescripcion)
+            f= ImageFont.truetype('arial.ttf',12)
+            d.text((0,0), descripcion,font=f, fill=(0,0,0))
 
-        d = ImageDraw.Draw(imagenDescripcion)
-        f= ImageFont.truetype('arial.ttf',12)
-        d.text((0,0), descripcion,font=f, fill=(0,0,0))
-
-        imagenDescripcion.save('imagenDescripcion.png')
+            imagenDescripcion.save('imagenDescripcion.png')
 
 
         if len(url)==0:
@@ -440,10 +441,12 @@ def crearFicha(sitio,id,mail,tipoficha):
         os.remove("auxphone.gif")
     except:
         pass
-    # try:
-    #     os.remove("imagenDescripcion.png")
-    # except:
-    #     pass
+
+    if not interna:
+        try:
+            os.remove("imagenDescripcion.png")
+        except:
+            pass
     os.remove(nombrearchivo)
 
     #Retornar exito
