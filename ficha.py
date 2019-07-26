@@ -245,7 +245,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         imagenDescripcion = Image.new('RGB', (456, 600), color = (255, 255, 255))
 
         d = ImageDraw.Draw(imagenDescripcion)
-        f= ImageFont.load('hola.ttf',11)
+        f= ImageFont.truetype('hola.ttf',11)
         d.text((0,0), descripcion,font=f, fill=(1,0,0))
 
         imagenDescripcion.save('imagenDescripcion.png')
