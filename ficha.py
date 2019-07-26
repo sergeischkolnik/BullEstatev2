@@ -249,7 +249,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             desc=desc.replace('\n',' ')
 
 
-            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
+            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=75):
 
                 matrixdescripcion[matrixcounter]+='\n'
                 matrixcounter+=1
