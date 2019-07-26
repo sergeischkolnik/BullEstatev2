@@ -218,7 +218,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion=descripcion[1:]
         matrixdescripcion=[]
         matrixcounter=0
-        matrixdescripcion[matrixcounter]=''
+        matrixdescripcion.append('')
         print(descripcion)
         for desc in descripcion:
             desc=desc.replace('\n',' ')
@@ -230,7 +230,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
                 matrixdescripcion[matrixcounter]+='\n'
                 matrixcounter+=1
-                matrixdescripcion[matrixcounter]=''
+                matrixdescripcion.append('')
             matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
         descripcion='\n'.join(matrixdescripcion)
 
