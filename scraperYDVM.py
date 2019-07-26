@@ -265,10 +265,9 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                         ggcc = row.find("td").text[2:]
                         ggcc = ggcc.replace('.','')
                         ggcc = float(ggcc)
-                try:
-                    telefono=ocr("auxphone.gif")
-                except:
-                    telefono='NN'
+
+                telefono=ocr("auxphone.gif")
+
 
                 propiedad = []
                 propiedad.append(codigo)
@@ -319,10 +318,10 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 propiedad.append(telefono)
 
                 insertarPropiedad(propiedad)
-                try:
-                    os.remove("auxphone.gif")
-                except:
-                    pass
+                # try:
+                #     os.remove("auxphone.gif")
+                # except:
+                #     pass
                 print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
 
                 time.sleep(random.uniform(1, 1.5))
