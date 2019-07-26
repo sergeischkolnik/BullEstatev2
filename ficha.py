@@ -180,6 +180,16 @@ def crearFicha(sitio,id,mail,tipoficha):
             for desc in descripcion:
                 desc=desc.replace('   ','')
                 desc=desc.replace('<br />','\n')
+                desc=desc.replace('<br/>','\n')
+                desc=desc.replace('<br>','\n')
+                desc=desc.replace('<b/>','')
+                desc=desc.replace('<b>','')
+                desc=desc.replace('&#237;','í')
+                desc=desc.replace('&#233;','é')
+                desc=desc.replace('&#243;','ó')
+                desc=desc.replace('&#225;','á')
+                desc=desc.replace('&#241;','ñ')
+                desc=desc.replace('&#209;','Ñ')
                 if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
 
                     matrixdescripcion[matrixcounter]+='\n'
@@ -203,6 +213,17 @@ def crearFicha(sitio,id,mail,tipoficha):
             descripcion=' '.join(descripcion)
             descripcion=descripcion.replace('   ','')
             descripcion=descripcion.replace('<br />','\n')
+            descripcion=descripcion.replace('<br/>','\n')
+            descripcion=descripcion.replace('<br>','\n')
+            descripcion=descripcion.replace('<b/>','')
+            descripcion=descripcion.replace('<b>','')
+            descripcion=descripcion.replace('&#237;','í')
+            descripcion=descripcion.replace('&#233;','é')
+            descripcion=descripcion.replace('&#243;','ó')
+            descripcion=descripcion.replace('&#225;','á')
+            descripcion=descripcion.replace('&#241;','ñ')
+            descripcion=descripcion.replace('&#209;','Ñ')
+
             propiedad.append(descripcion)
 
         for meta in metatext:
