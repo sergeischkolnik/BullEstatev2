@@ -489,7 +489,11 @@ def crearFicha(sitio,id,mail,tipoficha):
 
 
     #Crear PDF
-    nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+" Id:"+str(id)+".pdf"
+    if interna:
+        nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+" Id:"+str(id)+".pdf"
+    else:
+        nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+", "+str(operacion)+", "+str(tipo)+", "+str(region)+", "+str(comuna)+".pdf"
+
     print(nombrearchivo)
 
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datoscontacto,regionP)
