@@ -205,12 +205,13 @@ def crearFicha(sitio,id,mail,tipoficha):
                         if desc!= '':
                             matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
             print(matrixdescripcion)
-            for matrix in matrixdescripcion:
+            for x,matrix in enumerate(matrixdescripcion):
                 matrix=matrix.replace('<br />','\n')
                 matrix=matrix.replace('<br/>','\n')
                 matrix=matrix.replace('<br>','\n')
                 matrix=matrix.replace('<b/>','')
                 matrix=matrix.replace('<b>','')
+                matrixdescripcion[x]=matrix
             descripcion='\n'.join(matrixdescripcion)
             propiedad.append(descripcion)
 
