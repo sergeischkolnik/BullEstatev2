@@ -233,7 +233,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 auxPhone=texto
                 auxPhone='https://www.yapo.cl'+auxPhone
         descripcion=descripcion[1:]
-
+        first=True
         print(descripcion)
         for desc in descripcion:
             desc=desc.replace('\n',' ')
@@ -256,8 +256,9 @@ def crearFicha(sitio,id,mail,tipoficha):
                 matrixdescripcion.append('')
                 matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
             else:
-                if matrixcounter==0:
+                if first:
                     matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
+                    first=False
                 else:
                     matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
 
