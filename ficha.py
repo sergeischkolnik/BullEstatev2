@@ -184,6 +184,10 @@ def crearFicha(sitio,id,mail,tipoficha):
                     matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
                 else:
                     matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
+                    print(matrixdescripcion)
+                    descripcion='\n'.join(matrixdescripcion)
+                    propiedad.append(descripcion)
+
         else:
             descripcion=' '.join(descripcion)
             descripcion=descripcion.replace('   ','')
