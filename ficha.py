@@ -171,22 +171,24 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         descripcion=descripcion[2:]
 
-        descripcion=' '.join(descripcion)
-        descripcion=descripcion.replace('   ','')
-        descripcion=descripcion.replace('<br />','\n')
-        propiedad.append(descripcion)
 
-        for desc in descripcion:
+        if not interna:
+            for desc in descripcion:
+                desc=desc.replace('   ','')
+                desc=desc.replace('<br />','\n')
+                if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
 
-            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
-
-                matrixdescripcion[matrixcounter]+='\n'
-                matrixcounter+=1
-                matrixdescripcion.append('')
-                matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
-            else:
-                matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
-
+                    matrixdescripcion[matrixcounter]+='\n'
+                    matrixcounter+=1
+                    matrixdescripcion.append('')
+                    matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
+                else:
+                    matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
+        else:
+            descripcion=' '.join(descripcion)
+            descripcion=descripcion.replace('   ','')
+            descripcion=descripcion.replace('<br />','\n')
+            propiedad.append(descripcion)
 
         for meta in metatext:
 
