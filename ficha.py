@@ -242,8 +242,11 @@ def crearFicha(sitio,id,mail,tipoficha):
             desc=desc.replace('<br>','\n')
             desc=desc.replace('itemprop="description">',"")
             desc=desc.replace('</p>','\n')
-            desc=desc.replace("  \t\t\t  \t\t   \t\t<!--'","")
-            desc=desc.replace('\n',' ')
+            desc=desc.replace("\t","")
+            desc=desc.replace('<!','')
+            desc=desc.replace('-','')
+            desc=desc.replace('  ','')
+
             if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
 
                 matrixdescripcion[matrixcounter]+='\n'
