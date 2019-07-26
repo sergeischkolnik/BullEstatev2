@@ -216,13 +216,24 @@ def crearFicha(sitio,id,mail,tipoficha):
                 auxPhone=texto
                 auxPhone='https://www.yapo.cl'+auxPhone
         descripcion=descripcion[1:]
+        matrixdescripcion=[]
+        matrixcounter=0
+        matrixdescripcion[matrixcounter]=''
         print(descripcion)
-        descripcion=' '.join(descripcion)
-        descripcion=descripcion.replace('\n','')
-        descripcion=descripcion.replace('<br />','\n')
-        descripcion=descripcion.replace('<br>','\n')
-        descripcion=descripcion.replace('itemprop="description">',"")
-        descripcion=descripcion.replace('</p>','\n')
+        for desc in descripcion:
+            desc=desc.replace('\n',' ')
+            desc=desc.replace('<br />','\n')
+            desc=desc.replace('<br>','\n')
+            desc=desc.replace('itemprop="description">',"")
+            desc=desc.replace('</p>','\n')
+            desc=desc.replace('\n',' ')
+            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
+                matrixdescripcion[matrixcounter]+='\n'
+                matrixcounter+=1
+                matrixdescripcion[matrixcounter]=''
+            matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
+        descripcion='\n'.join(matrixdescripcion)
+
         propiedad.append(descripcion.center(40))
         if ('  ' in descripcion):
             print('hay doble espacios')
