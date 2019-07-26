@@ -149,6 +149,10 @@ def crearFicha(sitio,id,mail,tipoficha):
         return(text)
     #sacar informacion de la publicacion
     #sacar urls fotos portal
+    matrixdescripcion=[]
+    matrixcounter=0
+    matrixdescripcion.append('')
+
     if sitio=='portal':
         url=[]
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
@@ -170,8 +174,20 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion=' '.join(descripcion)
         descripcion=descripcion.replace('   ','')
         descripcion=descripcion.replace('<br />','\n')
-
         propiedad.append(descripcion)
+
+        for desc in descripcion:
+
+            if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
+
+                matrixdescripcion[matrixcounter]+='\n'
+                matrixcounter+=1
+                matrixdescripcion.append('')
+                matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
+            else:
+                matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
+
+
         for meta in metatext:
 
             if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '1200' in meta:
@@ -217,9 +233,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 auxPhone=texto
                 auxPhone='https://www.yapo.cl'+auxPhone
         descripcion=descripcion[1:]
-        matrixdescripcion=[]
-        matrixcounter=0
-        matrixdescripcion.append('')
+
         print(descripcion)
         for desc in descripcion:
             desc=desc.replace('\n',' ')
@@ -228,6 +242,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             desc=desc.replace('<br>','\n')
             desc=desc.replace('itemprop="description">',"")
             desc=desc.replace('</p>','\n')
+            desc=desc.replace("  \t\t\t  \t\t   \t\t<!--'","")
             desc=desc.replace('\n',' ')
             if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
 
@@ -242,14 +257,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion='\n'.join(matrixdescripcion)
 
         propiedad.append(descripcion)
-        if not interna:
-            imagenDescripcion = Image.new('RGB', (456, 345), color = (255, 255, 255))
 
-            d = ImageDraw.Draw(imagenDescripcion)
-            f= ImageFont.truetype('arial.ttf',12)
-            d.text((0,0), descripcion,font=f, fill=(0,0,0))
-
-            imagenDescripcion.save('imagenDescripcion.png')
 
 
         if len(url)==0:
@@ -273,7 +281,16 @@ def crearFicha(sitio,id,mail,tipoficha):
             auxPhone=1
         except:
             pass
-        lenfotos=len(url)
+    lenfotos=len(url)
+
+    if not interna:
+        imagenDescripcion = Image.new('RGB', (456, 345), color = (255, 255, 255))
+
+        d = ImageDraw.Draw(imagenDescripcion)
+        f= ImageFont.truetype('arial.ttf',12)
+        d.text((0,0), descripcion,font=f, fill=(0,0,0))
+
+        imagenDescripcion.save('imagenDescripcion.png')
 
     datospro = []
     if pro:
