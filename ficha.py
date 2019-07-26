@@ -246,6 +246,8 @@ def crearFicha(sitio,id,mail,tipoficha):
             desc=desc.replace('<!','')
             desc=desc.replace('-','')
             desc=desc.replace('  ','')
+            desc=desc.replace('\n',' ')
+
 
             if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
 
@@ -254,7 +256,10 @@ def crearFicha(sitio,id,mail,tipoficha):
                 matrixdescripcion.append('')
                 matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
             else:
-                matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
+                if matrixcounter==0:
+                    matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
+                else:
+                    matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
 
         print(matrixdescripcion)
         descripcion='\n'.join(matrixdescripcion)
