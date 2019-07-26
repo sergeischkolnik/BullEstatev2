@@ -179,6 +179,9 @@ def crearFicha(sitio,id,mail,tipoficha):
         if not interna:
             for desc in descripcion:
                 desc=desc.replace('   ','')
+                desc=desc.replace('<br /><br />','\n')
+                desc=desc.replace('<br/>\r\n','\n')
+                desc=desc.replace('</b><br/>','\n')
                 desc=desc.replace('<br />','\n')
                 desc=desc.replace('<br/>','\n')
                 desc=desc.replace('<br>','\n')
@@ -192,7 +195,6 @@ def crearFicha(sitio,id,mail,tipoficha):
                 desc=desc.replace('&#209;','Ñ')
                 if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
 
-                    matrixdescripcion[matrixcounter]+='\n'
                     matrixcounter+=1
                     matrixdescripcion.append('')
                     if desc!= '':
@@ -290,7 +292,6 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
 
-                matrixdescripcion[matrixcounter]+='\n'
                 matrixcounter+=1
                 matrixdescripcion.append('')
                 matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
