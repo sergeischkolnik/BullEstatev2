@@ -47,6 +47,7 @@ import reportes
 import tasadorbot2 as tb2
 import io
 
+
 def obtenerProp(id,sitio):
 
     if (sitio=='portal'):
@@ -223,7 +224,6 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion=descripcion.replace('</p>','\n')
 
         propiedad.append(descripcion)
-        imagenesDescripciones=[]
         for i in range (0,20):
             imagenDescripcion = Image.new('RGB', (456, 690), color = (255, 255, 255))
 
@@ -231,7 +231,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             d = ImageDraw.Draw(imagenDescripcion)
             d.text((22.5*(i+1), 34*(i+1)), descripcion, font=f)
 
-            imagenDescripcion.save('imagenDescripcion.png'+str(i))
+            imagenDescripcion.save('imagenDescripcion'+str(i)+'.png')
 
 
         if len(url)==0:
