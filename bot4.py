@@ -31,6 +31,7 @@ TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
 
 logger = logging.getLogger(__name__)
+vars_us = dict()
 
 
 #TODOS LOS COMANDOS SIEMPRE SOLO MINUSCULAS
@@ -888,32 +889,82 @@ def send_message(text, chat_id,urlP):
     get_url(url)
     print("[tgBot] send to:" + str(chat_id) + " -> " + str(text))
 
+def menu(bot, update):
+
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+    # Create buttons to slect language:
+    keyboard = [["Reporte"],
+                ["Ficha", "Ayuda"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    logger.info("{} está en el menu principal.".format(user.first_name))
+    update.message.reply_text("menu principal", reply_markup=reply_markup)
+
+
+def start(bot, update):
+    """
+    Start function. Displayed whenever the /start command is called.
+    This function sets the language of the bot.
+    """
+
+    user = update.message.from_user
+    if user.id not in vars_us:
+        vars_us[user.id] = dict()
+
+
+    menu(bot, update)
+
+def cancel(bot, update):
+    """
+    User cancelation function.
+    Cancel conersation by user.
+    """
+    user = update.message.from_user
+    logger.info("User {} canceled the conversation.".format(user.first_name))
+    update.message.reply_text("mensaje adiuos",
+                              reply_markup=ReplyKeyboardRemove())
+
+    return ConversationHandler.END
+
+def error(bot, update, error):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, error)
 def main():
-    currentMinute= dt.datetime.now().minute
-    last_update_id = None
-    avisado = False
-    print("[tgBot] Bot andando.")
 
-    while True:
-        updates = get_updates(last_update_id)
-        result = updates.get("result")
-        if result:
-            if len(result) > 0:
-                last_update_id = get_last_update_id(updates) + 1
-                echo_all(updates)
+    updater = Updater(TOKEN)
 
-        if dt.datetime.now().minute != currentMinute:
-            currentMinute = dt.datetime.now().minute
-            lastScrap = pm.getLastScrap()
-            if lastScrap != -1:
-                if dt.datetime.now()-dt.timedelta(minutes=10) > lastScrap:
-                    if not avisado:
-                        for idchat in id_chats_updates:
-                            send_message("Falla en portal", idchat,URL2)
-                        avisado = True
-                else:
-                    avisado = False
-        time.sleep(5)
+    dp = updater.dispatcher
+
+    # Add conversation handler with predefined states:
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler('start', start)],
+
+
+
+        fallbacks=[CommandHandler('cancel', cancel),
+                   CommandHandler('help', help)]
+    )
+
+    dp.add_handler(conv_handler)
+
+    # Log all errors:
+    dp.add_error_handler(error)
+
+    # Start DisAtBot:
+    updater.start_polling()
+
+    # Run the bot until the user presses Ctrl-C or the process
+    # receives SIGINT, SIGTERM or SIGABRT:
+    updater.idle()
+
+
 
 def selectorPortal():
     sql = "SELECT COUNT(id) from portalinmobiliario"
