@@ -13,6 +13,11 @@ import mailBotClientesCarolina
 import mailBotClientesPahola
 import ficha
 import reportes
+from telegram.ext import Updater, CommandHandler, MessageHandler, RegexHandler
+from telegram.ext import ConversationHandler, CallbackQueryHandler, Filters
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
+import logging
 
 thrFran = -1
 thrFer = -1
@@ -24,6 +29,9 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 TOKEN2 = "789420054:AAFEYW1c0pgN9d3Mo3L2DFEEEGUAY8QCJ-4"
 URL2 = "https://api.telegram.org/bot{}/".format(TOKEN2)
+
+logger = logging.getLogger(__name__)
+
 
 #TODOS LOS COMANDOS SIEMPRE SOLO MINUSCULAS
 comandosIndividuales = ['hola',
@@ -261,6 +269,16 @@ def echo_all(updates):
                 #Hola y bienvenida
                 if text==comandosIndividuales[0]:
                     text="Hola! Los comandos son:"
+                    keyboard = [["Reporte"],
+                    ["Ficha", "Ayuda"]]
+
+                    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+                    user = updates.message.from_user
+                    logger.info("{} está en el menu principal.".format(user.first_name))
+                    update.message.reply_text("menu principal", reply_markup=reply_markup)
+
                     for c in comandosIndividuales:
                         text+="\n" + c
 
