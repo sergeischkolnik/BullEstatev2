@@ -42,7 +42,10 @@ comandosIndividuales = ['hola',
                         'gocarolina',
                         'stopcarolina',
                         'canjeador',
-                        'ficha']
+                        'ficha',
+                        'fichapro',
+                        'fichainterna',
+                        'fichafull']
 
 comandosMultiples = ['reporte',
                      'reporteinterno',
@@ -52,7 +55,10 @@ comandosMultiples = ['reporte',
                      'actualizarestadodueno',
                      'actualizarcomentariodueno',
                      'canjeador',
-                     'ficha']
+                     'ficha',
+                     'fichapro',
+                     'fichainterna',
+                     'fichafull']
 
 id_chats_updates = ["485728961","652659504","9561926"]
 
@@ -371,6 +377,23 @@ def echo_all(updates):
                 # ficha
                 elif text == comandosIndividuales[16]:
                     text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+
+                # ficha
+                elif text == comandosIndividuales[17]:
+                    text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                #ficha Pro
+                elif text == comandosIndividuales[18]:
+                    text = "Para usar la emisión de ficha pro, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                #ficha interna
+                elif text == comandosIndividuales[19]:
+                    text = "Para usar la emisión de ficha interna, escriba, separando por espacios:\nficha " \
+                           "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                #ficha full
+                elif text == comandosIndividuales[20]:
+                    text = "Para usar la emisión de ficha full, escriba, separando por espacios:\nficha " \
                            "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
 
                 #no encontrado
@@ -828,15 +851,56 @@ def echo_all(updates):
                         text += "nombre:" + nombre+ "\n"
 
                 # Ficha
-                elif arr[0] == comandosMultiples[8]:
+                if arr[0] == comandosMultiples[8]:
                     if (len(arr)!=4):
                         text = "Para usar la emisión de ficha, escriba, separando por espacios:\nficha " \
                            "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
                     else:
+                        print("ejecutando creacion de ficha")
+                        tipoficha=1
                         sitio=str(arr[1])
                         id=int(arr[2])
                         mail=str(arr[3])
-                        text=ficha.crearFicha(sitio,id,mail)
+                        text=ficha.crearFicha(sitio,id,mail,tipoficha)
+
+                # Ficha Pro
+                elif arr[0] == comandosMultiples[9]:
+                    if (len(arr) != 4):
+                        text = "Para usar la emisión de ficha pro, escriba, separando por espacios:\nficha " \
+                               "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                    else:
+                        tipoficha=2
+                        print("ejecutando creacion de ficha pro")
+                        sitio = str(arr[1])
+                        id = int(arr[2])
+                        mail = str(arr[3])
+                        text = ficha.crearFicha(sitio, id, mail,tipoficha)
+
+                # Ficha Interna
+                elif arr[0] == comandosMultiples[10]:
+                    if (len(arr) != 4):
+                        text = "Para usar la emisión de ficha interna, escriba, separando por espacios:\nficha " \
+                               "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                    else:
+                        tipoficha=3
+                        print("ejecutando creacion de ficha interna")
+                        sitio = str(arr[1])
+                        id = int(arr[2])
+                        mail = str(arr[3])
+                        text = ficha.crearFicha(sitio, id, mail,tipoficha)
+
+                # Ficha Full
+                elif arr[0] == comandosMultiples[11]:
+                    if (len(arr) != 4):
+                        text = "Para usar la emisión de ficha full, escriba, separando por espacios:\nficha " \
+                               "<fuente (portalinmobiliario o yapo)> <id de la Propiedad> <correo de envío> "
+                    else:
+                        tipoficha=4
+                        print("ejecutando creacion de ficha full")
+                        sitio = str(arr[1])
+                        id = int(arr[2])
+                        mail = str(arr[3])
+                        text = ficha.crearFicha(sitio, id, mail,tipoficha)
 
                 else:
                     text = "Comando desconocido. Los comandos dispobibles son:"
