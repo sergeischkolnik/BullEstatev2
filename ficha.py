@@ -100,12 +100,13 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     #sacar informacion de bbdd, y chequear que propiedad existe:
     propiedad=obtenerProp(id,sitio)
-    propiedad=list(propiedad)
+
     if len(propiedad)<1:
         text='¨Propiedad no se encuentra en la base de datos.'
         return(text)
-    else:
 
+    else:
+        propiedad=list(propiedad)
 
         nombre=str(propiedad[0])
         region=str(propiedad[1])
@@ -217,14 +218,12 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         url=[]
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
-        print('extrayendo texto')
         metatext=page.text
         metatext=metatext.split(' ')
         descripcion=[]
         savedescripcion=False
         saveimg=False
         og=True
-        print('texto extraido')
 
         for texto in metatext:
 
@@ -249,7 +248,6 @@ def crearFicha(sitio,id,mail,tipoficha):
                 texto=texto[1]
                 auxPhone=texto
                 auxPhone='https://www.yapo.cl'+auxPhone
-        print('texto procesado')
         descripcion=descripcion[1:]
         first=True
         print(descripcion)
