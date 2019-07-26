@@ -217,12 +217,15 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         url=[]
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
+        print('extrayendo texto')
         metatext=page.text
         metatext=metatext.split(' ')
         descripcion=[]
         savedescripcion=False
         saveimg=False
         og=True
+        print('texto extraido')
+
         for texto in metatext:
 
             if '<h4>Descripción</h4>' in texto:
@@ -246,6 +249,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 texto=texto[1]
                 auxPhone=texto
                 auxPhone='https://www.yapo.cl'+auxPhone
+        print('texto procesado')
         descripcion=descripcion[1:]
         first=True
         print(descripcion)
