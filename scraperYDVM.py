@@ -10,6 +10,11 @@ import time
 import random
 from requests_html import HTMLSession
 import json
+from yapo_ocr import yapo_ocr
+from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
+import os
+
 
 def actualizar_checker(operacion,tipo,region,pagina):
     d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -31,10 +36,10 @@ def insertarPropiedad(propiedad):
 
     sql = """INSERT INTO propiedades(id2,idregion,comuna,tipo,titulo,operacion,preciouf,preciopesos,fechapublicacion,
     fechascrap,metrosmin,metrosmax,dormitorios,banos,estacionamientos,descripcion,lat,lon,anoconstruccion,ggcc,link,esdueno)
-             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE idregion=%s,
+             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE idregion=%s,
              comuna=%s,tipo=%s,titulo=%s,operacion=%s,preciouf=%s,preciopesos=%s,fechapublicacion=%s,fechascrap=%s,
              metrosmin=%s,metrosmax=%s,dormitorios=%s,banos=%s,estacionamientos=%s,descripcion=%s,lat=%s, lon=%s, 
-             anoconstruccion=%s, ggcc=%s, link=%s"""
+             anoconstruccion=%s, ggcc=%s, link=%s, esDueno=%s, telefono=%s"""
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
 
@@ -48,7 +53,7 @@ def insertarPropiedad(propiedad):
 def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False):
 
 
-
+    ocr=yapo_ocr()
     while(True):
         link='https://www.yapo.cl/region_metropolitana/comprar?ca=15_s&ret=1&cg=1220&o=1'
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
@@ -118,6 +123,41 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
 
                 page = requests.get(link3, headers={'User-Agent': agentCreator.generateAgent()})
                 tree = html.fromstring(page.content)
+
+                url=[]
+                metatext=page.text
+                metatext=metatext.split(' ')
+                descripcion=[]
+                savedescripcion=False
+                saveimg=False
+                og=True
+
+                for texto in metatext:
+
+
+                    if og and 'og:image' in texto:
+                        saveimg=True
+                        og=False
+                    if 'img/yapo' in texto:
+                        saveimg=False
+
+                    if saveimg and 'img.yapo.cl/images' in texto:
+                        texto=texto.replace('content="','')
+                        texto.replace('"','')
+                        url.append(texto)
+                    if 'phone-url' in texto:
+                        texto=texto.split('"')
+                        texto=texto[1]
+                        auxPhone=texto
+                        auxPhone='https://www.yapo.cl'+auxPhone
+
+                response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
+                auxphone2=auxPhone
+                img = Image.open(BytesIO(response.content))
+                img=img.convert('L')
+                img=img.convert('1')
+                img.save("auxphone.gif")
+
                 precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
                 precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
                 if ('$') in precio2[0].text:
@@ -226,6 +266,8 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                         ggcc = ggcc.replace('.','')
                         ggcc = float(ggcc)
 
+                telefono=ocr("auxphone.gif")
+
                 propiedad = []
                 propiedad.append(codigo)
                 propiedad.append(idregion)
@@ -249,6 +291,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 propiedad.append(ggcc)
                 propiedad.append(link3)
                 propiedad.append(esdueno)
+                propiedad.append(telefono)
 
                 propiedad.append(idregion)
                 propiedad.append(comuna)
@@ -270,9 +313,14 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 propiedad.append(anoconstruccion)
                 propiedad.append(ggcc)
                 propiedad.append(link3)
+                propiedad.append(esdueno)
+                propiedad.append(telefono)
 
                 insertarPropiedad(propiedad)
-
+                try:
+                    os.remove("auxphone.gif")
+                except:
+                    pass
                 print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
 
                 time.sleep(random.uniform(1, 1.5))
