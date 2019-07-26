@@ -265,8 +265,10 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                         ggcc = row.find("td").text[2:]
                         ggcc = ggcc.replace('.','')
                         ggcc = float(ggcc)
-
-                telefono=ocr("auxphone.gif")
+                try:
+                    telefono=ocr("auxphone.gif")
+                except:
+                    telefono='NN'
 
                 propiedad = []
                 propiedad.append(codigo)
