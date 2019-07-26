@@ -275,9 +275,7 @@ def echo_all(updates):
                     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
-                    user = updates.message.from_user
-                    logger.info("{} está en el menu principal.".format(user.first_name))
-                    update.message.reply_text("menu principal", reply_markup=reply_markup)
+                    teclado=True
 
                     for c in comandosIndividuales:
                         text+="\n" + c
@@ -865,7 +863,8 @@ def echo_all(updates):
                 for c in comandosIndividuales:
                     text+="\n" + c
 
-
+            if teclado:
+                send_message2(reply_markup, chat, URL)
             send_message(text, chat, URL)
             send_message(textout, chat, URL)
         except Exception as e:
@@ -877,6 +876,11 @@ def get_last_chat_id_and_text(updates):
     text = updates["result"][last_update]["message"]["text"]
     chat_id = updates["result"][last_update]["message"]["chat"]["id"]
     return (text, chat_id)
+
+def send_message2(teclado, chat_id,urlP):
+    url = urlP + "sendMessage?text={}&chat_id={}".format(text, chat_id)
+    get_url(url)
+    print("[tgBot] send to:" + str(chat_id) + " -> " + str(""))
 
 def send_message(text, chat_id,urlP):
     text = urllib.parse.quote_plus(text)
