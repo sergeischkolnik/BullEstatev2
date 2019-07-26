@@ -227,7 +227,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         for i in range (0,20):
             imagenDescripcion = Image.new('RGB', (456, 690), color = (255, 255, 255))
 
-            f= ImageFont.load("arial.pil")
+            f=ImageFont.truetype("arial.ttf", 11)
             d = ImageDraw.Draw(imagenDescripcion)
             d.text((22.5*(i+1), 34*(i+1)), descripcion, font=f)
 
