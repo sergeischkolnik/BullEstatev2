@@ -223,7 +223,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         descripcion=descripcion.replace('itemprop="description">',"")
         descripcion=descripcion.replace('</p>','\n')
         descripcion=descripcion.replace('\n','')
-        propiedad.append(descripcion)
+        propiedad.append(descripcion.center(40))
         if ('  ' in descripcion):
             print('hay doble espacios')
         imagenDescripcion = Image.new('RGB', (456, 600), color = (255, 255, 255))
