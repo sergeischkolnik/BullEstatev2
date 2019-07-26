@@ -251,12 +251,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(t4)
         Story.append(Spacer(1, 16))
 
-    for i in range(0,20):
-        ptext = '<font size=11><b>Descripción:</b></font>'
-        Story.append(Paragraph(ptext, styles["Justify"]))
-        imagenDescripcion=Image('imagenDescripcion'+str(i)+'.png')
-        Story.append(imagenDescripcion)
-        Story.append(PageBreak())
+    ptext = '<font size=11><b>Descripción:</b></font>'
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    imagenDescripcion=Image('imagenDescripcion.png')
+    Story.append(imagenDescripcion)
+    Story.append(PageBreak())
 
     # ptext = '<font size=11>' + str(descripcion) + '</font>'
     # Story.append(Paragraph(ptext, styles["Justify"]))
