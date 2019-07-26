@@ -228,20 +228,25 @@ def crearFicha(sitio,id,mail,tipoficha):
             desc=desc.replace('</p>','\n')
             desc=desc.replace('\n',' ')
             if ((len(matrixdescripcion[matrixcounter])+len(desc))>=75):
-                matrixdescripcion[matrixcounter]+='\n'
+                while ((len(matrixdescripcion[matrixcounter]))>75):
+                     matrixdescripcion[matrixcounter]+='#'
+                matrixdescripcion[matrixcounter]+='<br>'
                 matrixcounter+=1
                 matrixdescripcion.append('')
-            matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
-            print(matrixdescripcion)
-        descripcion='\n'.join(matrixdescripcion)
+                matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+str(desc)
+            else:
+                matrixdescripcion[matrixcounter]=matrixdescripcion[matrixcounter]+' '+str(desc)
+
+        print(matrixdescripcion)
+        descripcion='<br>'.join(matrixdescripcion)
 
         propiedad.append(descripcion.center(40))
-        if ('  ' in descripcion):
-            print('hay doble espacios')
+
         imagenDescripcion = Image.new('RGB', (456, 600), color = (255, 255, 255))
 
         d = ImageDraw.Draw(imagenDescripcion)
-        d.text((0,0), descripcion, fill=(1,0,0))
+        f= ImageFont('hola.ttf')
+        d.text((0,0), descripcion,font=f, fill=(1,0,0))
 
         imagenDescripcion.save('imagenDescripcion.png')
 
