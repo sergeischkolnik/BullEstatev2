@@ -80,15 +80,13 @@ def comuna(bot, update):
     """
     Set option selected from menu.
     """
-    bot.send_message(chat_id=update.message.chat_id, text="al menos la mierda entra al SET.")
     # Set state:
     user = update.message.from_user
     if update.message.text == "Las Condes":
-        bot.send_message(chat_id=update.message.chat_id, text="al menos alguna wea hacce con el boton ql.")
-        select.menu(bot,update)
+        select.tipo(bot,update)
         return pm.SELECT_TIPO
     elif update.message.text == "Providencia":
-        select.menu(bot, update)
+        select.tipo(bot, update)
         return pm.SELECT_TIPO
     elif update.message.text == "Atras":
         select.region(bot, update)
@@ -105,11 +103,9 @@ def tipo(bot, update):
     """
     Set option selected from menu.
     """
-    bot.send_message(chat_id=update.message.chat_id, text="al menos la mierda entra al SET.")
     # Set state:
     user = update.message.from_user
     if update.message.text == "Departamento":
-        bot.send_message(chat_id=update.message.chat_id, text="al menos alguna wea hacce con el boton ql.")
         select.menu(bot,update)
         return pm.MENU
     elif update.message.text == "Casa":
