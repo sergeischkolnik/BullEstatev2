@@ -64,10 +64,10 @@ def region(bot, update):
     user = update.message.from_user
     if update.message.text == "RM":
         select.comuna(bot,update)
-        return pm.SELECT_COM
+        return pm.SELECT_COMUNA
     elif update.message.text == "Valpo":
         select.comuna(bot, update)
-        return pm.SELECT_COM
+        return pm.SELECT_COMUNA
     elif update.message.text == "Atras":
         select.operacion(bot, update)
         return pm.SELECT_OP
@@ -100,7 +100,7 @@ def comuna(bot, update):
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.comuna(bot, update)
-        return pm.SELECT_COM
+        return pm.SELECT_COMUNA
 
 def tipo(bot, update):
     """
@@ -116,7 +116,7 @@ def tipo(bot, update):
         return pm.MENU
     elif update.message.text == "Atras":
         select.region(bot, update)
-        return pm.SELECT_COM
+        return pm.SELECT_COMUNA
     elif update.message.text == "Salir":
         select.menu(bot, update)
         return pm.MENU

@@ -129,24 +129,35 @@ def main():
 
         states={
 
-            # MENU: [RegexHandler(
-            #           '^({}|{}|{})$'.format("Reporte", "Ficha", "Ayuda"),set.menu)],
+            # # MENU: [RegexHandler(
+            # #           '^({}|{}|{})$'.format("Reporte", "Ficha", "Ayuda"),set.menu)],
+            #
+            #
+            #
+            # SELECT_OP: [RegexHandler(
+            #             '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set.operacion)],
+            #
+            # SELECT_REGION: [RegexHandler(
+            #             '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set.region)],
+            #
+            # SELECT_COM: [RegexHandler(
+            #             '^({}|{}|{}|{})$'.format("Las Condes", "Providencia", "Atras", "Salir"), set.comuna)],
+            #
+            # SELECT_TIPO: [RegexHandler(
+            #     '^({}|{}|{}|{})$'.format("Departamento", "Casa", "Atras", "Salir"), set.tipo)]
+            #
+            #      },
 
             MENU: [MessageHandler(Filters.text, set.menu)],
 
-            SELECT_OP: [RegexHandler(
-                        '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set.operacion)],
+            SELECT_OP:  [MessageHandler(Filters.text, set.operacion)],
 
-            SELECT_REGION: [RegexHandler(
-                        '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set.region)],
+            SELECT_REGION:  [MessageHandler(Filters.text, set.region)],
 
-            SELECT_COM: [RegexHandler(
-                        '^({}|{}|{}|{})$'.format("Las Condes", "Providencia", "Atras", "Salir"), set.comuna)],
+            SELECT_COMUNA:  [MessageHandler(Filters.text, set.comuna)],
 
-            SELECT_TIPO: [RegexHandler(
-                '^({}|{}|{}|{})$'.format("Departamento", "Casa", "Atras", "Salir"), set.tipo)]
-
-                 },
+            SELECT_TIPO:  [MessageHandler(Filters.text, set.tipo)],
+                },
 
         fallbacks=[CommandHandler('cancel', cancel),
                    CommandHandler('help', help)]
