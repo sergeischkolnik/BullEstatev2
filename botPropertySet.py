@@ -66,7 +66,7 @@ def region(bot, update):
         select.comuna(bot, update)
         return pm.MENU
     elif update.message.text == "Atras":
-        report(bot, update)
+        select.operacion(bot, update)
         return pm.SELECT_OP
     elif update.message.text == "Salir":
         select.menu(bot, update)
