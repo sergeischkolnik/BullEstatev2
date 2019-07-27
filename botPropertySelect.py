@@ -52,6 +52,7 @@ def region(bot, update):
     Main menu function.
     This will display the options from the main menu.
     """
+    user = update.message.from_user
     # Create buttons to slect language:
     keyboard = [["RM","Valpo"],
                 ["Atras", "Salir"]]
@@ -60,7 +61,7 @@ def region(bot, update):
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
 
-    user = update.message.from_user
+
     pm.logger.info("{} está seleccionando region.".format(user.first_name))
     update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
 
@@ -68,6 +69,7 @@ def region(bot, update):
 
 def comuna(bot,update):
 
+    user = update.message.from_user
 
 
     keyboard = [["Las_Condes","Providencia"],
@@ -77,7 +79,6 @@ def comuna(bot,update):
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
 
-    user = update.message.from_user
     pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
     update.message.reply_text("Seleccionar Comuna", reply_markup=reply_markup)
 
@@ -85,6 +86,7 @@ def comuna(bot,update):
 
 def tipo(bot,update):
 
+    user = update.message.from_user
 
 
     keyboard = [["Departamento","Casa"],
@@ -94,7 +96,6 @@ def tipo(bot,update):
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
 
-    user = update.message.from_user
     pm.logger.info("{} está seleccionando Tipo.".format(user.first_name))
     update.message.reply_text("Seleccionar Tipo", reply_markup=reply_markup)
 
