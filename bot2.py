@@ -312,7 +312,7 @@ def main():
                         '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set_operacion)],
 
             SELECT_MULTIPLE: [RegexHandler(
-                '^({})$'.format("unique"), set_multiple)],
+                '^({})$'.format("Avanzar"), set_multiple)],
 
             SELECT_REGION: [RegexHandler(
                 '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set_region)],
