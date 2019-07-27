@@ -112,7 +112,7 @@ def main():
                         '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set.region)],
 
             SELECT_COM: [RegexHandler(
-                        '^({}|{}|{}|{})$'.format("Las_Condes", "Providencia", "Atras", "Salir"), set.comuna)],
+                        '^({}|{}|{}|{})$'.format("Las Condes", "Providencia", "Atras", "Salir"), set.comuna)],
 
             SELECT_TIPO: [RegexHandler(
                 '^({}|{}|{}|{})$'.format("Departamento", "Casa", "Atras", "Salir"), set.tipo)]

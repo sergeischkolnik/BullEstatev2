@@ -72,7 +72,7 @@ def comuna(bot,update):
     user = update.message.from_user
 
 
-    keyboard = [["Las_Condes","Providencia"],
+    keyboard = [["Las Condes","Providencia"],
                 ["Atras", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
