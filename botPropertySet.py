@@ -73,7 +73,7 @@ def region(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        set.region(bot, update)
+        select.region(bot, update)
         return pm.SELECT_REGION
 
 def comuna(bot, update):
