@@ -170,12 +170,12 @@ def set_operacion(bot, update):
     if update.message.text == "Comprar":
         STATE = SELECT_REGION
         vars_us[user.id]["OP"] = "Comprar"
-        select_region(bot,update)
+        set_multiple(bot,update)
         return SELECT_REGION
     elif update.message.text == "Arrendar":
         STATE = SELECT_REGION
         vars_us[user.id]["OP"] = "Arrendar"
-        select_region(bot, update)
+        set_multiple(bot, update)
         return SELECT_REGION
     elif update.message.text == "Atras":
         STATE = MENU
