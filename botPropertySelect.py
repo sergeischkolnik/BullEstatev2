@@ -71,7 +71,7 @@ def comuna(bot,update):
 
 
 
-    keyboard = [{'Las Condes','Providencia'},
+    keyboard = [['Las Condes','Providencia'],
                 ["Atras", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -79,7 +79,7 @@ def comuna(bot,update):
                                        resize_keyboard=True)
 
 
-    pm.logger.info("{} está seleccionando region.".format(user.first_name))
-    update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
+    pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
+    update.message.reply_text("Seleccionar Comuna", reply_markup=reply_markup)
 
     return pm.MENU
