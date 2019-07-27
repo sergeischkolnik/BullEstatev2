@@ -83,7 +83,7 @@ def comuna(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="al menos la mierda entra al SET.")
     # Set state:
     user = update.message.from_user
-    if update.message.text == "Las Condes":
+    if update.message.text == "Las_Condes":
         bot.send_message(chat_id=update.message.chat_id, text="al menos alguna wea hacce con el boton ql.")
         select.menu(bot,update)
         return pm.SELECT_TIPO
