@@ -83,6 +83,7 @@ def comuna(bot, update):
     # Set state:
     user = update.message.from_user
     if update.message.text == "Providencia":
+        print('algo hace en las comunas esta wea')
         select.menu(bot,update)
         return pm.MENU
     elif update.message.text == "Las Condes":

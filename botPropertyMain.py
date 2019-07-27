@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 
-MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_MULTIPLE = range(5)
+MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA = range(4)
 STATE = MENU
 
 
