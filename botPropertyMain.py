@@ -132,7 +132,7 @@ def main():
             # MENU: [RegexHandler(
             #           '^({}|{}|{})$'.format("Reporte", "Ficha", "Ayuda"),set.menu)],
 
-            MENU: [MessageHandler(filters.text, set.menu)],
+            MENU: [MessageHandler(Filters.text, set.menu)],
 
             SELECT_OP: [RegexHandler(
                         '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set.operacion)],
