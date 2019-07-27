@@ -45,7 +45,7 @@ def operacion(bot, update):
     pm.logger.info("{} está eligigiendo operacion.".format(user.first_name))
     update.message.reply_text("Seleccione operacion", reply_markup=reply_markup)
 
-    return SELECT_OP
+    return pm.SELECT_OP
 
 def region(bot, update):
     """
@@ -64,7 +64,7 @@ def region(bot, update):
     pm.logger.info("{} está seleccionando region.".format(user.first_name))
     update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
 
-    return SELECT_REGION
+    return pm.SELECT_REGION
 
 def comuna(bot,update):
     user = update.message.from_user
@@ -81,3 +81,5 @@ def comuna(bot,update):
 
     pm.logger.info("{} está seleccionando region.".format(user.first_name))
     update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
+
+    return pm.MENU
