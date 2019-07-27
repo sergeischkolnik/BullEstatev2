@@ -9,6 +9,7 @@ import botPropertyDataBase as db
 
 global id
 
+
 def menu(bot, update):
     global STATE
     """

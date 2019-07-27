@@ -24,6 +24,31 @@ logger = logging.getLogger(__name__)
 MENU, SELECT_OP, SELECT_REGION, SELECT_COM, SELECT_TIPO = range(5)
 STATE = MENU
 
+def selectteleport(etapa,palabra):
+    global menu
+    global operacion
+    global region
+    global comuna
+    global tipo
+
+    if etapa=='menu':
+        menu=palabra
+    elif etapa=="":
+        global operacion
+    elif etapa == "region":
+        global region
+    elif etapa == "comuna":
+        global comuna
+    elif etapa == "tipo":
+        global tipo
+    else:
+        return null
+
+
+def teleport(string):
+    global keyword
+
+    keyword=string
 
 def start(bot, update):
 
@@ -83,6 +108,8 @@ def error(bot, update, error):
 
 
 def main():
+
+    global keyword
     """
     Main function.
     This function handles the conversation flow by setting
@@ -102,8 +129,10 @@ def main():
 
         states={
 
-            MENU: [RegexHandler(
-                        '^({}|{}|{})$'.format("Reporte", "Ficha", "Ayuda"),set.menu)],
+            # MENU: [RegexHandler(
+            #           '^({}|{}|{})$'.format("Reporte", "Ficha", "Ayuda"),set.menu)],
+
+            MENU: [MessageHandler(filters.text, set.menu)],
 
             SELECT_OP: [RegexHandler(
                         '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set.operacion)],
