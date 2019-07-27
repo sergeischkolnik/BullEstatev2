@@ -11,7 +11,6 @@ global id
 
 def menu(bot, update):
     global STATE
-    print(STATE)
     """
     Main menu function.
     This will display the options from the main menu.
