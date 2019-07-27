@@ -169,12 +169,12 @@ def set_operacion(bot, update):
     user = update.message.from_user
     if update.message.text == "Comprar":
         STATE = SELECT_MULTIPLE
-        vars_us[user.id]["OP"] = "Comprar"
+        #vars_us[user.id]["OP"] = "Comprar"
         select_multiple(bot,update)
         return SELECT_MULTIPLE
     elif update.message.text == "Arrendar":
         STATE = SELECT_MULTIPLE
-        vars_us[user.id]["OP"] = "Arrendar"
+        #vars_us[user.id]["OP"] = "Arrendar"
         select_multiple(bot, update)
         return SELECT_MULTIPLE
     elif update.message.text == "Atras":
