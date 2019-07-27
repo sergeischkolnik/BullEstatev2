@@ -27,6 +27,8 @@ def menu(bot, update):
         select.menu(bot, update)
         return pm.MENU
     else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.menu(bot, update)
         return pm.MENU
 
 def operacion(bot, update):
@@ -119,5 +121,5 @@ def tipo(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.comuna(bot, update)
+        select.tipo(bot, update)
         return pm.SELECT_TIPO
