@@ -34,7 +34,7 @@ def menu(bot, update):
 def operacion(bot, update):
 
     user = update.message.from_user
-    logger.info("Report requested by {}.".format(user.first_name))
+    pm.logger.info("Report requested by {}.".format(user.first_name))
 
     keyboard = [["Comprar","Arrendar"],
                 ["Atras", "Salir"]]
@@ -44,7 +44,7 @@ def operacion(bot, update):
                                        resize_keyboard=True)
 
     user = update.message.from_user
-    logger.info("{} está eligigiendo operacion.".format(user.first_name))
+    pm.logger.info("{} está eligigiendo operacion.".format(user.first_name))
     update.message.reply_text("Seleccione operacion", reply_markup=reply_markup)
 
     return SELECT_OP
@@ -63,18 +63,17 @@ def region(bot, update):
                                        resize_keyboard=True)
 
     user = update.message.from_user
-    logger.info("{} está seleccionando region.".format(user.first_name))
+    pm.logger.info("{} está seleccionando region.".format(user.first_name))
     update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
 
     return SELECT_REGION
 
 def comuna(bot,update):
     user = update.message.from_user
-    reg = vars_us[user.id]["Region"]
-    lista_comunas = comunas[reg]
 
 
-    keyboard = [lista_comunas,
+
+    keyboard = [{'Las Condes','Providencia'},
                 ["Atras", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -82,5 +81,5 @@ def comuna(bot,update):
                                        resize_keyboard=True)
 
 
-    logger.info("{} está seleccionando region.".format(user.first_name))
+    pm.logger.info("{} está seleccionando region.".format(user.first_name))
     update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
