@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 
-MENU, SELECT_OP, SELECT_REGION, SELECT_COM, SELECT_TIPO = range(5)
+MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO = range(5)
 STATE = MENU
 
 def selectteleport(etapa,palabra):
