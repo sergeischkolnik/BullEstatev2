@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 
-MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA = range(4)
+MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_MULTIPLE = range(5)
 STATE = MENU
 
 vars_us = dict()
@@ -98,6 +98,44 @@ def select_comuna(bot,update):
 
     logger.info("{} está seleccionando region.".format(user.first_name))
     update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
+
+def select_multiple(bot,update):
+    user = update.message.from_user
+
+
+    keyboard = ["Avanzar",
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+
+    logger.info("{} está seleccionando multiple.".format(user.first_name))
+    index+=1
+    update.message.reply_text("Seleccionar multiple, iteración: "+str(index), reply_markup=reply_markup)
+
+def set_multiple(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+    if update.message.text == "Avanzar":
+        STATE = SELECT_MULTIPLE
+        select_multiple(bot, update)
+        return SELECT_MULTIPLE
+    elif update.message.text == "Atras":
+        STATE = SELECT_MULTIPLE
+        select_multiple(bot, update)
+        return SELECT_MULTIPLE
+    elif update.message.text == "Salir":
+        about_bot(bot, update)
+        menu(bot, update)
+        return MENU
+    else:
+        STATE = MENU
+        return MENU
 
 def set_state(bot, update):
     """
@@ -250,7 +288,8 @@ def main():
     states on each step of the flow. Each state has its own
     handler for the interaction with the user.
     """
-
+    global index
+    index=1
     # Create the EventHandler and pass it your bot's token.
     updater = Updater(telegram_token)
 
@@ -268,6 +307,9 @@ def main():
 
             SELECT_OP: [RegexHandler(
                         '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set_operacion)],
+
+            SELECT_MULTIPLE: [RegexHandler(
+                '^({})$'.format("unique"), set_multiple)],
 
             SELECT_REGION: [RegexHandler(
                 '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set_region)],
