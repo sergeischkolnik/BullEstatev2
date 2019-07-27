@@ -82,4 +82,4 @@ def comuna(bot,update):
     pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
     update.message.reply_text("Seleccionar Comuna", reply_markup=reply_markup)
 
-    return pm.SELECT_COMUNA
+    return pm.SELECT_COM

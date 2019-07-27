@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 
-MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA = range(4)
+MENU, SELECT_OP, SELECT_REGION, SELECT_COM = range(4)
 STATE = MENU
 
 
@@ -111,7 +111,7 @@ def main():
             SELECT_REGION: [RegexHandler(
                         '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set.region)],
 
-            SELECT_COMUNA: [RegexHandler(
+            SELECT_COM: [RegexHandler(
                         '^({}|{}|{}|{})$'.format("Providencia", "Las Condes", "Atras", "Salir"), set.comuna)]
 
                  },

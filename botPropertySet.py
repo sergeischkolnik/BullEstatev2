@@ -98,4 +98,4 @@ def comuna(bot, update):
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         set.comuna(bot, update)
-        return pm.SELECT_COMUNA
+        return pm.SELECT_COM
