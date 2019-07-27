@@ -116,6 +116,8 @@ def select_multiple(bot,update):
     index+=1
     update.message.reply_text("Seleccionar multiple, iteración: "+str(index), reply_markup=reply_markup)
 
+    return SELECT_MULTIPLE
+
 def set_multiple(bot, update):
     """
     Set option selected from menu.
