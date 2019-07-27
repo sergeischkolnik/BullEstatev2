@@ -104,7 +104,7 @@ def select_multiple(bot,update):
     user = update.message.from_user
 
 
-    keyboard = ["Avanzar",
+    keyboard = [["Avanzar"],
                 ["Atras", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
