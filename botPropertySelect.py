@@ -67,18 +67,17 @@ def region(bot, update):
     return pm.SELECT_REGION
 
 def comuna(bot,update):
-    user = update.message.from_user
 
 
 
-    keyboard = [['Las Condes','Providencia'],
+    keyboard = [["Las Condes","Providencia"],
                 ["Atras", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
 
-
+    user = update.message.from_user
     pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
     update.message.reply_text("Seleccionar Comuna", reply_markup=reply_markup)
 
