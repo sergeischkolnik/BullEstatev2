@@ -24,7 +24,7 @@ def menu(bot, update):
                                        resize_keyboard=True)
 
     user = update.message.from_user
-    logger.info("{} está en el menu principal.".format(user.first_name))
+    pm.logger.info("{} está en el menu principal.".format(user.first_name))
     update.message.reply_text("menu principal", reply_markup=reply_markup)
 
 
