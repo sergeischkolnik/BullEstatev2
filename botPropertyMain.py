@@ -26,14 +26,15 @@ STATE = MENU
 
 
 def start(bot, update):
+
+    print(bot)
+    print(update)
     """
     Start function. Displayed whenever the /start command is called.
     This function sets the language of the bot.
     """
 
     user = update.message.from_user
-    if user.id not in vars_us:
-        vars_us[user.id] = dict()
 
 
     select.menu(bot, update)
