@@ -82,3 +82,20 @@ def comuna(bot,update):
     update.message.reply_text("Seleccionar Comuna", reply_markup=reply_markup)
 
     return pm.SELECT_COM
+
+def tipo(bot,update):
+
+
+
+    keyboard = [["Departamento","Casa"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    pm.logger.info("{} está seleccionando Tipo.".format(user.first_name))
+    update.message.reply_text("Seleccionar Tipo", reply_markup=reply_markup)
+
+    return pm.SELECT_TIPO

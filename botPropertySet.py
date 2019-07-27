@@ -86,10 +86,10 @@ def comuna(bot, update):
     if update.message.text == "Las Condes":
         bot.send_message(chat_id=update.message.chat_id, text="al menos alguna wea hacce con el boton ql.")
         select.menu(bot,update)
-        return pm.MENU
+        return pm.SELECT_TIPO
     elif update.message.text == "Providencia":
         select.menu(bot, update)
-        return pm.MENU
+        return pm.SELECT_TIPO
     elif update.message.text == "Atras":
         select.region(bot, update)
         return pm.SELECT_REGION
@@ -100,3 +100,28 @@ def comuna(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.comuna(bot, update)
         return pm.SELECT_COM
+
+def tipo(bot, update):
+    """
+    Set option selected from menu.
+    """
+    bot.send_message(chat_id=update.message.chat_id, text="al menos la mierda entra al SET.")
+    # Set state:
+    user = update.message.from_user
+    if update.message.text == "Departamento":
+        bot.send_message(chat_id=update.message.chat_id, text="al menos alguna wea hacce con el boton ql.")
+        select.menu(bot,update)
+        return pm.MENU
+    elif update.message.text == "Casa":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Atras":
+        select.region(bot, update)
+        return pm.SELECT_COMUNA
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.comuna(bot, update)
+        return pm.SELECT_TIPO
