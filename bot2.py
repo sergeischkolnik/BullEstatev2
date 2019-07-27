@@ -19,11 +19,11 @@ MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA = range(4)
 STATE = MENU
 
 vars_us = dict()
-comunas = {
-  "RM": ["Las Condes","Providencia","Santiago","Vitacura"],
-  "Valpo": ["Viña","Valpo"],
-  "Otros": ["Otros"]
-}
+# comunas = {
+#   "RM": ["Las Condes","Providencia","Santiago","Vitacura"],
+#   "Valpo": ["Viña","Valpo"],
+#   "Otros": ["Otros"]
+# }
 
 
 def start(bot, update):
