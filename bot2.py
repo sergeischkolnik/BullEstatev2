@@ -99,46 +99,6 @@ def select_comuna(bot,update):
     logger.info("{} está seleccionando region.".format(user.first_name))
     update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
 
-def select_multiple(bot,update):
-    global index
-    user = update.message.from_user
-
-
-    keyboard = [["Avanzar"],
-                ["Atras", "Salir"]]
-
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=True,
-                                       resize_keyboard=True)
-
-
-    logger.info("{} está seleccionando multiple.".format(user.first_name))
-    index+=1
-    update.message.reply_text("Seleccionar multiple, iteración: "+str(index), reply_markup=reply_markup)
-
-    return SELECT_MULTIPLE
-
-def set_multiple(bot, update):
-    """
-    Set option selected from menu.
-    """
-    # Set state:
-    global STATE
-    if update.message.text == "Avanzar":
-        STATE = SELECT_MULTIPLE
-        select_multiple(bot, update)
-        return SELECT_MULTIPLE
-    elif update.message.text == "Atras":
-        STATE = SELECT_MULTIPLE
-        select_multiple(bot, update)
-        return SELECT_MULTIPLE
-    elif update.message.text == "Salir":
-        about_bot(bot, update)
-        menu(bot, update)
-        return MENU
-    else:
-        STATE = MENU
-        return MENU
 
 def set_state(bot, update):
     """
@@ -312,10 +272,10 @@ def main():
                         '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set_operacion)],
 
             SELECT_MULTIPLE: [RegexHandler(
-                '^({})$'.format("Avanzar"), set_multiple)],
+                        '^({})$'.format("Avanzar"), set_multiple)],
 
             SELECT_REGION: [RegexHandler(
-                '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set_region)],
+                        '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set_region)],
 
             # SELECT_COMUNA: [RegexHandler(
             #     '^(*)$'.format("RM", "Valpo", "Atras", "Salir"), set_region)]
@@ -338,6 +298,97 @@ def main():
     # Run the bot until the user presses Ctrl-C or the process
     # receives SIGINT, SIGTERM or SIGABRT:
     updater.idle()
+
+
+def select_multiple(bot,update):
+    global index
+    user = update.message.from_user
+
+    #Region
+    keyboard = [["RM","Valparaiso"],
+                ["Bio-Bio", "Otros"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    logger.info("{} está seleccionando multiple.".format(user.first_name))
+    index+=1
+    update.message.reply_text("Seleccionar multiple, iteración: "+str(index), reply_markup=reply_markup)
+
+    # Comuna
+    keyboard = [["Avanzar"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    logger.info("{} está seleccionando multiple.".format(user.first_name))
+    index += 1
+    update.message.reply_text("Seleccionar multiple, iteración: " + str(index), reply_markup=reply_markup)
+
+    # Tipo
+    keyboard = [["Avanzar"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    logger.info("{} está seleccionando multiple.".format(user.first_name))
+    index += 1
+    update.message.reply_text("Seleccionar multiple, iteración: " + str(index), reply_markup=reply_markup)
+
+    # Dormitorios
+    keyboard = [["Avanzar"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    logger.info("{} está seleccionando multiple.".format(user.first_name))
+    index += 1
+    update.message.reply_text("Seleccionar multiple, iteración: " + str(index), reply_markup=reply_markup)
+
+    # Banos
+    keyboard = [["Avanzar"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    logger.info("{} está seleccionando multiple.".format(user.first_name))
+    index += 1
+    update.message.reply_text("Seleccionar multiple, iteración: " + str(index), reply_markup=reply_markup)
+
+    return SELECT_MULTIPLE
+
+def set_multiple(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+    if update.message.text == "Avanzar":
+        STATE = SELECT_MULTIPLE
+        select_multiple(bot, update)
+        return SELECT_MULTIPLE
+    elif update.message.text == "Atras":
+        STATE = SELECT_MULTIPLE
+        select_multiple(bot, update)
+        return SELECT_MULTIPLE
+    elif update.message.text == "Salir":
+        about_bot(bot, update)
+        menu(bot, update)
+        return MENU
+    else:
+        STATE = MENU
+        return MENU
+
 
 
 if __name__ == '__main__':

@@ -1,0 +1,87 @@
+from telegram.ext import Updater, CommandHandler, MessageHandler, RegexHandler
+from telegram.ext import ConversationHandler, CallbackQueryHandler, Filters
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
+import logging
+import botPropertyMain as pm
+import botPropertySet as set
+import botPropertyDataBase as db
+
+global id
+
+def menu(bot, update):
+    global STATE
+    print(STATE)
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+    # Create buttons to slect language:
+    keyboard = [["Reporte"],
+                ["Ficha", "Ayuda"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    logger.info("{} está en el menu principal.".format(user.first_name))
+    update.message.reply_text("menu principal", reply_markup=reply_markup)
+
+
+    STATE = MENU
+    return MENU
+
+def operacion(bot, update):
+
+    user = update.message.from_user
+    logger.info("Report requested by {}.".format(user.first_name))
+
+    keyboard = [["Comprar","Arrendar"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    logger.info("{} está eligigiendo operacion.".format(user.first_name))
+    update.message.reply_text("Seleccione operacion", reply_markup=reply_markup)
+
+    return SELECT_OP
+
+def region(bot, update):
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+    # Create buttons to slect language:
+    keyboard = [["RM","Valpo"],
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    logger.info("{} está seleccionando region.".format(user.first_name))
+    update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
+
+    return SELECT_REGION
+
+def comuna(bot,update):
+    user = update.message.from_user
+    reg = vars_us[user.id]["Region"]
+    lista_comunas = comunas[reg]
+
+
+    keyboard = [lista_comunas,
+                ["Atras", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+
+    logger.info("{} está seleccionando region.".format(user.first_name))
+    update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
