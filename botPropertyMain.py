@@ -102,7 +102,7 @@ def main():
         states={
 
             MENU: [RegexHandler(
-                        '^({}|{}|{})$'.format("Reporte", "Ficha", "Ayuda"),set.state)],
+                        '^({}|{}|{})$'.format("Reporte", "Ficha", "Ayuda"),set.menu)],
 
             SELECT_OP: [RegexHandler(
                         '^({}|{}|{}|{})$'.format("Comprar", "Arrendar", "Atras", "Salir"),set.operacion)],
