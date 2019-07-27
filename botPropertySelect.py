@@ -27,8 +27,6 @@ def menu(bot, update):
     pm.logger.info("{} está en el menu principal.".format(user.first_name))
     update.message.reply_text("menu principal", reply_markup=reply_markup)
 
-
-    STATE = pm.main().MENU
     return MENU
 
 def operacion(bot, update):
