@@ -80,6 +80,7 @@ def comuna(bot, update):
     """
     Set option selected from menu.
     """
+    print('entra al Set')
     # Set state:
     user = update.message.from_user
     if update.message.text == "Providencia":
@@ -97,5 +98,5 @@ def comuna(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        set.comuna(bot, update)
+        select.comuna(bot, update)
         return pm.SELECT_COM
