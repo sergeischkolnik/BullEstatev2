@@ -111,6 +111,9 @@ def main():
             SELECT_REGION: [RegexHandler(
                         '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set.region)],
 
+            SELECT_COMUNA: [RegexHandler(
+                '^({}|{}|{}|{})$'.format("Providencia", "Las Condes", "Atras", "Salir"), set.comuna)],
+
                  },
 
         fallbacks=[CommandHandler('cancel', cancel),

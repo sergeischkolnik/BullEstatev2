@@ -75,3 +75,26 @@ def region(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         set.region(bot, update)
         return pm.SELECT_REGION
+
+def comuna(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    user = update.message.from_user
+    if update.message.text == "Providencia":
+        select.menu(bot,update)
+        return pm.MENU
+    elif update.message.text == "Las Condes":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Atras":
+        select.region(bot, update)
+        return pm.SELECT_REGION
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        set.comuna(bot, update)
+        return pm.SELECT_COMUNA
