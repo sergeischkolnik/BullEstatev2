@@ -28,7 +28,7 @@ def menu(bot, update):
     update.message.reply_text("menu principal", reply_markup=reply_markup)
 
 
-    STATE = MENU
+    STATE = pm.main().MENU
     return MENU
 
 def operacion(bot, update):
