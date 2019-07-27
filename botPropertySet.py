@@ -80,14 +80,14 @@ def comuna(bot, update):
     """
     Set option selected from menu.
     """
-    print('entra al Set')
+    bot.send_message(chat_id=update.message.chat_id, text="al menos la mierda entra al SET.")
     # Set state:
     user = update.message.from_user
-    if update.message.text == "Providencia":
-        print('algo hace en las comunas esta wea')
+    if update.message.text == "Las Condes":
+        bot.send_message(chat_id=update.message.chat_id, text="al menos alguna wea hacce con el boton ql.")
         select.menu(bot,update)
         return pm.MENU
-    elif update.message.text == "Las Condes":
+    elif update.message.text == "Providencia":
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Atras":

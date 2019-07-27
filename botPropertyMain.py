@@ -112,7 +112,7 @@ def main():
                         '^({}|{}|{}|{})$'.format("RM", "Valpo", "Atras", "Salir"), set.region)],
 
             SELECT_COM: [RegexHandler(
-                        '^({}|{}|{}|{})$'.format("Providencia", "Las Condes", "Atras", "Salir"), set.comuna)]
+                        '^({}|{}|{}|{})$'.format("Las Condes", "Providencia", "Atras", "Salir"), set.comuna)]
 
                  },
 
