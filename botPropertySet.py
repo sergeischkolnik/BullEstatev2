@@ -16,6 +16,7 @@ def menu(bot, update):
     """
     # Set state:
     global STATE
+    bot.send_message(chat_id=update.message.chat_id, text="Igual pase al set")
     user = update.message.from_user
     if update.message.text == "Reporte":
         select.operacion(bot, update)
