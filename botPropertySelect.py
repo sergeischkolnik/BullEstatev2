@@ -70,7 +70,7 @@ def comuna(bot,update):
 
 
 
-    keyboard = [["Las Condes","Providencia"],
+    keyboard = [["Las_Condes","Providencia"],
                 ["Atras", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
