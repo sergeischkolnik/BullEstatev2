@@ -150,13 +150,7 @@ def comuna(bot, update):
     client["comuna"] = update.message.text
     print(client)
 
-    if update.message.text == "Las Condes":
-        select.tipo(bot,update)
-        return pm.SELECT_TIPO
-    elif update.message.text == "Providencia":
-        select.tipo(bot, update)
-        return pm.SELECT_TIPO
-    elif update.message.text == "Atrás":
+    if update.message.text == "Atrás":
         select.region(bot, update)
         return pm.SELECT_REGION
     elif update.message.text == "Salir":
@@ -164,8 +158,8 @@ def comuna(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.comuna(bot, update)
-        return pm.SELECT_COMUNA
+        select.tipo(bot, update)
+        return pm.SELECT_TIPO
 
 def tipo(bot, update):
     """
@@ -286,7 +280,7 @@ def price_range(bot, update):
     else:
         try:
             client["preciomax"] = int(update.message.text)
-            select.area_range(bot, update, "metrosmin")
+            select.area_range(bot, update, "metrosmin",cliente["tipo"])
             print(client)
             return pm.SELECT_AREA_RANGE
         except:
@@ -308,24 +302,50 @@ def area_range(bot, update):
     if "metrosmin" not in client:
         try:
             client["metrosmin"] = int(update.message.text)
-            select.area_range(bot, update, "metrosmax")
+            select.area_range(bot, update, "metrosmax",cliente["tipo"])
             print(client)
             return pm.SELECT_AREA_RANGE
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-            select.area_range(bot, update, "metrosmin")
+            select.area_range(bot, update, "metrosmin",cliente["tipo"])
+            return pm.SELECT_AREA_RANGE
+
+    elif "metrosmax" not in client:
+        try:
+            client["metrosmax"] = int(update.message.text)
+            if client["tipo"]=="Departamento" or client["tipo"]=="Casa":
+                select.area_range(bot, update, "totalmin", cliente["tipo"])
+                return pm.SELECT_AREA_RANGE
+            else:
+                select.confirm_report(bot, update, client)
+                print(client)
+                return pm.CONFIRM_REPORT
+        except:
+            bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.area_range(bot, update, "metrosmax",cliente["tipo"])
+            return pm.SELECT_AREA_RANGE
+
+    elif "totalmin" not in client:
+        try:
+            client["totalmin"] = int(update.message.text)
+            select.area_range(bot, update, "totalmax",cliente["tipo"])
+            print(client)
+            return pm.SELECT_AREA_RANGE
+        except:
+            bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.area_range(bot, update, "totalmin",cliente["tipo"])
             return pm.SELECT_AREA_RANGE
 
     else:
         try:
-            client["metrosmax"] = int(update.message.text)
+            client["totalmax"] = int(update.message.text)
 
             select.confirm_report(bot, update, client)
             print(client)
             return pm.CONFIRM_REPORT
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-            select.area_range(bot, update, "metrosmax")
+            select.area_range(bot, update, "metrosmax",cliente["tipo"])
             return pm.SELECT_AREA_RANGE
 
 
@@ -346,14 +366,19 @@ def confirm_report(bot,update):
         return pm.MENU
     elif update.message.text == "Modificar":
         bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
-        select.menu(bot, update)
-        return pm.MENU
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+
     elif update.message.text == "Atrás":
         client.pop("metrosmin")
         client.pop("metrosmax")
         client.pop("moneda")
         client.pop("preciomin")
         client.pop("preciomax")
+        if "totalmin" in client:
+            client.pop("totalmin")
+        if "totalmax" in client:
+            client.pop("totalmax")
 
         select.price_range(bot, update, "moneda")
         return pm.SELECT_PRICE_RANGE

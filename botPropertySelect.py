@@ -204,7 +204,7 @@ def price_range(bot, update,stage):
     return pm.SELECT_PRICE_RANGE
 
 
-def area_range(bot, update, stage):
+def area_range(bot, update, stage,tipo):
     global STATE
     """
     Main menu function.
@@ -213,15 +213,51 @@ def area_range(bot, update, stage):
     # Create buttons to slect language:
     user = update.message.from_user
 
-    if stage == "metrosmin":
-        user = update.message.from_user
-        pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
-        update.message.reply_text("Seleccionar superficie mínima")
+    if tipo=="Departamento":
 
-    if stage == "metrosmax":
-        user = update.message.from_user
-        pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
-        update.message.reply_text("Seleccionar superficie máxima")
+        if stage == "metrosmin":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie útil mínima (en m2)")
+
+        if stage == "metrosmax":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie útil máxima (en m2)")
+
+        if stage == "totalmin":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie total mínima (en m2)")
+
+        if stage == "totalmax":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie total máxima (en m2)")
+
+    if tipo == "Casa":
+
+        if stage == "metrosmin":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie construída mínima (en m2)")
+
+        if stage == "metrosmax":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie construída máxima (en m2)")
+
+        if stage == "totalmin":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie terreno mínima (en m2)")
+
+        if stage == "totalmax":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie terreno máxima (en m2)")
+
+
 
     return pm.SELECT_AREA_RANGE
 
@@ -248,7 +284,13 @@ def confirm_report(bot,update,client):
     confirmtext.append("Dormitorios:"+client["dormitorios"])
     confirmtext.append("Baños:"+client["baños"])
     confirmtext.append("Desde: "+client["moneda"]+" "+str(client["preciomin"])+", Hasta: "+client["moneda"]+" "+str(client["preciomax"]))
-    confirmtext.append("Desde: "+str(client["metrosmin"])+"m2, Hasta: "+str(client["metrosmax"])+"m2")
+    if client["tipo"]=="Departamento":
+        confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 útiles, Hasta: "+str(client["metrosmax"])+"m2 útiles")
+        confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 totales, Hasta: "+str(client["metrosmax"])+"m2 totales")
+    if client["tipo"]=="Casa":
+        confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 construidos, Hasta: "+str(client["metrosmax"])+"m2 construidos")
+        confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 de terreno, Hasta: "+str(client["metrosmax"])+"m2 de terreno")
+
 
     confirmtext="\n".join(confirmtext)
     print(confirmtext)
