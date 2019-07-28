@@ -294,7 +294,7 @@ def area_range(bot, update):
         client["metrosmax"] = update.message.text
         select.confirm_report(bot, update, client)
         print(client)
-        return pm.SELECT_CONFIRM_REPORT
+        return pm.CONFIRM_REPORT
 
 
 def confirm_report(bot,update):

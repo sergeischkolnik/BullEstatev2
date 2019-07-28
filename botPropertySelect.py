@@ -20,13 +20,13 @@ def login(bot, update,client):
     if "mail" in client:
 
         user = update.message.from_user
-        pm.logger.info("{} está en mail login.".format(user.first_name))
+        pm.logger.info("{} está en pass login.".format(user.first_name))
         update.message.reply_text("Favor ingrese su contraseña")
     else:
 
 
         user = update.message.from_user
-        pm.logger.info("{} está en pass login.".format(user.first_name))
+        pm.logger.info("{} está en mail login.".format(user.first_name))
         update.message.reply_text("Favor ingrese su correo electrónico")
 
     return pm.LOGIN
@@ -242,8 +242,8 @@ def confirm_report(bot,update,client):
     confirmtext.append("Tipo:"+client["tipo"])
     confirmtext.append("Dormitorios:"+client["dormitorios"])
     confirmtext.append("Baños:"+client["baños"])
-    confirmtext.append("Desde:"+client["moneda"]+" "+client["preciomin"]+", Hasta:"+client["moneda"]+" "+client["preciomax"])
-    confirmtext.append("Desde:"+client["metrosmin"]+"m2, Hasta:"+client["metrosmax"]+"m2")
+    confirmtext.append("Desde: "+client["moneda"]+" "+client["preciomin"]+", Hasta: "+client["moneda"]+" "+client["preciomax"])
+    confirmtext.append("Desde: "+client["metrosmin"]+"m2, Hasta: "+client["metrosmax"]+"m2")
 
     confirmtext="\n".join(confirmtext)
 
