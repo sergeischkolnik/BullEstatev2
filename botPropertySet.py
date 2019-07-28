@@ -8,6 +8,7 @@ import botPropertySelect as select
 import botPropertyDataBase as db
 
 global client
+client={}
 
 
 def menu(bot, update):
