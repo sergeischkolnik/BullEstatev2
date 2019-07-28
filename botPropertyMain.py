@@ -32,7 +32,6 @@ def start(bot, update):
     print('...')
     print(update)
     print('...')
-    print(update['chat'])
     """
     Start function. Displayed whenever the /start command is called.
     This function sets the language of the bot.
