@@ -243,7 +243,7 @@ def baths(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.tipo(bot, update)
+        select.baths(bot, update)
         return pm.SELECT_BATHS
 
 def price_range(bot, update):
