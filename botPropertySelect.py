@@ -136,7 +136,7 @@ def dorms(bot,update):
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
 
-    pm.logger.info("{} está seleccionando Tipo.".format(user.first_name))
+    pm.logger.info("{} está seleccionando Dormitorios.".format(user.first_name))
     update.message.reply_text("Seleccionar Número de Dormitorios", reply_markup=reply_markup)
 
     return pm.SELECT_DORMS
@@ -153,7 +153,7 @@ def baths(bot,update):
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
 
-    pm.logger.info("{} está seleccionando Tipo.".format(user.first_name))
+    pm.logger.info("{} está seleccionando Baños.".format(user.first_name))
     update.message.reply_text("Seleccionar Número de Baños", reply_markup=reply_markup)
 
     return pm.SELECT_BATHS
@@ -165,8 +165,11 @@ def price_range(bot, update,stage):
     This will display the options from the main menu.
     """
     # Create buttons to slect language:
-
+    print("entro al select de pricerange")
+    print("esta en stage: "+stage
+          )
     if stage=="moneda":
+        print("entro al if de moneda")
         keyboard = [["UF", "Pesos"],
                     ["Atras", "Salir"]]
 
