@@ -20,13 +20,13 @@ def login(bot, update,client):
     if "mail" in client:
 
         user = update.message.from_user
-        pm.logger.info("{} está en el menu principal.".format(user.first_name))
+        pm.logger.info("{} está en mail login.".format(user.first_name))
         update.message.reply_text("Favor ingrese su contraseña")
     else:
 
 
         user = update.message.from_user
-        pm.logger.info("{} está en el menu principal.".format(user.first_name))
+        pm.logger.info("{} está en pass login.".format(user.first_name))
         update.message.reply_text("Favor ingrese su correo electrónico")
 
     return pm.LOGIN
@@ -42,15 +42,14 @@ def menu(bot, update):
                 ["Ficha", "Ayuda"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=True,
+                                       one_time_keyboard=False,
                                        resize_keyboard=True)
 
 
 
     user = update.message.from_user
     pm.logger.info("{} está en el menu principal.".format(user.first_name))
-    update.message.reply_text("menu principal", inline=reply_markup)
-
+    update.message.reply_text("menu principal", reply_markup=reply_markup)
     return pm.MENU
 
 def operacion(bot, update):

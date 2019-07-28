@@ -40,6 +40,10 @@ def login(bot,update):
         client["mail"]=update.message.text
         select.login(bot, update,client)
         return pm.LOGIN
+    elif "mail" not in client and (('@' and '.') not in update.message.text):
+        bot.send_message(chat_id=update.message.chat_id, text="Correo incorrecto. Favor ingresar correo valido")
+        select.login(bot, update, client)
+        return pm.LOGIN
     else:
         client["pass"] = update.message.text
         select.menu(bot, update)
