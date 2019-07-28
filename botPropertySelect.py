@@ -246,7 +246,7 @@ def confirm_report(bot,update,client):
     confirmtext.append("Desde: "+client["metrosmin"]+"m2, Hasta: "+client["metrosmax"]+"m2")
 
     confirmtext="\n".join(confirmtext)
-
+    print(confirmtext)
     update.message.reply_text(confirmtext, reply_markup=reply_markup)
 
     return pm.CONFIRM_REPORT
