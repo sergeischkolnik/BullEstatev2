@@ -42,7 +42,7 @@ def login(bot,update):
         client["mail"]=update.message.text
         select.login(bot, update,client)
         return pm.LOGIN
-    elif "mail" not in client and (('@' and '.') not in update.message.text):
+    elif "mail" not in client and (('@' or '.') not in update.message.text):
         bot.send_message(chat_id=update.message.chat_id, text="Correo incorrecto. Favor ingresar correo valido")
         select.login(bot, update, client)
         return pm.LOGIN
@@ -319,6 +319,7 @@ def area_range(bot, update):
     else:
         try:
             client["metrosmax"] = int(update.message.text)
+
             select.confirm_report(bot, update, client)
             print(client)
             return pm.CONFIRM_REPORT
