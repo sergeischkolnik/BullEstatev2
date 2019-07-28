@@ -212,6 +212,9 @@ def area_range(bot, update, stage,tip):
     """
     # Create buttons to slect language:
     user = update.message.from_user
+    print("entro al select de arearange")
+    print("esta en stage: " + stage)
+    print("esta en tipo: " + tip)
 
     if tip == "Departamento":
 
