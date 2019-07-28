@@ -104,7 +104,8 @@ def main():
 
     # Add conversation handler with predefined states:
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('start', start)],
+        entry_points=[RegexHandler(
+                       '^({}|{}|{})$'.format("iniciar", "Iniciar", "Reiniciar","reiniciar"),start)],
 
         states={
 
