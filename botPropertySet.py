@@ -7,7 +7,7 @@ import botPropertyMain as pm
 import botPropertySelect as select
 import botPropertyDataBase as db
 
-global id
+global client
 
 
 def menu(bot, update):
@@ -16,7 +16,13 @@ def menu(bot, update):
     """
     # Set state:
     global STATE
-    bot.send_message(chat_id=update.message.chat_id, text="Igual pase al set")
+
+    #set client
+    global client
+    client={"id":update.message.chat_id}
+    print(client)
+
+    id=(update['message']['chat']['id'])
     user = update.message.from_user
     if update.message.text == "Reporte":
         select.operacion(bot, update)
