@@ -19,11 +19,10 @@ def menu(bot, update):
 
     #set client
     global client
-    client={"id":update.message.chat_id}
+    client["id"] = update.message.chat_id
+    client["product"] = update.message.text
     print(client)
 
-    id=(update['message']['chat']['id'])
-    user = update.message.from_user
     if update.message.text == "Reporte":
         select.operacion(bot, update)
         return pm.SELECT_OP
@@ -35,6 +34,7 @@ def menu(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        client.pop("product")
         select.menu(bot, update)
         return pm.MENU
 
