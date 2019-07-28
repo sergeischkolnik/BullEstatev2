@@ -35,6 +35,8 @@ def start(bot, update):
 def login(bot,update):
     # Set state:
     global STATE
+    print("Cliente inicial:")
+    print(client)
     client["id"] = update.message.chat_id
     if "mail" not in client and (('@' and '.') in update.message.text):
         client["mail"]=update.message.text
@@ -269,7 +271,7 @@ def price_range(bot, update):
         client["preciomax"] = update.message.text
         select.area_range(bot, update, "metrosmin")
         print(client)
-        return pm.SELECT_PRICE_RANGE
+        return pm.SELECT_AREA_RANGE
 
 
 
@@ -286,7 +288,7 @@ def area_range(bot, update):
         client["metrosmin"] = update.message.text
         select.area_range(bot, update, "metrosmax")
         print(client)
-        return pm.SELECT_PRICE_RANGE
+        return pm.SELECT_AREA_RANGE
 
     else:
         client["metrosmax"] = update.message.text
@@ -308,6 +310,7 @@ def confirm_report(bot,update):
     if update.message.text == "SI":
         #generar reporte para cliente, enviar al correo correspondiente
         bot.send_message(chat_id=update.message.chat_id, text="Reporte generado y enviado exitosamente al correo: "+(client["mail"])+".")
+        select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "NO":
         bot.send_message(chat_id=update.message.chat_id, text="Reporte Cancelado")
