@@ -157,7 +157,6 @@ def comuna(bot, update):
         select.menu(bot, update)
         return pm.MENU
     else:
-        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.tipo(bot, update)
         return pm.SELECT_TIPO
 
@@ -180,7 +179,7 @@ def tipo(bot, update):
         select.dorms(bot, update)
         return pm.SELECT_DORMS
     elif update.message.text == "Atrás":
-        select.comuna(bot, update)
+        select.comuna(bot, update,client["region"])
         return pm.SELECT_COMUNA
     elif update.message.text == "Salir":
         select.menu(bot, update)

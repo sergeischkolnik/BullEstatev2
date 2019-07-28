@@ -204,7 +204,7 @@ def price_range(bot, update,stage):
     return pm.SELECT_PRICE_RANGE
 
 
-def area_range(bot, update, stage,tipo):
+def area_range(bot, update, stage,tip):
     global STATE
     """
     Main menu function.
@@ -213,7 +213,7 @@ def area_range(bot, update, stage,tipo):
     # Create buttons to slect language:
     user = update.message.from_user
 
-    if tipo=="Departamento":
+    if tip == "Departamento":
 
         if stage == "metrosmin":
             user = update.message.from_user
@@ -235,7 +235,7 @@ def area_range(bot, update, stage,tipo):
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Seleccionar superficie total máxima (en m2)")
 
-    if tipo == "Casa":
+    if tip == "Casa":
 
         if stage == "metrosmin":
             user = update.message.from_user
