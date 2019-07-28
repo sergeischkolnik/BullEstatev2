@@ -30,7 +30,7 @@ def start(bot, update):
 
 
     select.login(bot, update,client)
-    return MENU
+    return pm.LOGIN
 
 def login(bot,update):
     # Set state:
