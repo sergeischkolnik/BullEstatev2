@@ -17,7 +17,7 @@ logging.basicConfig(
     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-def start(update, context):
+def start(context,update):
     keyboard = [[InlineKeyboardButton("Option 1", callback_data='1'),
                  InlineKeyboardButton("Option 2", callback_data='2')],
 
@@ -28,13 +28,13 @@ def start(update, context):
     update.message.reply_text('Please choose:', reply_markup=reply_markup)
 
 
-def button(update, context):
+def button(context,update):
     query = update.callback_query
 
     query.edit_message_text(text="Selected option: {}".format(query.data))
 
 
-def help(update, context):
+def help(context,update):
     update.message.reply_text("Use /start to test this bot.")
 
 
