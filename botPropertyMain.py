@@ -95,7 +95,7 @@ def main():
     states on each step of the flow. Each state has its own
     handler for the interaction with the user.
     """
-
+    print('Property Admin Bot is now Running')
     # Create the EventHandler and pass it your bot's token.
     updater = Updater(telegram_token)
 
