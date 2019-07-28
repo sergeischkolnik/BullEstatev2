@@ -169,6 +169,9 @@ def price_range(bot, update,stage):
     print("esta en stage: "+stage
           )
     if stage=="moneda":
+
+        user = update.message.from_user
+
         print("entro al if de moneda")
         keyboard = [["UF", "Pesos"],
                     ["Atras", "Salir"]]
@@ -204,7 +207,7 @@ def area_range(bot, update, stage):
     This will display the options from the main menu.
     """
     # Create buttons to slect language:
-
+    user = update.message.from_user
 
     if stage == "metrosmin":
         user = update.message.from_user
