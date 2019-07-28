@@ -8,7 +8,6 @@ import botPropertySelect as select
 import botPropertyDataBase as db
 
 global client
-client={}
 
 
 def menu(bot, update):
@@ -20,6 +19,7 @@ def menu(bot, update):
 
     #set client
     global client
+    client = {}
     client["id"] = update.message.chat_id
     client["product"] = update.message.text
     print(client)
@@ -45,6 +45,12 @@ def operacion(bot, update):
     """
     # Set state:
     global STATE
+
+    # set client
+    global client
+    client["operacion"] = update.message.text
+    print(client)
+
     user = update.message.from_user
     if update.message.text == "Comprar":
         select.region(bot,update)
@@ -68,7 +74,13 @@ def region(bot, update):
     Set option selected from menu.
     """
     # Set state:
-    user = update.message.from_user
+    global STATE
+
+    # set client
+    global client
+    client["region"] = update.message.text
+    print(client)
+
     if update.message.text == "RM":
         select.comuna(bot,update)
         return pm.SELECT_COMUNA
@@ -91,7 +103,13 @@ def comuna(bot, update):
     Set option selected from menu.
     """
     # Set state:
-    user = update.message.from_user
+    global STATE
+
+    # set client
+    global client
+    client["comuna"] = update.message.text
+    print(client)
+
     if update.message.text == "Las Condes":
         select.tipo(bot,update)
         return pm.SELECT_TIPO
@@ -114,7 +132,13 @@ def tipo(bot, update):
     Set option selected from menu.
     """
     # Set state:
-    user = update.message.from_user
+    global STATE
+
+    # set client
+    global client
+    client["tipo"] = update.message.text
+    print(client)
+
     if update.message.text == "Departamento":
         select.menu(bot,update)
         return pm.MENU
