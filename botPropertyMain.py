@@ -132,7 +132,7 @@ def main():
 
             SELECT_AREA_RANGE: [MessageHandler(Filters.text, set.area_range)],
 
-            CONFIRM_REPORT: [MessageHandler(Filters.text, set.area_range)]
+            CONFIRM_REPORT: [MessageHandler(Filters.text, set.confirm_report)]
                 },
 
         fallbacks=[CommandHandler('cancel', cancel),
