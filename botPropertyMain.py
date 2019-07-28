@@ -21,28 +21,10 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 
-MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO = range(5)
+LOGIN,MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO = range(6)
 STATE = MENU
 
 
-
-def start(bot, update):
-
-    print(bot)
-    print('...')
-    print(update)
-    print('...')
-    print(update['message']['chat']['id'])
-    """
-    Start function. Displayed whenever the /start command is called.
-    This function sets the language of the bot.
-    """
-
-    user = update.message.from_user
-
-
-    select.menu(bot, update)
-    return MENU
 
 
 
@@ -105,7 +87,7 @@ def main():
     # Add conversation handler with predefined states:
     conv_handler = ConversationHandler(
         entry_points=[RegexHandler(
-                       '^({}|{}|{})$'.format("iniciar", "Iniciar", "Reiniciar","reiniciar"),start)],
+                       '^({}|{}|{})$'.format("iniciar", "Iniciar", "Reiniciar","reiniciar"),set.start)],
 
         states={
 
@@ -127,6 +109,8 @@ def main():
             #     '^({}|{}|{}|{})$'.format("Departamento", "Casa", "Atras", "Salir"), set.tipo)]
             #
             #      },
+
+            LOGIN: [MessageHandler(Filters.text, set.login)],
 
             MENU: [MessageHandler(Filters.text, set.menu)],
 

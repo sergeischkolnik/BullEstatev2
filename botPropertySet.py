@@ -10,6 +10,41 @@ import botPropertyDataBase as db
 global client
 
 
+def start(bot, update):
+    global client
+    client = {}
+
+    global STATE
+
+    print(bot)
+    print('...')
+    print(update)
+    print('...')
+    print(update['message']['chat']['id'])
+    """
+    Start function. Displayed whenever the /start command is called.
+    This function sets the language of the bot.
+    """
+
+    user = update.message.from_user
+
+
+    select.login(bot, update,client)
+    return MENU
+
+def login(bot,update):
+    # Set state:
+    global STATE
+    client["id"] = update.message.chat_id
+    if "mail" not in client and (('@' and '.') in update.message.text):
+        client["mail"]=update.message.text
+        select.login(bot, update,client)
+        return pm.LOGIN
+    else:
+        client["pass"] = update.message.text
+        select.menu(bot, update)
+        return pm.MENU
+
 def menu(bot, update):
     """
     Set option selected from menu.
@@ -19,8 +54,7 @@ def menu(bot, update):
 
     #set client
     global client
-    client = {}
-    client["id"] = update.message.chat_id
+
     client["product"] = update.message.text
     print(client)
 

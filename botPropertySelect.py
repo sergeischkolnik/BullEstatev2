@@ -10,6 +10,27 @@ import botPropertyDataBase as db
 global id
 
 
+def login(bot, update,client):
+    global STATE
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+    # Create buttons to slect language:
+    if "mail" in client:
+
+        user = update.message.from_user
+        pm.logger.info("{} está en el menu principal.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su contraseña")
+    else:
+
+
+        user = update.message.from_user
+        pm.logger.info("{} está en el menu principal.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su correo electrónico")
+
+    return pm.LOGIN
+
 def menu(bot, update):
     global STATE
     """
@@ -24,9 +45,11 @@ def menu(bot, update):
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
 
+
+
     user = update.message.from_user
     pm.logger.info("{} está en el menu principal.".format(user.first_name))
-    update.message.reply_text("menu principal", reply_markup=reply_markup)
+    update.message.reply_text("menu principal", inline=reply_markup)
 
     return pm.MENU
 
