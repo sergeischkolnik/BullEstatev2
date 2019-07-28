@@ -58,7 +58,7 @@ def operacion(bot, update):
     pm.logger.info("Report requested by {}.".format(user.first_name))
 
     keyboard = [["Comprar","Arrendar"],
-                ["Atras", "Salir"]]
+                ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -77,8 +77,8 @@ def region(bot, update):
     """
     user = update.message.from_user
     # Create buttons to slect language:
-    keyboard = [["RM","Valpo"],
-                ["Atras", "Salir"]]
+    keyboard = [["Metropolitana","Valparaíso"],
+                ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -90,13 +90,17 @@ def region(bot, update):
 
     return pm.SELECT_REGION
 
-def comuna(bot,update):
+def comuna(bot,update,region):
 
     user = update.message.from_user
 
+    if region == "Metropolitana":
+        keyboard = [["Las Condes","Providencia"],
+                    ["Atrás", "Salir"]]
 
-    keyboard = [["Las Condes","Providencia"],
-                ["Atras", "Salir"]]
+    elif region == "Valparaíso":
+        keyboard = [["Valparaíso","Viña del Mar"],
+                    ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -113,7 +117,7 @@ def tipo(bot,update):
 
 
     keyboard = [["Departamento","Casa"],
-                ["Atras", "Salir"]]
+                ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -130,7 +134,7 @@ def dorms(bot,update):
 
 
     keyboard = [["1","2","3","4+"],
-                ["Atras", "Salir"]]
+                ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -147,7 +151,7 @@ def baths(bot,update):
 
 
     keyboard = [["1","2","3","4+"],
-                ["Atras", "Salir"]]
+                ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -174,7 +178,7 @@ def price_range(bot, update,stage):
 
         print("entro al if de moneda")
         keyboard = [["UF", "Pesos"],
-                    ["Atras", "Salir"]]
+                    ["Atrás", "Salir"]]
 
         reply_markup = ReplyKeyboardMarkup(keyboard,
                                            one_time_keyboard=True,
@@ -226,8 +230,8 @@ def confirm_report(bot,update,client):
     user = update.message.from_user
 
 
-    keyboard = [["SI","NO"],
-                ["Atras", "Salir"]]
+    keyboard = [["SI","Modificar"],
+                ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,

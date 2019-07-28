@@ -98,7 +98,7 @@ def operacion(bot, update):
     elif update.message.text == "Arrendar":
         select.region(bot, update)
         return pm.SELECT_REGION
-    elif update.message.text == "Atras":
+    elif update.message.text == "Atrás":
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Salir":
@@ -121,13 +121,13 @@ def region(bot, update):
     client["region"] = update.message.text
     print(client)
 
-    if update.message.text == "RM":
-        select.comuna(bot,update)
+    if update.message.text == "Metropolitana":
+        select.comuna(bot,update,client["region"])
         return pm.SELECT_COMUNA
-    elif update.message.text == "Valpo":
-        select.comuna(bot, update)
+    elif update.message.text == "Valparaíso":
+        select.comuna(bot, update,client["region"])
         return pm.SELECT_COMUNA
-    elif update.message.text == "Atras":
+    elif update.message.text == "Atrás":
         select.operacion(bot, update)
         return pm.SELECT_OP
     elif update.message.text == "Salir":
@@ -156,7 +156,7 @@ def comuna(bot, update):
     elif update.message.text == "Providencia":
         select.tipo(bot, update)
         return pm.SELECT_TIPO
-    elif update.message.text == "Atras":
+    elif update.message.text == "Atrás":
         select.region(bot, update)
         return pm.SELECT_REGION
     elif update.message.text == "Salir":
@@ -185,7 +185,7 @@ def tipo(bot, update):
     elif update.message.text == "Casa":
         select.dorms(bot, update)
         return pm.SELECT_DORMS
-    elif update.message.text == "Atras":
+    elif update.message.text == "Atrás":
         select.comuna(bot, update)
         return pm.SELECT_COMUNA
     elif update.message.text == "Salir":
@@ -208,10 +208,10 @@ def dorms(bot, update):
     client["dormitorios"] = update.message.text
     print(client)
 
-    if update.message.text == ("1" or "2" or "3" or "4+"):
+    if update.message.text == "1" or update.message.text == "2" or update.message.text == "3" or update.message.text == "4+":
         select.baths(bot,update)
         return pm.SELECT_BATHS
-    elif update.message.text == "Atras":
+    elif update.message.text == "Atrás":
         select.tipo(bot, update)
         return pm.SELECT_TIPO
     elif update.message.text == "Salir":
@@ -234,10 +234,10 @@ def baths(bot, update):
     client["baños"] = update.message.text
     print(client)
 
-    if update.message.text == ("1" or "2" or "3" or "4+"):
+    if update.message.text == "1" or update.message.text == "2" or update.message.text == "3" or update.message.text == "4+":
         select.price_range(bot,update,"moneda")
         return pm.SELECT_PRICE_RANGE
-    elif update.message.text == "Atras":
+    elif update.message.text == "Atrás":
         select.dorms(bot, update)
         return pm.SELECT_DORMS
     elif update.message.text == "Salir":
@@ -265,7 +265,7 @@ def price_range(bot, update):
         elif update.message.text == "Pesos":
             select.price_range(bot, update, "preciomin")
             return pm.SELECT_PRICE_RANGE
-        elif update.message.text == "Atras":
+        elif update.message.text == "Atrás":
             select.tipo(bot, update)
             return pm.SELECT_TIPO
         elif update.message.text == "Salir":
@@ -344,7 +344,23 @@ def confirm_report(bot,update):
         bot.send_message(chat_id=update.message.chat_id, text="Reporte generado y enviado exitosamente al correo: "+(client["mail"])+".")
         select.menu(bot, update)
         return pm.MENU
-    elif update.message.text == "NO":
-        bot.send_message(chat_id=update.message.chat_id, text="Reporte Cancelado")
+    elif update.message.text == "Modificar":
+        bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
         select.menu(bot, update)
         return pm.MENU
+    elif update.message.text == "Atrás":
+        client.pop("metrosmin")
+        client.pop("metrosmax")
+        client.pop("moneda")
+        client.pop("preciomin")
+        client.pop("preciomax")
+
+        select.price_range(bot, update, "moneda")
+        return pm.SELECT_PRICE_RANGE
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
