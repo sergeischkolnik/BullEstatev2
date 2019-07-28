@@ -24,36 +24,15 @@ logger = logging.getLogger(__name__)
 MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO = range(5)
 STATE = MENU
 
-def selectteleport(etapa,palabra):
-    global menu
-    global operacion
-    global region
-    global comuna
-    global tipo
 
-    if etapa=='menu':
-        menu=palabra
-    elif etapa=="":
-        global operacion
-    elif etapa == "region":
-        global region
-    elif etapa == "comuna":
-        global comuna
-    elif etapa == "tipo":
-        global tipo
-    else:
-        return null
-
-
-def teleport(string):
-    global keyword
-
-    keyword=string
 
 def start(bot, update):
 
     print(bot)
+    print('...')
     print(update)
+    print('...')
+    print(update['chat'])
     """
     Start function. Displayed whenever the /start command is called.
     This function sets the language of the bot.
