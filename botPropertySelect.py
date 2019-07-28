@@ -236,12 +236,12 @@ def confirm_report(bot,update,client):
     pm.logger.info("{} está confirmando reporte.".format(user.first_name))
     confirmtext=[]
     confirmtext.append("Generar reporte para las siguientes características:")
-    confirmtext.append("Operación:"+client[""])
-    confirmtext.append("Región:"+client[""])
-    confirmtext.append("Comuna:"+client[""])
-    confirmtext.append("Tipo:"+client[""])
-    confirmtext.append("Dormitorios:"+client[""])
-    confirmtext.append("Baños:"+client[""])
+    confirmtext.append("Operación:"+client["operacion"])
+    confirmtext.append("Región:"+client["region"])
+    confirmtext.append("Comuna:"+client["comuna"])
+    confirmtext.append("Tipo:"+client["tipo"])
+    confirmtext.append("Dormitorios:"+client["dormitorios"])
+    confirmtext.append("Baños:"+client["baños"])
     confirmtext.append("Desde:"+client["moneda"]+" "+client["preciomin"]+", Hasta:"+client["moneda"]+" "+client["preciomax"])
     confirmtext.append("Desde:"+client["metrosmin"]+"m2, Hasta:"+client["metrosmax"]+"m2")
 
