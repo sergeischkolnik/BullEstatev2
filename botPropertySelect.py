@@ -233,6 +233,7 @@ def confirm_report(bot,update,client):
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
 
+
     pm.logger.info("{} está confirmando reporte.".format(user.first_name))
     confirmtext=[]
     confirmtext.append("Generar reporte para las siguientes características:")
@@ -242,8 +243,8 @@ def confirm_report(bot,update,client):
     confirmtext.append("Tipo:"+client["tipo"])
     confirmtext.append("Dormitorios:"+client["dormitorios"])
     confirmtext.append("Baños:"+client["baños"])
-    confirmtext.append("Desde: "+client["moneda"]+" "+client["preciomin"]+", Hasta: "+client["moneda"]+" "+client["preciomax"])
-    confirmtext.append("Desde: "+client["metrosmin"]+"m2, Hasta: "+client["metrosmax"]+"m2")
+    confirmtext.append("Desde: "+client["moneda"]+" "+str(client["preciomin"])+", Hasta: "+client["moneda"]+" "+str(client["preciomax"]))
+    confirmtext.append("Desde: "+str(client["metrosmin"])+"m2, Hasta: "+str(client["metrosmax"])+"m2")
 
     confirmtext="\n".join(confirmtext)
     print(confirmtext)

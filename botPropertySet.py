@@ -38,11 +38,11 @@ def login(bot,update):
     print("Cliente inicial:")
     print(client)
     client["id"] = update.message.chat_id
-    if "mail" not in client and (('@' and '.') in update.message.text):
+    if "mail" not in client and '@' in update.message.text and '.' in update.message.text:
         client["mail"]=update.message.text
         select.login(bot, update,client)
         return pm.LOGIN
-    elif "mail" not in client and (('@' or '.') not in update.message.text):
+    elif "mail" not in client and ('@' not in update.message.text or '.' not in update.message.text):
         bot.send_message(chat_id=update.message.chat_id, text="Correo incorrecto. Favor ingresar correo valido")
         select.login(bot, update, client)
         return pm.LOGIN
