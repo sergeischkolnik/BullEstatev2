@@ -470,9 +470,9 @@ def confirm_file(bot, update):
 
     if update.message.text == "SI":
 
-        connector.connectorFicha(client)
+        text=connector.connectorFicha(client)
 
-        bot.send_message(chat_id=update.message.chat_id, text="Ficha generado y enviado exitosamente al correo: "+(client["mail"])+".")
+        bot.send_message(chat_id=update.message.chat_id, text=text)
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Modificar":

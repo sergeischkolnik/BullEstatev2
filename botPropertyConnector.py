@@ -8,4 +8,5 @@ import reportes
 
 def connectorFicha(client):
 
-    ficha.crearFicha(client["sitio"],client["id_prop"],client["mail"],1)
+    text=ficha.crearFicha(client["sitio"],client["id_prop"],client["mail"],1)
+    return text

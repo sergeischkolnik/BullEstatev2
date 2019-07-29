@@ -59,7 +59,7 @@ def cancel(bot, update):
     """
     user = update.message.from_user
     logger.info("User {} canceled the conversation.".format(user.first_name))
-    update.message.reply_text("mensaje adiuos",
+    update.message.reply_text("Conversación finalizada",
                               reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END
