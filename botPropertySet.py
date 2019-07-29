@@ -37,9 +37,8 @@ def start(bot, update):
         client = {}
         clientsDict[user.id] = client
 
-    registered=db.registered(user.id)
 
-    if registered:
+    if db.registered(update.message.from_user.id):
         print("usuario ya registrado")
         select.signedup(bot,update,user.id)
         return pm.SIGNEDUP
