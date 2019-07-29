@@ -45,7 +45,7 @@ def first(bot,update):
 
     user = update.message.from_user
     pm.logger.info("{} decidiendo si inicia sesión, o si se registra.".format(user.first_name))
-    update.message.reply_text("Favor presionar Iniciar Sesión si ud. ya posee una cuenta, o bien Registrar si es un usuario nuevo."+str(data[1]), reply_markup=reply_markup)
+    update.message.reply_text("Favor presionar Iniciar Sesión si ud. ya posee una cuenta, o bien Registrar si es un usuario nuevo.", reply_markup=reply_markup)
     return pm.FIRST
 
 def signup(bot,update,client):
