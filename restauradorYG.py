@@ -11,6 +11,7 @@ def ultimo():
     sql = "SELECT pagina FROM checker WHERE nombrescraper='syg'"
     cur.execute(sql)
     tupla = cur.fetchall()
+    print(tupla)
     return tupla
 
 
