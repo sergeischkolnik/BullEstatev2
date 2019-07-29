@@ -444,11 +444,14 @@ def id_prop(bot, update):
     Set option selected from menu.
     """
     # Set state:
-
+    print("entro a set idprop")
 
     try:
         client["id_prop"] = int(update.message.text)
+        print("paso test de int")
+        print(client)
         select.confirm_file(bot, update)
+        print("paso test de select confirm")
         print(client)
         return pm.CONFIRM_FILE
     except:

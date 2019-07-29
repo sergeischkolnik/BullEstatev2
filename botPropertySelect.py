@@ -316,7 +316,7 @@ def site(bot, update):
                 ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=False,
+                                       one_time_keyboard=True,
                                        resize_keyboard=True)
 
 
@@ -346,6 +346,7 @@ def confirm_file(bot, update,client):
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
+    print("creo el teclado")
 
     pm.logger.info("{} está confirmando ficha.".format(user.first_name))
     confirmtext=[]
