@@ -88,8 +88,7 @@ def main():
 
     # Add conversation handler with predefined states:
     conv_handler = ConversationHandler(
-        entry_points=[RegexHandler(
-                       '^({}|{}|{})$'.format("iniciar", "Iniciar", "Reiniciar","reiniciar","inicio", "Inicio", "Reinicio","reinicio",),set.start)],
+        entry_points=[MessageHandler(Filters.text, set.start)],
 
 
 
