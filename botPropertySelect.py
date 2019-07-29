@@ -32,7 +32,6 @@ def first(bot,update):
 
     global STATE
 
-    data=db.registered_data(update.message.from_user.id)
     keyboard = [["Iniciar Sesión"],
                 ["Registrarse"]]
 
