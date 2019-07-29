@@ -47,7 +47,7 @@ def login(bot,update):
     global STATE
     client = clientsDict[update.message.from_user.id]
     print("Cliente inicial:")
-    print(clientsDict[id])
+    print(client)
     client["id"] = update.message.chat_id
     if "mail" not in client and '@' in update.message.text and '.' in update.message.text:
         client["mail"]=update.message.text
