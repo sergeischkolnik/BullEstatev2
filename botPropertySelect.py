@@ -42,14 +42,14 @@ def menu(bot, update):
                 ["Ficha", "Ayuda"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=False,
+                                       one_time_keyboard=True,
                                        resize_keyboard=True)
 
 
 
     user = update.message.from_user
     pm.logger.info("{} está en el menu principal.".format(user.first_name))
-    update.message.reply_text("menu principal", reply_markup=reply_markup)
+    update.message.reply_text("Menu Principal", reply_markup=reply_markup)
     return pm.MENU
 
 ##### FUNCIONES DEL REPORTE
