@@ -450,7 +450,7 @@ def id_prop(bot, update):
         client["id_prop"] = int(update.message.text)
         print("paso test de int")
         print(client)
-        select.confirm_file(bot, update)
+        select.confirm_file(bot, update,client)
         print("paso test de select confirm")
         print(client)
         return pm.CONFIRM_FILE
