@@ -10,6 +10,9 @@ import botPropertyDataBase as db
 global client
 
 
+### FUNCIONES GLOBALES
+
+
 def start(bot, update):
     global client
     client = {}
@@ -32,6 +35,7 @@ def start(bot, update):
     select.login(bot, update,client)
     return pm.LOGIN
 
+
 def login(bot,update):
     # Set state:
     global STATE
@@ -50,6 +54,7 @@ def login(bot,update):
         client["pass"] = update.message.text
         select.menu(bot, update)
         return pm.MENU
+
 
 def menu(bot, update):
     """
@@ -78,6 +83,10 @@ def menu(bot, update):
         client.pop("product")
         select.menu(bot, update)
         return pm.MENU
+
+
+###FUNCIONES REPORTES
+
 
 def operacion(bot, update):
     """
@@ -109,6 +118,7 @@ def operacion(bot, update):
         select.operacion(bot, update)
         return pm.SELECT_OP
 
+
 def region(bot, update):
     """
     Set option selected from menu.
@@ -138,6 +148,7 @@ def region(bot, update):
         select.region(bot, update)
         return pm.SELECT_REGION
 
+
 def comuna(bot, update):
     """
     Set option selected from menu.
@@ -159,6 +170,7 @@ def comuna(bot, update):
     else:
         select.tipo(bot, update)
         return pm.SELECT_TIPO
+
 
 def tipo(bot, update):
     """
@@ -189,6 +201,7 @@ def tipo(bot, update):
         select.tipo(bot, update)
         return pm.SELECT_TIPO
 
+
 def dorms(bot, update):
     """
     Set option selected from menu.
@@ -215,6 +228,7 @@ def dorms(bot, update):
         select.dorms(bot, update)
         return pm.SELECT_DORMS
 
+
 def baths(bot, update):
     """
     Set option selected from menu.
@@ -240,6 +254,7 @@ def baths(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.baths(bot, update)
         return pm.SELECT_BATHS
+
 
 def price_range(bot, update):
     """
@@ -286,7 +301,6 @@ def price_range(bot, update):
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.price_range(bot, update, "preciomax")
             return pm.SELECT_PRICE_RANGE
-
 
 
 def area_range(bot, update):
@@ -388,3 +402,86 @@ def confirm_report(bot,update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.confirm_report(bot, update, client)
         return pm.CONFIRM_REPORT
+
+
+### FUNCIONES FICHA
+
+
+def sitio(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+
+    # set client
+    global client
+    client["sitio"] = update.message.text
+    print(client)
+
+    user = update.message.from_user
+    if update.message.text == "www.portalinmobiliario.com":
+        select.id_prop(bot,update)
+        return pm.SELECT_ID
+    if update.message.text == "www.yapo.cl":
+        select.id_prop(bot, update)
+        return pm.SELECT_ID
+    elif update.message.text == "Atrás":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.operacion(bot, update)
+        return pm.SELECT_SITE
+
+
+def id_prop(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+
+
+    try:
+        client["id_prop"] = int(update.message.text)
+        select.confirm_file(bot, update)
+        print(client)
+        return pm.CONFIRM_FILE
+    except:
+        bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+        select.id_prop(bot, update)
+        return pm.SELECT_ID
+
+
+def confirm_file(bot, update):
+
+
+    global STATE
+
+    # set client
+    global client
+
+    if update.message.text == "SI":
+        #generar ficha para cliente, enviar al correo correspondiente
+        bot.send_message(chat_id=update.message.chat_id, text="Ficha generado y enviado exitosamente al correo: "+(client["mail"])+".")
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Modificar":
+        bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+
+    elif update.message.text == "Atrás":
+
+        select.id_prop(bot, update)
+        return pm.SELECT_ID
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.confirm_file(bot, update, client)
+        return pm.CONFIRM_FILE

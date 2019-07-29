@@ -21,7 +21,9 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 
-LOGIN,MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO, SELECT_DORMS,SELECT_BATHS, SELECT_PRICE_RANGE, SELECT_AREA_RANGE,CONFIRM_REPORT  = range(11)
+LOGIN,MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO, SELECT_DORMS,SELECT_BATHS, \
+SELECT_PRICE_RANGE, SELECT_AREA_RANGE,CONFIRM_REPORT,SELECT_SITE,SELECT_ID,CONFIRM_FILE = range(14)
+
 STATE = MENU
 
 
@@ -132,7 +134,13 @@ def main():
 
             SELECT_AREA_RANGE: [MessageHandler(Filters.text, set.area_range)],
 
-            CONFIRM_REPORT: [MessageHandler(Filters.text, set.confirm_report)]
+            CONFIRM_REPORT: [MessageHandler(Filters.text, set.confirm_report)],
+
+            SELECT_SITE: [MessageHandler(Filters.text, set.site)],
+
+            SELECT_ID: [MessageHandler(Filters.text, set.id_prop)],
+
+            CONFIRM_FILE: [MessageHandler(Filters.text, set.confirm_file)]
                 },
 
         fallbacks=[CommandHandler('cancel', cancel),

@@ -52,6 +52,8 @@ def menu(bot, update):
     update.message.reply_text("menu principal", reply_markup=reply_markup)
     return pm.MENU
 
+##### FUNCIONES DEL REPORTE
+
 def operacion(bot, update):
 
     user = update.message.from_user
@@ -203,7 +205,6 @@ def price_range(bot, update,stage):
 
     return pm.SELECT_PRICE_RANGE
 
-
 def area_range(bot, update, stage,tip):
     global STATE
     """
@@ -300,3 +301,61 @@ def confirm_report(bot,update,client):
     update.message.reply_text(confirmtext, reply_markup=reply_markup)
 
     return pm.CONFIRM_REPORT
+
+##### FUNCIONES DE LAS FICHAS
+
+def site(bot, update):
+    global STATE
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+    # Create buttons to slect language:
+    keyboard = [["www.portalinmobiliario.com"],
+                ["www.yapo.cl"]
+                ["Atrás", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=False,
+                                       resize_keyboard=True)
+
+
+
+    user = update.message.from_user
+    pm.logger.info("{} está escogiendo sitio de origen.".format(user.first_name))
+    update.message.reply_text("Seleccionar sitio de origen", reply_markup=reply_markup)
+    return pm.SELECT_SITE
+
+def id_prop(bot, update):
+    global STATE
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+
+    user = update.message.from_user
+    pm.logger.info("{} está escogiendo sitio de origen.".format(user.first_name))
+    update.message.reply_text("Seleccionar id propiedad")
+    return pm.SELECT_ID
+def confirm_file(bot, update,client):
+    user = update.message.from_user
+
+    keyboard = [["SI","Modificar"],
+                ["Atrás", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    pm.logger.info("{} está confirmando ficha.".format(user.first_name))
+    confirmtext=[]
+    confirmtext.append("Generar ficha para las siguientes características:")
+    confirmtext.append("Sitio de origen:"+client["sitio"])
+    confirmtext.append("ID Propiedad:"+str(client["id_prop"]))
+    confirmtext.append("Se enviara al siguiente correo:"+client["mail"])
+
+    confirmtext="\n".join(confirmtext)
+    print(confirmtext)
+    update.message.reply_text(confirmtext, reply_markup=reply_markup)
+
+    return pm.CONFIRM_FILE
