@@ -1,6 +1,6 @@
-from bottle import bottle, run, route, request
+from bottle import Bottle, run, route, request
 
-app = bottle()
+app = Bottle()
 
 @app.route('/listener')
 def my_listener():
