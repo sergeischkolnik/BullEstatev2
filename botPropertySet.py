@@ -32,9 +32,9 @@ def start(bot, update):
     """
 
     user = update.message.from_user
-
+    client = {}
     if user.id not in clientsDict:
-        client = {}
+
         clientsDict[user.id] = client
 
 
@@ -586,8 +586,8 @@ def confirm_file(bot, update):
 
     if update.message.text == "SI":
 
+        bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
         text=connector.connectorFicha(client)
-
         bot.send_message(chat_id=update.message.chat_id, text=text)
         select.menu(bot, update)
         return pm.MENU
