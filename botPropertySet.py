@@ -159,10 +159,10 @@ def login(bot,update):
             select.menu(bot, update)
             return pm.MENU
         else:
-            if client["countfails"]>=0:
-                client["countfails"]=client["countfails"]-1
+            if client["countfail"]>=0:
+                client["countfail"]=client["countfail"]-1
                 bot.send_message(chat_id=update.message.chat_id, text="Clave Inorrecta. Re-intente por favor")
-                bot.send_message(chat_id=update.message.chat_id, text="Le quedan "+str(client["countfails"])+" intentos")
+                bot.send_message(chat_id=update.message.chat_id, text="Le quedan "+str(client["countfail"])+" intentos")
                 select.login(bot, update,client)
                 return pm.LOGIN
             else:
@@ -492,6 +492,11 @@ def confirm_report(bot,update):
     if update.message.text == "SI":
         #generar reporte para cliente, enviar al correo correspondiente
         bot.send_message(chat_id=update.message.chat_id, text="Reporte generado y enviado exitosamente al correo: "+(client["mail"])+".")
+        client.pop("metrosmin")
+        client.pop("metrosmax")
+        client.pop("moneda")
+        client.pop("preciomin")
+        client.pop("preciomax")
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Modificar":
