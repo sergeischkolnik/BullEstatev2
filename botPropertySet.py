@@ -67,7 +67,7 @@ def signedup(bot,update):
         select.first(bot, update)
         return pm.FIRST
     else:
-        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton (Si/No.")
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton (Si/No).")
         select.signedup(bot, update,update.message.from_user.id)
         return pm.MENU
 

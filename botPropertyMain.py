@@ -115,9 +115,9 @@ def main():
 
             SIGNEDUP: [MessageHandler(Filters.text, set.signedup)],
 
-            FIRST: [MessageHandler(Filters.text, set.signedup)],
+            FIRST: [MessageHandler(Filters.text, set.first)],
 
-            SIGNUP: [MessageHandler(Filters.text, set.signedup)],
+            SIGNUP: [MessageHandler(Filters.text, set.signup)],
 
             LOGIN: [MessageHandler(Filters.text, set.login)],
 
