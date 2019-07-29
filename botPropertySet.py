@@ -40,11 +40,13 @@ def start(bot, update):
     registered=db.registered(user.id)
 
     if registered:
+        print("usuario ya registrado")
         select.signedup(bot,update,user.id)
         return pm.SIGNEDUP
     else:
-        select.login(bot, update,client)
-        return pm.LOGIN
+        print("usuario no registrado")
+        select.first(bot, update,client)
+        return pm.FIRST
 
 
 def signedup(bot,update):
