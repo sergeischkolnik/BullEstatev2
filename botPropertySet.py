@@ -121,10 +121,10 @@ def signup(bot,update):
         return pm.SIGNUP
     else:
         client["lastname"] = update.message.text
-        select.menu(bot, update)
         bot.send_message(chat_id=update.message.chat_id, text="Registrando como cliente")
         db.registerclient(client)
         bot.send_message(chat_id=update.message.chat_id, text="Felicidades "+client["firstname"]+", Te has registrado exitosamente")
+        select.menu(bot, update)
         return pm.MENU
 
 
