@@ -83,26 +83,26 @@ def login(bot, update,client):
     if "mail" not in client:
 
         user = update.message.from_user
-        pm.logger.info("{} está en mail signup.".format(user.first_name))
+        pm.logger.info("{} está en mail login.".format(user.first_name))
         update.message.reply_text("Favor ingrese su correo electrónico")
 
     elif "pass" not in client:
 
         user = update.message.from_user
-        pm.logger.info("{} está en pass signup.".format(user.first_name))
+        pm.logger.info("{} está en pass login.".format(user.first_name))
         update.message.reply_text("Favor ingrese su contraseña")
 
     elif "firstname" not in client:
 
         user = update.message.from_user
-        pm.logger.info("{} está en firsname signup.".format(user.first_name))
+        pm.logger.info("{} está en firsname login.".format(user.first_name))
         update.message.reply_text("Favor ingrese su Nombre")
 
     else:
 
         user = update.message.from_user
 
-        pm.logger.info("{} está en Lastname signup.".format(user.first_name))
+        pm.logger.info("{} está en Lastname login.".format(user.first_name))
         update.message.reply_text("Favor ingrese su apellido")
 
     return pm.LOGIN

@@ -29,7 +29,6 @@ def registered_data(id):
     cur.execute(sql)
     data = cur.fetchall()
     mariadb_connection.close()
-    print(data[0])
     return data[0]
 
 def registerclient(client):

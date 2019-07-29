@@ -32,9 +32,9 @@ def start(bot, update):
     """
 
     user = update.message.from_user
-    client = {}
-    if user.id not in clientsDict:
 
+    if user.id not in clientsDict:
+        client = {}
         clientsDict[user.id] = client
 
 
@@ -64,6 +64,8 @@ def signedup(bot,update):
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "No":
+        client.clear()
+        print(client)
         select.first(bot, update)
         return pm.FIRST
     else:
