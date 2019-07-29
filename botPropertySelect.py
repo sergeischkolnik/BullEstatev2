@@ -9,25 +9,102 @@ import botPropertyDataBase as db
 
 global id
 
+def signedup(bot,update,id):
+    global STATE
+
+    data=db.registered_data(id)
+    keyboard = [["Si","No"]]
+
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+
+
+    user = update.message.from_user
+    pm.logger.info("{} decidiendo si sigue con su correo registrado.".format(user.first_name))
+    update.message.reply_text("Desea continuar con el correo: "+str(data[1]), reply_markup=reply_markup)
+    return pm.MENU
+
+
+def first(bot,update):
+
+    global STATE
+
+    data=db.registered_data(id)
+    keyboard = [["Iniciar Sesión"],
+                ["Registrarse"]]
+
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+
+
+    user = update.message.from_user
+    pm.logger.info("{} decidiendo si inicia sesión, o si se registra.".format(user.first_name))
+    update.message.reply_text("Favor presionar Iniciar Sesión si ud. ya posee una cuenta, o bien Registrar si es un usuario nuevo."+str(data[1]), reply_markup=reply_markup)
+    return pm.FIRST
+
+def signup(bot,update,client):
+    global STATE
+
+    if "mail" not in client:
+
+        user = update.message.from_user
+        pm.logger.info("{} está en mail signup.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su correo electrónico")
+
+    elif "pass" not in client:
+
+        user = update.message.from_user
+        pm.logger.info("{} está en pass signup.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su contraseña")
+
+    elif "firstname" not in client:
+
+        user = update.message.from_user
+        pm.logger.info("{} está en firsname signup.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su Nombre")
+
+    else:
+
+        user = update.message.from_user
+
+        pm.logger.info("{} está en Lastname signup.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su apellido")
+
+    return pm.SIGNUP
 
 def login(bot, update,client):
     global STATE
-    """
-    Main menu function.
-    This will display the options from the main menu.
-    """
-    # Create buttons to slect language:
-    if "mail" in client:
+
+    if "mail" not in client:
 
         user = update.message.from_user
-        pm.logger.info("{} está en pass login.".format(user.first_name))
+        pm.logger.info("{} está en mail signup.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su correo electrónico")
+
+    elif "pass" not in client:
+
+        user = update.message.from_user
+        pm.logger.info("{} está en pass signup.".format(user.first_name))
         update.message.reply_text("Favor ingrese su contraseña")
+
+    elif "firstname" not in client:
+
+        user = update.message.from_user
+        pm.logger.info("{} está en firsname signup.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su Nombre")
+
     else:
 
-
         user = update.message.from_user
-        pm.logger.info("{} está en mail login.".format(user.first_name))
-        update.message.reply_text("Favor ingrese su correo electrónico")
+
+        pm.logger.info("{} está en Lastname signup.".format(user.first_name))
+        update.message.reply_text("Favor ingrese su apellido")
 
     return pm.LOGIN
 

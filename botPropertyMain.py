@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 
 # Global vars:
 
-LOGIN,MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO, SELECT_DORMS,SELECT_BATHS, \
-SELECT_PRICE_RANGE, SELECT_AREA_RANGE,CONFIRM_REPORT,SELECT_SITE,SELECT_ID,CONFIRM_FILE = range(14)
+SIGNEDUP, FIRST, SIGNUP, LOGIN,MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO, SELECT_DORMS,SELECT_BATHS, \
+SELECT_PRICE_RANGE, SELECT_AREA_RANGE,CONFIRM_REPORT,SELECT_SITE,SELECT_ID,CONFIRM_FILE = range(17)
 
 STATE = MENU
 
@@ -112,6 +112,12 @@ def main():
             #     '^({}|{}|{}|{})$'.format("Departamento", "Casa", "Atras", "Salir"), set.tipo)]
             #
             #      },
+
+            SIGNEDUP: [MessageHandler(Filters.text, set.signedup)],
+
+            FIRST: [MessageHandler(Filters.text, set.signedup)],
+
+            SIGNUP: [MessageHandler(Filters.text, set.signedup)],
 
             LOGIN: [MessageHandler(Filters.text, set.login)],
 

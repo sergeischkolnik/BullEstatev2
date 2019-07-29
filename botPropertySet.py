@@ -37,30 +37,133 @@ def start(bot, update):
         client = {}
         clientsDict[user.id] = client
 
-    select.login(bot, update,client)
-    return pm.LOGIN
+    registered=db.registered(user.id)
+
+    if registered:
+        select.signedup(bot,update,user.id)
+        return pm.SIGNEDUP
+    else:
+        select.login(bot, update,client)
+        return pm.LOGIN
+
+
+def signedup(bot,update):
+
+    global STATE
+    client = clientsDict[update.message.from_user.id]
+
+    data=db.registered_data(update.message.from_user.id)
+
+    if update.message.text == "Si":
+        client["id"] = update.message.from_user.id
+        client["mail"] = data[1]
+        client["pass"] = data[2]
+        client["firstname"] = data[3]
+        client["lastname"] = data[4]
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "No":
+        select.first(bot, update)
+        return pm.FIRST
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton (Si/No.")
+        select.signedup(bot, update,update.message.from_user.id)
+        return pm.MENU
+
+def first(bot,update):
+
+    if update.message.text == "Iniciar Sesión":
+        select.login(bot, update)
+        return pm.LOGIN
+    elif update.message.text == "Registrarse":
+        select.signup(bot, update)
+        return pm.SIGNUP
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton (Iniciar Sesión/Registrarse.")
+        select.first(bot, update)
+        return pm.FIRST
+
+
+def signup(bot,update):
+
+        # Set state:
+
+    global STATE
+    client = clientsDict[update.message.from_user.id]
+
+    client["id"] = update.message.chat_id
+    if "mail" not in client and '@' in update.message.text and '.' in update.message.text:
+        if db.isregistered(update.message.text):
+            bot.send_message(chat_id=update.message.chat_id, text="Correo ya registrado, favor ingresar su contraseña")
+            client["mail"]=update.message.text
+            select.login(bot,update,client)
+            return pm.LOGIN
+        else:
+            client["mail"]=update.message.text
+            select.signup(bot, update,client)
+            return pm.SIGNUP
+    elif "mail" not in client and ('@' not in update.message.text or '.' not in update.message.text):
+        bot.send_message(chat_id=update.message.chat_id, text="Correo incorrecto. Favor ingresar correo valido")
+        select.signup(bot, update, client)
+        return pm.SIGNUP
+    elif "pass" not in client:
+        client["pass"] = update.message.text
+        select.signup(bot, update,client)
+        return pm.SIGNUP
+    elif "firstname" not in client:
+        client["firstname"] = update.message.text
+        select.signup(bot, update,client)
+        return pm.SIGNUP
+    else:
+        client["lastname"] = update.message.text
+        select.menu(bot, update)
+        bot.send_message(chat_id=update.message.chat_id, text="Registrando como cliente")
+        db.registerclient(client)
+        bot.send_message(chat_id=update.message.chat_id, text="Felicidades "+client["firstname"]+", Te has registrado exitosamente")
+        return pm.MENU
 
 
 def login(bot,update):
     # Set state:
-
     global STATE
     client = clientsDict[update.message.from_user.id]
     print("Cliente inicial:")
     print(client)
     client["id"] = update.message.chat_id
+    if "countfail" not in client:
+        client["countfail"]=4
     if "mail" not in client and '@' in update.message.text and '.' in update.message.text:
-        client["mail"]=update.message.text
-        select.login(bot, update,client)
-        return pm.LOGIN
+        if db.isregistered(update.message.text):
+            client["mail"]=update.message.text
+            select.login(bot, update,client)
+            return pm.LOGIN
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="El correo indicado no esta registrado. Favor Registrarse, o iniciar sesión con correo registrado.")
+            select.first(bot, update)
+            return pm.FIRST
+
     elif "mail" not in client and ('@' not in update.message.text or '.' not in update.message.text):
         bot.send_message(chat_id=update.message.chat_id, text="Correo incorrecto. Favor ingresar correo valido")
         select.login(bot, update, client)
         return pm.LOGIN
     else:
-        client["pass"] = update.message.text
-        select.menu(bot, update)
-        return pm.MENU
+        if db.passvalidation(client["mail"],update.message.text):
+            bot.send_message(chat_id=update.message.chat_id, text="Clave Correcta. Bienvenido")
+            select.menu(bot, update)
+            return pm.MENU
+        else:
+            if client["countfails"]>=0:
+                client["countfails"]=client["countfails"]-1
+                bot.send_message(chat_id=update.message.chat_id, text="Clave Inorrecta. Re-intente por favor")
+                bot.send_message(chat_id=update.message.chat_id, text="Le quedan "+str(client["countfails"])+" intentos")
+                select.login(bot, update,client)
+                return pm.LOGIN
+            else:
+                bot.send_message(chat_id=update.message.chat_id, text="Se Han Agotado los intentos")
+                select.first(bot,update)
+                return pm.FIRST
+
+
 
 
 def menu(bot, update):
