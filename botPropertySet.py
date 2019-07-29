@@ -8,15 +8,16 @@ import botPropertySelect as select
 import botPropertyDataBase as db
 import botPropertyConnector as connector
 
-global client
 
+
+clientsDict = dict()
 
 ### FUNCIONES GLOBALES
 
 
 def start(bot, update):
-    global client
-    client = {}
+
+
 
     global STATE
 
@@ -32,6 +33,9 @@ def start(bot, update):
 
     user = update.message.from_user
 
+    if user.id not in clientsDict:
+        client = {}
+        clientsDict[user.id] = client
 
     select.login(bot, update,client)
     return pm.LOGIN
@@ -39,9 +43,11 @@ def start(bot, update):
 
 def login(bot,update):
     # Set state:
+
     global STATE
+    client = clientsDict[update.message.from_user.id]
     print("Cliente inicial:")
-    print(client)
+    print(clientsDict[id])
     client["id"] = update.message.chat_id
     if "mail" not in client and '@' in update.message.text and '.' in update.message.text:
         client["mail"]=update.message.text
@@ -65,7 +71,7 @@ def menu(bot, update):
     global STATE
 
     #set client
-    global client
+    client = clientsDict[update.message.from_user.id]
 
     client["product"] = update.message.text
     print(client)
@@ -97,11 +103,10 @@ def operacion(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     client["operacion"] = update.message.text
     print(client)
 
-    user = update.message.from_user
     if update.message.text == "Comprar":
         select.region(bot,update)
         return pm.SELECT_REGION
@@ -128,7 +133,7 @@ def region(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     client["region"] = update.message.text
     print(client)
 
@@ -158,10 +163,11 @@ def comuna(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     client["comuna"] = update.message.text
     print(client)
 
+    #Agregar validacion viendo si es parte de una lista
     if update.message.text == "Atrás":
         select.region(bot, update)
         return pm.SELECT_REGION
@@ -181,7 +187,7 @@ def tipo(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     client["tipo"] = update.message.text
     print(client)
 
@@ -211,7 +217,7 @@ def dorms(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     client["dormitorios"] = update.message.text
     print(client)
 
@@ -238,7 +244,7 @@ def baths(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     client["baños"] = update.message.text
     print(client)
 
@@ -265,7 +271,7 @@ def price_range(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     if "moneda" not in client:
         client["moneda"] = update.message.text
         if update.message.text == "UF":
@@ -312,7 +318,7 @@ def area_range(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     if "metrosmin" not in client:
         try:
             client["metrosmin"] = int(update.message.text)
@@ -371,7 +377,7 @@ def confirm_report(bot,update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
 
     if update.message.text == "SI":
         #generar reporte para cliente, enviar al correo correspondiente
@@ -416,7 +422,7 @@ def site(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
     client["sitio"] = update.message.text
     print(client)
 
@@ -446,6 +452,8 @@ def id_prop(bot, update):
     # Set state:
     print("entro a set idprop")
 
+    client = clientsDict[update.message.from_user.id]
+
     try:
         client["id_prop"] = int(update.message.text)
         print("paso test de int")
@@ -466,7 +474,7 @@ def confirm_file(bot, update):
     global STATE
 
     # set client
-    global client
+    client = clientsDict[update.message.from_user.id]
 
     if update.message.text == "SI":
 
