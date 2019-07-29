@@ -74,11 +74,15 @@ def signedup(bot,update):
 
 def first(bot,update):
 
+    global STATE
+
+    client = clientsDict[update.message.from_user.id]
+
     if update.message.text == "Iniciar Sesión":
-        select.login(bot, update)
+        select.login(bot, update,client)
         return pm.LOGIN
     elif update.message.text == "Registrarse":
-        select.signup(bot, update)
+        select.signup(bot, update,client)
         return pm.SIGNUP
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton (Iniciar Sesión/Registrarse.")
