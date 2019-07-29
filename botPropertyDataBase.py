@@ -47,7 +47,7 @@ def isregistered(mail):
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id from clients WHERE mail="+str(mail)
+    sql = "SELECT id from clients WHERE mail='"+str(mail)+"'"
     cur.execute(sql)
     list = cur.fetchall()
     mariadb_connection.close()
@@ -60,7 +60,7 @@ def passvalidation(mail,clave):
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
     cur = mariadb_connection.cursor()
-    sql = "SELECT password from clients WHERE mail="+str(mail)
+    sql = "SELECT password from clients WHERE mail='"+str(mail)+"'"
     cur.execute(sql)
     password = cur.fetchall()
     mariadb_connection.close()
