@@ -312,7 +312,7 @@ def site(bot, update):
     """
     # Create buttons to slect language:
     keyboard = [["www.portalinmobiliario.com"],
-                ["www.yapo.cl"]
+                ["www.yapo.cl"],
                 ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,

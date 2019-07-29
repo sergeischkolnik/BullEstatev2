@@ -6,6 +6,7 @@ import logging
 import botPropertyMain as pm
 import botPropertySelect as select
 import botPropertyDataBase as db
+import botPropertyConnector as connector
 
 global client
 
@@ -465,7 +466,9 @@ def confirm_file(bot, update):
     global client
 
     if update.message.text == "SI":
-        #generar ficha para cliente, enviar al correo correspondiente
+
+        connector.connectorFicha(client)
+
         bot.send_message(chat_id=update.message.chat_id, text="Ficha generado y enviado exitosamente al correo: "+(client["mail"])+".")
         select.menu(bot, update)
         return pm.MENU
