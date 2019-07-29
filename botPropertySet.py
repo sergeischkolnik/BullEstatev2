@@ -73,8 +73,8 @@ def menu(bot, update):
         select.operacion(bot, update)
         return pm.SELECT_OP
     elif update.message.text == "Ficha":
-        select.menu(bot, update)
-        return pm.MENU
+        select.site(bot, update)
+        return pm.SELECT_SITE
     elif update.message.text == "Ayuda":
         select.menu(bot, update)
         return pm.MENU
