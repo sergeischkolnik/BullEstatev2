@@ -37,8 +37,9 @@ def registerclient(client):
     cur = mariadb_connection.cursor()
     sqlInsertInto = "INSERT INTO clients(id,mail,password,firstname,lastname)"
     sqlValues = "VALUES "+str(client["id"])+","+str(client["mail"])+","+str(client["pass"])+","+str(client["firstname"])+","+str(client["lastname"])+")"
-    sqlOnDuplicateKey = "ON DUPLICATE KEY UPDATE password="+str(client["pass"])+", firstname="+str(client["firstname"])+",lastname="+str(client["lastname"])
+    sqlOnDuplicateKey = "ON DUPLICATE KEY UPDATE password='"+str(client["pass"])+"', firstname='"+str(client["firstname"])+"',lastname='"+str(client["lastname"])+"'"
     sql=sqlInsertInto+" "+sqlValues+" "+sqlOnDuplicateKey
+    print(sql)
     cur.execute(sql)
     mariadb_connection.commit()
     mariadb_connection.close()
