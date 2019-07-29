@@ -9,4 +9,4 @@ def my_listener():
     print(data)
     return data
 
-run(app, host='18.228.34.10', port=8081)
+run(app, host='127.0.0.1', port=8081)
