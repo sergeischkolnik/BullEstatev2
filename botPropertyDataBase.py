@@ -35,8 +35,8 @@ def registerclient(client):
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
     cur = mariadb_connection.cursor()
-    sqlInsertInto = "INSERT INTO clients(id,mail,password,firstname,lastname)"
-    sqlValues = "VALUES '"+str(client["id"])+"','"+str(client["mail"])+"','"+str(client["pass"])+"','"+str(client["firstname"])+"','"+str(client["lastname"])+"')"
+    sqlInsertInto = "INSERT INTO clients (id,mail,password,firstname,lastname)"
+    sqlValues = "VALUES ('"+str(client["id"])+"','"+str(client["mail"])+"','"+str(client["pass"])+"','"+str(client["firstname"])+"','"+str(client["lastname"])+"')"
     sqlOnDuplicateKey = "ON DUPLICATE KEY UPDATE password='"+str(client["pass"])+"', firstname='"+str(client["firstname"])+"',lastname='"+str(client["lastname"])+"'"
     sql=sqlInsertInto+" "+sqlValues+" "+sqlOnDuplicateKey
     print(sql)
