@@ -25,7 +25,7 @@ def signedup(bot,update,id):
     user = update.message.from_user
     pm.logger.info("{} decidiendo si sigue con su correo registrado.".format(user.first_name))
     update.message.reply_text("Desea continuar con el correo: "+str(data[1]), reply_markup=reply_markup)
-    return pm.MENU
+    return pm.SIGNEDUP
 
 
 def first(bot,update):
