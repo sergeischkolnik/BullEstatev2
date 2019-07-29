@@ -45,7 +45,7 @@ def start(bot, update):
         return pm.SIGNEDUP
     else:
         print("usuario no registrado")
-        select.first(bot, update,client)
+        select.first(bot, update)
         return pm.FIRST
 
 
