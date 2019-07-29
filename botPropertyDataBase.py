@@ -30,7 +30,7 @@ def registered_data(id):
     data = cur.fetchall()
     mariadb_connection.close()
     print(data[0])
-    return data
+    return data[0]
 
 def registerclient(client):
 
