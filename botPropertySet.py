@@ -548,17 +548,18 @@ def confirm_report(bot,update):
         return pm.CONFIRM_REPORT
 
     elif update.message.text == "Atrás":
-        client.pop("metrosmin")
-        client.pop("metrosmax")
-        client.pop("moneda")
-        client.pop("preciomin")
-        client.pop("preciomax")
-        if "totalmin" in client:
-            client.pop("totalmin")
-        if "totalmax" in client:
-            client.pop("totalmax")
+        try:
 
-        select.price_range(bot, update, "moneda")
+            client.pop("moneda")
+            client.pop("preciomin")
+            client.pop("preciomax")
+            client.pop("metrosmin")
+            client.pop("metrosmax")
+            client.pop("totalmin")
+            client.pop("totalmax")
+        except:
+            pass
+        select.price_range(bot, update, client)
         return pm.SELECT_PRICE_RANGE
     elif update.message.text == "Salir":
         select.menu(bot, update)

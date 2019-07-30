@@ -294,8 +294,8 @@ def price_range(bot, update,client):
         if client["moneda"]=="UF":
             user = update.message.from_user
 
-            keyboard = [["0","1000","2000","3000","4000","5000"],
-                        ["7000","10000","15000","Otro","Atrás","Salir"]]
+            keyboard = [["0","1.000","2.000","3.000","4.000","5.000"],
+                        ["7.000","10.000","15.000","Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -330,8 +330,8 @@ def price_range(bot, update,client):
         if client["moneda"]=="UF":
             user = update.message.from_user
             x=client["preciomin"]
-            keyboard = [[str(x+1000),str(x+2000),str(x+3000),str(x+4000),str(x+5000)],
-                        [str(x+7000),str(x+10000),"Otro","Atrás","Salir"]]
+            keyboard = [['{:,}'.format(x+1000).replace(",","."),'{:,}'.format(x+2000).replace(",","."),'{:,}'.format(x+3000).replace(",","."),'{:,}'.format(x+4000).replace(",","."),'{:,}'.format(x+5000).replace(",",".")],
+                        ['{:,}'.format(x+7000).replace(",","."),'{:,}'.format(x+10000).replace(",","."),"Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -343,8 +343,8 @@ def price_range(bot, update,client):
         else:
             user = update.message.from_user
             x=client["preciomin"]
-            keyboard = [[str(x+10000000),str(x+2000000),str(x+30000000),str(x+50000000)],
-                        [str(x+100000000),"Otro","Atrás","Salir"]]
+            keyboard = [['{:,}'.format(x+10000000).replace(",","."),'{:,}'.format(x+2000000).replace(",","."),'{:,}'.format(x+30000000).replace(",","."),'{:,}'.format(x+50000000).replace(",",".")],
+                        ['{:,}'.format(x+100000000).replace(",","."),"Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
