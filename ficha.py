@@ -363,6 +363,19 @@ def crearFicha(sitio,id,mail,tipoficha):
         if operacion=='venta':
             comunaP=(comuna.replace(' ','-')+'-metropolitana').lower()
             rentaPromedio = reportes.rentaPProm(tipo, float(dormitorios), float(banos), float(estacionamientos), comunaP)
+
+            print("input tasacion ficha")
+            print(tipo)
+            print(float(lat))
+            print(float(lon))
+            print(float(metrosmin))
+            print(float(metrosmax))
+            print(float(dormitorios))
+            print(float(banos))
+            print(float(estacionamientos))
+
+
+
             tasacionVenta = tb2.calcularTasacionData("venta", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
                                                      float(banos), float(estacionamientos), props)
             tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),

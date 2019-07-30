@@ -291,6 +291,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
 def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data):
 
+
     es_venta=operacion=="venta"
     distanciat000=[]
     distanciat00=[]

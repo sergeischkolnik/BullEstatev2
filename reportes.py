@@ -126,7 +126,7 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
 
         if verboso:
             print("----------------------")
-            print("Seleccionando propiedades especificas de portal.")
+            print("Seleccionando propiedades especificas de yapo.")
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
         cur = mariadb_connection.cursor()
 
@@ -1914,6 +1914,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
     if region is not None:
         region = str(region)
+
     else:
         print("Error, debe haber region")
         return
@@ -2112,6 +2113,16 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
+
+                        print("input tasacion reporte")
+                        print(prop[4])
+                        print(prop[10])
+                        print(prop[11])
+                        print(prop[8])
+                        print(prop[9])
+                        print(prop[6])
+                        print(prop[7])
+                        print(prop[12])
 
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
