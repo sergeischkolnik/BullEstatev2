@@ -410,7 +410,7 @@ def id_prop(bot, update):
     """
 
     user = update.message.from_user
-    pm.logger.info("{} está escogiendo sitio de origen.".format(user.first_name))
+    pm.logger.info("{} está escogiendo id o link.".format(user.first_name))
     update.message.reply_text("Ingrese id propiedad, o bien el link de la publicación")
     return pm.SELECT_ID
 def confirm_file(bot, update,client,pro,interna):

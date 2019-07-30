@@ -592,12 +592,14 @@ def id_prop(bot, update):
 
     try:
         client["id_prop"] = int(update.message.text)
+        print("logro calcular int, por lo que es un id y no un link")
         print(client)
         select.confirm_file(bot, update,client)
         print(client)
         return pm.CONFIRM_FILE
     except:
         if (client["sitio"][3:] in update.message.text):
+            print("NO logro calcular int, por lo que es un link y no un id")
             client["link_prop"] = update.message.text
             client["fichapro"]=False
             client["fichainterna"] = False
@@ -605,6 +607,7 @@ def id_prop(bot, update):
             print(client)
             return pm.CONFIRM_FILE
         else:
+            print("NO logro sacar nada")
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.id_prop(bot, update)
             return pm.SELECT_ID
