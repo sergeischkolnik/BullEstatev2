@@ -597,7 +597,7 @@ def id_prop(bot, update):
         print(client)
         return pm.CONFIRM_FILE
     except:
-        if (client["sitio"] in update.message.text):
+        if (client["sitio"][3:] in update.message.text):
             client["link_prop"] = update.message.text
             client["fichapro"]=False
             client["fichainterna"] = False

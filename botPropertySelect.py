@@ -411,7 +411,7 @@ def id_prop(bot, update):
 
     user = update.message.from_user
     pm.logger.info("{} está escogiendo sitio de origen.".format(user.first_name))
-    update.message.reply_text("Seleccionar id propiedad")
+    update.message.reply_text("Ingrese id propiedad, o bien el link de la publicación")
     return pm.SELECT_ID
 def confirm_file(bot, update,client,pro,interna):
     user = update.message.from_user
@@ -444,7 +444,10 @@ def confirm_file(bot, update,client,pro,interna):
     confirmtext=[]
     confirmtext.append("Generar ficha para las siguientes características:")
     confirmtext.append("Sitio de origen:"+client["sitio"])
-    confirmtext.append("ID Propiedad:"+str(client["id_prop"]))
+    if "id_prop" in client:
+        confirmtext.append("ID Propiedad:"+str(client["id_prop"]))
+    else:
+        confirmtext.append("URL Propiedad:" + str(client["link_prop"]))
     confirmtext.append("La Ficha solicitada "+protext+" Incluye Tasación")
     confirmtext.append("La Ficha solicitada "+internatext+" Incluye Datos de contacto de Publicación")
     confirmtext.append("Se enviara al siguiente correo:"+client["mail"])
