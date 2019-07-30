@@ -384,6 +384,9 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             precioV = tasacionVenta[0] * uf.getUf()
             precioA = tasacionArriendo[0]
+            print("el precio tasado de venta inicial es: "+str(precioV))
+            print("el precio tasado de arriendo inicial es: "+str(precioA))
+
 
 
 

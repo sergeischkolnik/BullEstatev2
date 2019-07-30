@@ -2127,6 +2127,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         precioV=tasacionVenta[0]*uf.getUf()
+                        precioA=tasacionArriendo[0]
+
+                        print("el precio tasado de venta inicial es: "+str(precioV))
+                        print("el precio tasado de arriendo inicial es: "+str(precioA))
 
                         if prop[12]<=3:
                             rentaPromedio = rentasPromedios[int(prop[12])]
@@ -2154,7 +2158,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                     print("[GeneradorReportes] La Confianza de la tasación es peor que la requerida")
                                 continue
 
-                        precioA=tasacionArriendo[0]
+
 
 
                         if precioV is None or precioV<0.1:
