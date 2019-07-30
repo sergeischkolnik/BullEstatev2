@@ -19,8 +19,6 @@ def obtenerIdConLink(link,sitio):
     cur.execute(sql)
     id = cur.fetchall()
     if len(id)>0:
-        id=(id[0])
-        print(id[0])
         return id[0]
     else:
         return id
@@ -50,5 +48,6 @@ def connectorFicha(client):
         if len(auxid)==0:
             return "La propiedad buscada no se encuentra en la base de datos"
         else:
-            text = ficha.crearFicha(client["sitio"], auxid, client["mail"], tipoficha)
+            print(auxid[0])
+            text = ficha.crearFicha(client["sitio"], auxid[0], client["mail"], tipoficha)
             return text
