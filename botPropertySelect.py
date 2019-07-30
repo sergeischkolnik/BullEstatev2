@@ -157,7 +157,7 @@ def region(bot, update):
     # Create buttons to slect language:
     keyboard = [["Metropolitana","Valparaíso"],
                 ["Bio-Bio","Coquimbo"],
-                ["Antofagasta","Otro"]
+                ["Antofagasta","Otro"],
                 ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
