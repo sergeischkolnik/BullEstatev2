@@ -36,7 +36,11 @@ def connectorFicha(client):
 
     if "id_prop" in client:
         text=ficha.crearFicha(client["sitio"],client["id_prop"],client["mail"],tipoficha)
+        return text
     else:
         auxid=obtenerIdConLink(client["link_prop"],client["sitio"])
-        text = ficha.crearFicha(client["sitio"], auxid, client["mail"], tipoficha)
-    return text
+        if len(auxid)==0:
+            return "La propiedad buscada no se encuentra en la base de datos"
+        else:
+            text = ficha.crearFicha(client["sitio"], auxid, client["mail"], tipoficha)
+            return text
