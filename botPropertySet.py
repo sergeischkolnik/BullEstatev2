@@ -286,7 +286,7 @@ def region(bot, update):
         return pm.SELECT_REGION
     elif update.message.text == "Atrás":
         client.pop("region")
-        select.operacion(bot,update,client)
+        select.operacion(bot,update)
         return pm.SELECT_OP
     elif update.message.text == "Salir":
         select.menu(bot, update)

@@ -32,8 +32,10 @@ def generarreporte(client):
         client["preciomax"]=client["preciomax"]*ufn
     client["tipo"]= client["tipo"].lower()
     client["operacion"]= client["operacion"].lower()
-    client["operacion"]= client["operacion"][:-1]
-
+    if client["operacion"]=="comprar":
+        client["operacion"]= "venta"
+    else:
+        client["operacion"]= "arriendo"
     reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"], None,None, None,None,client["dormitorios"],client["dormitorios"], client["baños"], client["baños"], None, None, None,None, None, None, None, None, None, client["tipo"], client["operacion"],  client["region"].lower(),[client["region"].lower(),None], None, client["mail"],(client["firstname"]+" "+client["lastname"]),None,client["id"],None,None,None,None,True)
 
 def connectorFicha(client):
