@@ -425,9 +425,12 @@ def crearFicha(sitio,id,mail,tipoficha):
                 if rentaPP < rentaPromedio:
 
                     try:
+                        print("[GeneradorReportes] renta pp muy baja, recalculando precio")
+                        print("precio anterior:"+str(precioV))
                         precioV = precioA * 12 / rentaPromedio
                         rentaV = ((precioV - precio) / precio)
                         rentaPP = (precioA * 12 / precioV)
+                        print("precio nuevo:"+str(precioV))
 
 
                     except:

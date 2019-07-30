@@ -2188,11 +2188,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             continue
 
                         if rentaPP<rentaPromedio:
+                            print("precio anterior:"+str(precioV))
                             if verboso:
                                 print("[GeneradorReportes] renta pp muy baja, recalculando precio")
                             precioV=precioA*12/rentaPromedio
                             rentaV=((precioV-prop[5])/prop[5])
                             rentaPP=(precioA*12/precioV)
+                            print("precio nuevo:"+str(precioV))
                             if verboso:
                                 print("[GeneradorReportes] rentapp: "+str(rentaPP))
 
