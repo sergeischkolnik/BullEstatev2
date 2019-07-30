@@ -53,9 +53,8 @@ def signedup(bot,update):
     global STATE
     client = clientsDict[update.message.from_user.id]
 
-    data=db.registered_data(update.message.from_user.id)
-
     if update.message.text == "Si":
+        data = db.registered_data(update.message.from_user.id)
         client["id"] = update.message.from_user.id
         client["mail"] = data[1]
         client["pass"] = data[2]
@@ -155,7 +154,12 @@ def login(bot,update):
         return pm.LOGIN
     else:
         if db.passvalidation(client["mail"],update.message.text):
-            bot.send_message(chat_id=update.message.chat_id, text="Clave Correcta. Bienvenido")
+            data = db.registered_data(update.message.from_user.id)
+            client["id"] = update.message.from_user.id
+            client["mail"] = data[1]
+            client["pass"] = data[2]
+            client["firstname"] = data[3]
+            client["lastname"] = data[4]
             select.menu(bot, update)
             return pm.MENU
         else:
