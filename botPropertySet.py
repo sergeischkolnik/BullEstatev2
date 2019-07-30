@@ -632,7 +632,7 @@ def confirm_file(bot, update):
         client["fichapro"] = True
         select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
         return pm.CONFIRM_FILE
-    elif update.message.text == "Agregar Contacto Publicador":
+    elif update.message.text == "Agregar Contacto Publicación":
         client["fichainterna"] = True
         select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
         return pm.CONFIRM_FILE
@@ -640,7 +640,7 @@ def confirm_file(bot, update):
         client["fichapro"] = False
         select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
         return pm.CONFIRM_FILE
-    elif update.message.text == "Quitar Contacto Publicador":
+    elif update.message.text == "Quitar Contacto Publicación":
         client["fichainterna"] = False
         select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
         return pm.SELECT_ID
@@ -652,5 +652,5 @@ def confirm_file(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.confirm_file(bot, update, client)
+        select.confirm_file(bot, update, client, client["fichapro"], client["fichainterna"])
         return pm.CONFIRM_FILE

@@ -454,6 +454,6 @@ def confirm_file(bot, update,client,pro,interna):
 
     confirmtext="\n".join(confirmtext)
     print(confirmtext)
-    update.message.reply_text(confirmtext, reply_markup=reply_markup)
+    update.message.reply_text(confirmtext, reply_markup=reply_markup,disable_web_page_preview=True)
 
     return pm.CONFIRM_FILE
