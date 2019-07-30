@@ -643,7 +643,7 @@ def confirm_file(bot, update):
     elif update.message.text == "Quitar Contacto Publicación":
         client["fichainterna"] = False
         select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
-        return pm.SELECT_ID
+        return pm.CONFIRM_FILE
     elif update.message.text == "Atrás":
         select.id_prop(bot, update)
         return pm.SELECT_ID

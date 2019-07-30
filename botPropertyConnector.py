@@ -25,11 +25,11 @@ def obtenerIdConLink(link,sitio):
 
 def connectorFicha(client):
 
-    if not cliente["fichapro"] and not cliente["fichainterna"]:
+    if not client["fichapro"] and not client["fichainterna"]:
         tipoficha=1
-    elif cliente["fichapro"] and not cliente["fichainterna"]:
+    elif client["fichapro"] and not client["fichainterna"]:
         tipoficha=2
-    elif not cliente["fichapro"] and cliente["fichainterna"]:
+    elif not client["fichapro"] and client["fichainterna"]:
         tipoficha=3
     else:
         tipoficha=4
