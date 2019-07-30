@@ -50,7 +50,7 @@ import io
 
 def obtenerProp(id,sitio):
 
-    if (sitio=='portal'):
+    if 'portal' in sitio:
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
         sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link from portalinmobiliario WHERE id2="+str(id)

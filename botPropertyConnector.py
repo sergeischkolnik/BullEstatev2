@@ -18,11 +18,12 @@ def obtenerIdConLink(link,sitio):
         sql = "SELECT id2 from propiedades WHERE link like '%"+str(link)+"%'"
     print(sql)
     cur.execute(sql)
-    link = cur.fetchall()
-    if len(link)>0:
-        return link[0]
+    id = cur.fetchall()
+    if len(id)>0:
+        print(id[0])
+        return id[0]
     else:
-        return link
+        return id
 
 
 def connectorFicha(client):
