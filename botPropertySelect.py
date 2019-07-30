@@ -148,25 +148,31 @@ def operacion(bot, update):
 
     return pm.SELECT_OP
 
-def region(bot, update):
+def region(bot, update,client):
     """
     Main menu function.
     This will display the options from the main menu.
     """
     user = update.message.from_user
     # Create buttons to slect language:
-    keyboard = [["Metropolitana","Valparaíso"],
-                ["Bio-Bio","Coquimbo"],
-                ["Antofagasta","Otro"],
-                ["Atrás", "Salir"]]
+    if "region" not in client:
 
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=True,
-                                       resize_keyboard=True)
+        keyboard = [["Metropolitana","Valparaíso"],
+                    ["Bio-Bio","Coquimbo"],
+                    ["Antofagasta","Otra"],
+                    ["Atrás", "Salir"]]
+
+        reply_markup = ReplyKeyboardMarkup(keyboard,
+                                           one_time_keyboard=True,
+                                           resize_keyboard=True)
 
 
-    pm.logger.info("{} está seleccionando region.".format(user.first_name))
-    update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
+        pm.logger.info("{} está seleccionando region.".format(user.first_name))
+        update.message.reply_text("Seleccionar region", reply_markup=reply_markup)
+
+    else:
+        pm.logger.info("{} está seleccionando region.".format(user.first_name))
+        update.message.reply_text("Ingresar region")
 
     return pm.SELECT_REGION
 
@@ -201,10 +207,10 @@ def comuna(bot,update,client):
         else:
 
             pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
-            update.message.reply_text("Seleccionar Comuna")
+            update.message.reply_text("Ingresar Comuna")
     else:
         pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
-        update.message.reply_text("Seleccionar Comuna")
+        update.message.reply_text("Ingresar Comuna")
 
     return pm.SELECT_COMUNA
 
@@ -289,13 +295,13 @@ def price_range(bot, update,stage):
 
         user = update.message.from_user
         pm.logger.info("{} está en seleccionando precio mínimo.".format(user.first_name))
-        update.message.reply_text("Seleccionar precio mínimo")
+        update.message.reply_text("Ingresar precio mínimo")
 
 
     if stage == "preciomax":
         user = update.message.from_user
         pm.logger.info("{} está en seleccionando precio máximo.".format(user.first_name))
-        update.message.reply_text("Seleccionar precio máximo")
+        update.message.reply_text("Ingresar precio máximo")
 
 
     return pm.SELECT_PRICE_RANGE
@@ -317,44 +323,44 @@ def area_range(bot, update, stage,tip):
         if stage == "metrosmin":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie útil mínima (en m2)")
+            update.message.reply_text("Ingresar superficie útil mínima (en m2)")
 
         if stage == "metrosmax":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie útil máxima (en m2)")
+            update.message.reply_text("Ingresar superficie útil máxima (en m2)")
 
         if stage == "totalmin":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie total mínima (en m2)")
+            update.message.reply_text("Ingresar superficie total mínima (en m2)")
 
         if stage == "totalmax":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie total máxima (en m2)")
+            update.message.reply_text("Ingresar superficie total máxima (en m2)")
 
     if tip == "Casa":
 
         if stage == "metrosmin":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie construída mínima (en m2)")
+            update.message.reply_text("Ingresar superficie construída mínima (en m2)")
 
         if stage == "metrosmax":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie construída máxima (en m2)")
+            update.message.reply_text("Ingresar superficie construída máxima (en m2)")
 
         if stage == "totalmin":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie terreno mínima (en m2)")
+            update.message.reply_text("Ingresar superficie terreno mínima (en m2)")
 
         if stage == "totalmax":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie terreno máxima (en m2)")
+            update.message.reply_text("Ingresar superficie terreno máxima (en m2)")
 
 
 

@@ -233,10 +233,10 @@ def operacion(bot, update):
     print(client)
 
     if update.message.text == "Comprar":
-        select.region(bot,update)
+        select.region(bot,update,client)
         return pm.SELECT_REGION
     elif update.message.text == "Arrendar":
-        select.region(bot, update)
+        select.region(bot,update,client)
         return pm.SELECT_REGION
     elif update.message.text == "Atrás":
         client.pop("operacion")
@@ -279,18 +279,18 @@ def region(bot, update):
         select.comuna(bot, update,client)
         return pm.SELECT_COMUNA
     elif update.message.text == "Otra":
-        select.comuna(bot, update,client)
-        return pm.SELECT_COMUNA
+        select.region(bot, update,client)
+        return pm.SELECT_REGION
     elif update.message.text == "Atrás":
         client.pop("region")
-        select.operacion(bot, update)
+        select.operacion(bot,update,client)
         return pm.SELECT_OP
     elif update.message.text == "Salir":
         select.menu(bot, update)
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.region(bot, update)
+        select.region(bot,update,client)
         return pm.SELECT_REGION
 
 
