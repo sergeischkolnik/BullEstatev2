@@ -138,7 +138,7 @@ def login(bot,update):
     print(client)
     client["id"] = update.message.chat_id
     if "countfail" not in client:
-        client["countfail"]=4
+        client["countfail"]=3
     if "mail" not in client and '@' in update.message.text and '.' in update.message.text:
         if db.isregistered(update.message.text):
             client["mail"]=update.message.text
@@ -159,14 +159,16 @@ def login(bot,update):
             select.menu(bot, update)
             return pm.MENU
         else:
-            if client["countfail"]>=0:
-                client["countfail"]=client["countfail"]-1
+            if client["countfail"]>0:
+
                 bot.send_message(chat_id=update.message.chat_id, text="Clave Inorrecta. Re-intente por favor")
                 bot.send_message(chat_id=update.message.chat_id, text="Le quedan "+str(client["countfail"])+" intentos")
+                client["countfail"] = client["countfail"] - 1
                 select.login(bot, update,client)
                 return pm.LOGIN
             else:
                 bot.send_message(chat_id=update.message.chat_id, text="Se Han Agotado los intentos")
+                client.clear()
                 select.first(bot,update)
                 return pm.FIRST
 
