@@ -278,6 +278,9 @@ def region(bot, update):
     elif update.message.text == "Antofagasta":
         select.comuna(bot, update,client)
         return pm.SELECT_COMUNA
+    elif str(update.message.text).lower() in ["arica","iquique","atacama","ohiggins","maule","ñuble","araucanía","los ríos","los lagos","aysen","magallanes"]:
+        select.comuna(bot, update,client)
+        return pm.SELECT_COMUNA
     elif update.message.text == "Otra":
         select.region(bot, update,client)
         return pm.SELECT_REGION

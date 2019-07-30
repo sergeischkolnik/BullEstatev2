@@ -172,7 +172,7 @@ def region(bot, update,client):
 
     else:
         pm.logger.info("{} está seleccionando region.".format(user.first_name))
-        update.message.reply_text("Ingresar region")
+        update.message.reply_text("Favor ingresar una de las siguientes opciones:\nArica\nIquique\nAtacama\nOhiggins\nMaule\nÑuble\nAraucanía\nLos Ríos\nLos Lagos\nAysen\nMagallanes")
 
     return pm.SELECT_REGION
 
