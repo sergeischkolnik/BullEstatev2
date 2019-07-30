@@ -43,7 +43,7 @@ def connectorFicha(client):
         auxlink = str(client["link_prop"])
         if "https" in auxlink:
             print(auxlink)
-            auxlink.replace('https','http')
+            auxlink= auxlink.replace('https','http')
             print(auxlink)
         auxid=obtenerIdConLink(auxlink,client["sitio"])
         if len(auxid)==0:
