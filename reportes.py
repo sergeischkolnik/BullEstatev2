@@ -40,7 +40,7 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
     cur.execute(sql)
     arriendo = cur.fetchall()
     cur = mariadb_connection.cursor()
-    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
     cur.execute(sql)
     venta = cur.fetchall()
     arriendo=sorted(arriendo)
