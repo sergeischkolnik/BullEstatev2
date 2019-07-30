@@ -345,7 +345,7 @@ def tipo(bot, update):
         return pm.SELECT_DORMS
     elif update.message.text == "Atrás":
         client.pop("tipo")
-        select.comuna(bot, update,client["region"])
+        select.comuna(bot, update,client)
         return pm.SELECT_COMUNA
     elif update.message.text == "Salir":
         select.menu(bot, update)
@@ -397,7 +397,7 @@ def baths(bot, update):
     print(client)
 
     if update.message.text == "1" or update.message.text == "2" or update.message.text == "3" or update.message.text == "4+":
-        select.price_range(bot,update,"moneda")
+        select.price_range(bot,update,client)
         return pm.SELECT_PRICE_RANGE
     elif update.message.text == "Atrás":
         client.pop("baños")
@@ -418,36 +418,41 @@ def price_range(bot, update):
     """
     # Set state:
     global STATE
-
     # set client
     client = clientsDict[update.message.from_user.id]
-    if "moneda" not in client:
-        client["moneda"] = update.message.text
-        if update.message.text == "UF":
-            select.price_range(bot, update, "preciomin")
-            return pm.SELECT_PRICE_RANGE
-        elif update.message.text == "Pesos":
-            select.price_range(bot, update, "preciomin")
-            return pm.SELECT_PRICE_RANGE
-        elif update.message.text == "Atrás":
-            client.pop("moneda")
-            client.pop("preciomin")
-            client.pop("preciomax")
+
+    if update.message.text == "Atrás":
+            if "moneda" in client:
+                client.pop("moneda")
+            if "preciomin" in client:
+                client.pop("preciomin")
+            if "preciomax" in client:
+                client.pop("preciomax")
             select.tipo(bot, update)
             return pm.SELECT_TIPO
-        elif update.message.text == "Salir":
+    elif update.message.text == "Salir":
             select.menu(bot, update)
             return pm.MENU
+    elif "moneda" not in client:
+        client["moneda"] = update.message.text
+        if update.message.text == "UF":
+            select.price_range(bot, update,client)
+            return pm.SELECT_PRICE_RANGE
+        elif update.message.text == "Pesos":
+            select.price_range(bot, update,client)
+            return pm.SELECT_PRICE_RANGE
+
+
 
     elif "preciomin" not in client:
         try:
             client["preciomin"]=int(update.message.text)
-            select.price_range(bot, update, "preciomax")
+            select.price_range(bot, update,client)
             print(client)
             return pm.SELECT_PRICE_RANGE
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-            select.price_range(bot, update, "preciomin")
+            select.price_range(bot, update, client)
             return pm.SELECT_PRICE_RANGE
 
     else:
@@ -458,7 +463,7 @@ def price_range(bot, update):
             return pm.SELECT_AREA_RANGE
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-            select.price_range(bot, update, "preciomax")
+            select.price_range(bot, update, client)
             return pm.SELECT_PRICE_RANGE
 
 

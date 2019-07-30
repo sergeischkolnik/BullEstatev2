@@ -265,7 +265,7 @@ def baths(bot,update):
 
     return pm.SELECT_BATHS
 
-def price_range(bot, update,stage):
+def price_range(bot, update,client):
     global STATE
     """
     Main menu function.
@@ -273,9 +273,8 @@ def price_range(bot, update,stage):
     """
     # Create buttons to slect language:
     print("entro al select de pricerange")
-    print("esta en stage: "+stage
-          )
-    if stage=="moneda":
+
+    if "moneda" not in client:
 
         user = update.message.from_user
 
@@ -289,22 +288,78 @@ def price_range(bot, update,stage):
 
         pm.logger.info("{} está seleccionando moneda.".format(user.first_name))
         update.message.reply_text("Seleccionar Moneda", reply_markup=reply_markup)
+        return pm.SELECT_PRICE_RANGE
 
+    elif "preciomin" not in client:
+        if client["moneda"]=="UF":
+            user = update.message.from_user
 
-    if stage=="preciomin":
+            keyboard = [["0","1000","2000","3000","4000","5000"],
+                        ["7000","10000","15000","Otro","Atrás","Salir"]]
 
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está seleccionando moneda.".format(user.first_name))
+            update.message.reply_text("Seleccionar Precio Mínimo en UF", reply_markup=reply_markup)
+            return pm.SELECT_PRICE_RANGE
+
+        else:
+            user = update.message.from_user
+
+            print("entro al if de moneda")
+            keyboard = [["0","25.000.000","50.000.000","100.000.000"],
+                        ["150.000.000","200.000.000","Otro","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está seleccionando moneda.".format(user.first_name))
+            update.message.reply_text("Seleccionar Precio Mínimo en Pesos", reply_markup=reply_markup)
+            return pm.SELECT_PRICE_RANGE
+
+    elif client["preciomin"]=="Otro":
         user = update.message.from_user
         pm.logger.info("{} está en seleccionando precio mínimo.".format(user.first_name))
         update.message.reply_text("Ingresar precio mínimo")
+        return pm.SELECT_PRICE_RANGE
 
+    elif "preciomax" not in client:
+        if client["moneda"]=="UF":
+            user = update.message.from_user
+            x=client["preciomin"]
+            keyboard = [[str(x+1000),str(x+2000),str(x+3000),str(x+4000),str(x+5000)],
+                        [str(x+7000),str(x+10000),"Otro","Atrás","Salir"]]
 
-    if stage == "preciomax":
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está seleccionando moneda.".format(user.first_name))
+            update.message.reply_text("Seleccionar Precio Máximo en UF", reply_markup=reply_markup)
+            return pm.SELECT_PRICE_RANGE
+        else:
+            user = update.message.from_user
+            x=client["preciomin"]
+            keyboard = [[str(x+10000000),str(x+2000000),str(x+30000000),str(x+50000000)],
+                        [str(x+100000000),"Otro","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está seleccionando moneda.".format(user.first_name))
+            update.message.reply_text("Seleccionar Precio Máximo en Pesos", reply_markup=reply_markup)
+            return pm.SELECT_PRICE_RANGE
+    elif client["preciomax"]=="Otro":
         user = update.message.from_user
         pm.logger.info("{} está en seleccionando precio máximo.".format(user.first_name))
         update.message.reply_text("Ingresar precio máximo")
+        return pm.SELECT_PRICE_RANGE
 
 
-    return pm.SELECT_PRICE_RANGE
 
 def area_range(bot, update, stage,tip):
     global STATE
