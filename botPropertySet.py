@@ -605,18 +605,26 @@ def id_prop(bot, update):
         return pm.SELECT_SITE
 
     except:
-        if (client["sitio"][3:] in update.message.text):
+        if "portalinmobiliario.com" in update.message.text:
+            client["sitio"] = "www.portalinmobiliario.com"
             print("NO logro calcular int, por lo que es un link y no un id")
             client["link_prop"] = update.message.text
             client["fichapro"]=False
             client["fichainterna"] = False
-            if "portalinmobiliario.com" in update.message.text:
-                client["sitio"] = "www.portalinmobiliario.com"
-            else:
-                client["sitio"] = "www.yapo.cl"
             select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
             print(client)
             return pm.CONFIRM_FILE
+        elif "yapo.cl" in update.message.text:
+            client["sitio"] = "www.yapo.cl"
+            print("NO logro calcular int, por lo que es un link y no un id")
+            client["link_prop"] = update.message.text
+            client["fichapro"]=False
+            client["fichainterna"] = False
+            select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+            print(client)
+            return pm.CONFIRM_FILE
+
+
         else:
             print("NO logro sacar nada")
             bot.send_message(chat_id=update.message.chat_id, text="Si usted inentó ingresar un id, debe ser un número entero. Si usted intentó ingresar un link, debe ser válido. ")
