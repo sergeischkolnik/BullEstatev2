@@ -40,7 +40,7 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
     cur.execute(sql)
     arriendo = cur.fetchall()
     cur = mariadb_connection.cursor()
-    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
     cur.execute(sql)
     venta = cur.fetchall()
     arriendo=sorted(arriendo)
@@ -53,8 +53,9 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
     maxventa=int(lventa*0.9)
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
-    print("para la rentabilidad, usara esta cantidad de ARRIENDOS: "+str(len(arriendo)))
-    print("para la rentabilidad, usara esta cantidad de VENTAS: "+str(len(venta)))
+    if estacionamientos==0:
+        print("para la rentabilidad, usara esta cantidad de ARRIENDOS: "+str(len(arriendo)))
+        print("para la rentabilidad, usara esta cantidad de VENTAS: "+str(len(venta)))
     sumarriendo=0
     sumventa=0
     for i in arriendo:
