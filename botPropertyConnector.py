@@ -40,7 +40,11 @@ def connectorFicha(client):
         text=ficha.crearFicha(client["sitio"],client["id_prop"],client["mail"],tipoficha)
         return text
     else:
-        auxid=obtenerIdConLink(client["link_prop"],client["sitio"])
+        auxlink = client["link_prop"]
+        if "https" in auxlink:
+            auxlink=client["link_prop"]
+            auxlink.replace('https','http')
+        auxid=obtenerIdConLink(auxlink,client["sitio"])
         if len(auxid)==0:
             return "La propiedad buscada no se encuentra en la base de datos"
         else:
