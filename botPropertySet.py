@@ -592,16 +592,22 @@ def id_prop(bot, update):
 
     try:
         client["id_prop"] = int(update.message.text)
-        print("paso test de int")
         print(client)
         select.confirm_file(bot, update,client)
-        print("paso test de select confirm")
         print(client)
         return pm.CONFIRM_FILE
     except:
-        bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-        select.id_prop(bot, update)
-        return pm.SELECT_ID
+        if (client["sitio"] in update.message.text):
+            client["link_prop"] = update.message.text
+            client["fichapro"]=False
+            client["fichainterna"] = False
+            select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+            print(client)
+            return pm.CONFIRM_FILE
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.id_prop(bot, update)
+            return pm.SELECT_ID
 
 
 def confirm_file(bot, update):
@@ -612,8 +618,7 @@ def confirm_file(bot, update):
     # set client
     client = clientsDict[update.message.from_user.id]
 
-    if update.message.text == "SI":
-
+    if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
         text=connector.connectorFicha(client)
         bot.send_message(chat_id=update.message.chat_id, text=text)
@@ -621,11 +626,25 @@ def confirm_file(bot, update):
         return pm.MENU
     elif update.message.text == "Modificar":
         bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
-        select.confirm_report(bot, update, client)
-        return pm.CONFIRM_REPORT
-
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        return pm.CONFIRM_FILE
+    elif update.message.text == "Agregar Tasación":
+        client["fichapro"] = True
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        return pm.CONFIRM_FILE
+    elif update.message.text == "Agregar Contacto Publicador":
+        client["fichainterna"] = True
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        return pm.CONFIRM_FILE
+    elif update.message.text == "Quitar Tasación":
+        client["fichapro"] = False
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        return pm.CONFIRM_FILE
+    elif update.message.text == "Quitar Contacto Publicador":
+        client["fichainterna"] = False
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        return pm.SELECT_ID
     elif update.message.text == "Atrás":
-
         select.id_prop(bot, update)
         return pm.SELECT_ID
     elif update.message.text == "Salir":

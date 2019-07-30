@@ -413,10 +413,26 @@ def id_prop(bot, update):
     pm.logger.info("{} está escogiendo sitio de origen.".format(user.first_name))
     update.message.reply_text("Seleccionar id propiedad")
     return pm.SELECT_ID
-def confirm_file(bot, update,client):
+def confirm_file(bot, update,client,pro,interna):
     user = update.message.from_user
 
-    keyboard = [["SI","Modificar"],
+    if pro:
+        probutton="Quitar"
+        protext="Si"
+    else:
+        probutton="Agregar"
+        protext = "No"
+    if interna:
+        internabutton="Quitar"
+        internatext="Si"
+    else:
+        internabutton="Agregar"
+        internatext="No"
+
+
+    keyboard = [["Confirmar","Modificar"],
+                [probutton+" Tasación"],
+                [internabutton+" Contacto Publicación"],
                 ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -429,6 +445,8 @@ def confirm_file(bot, update,client):
     confirmtext.append("Generar ficha para las siguientes características:")
     confirmtext.append("Sitio de origen:"+client["sitio"])
     confirmtext.append("ID Propiedad:"+str(client["id_prop"]))
+    confirmtext.append("La Ficha solicitada "+protext+" Incluye Tasación")
+    confirmtext.append("La Ficha solicitada "+internatext+" Incluye Datos de contacto de Publicación")
     confirmtext.append("Se enviara al siguiente correo:"+client["mail"])
 
     confirmtext="\n".join(confirmtext)
