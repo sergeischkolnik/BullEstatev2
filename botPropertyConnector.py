@@ -4,6 +4,7 @@ import botPropertyMain
 import botPropertySelect
 import ficha
 import reportes
+import pymysql as mysql
 
 def obtenerIdConLink(link,sitio):
 
@@ -25,14 +26,14 @@ def obtenerIdConLink(link,sitio):
 
 def connectorFicha(client):
 
-    if not client["fichapro"] and not client["fichainterna"]:
-        tipoficha=1
+    if client["fichapro"] and client["fichainterna"]:
+        tipoficha=4
     elif client["fichapro"] and not client["fichainterna"]:
         tipoficha=2
     elif not client["fichapro"] and client["fichainterna"]:
         tipoficha=3
     else:
-        tipoficha=4
+        tipoficha=1
 
     if "id_prop" in client:
         text=ficha.crearFicha(client["sitio"],client["id_prop"],client["mail"],tipoficha)
