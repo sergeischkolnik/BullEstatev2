@@ -43,7 +43,9 @@ def connectorFicha(client):
         if "https" in auxlink:
             print(auxlink)
             auxlink= auxlink.replace('https','http')
-            print(auxlink)
+        auxlink=auxlink.split('?')
+        auxlink=auxlink[0]
+        print(auxlink)
         auxid=obtenerIdConLink(auxlink,client["sitio"])
         if len(auxid)==0:
             return "La propiedad buscada no se encuentra en la base de datos"
