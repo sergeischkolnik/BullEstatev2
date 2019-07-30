@@ -538,6 +538,8 @@ def confirm_report(bot,update):
 
     if update.message.text == "SI":
         #generar reporte para cliente, enviar al correo correspondiente
+        bot.send_message(chat_id=update.message.chat_id, text="Se está generando el reporte")
+        connector.generarreporte(client)
         bot.send_message(chat_id=update.message.chat_id, text="Reporte generado y enviado exitosamente al correo: "+(client["mail"])+".")
 
         select.menu(bot, update)
