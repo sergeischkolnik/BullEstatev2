@@ -53,6 +53,8 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
     maxventa=int(lventa*0.9)
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
+    print("para la rentabilidad, usara esta cantidad de ARRIENDOS: "+str(len(arriendo)))
+    print("para la rentabilidad, usara esta cantidad de VENTAS: "+str(len(venta)))
     sumarriendo=0
     sumventa=0
     for i in arriendo:
@@ -2012,6 +2014,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                 if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
                     for est in range(0,4):
+                        print("la comuna para calcular la rentabilidad promedio es:")
+                        print(comuna)
                         rentaPromedio = rentaPProm(tipo, d, b, est, comuna)
                         rentasPromedios.append(rentaPromedio)
                         if verboso:

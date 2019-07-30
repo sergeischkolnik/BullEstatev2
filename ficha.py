@@ -362,6 +362,8 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         if operacion=='venta':
             comunaP=(comuna.replace(' ','-')+'-metropolitana').lower()
+            print("la comuna para calcular la rentabilidad promedio es:")
+            print(comunaP)
             rentaPromedio = reportes.rentaPProm(tipo, float(dormitorios), float(banos), float(estacionamientos), comunaP)
 
             print("input tasacion ficha")
