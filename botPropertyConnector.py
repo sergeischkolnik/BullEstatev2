@@ -11,11 +11,12 @@ def obtenerIdConLink(link,sitio):
     if (sitio=='portal'):
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
-        sql = "SELECT id2 from portalinmobiliario WHERE link="+str(link)
+        sql = "SELECT id2 from portalinmobiliario WHERE link='"+str(link)+"'"
     else:
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
         cur = mariadb_connection.cursor()
-        sql = "SELECT id2 from propiedades WHERE link="+str(link)
+        sql = "SELECT id2 from propiedades WHERE link='"+str(link)+"'"
+    print(sql)
     cur.execute(sql)
     link = cur.fetchall()
     if len(link)>0:
