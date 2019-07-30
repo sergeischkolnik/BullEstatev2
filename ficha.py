@@ -58,6 +58,7 @@ def obtenerProp(id,sitio):
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
         cur = mariadb_connection.cursor()
         sql = "SELECT titulo,idregion,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,estacionamientos,estacionamientos,lat,lon,link,comuna from propiedades WHERE id2="+str(id)
+    print(sql)
     cur.execute(sql)
     propiedad = cur.fetchall()
     if len(propiedad)>0:

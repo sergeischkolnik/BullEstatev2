@@ -16,10 +16,10 @@ def obtenerIdConLink(link,sitio):
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
         cur = mariadb_connection.cursor()
         sql = "SELECT id2 from propiedades WHERE link like '%"+str(link)+"%'"
-    print(sql)
     cur.execute(sql)
     id = cur.fetchall()
     if len(id)>0:
+        id=(id[0])
         print(id[0])
         return id[0]
     else:
