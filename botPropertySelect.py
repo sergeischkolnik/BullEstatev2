@@ -156,6 +156,8 @@ def region(bot, update):
     user = update.message.from_user
     # Create buttons to slect language:
     keyboard = [["Metropolitana","Valparaíso"],
+                ["Bio-Bio","Coquimbo"],
+                ["Antofagasta","Otro"]
                 ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -168,24 +170,41 @@ def region(bot, update):
 
     return pm.SELECT_REGION
 
-def comuna(bot,update,region):
+def comuna(bot,update,client):
 
     user = update.message.from_user
+    if "comuna" not in client:
+        if client["region"] == "Metropolitana":
+            keyboard = [["Las Condes","Providencia"],
+                        ["Ñuñoa","Santiago Centro"],
+                        ["San Miguel","Otra"],
+                        ["Atrás", "Salir"]]
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
 
-    if region == "Metropolitana":
-        keyboard = [["Las Condes","Providencia"],
-                    ["Atrás", "Salir"]]
+            pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
+            update.message.reply_text("Seleccionar Comuna", reply_markup=reply_markup)
 
-    elif region == "Valparaíso":
-        keyboard = [["Valparaíso","Viña del Mar"],
-                    ["Atrás", "Salir"]]
+        elif client["region"] == "Valparaíso":
+            keyboard = [["Valparaíso","Viña del Mar"],
+                        ["Quilpue","Concon"],
+                        ["Quillota","Otra"],
+                        ["Atrás", "Salir"]]
 
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=True,
-                                       resize_keyboard=True)
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
 
-    pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
-    update.message.reply_text("Seleccionar Comuna", reply_markup=reply_markup)
+            pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
+            update.message.reply_text("Seleccionar Comuna", reply_markup=reply_markup)
+        else:
+
+            pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
+            update.message.reply_text("Seleccionar Comuna")
+    else:
+        pm.logger.info("{} está seleccionando comuna.".format(user.first_name))
+        update.message.reply_text("Seleccionar Comuna")
 
     return pm.SELECT_COMUNA
 

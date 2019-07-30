@@ -264,10 +264,22 @@ def region(bot, update):
     print(client)
 
     if update.message.text == "Metropolitana":
-        select.comuna(bot,update,client["region"])
+        select.comuna(bot,update,client)
         return pm.SELECT_COMUNA
     elif update.message.text == "Valparaíso":
-        select.comuna(bot, update,client["region"])
+        select.comuna(bot, update,client)
+        return pm.SELECT_COMUNA
+    elif update.message.text == "Bio-Bio":
+        select.comuna(bot, update,client)
+        return pm.SELECT_COMUNA
+    elif update.message.text == "Coquimbo":
+        select.comuna(bot, update,client)
+        return pm.SELECT_COMUNA
+    elif update.message.text == "Antofagasta":
+        select.comuna(bot, update,client)
+        return pm.SELECT_COMUNA
+    elif update.message.text == "Otra":
+        select.comuna(bot, update,client)
         return pm.SELECT_COMUNA
     elif update.message.text == "Atrás":
         client.pop("region")
@@ -299,6 +311,9 @@ def comuna(bot, update):
         client.pop("comuna")
         select.region(bot, update)
         return pm.SELECT_REGION
+    if update.message.text == "Otra":
+        select.comuna(bot, update,client)
+        return pm.SELECT_COMUNA
     elif update.message.text == "Salir":
         select.menu(bot, update)
         return pm.MENU
