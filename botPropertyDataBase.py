@@ -65,7 +65,9 @@ def passvalidation(mail,clave):
     cur.execute(sql)
     password = cur.fetchall()
     mariadb_connection.close()
-    if len(password)>0 and password[0]==clave:
+
+    password=password[0]
+    if len(password)>0 and clave in password[0]:
         return True
     else:
         return False
