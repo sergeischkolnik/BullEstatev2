@@ -8,7 +8,7 @@ import pymysql as mysql
 
 def obtenerIdConLink(link,sitio):
 
-    if (sitio=='portal'):
+    if (sitio=='www.portalinmobiliario.com'):
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
         cur = mariadb_connection.cursor()
         sql = "SELECT id2 from portalinmobiliario WHERE link='"+str(link)+"'"
