@@ -40,7 +40,7 @@ def connectorFicha(client):
         return text
     else:
         auxlink = str(client["link_prop"])
-        if "https" in auxlink:
+        if "https" in auxlink and client["sitio"]=="www.portalinmobiliario.com":
             print(auxlink)
             auxlink= auxlink.replace('https','http')
         auxlink=auxlink.split('?')
