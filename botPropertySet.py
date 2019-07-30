@@ -180,8 +180,17 @@ def menu(bot, update):
     # Set state:
     global STATE
 
-    #set client
+    #Reset client
     client = clientsDict[update.message.from_user.id]
+    auxid=client["id"]
+    auxmail=client["mail"]
+    auxfirstname=client["firstname"]
+    auxlastname=client["lastname"]
+    client.clear()
+    client["id"]=auxid
+    client["mail"]=auxmail
+    client["firstname"]=auxfirstname
+    client["lastname"]=auxlastname
 
     client["product"] = update.message.text
     print(client)
@@ -224,6 +233,7 @@ def operacion(bot, update):
         select.region(bot, update)
         return pm.SELECT_REGION
     elif update.message.text == "Atrás":
+        client.pop("operacion")
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Salir":
@@ -254,6 +264,7 @@ def region(bot, update):
         select.comuna(bot, update,client["region"])
         return pm.SELECT_COMUNA
     elif update.message.text == "Atrás":
+        client.pop("region")
         select.operacion(bot, update)
         return pm.SELECT_OP
     elif update.message.text == "Salir":
@@ -279,6 +290,7 @@ def comuna(bot, update):
 
     #Agregar validacion viendo si es parte de una lista
     if update.message.text == "Atrás":
+        client.pop("comuna")
         select.region(bot, update)
         return pm.SELECT_REGION
     elif update.message.text == "Salir":
@@ -308,6 +320,7 @@ def tipo(bot, update):
         select.dorms(bot, update)
         return pm.SELECT_DORMS
     elif update.message.text == "Atrás":
+        client.pop("tipo")
         select.comuna(bot, update,client["region"])
         return pm.SELECT_COMUNA
     elif update.message.text == "Salir":
@@ -335,6 +348,7 @@ def dorms(bot, update):
         select.baths(bot,update)
         return pm.SELECT_BATHS
     elif update.message.text == "Atrás":
+        client.pop("dormitorios")
         select.tipo(bot, update)
         return pm.SELECT_TIPO
     elif update.message.text == "Salir":
@@ -362,6 +376,7 @@ def baths(bot, update):
         select.price_range(bot,update,"moneda")
         return pm.SELECT_PRICE_RANGE
     elif update.message.text == "Atrás":
+        client.pop("baños")
         select.dorms(bot, update)
         return pm.SELECT_DORMS
     elif update.message.text == "Salir":
@@ -391,6 +406,9 @@ def price_range(bot, update):
             select.price_range(bot, update, "preciomin")
             return pm.SELECT_PRICE_RANGE
         elif update.message.text == "Atrás":
+            client.pop("moneda")
+            client.pop("preciomin")
+            client.pop("preciomax")
             select.tipo(bot, update)
             return pm.SELECT_TIPO
         elif update.message.text == "Salir":
@@ -492,11 +510,7 @@ def confirm_report(bot,update):
     if update.message.text == "SI":
         #generar reporte para cliente, enviar al correo correspondiente
         bot.send_message(chat_id=update.message.chat_id, text="Reporte generado y enviado exitosamente al correo: "+(client["mail"])+".")
-        client.pop("metrosmin")
-        client.pop("metrosmax")
-        client.pop("moneda")
-        client.pop("preciomin")
-        client.pop("preciomax")
+
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Modificar":
@@ -549,6 +563,7 @@ def site(bot, update):
         select.id_prop(bot, update)
         return pm.SELECT_ID
     elif update.message.text == "Atrás":
+        client.pop("site")
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Salir":
