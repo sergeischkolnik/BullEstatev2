@@ -205,8 +205,8 @@ def menu(bot, update):
         select.operacion(bot, update)
         return pm.SELECT_OP
     elif update.message.text == "Ficha":
-        select.site(bot, update)
-        return pm.SELECT_SITE
+        select.id_prop(bot, update)
+        return pm.SELECT_ID
     elif update.message.text == "Ayuda":
         select.menu(bot, update)
         return pm.MENU
@@ -563,15 +563,22 @@ def site(bot, update):
 
     user = update.message.from_user
     if update.message.text == "www.portalinmobiliario.com":
-        select.id_prop(bot,update)
-        return pm.SELECT_ID
+        client["fichapro"]=False
+        client["fichainterna"] = False
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        print(client)
+        return pm.CONFIRM_FILE
     if update.message.text == "www.yapo.cl":
         select.id_prop(bot, update)
-        return pm.SELECT_ID
+        client["fichapro"]=False
+        client["fichainterna"] = False
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        print(client)
+        return pm.CONFIRM_FILE
     elif update.message.text == "Atrás":
         client.pop("site")
-        select.menu(bot, update)
-        return pm.MENU
+        select.id_prop(bot, update)
+        return pm.SELECT_ID
     elif update.message.text == "Salir":
         select.menu(bot, update)
         return pm.MENU
@@ -594,17 +601,19 @@ def id_prop(bot, update):
         client["id_prop"] = int(update.message.text)
         print("logro calcular int, por lo que es un id y no un link")
         print(client)
-        client["fichapro"]=False
-        client["fichainterna"] = False
-        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
-        print(client)
-        return pm.CONFIRM_FILE
+        select.site(bot,update)
+        return pm.SELECT_SITE
+
     except:
         if (client["sitio"][3:] in update.message.text):
             print("NO logro calcular int, por lo que es un link y no un id")
             client["link_prop"] = update.message.text
             client["fichapro"]=False
             client["fichainterna"] = False
+            if "portalinmobiliario.com" in update.message.text:
+                client["sitio"] = "www.portalinmobiliario.com"
+            else:
+                client["sitio"] = "www.yapo.cl"
             select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
             print(client)
             return pm.CONFIRM_FILE
