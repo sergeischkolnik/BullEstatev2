@@ -446,7 +446,7 @@ def price_range(bot, update):
 
     elif "preciomin" not in client:
         try:
-            client["preciomin"]=int(update.message.text)
+            client["preciomin"]=int(update.message.text.replace('.',''))
             select.price_range(bot, update,client)
             print(client)
             return pm.SELECT_PRICE_RANGE
@@ -457,7 +457,7 @@ def price_range(bot, update):
 
     else:
         try:
-            client["preciomax"] = int(update.message.text)
+            client["preciomax"] = int(update.message.text.replace('.',''))
             select.area_range(bot, update, "metrosmin",client["tipo"])
             print(client)
             return pm.SELECT_AREA_RANGE
