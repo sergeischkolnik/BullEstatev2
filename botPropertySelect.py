@@ -815,11 +815,11 @@ def confirm_tasacion(bot, update,client):
     confirmtext.append("Dormitorios: "+client["dormitorios"])
     confirmtext.append("Baños: "+client["baños"])
     if client["tipo"]=="Departamento":
-        confirmtext.append("Superficie: "+str(client["metro"])+"m2 útiles")
+        confirmtext.append("Superficie: "+str(client["metros"])+"m2 útiles")
         confirmtext.append("Superficie: "+str(client["total"])+"m2 totales")
     if client["tipo"]=="Casa":
-        confirmtext.append("Superficie: "+str(client["metrosmin"])+"m2 construidos")
-        confirmtext.append("Superficie: "+str(client["totalmin"])+"m2 de terreno")
+        confirmtext.append("Superficie: "+str(client["metros"])+"m2 construidos")
+        confirmtext.append("Superficie: "+str(client["total"])+"m2 de terreno")
     confirmtext.append("Dirección: "+client["adress"])
 
 
