@@ -519,7 +519,7 @@ def area_range(bot, update):
         select.price_range(bot, update,client)
         return pm.SELECT_PRICE_RANGE
 
-    elif "metrosmin" not in client:
+    elif "metrosmin" not in client or client["metrosmin"]=="Otra":
         try:
             client["metrosmin"] = int(update.message.text)
             select.area_range(bot, update, client)
@@ -530,7 +530,7 @@ def area_range(bot, update):
             select.area_range(bot, update, client)
             return pm.SELECT_AREA_RANGE
 
-    elif "metrosmax" not in client or client["metrosmin"]=="Otra":
+    elif "metrosmax" not in client or client["metrosmax"]=="Otra":
         try:
             client["metrosmax"] = int(update.message.text)
             if client["tipo"]=="Departamento" or client["tipo"]=="Casa":
