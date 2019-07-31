@@ -91,3 +91,7 @@ def connectorFicha(client):
             print(auxid[0])
             text = ficha.crearFicha(client["sitio"], auxid[0], client["mail"], tipoficha)
             return text
+
+def tasador(client):
+
+    return ("va tasacion")

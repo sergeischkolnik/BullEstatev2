@@ -202,7 +202,10 @@ def menu(bot, update):
     print(client)
 
     if update.message.text == "Reporte":
-        select.operacion(bot, update)
+        select.operacion(bot, update,client)
+        return pm.SELECT_OP
+    elif update.message.text == "Tasador":
+        select.operacion(bot, update,client)
         return pm.SELECT_OP
     elif update.message.text == "Ficha":
         select.id_prop(bot, update)
@@ -238,6 +241,12 @@ def operacion(bot, update):
     elif update.message.text == "Arrendar":
         select.region(bot,update,client)
         return pm.SELECT_REGION
+    elif update.message.text == "Venta":
+        select.region(bot,update,client)
+        return pm.SELECT_REGION
+    elif update.message.text == "Arriendo":
+        select.region(bot,update,client)
+        return pm.SELECT_REGION
     elif update.message.text == "Atrás":
         client.pop("operacion")
         select.menu(bot, update)
@@ -247,7 +256,7 @@ def operacion(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.operacion(bot, update)
+        select.operacion(bot, update,client)
         return pm.SELECT_OP
 
 
@@ -286,7 +295,7 @@ def region(bot, update):
         return pm.SELECT_REGION
     elif update.message.text == "Atrás":
         client.pop("region")
-        select.operacion(bot,update)
+        select.operacion(bot,update,client)
         return pm.SELECT_OP
     elif update.message.text == "Salir":
         select.menu(bot, update)
@@ -312,7 +321,7 @@ def comuna(bot, update):
     #Agregar validacion viendo si es parte de una lista
     if update.message.text == "Atrás":
         client.pop("comuna")
-        select.region(bot, update)
+        select.region(bot, update,client)
         return pm.SELECT_REGION
     if update.message.text == "Otra":
         select.comuna(bot, update,client)
@@ -346,8 +355,9 @@ def tipo(bot, update):
     elif update.message.text == "Atrás":
         client.pop("tipo")
         client.pop("comuna")
-        select.comuna(bot, update,client)
-        return pm.SELECT_COMUNA
+        client.pop("region")
+        select.region(bot, update,client)
+        return pm.SELECT_REGION
     elif update.message.text == "Salir":
         select.menu(bot, update)
         return pm.MENU
@@ -398,8 +408,12 @@ def baths(bot, update):
     print(client)
 
     if update.message.text == "1" or update.message.text == "2" or update.message.text == "3" or update.message.text == "4+":
-        select.price_range(bot,update,client)
-        return pm.SELECT_PRICE_RANGE
+        if client["product"]=="Reporte":
+            select.price_range(bot,update,client)
+            return pm.SELECT_PRICE_RANGE
+        else:
+            select.area(bot,update,client)
+            return pm.SELECT_AREA
     elif update.message.text == "Atrás":
         client.pop("baños")
         select.dorms(bot, update)
@@ -426,23 +440,23 @@ def price_range(bot, update):
         if "preciomax" in client:
             client.pop("preciomax")
             select.price_range(bot,update,client)
-            pm.SELECT_PRICE_RANGE
+            return pm.SELECT_PRICE_RANGE
         elif "preciomin" in client:
             client.pop("preciomin")
             select.price_range(bot,update,client)
-            pm.SELECT_PRICE_RANGE
+            return pm.SELECT_PRICE_RANGE
         elif "moneda" in client:
             client.pop("moneda")
             select.price_range(bot,update,client)
-            pm.SELECT_PRICE_RANGE
+            return pm.SELECT_PRICE_RANGE
         else:
-            select.tipo(bot, update)
-            return pm.SELECT_TIPO
+            select.baths(bot, update)
+            return pm.SELECT_BATHS
     elif update.message.text == "Salir":
             select.menu(bot, update)
             return pm.MENU
     elif update.message.text == "Otro":
-        if "preciomin" not in client:
+        if "preciomin" not in client or client["preciomin"]=="Otro":
             client["preciomin"] = update.message.text
         else:
             client["preciomax"] = update.message.text
@@ -513,18 +527,18 @@ def area_range(bot, update):
             else:
                 client.pop("preciomax")
                 select.price_range(bot, update,client)
-                return pm.SELECT_TIPO
+                return pm.SELECT_PRICE_RANGE
 
     elif update.message.text == "Salir":
             select.menu(bot, update)
             return pm.MENU
 
     elif update.message.text == "Otra":
-        if "metrosmin" not in client:
+        if "metrosmin" not in client or client["metrosmin"]=="Otra":
             client["metrosmin"]=update.message.text
-        if "metrosmax" not in client and client["metrosmin"]!="Otra":
+        elif "metrosmax" not in client or client["metrosmax"]=="Otra":
             client["metrosmax"]=update.message.text
-        if "totalmin" not in client:
+        elif "totalmin" not in client or client["totalmin"]=="Otra":
             client["totalmin"]=update.message.text
         else:
             client["totalmax"]=update.message.text
@@ -749,3 +763,99 @@ def confirm_file(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.confirm_file(bot, update, client, client["fichapro"], client["fichainterna"])
         return pm.CONFIRM_FILE
+
+#FUNCIONES TASADOR
+
+def area(bot,update):
+    global STATE
+
+    # set client
+    client = clientsDict[update.message.from_user.id]
+
+    if update.message.text == "Atrás":
+        if "total" in client:
+            client.pop("total")
+            select.area(bot,update,client)
+            return pm.SELECT_AREA
+
+        elif "metros" in client:
+            client.pop("metros")
+            select.area(bot,update,client)
+            return pm.SELECT_AREA
+        else:
+            client.pop("baños")
+            select.baths(bot, update)
+            return pm.SELECT_BATHS
+
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+
+    elif update.message.text == "Otra":
+        if "metros" not in client or client["metros"]=="Otra":
+            client["metros"]=update.message.text
+        else:
+            client["total"]=update.message.text
+        select.area(bot, update, client)
+        return pm.SELECT_AREA
+
+    elif "metros" not in client or client["metros"]=="Otra":
+        try:
+            client["metros"] = int(update.message.text)
+            select.area(bot, update, client)
+            print(client)
+            return pm.SELECT_AREA
+        except:
+            bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.area(bot, update, client)
+            return pm.SELECT_AREA
+
+    else:
+        try:
+            client["total"] = int(update.message.text)
+            select.adress(bot, update, client)
+            print(client)
+            return pm.SELECT_ADRESS
+        except:
+            bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.area(bot, update, client)
+            return pm.SELECT_AREA
+
+def adress(bot,update):
+
+    client = clientsDict[update.message.from_user.id]
+
+
+    client["adress"] = update.message.text
+    select.confirm_tasacion(bot, update, client)
+    print(client)
+    return pm.CONFIRM_TASACION
+
+def confirm_tasacion(bot,update):
+
+    global STATE
+
+    # set client
+    client = clientsDict[update.message.from_user.id]
+
+    if update.message.text == "Confirmar":
+        bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
+        text=connector.tasador(client)
+        bot.send_message(chat_id=update.message.chat_id, text=text)
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Modificar":
+        bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
+        select.confirm_tasacion(bot, update, client)
+        return pm.CONFIRM_TASACION
+
+    elif update.message.text == "Atrás":
+        select.adress(bot, update,client)
+        return pm.SELECT_ADRESS
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.confirm_tasacion(bot, update, client)
+        return pm.CONFIRM_TASACION

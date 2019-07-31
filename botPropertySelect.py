@@ -114,7 +114,7 @@ def menu(bot, update):
     This will display the options from the main menu.
     """
     # Create buttons to slect language:
-    keyboard = [["Reporte"],
+    keyboard = [["Reporte","Tasador"],
                 ["Ficha", "Ayuda"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -130,13 +130,17 @@ def menu(bot, update):
 
 ##### FUNCIONES DEL REPORTE
 
-def operacion(bot, update):
+def operacion(bot, update,client):
 
     user = update.message.from_user
     pm.logger.info("Report requested by {}.".format(user.first_name))
 
-    keyboard = [["Comprar","Arrendar"],
-                ["Atrás", "Salir"]]
+    if client["product"]=="Reporte":
+        keyboard = [["Comprar","Arrendar"],
+                    ["Atrás", "Salir"]]
+    else:
+        keyboard = [["Venta","Arriendo"],
+                    ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -572,13 +576,16 @@ def confirm_report(bot,update,client):
     pm.logger.info("{} está confirmando reporte.".format(user.first_name))
     confirmtext=[]
     confirmtext.append("Generar reporte para las siguientes características:")
-    confirmtext.append("Operación:"+client["operacion"])
-    confirmtext.append("Región:"+client["region"])
-    confirmtext.append("Comuna:"+client["comuna"])
-    confirmtext.append("Tipo:"+client["tipo"])
-    confirmtext.append("Dormitorios:"+client["dormitorios"])
-    confirmtext.append("Baños:"+client["baños"])
-    confirmtext.append("Desde: "+client["moneda"]+" "+str(client["preciomin"])+", Hasta: "+client["moneda"]+" "+str(client["preciomax"]))
+    confirmtext.append("Operación: "+client["operacion"])
+    confirmtext.append("Región: "+client["region"])
+    confirmtext.append("Comuna: "+client["comuna"])
+    confirmtext.append("Tipo: "+client["tipo"])
+    confirmtext.append("Dormitorios: "+client["dormitorios"])
+    confirmtext.append("Baños: "+client["baños"])
+    if client["moneda"]=="UF":
+        confirmtext.append("Desde: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: "+client["moneda"]+" "++'{:,}'.format(client["preciomin"]).replace(",","."))
+    else:
+        confirmtext.append("Desde: $ "+'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: $ "+'{:,}'.format(client["preciomin"]).replace(",","."))
     if client["tipo"]=="Departamento":
         confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 útiles, Hasta: "+str(client["metrosmax"])+"m2 útiles")
         confirmtext.append("Desde: "+str(client["totalmin"])+"m2 totales, Hasta: "+str(client["totalmax"])+"m2 totales")
@@ -628,6 +635,7 @@ def id_prop(bot, update):
     pm.logger.info("{} está escogiendo id o link.".format(user.first_name))
     update.message.reply_text("Ingrese id propiedad, o bien el link de la publicación")
     return pm.SELECT_ID
+
 def confirm_file(bot, update,client,pro,interna):
     user = update.message.from_user
 
@@ -672,3 +680,151 @@ def confirm_file(bot, update,client,pro,interna):
     update.message.reply_text(confirmtext, reply_markup=reply_markup,disable_web_page_preview=True)
 
     return pm.CONFIRM_FILE
+
+##### FUNCIONES DEL TASADOR
+
+def area(bot, update,client):
+    global STATE
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+    # Create buttons to slect language:
+    user = update.message.from_user
+    print("entro al select de arearange")
+    print("esta en tipo: " + client["tipo"])
+
+    if client["tipo"] == "Departamento":
+
+        if "metros" not in client:
+            user = update.message.from_user
+
+            keyboard = [["0","20","30","40","50","60","70","80"],
+                        ["100","150","200","Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie útil (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA
+
+        elif client["metros"]=="Otra":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Ingresar superficie útil (en m2)")
+            return pm.SELECT_AREA
+
+
+        elif "total" not in client:
+            user = update.message.from_user
+
+            x=int(client["metros"])
+
+            keyboard = [[str(x+0),str(x+2),str(x+5),str(x+7),str(x+10),str(x+15),str(x+20)],
+                        [str(x+30),str(x+50),"Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie maxima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie total (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA
+
+
+        elif client["totalmax"]=="Otra":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
+            update.message.reply_text("Ingresar superficie total (en m2)")
+            return pm.SELECT_AREA
+
+    if client["tipo"] == "Casa":
+
+        if "metros" not in client:
+            user = update.message.from_user
+
+            keyboard = [["0","30","40","50","60","80","100","150"],
+                        ["200","300","400","Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie construida (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA
+
+        elif client["metros"]=="Otra":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Ingresar superficie construida (en m2)")
+
+        elif "total" not in client:
+            user = update.message.from_user
+
+
+            keyboard = [["0","50","100","200","400","500","600","800"],
+                        ["1000","2000","5000","Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie terreno (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA
+
+        elif client["total"]=="Otra":
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
+            update.message.reply_text("Ingresar superficie terreno (en m2)")
+            return pm.SELECT_AREA
+
+def adress(bot, update,client):
+    global STATE
+    """
+    Main menu function.
+    This will display the options from the main menu.
+    """
+
+    user = update.message.from_user
+    pm.logger.info("{} está escogiendo direccion.".format(user.first_name))
+    update.message.reply_text("Ingrese la dirección de la propiedad, sin comuna ni región")
+    return pm.SELECT_ADRESS
+
+def confirm_tasacion(bot, update,client):
+    user = update.message.from_user
+
+    keyboard = [["Confirmar","Modificar"],
+                ["Atrás", "Salir"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+    print("creo el teclado")
+
+    pm.logger.info("{} está confirmando tasacion.".format(user.first_name))
+    confirmtext=[]
+    confirmtext.append("Tasar Propiedad con las siguientes características:")
+    confirmtext.append("Operación: "+client["operacion"])
+    confirmtext.append("Región: "+client["region"])
+    confirmtext.append("Comuna: "+client["comuna"])
+    confirmtext.append("Tipo: "+client["tipo"])
+    confirmtext.append("Dormitorios: "+client["dormitorios"])
+    confirmtext.append("Baños: "+client["baños"])
+    if client["tipo"]=="Departamento":
+        confirmtext.append("Superficie: "+str(client["metro"])+"m2 útiles")
+        confirmtext.append("Superficie: "+str(client["total"])+"m2 totales")
+    if client["tipo"]=="Casa":
+        confirmtext.append("Superficie: "+str(client["metrosmin"])+"m2 construidos")
+        confirmtext.append("Superficie: "+str(client["totalmin"])+"m2 de terreno")
+    confirmtext.append("Dirección: "+client["adress"])
+
+
+    confirmtext="\n".join(confirmtext)
+    print(confirmtext)
+    update.message.reply_text(confirmtext, reply_markup=reply_markup,disable_web_page_preview=True)
+
+    return pm.CONFIRM_TASACION
