@@ -53,10 +53,12 @@ def from_tasaciones():
     tasaciones=cur.fetchall()
     return tasaciones
 
-def from_portalinmobiliario():
+def from_portalinmobiliario(operacion,tipo,region):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario "
+    sqlWhere="WHERE operacion='"+str(operacion)+"' and region='"+str(region)+"' and tipo='"+str(tipo)+"'"
+    sql=sql+sqlWhere
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -81,11 +83,11 @@ def precio_from_portalinmobiliario(id2):
     return precio
 
 
-def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos):
+def calcularTasacion(operacion,region,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos):
 
     es_venta=operacion=="venta"
     print(es_venta)
-    data = from_portalinmobiliario()
+    data = from_portalinmobiliario(operacion,tipo,region)
     distanciat0=[]
     distanciat1=[]
     distanciat2_1=[]
@@ -291,7 +293,7 @@ def calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacio
 
 def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data):
 
-
+    ufn=uf.getUf()
     es_venta=operacion=="venta"
     distanciat000=[]
     distanciat00=[]
@@ -453,7 +455,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         g_actual=8
 
     else:
-        return 0,"E",len(distanciat4_2),[]
+        return 0,"E",len(distanciat4_2),None,None,None
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
@@ -523,14 +525,14 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     try:
         if es_venta:
-            price = int(price/uf.getUf())
+            price = int(price/ufn)
         else:
             price = int(price)
         return(price,t_actual,len(distancias),links,es_venta,g_actual)
 
     except:
 
-        return -1,"ERROR",-1,[]
+        return (None,None,None,None,None,None)
 
 if __name__ == "__main__":
 

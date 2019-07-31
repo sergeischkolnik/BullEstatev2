@@ -7,6 +7,7 @@ import botPropertyMain as pm
 import botPropertySelect as select
 import botPropertyDataBase as db
 import botPropertyConnector as connector
+import googleMapApi as gm
 
 
 
@@ -347,10 +348,10 @@ def tipo(bot, update):
     print(client)
 
     if update.message.text == "Departamento":
-        select.dorms(bot,update)
+        select.dorms(bot,update,client)
         return pm.SELECT_DORMS
     elif update.message.text == "Casa":
-        select.dorms(bot, update)
+        select.dorms(bot, update,client)
         return pm.SELECT_DORMS
     elif update.message.text == "Atrás":
         client.pop("tipo")
@@ -380,7 +381,7 @@ def dorms(bot, update):
     print(client)
 
     if update.message.text == "1" or update.message.text == "2" or update.message.text == "3" or update.message.text == "4+":
-        select.baths(bot,update)
+        select.baths(bot,update,client)
         return pm.SELECT_BATHS
     elif update.message.text == "Atrás":
         client.pop("dormitorios")
@@ -391,7 +392,7 @@ def dorms(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.dorms(bot, update)
+        select.dorms(bot, update,client)
         return pm.SELECT_DORMS
 
 
@@ -416,14 +417,14 @@ def baths(bot, update):
             return pm.SELECT_AREA
     elif update.message.text == "Atrás":
         client.pop("baños")
-        select.dorms(bot, update)
+        select.dorms(bot, update,client)
         return pm.SELECT_DORMS
     elif update.message.text == "Salir":
         select.menu(bot, update)
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.baths(bot, update)
+        select.baths(bot, update,client)
         return pm.SELECT_BATHS
 
 
@@ -450,7 +451,7 @@ def price_range(bot, update):
             select.price_range(bot,update,client)
             return pm.SELECT_PRICE_RANGE
         else:
-            select.baths(bot, update)
+            select.baths(bot, update,client)
             return pm.SELECT_BATHS
     elif update.message.text == "Salir":
             select.menu(bot, update)
@@ -784,7 +785,7 @@ def area(bot,update):
             return pm.SELECT_AREA
         else:
             client.pop("baños")
-            select.baths(bot, update)
+            select.baths(bot, update,client)
             return pm.SELECT_BATHS
 
     elif update.message.text == "Salir":
@@ -824,12 +825,19 @@ def area(bot,update):
 def adress(bot,update):
 
     client = clientsDict[update.message.from_user.id]
-
-
     client["adress"] = update.message.text
-    select.confirm_tasacion(bot, update, client)
-    print(client)
-    return pm.CONFIRM_TASACION
+    try:
+        latD, lonD = gm.getCoordsWithAdress(update.message.text)
+        client["lat"]=latD
+        client["lon"]=lonD
+        select.confirm_tasacion(bot, update, client)
+        print(client)
+        return pm.CONFIRM_TASACION
+    except:
+        bot.send_message(chat_id=update.message.chat_id, text="Dirección incorrecta. Favor revisar y reenviar.")
+        select.adress(bot,update,client)
+        return pm.SELECT_ADRESS
+
 
 def confirm_tasacion(bot,update):
 
@@ -841,7 +849,7 @@ def confirm_tasacion(bot,update):
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
         text=connector.tasador(client)
-        bot.send_message(chat_id=update.message.chat_id, text=text)
+        bot.send_message(chat_id=update.message.chat_id, text=text,disable_web_page_preview=True)
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Modificar":

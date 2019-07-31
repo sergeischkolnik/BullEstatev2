@@ -235,14 +235,16 @@ def tipo(bot,update):
 
     return pm.SELECT_TIPO
 
-def dorms(bot,update):
+def dorms(bot,update,client):
 
     user = update.message.from_user
 
-
-    keyboard = [["1","2","3","4+"],
-                ["Atrás", "Salir"]]
-
+    if client["product"]=="Reporte":
+        keyboard = [["1","2","3","4+"],
+                    ["Atrás", "Salir"]]
+    else:
+        keyboard = [["1","2","3","4","5","6","7"],
+                    ["8","9","10","Atrás", "Salir"]]
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
@@ -252,13 +254,17 @@ def dorms(bot,update):
 
     return pm.SELECT_DORMS
 
-def baths(bot,update):
+def baths(bot,update,client):
 
     user = update.message.from_user
 
 
-    keyboard = [["1","2","3","4+"],
-                ["Atrás", "Salir"]]
+    if client["product"]=="Reporte":
+        keyboard = [["1","2","3","4+"],
+                    ["Atrás", "Salir"]]
+    else:
+        keyboard = [["1","2","3","4","5","6","7"],
+                    ["8","9","10","Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,

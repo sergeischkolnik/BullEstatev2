@@ -1780,6 +1780,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                            estacionamientos, bodegas, metrodistance, l1, l2, l3, tipo,operacion, region, listaComunas, prioridad, mail,
                            nombreCliente,nombrecarpetadb,idCliente,direccion,radioDireccion,corredor,topx,verboso):
 
+
+    ufn=uf.getUf()
     columnNames = []
     columnNames.append('Código')
     if preciomin is not None:
@@ -2136,7 +2138,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                         tasacionVenta=tb2.calcularTasacionData("venta",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
                         tasacionArriendo=tb2.calcularTasacionData("arriendo",prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],props)
-                        precioV=tasacionVenta[0]*uf.getUf()
+                        precioV=tasacionVenta[0]*ufn
                         precioA=tasacionArriendo[0]
 
                         print("el precio tasado de venta inicial es: "+str(precioV))

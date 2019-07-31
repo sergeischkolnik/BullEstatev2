@@ -6,7 +6,7 @@ import ficha
 import reportes
 import pymysql as mysql
 import uf
-
+import tasadorbot2 as tb2
 ufn=uf.getUf()
 
 def obtenerIdConLink(link,sitio):
@@ -94,4 +94,42 @@ def connectorFicha(client):
 
 def tasador(client):
 
-    return ("va tasacion")
+    confDict={
+        "AA+":"98%",
+        "AA-":"95%",
+        "A+":"90%",
+        "A-":"85%",
+        "B+":"80%",
+        "B-":"70%",
+        "C+":"60%",
+        "C-":"50%",
+        "D+":"30%",
+        "D-":"10%",
+        "E":"0%",
+    }
+    print("Diccionario Creado")
+
+    propsP=reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),True)
+    propsY=reportes.from_yapo(client["tipo"].lower(),client["region"],True,True)
+    props=propsP+propsY
+    print("Propiedades Check")
+
+    tasacion=tb2.calcularTasacionData(client["operacion"].lower(),client["tipo"].lower(),client["lat"],client["lon"],int(client["metros"]),
+                                      int(client["total"]),int(client["dorms"]),int(client["bathss"]),0,props)
+    print("Tasacion Check")
+
+    if tasacion[0]==None:
+        text="No se ha podido realizar la tasación."
+        return text
+    else:
+        if tasacion[4]:
+            text=" su propiedad se ha tasado a un valor de UF. "+str(tasacion[0])+",con una confianza de: "+confDict[tasacion[1]]+". Se comparó con las siguientes propiedades:"
+            print("Texto inicial Check")
+            links=tasacion[3][:5]
+            print("reducción de links, check")
+            for link in links:
+                text+='\n'
+                text+=link
+            print("Texto Full, Check")
+        return text
+
