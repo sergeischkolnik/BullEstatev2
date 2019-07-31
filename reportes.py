@@ -221,6 +221,13 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
                                    lonmin,lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,estacionamientos,bodegas,tipo,
                                    operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,verboso=False):
 
+        if ' ' in comuna1:
+            comunas=comuna1.split(' ')
+        '-'.join(comunas)
+
+        if "metropolitana" not in comuna1:
+            comuna1=comuna1+"-metropolitana"
+        
         if verboso:
             print("----------------------")
             print("Seleccionando propiedades especificas de portal.")

@@ -572,10 +572,10 @@ def confirm_report(bot,update,client):
     confirmtext.append("Desde: "+client["moneda"]+" "+str(client["preciomin"])+", Hasta: "+client["moneda"]+" "+str(client["preciomax"]))
     if client["tipo"]=="Departamento":
         confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 útiles, Hasta: "+str(client["metrosmax"])+"m2 útiles")
-        confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 totales, Hasta: "+str(client["metrosmax"])+"m2 totales")
+        confirmtext.append("Desde: "+str(client["totalmin"])+"m2 totales, Hasta: "+str(client["totalmax"])+"m2 totales")
     if client["tipo"]=="Casa":
         confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 construidos, Hasta: "+str(client["metrosmax"])+"m2 construidos")
-        confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 de terreno, Hasta: "+str(client["metrosmax"])+"m2 de terreno")
+        confirmtext.append("Desde: "+str(client["totalmin"])+"m2 de terreno, Hasta: "+str(client["totalmax"])+"m2 de terreno")
 
 
     confirmtext="\n".join(confirmtext)
