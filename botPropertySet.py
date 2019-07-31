@@ -516,8 +516,8 @@ def area_range(bot, update):
             client["totalmin"]=update.message.text
         else:
             client["totalmax"]=update.message.text
-        select.price_range(bot, update,client)
-        return pm.SELECT_PRICE_RANGE
+        select.area_range(bot, update, client)
+        return pm.SELECT_AREA_RANGE
 
     elif "metrosmin" not in client or client["metrosmin"]=="Otra":
         try:
