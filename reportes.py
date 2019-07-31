@@ -227,7 +227,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
 
         if "metropolitana" not in comuna1:
             comuna1=comuna1+"-metropolitana"
-        
+
         if verboso:
             print("----------------------")
             print("Seleccionando propiedades especificas de portal.")

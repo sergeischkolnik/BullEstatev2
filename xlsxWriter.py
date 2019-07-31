@@ -2,13 +2,13 @@ import uf
 import xlsxwriter
 
 def writeXlsx(file, data, columnnames, operacion):
-
+    unf = uf.getUf()
     data = [list(elem) for elem in data]
 
     #creacion de precios, porcentajes y link
     for i,prop in enumerate(data):
 
-        unf = uf.getUf()
+
 
         #arreglar precio
         precio = prop[1]
