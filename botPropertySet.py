@@ -345,6 +345,7 @@ def tipo(bot, update):
         return pm.SELECT_DORMS
     elif update.message.text == "Atrás":
         client.pop("tipo")
+        client.pop("comuna")
         select.comuna(bot, update,client)
         return pm.SELECT_COMUNA
     elif update.message.text == "Salir":
@@ -433,6 +434,14 @@ def price_range(bot, update):
     elif update.message.text == "Salir":
             select.menu(bot, update)
             return pm.MENU
+    elif update.message.text == "Otro":
+        if "preciomin" not in client:
+            client["preciomin"] = update.message.text
+        else:
+            client["preciomax"] = update.message.text
+        select.price_range(bot, update,client)
+        return pm.SELECT_PRICE_RANGE
+
     elif "moneda" not in client:
         client["moneda"] = update.message.text
         if update.message.text == "UF":
@@ -444,7 +453,7 @@ def price_range(bot, update):
 
 
 
-    elif "preciomin" not in client:
+    elif "preciomin" not in client or client["preciomin"]=="Otro":
         try:
             client["preciomin"]=int(update.message.text.replace('.',''))
             select.price_range(bot, update,client)
@@ -458,7 +467,7 @@ def price_range(bot, update):
     else:
         try:
             client["preciomax"] = int(update.message.text.replace('.',''))
-            select.area_range(bot, update, "metrosmin",client["tipo"])
+            select.area_range(bot, update, client)
             print(client)
             return pm.SELECT_AREA_RANGE
         except:
@@ -476,22 +485,56 @@ def area_range(bot, update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
-    if "metrosmin" not in client:
+
+    if update.message.text == "Atrás":
+            if "metrosmin" in client:
+                client.pop("metrosmin")
+            if "metrosmax" in client:
+                client.pop("metrosmax")
+            if "totalmin" in client:
+                client.pop("totalmin")
+            if "totalmax" in client:
+                client.pop("totalmax")
+            if "moneda" in client:
+                client.pop("moneda")
+            if "preciomin" in client:
+                client.pop("preciomin")
+            if "preciomax" in client:
+                client.pop("preciomax")
+            select.price_range(bot, update,client)
+            return pm.SELECT_TIPO
+    elif update.message.text == "Salir":
+            select.menu(bot, update)
+            return pm.MENU
+
+    elif update.message.text == "Otra":
+        if "metrosmin" not in client:
+            client["metrosmin"]=update.message.text
+        if "metrosmax" not in client and client["metrosmin"]!="Otra":
+            client["metrosmax"]=update.message.text
+        if "totalmin" not in client:
+            client["totalmin"]=update.message.text
+        else:
+            client["totalmax"]=update.message.text
+        select.price_range(bot, update,client)
+        return pm.SELECT_PRICE_RANGE
+
+    elif "metrosmin" not in client:
         try:
             client["metrosmin"] = int(update.message.text)
-            select.area_range(bot, update, "metrosmax",client["tipo"])
+            select.area_range(bot, update, client)
             print(client)
             return pm.SELECT_AREA_RANGE
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-            select.area_range(bot, update, "metrosmin",client["tipo"])
+            select.area_range(bot, update, client)
             return pm.SELECT_AREA_RANGE
 
-    elif "metrosmax" not in client:
+    elif "metrosmax" not in client or client["metrosmin"]=="Otra":
         try:
             client["metrosmax"] = int(update.message.text)
             if client["tipo"]=="Departamento" or client["tipo"]=="Casa":
-                select.area_range(bot, update, "totalmin", client["tipo"])
+                select.area_range(bot, update, client)
                 return pm.SELECT_AREA_RANGE
             else:
                 select.confirm_report(bot, update, client)
@@ -499,30 +542,29 @@ def area_range(bot, update):
                 return pm.CONFIRM_REPORT
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-            select.area_range(bot, update, "metrosmax",client["tipo"])
+            select.area_range(bot, update, client)
             return pm.SELECT_AREA_RANGE
 
-    elif "totalmin" not in client:
+    elif "totalmin" not in client or client["totalmin"]=="Otra":
         try:
             client["totalmin"] = int(update.message.text)
-            select.area_range(bot, update, "totalmax",client["tipo"])
+            select.area_range(bot, update, client)
             print(client)
             return pm.SELECT_AREA_RANGE
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-            select.area_range(bot, update, "totalmin",client["tipo"])
+            select.area_range(bot, update,client)
             return pm.SELECT_AREA_RANGE
 
     else:
         try:
             client["totalmax"] = int(update.message.text)
-
             select.confirm_report(bot, update, client)
             print(client)
             return pm.CONFIRM_REPORT
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
-            select.area_range(bot, update, "metrosmax",client["tipo"])
+            select.area_range(bot, update, client)
             return pm.SELECT_AREA_RANGE
 
 

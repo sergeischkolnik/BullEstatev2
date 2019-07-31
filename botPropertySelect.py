@@ -361,7 +361,7 @@ def price_range(bot, update,client):
 
 
 
-def area_range(bot, update, stage,tip):
+def area_range(bot, update,client):
     global STATE
     """
     Main menu function.
@@ -370,49 +370,171 @@ def area_range(bot, update, stage,tip):
     # Create buttons to slect language:
     user = update.message.from_user
     print("entro al select de arearange")
-    print("esta en stage: " + stage)
-    print("esta en tipo: " + tip)
+    print("esta en tipo: " + client["tipo"])
 
-    if tip == "Departamento":
+    if client["tipo"] == "Departamento":
 
-        if stage == "metrosmin":
+        if "metrosmin" not in client:
+            user = update.message.from_user
+
+            keyboard = [["0","20","30","40","50","60","70","80"],
+                        ["100","150","200","Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie útil mínima (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA_RANGE
+
+        elif client["metrosmin"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie útil mínima (en m2)")
 
-        if stage == "metrosmax":
+        elif "metrosmax" not in client:
+            user = update.message.from_user
+            x=int(client["metrosmin"])
+
+            keyboard = [[str(x+5),str(x+10),str(x+15),str(x+20),str(x+30),str(x+40),str(x+50)],
+                        [str(x+100),str(x+200),"Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie útil máxima (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA_RANGE
+
+        elif client["metrosmax"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie útil máxima (en m2)")
 
-        if stage == "totalmin":
+        elif "totalmin" not in client:
+            user = update.message.from_user
+
+            x=int(client["metrosmin"])
+
+            keyboard = [[str(x+0),str(x+2),str(x+5),str(x+7),str(x+10),str(x+15),str(x+20)],
+                        [str(x+30),str(x+50),"Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie total mínima (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA_RANGE
+
+        elif client["totalmin"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie total mínima (en m2)")
 
-        if stage == "totalmax":
+        elif "totalmax" not in client:
+            user = update.message.from_user
+
+            x=min(int(client["metrosmax"]),client["totalmin"])
+
+            keyboard = [[str(x+5),str(x+10),str(x+15),str(x+20),str(x+30),str(x+40),str(x+50)],
+                        [str(x+100),str(x+200),"Otra","Atrás","Salir"]]
+
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie total máxima (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA_RANGE
+
+        elif client["totalmax"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie total máxima (en m2)")
 
-    if tip == "Casa":
+    if client["tipo"] == "Casa":
 
-        if stage == "metrosmin":
+        if "metrosmin" not in client:
+            user = update.message.from_user
+
+            keyboard = [["0","30","40","50","60","80","100","150"],
+                        ["200","300","400","Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie construida mínima (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA_RANGE
+
+        elif client["metrosmin"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
-            update.message.reply_text("Ingresar superficie construída mínima (en m2)")
+            update.message.reply_text("Ingresar superficie construida mínima (en m2)")
 
-        if stage == "metrosmax":
+        elif "metrosmax" not in client:
+            user = update.message.from_user
+
+            x=int(client["metrosmin"])
+
+            keyboard = [[str(x+10),str(x+20),str(x+30),str(x+40),str(x+50),str(x+70)],
+                        [str(x+100),str(x+200),str(x+300),"Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie construida máxima (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA_RANGE
+
+        elif client["metrosmax"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie construída máxima (en m2)")
 
-        if stage == "totalmin":
+        elif "totalmin" not in client:
+            user = update.message.from_user
+
+
+            keyboard = [["0","50","100","200","400","500","600","800"],
+                        ["1000","2000","5000","Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie terreno mínima (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA_RANGE
+
+        elif client["totalmin"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie terreno mínima (en m2)")
 
-        if stage == "totalmax":
+        elif "totalmax" not in client:
+            user = update.message.from_user
+
+            x=client["totalmin"]
+
+            keyboard = [[str(x+20),str(x+50),str(x+100),str(x+200),str(x+500),str(x+1000),str(x+2000)],
+                        [str(x+5000),str(x+10000),"Otra","Atrás","Salir"]]
+
+            reply_markup = ReplyKeyboardMarkup(keyboard,
+                                               one_time_keyboard=True,
+                                               resize_keyboard=True)
+
+            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            update.message.reply_text("Seleccionar superficie terreno máxima (en m2)", reply_markup=reply_markup)
+            return pm.SELECT_AREA_RANGE
+
+        elif client["totalmax"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie terreno máxima (en m2)")

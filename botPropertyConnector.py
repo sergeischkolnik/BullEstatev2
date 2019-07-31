@@ -36,10 +36,12 @@ def generarreporte(client):
         client["operacion"]= "venta"
     else:
         client["operacion"]= "arriendo"
+    listaComunas=[]
+    listaComunas.append(client["comuna"].lower())
     reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
                                     None,None, None,None,client["dormitorios"],client["dormitorios"], client["baños"], client["baños"],
                                     None, None, None,None, None, None, None, None, None, client["tipo"], client["operacion"],
-                                    client["region"].lower(),client["comuna"].lower(), None, client["mail"],(client["firstname"]+" "+client["lastname"]),
+                                    client["region"].lower(),listaComunas, None, client["mail"],(client["firstname"]+" "+client["lastname"]),
                                     None,None,None,None,None,None,True)
 
 def connectorFicha(client):
