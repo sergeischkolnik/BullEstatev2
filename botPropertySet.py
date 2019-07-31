@@ -413,8 +413,8 @@ def baths(bot, update):
             select.price_range(bot,update,client)
             return pm.SELECT_PRICE_RANGE
         else:
-            select.area(bot,update,client)
-            return pm.SELECT_AREA
+            select.feature(bot,update,client)
+            return pm.SELECT_FEATURE
     elif update.message.text == "Atrás":
         client.pop("baños")
         select.dorms(bot, update,client)
@@ -766,6 +766,43 @@ def confirm_file(bot, update):
         return pm.CONFIRM_FILE
 
 #FUNCIONES TASADOR
+
+def feature(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+
+    # set client
+    client = clientsDict[update.message.from_user.id]
+    print(client)
+
+    if update.message.text == "0" or update.message.text == "1" or update.message.text == "2" or update.message.text == "3+":
+        if "estacionamientos" not in client:
+            client["estacionamientos"]= update.message.text
+            select.feature(bot,update,client)
+            return pm.SELECT_FEATURE
+        else:
+            client["bodegas"]= update.message.text
+            select.area(bot,update,client)
+            return pm.SELECT_AREA
+    elif update.message.text == "Atrás":
+        if "estacionamientos" in client:
+            client.pop("estacionamientos")
+            select.feature(bot, update,client)
+            return pm.SELECT_FEATURE
+        else:
+            client.pop("baños")
+            select.baths(bot, update,client)
+            return pm.SELECT_BATHS
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.feature(bot, update,client)
+        return pm.SELECT_FEATURE
 
 def area(bot,update):
     global STATE

@@ -378,8 +378,6 @@ def price_range(bot, update,client):
         update.message.reply_text("Ingresar precio máximo")
         return pm.SELECT_PRICE_RANGE
 
-
-
 def area_range(bot, update,client):
     global STATE
     """
@@ -607,6 +605,28 @@ def confirm_report(bot,update,client):
     return pm.CONFIRM_REPORT
 
 ##### FUNCIONES DE LAS FICHAS
+
+def feature(bot,update,client):
+
+    user = update.message.from_user
+
+
+    keyboard = [["0","1","2","3+"],
+                ["Atrás", "Salir"]]
+
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    if "estacionamientos" not in client:
+        pm.logger.info("{} está seleccionando Estacionamientos.".format(user.first_name))
+        update.message.reply_text("Seleccionar Número de Estacionamientos", reply_markup=reply_markup)
+    else:
+        pm.logger.info("{} está seleccionando Bodegas.".format(user.first_name))
+        update.message.reply_text("Seleccionar Número de Bodegas", reply_markup=reply_markup)
+
+    return pm.SELECT_FEATURE
 
 def site(bot, update):
     global STATE

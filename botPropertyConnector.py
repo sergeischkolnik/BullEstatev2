@@ -136,7 +136,7 @@ def tasador(client):
     print("Propiedades Check")
 
     tasacion=tb2.calcularTasacionData(client["operacion"].lower(),client["tipo"].lower(),client["lat"],client["lon"],int(client["metros"]),
-                                      int(client["total"]),int(client["dormitorios"]),int(client["baños"]),0,props)
+                                      int(client["total"]),int(client["dormitorios"]),int(client["baños"]),int(client["estacionamientos"]),props)
     print("Tasacion Check")
 
     if tasacion[0]==None:
