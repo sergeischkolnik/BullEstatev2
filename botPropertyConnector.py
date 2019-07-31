@@ -39,7 +39,7 @@ def generarreporte(client):
     reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
                                     None,None, None,None,client["dormitorios"],client["dormitorios"], client["baños"], client["baños"],
                                     None, None, None,None, None, None, None, None, None, client["tipo"], client["operacion"],
-                                    client["region"].lower(),[client["region"].lower(),None], None, client["mail"],(client["firstname"]+" "+client["lastname"]),
+                                    client["region"].lower(),client["comuna"].lower(), None, client["mail"],(client["firstname"]+" "+client["lastname"]),
                                     None,None,None,None,None,None,True)
 
 def connectorFicha(client):
