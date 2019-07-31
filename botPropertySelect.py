@@ -392,6 +392,7 @@ def area_range(bot, update,client):
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie útil mínima (en m2)")
+            return pm.SELECT_AREA_RANGE
 
         elif "metrosmax" not in client:
             user = update.message.from_user
@@ -412,6 +413,7 @@ def area_range(bot, update,client):
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie útil máxima (en m2)")
+            return pm.SELECT_AREA_RANGE
 
         elif "totalmin" not in client:
             user = update.message.from_user
@@ -433,6 +435,7 @@ def area_range(bot, update,client):
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie total mínima (en m2)")
+            return pm.SELECT_AREA_RANGE
 
         elif "totalmax" not in client:
             user = update.message.from_user
@@ -455,6 +458,7 @@ def area_range(bot, update,client):
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             update.message.reply_text("Ingresar superficie total máxima (en m2)")
+            return pm.SELECT_AREA_RANGE
 
     if client["tipo"] == "Casa":
 
