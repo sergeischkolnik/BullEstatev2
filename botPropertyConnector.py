@@ -38,8 +38,23 @@ def generarreporte(client):
         client["operacion"]= "arriendo"
     listaComunas=[]
     listaComunas.append(client["comuna"].lower())
+
+    if client["dormitorios"]=='4+':
+        dormitoriosmin=4
+        dormitoriosmax=None
+    else:
+        dormitoriosmin=client["dormitorios"]
+        dormitoriosmax=client["dormitorios"]
+
+    if client["baños"]=='4+':
+        banosmin=4
+        banosmax=None
+    else:
+        banosmin=client["baños"]
+        banosmax=client["baños"]
+
     reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
-                                    None,None, None,None,client["dormitorios"],client["dormitorios"], client["baños"], client["baños"],
+                                    None,None, None,None,dormitoriosmin,dormitoriosmax, banosmin, banosmax,
                                     None, None, None,None, None, None, None, None, None, client["tipo"], client["operacion"],
                                     client["region"].lower(),listaComunas, None, client["mail"],(client["firstname"]+" "+client["lastname"]),
                                     None,None,None,None,None,None,True)

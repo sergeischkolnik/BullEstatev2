@@ -423,12 +423,19 @@ def price_range(bot, update):
     client = clientsDict[update.message.from_user.id]
 
     if update.message.text == "Atrás":
-            if "moneda" in client:
-                client.pop("moneda")
-            if "preciomin" in client:
-                client.pop("preciomin")
-            if "preciomax" in client:
-                client.pop("preciomax")
+        if "preciomax" in client:
+            client.pop("preciomax")
+            select.price_range(bot,update,client)
+            pm.SELECT_PRICE_RANGE
+        elif "preciomin" in client:
+            client.pop("preciomin")
+            select.price_range(bot,update,client)
+            pm.SELECT_PRICE_RANGE
+        elif "moneda" in client:
+            client.pop("moneda")
+            select.price_range(bot,update,client)
+            pm.SELECT_PRICE_RANGE
+        else:
             select.tipo(bot, update)
             return pm.SELECT_TIPO
     elif update.message.text == "Salir":
@@ -487,22 +494,27 @@ def area_range(bot, update):
     client = clientsDict[update.message.from_user.id]
 
     if update.message.text == "Atrás":
-            if "metrosmin" in client:
-                client.pop("metrosmin")
-            if "metrosmax" in client:
-                client.pop("metrosmax")
-            if "totalmin" in client:
-                client.pop("totalmin")
             if "totalmax" in client:
                 client.pop("totalmax")
-            if "moneda" in client:
-                client.pop("moneda")
-            if "preciomin" in client:
-                client.pop("preciomin")
-            if "preciomax" in client:
+                select.area_range(bot,update,client)
+                return pm.SELECT_AREA_RANGE
+            elif "totalmin" in client:
+                client.pop("totalmin")
+                select.area_range(bot,update,client)
+                return pm.SELECT_AREA_RANGE
+            elif "metrosmax" in client:
+                client.pop("metrosmax")
+                select.area_range(bot,update,client)
+                return pm.SELECT_AREA_RANGE
+            elif "metrosmin" in client:
+                client.pop("metrosmin")
+                select.area_range(bot,update,client)
+                return pm.SELECT_AREA_RANGE
+            else:
                 client.pop("preciomax")
-            select.price_range(bot, update,client)
-            return pm.SELECT_TIPO
+                select.price_range(bot, update,client)
+                return pm.SELECT_TIPO
+
     elif update.message.text == "Salir":
             select.menu(bot, update)
             return pm.MENU
@@ -593,18 +605,11 @@ def confirm_report(bot,update):
 
     elif update.message.text == "Atrás":
         try:
-
-            client.pop("moneda")
-            client.pop("preciomin")
-            client.pop("preciomax")
-            client.pop("metrosmin")
-            client.pop("metrosmax")
-            client.pop("totalmin")
             client.pop("totalmax")
         except:
             pass
-        select.price_range(bot, update, client)
-        return pm.SELECT_PRICE_RANGE
+        select.area_range(bot, update, client)
+        return pm.SELECT_AREA_RANGE
     elif update.message.text == "Salir":
         select.menu(bot, update)
         return pm.MENU
