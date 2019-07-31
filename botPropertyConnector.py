@@ -107,10 +107,31 @@ def tasador(client):
         "D-":"10%",
         "E":"0%",
     }
-    print("Diccionario Creado")
+    print("Diccionario de Confianza Creado")
+
+    regYapoDict={
+        "Metropolitana":"15",
+        "Valparaiso":"6",
+        "Arica":"1",
+        "Iquique":"2",
+        "Antofagasta":"3",
+        "Atacama":"4",
+        "Coquimbo":"5",
+        "Ohiggins":"7",
+        "Maule":"8",
+        "Ñuble":"16",
+        "Biobio":"9",
+        "Araucania":"10",
+        "Los Rios":"11",
+        "Los Lagos":"12",
+        "Aysen":"13",
+        "Magallanes":"14",
+
+    }
+    print("Diccionario de Regiones para Yapo Creado")
 
     propsP=reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),True)
-    propsY=reportes.from_yapo(client["tipo"].lower(),client["region"],True,True)
+    propsY=reportes.from_yapo(client["tipo"].lower(),regYapoDict[client["region"]],True,True)
     props=propsP+propsY
     print("Propiedades Check")
 
