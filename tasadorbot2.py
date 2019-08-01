@@ -488,7 +488,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     distancias=arregloaux
     links = []
     for props in distancias:
-            print("Precio Nuevo: "+str(prop[5]))
+            print("Precio Nuevo: "+str(props[5]))
             links.append(props[13])
 
     y_train = []
