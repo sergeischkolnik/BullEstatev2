@@ -421,10 +421,10 @@ def area_range(bot, update,client):
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
             if client["tipo"] == "Comercial":
-                update.message.reply_text("Seleccionar superficie mínima (en m2)", reply_markup=reply_markup)
+                update.message.reply_text("Seleccionar superficie mínima (en m2)")
                 return pm.SELECT_AREA_RANGE
             else:
-                update.message.reply_text("Seleccionar superficie útil mínima (en m2)", reply_markup=reply_markup)
+                update.message.reply_text("Seleccionar superficie útil mínima (en m2)")
                 return pm.SELECT_AREA_RANGE
 
         elif "metrosmax" not in client:
@@ -892,7 +892,8 @@ def confirm_tasacion(bot, update,client):
     confirmtext.append("Dormitorios: "+client["dormitorios"])
     confirmtext.append("Baños: "+client["baños"])
     confirmtext.append("Estacionamientos: "+client["estacionamientos"])
-    confirmtext.append("Bodegas: "+client["bodegas"])
+    if client["tipo"]=="Departamento":
+        confirmtext.append("Bodegas: "+client["bodegas"])
     if client["tipo"]=="Departamento":
         confirmtext.append("Superficie: "+str(client["metros"])+"m2 útiles")
         confirmtext.append("Superficie: "+str(client["total"])+"m2 totales")
