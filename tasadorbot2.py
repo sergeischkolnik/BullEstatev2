@@ -455,7 +455,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         g_actual=8
 
     else:
-        return 0,"E",len(distanciat4_2),None,None,None
+        return 0,"E",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,9
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
@@ -532,7 +532,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     except:
 
-        return (None,None,None,None,None,None)
+        return (0,"E",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,9)
 
 if __name__ == "__main__":
 
