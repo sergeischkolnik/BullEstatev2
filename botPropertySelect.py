@@ -225,7 +225,6 @@ def tipo(bot,update):
 
     keyboard = [["Departamento","Casa"],
                 ["Oficina","Comercial"],
-                ["Terrenos","Otros"],
                 ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -772,7 +771,7 @@ def area(bot, update,client):
     print("entro al select de arearange")
     print("esta en tipo: " + client["tipo"])
 
-    if client["tipo"] == "Departamento" or client["Oficina"] == "Departamento" or client["tipo"] == "Comercial":
+    if client["tipo"] == "Departamento" or client["tipo"] == "Oficina" or client["tipo"] == "Comercial":
 
         if "metros" not in client:
             user = update.message.from_user
