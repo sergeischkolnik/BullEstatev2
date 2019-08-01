@@ -938,14 +938,14 @@ def adress(bot,update):
         latD, lonD = gm.getCoordsWithAdress(update.message.text)
         client["lat"]=latD
         client["lon"]=lonD
-        select.confirm_tasacion(bot, update, client)
-        print(client)
-        return pm.CONFIRM_TASACION
+
     except:
         bot.send_message(chat_id=update.message.chat_id, text="Dirección incorrecta. Favor revisar y reenviar.")
         select.adress(bot,update,client)
         return pm.SELECT_ADRESS
-
+    select.confirm_tasacion(bot, update, client)
+    print(client)
+    return pm.CONFIRM_TASACION
 
 def confirm_tasacion(bot,update):
 
