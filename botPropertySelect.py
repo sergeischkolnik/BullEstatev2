@@ -162,7 +162,7 @@ def region(bot, update,client):
     if "region" not in client:
 
         keyboard = [["Metropolitana","Valparaíso"],
-                    ["Bio-Bio","Coquimbo"],
+                    ["Biobio","Coquimbo"],
                     ["Antofagasta","Otra"],
                     ["Atrás", "Salir"]]
 
