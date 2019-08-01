@@ -610,14 +610,22 @@ def confirm_report(bot,update):
     client = clientsDict[update.message.from_user.id]
 
     if update.message.text == "SI":
-        #generar reporte para cliente, enviar al correo correspondiente
-        bot.send_message(chat_id=update.message.chat_id, text="Se está generando el reporte")
 
-        reply = "Reporte generado y enviado exitosamente al correo: "+(client["mail"])+"."
+        if "reporteThread" in client.keys() and client["reporteThread"].isAlive():
+            bot.send_message(chat_id=update.message.chat_id, text="Ya se está generando un reporte. Por favor espere que"
+                                                                  " éste termine antes de comenzar otro. Si ha pasado "
+                                                                  "sobre una hora y el problema persiste, por favor "
+                                                                  "contacte a soporte.")
 
-        thr = threading.Thread(target=connector.generarreporte, args=(client,bot.send_message,update.message.chat_id,reply))
-        thr.setDaemon(True)
-        thr.start()
+        else:
+            #generar reporte para cliente, enviar al correo correspondiente
+            bot.send_message(chat_id=update.message.chat_id, text="Se está generando el reporte")
+
+            reply = "Reporte generado y enviado exitosamente al correo: "+(client["mail"])+"."
+
+            client["reporteThread"] = threading.Thread(target=connector.generarreporte, args=(client,bot.send_message,update.message.chat_id,reply))
+            client["reporteThread"].setDaemon(True)
+            client["reporteThread"].start()
 
         #bot.send_message(chat_id=update.message.chat_id, text=reply)
 
