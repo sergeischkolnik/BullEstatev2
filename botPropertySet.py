@@ -586,9 +586,11 @@ def area_range(bot, update):
     else:
         try:
             client["totalmax"] = int(update.message.text)
-            print(client)
+            client["reportepro"]=False
+            client["reporteinterno"] = False
+            client["reportemetro"] = False
             select.confirm_report(bot, update, client)
-            print(client)
+
             return pm.CONFIRM_REPORT
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
@@ -617,6 +619,30 @@ def confirm_report(bot,update):
         return pm.MENU
     elif update.message.text == "Modificar":
         bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+    elif update.message.text == "Agregar Tasación":
+        client["reportepro"] = True
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+    elif update.message.text == "Agregar Contacto Publicación":
+        client["reporteinterno"] = True
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+    elif update.message.text == "Agregar Distancia al metro":
+        client["reportemetro"] = True
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+    elif update.message.text == "Quitar Tasación":
+        client["reportepro"] = False
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+    elif update.message.text == "Quitar Contacto Publicación":
+        client["reporteinterno"] = False
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+    elif update.message.text == "Quitar Distancia al metro":
+        client["reportemetro"] = False
         select.confirm_report(bot, update, client)
         return pm.CONFIRM_REPORT
 

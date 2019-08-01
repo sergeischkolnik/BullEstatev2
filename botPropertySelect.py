@@ -308,8 +308,9 @@ def price_range(bot, update,client):
                             ["35","50","75","Otro","Atrás","Salir"]]
 
             else:
-                keyboard = [["0","1.000","2.000","3.000","4.000","5.000"],
-                            ["7.000","10.000","15.000","Otro","Atrás","Salir"]]
+                keyboard = [["0","1.000","2.000","3.000"],
+                            ["4.000","5.000","7.000","10.000"],
+                            ["15.000","Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -324,12 +325,14 @@ def price_range(bot, update,client):
 
             print("entro al if de moneda")
             if client["operacion"]=="Comprar":
-                keyboard = [["0","25.000.000","50.000.000","75.000.000","100.000.000"],
-                        ["150.000.000","200.000.000","Otro","Atrás","Salir"]]
+                keyboard = [["0","25.000.000","50.000.000"],
+                            ["75.000.000","100.000.000","150.000.000"],
+                            ["200.000.000","Otro","Atrás","Salir"]]
 
             else:
-                keyboard = [["0","150.000","200.000","300.000","500.000"],
-                        ["750.000","1.000.000","Otro","Atrás","Salir"]]
+                keyboard = [["0","150.000","200.000"],
+                            ["300.000","500.000","750.000"],
+                            ["1.000.000","Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -349,8 +352,9 @@ def price_range(bot, update,client):
         if client["moneda"]=="UF":
             user = update.message.from_user
             x=client["preciomin"]
-            keyboard = [['{:,}'.format(x+1000).replace(",","."),'{:,}'.format(x+2000).replace(",","."),'{:,}'.format(x+3000).replace(",","."),'{:,}'.format(x+4000).replace(",","."),'{:,}'.format(x+5000).replace(",",".")],
-                        ['{:,}'.format(x+7000).replace(",","."),'{:,}'.format(x+10000).replace(",","."),"Otro","Atrás","Salir"]]
+            keyboard = [['{:,}'.format(x+1000).replace(",","."),'{:,}'.format(x+2000).replace(",","."),'{:,}'.format(x+3000).replace(",",".")],
+                        ['{:,}'.format(x+4000).replace(",","."),'{:,}'.format(x+5000).replace(",","."),'{:,}'.format(x+7000).replace(",",".")],
+                        ['{:,}'.format(x+10000).replace(",","."),"Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -362,7 +366,8 @@ def price_range(bot, update,client):
         else:
             user = update.message.from_user
             x=client["preciomin"]
-            keyboard = [['{:,}'.format(x+10000000).replace(",","."),'{:,}'.format(x+2000000).replace(",","."),'{:,}'.format(x+30000000).replace(",","."),'{:,}'.format(x+50000000).replace(",",".")],
+            keyboard = [['{:,}'.format(x+10000000).replace(",","."),'{:,}'.format(x+2000000).replace(",",".")],
+                        ['{:,}'.format(x+30000000).replace(",","."),'{:,}'.format(x+50000000).replace(",",".")],
                         ['{:,}'.format(x+100000000).replace(",","."),"Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -482,8 +487,9 @@ def area_range(bot, update,client):
         if "metrosmin" not in client:
             user = update.message.from_user
 
-            keyboard = [["0","30","40","50","60","80","100","150"],
-                        ["200","300","400","Otra","Atrás","Salir"]]
+            keyboard = [["0","30","40","50","60"],
+                        ["80","100","150","200","300"],
+                        ["400","Otra","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -523,8 +529,9 @@ def area_range(bot, update,client):
             user = update.message.from_user
 
 
-            keyboard = [["0","50","100","200","400","500","600","800"],
-                        ["1000","2000","5000","Otra","Atrás","Salir"]]
+            keyboard = [["0","50","100","200","400"],
+                        ["500","600","800","1000"],
+                        ["2000","5000","Otra","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -544,8 +551,9 @@ def area_range(bot, update,client):
 
             x=client["totalmin"]
 
-            keyboard = [[str(x+20),str(x+50),str(x+100),str(x+200),str(x+500),str(x+1000),str(x+2000)],
-                        [str(x+5000),str(x+10000),"Otra","Atrás","Salir"]]
+            keyboard = [[str(x+20),str(x+50),str(x+100),str(x+200),str(x+500)],
+                        [str(x+1000),str(x+2000),str(x+5000),str(x+10000)],
+                        ["Otra","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -569,7 +577,29 @@ def confirm_report(bot,update,client):
     user = update.message.from_user
 
 
+    if client["reportepro"]:
+        probutton="Quitar"
+        protext="Si"
+    else:
+        probutton="Agregar"
+        protext = "No"
+    if client["reporteinterno"]:
+        internabutton="Quitar"
+        internatext="Si"
+    else:
+        internabutton="Agregar"
+        internatext="No"
+    if client["reportemetro"]:
+        metrobutton="Quitar"
+        metrotext="Si"
+    else:
+        metrobutton="Agregar"
+        metrotext="No"
+
     keyboard = [["SI","Modificar"],
+                [probutton+" Tasación"],
+                [internabutton+" Contacto Publicación"],
+                [metrobutton+" Distancia al metro"],
                 ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -589,13 +619,17 @@ def confirm_report(bot,update,client):
     if client["moneda"]=="UF":
         confirmtext.append("Desde: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: "+client["moneda"]+" "+'{:,}'.format(client["preciomin"]).replace(",","."))
     else:
-        confirmtext.append("Desde: $ "+'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: $ "+'{:,}'.format(client["preciomin"]).replace(",","."))
+        confirmtext.append("Desde: $ "+'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: $ "+'{:,}'.format(client["preciomax"]).replace(",","."))
     if client["tipo"]=="Departamento":
         confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 útiles, Hasta: "+str(client["metrosmax"])+"m2 útiles")
         confirmtext.append("Desde: "+str(client["totalmin"])+"m2 totales, Hasta: "+str(client["totalmax"])+"m2 totales")
     if client["tipo"]=="Casa":
         confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 construidos, Hasta: "+str(client["metrosmax"])+"m2 construidos")
         confirmtext.append("Desde: "+str(client["totalmin"])+"m2 de terreno, Hasta: "+str(client["totalmax"])+"m2 de terreno")
+    confirmtext.append("El Reporte solicitado "+protext+" Incluye Tasación")
+    confirmtext.append("El Reporte solicitado "+internatext+" Incluye Datos de contacto de Publicación")
+    confirmtext.append("El Reporte solicitado "+metrotext+" Incluye distancia a estación de metro más cercana")
+
 
 
     confirmtext="\n".join(confirmtext)
@@ -606,27 +640,7 @@ def confirm_report(bot,update,client):
 
 ##### FUNCIONES DE LAS FICHAS
 
-def feature(bot,update,client):
 
-    user = update.message.from_user
-
-
-    keyboard = [["0","1","2","3+"],
-                ["Atrás", "Salir"]]
-
-
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=True,
-                                       resize_keyboard=True)
-
-    if "estacionamientos" not in client:
-        pm.logger.info("{} está seleccionando Estacionamientos.".format(user.first_name))
-        update.message.reply_text("Seleccionar Número de Estacionamientos", reply_markup=reply_markup)
-    else:
-        pm.logger.info("{} está seleccionando Bodegas.".format(user.first_name))
-        update.message.reply_text("Seleccionar Número de Bodegas", reply_markup=reply_markup)
-
-    return pm.SELECT_FEATURE
 
 def site(bot, update):
     global STATE
@@ -708,6 +722,28 @@ def confirm_file(bot, update,client,pro,interna):
     return pm.CONFIRM_FILE
 
 ##### FUNCIONES DEL TASADOR
+
+def feature(bot,update,client):
+
+    user = update.message.from_user
+
+
+    keyboard = [["0","1","2","3+"],
+                ["Atrás", "Salir"]]
+
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    if "estacionamientos" not in client:
+        pm.logger.info("{} está seleccionando Estacionamientos.".format(user.first_name))
+        update.message.reply_text("Seleccionar Número de Estacionamientos", reply_markup=reply_markup)
+    else:
+        pm.logger.info("{} está seleccionando Bodegas.".format(user.first_name))
+        update.message.reply_text("Seleccionar Número de Bodegas", reply_markup=reply_markup)
+
+    return pm.SELECT_FEATURE
 
 def area(bot, update,client):
     global STATE
