@@ -306,6 +306,10 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     distanciat3_2=[]
     distanciat4_1=[]
     distanciat4_2=[]
+    distanciat5_1=[]
+    distanciat5_2=[]
+    distanciat5_3=[]
+
     k000=[0]*14
     k00=[0]*14
     k0=[0]*14
@@ -316,6 +320,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     k32=[0]*14
     k41=[0]*14
     k42=[0]*14
+    k51=[0]*14
+    k52=[0]*14
+    k53=[0]*14
 
     for j in data:
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
@@ -410,6 +417,27 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 distanciat4_2.append(j)
                 j=j[:-1]
                 k42=j
+            #T5.1
+            elif (distance < 1000) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
+                d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
+                j.append(d)
+                distanciat5_1.append(j)
+                j=j[:-1]
+                k51=j
+            #T5.2
+            elif (distance < 2000) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
+                d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
+                j.append(d)
+                distanciat5_1.append(j)
+                j=j[:-1]
+                k51=j
+            #T5.3
+            elif (distance < 5000) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
+                d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
+                j.append(d)
+                distanciat5_1.append(j)
+                j=j[:-1]
+                k51=j
 
     t_actual="AA+"
     g_actual=1
@@ -419,45 +447,57 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     if len(distanciat000)>=6:
         distancia=distanciat000
-    elif len(distanciat00)>=8:
+    elif len(distanciat00+distanciat000)>=8:
         distancia=distanciat00+distanciat000
         t_actual="AA-"
         g_actual=1
-    elif len(distanciat0)>=cota:
+    elif len(distanciat0+distanciat00+distanciat000)>=cota:
         distancia=distanciat0+distanciat00+distanciat000
         t_actual="A+"
         g_actual=1
-    elif len(distanciat1)>=cota:
+    elif len(distanciat1+distanciat0+distanciat00+distanciat000)>=cota:
         distancia=distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="A-"
         g_actual=2
-    elif len(distanciat2_1)>=cota:
+    elif len(distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=cota:
         distancia=distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="B+"
         g_actual=3
-    elif len(distanciat2_2)>=cota:
+    elif len(distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=cota:
         distancia=distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="B-"
         g_actual=4
-    elif len(distanciat3_1)>=cota:
+    elif len(distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=cota:
         distancia=distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="C+"
         g_actual=5
-    elif len(distanciat3_2)>=cota:
+    elif len(distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=cota:
         distancia=distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="C-"
         g_actual=6
-    elif len(distanciat4_1)>=cota:
+    elif len(distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=cota:
         distancia=distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="D+"
         g_actual=7
-    elif len(distanciat4_2)>=5:
+    elif len(distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=5:
         distancia=distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="D-"
         g_actual=8
+    elif len(distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=5:
+        distancia=distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
+        t_actual="E+"
+        g_actual=9
+    elif len(distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=5:
+        distancia=distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
+        t_actual="E-"
+        g_actual=10
+    elif len(distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=5:
+        distancia=distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
+        t_actual="F+"
+        g_actual=11
 
     else:
-        return 0,"E",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,9
+        return 0,"F-",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,12
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:

@@ -55,7 +55,7 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         banosmax=client["baños"]
 
     if client["reportepro"]:
-        confmin=4
+        confmin=12
         rentminventa=-1
         rentminarriendo=0
     else:
