@@ -375,8 +375,12 @@ def tipo(bot, update):
         select.dorms(bot, update,client)
         return pm.SELECT_DORMS
     elif update.message.text == "Comercial":
-        select.price_range(bot, update,client)
-        return pm.SELECT_PRICE_RANGE
+        if client["product"]=="Reporte":
+            select.price_range(bot, update,client)
+            return pm.SELECT_PRICE_RANGE
+        else:
+            select.area(bot, update,client)
+            return pm.SELECT_AREA
 
     elif update.message.text == "Atrás":
         client.pop("tipo")
