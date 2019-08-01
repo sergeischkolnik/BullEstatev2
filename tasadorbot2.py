@@ -11,6 +11,7 @@ import numpy as np
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 import uf
+import statistics as stat
 
 uf1=uf.getUf()
 
@@ -329,6 +330,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
             #T000 (AA+)
             if (distance < 50) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k000[5]!=j[5]) or (k000[8]!=j[8]) or (k000[9]!=j[9]) or (k000[6]!=j[6]) or (k000[7]!=j[7]) or (k000[12]!=j[12])):
+
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat000.append(j)
@@ -337,7 +339,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
             #T00 (AA-)
-            if (distance < 500) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k00[5]!=j[5]) or (k00[8]!=j[8]) or (k00[9]!=j[9]) or (k00[6]!=j[6]) or (k00[7]!=j[7]) or (k00[12]!=j[12])):
+            elif (distance < 500) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k00[5]!=j[5]) or (k00[8]!=j[8]) or (k00[9]!=j[9]) or (k00[6]!=j[6]) or (k00[7]!=j[7]) or (k00[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat00.append(j)
@@ -345,7 +347,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 j=j[:-1]
 
             #T0
-            if (distance < 1000) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k0[5]!=j[5]) or (k0[8]!=j[8]) or (k0[9]!=j[9]) or (k0[6]!=j[6]) or (k0[7]!=j[7]) or (k0[12]!=j[12])):
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k0[5]!=j[5]) or (k0[8]!=j[8]) or (k0[9]!=j[9]) or (k0[6]!=j[6]) or (k0[7]!=j[7]) or (k0[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat0.append(j)
@@ -354,7 +356,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
             #T1 REVISAR
-            if (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k1[5]!=j[5]) or (k1[8]!=j[8]) or (k1[9]!=j[9]) or (k1[6]!=j[6]) or (k1[7]!=j[7]) or (k1[12]!=j[12])) :
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (dormitorios==j[6]) and (banos==j[7]) and (estacionamientos==j[12]) and ((k1[5]!=j[5]) or (k1[8]!=j[8]) or (k1[9]!=j[9]) or (k1[6]!=j[6]) or (k1[7]!=j[7]) or (k1[12]!=j[12])) :
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat1.append(j)
@@ -370,7 +372,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 k21=j
 
             #T2.2
-            if (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (dormitorios==j[6]) and (banos==j[7]) and ((k22[5]!=j[5]) or (k22[8]!=j[8]) or (k22[9]!=j[9]) or (k22[6]!=j[6]) or (k22[7]!=j[7]) or (k22[12]!=j[12])) :
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (dormitorios==j[6]) and (banos==j[7]) and ((k22[5]!=j[5]) or (k22[8]!=j[8]) or (k22[9]!=j[9]) or (k22[6]!=j[6]) or (k22[7]!=j[7]) or (k22[12]!=j[12])) :
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat2_2.append(j)
@@ -378,7 +380,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 k22=j
 
             #T3.1
-            if (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (int(dormitorios)>=(int(j[6])-1) and (int(dormitorios)<=(int(j[6])+1))) and (banos==j[7]) and ((k31[5]!=j[5]) or (k31[8]!=j[8]) or (k31[9]!=j[9]) or (k31[6]!=j[6]) or (k31[7]!=j[7]) or (k31[12]!=j[12])) :
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (int(dormitorios)>=(int(j[6])-1) and (int(dormitorios)<=(int(j[6])+1))) and (banos==j[7]) and ((k31[5]!=j[5]) or (k31[8]!=j[8]) or (k31[9]!=j[9]) or (k31[6]!=j[6]) or (k31[7]!=j[7]) or (k31[12]!=j[12])) :
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat3_1.append(j)
@@ -386,7 +388,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 k31=j
 
             #T3.2
-            if (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (banos==j[7]) and ((k32[5]!=j[5]) or (k32[8]!=j[8]) or (k32[9]!=j[9]) or (k32[6]!=j[6]) or (k32[7]!=j[7]) or (k32[12]!=j[12])):
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (banos==j[7]) and ((k32[5]!=j[5]) or (k32[8]!=j[8]) or (k32[9]!=j[9]) or (k32[6]!=j[6]) or (k32[7]!=j[7]) or (k32[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat3_2.append(j)
@@ -394,7 +396,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 k32=j
 
             #T4.1
-            if (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (int(banos)>=(int(j[7])-1) and (int(banos)<=(int(j[7])+1))) and ((k41[5]!=j[5]) or (k41[8]!=j[8]) or (k41[9]!=j[9]) or (k41[6]!=j[6]) or (k41[7]!=j[7]) or (k41[12]!=j[12])):
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and (int(banos)>=(int(j[7])-1) and (int(banos)<=(int(j[7])+1))) and ((k41[5]!=j[5]) or (k41[8]!=j[8]) or (k41[9]!=j[9]) or (k41[6]!=j[6]) or (k41[7]!=j[7]) or (k41[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat4_1.append(j)
@@ -402,7 +404,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 k41=j
 
             #T4.2
-            if (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat4_2.append(j)
@@ -415,42 +417,42 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
 
-    if len(distanciat000)>=5:
+    if len(distanciat000)>=6:
         distancia=distanciat000
     elif len(distanciat00)>=8:
-        distancia=distanciat00
+        distancia=distanciat00+distanciat000
         t_actual="AA-"
         g_actual=1
     elif len(distanciat0)>=cota:
-        distancia=distanciat0
+        distancia=distanciat0+distanciat00+distanciat000
         t_actual="A+"
         g_actual=1
     elif len(distanciat1)>=cota:
-        distancia=distanciat1
+        distancia=distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="A-"
         g_actual=2
     elif len(distanciat2_1)>=cota:
-        distancia=distanciat2_1
+        distancia=distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="B+"
         g_actual=3
     elif len(distanciat2_2)>=cota:
-        distancia=distanciat2_2
+        distancia=distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="B-"
         g_actual=4
     elif len(distanciat3_1)>=cota:
-        distancia=distanciat3_1
+        distancia=distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="C+"
         g_actual=5
     elif len(distanciat3_2)>=cota:
-        distancia=distanciat3_2
+        distancia=distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="C-"
         g_actual=6
     elif len(distanciat4_1)>=cota:
-        distancia=distanciat4_1
+        distancia=distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="D+"
         g_actual=7
     elif len(distanciat4_2)>=5:
-        distancia=distanciat4_2
+        distancia=distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="D-"
         g_actual=8
 
@@ -463,6 +465,19 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     except:
         distancias=distancia
 
+    precios=[el[5] for el in distancias]
+    prom=sum(precios)/len(precios)
+    desvest=stat.stdev(precios)
+    intermin=prom-3*desvest
+    intermax=prom+3*desvest
+
+    arregloaux=[]
+
+    for preciodistancia in distancias:
+        if preciodistancia[5]<intermax or preciodistancia[5]>intermin:
+            arregloaux.append(preciodistancia)
+
+    distancias=arregloaux
     links = []
     for props in distancias:
             links.append(props[13])
