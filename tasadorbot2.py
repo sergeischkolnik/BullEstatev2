@@ -468,8 +468,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     precios=[el[5] for el in distancias]
     prom=sum(precios)/len(precios)
     desvest=stat.stdev(precios)
-    intermin=prom-3*desvest
-    intermax=prom+3*desvest
+    intermin=prom-2*desvest
+    intermax=prom+2*desvest
 
     print("promedio:"+str(prom))
     print("intermin:"+str(intermin))
@@ -480,7 +480,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     for preciodistancia in distancias:
         print("Precio Viejo: "+str(preciodistancia[5]))
-        if preciodistancia[5]<intermax and preciodistancia[5]>intermin:
+        if preciodistancia[5]<intermax and preciodistancia[5]>intermin and preciodistancia[5]<2.5*prom and preciodistancia[5]>0.4*prom:
             arregloaux.append(preciodistancia)
         else:
             print("Propiedad Eliminada")
