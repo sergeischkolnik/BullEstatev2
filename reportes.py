@@ -2022,7 +2022,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                 if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
                     for est in range(0,4):
-                        comunaP=(comuna.replace(' ','-')+'-metropolitana').lower()
+                        comunaP=(comuna.replace(' ','-')+'-' +str(region)).lower()
                         print("la comuna para calcular la rentabilidad promedio es:")
                         print(comuna)
                         rentaPromedio = rentaPProm(tipo, d, b, est, comunaP)

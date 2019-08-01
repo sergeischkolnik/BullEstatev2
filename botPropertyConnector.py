@@ -70,7 +70,8 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         metrodistance=None
     else:
         metrodistance=99999
-
+    if client["comuna"]=="Santiago Centro":
+        client["comuna"]=="santiago"
 
     reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
                                     None,None, None,None,dormitoriosmin,dormitoriosmax, banosmin, banosmax,
