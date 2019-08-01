@@ -203,8 +203,16 @@ def menu(bot, update):
     print(client)
 
     if update.message.text == "Reporte":
-        select.operacion(bot, update,client)
-        return pm.SELECT_OP
+        if "reporteThread" in client.keys() and client["reporteThread"].isAlive():
+            bot.send_message(chat_id=update.message.chat_id, text="Ya se está generando un reporte. Por favor espere que"
+                                                                  " éste termine antes de comenzar otro. Si ha pasado "
+                                                                  "sobre una hora y el problema persiste, por favor "
+                                                                  "contacte a soporte.")
+            select.menu(bot, update)
+            return pm.MENU
+        else:
+            select.operacion(bot, update,client)
+            return pm.SELECT_OP
     elif update.message.text == "Tasador":
         select.operacion(bot, update,client)
         return pm.SELECT_OP
