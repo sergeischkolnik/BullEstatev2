@@ -375,12 +375,8 @@ def tipo(bot, update):
         select.dorms(bot, update,client)
         return pm.SELECT_DORMS
     elif update.message.text == "Comercial":
-        if client["product"]=="Reporte":
-            select.price_range(bot, update,client)
-            return pm.SELECT_PRICE_RANGE
-        else:
-            select.area(bot, update,client)
-            return pm.SELECT_AREA
+        select.baths(bot, update,client)
+        return pm.SELECT_BATHS
 
     elif update.message.text == "Atrás":
         client.pop("tipo")
@@ -438,12 +434,19 @@ def baths(bot, update):
     print(client)
 
     if update.message.text == "1" or update.message.text == "2" or update.message.text == "3" or update.message.text == "4+":
+
+
         if client["product"]=="Reporte":
             select.price_range(bot,update,client)
             return pm.SELECT_PRICE_RANGE
         else:
-            select.feature(bot,update,client)
-            return pm.SELECT_FEATURE
+            if client["tipo"]=="Comercial":
+                select.area(bot,update,client)
+                return pm.SELECT_AREA
+
+            else:
+                select.feature(bot,update,client)
+                return pm.SELECT_FEATURE
     elif update.message.text == "Atrás":
         client.pop("baños")
         select.dorms(bot, update,client)
@@ -593,6 +596,9 @@ def area_range(bot, update):
                 select.area_range(bot, update, client)
                 return pm.SELECT_AREA_RANGE
             else:
+                client["reportepro"]=False
+                client["reporteinterno"] = False
+                client["reportemetro"] = False
                 select.confirm_report(bot, update, client)
                 print(client)
                 return pm.CONFIRM_REPORT

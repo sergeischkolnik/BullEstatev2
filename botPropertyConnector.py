@@ -40,19 +40,21 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
     listaComunas=[]
     listaComunas.append(client["comuna"].lower())
 
-    if client["dormitorios"]=='4+':
-        dormitoriosmin=4
-        dormitoriosmax=None
-    else:
-        dormitoriosmin=client["dormitorios"]
-        dormitoriosmax=client["dormitorios"]
+    if ["dormitorios"] in client:
+        if client["dormitorios"]=='4+':
+            dormitoriosmin=4
+            dormitoriosmax=None
+        else:
+            dormitoriosmin=client["dormitorios"]
+            dormitoriosmax=client["dormitorios"]
 
-    if client["baños"]=='4+':
-        banosmin=4
-        banosmax=None
-    else:
-        banosmin=client["baños"]
-        banosmax=client["baños"]
+    if ["dormitorios"] in client:
+        if client["baños"]=='4+':
+            banosmin=4
+            banosmax=None
+        else:
+            banosmin=client["baños"]
+            banosmax=client["baños"]
 
     if client["reportepro"]:
         confmin=12
