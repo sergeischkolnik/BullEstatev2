@@ -586,14 +586,15 @@ def area_range(bot, update):
     else:
         try:
             client["totalmax"] = int(update.message.text)
-            select.confirm_report(bot, update, client)
             print(client)
-            return pm.CONFIRM_REPORT
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.area_range(bot, update, client)
             return pm.SELECT_AREA_RANGE
 
+        select.confirm_report(bot, update, client)
+        print(client)
+        return pm.CONFIRM_REPORT
 
 def confirm_report(bot,update):
     """
