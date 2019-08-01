@@ -338,6 +338,7 @@ def comuna(bot, update):
 
     #Agregar validacion viendo si es parte de una lista
     if update.message.text == "Atrás":
+        client.pop("region")
         client.pop("comuna")
         select.region(bot, update,client)
         return pm.SELECT_REGION
