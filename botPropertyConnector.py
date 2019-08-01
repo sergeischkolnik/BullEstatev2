@@ -26,7 +26,8 @@ def obtenerIdConLink(link,sitio):
     else:
         return id
 
-def generarreporte(client):
+
+def generarreporte(client,sendMessageFunc,chat_id,reply):
     if client["moneda"]=="UF":
         client["preciomin"]=client["preciomin"]*ufn
         client["preciomax"]=client["preciomax"]*ufn
@@ -58,6 +59,7 @@ def generarreporte(client):
                                     None, None, None,None, None, None, None, None, None, client["tipo"], client["operacion"],
                                     client["region"].lower(),listaComunas, None, client["mail"],(client["firstname"]+" "+client["lastname"]),
                                     None,None,None,None,None,None,True)
+    sendMessageFunc(chat_id,reply)
 
 def connectorFicha(client):
 
