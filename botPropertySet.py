@@ -8,7 +8,7 @@ import botPropertySelect as select
 import botPropertyDataBase as db
 import botPropertyConnector as connector
 import googleMapApi as gm
-
+import threading
 
 
 clientsDict = dict()
@@ -612,8 +612,14 @@ def confirm_report(bot,update):
     if update.message.text == "SI":
         #generar reporte para cliente, enviar al correo correspondiente
         bot.send_message(chat_id=update.message.chat_id, text="Se está generando el reporte")
-        connector.generarreporte(client)
-        bot.send_message(chat_id=update.message.chat_id, text="Reporte generado y enviado exitosamente al correo: "+(client["mail"])+".")
+
+        reply = "Reporte generado y enviado exitosamente al correo: "+(client["mail"])+"."
+
+        thr = threading.Thread(target=connector.generarreporte, args=(client,bot.send_message,update.message.chat_id,reply))
+        thr.setDaemon(True)
+        thr.start()
+
+        #bot.send_message(chat_id=update.message.chat_id, text=reply)
 
         select.menu(bot, update)
         return pm.MENU
