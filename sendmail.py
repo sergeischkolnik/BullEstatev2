@@ -3,6 +3,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import  MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+import os
 
 def sendMail(to,cliente,file):
     fromaddr = "contacto@bullestate.cl"
@@ -59,7 +60,10 @@ def sendMailMultiple(to,cliente,files):
         part = MIMEBase('application', 'octet-stream')
         part.set_payload((attachment).read())
         encoders.encode_base64(part)
-        part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+
+        oneName = os.path.basename(filename)
+
+        part.add_header('Content-Disposition', "attachment; filename= %s" % oneName)
 
         msg.attach(part)
     print('mensajes atachados')
