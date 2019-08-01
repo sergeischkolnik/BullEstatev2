@@ -54,11 +54,29 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         banosmin=client["baños"]
         banosmax=client["baños"]
 
+    if client["reportepro"]:
+        confmin=4
+        rentminventa=-1
+        rentminarriendo=0
+    else:
+        confmin=None
+        rentminventa=None
+        rentminarriendo=None
+    if client["reporteinterno"]:
+        corredor="0"
+    else:
+        corredor=None
+    if not client["reportemetro"]:
+        metrodistance=None
+    else:
+        metrodistance=99999
+
+
     reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
                                     None,None, None,None,dormitoriosmin,dormitoriosmax, banosmin, banosmax,
-                                    None, None, None,None, None, None, None, None, None, client["tipo"], client["operacion"],
+                                    confmin, rentminventa, rentminarriendo,None, None, metrodistance, None, None, None, client["tipo"], client["operacion"],
                                     client["region"].lower(),listaComunas, None, client["mail"],(client["firstname"]+" "+client["lastname"]),
-                                    None,None,None,None,None,None,True)
+                                    None,None,None,None,corredor,None,True)
     sendMessageFunc(chat_id,reply)
 
 def connectorFicha(client):

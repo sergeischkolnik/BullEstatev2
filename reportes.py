@@ -1974,11 +1974,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         estaciones1 = estacionesSelect(l1,l2,l3)
     else:
         estaciones1=estaciones()
-    columnNames.append("Link")
 
-    columnNames.append("Mail")
-    columnNames.append("Telefono")
-    columnNames.append("es dueno")
+    if corredor is not None:
+        columnNames.append("Link")
+        columnNames.append("Mail")
+        columnNames.append("Telefono")
+        columnNames.append("es dueno")
     columnNames.append('fecha encontrado')
 
     if rentminventa is not False:
@@ -2285,32 +2286,33 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
 
                     #agregar mail, telefono y dueño
-                    if portalinmobiliario:
-                        try:
-                            email,telefono,dueno = getDatosDueno(prop[0])
-                        except:
-                            email="NN"
-                            telefono="NN"
-                            dueno="NN"
+                    if corredor is not None:
+                        if portalinmobiliario:
+                            try:
+                                email,telefono,dueno = getDatosDueno(prop[0])
+                            except:
+                                email="NN"
+                                telefono="NN"
+                                dueno="NN"
 
-                    else:
-                        email = "NN"
-                        telefono = "NN"
-                        if (prop[16]==1):
-                            dueno='si'
-                        elif (prop[16]==0):
-                            dueno='no'
                         else:
-                            dueno='NN'
-                    if (str(dueno) == corredor or (dueno == "NN" and corredor != "a")):
-                        if verboso:
-                            print("[GeneradorReportes] La propiedad encontrada " + str(
-                                dueno) + " es gestionada por un dueño")
-                        continue
-                    subresultado.append(email)
-                    subresultado.append(telefono)
-                    subresultado.append(dueno)
-                    subresultado.append(fechareporte)
+                            email = "NN"
+                            telefono = "NN"
+                            if (prop[16]==1):
+                                dueno='si'
+                            elif (prop[16]==0):
+                                dueno='no'
+                            else:
+                                dueno='NN'
+                        if (str(dueno) == corredor or (dueno == "NN" and corredor != "a")):
+                            if verboso:
+                                print("[GeneradorReportes] La propiedad encontrada " + str(
+                                    dueno) + " es gestionada por un dueño")
+                            continue
+                        subresultado.append(email)
+                        subresultado.append(telefono)
+                        subresultado.append(dueno)
+                        subresultado.append(fechareporte)
 
                     if rentminventa is not False:
                         subresultado.append(tasacionVenta[1])
