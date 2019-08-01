@@ -840,6 +840,8 @@ def confirm_tasacion(bot, update,client):
     confirmtext.append("Tipo: "+client["tipo"])
     confirmtext.append("Dormitorios: "+client["dormitorios"])
     confirmtext.append("Baños: "+client["baños"])
+    confirmtext.append("Estacionamientos: "+client["estacionamientos"])
+    confirmtext.append("Bodegas: "+client["bodegas"])
     if client["tipo"]=="Departamento":
         confirmtext.append("Superficie: "+str(client["metros"])+"m2 útiles")
         confirmtext.append("Superficie: "+str(client["total"])+"m2 totales")

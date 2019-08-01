@@ -152,7 +152,7 @@ def tasador(client):
                 text+='\n'
                 text+=link
             text+='\n'
-            text="Su propiedad se ha tasado a un valor de venta de UF. <b>"+str(tasacion[0])+"</b>,con una confianza de: <b>"+confDict[tasacion[1]]+"</b>."
+            text+="Su propiedad se ha tasado a un valor de venta de UF. "+'{:,}'.format(tasacion[0]).replace(",",".")+",con una confianza de: <b>"+confDict[tasacion[1]]+"."
 
             print("Texto Full, Check")
             return text
@@ -165,7 +165,7 @@ def tasador(client):
                 text+='\n'
                 text+=link
             text+='\n'
-            text="Su propiedad se ha tasado a un valor arriendo de $. <b>"+str(tasacion[0])+"</b>,con una confianza de: <b>"+confDict[tasacion[1]]+"</b>."
+            text+="Su propiedad se ha tasado a un valor arriendo de $ "+'{:,}'.format(tasacion[0]).replace(",",".")+",con una confianza de: <b>"+confDict[tasacion[1]]+"</b>."
 
             print("Texto Full, Check")
             return text
