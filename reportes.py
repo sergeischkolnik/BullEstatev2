@@ -2355,21 +2355,23 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     #else:
                      #   columnNames=["Precio","Útil","Tot","D","B","E","Metro","Dist-est.","Arriendo","Rent.A","Link"]
 
-                    if (nombrecarpetadb is None):
-                        nombrecarpetadb="Otros"
                     if (nombreCliente is None):
-                        nombreCliente="otros"
+                        nombreCliente = "otros"
 
-                    #nombreArchivo = "reporte "+ nombreCliente +" "+str(tipo)+" "+ str(comuna) + " " +str(d) + " " + str(b)+ " " + str(fechahoy)+'.csv'
                     nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + str(comuna) + " " + str(
                         d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
-                    print (nombreArchivo)
-                    crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy,nombreCliente)
-                    print("carpeta encontrada,  o creada")
 
-                    patharchivo = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(nombreCliente),str(fechahoy),nombreArchivo)
-                    print(patharchivo)
-                    #writeCsv(nombreArchivo, resultado, columnNames, operacion)
+                    if (nombrecarpetadb is None):
+                        patharchivo = os.path.join(os.path.expanduser('~'), 'temp' ,nombreArchivo)
+
+                    else:
+                        crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy,nombreCliente)
+                        print("carpeta encontrada,  o creada")
+                        patharchivo = os.path.join(os.path.expanduser('~'), 'Dropbox', 'Reportes', str(nombrecarpetadb), str(nombreCliente),str(fechahoy),nombreArchivo)
+                        print(patharchivo)
+                        #writeCsv(nombreArchivo, resultado, columnNames, operacion)
+
+
                     writeXlsx(patharchivo,resultado,columnNames,operacion)
 
                     listaAdjuntos.append(patharchivo)
@@ -2382,6 +2384,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     #Arreglar Mandada de mails
     print('proceder a mandar correo')
     sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
+
+    #borrar archivos si no habia carpeta de DB
+    if nombrecarpetadb is None:
+        for archivo in listaAdjuntos:
+            os.remove(archivo)
 
 
 if __name__ == '__main__':
