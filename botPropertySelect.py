@@ -587,7 +587,7 @@ def confirm_report(bot,update,client):
     confirmtext.append("Dormitorios: "+client["dormitorios"])
     confirmtext.append("Baños: "+client["baños"])
     if client["moneda"]=="UF":
-        confirmtext.append("Desde: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: "+client["moneda"]+" "++'{:,}'.format(client["preciomin"]).replace(",","."))
+        confirmtext.append("Desde: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: "+client["moneda"]+" "+'{:,}'.format(client["preciomin"]).replace(",","."))
     else:
         confirmtext.append("Desde: $ "+'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: $ "+'{:,}'.format(client["preciomin"]).replace(",","."))
     if client["tipo"]=="Departamento":
