@@ -164,6 +164,9 @@ def tasador(client):
         text="No se ha podido realizar la tasación."
         return text
     else:
+        print("precio de "+str(client["operacion"])+" es de: ")
+        print(tasacion[0])
+
         if tasacion[4]:
             text="La propiedad ha sido comparada con las siguientes propiedades (entre otras):"
             print("Texto inicial Check")
