@@ -479,7 +479,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     arregloaux=[]
 
     for preciodistancia in distancias:
-        print("Precio Viejo: "+str(preciodistancia))
+        print("Precio Viejo: "+str(preciodistancia[5]))
         if preciodistancia[5]<intermax and preciodistancia[5]>intermin:
             arregloaux.append(preciodistancia)
         else:
