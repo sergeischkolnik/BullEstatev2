@@ -1874,7 +1874,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     if confmin is not None:
         confmin = int(confmin)
     else:
-        confmin=12
+        confmin=13
 
     if rentminventa is not None:
         rentminventa = float(rentminventa)

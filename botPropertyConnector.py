@@ -37,8 +37,7 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         client["operacion"]= "venta"
     else:
         client["operacion"]= "arriendo"
-    listaComunas=[]
-    listaComunas.append(client["comuna"].lower())
+
 
     if ["dormitorios"] in client:
         if client["dormitorios"]=='4+':
@@ -47,17 +46,21 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         else:
             dormitoriosmin=client["dormitorios"]
             dormitoriosmax=client["dormitorios"]
-
-    if ["dormitorios"] in client:
+    else:
+        dormitoriosmin=None
+        dormitoriosmax=None
+    if ["baños"] in client:
         if client["baños"]=='4+':
             banosmin=4
             banosmax=None
         else:
             banosmin=client["baños"]
             banosmax=client["baños"]
-
+    else:
+        banosmin=None
+        banosmax=None
     if client["reportepro"]:
-        confmin=12
+        confmin=13
         rentminventa=-1
         rentminarriendo=0
     else:
@@ -73,7 +76,10 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
     else:
         metrodistance=99999
     if client["comuna"]=="Santiago Centro":
-        client["comuna"]=="santiago"
+        client["comuna"]="santiago"
+
+    listaComunas=[]
+    listaComunas.append(client["comuna"].lower())
 
     reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
                                     None,None, None,None,dormitoriosmin,dormitoriosmax, banosmin, banosmax,
@@ -118,7 +124,7 @@ def connectorFicha(client):
 def tasador(client):
 
     confDict={
-        "AA+":"98%",
+        "AA+":"100%",
         "AA-":"95%",
         "A+":"90%",
         "A-":"85%",
@@ -126,9 +132,14 @@ def tasador(client):
         "B-":"70%",
         "C+":"60%",
         "C-":"50%",
-        "D+":"30%",
-        "D-":"10%",
-        "E":"0%",
+        "D+":"40%",
+        "D-":"30%",
+        "E+":"20%",
+        "E-":"15%",
+        "F+":"10%",
+        "F-":"5%",
+        "N":"0%",
+
     }
     print("Diccionario de Confianza Creado")
 

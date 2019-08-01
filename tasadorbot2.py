@@ -309,6 +309,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     distanciat5_1=[]
     distanciat5_2=[]
     distanciat5_3=[]
+    distanciat6_0=[]
+
 
     k000=[0]*14
     k00=[0]*14
@@ -323,6 +325,10 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     k51=[0]*14
     k52=[0]*14
     k53=[0]*14
+    k60=[0]*14
+
+
+    data=sorted(data, key=lambda x:x[5])
 
     for j in data:
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
@@ -418,26 +424,34 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 j=j[:-1]
                 k42=j
             #T5.1
-            elif (distance < 1000) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
+            elif (distance < 1000) and ((k51[5]!=j[5]) or (k51[8]!=j[8]) or (k51[9]!=j[9]) or (k51[6]!=j[6]) or (k51[7]!=j[7]) or (k51[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat5_1.append(j)
                 j=j[:-1]
                 k51=j
             #T5.2
-            elif (distance < 2000) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
+            elif (distance < 2000) and ((k52[5]!=j[5]) or (k52[8]!=j[8]) or (k52[9]!=j[9]) or (k52[6]!=j[6]) or (k52[7]!=j[7]) or (k52[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat5_1.append(j)
                 j=j[:-1]
-                k51=j
+                k52=j
             #T5.3
-            elif (distance < 5000) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
+            elif (distance < 5000) and ((k53[5]!=j[5]) or (k53[8]!=j[8]) or (k53[9]!=j[9]) or (k53[6]!=j[6]) or (k53[7]!=j[7]) or (k53[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat5_1.append(j)
                 j=j[:-1]
-                k51=j
+                k53=j
+            #T6
+            elif ((k53[5]!=j[5]) or (k53[8]!=j[8]) or (k53[9]!=j[9]) or (k53[6]!=j[6]) or (k53[7]!=j[7]) or (k53[12]!=j[12])):
+                d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
+                j.append(d)
+                distanciat6_0.append(j)
+                j=j[:-1]
+                k60=j
+
 
     t_actual="AA+"
     g_actual=1
@@ -495,9 +509,13 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         distancia=distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="F+"
         g_actual=11
+    elif len(distanciat6_0+distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=5:
+        distancia=distanciat6_0+distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
+        t_actual="F-"
+        g_actual=12
 
     else:
-        return 0,"F-",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,12
+        return 0,"N",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,13
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
@@ -506,30 +524,24 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         distancias=distancia
 
     precios=[el[5] for el in distancias]
-    prom=sum(precios)/len(precios)
     med=stat.median(precios)
-    desvest=stat.stdev(precios)
     intermin=0.4*med
     intermax=2.5*med
 
     arregloaux=[]
 
     for preciodistancia in distancias:
-        print("Precio Viejo: "+str(preciodistancia[5]))
         if preciodistancia[5]<intermax and preciodistancia[5]>intermin:
             arregloaux.append(preciodistancia)
-        else:
-            print("Propiedad Eliminada: "+str(preciodistancia[5]))
 
-    print("promedio:"+str(prom))
     print("mediana:"+str(med))
     print("intermin:"+str(intermin))
     print("intermax:"+str(intermax))
+    print("Propiedades Eliminadas: "+str(len(distancias)-len(arregloaux)))
     distancias=arregloaux
 
     links = []
     for props in distancias:
-            print("Precio Nuevo: "+str(props[5]))
             links.append(props[13])
 
     y_train = []
