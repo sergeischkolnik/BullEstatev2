@@ -474,7 +474,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     arregloaux=[]
 
     for preciodistancia in distancias:
-        if preciodistancia[5]<intermax or preciodistancia[5]>intermin:
+        if preciodistancia[5]<intermax and preciodistancia[5]>intermin:
             arregloaux.append(preciodistancia)
 
     distancias=arregloaux
