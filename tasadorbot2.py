@@ -445,12 +445,30 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 j=j[:-1]
                 k53=j
             #T6
-            elif ((k53[5]!=j[5]) or (k53[8]!=j[8]) or (k53[9]!=j[9]) or (k53[6]!=j[6]) or (k53[7]!=j[7]) or (k53[12]!=j[12])):
+            elif ((k60[5]!=j[5]) or (k60[8]!=j[8]) or (k60[9]!=j[9]) or (k60[6]!=j[6]) or (k60[7]!=j[7]) or (k60[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat6_0.append(j)
                 j=j[:-1]
                 k60=j
+
+    print("Tamaño de grupos:")
+
+    print("distanciat000: "+str(len(distanciat000)))
+    print("distanciat00: "+str(len(distanciat00)))
+    print("distanciat0: "+str(len(distanciat0)))
+    print("distanciat1: "+str(len(distanciat1)))
+    print("distanciat2_1: "+str(len(distanciat2_1)))
+    print("distanciat2_2: "+str(len(distanciat2_2)))
+    print("distanciat3_1: "+str(len(distanciat3_1)))
+    print("distanciat3_2: "+str(len(distanciat3_2)))
+    print("distanciat4_1: "+str(len(distanciat4_1)))
+    print("distanciat4_2: "+str(len(distanciat4_2)))
+    print("distanciat5_1: "+str(len(distanciat5_1)))
+    print("distanciat5_2: "+str(len(distanciat5_2)))
+    print("distanciat5_3: "+str(len(distanciat5_3)))
+    print("distanciat6_0: "+str(len(distanciat6_0)))
+
 
 
     t_actual="AA+"
