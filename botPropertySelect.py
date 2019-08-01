@@ -629,8 +629,14 @@ def confirm_report(bot,update,client):
     confirmtext.append("Región: "+client["region"])
     confirmtext.append("Comuna: "+client["comuna"])
     confirmtext.append("Tipo: "+client["tipo"])
-    confirmtext.append("Dormitorios: "+client["dormitorios"])
-    confirmtext.append("Baños: "+client["baños"])
+    if client["tipo"]=="Departamento" or client["tipo"]=="Departamento":
+        confirmtext.append("Dormitorios: "+client["dormitorios"])
+        confirmtext.append("Baños: "+client["baños"])
+    elif client["tipo"]=="Oficina":
+        confirmtext.append("Privados: "+client["dormitorios"])
+        confirmtext.append("Baños: "+client["baños"])
+    else:
+        confirmtext.append("Baños: "+client["baños"])
     if client["moneda"]=="UF":
         confirmtext.append("Desde: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: "+client["moneda"]+" "+'{:,}'.format(client["preciomax"]).replace(",","."))
     else:
@@ -889,12 +895,18 @@ def confirm_tasacion(bot, update,client):
     confirmtext.append("Región: "+client["region"])
     confirmtext.append("Comuna: "+client["comuna"])
     confirmtext.append("Tipo: "+client["tipo"])
-    confirmtext.append("Dormitorios: "+client["dormitorios"])
-    confirmtext.append("Baños: "+client["baños"])
+    if client["tipo"]=="Departamento" or client["tipo"]=="Departamento":
+        confirmtext.append("Dormitorios: "+client["dormitorios"])
+        confirmtext.append("Baños: "+client["baños"])
+    elif client["tipo"]=="Oficina":
+        confirmtext.append("Privados: "+client["dormitorios"])
+        confirmtext.append("Baños: "+client["baños"])
+    else:
+        confirmtext.append("Baños: "+client["baños"])
     confirmtext.append("Estacionamientos: "+client["estacionamientos"])
     if client["tipo"]=="Departamento":
         confirmtext.append("Bodegas: "+client["bodegas"])
-    if client["tipo"]=="Departamento":
+    if client["tipo"]=="Departamento" or client["tipo"]=="Oficina" or client["tipo"]=="Comercial":
         confirmtext.append("Superficie: "+str(client["metros"])+"m2 útiles")
         confirmtext.append("Superficie: "+str(client["total"])+"m2 totales")
     if client["tipo"]=="Casa":
