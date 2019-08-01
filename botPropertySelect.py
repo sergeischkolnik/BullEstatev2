@@ -895,7 +895,7 @@ def confirm_tasacion(bot, update,client):
     confirmtext.append("Región: "+client["region"])
     confirmtext.append("Comuna: "+client["comuna"])
     confirmtext.append("Tipo: "+client["tipo"])
-    if client["tipo"]=="Departamento" or client["tipo"]=="Departamento":
+    if client["tipo"]=="Departamento" or client["tipo"]=="Casa":
         confirmtext.append("Dormitorios: "+client["dormitorios"])
         confirmtext.append("Baños: "+client["baños"])
     elif client["tipo"]=="Oficina":
@@ -903,7 +903,8 @@ def confirm_tasacion(bot, update,client):
         confirmtext.append("Baños: "+client["baños"])
     else:
         confirmtext.append("Baños: "+client["baños"])
-    confirmtext.append("Estacionamientos: "+client["estacionamientos"])
+    if client["tipo"]!="Comercial":
+        confirmtext.append("Estacionamientos: "+client["estacionamientos"])
     if client["tipo"]=="Departamento":
         confirmtext.append("Bodegas: "+client["bodegas"])
     if client["tipo"]=="Departamento" or client["tipo"]=="Oficina" or client["tipo"]=="Comercial":
