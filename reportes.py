@@ -288,7 +288,6 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
 
         sql=sql+sqlwhere
 
-
         sqlwhere="tipo LIKE '%" + str(tipo) + "%' AND "
         sql=sql+sqlwhere
 

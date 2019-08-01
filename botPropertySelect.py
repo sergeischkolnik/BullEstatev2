@@ -224,6 +224,8 @@ def tipo(bot,update):
 
 
     keyboard = [["Departamento","Casa"],
+                ["Oficina","Comercial"],
+                ["Terrenos","Otros"],
                 ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -248,10 +250,12 @@ def dorms(bot,update,client):
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
                                        resize_keyboard=True)
-
-    pm.logger.info("{} está seleccionando Dormitorios.".format(user.first_name))
-    update.message.reply_text("Seleccionar Número de Dormitorios", reply_markup=reply_markup)
-
+    if client["tipo"]=="Departamento" or client["tipo"]=="Casa":
+        pm.logger.info("{} está seleccionando Dormitorios.".format(user.first_name))
+        update.message.reply_text("Seleccionar Número de Dormitorios", reply_markup=reply_markup)
+    elif client["tipo"]=="Oficina":
+        pm.logger.info("{} está seleccionando Privados.".format(user.first_name))
+        update.message.reply_text("Seleccionar Número de Privados", reply_markup=reply_markup)
     return pm.SELECT_DORMS
 
 def baths(bot,update,client):
@@ -394,7 +398,7 @@ def area_range(bot, update,client):
     print("entro al select de arearange")
     print("esta en tipo: " + client["tipo"])
 
-    if client["tipo"] == "Departamento":
+    if client["tipo"] == "Departamento" or client["tipo"] == "Oficina" or client["tipo"] == "Comercial":
 
         if "metrosmin" not in client:
             user = update.message.from_user
@@ -407,14 +411,22 @@ def area_range(bot, update,client):
                                                resize_keyboard=True)
 
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie útil mínima (en m2)", reply_markup=reply_markup)
-            return pm.SELECT_AREA_RANGE
+            if client["tipo"] == "Comercial":
+                update.message.reply_text("Seleccionar superficie mínima (en m2)", reply_markup=reply_markup)
+                return pm.SELECT_AREA_RANGE
+            else:
+                update.message.reply_text("Seleccionar superficie útil mínima (en m2)", reply_markup=reply_markup)
+                return pm.SELECT_AREA_RANGE
 
         elif client["metrosmin"]=="Otra":
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
-            update.message.reply_text("Ingresar superficie útil mínima (en m2)")
-            return pm.SELECT_AREA_RANGE
+            if client["tipo"] == "Comercial":
+                update.message.reply_text("Seleccionar superficie mínima (en m2)", reply_markup=reply_markup)
+                return pm.SELECT_AREA_RANGE
+            else:
+                update.message.reply_text("Seleccionar superficie útil mínima (en m2)", reply_markup=reply_markup)
+                return pm.SELECT_AREA_RANGE
 
         elif "metrosmax" not in client:
             user = update.message.from_user
@@ -428,8 +440,12 @@ def area_range(bot, update,client):
                                                resize_keyboard=True)
 
             pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
-            update.message.reply_text("Seleccionar superficie útil máxima (en m2)", reply_markup=reply_markup)
-            return pm.SELECT_AREA_RANGE
+            if client["tipo"] == "Comercial":
+                update.message.reply_text("Seleccionar superficie mínima (en m2)", reply_markup=reply_markup)
+                return pm.SELECT_AREA_RANGE
+            else:
+                update.message.reply_text("Seleccionar superficie útil mínima (en m2)", reply_markup=reply_markup)
+                return pm.SELECT_AREA_RANGE
 
         elif client["metrosmax"]=="Otra":
             user = update.message.from_user

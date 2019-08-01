@@ -371,6 +371,13 @@ def tipo(bot, update):
     elif update.message.text == "Casa":
         select.dorms(bot, update,client)
         return pm.SELECT_DORMS
+    elif update.message.text == "Oficina":
+        select.dorms(bot, update,client)
+        return pm.SELECT_DORMS
+    elif update.message.text == "Comercial":
+        select.price_range(bot, update,client)
+        return pm.SELECT_PRICE_RANGE
+
     elif update.message.text == "Atrás":
         client.pop("tipo")
         client.pop("comuna")
@@ -578,7 +585,7 @@ def area_range(bot, update):
     elif "metrosmax" not in client or client["metrosmax"]=="Otra":
         try:
             client["metrosmax"] = int(update.message.text)
-            if client["tipo"]=="Departamento" or client["tipo"]=="Casa":
+            if client["tipo"]=="Departamento" or client["tipo"]=="Casa" or client["tipo"]=="Oficina":
                 select.area_range(bot, update, client)
                 return pm.SELECT_AREA_RANGE
             else:
