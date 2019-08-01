@@ -296,7 +296,7 @@ def region(bot, update):
     elif update.message.text == "Valparaíso":
         select.comuna(bot, update,client)
         return pm.SELECT_COMUNA
-    elif update.message.text == "Bio-Bio":
+    elif update.message.text == "Biobio":
         select.comuna(bot, update,client)
         return pm.SELECT_COMUNA
     elif update.message.text == "Coquimbo":
