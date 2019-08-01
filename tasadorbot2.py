@@ -471,15 +471,24 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     intermin=prom-3*desvest
     intermax=prom+3*desvest
 
+    print("promedio:"+str(prom))
+    print("intermin:"+str(intermin))
+    print("intermax:"+str(intermax))
+
+
     arregloaux=[]
 
     for preciodistancia in distancias:
+        print("Precio Viejo: "+str(preciodistancia))
         if preciodistancia[5]<intermax and preciodistancia[5]>intermin:
             arregloaux.append(preciodistancia)
+        else:
+            print("Propiedad Eliminada")
 
     distancias=arregloaux
     links = []
     for props in distancias:
+            print("Precio Nuevo: "+str(prop[5]))
             links.append(props[13])
 
     y_train = []
