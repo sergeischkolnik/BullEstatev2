@@ -329,7 +329,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
 
             #T000 (AA+)
-            if (distance < 50) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and (estacionamientos==j[12]) and ((k000[5]!=j[5]) or (k000[8]!=j[8]) or (k000[9]!=j[9]) or (k000[6]!=j[6]) or (k000[7]!=j[7]) or (k000[12]!=j[12])):
+            if (distance < 50) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and ((estacionamientos==j[12]) or tipo=="casa") and ((k000[5]!=j[5]) or (k000[8]!=j[8]) or (k000[9]!=j[9]) or (k000[6]!=j[6]) or (k000[7]!=j[7]) or (k000[12]!=j[12])):
 
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
@@ -339,7 +339,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
             #T00 (AA-)
-            elif (distance < 500) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and (estacionamientos==j[12]) and ((k00[5]!=j[5]) or (k00[8]!=j[8]) or (k00[9]!=j[9]) or (k00[6]!=j[6]) or (k00[7]!=j[7]) or (k00[12]!=j[12])):
+            elif (distance < 500) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and ((estacionamientos==j[12]) or tipo=="casa") and ((k00[5]!=j[5]) or (k00[8]!=j[8]) or (k00[9]!=j[9]) or (k00[6]!=j[6]) or (k00[7]!=j[7]) or (k00[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat00.append(j)
@@ -347,7 +347,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 j=j[:-1]
 
             #T0
-            elif (distance < 1000) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and (estacionamientos==j[12]) and ((k0[5]!=j[5]) or (k0[8]!=j[8]) or (k0[9]!=j[9]) or (k0[6]!=j[6]) or (k0[7]!=j[7]) or (k0[12]!=j[12])):
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.1) and (abs(total/j[9]-1)<0.2) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and ((estacionamientos==j[12]) or tipo=="casa") and ((k0[5]!=j[5]) or (k0[8]!=j[8]) or (k0[9]!=j[9]) or (k0[6]!=j[6]) or (k0[7]!=j[7]) or (k0[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat0.append(j)
@@ -356,7 +356,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
             #T1 REVISAR
-            elif (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and (estacionamientos==j[12]) and ((k1[5]!=j[5]) or (k1[8]!=j[8]) or (k1[9]!=j[9]) or (k1[6]!=j[6]) or (k1[7]!=j[7]) or (k1[12]!=j[12])) :
+            elif (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and ((estacionamientos==j[12]) or tipo=="casa") and ((k1[5]!=j[5]) or (k1[8]!=j[8]) or (k1[9]!=j[9]) or (k1[6]!=j[6]) or (k1[7]!=j[7]) or (k1[12]!=j[12])) :
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat1.append(j)
@@ -364,7 +364,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 k1=j
 
             #T2.1
-            if (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and (int(estacionamientos)>=(int(j[12])-1) and (int(estacionamientos)<=(int(j[12])+1))) and ((k21[5]!=j[5]) or (k21[8]!=j[8]) or (k21[9]!=j[9]) or (k21[6]!=j[6]) or (k21[7]!=j[7]) or (k21[12]!=j[12])) :
+            if (distance < 1000) and (abs(util/j[8]-1)<0.2) and (abs(total/j[9]-1)<0.4) and ((dormitorios==j[6]) or tipo=="comercial") and (banos==j[7]) and ((int(estacionamientos)>=(int(j[12])-1) or tipo=="casa") and (int(estacionamientos)<=(int(j[12])+1))) and ((k21[5]!=j[5]) or (k21[8]!=j[8]) or (k21[9]!=j[9]) or (k21[6]!=j[6]) or (k21[7]!=j[7]) or (k21[12]!=j[12])) :
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat2_1.append(j)
