@@ -153,6 +153,15 @@ def tasador(client):
     }
     print("Diccionario de Regiones para Yapo Creado")
 
+    if "bodegas" not in client:
+        client["bodegas"]=0
+    if "estacionamientos" not in client:
+        client["estacionamientos"]=0
+    if "baños" not in client:
+        client["baños"]=0
+    if "dormitorios" not in client:
+        client["dormitorios"]=0
+
     propsP=reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),True)
     propsY=reportes.from_yapo(client["tipo"].lower(),regYapoDict[client["region"]],True,True)
     props=propsP+propsY
