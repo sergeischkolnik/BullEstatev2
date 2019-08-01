@@ -193,13 +193,22 @@ def menu(bot, update):
     auxmail=client["mail"]
     auxfirstname=client["firstname"]
     auxlastname=client["lastname"]
+
+    hadThr = False
+    if "reporteThread" in client.keys():
+        thr = client["reporteThread"]
+        hadThr = True
+
     client.clear()
     client["id"]=auxid
     client["mail"]=auxmail
     client["firstname"]=auxfirstname
     client["lastname"]=auxlastname
-
     client["product"] = update.message.text
+
+    if hadThr:
+        client["reporteThread"] = thr
+
     print(client)
 
     if update.message.text == "Reporte":
