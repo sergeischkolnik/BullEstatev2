@@ -858,7 +858,7 @@ def feature(bot, update):
 
     if update.message.text == "0" or update.message.text == "1" or update.message.text == "2" or update.message.text == "3+":
         if "estacionamientos" not in client:
-            client["estacionamientos"]= update.message.text
+            client["estacionamientos"]= update.message.text.replace("3+","3")
             if client["tipo"]=="Departamento":
                 select.feature(bot,update,client)
                 return pm.SELECT_FEATURE
