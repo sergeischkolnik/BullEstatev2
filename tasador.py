@@ -146,7 +146,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
 
             for x in range (0,14):
-                if x==14:
+                if x==12:
                     print(distanciasDict)
                     break
                 kDict[x]=[0]*14
