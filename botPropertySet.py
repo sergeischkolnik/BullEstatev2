@@ -404,8 +404,8 @@ def dorms(bot, update):
     client = clientsDict[update.message.from_user.id]
     client["dormitorios"] = update.message.text
     print(client)
-
-    if update.message.text == "1" or update.message.text == "2" or update.message.text == "3" or update.message.text == "4+":
+    admited=["1","2","3","4","4+","5","6","7","8","9","10",]
+    if update.message.text in admited:
         select.baths(bot,update,client)
         return pm.SELECT_BATHS
     elif update.message.text == "Atrás":
@@ -432,8 +432,9 @@ def baths(bot, update):
     client = clientsDict[update.message.from_user.id]
     client["baños"] = update.message.text
     print(client)
+    admited=["1","2","3","4","4+","5","6","7","8","9","10",]
 
-    if update.message.text == "1" or update.message.text == "2" or update.message.text == "3" or update.message.text == "4+":
+    if update.message.text in admited:
 
 
         if client["product"]=="Reporte":
