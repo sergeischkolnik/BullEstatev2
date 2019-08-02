@@ -103,8 +103,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     tasacionsimple=False
 
     kDict={}
-    for x in kDict.items():
-        kDict[x]=[0]*14
+
     drange=[50,500,1000,1000,1000,1000,1000,1000,1000,1000,1000,5000,10000,5000000]
     utilrange=[0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,1000000,1000000,1000000,1000000]
     dormrange=[0,0,0,0,0,0,1,100,100,100,100,100,100,100]
@@ -145,7 +144,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
 
             for x in range (0,14):
-
+                kDict[x]=[0]*14
                 if (distance < drange[x]) and (abs(util/j[8]-1)<utilrange[x]) and (abs(total/j[9]-1)<(2*utilrange[x])) and \
                         (abs(dormitorios-j[6])<=dormrange[x] or tipo=="comercial") and (abs(banos-j[7])<=bathrange[x]) and \
                         ((kDict[x][5]!=j[5]) or (kDict[x][8]!=j[8]) or (kDict[x][9]!=j[9]) or (kDict[x][6]!=j[6]) or (kDict[x][7]!=j[7]) or (kDict[x][12]!=j[12])):
