@@ -538,7 +538,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         tasacionsimple=True
 
     else:
-        return 0,"N",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,13
+        return 0,"N",0,["No hay links para tasación inválida",""],es_venta,13
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
@@ -575,7 +575,17 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         preciosmts=[el[15] for el in distancias]
         prom=stat.mean(preciosmts)
         sup=(util+total)/2
-        return(prom*sup,t_actual,len(distancias),links,es_venta,g_actual)
+        price=sup*prom
+        try:
+            if es_venta:
+                price = int(price/ufn)
+            else:
+                price = int(price)
+
+            return(price,t_actual,len(distancias),links,es_venta,g_actual)
+        except:
+
+            return (0,"N",len(distancias),["No hay links para tasación inválida",""],es_venta,13)
 
 
     y_train = []
@@ -643,7 +653,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     except:
 
-        return (0,"E",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,9)
+        return (0,"N",len(distancias),["No hay links para tasación inválida",""],es_venta,13)
 
 if __name__ == "__main__":
 
