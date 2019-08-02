@@ -339,4 +339,5 @@ if __name__ == "__main__":
     props=propsP+propsY
     print("Propiedades Check")
 
-    precio,confianza,nrProps,links = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,props)
+    precio,confianza,nrProps,links,venta,numero = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,props)
+    print(precio,confianza,nrProps,links,venta,numero)
