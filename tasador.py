@@ -5,35 +5,35 @@ from math import radians, sin, cos, acos, asin,pi,sqrt
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=90)
 past=datetime.date(past)
-yesterday = datetime.now() - timedelta(days=60)
+yesterday = datetime.now() - timedelta(days=15)
 yesterday=datetime.date(yesterday)
 import numpy as np
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 import uf
+import statistics as stat
 
 uf1=uf.getUf()
 
 
-def mean(numbers):
-    suma=0
-    for i in numbers:
-        i=i[0]
-        i=i[0]
+def regresion(x_train,y_train,x_test):
 
-        suma=suma+i
-    promedio=suma/len(numbers)
-    suma=0
-    for i in numbers:
-        i=i[0]
-        i=i[0]
-        suma=suma+abs(i-promedio)
-    desvest=suma/len(numbers)
+    regr = linear_model.LinearRegression()
 
-    cosa=[]
-    cosa.append(promedio)
-    cosa.append(desvest)
-    return cosa
+    regr.fit(x_train, y_train)
+
+    price=regr.intercept_
+    c=0
+
+    utilnegativa=regr.coef_[0]<-0.001
+    terrazanegativa = regr.coef_[1]<-0.001
+    estacionamientosnegativa =regr.coef_[4]<-0.001
+
+    for coef in regr.coef_:
+        price=price+coef*x_test[c]
+        c=c+1
+
+    return price,utilnegativa,terrazanegativa,estacionamientosnegativa
 
 def insertarTasacion(precio,preciomin,preciomax,id):
     sql = "UPDATE tasaciones SET precio='"+str(precio)+"',preciomin='"+str(preciomin)+"',preciomax='"+str(preciomax)+"' WHERE id='"+str(id)+"'"
@@ -54,10 +54,12 @@ def from_tasaciones():
     tasaciones=cur.fetchall()
     return tasaciones
 
-def from_portalinmobiliario():
+def from_portalinmobiliario(operacion,tipo,region):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario "
+    sqlWhere="WHERE operacion='"+str(operacion)+"' and region='"+str(region)+"' and tipo='"+str(tipo)+"'"
+    sql=sql+sqlWhere
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
@@ -81,433 +83,250 @@ def precio_from_portalinmobiliario(id2):
 
     return precio
 
-def calcularDistancia(i,data):
 
-    distanciat0=[]
-    distanciat1=[]
-    distanciat2_1=[]
-    distanciat2_2=[]
-    distanciat3_1=[]
-    distanciat3_2=[]
-    distanciat4_1=[]
-    distanciat4_2=[]
-    k0=[0]*14
-    k1=[0]*14
-    k21=[0]*14
-    k22=[0]*14
-    k31=[0]*14
-    k32=[0]*14
-    k41=[0]*14
-    k42=[0]*14
+
+def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data):
+
+    ufn=uf.getUf()
+    es_venta=operacion=="venta"
+
+
+    distanciasDict={}
+    confDict={}
+    confDict[0]=100
+    for x in range(1,15):
+        if x>4 and x<11:
+            confDict[x]=confDict[x-1]-10
+        else:
+            confDict[x]=confDict[x-1]-5
+
+    tasacionsimple=False
+
+    kDict={}
+    for x in kDict.items():
+        kDict[x]=[0]*14
+    drange=[50,500,1000,1000,1000,1000,1000,1000,1000,1000,1000,5000,10000,5000000]
+    utilrange=[0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,1000000]
+    dormrange=[0,0,0,0,0,0,1,100,100,100,100,100,100,100]
+    bathrange=[0,0,0,0,0,0,0,0,1,100,100,100,100,100]
+    parkingrange=[0,0,0,0,1,100,100,100,100,100,100,100,100,100]
+
+    auxparkingbool=False
+    #Aux dictionaries for different parkings
+    auxDict1={}
+    auxDict2={}
+
+    try:
+
+        if estacionamientos==0:
+            auxparking1=1
+            auxparking2=2
+        if estacionamientos==1:
+            auxparking1=1
+            auxparking2=2
+        else:
+            auxparking1=estacionamientos-2
+            auxparking2=estacionamientos-1
+        auxparkingbool=True
+    except:
+        pass
+
+    data=sorted(data, key=lambda x:x[5])
 
     for j in data:
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
-        if (j[1]>past) and (i[3]==j[3]) and (i[4]==j[4]) and (j!=i):
-            lat1=i[10]
-            long1=i[11]
+        if (j[1]>past) and (j[2]>yesterday) and (operacion==j[3]) and (tipo==j[4]):
+            lat1=lat
+            long1=lon
             lat2=j[10]
             long2=j[11]
             r=6371000
             c=pi/180
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
 
-            #T0
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.1) and (abs(i[9]/j[9]-1)<0.2) and (i[6]==j[6]) and (i[7]==j[7]) and (i[12]==j[12]) and ((k0[5]!=j[5]) or (k0[8]!=j[8]) or (k0[9]!=j[9]) or (k0[6]!=j[6]) or (k0[7]!=j[7]) or (k0[12]!=j[12])):
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat0.append(j)
-                k0=j
-                j=j[:-1]
+            for x in range (0,14):
+
+                if (distance < drange[x]) and (abs(util/j[8]-1)<utilrange[x]) and (abs(total/j[9]-1)<(2*utilrange[x])) and \
+                        (abs(dormitorios-j[6])<=dormrange[x] or tipo=="comercial") and (abs(banos-j[7])<=bathrange[x]) and \
+                        ((kDict[x][5]!=j[5]) or (kDict[x][8]!=j[8]) or (kDict[x][9]!=j[9]) or (kDict[x][6]!=j[6]) or (kDict[x][7]!=j[7]) or (kDict[x][12]!=j[12])):
+
+                    d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
+                    j.append(d)
+                    if x not in distanciasDict:
+                        distanciasDict[x]=[]
+                        if auxparkingbool:
+                            auxDict1[x]=[]
+                            auxDict2[x]=[]
+
+                    if ((abs(estacionamientos-j[12])<=parkingrange[x]) or tipo=="casa" or tipo=="comercial"):
+                        distanciasDict[x].append(j)
+                    if x<4:
+                        if (auxparkingbool and (j[12]==auxparking1)):
+                            auxDict1[x].append(j)
+                        if (auxparkingbool and (j[12]==auxparking2)):
+                            auxDict2[x].append(j)
+                    kDict[x]=j
+                    break
 
 
-            #T1 REVISAR
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) and (i[12]==j[12]) and ((k1[5]!=j[5]) or (k1[8]!=j[8]) or (k1[9]!=j[9]) or (k1[6]!=j[6]) or (k1[7]!=j[7]) or (k1[12]!=j[12])) :
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat1.append(j)
-                j=j[:-1]
-                k1=j
 
-            #T2.1
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) and (int(i[12])>=(int(j[12])-1) and (int(i[12])<=(int(j[12])+1))) and ((k21[5]!=j[5]) or (k21[8]!=j[8]) or (k21[9]!=j[9]) or (k21[6]!=j[6]) or (k21[7]!=j[7]) or (k21[12]!=j[12])) :
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat2_1.append(j)
-                j=j[:-1]
-                k21=j
 
-            #T2.2
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) and ((k22[5]!=j[5]) or (k22[8]!=j[8]) or (k22[9]!=j[9]) or (k22[6]!=j[6]) or (k22[7]!=j[7]) or (k22[12]!=j[12])) :
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat2_2.append(j)
-                j=j[:-1]
-                k22=j
 
-            #T3.1
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (int(i[6])>=(int(j[6])-1) and (int(i[6])<=(int(j[6])+1))) and (i[7]==j[7]) and ((k31[5]!=j[5]) or (k31[8]!=j[8]) or (k31[9]!=j[9]) or (k31[6]!=j[6]) or (k31[7]!=j[7]) or (k31[12]!=j[12])) :
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat3_1.append(j)
-                j=j[:-1]
-                k31=j
+    print("Tamaño de grupos:")
+    for x,y in distanciasDict.items():
+        print(str(x)+": "+str(len(y)))
 
-            #T3.2
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[7]==j[7]) and ((k32[5]!=j[5]) or (k32[8]!=j[8]) or (k32[9]!=j[9]) or (k32[6]!=j[6]) or (k32[7]!=j[7]) or (k32[12]!=j[12])):
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat3_2.append(j)
-                j=j[:-1]
-                k32=j
-
-            #T4.1
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (int(i[7])>=(int(j[7])-1) and (int(i[7])<=(int(j[7])+1))) and ((k41[5]!=j[5]) or (k41[8]!=j[8]) or (k41[9]!=j[9]) or (k41[6]!=j[6]) or (k41[7]!=j[7]) or (k41[12]!=j[12])):
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat4_1.append(j)
-                j=j[:-1]
-                k41=j
-
-            #T4.2
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat4_2.append(j)
-                j=j[:-1]
-                k42=j
-
-    t_actual="0"
     cota=5
-    for cot in range (1,6):
-        if len(distanciat0)>=cota:
-            distancia=distanciat0
+    distancia=[]
+    auxdistancia1=[]
+    auxdistancia2=[]
 
-        elif len(distanciat1)>=cota:
-            distancia=distanciat1
-            t_actual="1"
-        elif len(distanciat2_1)>=cota:
-            distancia=distanciat2_1
-            t_actual="2.1"
-        elif len(distanciat2_2)>=cota:
-            distancia=distanciat2_2
-            t_actual="2.2"
-        elif len(distanciat3_1)>=cota:
-            distancia=distanciat3_1
-            t_actual="3.1"
-        elif len(distanciat3_2)>=cota:
-            distancia=distanciat3_2
-            t_actual="3.2"
-        elif len(distanciat4_1)>=cota:
-            distancia=distanciat4_1
-            t_actual="4.1"
-        elif len(distanciat4_2)>=cota:
-            distancia=distanciat4_2
-            t_actual="4.2"
+    g_actual=0
+    for x,y in distanciasDict.values():
+        if x==1:cota=8
+        if x==1:cota=10
+        g_actual=x
+        if x>=10:
+            tasacionsimple=True
+        distancia+=y
+        if x<4:
+            auxdistancia1+=auxDict1[x]
+            auxdistancia2+=auxDict2[x]
+        if len(distancia)>=cota:
+            if len(auxdistancia1)>=(cota-1):
+                distancia+=auxdistancia1
+            if len(auxdistancia2)>=(cota-1):
+                distancia+=auxdistancia2
+            break
 
-        else:
-            print("no se han encontrado propiedades para comparar")
-            return
+    if len(distancia)<cota:
+        return(0,00,len(distancia),"No links to show",es_venta,15)
 
-        distancias=sorted(distancia,key=lambda x:x[14])
+    distancias=sorted(distancia,key=lambda x:x[14])
+    try:
+        distancias=distancias[:20]
+    except:
+        distancias=distancia
+
+    for dist in distancias:
+        preciomt=dist[5]/((dist[8]+dist[9])/2)
+        dist.append(preciomt)
+
+    preciosmts=[el[15] for el in distancias]
+
+    med=stat.median(preciosmts)
+    intermin=0.4*med
+    intermax=2.5*med
+
+    arregloaux=[]
+
+    for preciodistancia in distancias:
+        if preciodistancia[15]<intermax and preciodistancia[15]>intermin:
+            arregloaux.append(preciodistancia)
+
+    print("mediana:"+str(med))
+    print("intermin:"+str(intermin))
+    print("intermax:"+str(intermax))
+    print("Propiedades Eliminadas: "+str(len(distancias)-len(arregloaux)))
+    distancias=arregloaux
+
+    links = []
+    for props in distancias:
+            links.append(props[13])
+    if tasacionsimple:
+        preciosmts=[el[15] for el in distancias]
+        prom=stat.mean(preciosmts)
+        sup=(util+total)/2
+        price=sup*prom
         try:
-            distancias=distancias[:40]
-        except:
-            distancias=distancia
-        print("propiedades encontradas "+str(len(distancias)))
-        print ("nivel de confianza: "+str(t_actual))
-        for link in [x[13] for x in distancias]:
-            print (link)
-
-        prices=[]
-        count=0
-        for d in distancias:
-            p=precio_from_portalinmobiliario(d[0])
-            if (count==1) and (q==p):
-                continue
+            if es_venta:
+                price = int(price/ufn)
             else:
-                prices.append(p)
-                count=1
-                q=p
+                price = int(price)
 
-        # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
-
-        y_train = []
-        x_train = []
-        for e in distancias:
-            x_train.append([e[8],e[9],e[6],e[7],e[12]])
-            y_train.append(e[5])
-
-        #y2_train=[]
-        #y2_train.append(y_train)
-        #y_train=y2_train
-        x_train=np.array(x_train)
-        y_train=np.array(y_train)
-        #x_train=np.transpose(x_train)
-
-
-        #print (x_train)
-        #print(x_train.shape)
-        #print (y_train)
-        #print(y_train.shape)
-
-        # Create linear regression object
-        regr = linear_model.LinearRegression()
-
-        # Train the model using the training sets
-        regr.fit(x_train, y_train)
-        #try:
-         #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
-        #except:
-         #   print("unable to print coef")
-        x_test = [i[8],i[9],i[6],i[7],i[12]]
-        x_test=np.array(x_test)
-        x_test=np.transpose(x_test)
-        # Make predictions using the testing set
-
-        price=regr.intercept_
-        c=0
-        for coef in regr.coef_:
-            price=price+coef*x_test[c]
-            c=c+1
-        price=price/uf1
-        print(price)
-        cota=len(distancias)+1
-    #print("y_pred = " + str(y_pred))
-    # The coefficients
-    #print('Coefficients: \n', regr.coef_)
-
-    try:
-        cosa=mean(prices)
-        precio=cosa[0]
-        std=cosa[1]
-        preciomin=precio-std
-        preciomax=precio+std
-
-        insertarTasacion(precio,preciomin,preciomax,i[0])
-    except:
-        print("No existen departamentos para comparar")
-
-def calcularTasacion(i,data):
-
-    distanciat0=[]
-    distanciat1=[]
-    distanciat2_1=[]
-    distanciat2_2=[]
-    distanciat3_1=[]
-    distanciat3_2=[]
-    distanciat4_1=[]
-    distanciat4_2=[]
-    k0=[0]*14
-    k1=[0]*14
-    k21=[0]*14
-    k22=[0]*14
-    k31=[0]*14
-    k32=[0]*14
-    k41=[0]*14
-    k42=[0]*14
-
-    for j in data:
-        # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
-        if (j[1]>past) and (i[3]==j[3]) and (i[4]==j[4]) and (j!=i):
-            lat1=i[10]
-            long1=i[11]
-            lat2=j[10]
-            long2=j[11]
-            r=6371000
-            c=pi/180
-            distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
-
-            #T0
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.1) and (abs(i[9]/j[9]-1)<0.2) and (i[6]==j[6]) and (i[7]==j[7]) and (i[12]==j[12]) and ((k0[5]!=j[5]) or (k0[8]!=j[8]) or (k0[9]!=j[9]) or (k0[6]!=j[6]) or (k0[7]!=j[7]) or (k0[12]!=j[12])):
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat0.append(j)
-                k0=j
-                j=j[:-1]
-
-
-            #T1 REVISAR
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) and (i[12]==j[12]) and ((k1[5]!=j[5]) or (k1[8]!=j[8]) or (k1[9]!=j[9]) or (k1[6]!=j[6]) or (k1[7]!=j[7]) or (k1[12]!=j[12])) :
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat1.append(j)
-                j=j[:-1]
-                k1=j
-
-            #T2.1
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) and (int(i[12])>=(int(j[12])-1) and (int(i[12])<=(int(j[12])+1))) and ((k21[5]!=j[5]) or (k21[8]!=j[8]) or (k21[9]!=j[9]) or (k21[6]!=j[6]) or (k21[7]!=j[7]) or (k21[12]!=j[12])) :
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat2_1.append(j)
-                j=j[:-1]
-                k21=j
-
-            #T2.2
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[6]==j[6]) and (i[7]==j[7]) and ((k22[5]!=j[5]) or (k22[8]!=j[8]) or (k22[9]!=j[9]) or (k22[6]!=j[6]) or (k22[7]!=j[7]) or (k22[12]!=j[12])) :
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat2_2.append(j)
-                j=j[:-1]
-                k22=j
-
-            #T3.1
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (int(i[6])>=(int(j[6])-1) and (int(i[6])<=(int(j[6])+1))) and (i[7]==j[7]) and ((k31[5]!=j[5]) or (k31[8]!=j[8]) or (k31[9]!=j[9]) or (k31[6]!=j[6]) or (k31[7]!=j[7]) or (k31[12]!=j[12])) :
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat3_1.append(j)
-                j=j[:-1]
-                k31=j
-
-            #T3.2
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (i[7]==j[7]) and ((k32[5]!=j[5]) or (k32[8]!=j[8]) or (k32[9]!=j[9]) or (k32[6]!=j[6]) or (k32[7]!=j[7]) or (k32[12]!=j[12])):
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat3_2.append(j)
-                j=j[:-1]
-                k32=j
-
-            #T4.1
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and (int(i[7])>=(int(j[7])-1) and (int(i[7])<=(int(j[7])+1))) and ((k41[5]!=j[5]) or (k41[8]!=j[8]) or (k41[9]!=j[9]) or (k41[6]!=j[6]) or (k41[7]!=j[7]) or (k41[12]!=j[12])):
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat4_1.append(j)
-                j=j[:-1]
-                k41=j
-
-            #T4.2
-            if (distance < 1000) and (abs(i[8]/j[8]-1)<0.2) and (abs(i[9]/j[9]-1)<0.4) and ((k42[5]!=j[5]) or (k42[8]!=j[8]) or (k42[9]!=j[9]) or (k42[6]!=j[6]) or (k42[7]!=j[7]) or (k42[12]!=j[12])):
-                d=sqrt(distance*distance+(100*abs(i[8]-j[8])*(100*abs(i[8]-j[8])))+(100*abs(i[9]-j[9])*(100*abs(i[9]-j[9]))))
-                j.append(d)
-                distanciat4_2.append(j)
-                j=j[:-1]
-                k42=j
-
-    t_actual="0"
-    cota=5
-    for cot in range (1,6):
-        if len(distanciat0)>=cota:
-            distancia=distanciat0
-
-        elif len(distanciat1)>=cota:
-            distancia=distanciat1
-            t_actual="1"
-        elif len(distanciat2_1)>=cota:
-            distancia=distanciat2_1
-            t_actual="2.1"
-        elif len(distanciat2_2)>=cota:
-            distancia=distanciat2_2
-            t_actual="2.2"
-        elif len(distanciat3_1)>=cota:
-            distancia=distanciat3_1
-            t_actual="3.1"
-        elif len(distanciat3_2)>=cota:
-            distancia=distanciat3_2
-            t_actual="3.2"
-        elif len(distanciat4_1)>=cota:
-            distancia=distanciat4_1
-            t_actual="4.1"
-        elif len(distanciat4_2)>=cota:
-            distancia=distanciat4_2
-            t_actual="4.2"
-
-        else:
-            print("no se han encontrado propiedades para comparar")
-            return
-
-        distancias=sorted(distancia,key=lambda x:x[14])
-        try:
-            distancias=distancias[:40]
+            return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
         except:
-            distancias=distancia
-        #print("propiedades encontradas "+str(len(distancias)))
-        #print ("nivel de confianza: "+str(t_actual))
-        #for link in [x[13] for x in distancias]:
-            #print (link)
 
-        # prices=[]
-        # count=0
-        # for d in distancias:
-        #     p=precio_from_portalinmobiliario(d[0])
-        #     if (count==1) and (q==p):
-        #         continue
-        #     else:
-        #         prices.append(p)
-        #         count=1
-        #         q=p
-
-        # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
-
-        y_train = []
-        x_train = []
-        for e in distancias:
-            x_train.append([e[8],e[9],e[6],e[7],e[12]])
-            y_train.append(e[5])
-
-        #y2_train=[]
-        #y2_train.append(y_train)
-        #y_train=y2_train
-        x_train=np.array(x_train)
-        y_train=np.array(y_train)
-        #x_train=np.transpose(x_train)
+            return (0,0,len(distancias),["No hay links para tasación inválida",""],es_venta,15)
 
 
-        #print (x_train)
-        #print(x_train.shape)
-        #print (y_train)
-        #print(y_train.shape)
+    y_train = []
+    x_train = []
 
-        # Create linear regression object
-        regr = linear_model.LinearRegression()
+    for e in distancias:
+        reg_terraza=(e[9]-e[8])
+        reg_util = e[8]
+        reg_dorms = e[6]
+        reg_banos = e[7]
+        reg_precio = e[5]
+        reg_estacionamientos = e[12]
+        x_train.append([reg_util,reg_terraza,reg_dorms,reg_banos,reg_estacionamientos,reg_util*reg_util,
+                        reg_util*reg_terraza,reg_util*reg_dorms,reg_util*reg_banos,reg_terraza*reg_terraza,reg_terraza*reg_dorms,
+                        reg_terraza*reg_banos,reg_dorms*reg_dorms,reg_dorms*reg_banos,reg_banos*reg_banos])
+        y_train.append(reg_precio)
 
-        # Train the model using the training sets
-        regr.fit(x_train, y_train)
-        #try:
-         #   print("constante: "+str(regr.intercept_)+" coeficientes: " +str(regr.coef_))
-        #except:
-         #   print("unable to print coef")
-        x_test = [i[8],i[9],i[6],i[7],i[12]]
-        x_test=np.array(x_test)
-        x_test=np.transpose(x_test)
-        # Make predictions using the testing set
+    #y2_train=[]
+    #y2_train.append(y_train)
+    #y_train=y2_train
+    x_train=np.array(x_train)
+    y_train=np.array(y_train)
 
-        price=regr.intercept_
-        c=0
-        for coef in regr.coef_:
-            price=price+coef*x_test[c]
-            c=c+1
 
-        #print(price)
-        cota=len(distancias)+1
-    #print("y_pred = " + str(y_pred))
-    # The coefficients
-    #print('Coefficients: \n', regr.coef_)
+    x_test = [util,(total-util),dormitorios,banos,estacionamientos,
+              util*util,util*(total-util),util*dormitorios,util*banos,
+              (total-util)*(total-util),(total-util)*dormitorios,(total-util)*banos,
+              dormitorios*dormitorios,dormitorios*banos,banos*banos]
+    x_test=np.array(x_test)
+    x_test=np.transpose(x_test)
+    # Make predictions using the testing set
+
+    price,utilnegativo,terrazanegativo,estacionamientosnegativo=regresion(x_train,y_train,x_test)
+
+    for dato in x_train:
+        if utilnegativo:
+            dato[0] = float(0.00000)
+            dato[5] = float(0.00000)
+            dato[6] = float(0.00000)
+            dato[7] = float(0.00000)
+            dato[8] = float(0.00000)
+
+
+        if terrazanegativo:
+            dato[1]=float(0.00000)
+            dato[6]=float(0.00000)
+            dato[9]=float(0.00000)
+            dato[10]=float(0.00000)
+            dato[11]=float(0.00000)
+
+
+        if estacionamientosnegativo:
+            dato[4]=float(0.0000)
+
+
+    if utilnegativo or terrazanegativo or estacionamientosnegativo:
+        price, utilnegativo, terrazanegativo, estacionamientosnegativo = regresion(x_train, y_train, x_test)
 
     try:
-        return(price)
+        if es_venta:
+            price = int(price/ufn)
+        else:
+            price = int(price)
+        return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
 
     except:
 
-        return []
+        return (0,"N",len(distancias),["No hay links para tasación inválida",""],es_venta,13)
 
 if __name__ == "__main__":
-    data=from_portalinmobiliario()
-    #data2=from_proyectos()
-    tasaciones=from_tasaciones()
-    threadList=[]
-    b=0
-    for i in tasaciones:
-        if i[13]=="usado":
-            print("buscando para cliente "+str(i[1]))
-            calcularDistancia(i,data)
 
+    operacion = "venta"
+    tipo = "departamento"
+    lat = -33.404904
+    lon=-70.5947597
+    util = 240
+    total = 270
+    dormitorios = 3
+    banos = 3
+    estacionamientos=2
 
-# for i in tasaciones:
-#     if i[13]=="nuevo":
-#         t=Thread(target=calcularDistancia, args=(i,data2))
-#         t.start()
-#         print(str(b+1)+" Thread Started")
-#         b=b+1
-#         threadList.append(t)
-#         sleep(0.05)
-# for t in threadList:
-#     t.join
+    precio,confianza,nrProps,links = calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos)

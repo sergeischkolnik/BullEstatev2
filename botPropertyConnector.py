@@ -6,7 +6,8 @@ import ficha
 import reportes
 import pymysql as mysql
 import uf
-import tasadorbot2 as tb2
+import tasador as tb2
+#import tasadorbot2 as tb2
 ufn=uf.getUf()
 
 def obtenerIdConLink(link,sitio):
@@ -127,25 +128,7 @@ def connectorFicha(client):
 
 def tasador(client):
 
-    confDict={
-        "AA+":"100%",
-        "AA-":"95%",
-        "A+":"90%",
-        "A-":"85%",
-        "B+":"80%",
-        "B-":"70%",
-        "C+":"60%",
-        "C-":"50%",
-        "D+":"40%",
-        "D-":"30%",
-        "E+":"20%",
-        "E-":"15%",
-        "F+":"10%",
-        "F-":"5%",
-        "N":"0%",
 
-    }
-    print("Diccionario de Confianza Creado")
 
     regYapoDict={
         "Metropolitana":"15",
@@ -203,7 +186,7 @@ def tasador(client):
                 text+='\n'
                 text+=link
             text+='\n'
-            text+="Su propiedad se ha tasado a un valor de venta de UF. "+'{:,}'.format(tasacion[0]).replace(",",".")+" ,con una confianza de: "+confDict[tasacion[1]]+"."
+            text+="Su propiedad se ha tasado a un valor de venta de UF. "+'{:,}'.format(tasacion[0]).replace(",",".")+" ,con una confianza de: "+str(tasacion[1])+"%."
 
             print("Texto Full, Check")
             return text

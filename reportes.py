@@ -15,7 +15,9 @@ import uf
 import numpy as np
 from sklearn import datasets, linear_model
 import sendmail
-import tasadorbot2 as tb2
+import tasador as tb2
+#import tasadorbot2 as tb2
+
 import pubPortalExiste
 import math
 import csv
