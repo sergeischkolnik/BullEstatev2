@@ -191,19 +191,20 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         g_actual=x
         if x>=10:
             tasacionsimple=True
-        distancia+=distanciasDict[x]
-        if x<4:
-            auxdistancia1+=auxDict1[x]
-            auxdistancia2+=auxDict2[x]
-        if len(distancia)>=cota:
-            if len(auxdistancia1)>=(cota-1):
-                distancia+=auxdistancia1
-            if len(auxdistancia2)>=(cota-1):
-                distancia+=auxdistancia2
-            break
+        if x in distanciasDict:
+            distancia+=distanciasDict[x]
+            if x<4:
+                auxdistancia1+=auxDict1[x]
+                auxdistancia2+=auxDict2[x]
+            if len(distancia)>=cota:
+                if len(auxdistancia1)>=(cota-1):
+                    distancia+=auxdistancia1
+                if len(auxdistancia2)>=(cota-1):
+                    distancia+=auxdistancia2
+                break
 
     if len(distancia)<cota:
-        return(0,00,len(distancia),"No links to show",es_venta,15)
+        return(0,0,len(distancia),"No links to show",es_venta,15)
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
