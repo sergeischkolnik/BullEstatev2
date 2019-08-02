@@ -146,6 +146,7 @@ def tasador(client):
     regYapoDict={
         "Metropolitana":"15",
         "Valparaiso":"6",
+        "Valparaíso":"6",
         "Arica":"1",
         "Iquique":"2",
         "Antofagasta":"3",

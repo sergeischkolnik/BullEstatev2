@@ -161,7 +161,7 @@ def region(bot, update,client):
     # Create buttons to slect language:
     if "region" not in client:
 
-        keyboard = [["Metropolitana","Valparaíso"],
+        keyboard = [["Metropolitana","Valparaiso"],
                     ["Biobio","Coquimbo"],
                     ["Antofagasta","Otra"],
                     ["Atrás", "Salir"]]
