@@ -56,13 +56,13 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         else:
             banosmin=client["baños"]
             banosmax=client["baños"]
-
+    else:
+        banosmin = None
+        banosmax = None
     if "estacionamientos" not in client:
         client["estacionamientos"]=0
 
-    else:
-        banosmin=None
-        banosmax=None
+
     if client["reportepro"]:
         confmin=13
         rentminventa=-1
