@@ -2357,7 +2357,23 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     if (nombreCliente is None):
                         nombreCliente = "otros"
 
-                    nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + str(comuna) + " " + str(
+                    nombreCliente=nombreCliente.replace('á','a')
+                    nombreCliente=nombreCliente.replace('é','e')
+                    nombreCliente=nombreCliente.replace('í','i')
+                    nombreCliente=nombreCliente.replace('ó','o')
+                    nombreCliente=nombreCliente.replace('ú','u')
+                    nombreCliente=nombreCliente.replace('ü','u')
+                    nombreCliente=nombreCliente.replace('ñ','n')
+
+                    nombreComuna=str(comuna).replace('á','a')
+                    nombreComuna=nombreComuna.replace('é','e')
+                    nombreComuna=nombreComuna.replace('í','i')
+                    nombreComuna=nombreComuna.replace('ó','o')
+                    nombreComuna=nombreComuna.replace('ú','u')
+                    nombreComuna=nombreComuna.replace('ü','u')
+                    nombreComuna=nombreComuna.replace('ñ','n')
+
+                    nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + nombreComuna + " " + str(
                         d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
 
                     if (nombrecarpetadb is None):
