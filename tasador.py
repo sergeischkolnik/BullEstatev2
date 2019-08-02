@@ -181,7 +181,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     auxdistancia2=[]
 
     g_actual=0
-    for x,y in distanciasDict.values():
+    for x,y in distanciasDict.items():
         if x==1:cota=8
         if x==1:cota=10
         g_actual=x
