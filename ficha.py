@@ -180,12 +180,14 @@ def crearFicha(sitio,id,mail,tipoficha):
         if not interna:
             for desc in descripcion:
                 desc=desc.replace('   ','')
-                desc=desc.replace('<br />','')
-                desc=desc.replace('<br/>','')
-                desc=desc.replace('<br>','')
+                desc=desc.replace('<br />',' ')
+                desc=desc.replace('<br/>',' ')
+                desc=desc.replace('<br>',' ')
                 desc=desc.replace('<b/>','')
                 desc=desc.replace('<b>','')
                 desc=desc.replace('</b>','')
+                desc=desc.replace('<br','')
+                desc=desc.replace('/>','')
                 desc=desc.replace('&#237;','í')
                 desc=desc.replace('&#233;','é')
                 desc=desc.replace('&#243;','ó')
@@ -198,6 +200,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                     desc="**"
                 if len(desc)>=6:
                     try:
+                        desc.replace('\n',"")
                         int(desc)
                         desc="**"
                     except:
