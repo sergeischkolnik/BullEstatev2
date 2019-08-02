@@ -311,6 +311,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     distanciat5_3=[]
     distanciat6_0=[]
 
+    tasacionsimple=False
 
     k000=[0]*14
     k00=[0]*14
@@ -519,18 +520,22 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         distancia=distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="E+"
         g_actual=9
+        tasacionsimple=True
     elif len(distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=5:
         distancia=distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="E-"
         g_actual=10
+        tasacionsimple=True
     elif len(distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=5:
         distancia=distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="F+"
         g_actual=11
+        tasacionsimple=True
     elif len(distanciat6_0+distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000)>=5:
         distancia=distanciat6_0+distanciat5_3+distanciat5_2+distanciat5_1+distanciat4_2+distanciat4_1+distanciat3_2+distanciat3_1+distanciat2_2+distanciat2_1+distanciat1+distanciat0+distanciat00+distanciat000
         t_actual="F-"
         g_actual=12
+        tasacionsimple=True
 
     else:
         return 0,"N",len(distanciat4_2),["No hay links para tasación inválida",""],es_venta,13
@@ -566,6 +571,12 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     links = []
     for props in distancias:
             links.append(props[13])
+    if tasacionsimple:
+        preciosmts=[el[15] for el in distancias]
+        prom=stat.mean(preciosmts)
+        sup=(util+total)/2
+        return(prom*sup,t_actual,len(distancias),links,es_venta,g_actual)
+
 
     y_train = []
     x_train = []
