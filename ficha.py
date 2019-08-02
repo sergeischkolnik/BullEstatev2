@@ -180,9 +180,9 @@ def crearFicha(sitio,id,mail,tipoficha):
         if not interna:
             for desc in descripcion:
                 desc=desc.replace('   ','')
-                desc=desc.replace('<br />','\n')
-                desc=desc.replace('<br/>','\n')
-                desc=desc.replace('<br>','\n')
+                desc=desc.replace('<br />','')
+                desc=desc.replace('<br/>','')
+                desc=desc.replace('<br>','')
                 desc=desc.replace('<b/>','')
                 desc=desc.replace('<b>','')
                 desc=desc.replace('</b>','')
@@ -193,6 +193,19 @@ def crearFicha(sitio,id,mail,tipoficha):
                 desc=desc.replace('&#250;','ú')
                 desc=desc.replace('&#241;','ñ')
                 desc=desc.replace('&#209;','Ñ')
+
+                if "+56" in desc:
+                    desc="**"
+                if len(desc)>=6:
+                    try:
+                        int(desc)
+                        desc="**"
+                    except:
+                        pass
+
+                if "@" in desc:
+                    desc="***"
+
                 if ((len(matrixdescripcion[matrixcounter])+len(desc))>=78):
 
                     matrixcounter+=1
@@ -228,6 +241,8 @@ def crearFicha(sitio,id,mail,tipoficha):
             descripcion=descripcion.replace('<b/>','')
             descripcion=descripcion.replace('<b>','')
             descripcion=descripcion.replace('</b>','')
+            descripcion=descripcion.replace('<br','')
+            descripcion=descripcion.replace('/>','')
             descripcion=descripcion.replace('&#237;','í')
             descripcion=descripcion.replace('&#233;','é')
             descripcion=descripcion.replace('&#243;','ó')
@@ -235,6 +250,8 @@ def crearFicha(sitio,id,mail,tipoficha):
             descripcion=descripcion.replace('&#250;','ú')
             descripcion=descripcion.replace('&#241;','ñ')
             descripcion=descripcion.replace('&#209;','Ñ')
+
+
 
             propiedad.append(descripcion)
 
@@ -291,6 +308,8 @@ def crearFicha(sitio,id,mail,tipoficha):
             desc=desc.replace('<br />','\n')
             desc=desc.replace('</div>','\n')
             desc=desc.replace('<br>','\n')
+            desc=desc.replace('<br','')
+            desc=desc.replace('/>','')
             desc=desc.replace('itemprop="description">',"")
             desc=desc.replace('</p>','\n')
             desc=desc.replace("\t","")
