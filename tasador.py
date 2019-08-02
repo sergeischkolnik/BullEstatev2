@@ -92,7 +92,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     ufn=uf.getUf()
     es_venta=operacion=="venta"
 
-
+    imprimirunavez=True
     distanciasDict={}
     confDict={}
     confDict[0]=100
@@ -146,9 +146,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
 
             for x in range (0,14):
-                if x==12:
+                if x==13 and imprimirunavez:
                     print(distanciasDict)
-                    break
+                    imprimirunavez=False
                 kDict[x]=[0]*14
                 if (distance < drange[x]) and (abs(util/j[8]-1)<utilrange[x]) and (abs(total/j[9]-1)<(2*utilrange[x])) and \
                         (abs(dormitorios-j[6])<=dormrange[x] or tipo=="comercial") and (abs(banos-j[7])<=bathrange[x]) and \
