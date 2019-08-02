@@ -172,8 +172,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
     print("Tamaño de grupos:")
-    for x,y in distanciasDict.items():
-        print(str(x)+": "+str(len(y)))
+    for x in range (0,14):
+        print(str(x)+": "+str(len(distanciasDict[x])))
 
     cota=5
     distancia=[]
@@ -181,13 +181,13 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     auxdistancia2=[]
 
     g_actual=0
-    for x,y in distanciasDict.items():
+    for x in range (0,14):
         if x==1:cota=8
         if x==1:cota=10
         g_actual=x
         if x>=10:
             tasacionsimple=True
-        distancia+=y
+        distancia+=distanciasDict[x]
         if x<4:
             auxdistancia1+=auxDict1[x]
             auxdistancia2+=auxDict2[x]
