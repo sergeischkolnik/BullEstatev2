@@ -541,15 +541,20 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     except:
         distancias=distancia
 
-    precios=[el[5] for el in distancias]
-    med=stat.median(precios)
+    for dist in distancias:
+        preciomt=dist[5]/((dist[8]+dist[9])/2)
+        dist.append(preciomt)
+
+    preciosmts=[el[15] for el in distancias]
+
+    med=stat.median(preciosmts)
     intermin=0.4*med
     intermax=2.5*med
 
     arregloaux=[]
 
     for preciodistancia in distancias:
-        if preciodistancia[5]<intermax and preciodistancia[5]>intermin:
+        if preciodistancia[15]<intermax and preciodistancia[15]>intermin:
             arregloaux.append(preciodistancia)
 
     print("mediana:"+str(med))
