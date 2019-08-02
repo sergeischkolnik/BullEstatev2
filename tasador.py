@@ -172,7 +172,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
 
-    print(distanciasDict)
+    print(distanciasDict[0])
     print("Tamaño de grupos:")
     for x in range(0,14):
         print(str(x)+": "+str(len(distanciasDict[x])))
