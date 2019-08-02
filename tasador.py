@@ -12,6 +12,8 @@ from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 import uf
 import statistics as stat
+import reportes
+
 
 uf1=uf.getUf()
 
@@ -170,9 +172,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
 
-
+    print(distanciasDict)
     print("Tamaño de grupos:")
-    for x in range (0,14):
+    for x in range(0,14):
         print(str(x)+": "+str(len(distanciasDict[x])))
 
     cota=5
@@ -320,12 +322,18 @@ if __name__ == "__main__":
 
     operacion = "venta"
     tipo = "departamento"
-    lat = -33.404904
-    lon=-70.5947597
-    util = 240
-    total = 270
+    lat = -33.402253
+    lon=-70.560878
+    util = 90
+    total = 100
     dormitorios = 3
     banos = 3
-    estacionamientos=2
+    estacionamientos=1
+    region="metropolitana"
+    regionYapo="15"
+    propsP=reportes.from_portalinmobiliario(tipo,region,True)
+    propsY=reportes.from_yapo(tipo,regionYapo,True,True)
+    props=propsP+propsY
+    print("Propiedades Check")
 
-    precio,confianza,nrProps,links = calcularTasacion(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos)
+    precio,confianza,nrProps,links = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,props)
