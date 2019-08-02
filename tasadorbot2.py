@@ -432,14 +432,14 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 j=j[:-1]
                 k51=j
             #T5.2
-            elif (distance < 2000) and ((k52[5]!=j[5]) or (k52[8]!=j[8]) or (k52[9]!=j[9]) or (k52[6]!=j[6]) or (k52[7]!=j[7]) or (k52[12]!=j[12])):
+            elif (distance < 5000) and ((k52[5]!=j[5]) or (k52[8]!=j[8]) or (k52[9]!=j[9]) or (k52[6]!=j[6]) or (k52[7]!=j[7]) or (k52[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat5_1.append(j)
                 j=j[:-1]
                 k52=j
             #T5.3
-            elif (distance < 5000) and ((k53[5]!=j[5]) or (k53[8]!=j[8]) or (k53[9]!=j[9]) or (k53[6]!=j[6]) or (k53[7]!=j[7]) or (k53[12]!=j[12])):
+            elif (distance < 10000) and ((k53[5]!=j[5]) or (k53[8]!=j[8]) or (k53[9]!=j[9]) or (k53[6]!=j[6]) or (k53[7]!=j[7]) or (k53[12]!=j[12])):
                 d=sqrt(distance*distance+(100*abs(util-j[8])*(100*abs(util-j[8])))+(100*abs(total-j[9])*(100*abs(total-j[9]))))
                 j.append(d)
                 distanciat5_1.append(j)
