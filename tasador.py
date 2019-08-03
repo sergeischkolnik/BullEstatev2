@@ -329,8 +329,10 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
         else:
             price = int(price)
-
-        return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
+        if price>0:
+            return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
+        else:
+            return (0, "N", len(distancias), ["No hay links para tasación inválida", ""], es_venta, 13)
 
     except:
 
