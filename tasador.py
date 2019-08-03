@@ -88,7 +88,7 @@ def precio_from_portalinmobiliario(id2):
 
 
 def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data):
-
+    auxcount=[0]*3
     ufn=uf.getUf()
     es_venta=operacion=="venta"
     imprimirunavez=True
@@ -168,6 +168,12 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                         if (auxparkingbool and (j[12]==auxparking2)):
                             auxDict2[x].append(j)
                     kDict[x]=j
+                    if x==0:
+                        auxcount[0]+=1
+                    if x==1:
+                        auxcount[1]+=1
+                    if x==2:
+                        auxcount[2]+=1
                     break
 
 
@@ -178,7 +184,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     for x in range(0,14):
         if x in distanciasDict:
             print(str(x)+": "+str(len(distanciasDict[x])))
-
+    print(auxcount)
     cota=5
     distancia=[]
     auxdistancia1=[]
@@ -343,4 +349,4 @@ if __name__ == "__main__":
     print("Propiedades Check")
 
     precio,confianza,nrProps,links,venta,numero = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,props)
-    print(precio,confianza,nrProps,links,venta,numero)
+    print(precio,confianza,nrProps,venta,numero)
