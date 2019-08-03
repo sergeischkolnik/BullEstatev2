@@ -163,9 +163,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     if ((abs(estacionamientos-j[12])<=parkingrange[x]) or tipo=="casa" or tipo=="comercial"):
                         distanciasDict[x].append(j)
                     if x<4:
-                        if (auxparkingbool and (j[12]==auxparking1)):
+                        if (auxparkingbool and (j[12]-estacionamientos)==-1):
                             auxDict1[x].append(j)
-                        if (auxparkingbool and (j[12]==auxparking2)):
+                        if (auxparkingbool and (j[12]-estacionamientos)==1):
                             auxDict2[x].append(j)
                     kDict[x]=j
                     if x==0:
@@ -197,8 +197,11 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         g_actual=x
         if x>=10:
             tasacionsimple=True
-        if x<2 and x in distanciasDict:
-            print(distanciasDict[x])
+        if x<3 and x in distanciasDict:
+            print(distanciasDict[x][0],distanciasDict[x][12])
+            print(auxdistancia1[x][0],distanciasDict[x][12])
+            print(auxdistancia2[x][0],distanciasDict[x][12])
+
         if x in distanciasDict:
             distancia+=distanciasDict[x]
             if x<4:
