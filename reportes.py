@@ -1878,7 +1878,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         confmin=13
 
-    if rentminventa is not None:
+    if rentminventa is not None and operacion=='venta':
         rentminventa = float(rentminventa)
         columnNames.append("Precio Venta Tasado")
         columnNames.append("Rentabilidad Venta")
@@ -2315,7 +2315,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         subresultado.append(dueno)
                         subresultado.append(fechareporte)
 
-                    if rentminventa is not False:
+                    if rentminventa is not False and operacion=="venta":
                         subresultado.append(tasacionVenta[1])
                     if rentminarriendo is not False:
                         subresultado.append(tasacionArriendo[1])

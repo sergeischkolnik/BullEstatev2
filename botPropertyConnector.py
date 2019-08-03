@@ -199,7 +199,7 @@ def tasador(client):
                 text+='\n'
                 text+=link
             text+='\n'
-            text+="Su propiedad se ha tasado a un valor arriendo de $ "+'{:,}'.format(tasacion[0]).replace(",",".")+" ,con una confianza de: "+confDict[tasacion[1]]+"."
+            text+="Su propiedad se ha tasado a un valor arriendo de $ "+'{:,}'.format(tasacion[0]).replace(",",".")+" ,con una confianza de: "+str(tasacion[1])+"."
 
             print("Texto Full, Check")
             return text
