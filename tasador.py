@@ -184,8 +184,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     g_actual=0
     for x in range (0,14):
-        if x==1:cota=8
-        if x==2:cota=10
+
         g_actual=x
         if x>=10:
             tasacionsimple=True
