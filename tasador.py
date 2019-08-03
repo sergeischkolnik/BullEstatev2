@@ -197,14 +197,6 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         g_actual=x
         if x>=10:
             tasacionsimple=True
-        if x<3 and x in distanciasDict:
-            for i in distanciasDict[x]:
-                print(distanciasDict[x][i][0],distanciasDict[x][i][12])
-            for i in auxdistancia1[x]:
-                print(auxdistancia1[x][i][0],auxdistancia1[x][i][12])
-            for i in auxdistancia2[x]:
-                print(auxdistancia2[x][i][0],auxdistancia2[x][i][12])
-
         if x in distanciasDict:
             distancia+=distanciasDict[x]
             if x<4:
@@ -217,7 +209,14 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     distancia+=auxdistancia2
                 print('grupo Resultante: '+str(x))
                 break
-
+    ids=[]
+    for i in distancia:
+        ids.append(i[0])
+    ids=sorted(ids)
+    idtext=''
+    for i in ids:
+        idtext+=str(i)+', '
+    print(idtext)
     if len(distancia)<cota:
         return(0,0,len(distancia),"No links to show",es_venta,15)
 
