@@ -364,5 +364,9 @@ if __name__ == "__main__":
             props=propsP+propsY
             print("Propiedades Check")
             result = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,props)
-            results.append(result)
+            result2=[]
+            for k in range(0,6):
+                if k!=3:
+                    result2.append(result[k])
+            results.append(result2)
     print(results)
