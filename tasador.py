@@ -88,10 +88,8 @@ def precio_from_portalinmobiliario(id2):
 
 
 def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data):
-    auxcount=[0]*3
     ufn=uf.getUf()
     es_venta=operacion=="venta"
-    imprimirunavez=True
     distanciasDict={}
     confDict={}
     confDict[0]=100
@@ -168,12 +166,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                         if (auxparkingbool and (j[12]-estacionamientos)==1):
                             auxDict2[x].append(j)
                     kDict[x]=j
-                    if x==0:
-                        auxcount[0]+=1
-                    if x==1:
-                        auxcount[1]+=1
-                    if x==2:
-                        auxcount[2]+=1
+
                     break
 
 
@@ -184,7 +177,6 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     for x in range(0,14):
         if x in distanciasDict:
             print(str(x)+": "+str(len(distanciasDict[x])))
-    print(auxcount)
     cota=5
     distancia=[]
     auxdistancia1=[]
@@ -209,14 +201,11 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     distancia+=auxdistancia2
                 print('grupo Resultante: '+str(x))
                 break
-    ids=[]
-    for i in distancia:
-        ids.append(i[0])
-    ids=sorted(ids)
-    idtext=''
-    for i in ids:
-        idtext+=str(i)+', '
-    print(idtext)
+
+    print('Datos Originales: '+str(len(distancia)-len(auxdistancia1)-len(auxdistancia2)))
+    print('Datos con un estacionamiento menos: '+str(len(auxdistancia1)))
+    print('Datos con un estacionamiento mas: '+str(len(auxdistancia2)))
+
     if len(distancia)<cota:
         return(0,0,len(distancia),"No links to show",es_venta,15)
 
