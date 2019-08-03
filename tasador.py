@@ -191,6 +191,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         g_actual=x
         if x>=10:
             tasacionsimple=True
+        if x<3:
+            print(distanciasDict[x])
         if x in distanciasDict:
             distancia+=distanciasDict[x]
             if x<4:
