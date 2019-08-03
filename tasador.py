@@ -204,7 +204,10 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     print('Datos Originales: '+str(len(distancia)-len(auxdistancia1)-len(auxdistancia2)))
     print('Datos con un estacionamiento menos: '+str(len(auxdistancia1)))
+    print('links con un estacionamiento menos: '+str([el[12] for el in auxdistancia1]))
     print('Datos con un estacionamiento mas: '+str(len(auxdistancia2)))
+    print('links con un estacionamiento mas: '+str([el[12] for el in auxdistancia2]))
+
 
     if len(distancia)<cota:
         return(0,0,len(distancia),"No links to show",es_venta,15)
