@@ -224,7 +224,10 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
-        distancias=distancias[:40]
+        if g_actual>1:
+            distancias=distancias[:20]
+        else:
+            distancias = distancia
     except:
         distancias=distancia
 
@@ -340,21 +343,26 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 if __name__ == "__main__":
 
-    operacion = "venta"
-    tipo = "departamento"
-    lat = -33.402253
-    lon=-70.560878
-    util = 90
-    total = 100
-    dormitorios = 3
-    banos = 3
-    estacionamientos=1
-    region="metropolitana"
-    regionYapo="15"
-    propsP=reportes.from_portalinmobiliario(tipo,region,True)
-    propsY=reportes.from_yapo(tipo,regionYapo,True,True)
-    props=propsP+propsY
-    print("Propiedades Check")
-
-    precio,confianza,nrProps,links,venta,numero = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,props)
-    print(precio,confianza,nrProps,venta,numero)
+    results=[]
+    parkings=[0,1,2,3]
+    ops=['venta','arriendo']
+    for op in ops:
+        for park in parkings:
+            operacion = op
+            tipo = "departamento"
+            lat = -33.402253
+            lon=-70.560878
+            util = 90
+            total = 100
+            dormitorios = 3
+            banos = 3
+            estacionamientos=park
+            region="metropolitana"
+            regionYapo="15"
+            propsP=reportes.from_portalinmobiliario(tipo,region,True)
+            propsY=reportes.from_yapo(tipo,regionYapo,True,True)
+            props=propsP+propsY
+            print("Propiedades Check")
+            result = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,props)
+            results.append(result)
+    print(results)
