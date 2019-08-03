@@ -215,7 +215,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     print('Datos Finales: '+str(len(distancia)))
     print('precio y estacionamientos Finales: '+str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
-    print('IDS Finales: ' + str(sorted([el[5] for el in distancia])))
+    print('IDS Finales: ' + str(sorted([el[0] for el in distancia])))
 
 
 
@@ -328,11 +328,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     try:
         if es_venta:
             price = int(price/ufn)
-            print("Parking Unity Value:" + str(dato[4/ufn]))
 
         else:
             price = int(price)
-            print("Parking Unity Value:" + str(dato[4]))
 
         return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
 
