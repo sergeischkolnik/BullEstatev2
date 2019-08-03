@@ -179,7 +179,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     g_actual=0
     for x in range (0,16):
-
+        if x==1:
+            cota=8
         g_actual=x
         if x>=10:
             tasacionsimple=True
@@ -188,8 +189,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             if x<4:
                 auxdistancia1+=auxDict1[x]
                 auxdistancia2+=auxDict2[x]
-            if len(distancia)>=cota or (((len(distancia)+len(auxdistancia1))>=(cota+1)) and (len(auxdistancia1)>=3))or \
-                    (((len(distancia)+len(auxdistancia2))>=(cota+1)) and (len(auxdistancia2)>=3)):
+            if len(distancia)>=cota:
 
                 print('Datos Originales: ' + str(len(distancia)))
                 print('precio y estacionamientos Originales: ' +str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
