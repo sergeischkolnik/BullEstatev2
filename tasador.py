@@ -224,7 +224,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
-        distancias=distancias[:20]
+        distancias=distancias[:40]
     except:
         distancias=distancia
 
