@@ -185,7 +185,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     g_actual=0
     for x in range (0,14):
         if x==1:cota=8
-        if x==1:cota=10
+        if x==2:cota=10
         g_actual=x
         if x>=10:
             tasacionsimple=True
@@ -195,18 +195,27 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 auxdistancia1+=auxDict1[x]
                 auxdistancia2+=auxDict2[x]
             if len(distancia)>=cota:
-                if len(auxdistancia1)>=(cota-1):
-                    distancia+=auxdistancia1
-                if len(auxdistancia2)>=(cota-1):
+
+                print('Datos Originales: ' + str(len(distancia)))
+                print('precio y estacionamientos Originales: ' +str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
+
+                if len(auxdistancia1)>=3:
+
+                    print('Datos con un estacionamiento menos: ' + str(len(auxdistancia1)))
+                    print('precio y estacionamientos con un estacionamiento menos: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia1]))
+                    distancia += auxdistancia1
+
+                if len(auxdistancia2)>=3:
+                    print('Datos con un estacionamiento mas: ' + str(len(auxdistancia2)))
+                    print('precio y estacionamientos con un estacionamiento mas: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia2]))
                     distancia+=auxdistancia2
+
                 print('grupo Resultante: '+str(x))
                 break
 
-    print('Datos Originales: '+str(len(distancia)-len(auxdistancia1)-len(auxdistancia2)))
-    print('Datos con un estacionamiento menos: '+str(len(auxdistancia1)))
-    print('links con un estacionamiento menos: '+str([el[12] for el in auxdistancia1]))
-    print('Datos con un estacionamiento mas: '+str(len(auxdistancia2)))
-    print('links con un estacionamiento mas: '+str([el[12] for el in auxdistancia2]))
+    print('Datos Finales: '+str(len(distancia)))
+    print('precio y estacionamientos Finales: '+str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
+
 
 
     if len(distancia)<cota:
