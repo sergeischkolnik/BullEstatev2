@@ -66,8 +66,8 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
 
     if client["reportepro"]:
         confmin=13
-        rentminventa=-1
-        rentminarriendo=0
+        rentminventa=-0.8
+        rentminarriendo=0.01
     else:
         confmin=None
         rentminventa=None
@@ -193,13 +193,16 @@ def tasador(client):
         else:
             text="La propiedad ha sido comparada con las siguientes propiedades (entre otras):"
             print("Texto inicial Check")
-            links=tasacion[3][:5]
+            try:
+                links=tasacion[3][:10]
+            except:
+                pass
             print("reducción de links, check")
             for link in links:
                 text+='\n'
                 text+=link
             text+='\n'
-            text+="Su propiedad se ha tasado a un valor arriendo de $ "+'{:,}'.format(tasacion[0]).replace(",",".")+" ,con una confianza de: "+str(tasacion[1])+"."
+            text+="Su propiedad se ha tasado a un valor arriendo de $ "+'{:,}'.format(tasacion[0]).replace(",",".")+" ,con una confianza de: "+str(tasacion[1])+"%."
 
             print("Texto Full, Check")
             return text

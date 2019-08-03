@@ -91,23 +91,18 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     ufn=uf.getUf()
     es_venta=operacion=="venta"
     distanciasDict={}
-    confDict={}
-    confDict[0]=100
-    for x in range(1,15):
-        if x>4 and x<11:
-            confDict[x]=confDict[x-1]-10
-        else:
-            confDict[x]=confDict[x-1]-5
+    confDict={0:100,1:97,2:95,3:92,4:90,5:80,6:70,7:60,8:50,9:40,10:30,11:20,12:15,13:10,14:7,15:5,16:2,17:0}
+
 
     tasacionsimple=False
 
     kDict={}
 
-    drange=[50,500,1000,1000,1000,1000,1000,1000,1000,1000,1000,5000,10000,5000000]
-    utilrange=[0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,1000000,1000000,1000000,1000000]
-    dormrange=[0,0,0,0,0,0,1,100,100,100,100,100,100,100]
-    bathrange=[0,0,0,0,0,0,0,0,1,100,100,100,100,100]
-    parkingrange=[0,0,0,0,1,100,100,100,100,100,100,100,100,100]
+    drange=[50,100,200,500,1000,1000,1000,1000,1000,1000,1000,1000,1000,5000,10000,5000000]
+    utilrange=[0.1,0.1,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,1000000,1000000,1000000,1000000]
+    dormrange=[0,0,0,0,0,0,0,0,1,1,100,100,100,100,100,100]
+    bathrange=[0,0,0,0,0,0,0,0,0,1,1,100,100,100,100,100]
+    parkingrange=[0,0,0,0,0,0,1,100,100,100,100,100,100,100,100,100]
 
     auxparkingbool=False
     #Aux dictionaries for different parkings
@@ -142,9 +137,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             c=pi/180
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
 
-            for x in range (0,14):
+            for x in range (0,16):
 
-                kDict[x]=[0]*14
+                kDict[x]=[0]*16
                 if (distance < drange[x]) and (abs(util/j[8]-1)<utilrange[x]) and (abs(total/j[9]-1)<(2*utilrange[x])) and \
                         (abs(dormitorios-j[6])<=dormrange[x] or tipo=="comercial") and (abs(banos-j[7])<=bathrange[x]) and \
                         ((kDict[x][5]!=j[5]) or (kDict[x][8]!=j[8]) or (kDict[x][9]!=j[9]) or (kDict[x][6]!=j[6]) or (kDict[x][7]!=j[7]) or (kDict[x][12]!=j[12])):
@@ -174,7 +169,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
     print("Tamaño de grupos:")
-    for x in range(0,14):
+    for x in range(0,16):
         if x in distanciasDict:
             print(str(x)+": "+str(len(distanciasDict[x])))
     cota=5
@@ -183,7 +178,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     auxdistancia2=[]
 
     g_actual=0
-    for x in range (0,14):
+    for x in range (0,16):
 
         g_actual=x
         if x>=10:
@@ -193,7 +188,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             if x<4:
                 auxdistancia1+=auxDict1[x]
                 auxdistancia2+=auxDict2[x]
-            if len(distancia)>=cota:
+            if len(distancia)>=cota or (((len(distancia)+len(auxdistancia1))>=(cota+1)) and (len(auxdistancia1)>=3))or \
+                    (((len(distancia)+len(auxdistancia2))>=(cota+1)) and (len(auxdistancia2)>=3)):
 
                 print('Datos Originales: ' + str(len(distancia)))
                 print('precio y estacionamientos Originales: ' +str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
@@ -219,7 +215,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
 
     if len(distancia)<cota:
-        return(0,0,len(distancia),"No links to show",es_venta,15)
+        return(0,0,len(distancia),"No links to show",es_venta,17)
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
@@ -269,7 +265,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
         except:
 
-            return (0,0,len(distancias),["No hay links para tasación inválida",""],es_venta,15)
+            return (0,0,len(distancias),["No hay links para tasación inválida",""],es_venta,17)
 
 
     y_train = []
