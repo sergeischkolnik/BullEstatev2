@@ -191,7 +191,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         g_actual=x
         if x>=10:
             tasacionsimple=True
-        if x<3 and x in distanciasDict:
+        if x<2 and x in distanciasDict:
             print(distanciasDict[x])
         if x in distanciasDict:
             distancia+=distanciasDict[x]
@@ -203,6 +203,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     distancia+=auxdistancia1
                 if len(auxdistancia2)>=(cota-1):
                     distancia+=auxdistancia2
+                print('grupo Resultante: '+str(x))
                 break
 
     if len(distancia)<cota:
