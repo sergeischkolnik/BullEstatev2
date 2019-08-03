@@ -325,12 +325,15 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     if utilnegativo or terrazanegativo or estacionamientosnegativo:
         price, utilnegativo, terrazanegativo, estacionamientosnegativo = regresion(x_train, y_train, x_test)
-
     try:
         if es_venta:
             price = int(price/ufn)
+            print("Parking Unity Value:" + str(dato[4/ufn]))
+
         else:
             price = int(price)
+            print("Parking Unity Value:" + str(dato[4]))
+
         return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
 
     except:
