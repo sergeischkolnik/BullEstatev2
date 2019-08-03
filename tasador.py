@@ -215,6 +215,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     print('Datos Finales: '+str(len(distancia)))
     print('precio y estacionamientos Finales: '+str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
+    print('IDS Finales: ' + str(sorted([el[5] for el in distancia])))
 
 
 
