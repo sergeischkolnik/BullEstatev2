@@ -172,7 +172,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     for x in range(0,16):
         if x in distanciasDict:
             print(str(x)+": "+str(len(distanciasDict[x])))
-    cota=3
+    cota=5
     distancia=[]
     auxdistancia1=[]
     auxdistancia2=[]
@@ -180,9 +180,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     g_actual=0
     for x in range (0,16):
         if x==1:
-            cota=4
+            cota+=1
         if x==2:
-            cota=5
+            cota+=1
         g_actual=x
         if x>=10:
             tasacionsimple=True
@@ -252,10 +252,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     distancias=sorted(distancia,key=lambda x:x[14])
     try:
-        if g_actual>1:
-            distancias=distancias[:20]
-        else:
-            distancias = distancia
+        distancias=distancias[:10]
     except:
         distancias=distancia
 
