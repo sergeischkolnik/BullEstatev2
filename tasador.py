@@ -99,7 +99,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     kDict={}
 
     drange=[50,100,200,500,1000,1000,1000,1000,1000,1000,1000,1000,1000,5000,10000,5000000]
-    utilrange=[0.1,0.1,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,1000000,1000000,1000000,1000000]
+    utilrange=[0.2,0.2,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,1000000,1000000,1000000,1000000]
     dormrange=[0,0,0,0,0,0,0,0,1,1,100,100,100,100,100,100]
     bathrange=[0,0,0,0,0,0,0,0,0,1,1,100,100,100,100,100]
     parkingrange=[0,0,0,0,0,0,1,100,100,100,100,100,100,100,100,100]
@@ -190,23 +190,54 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                 auxdistancia1+=auxDict1[x]
                 auxdistancia2+=auxDict2[x]
             if len(distancia)>=cota:
+                distancia=sorted(distancia,key=lambda x:x[5])
+                auxcota=0
+                for a in range(0,len(distancia)-1):
+                    if (distancia[a][5]==distancia[a+1][5] and distancia[a][6]==distancia[a+1][6] and
+                            distancia[a][7]==distancia[a+1][7] and distancia[a][12]==distancia[a+1][12] and
+                            abs(distancia[a][8]-distancia[a+1][8])<=2 and
+                            abs(distancia[a][9]-distancia[a+1][9])<=2):
+                        auxcota+=1
 
-                print('Datos Originales: ' + str(len(distancia)))
-                print('precio y estacionamientos Originales: ' +str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
+                if len(distancia)-auxcota>=cota:
 
-                if len(auxdistancia1)>=3:
+                    print('Datos Originales: ' + str(len(distancia)))
+                    print('precio y estacionamientos Originales: ' +str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
 
-                    print('Datos con un estacionamiento menos: ' + str(len(auxdistancia1)))
-                    print('precio y estacionamientos con un estacionamiento menos: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia1]))
-                    distancia += auxdistancia1
+                    if len(auxdistancia1)>=3:
 
-                if len(auxdistancia2)>=3:
-                    print('Datos con un estacionamiento mas: ' + str(len(auxdistancia2)))
-                    print('precio y estacionamientos con un estacionamiento mas: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia2]))
-                    distancia+=auxdistancia2
+                        auxdistancia1 = sorted(auxdistancia1, key=lambda x: x[5])
+                        auxcota = 0
+                        for a in range(0, len(distancia) - 1):
+                            if (auxdistancia1[a][5] == auxdistancia1[a + 1][5] and auxdistancia1[a][6] == auxdistancia1[a + 1][6] and
+                                    auxdistancia1[a][7] == auxdistancia1[a + 1][7] and auxdistancia1[a][12] == auxdistancia1[a + 1][
+                                        12] and
+                                    abs(auxdistancia1[a][8] - auxdistancia1[a + 1][8]) <= 2 and
+                                    abs(auxdistancia1[a][9] - auxdistancia1[a + 1][9]) <= 2):
+                                auxcota += 1
 
-                print('grupo Resultante: '+str(x))
-                break
+                            print('Datos con un estacionamiento menos: ' + str(len(auxdistancia1)))
+                            print('precio y estacionamientos con un estacionamiento menos: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia1]))
+                            distancia += auxdistancia1
+
+                    if len(auxdistancia2)>=3:
+
+                        auxdistancia2 = sorted(auxdistancia2, key=lambda x: x[5])
+                        auxcota = 0
+                        for a in range(0, len(auxdistancia2) - 1):
+                            if (auxdistancia2[a][5] == auxdistancia2[a + 1][5] and auxdistancia2[a][6] == auxdistancia2[a + 1][6] and
+                                    auxdistancia2[a][7] == auxdistancia2[a + 1][7] and auxdistancia2[a][12] == auxdistancia2[a + 1][
+                                        12] and
+                                    abs(auxdistancia2[a][8] - auxdistancia2[a + 1][8]) <= 2 and
+                                    abs(auxdistancia2[a][9] - auxdistancia2[a + 1][9]) <= 2):
+                                auxcota += 1
+                        if len(distancia) - auxcota >= cota:
+                            print('Datos con un estacionamiento mas: ' + str(len(auxdistancia2)))
+                            print('precio y estacionamientos con un estacionamiento mas: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia2]))
+                            distancia+=auxdistancia2
+
+                    print('grupo Resultante: '+str(x))
+                    break
 
     print('Datos Finales: '+str(len(distancia)))
     print('precio y estacionamientos Finales: '+str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
