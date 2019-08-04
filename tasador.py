@@ -99,7 +99,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     kDict={}
 
     drange=[50,100,200,500,1000,1000,1000,1000,1000,1000,1000,1000,1000,5000,10000,5000000]
-    utilrange=[0.2,0.2,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,1000000,1000000,1000000,1000000]
+    utilrange=[0.1,0.1,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,1000000,1000000,1000000,1000000]
     dormrange=[0,0,0,0,0,0,0,0,1,1,100,100,100,100,100,100]
     bathrange=[0,0,0,0,0,0,0,0,0,1,1,100,100,100,100,100]
     parkingrange=[0,0,0,0,0,0,1,100,100,100,100,100,100,100,100,100]
@@ -140,7 +140,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             for x in range (0,16):
 
                 kDict[x]=[0]*16
-                if (distance < drange[x]) and (abs(util/j[8]-1)<utilrange[x]) and (abs(total/j[9]-1)<(2*utilrange[x])) and \
+                if (distance < drange[x]) and (abs(util/j[8]-1)<utilrange[x]) and (abs(total/j[9]-1)<(1.5*utilrange[x])) and \
                         (abs(dormitorios-j[6])<=dormrange[x] or tipo=="comercial") and (abs(banos-j[7])<=bathrange[x]) and \
                         ((kDict[x][5]!=j[5]) or (kDict[x][8]!=j[8]) or (kDict[x][9]!=j[9]) or (kDict[x][6]!=j[6]) or (kDict[x][7]!=j[7]) or (kDict[x][12]!=j[12])):
 
@@ -180,6 +180,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     g_actual=0
     for x in range (0,16):
         if x==1:
+            cota=4
+        if x==2:
             cota=5
         g_actual=x
         if x>=10:
@@ -204,7 +206,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     print('Datos Originales: ' + str(len(distancia)))
                     print('precio y estacionamientos Originales: ' +str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
 
-                    if len(auxdistancia1)>=3:
+                    if len(auxdistancia1)>=cota:
 
                         auxdistancia1 = sorted(auxdistancia1, key=lambda x: x[5])
                         auxcota = 0
@@ -215,12 +217,12 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                                     abs(auxdistancia1[a][8] - auxdistancia1[a + 1][8]) <= 2 and
                                     abs(auxdistancia1[a][9] - auxdistancia1[a + 1][9]) <= 2):
                                 auxcota += 1
-
+                        if len(auxdistancia1) - auxcota >= cota:
                             print('Datos con un estacionamiento menos: ' + str(len(auxdistancia1)))
                             print('precio y estacionamientos con un estacionamiento menos: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia1]))
                             distancia += auxdistancia1
 
-                    if len(auxdistancia2)>=3:
+                    if len(auxdistancia2)>=cota:
 
                         auxdistancia2 = sorted(auxdistancia2, key=lambda x: x[5])
                         auxcota = 0
@@ -231,7 +233,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                                     abs(auxdistancia2[a][8] - auxdistancia2[a + 1][8]) <= 2 and
                                     abs(auxdistancia2[a][9] - auxdistancia2[a + 1][9]) <= 2):
                                 auxcota += 1
-                        if len(distancia) - auxcota >= cota:
+                        if len(auxdistancia2) - auxcota >= cota:
                             print('Datos con un estacionamiento mas: ' + str(len(auxdistancia2)))
                             print('precio y estacionamientos con un estacionamiento mas: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia2]))
                             distancia+=auxdistancia2
