@@ -270,23 +270,23 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
 
         sqlwhere="lon<="+str(lonmax)+" AND "
         sql=sql+sqlwhere
+        if tipo not in 'local comercial':
+            sqlwhere="dormitorios>="+str(dormitoriosmin)+" AND "
+            sql=sql+sqlwhere
 
-        sqlwhere="dormitorios>="+str(dormitoriosmin)+" AND "
-        sql=sql+sqlwhere
+            sqlwhere="dormitorios<="+str(dormitoriosmax)+" AND "
+            sql=sql+sqlwhere
 
-        sqlwhere="dormitorios<="+str(dormitoriosmax)+" AND "
-        sql=sql+sqlwhere
+            sqlwhere="banos>="+str(banosmin)+" AND "
+            sql=sql+sqlwhere
 
-        sqlwhere="banos>="+str(banosmin)+" AND "
-        sql=sql+sqlwhere
+            sqlwhere="banos<="+str(banosmax)+" AND "
+            sql=sql+sqlwhere
 
-        sqlwhere="banos<="+str(banosmax)+" AND "
-        sql=sql+sqlwhere
+            sqlwhere="estacionamientos>="+str(estacionamientos)+" AND "
+            sql=sql+sqlwhere
 
-        sqlwhere="estacionamientos>="+str(estacionamientos)+" AND "
-        sql=sql+sqlwhere
-
-        sqlwhere="bodegas>="+str(bodegas)+" AND "
+            sqlwhere="bodegas>="+str(bodegas)+" AND "
 
         sql=sql+sqlwhere
 
@@ -1843,26 +1843,29 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         lonmax = float(lonmax)
     else:
         lonmax=9999999
+    if tipo not in 'local comercial':
+        if dormitoriosmin is not None:
+            dormitoriosmin = int(dormitoriosmin)
+        else:
+            dormitoriosmin=1
 
-    if dormitoriosmin is not None:
-        dormitoriosmin = int(dormitoriosmin)
-    else:
-        dormitoriosmin=1
+        if dormitoriosmax is not None:
+            dormitoriosmax = int(dormitoriosmax)
+        else:
+            dormitoriosmax=10
 
-    if dormitoriosmax is not None:
-        dormitoriosmax = int(dormitoriosmax)
-    else:
-        dormitoriosmax=10
+        if banosmin is not None:
+            banosmin = int(banosmin)
+        else:
+            banosmin=1
 
-    if banosmin is not None:
-        banosmin = int(banosmin)
+        if banosmax is not None:
+            banosmax = int(banosmax)
+        else:
+            banosmax=6
     else:
-        banosmin=1
-
-    if banosmax is not None:
-        banosmax = int(banosmax)
-    else:
-        banosmax=6
+        dormitoriosmin=0
+        dormitoriosmax=0
 
     if metrodistance is not None:
         metrodistance = int(metrodistance)
