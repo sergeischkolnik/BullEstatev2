@@ -1866,6 +1866,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         dormitoriosmin=0
         dormitoriosmax=0
+        banosmin=0
+        banosmax=0
 
     if metrodistance is not None:
         metrodistance = int(metrodistance)
@@ -2003,6 +2005,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     propsY=from_yapo(tipo,region,latlonyapo,verboso)
     props=propsP+propsY
     for comuna in listaComunas:
+        print(banosmin)
+        print(banosmax)
 
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
