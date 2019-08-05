@@ -371,8 +371,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 if __name__ == "__main__":
 
     results=[]
-    parkings=[0,1,2,3]
-    ops=['venta','arriendo']
+    parkings=[1]
+    ops=['venta']
     for op in ops:
         for park in parkings:
             operacion = op
