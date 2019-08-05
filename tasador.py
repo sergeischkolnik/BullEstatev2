@@ -138,8 +138,12 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             r=6371000
             c=pi/180
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
-
+            if tipo in 'local comercial':
+                    j[6]==0
+                    j[7]==0
+                    j[12]==0
             for x in range (0,16):
+
 
                 kDict[x]=[0]*16
                 if (distance < drange[x]) and (abs(util/j[8]-1)<utilrange[x]) and (abs(total/j[9]-1)<(1.5*utilrange[x])) and \
