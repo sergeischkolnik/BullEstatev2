@@ -808,7 +808,10 @@ def confirm_file(bot, update):
 
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
-        text=connector.connectorFicha(client)
+        try:
+            text=connector.connectorFicha(client)
+        except:
+            text="No se ha podido crear la ficha"
         bot.send_message(chat_id=update.message.chat_id, text=text)
         select.menu(bot, update)
         return pm.MENU
