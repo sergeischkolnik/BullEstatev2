@@ -241,12 +241,6 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     print('grupo Resultante: '+str(x))
                     break
 
-    print('Datos Finales: '+str(len(distancia)))
-    print('precio y estacionamientos Finales: '+str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
-    print('IDS Finales: ' + str(sorted([el[0] for el in distancia])))
-
-
-
     if len(distancia)<cota:
         return(0,0,len(distancia),"No links to show",es_venta,17)
 
@@ -277,6 +271,11 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     print("intermax:"+str(intermax))
     print("Propiedades Eliminadas: "+str(len(distancias)-len(arregloaux)))
     distancias=arregloaux
+
+    print('Datos Finales: ' + str(len(distancias)))
+    print('precio y estacionamientos Finales: ' + str([el[5]/ufn for el in distancias]) + '-' + str(
+        [el[12] for el in distancias]))
+    print('IDS Finales: ' + str(sorted([el[0] for el in distancias])))
 
     links = []
     for props in distancias:
