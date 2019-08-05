@@ -150,7 +150,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     j.append(d)
                     if x not in distanciasDict:
                         distanciasDict[x]=[]
-                        print("creada la entrada para el valor:"+str(x))
+                        #print("creada la entrada para el valor:"+str(x))
                         if auxparkingbool:
                             auxDict1[x]=[]
                             auxDict2[x]=[]
@@ -205,8 +205,6 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
                 if len(distancia)-auxcota>=cota:
 
-                    print('Datos Originales: ' + str(len(distancia)))
-                    print('precio y estacionamientos Originales: ' +str([el[5] for el in distancia])+'-' + str([el[12] for el in distancia]))
 
                     if len(auxdistancia1)>=cota:
 
@@ -220,8 +218,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                                     abs(auxdistancia1[a][9] - auxdistancia1[a + 1][9]) <= 2):
                                 auxcota += 1
                         if len(auxdistancia1) - auxcota >= cota:
-                            print('Datos con un estacionamiento menos: ' + str(len(auxdistancia1)))
-                            print('precio y estacionamientos con un estacionamiento menos: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia1]))
+                            #print('Datos con un estacionamiento menos: ' + str(len(auxdistancia1)))
+                            #print('precio y estacionamientos con un estacionamiento menos: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia1]))
                             distancia += auxdistancia1
 
                     if len(auxdistancia2)>=cota:
@@ -236,8 +234,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                                     abs(auxdistancia2[a][9] - auxdistancia2[a + 1][9]) <= 2):
                                 auxcota += 1
                         if len(auxdistancia2) - auxcota >= cota:
-                            print('Datos con un estacionamiento mas: ' + str(len(auxdistancia2)))
-                            print('precio y estacionamientos con un estacionamiento mas: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia2]))
+                            #print('Datos con un estacionamiento mas: ' + str(len(auxdistancia2)))
+                            #print('precio y estacionamientos con un estacionamiento mas: '+str([el[5] for el in auxdistancia1])+'-'  + str([el[12] for el in auxdistancia2]))
                             distancia+=auxdistancia2
 
                     print('grupo Resultante: '+str(x))
@@ -276,7 +274,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     print('Datos Finales: ' + str(len(distancias)))
     print('precio y estacionamientos Finales: ' + str([el[5]/ufn for el in distancias]) + '-' + str(
-        [el[12] for el in distancias]))
+         [el[12] for el in distancias]))
     print('IDS Finales: ' + str(sorted([el[0] for el in distancias])))
 
     links = []
