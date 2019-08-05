@@ -33,7 +33,7 @@ def regresion(x_train,y_train,x_test):
 
     for coef in regr.coef_:
         price=price+coef*x_test[c]
-        print("Coeficiente "+str(c)+":"+str(coef)+"precio parcial: "+str(price/ufn))
+        print("Coeficiente "+str(c)+":"+str(coef)+"precio parcial: "+str(price))
         c=c+1
 
     return price,utilnegativa,terrazanegativa,estacionamientosnegativa
