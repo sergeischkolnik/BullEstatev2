@@ -32,7 +32,11 @@ def regresion(x_train,y_train,x_test):
     estacionamientosnegativa =regr.coef_[4]<-0.001
 
     for coef in regr.coef_:
+        print("Coeficiente "+str(c)+":")
+        print(coef)
+        print("precio parcial:")
         price=price+coef*x_test[c]
+        print(price)
         c=c+1
 
     return price,utilnegativa,terrazanegativa,estacionamientosnegativa
