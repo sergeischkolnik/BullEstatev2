@@ -27,6 +27,7 @@ def regresion(x_train,y_train,x_test):
     price=regr.intercept_
     c=0
 
+
     utilnegativa=regr.coef_[0]<-0.001
     terrazanegativa = regr.coef_[1]<-0.001
     estacionamientosnegativa =regr.coef_[4]<-0.001
@@ -308,9 +309,11 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         reg_banos = e[7]
         reg_precio = e[5]
         reg_estacionamientos = e[12]
-        x_train.append([reg_util,reg_terraza,reg_dorms,reg_banos,reg_estacionamientos,reg_util*reg_util,
-                        reg_util*reg_terraza,reg_util*reg_dorms,reg_util*reg_banos,reg_terraza*reg_terraza,reg_terraza*reg_dorms,
-                        reg_terraza*reg_banos,reg_dorms*reg_dorms,reg_dorms*reg_banos,reg_banos*reg_banos])
+        # x_train.append([reg_util,reg_terraza,reg_dorms,reg_banos,reg_estacionamientos,reg_util*reg_util,
+        #                 reg_util*reg_terraza,reg_util*reg_dorms,reg_util*reg_banos,reg_terraza*reg_terraza,reg_terraza*reg_dorms,
+        #                 reg_terraza*reg_banos,reg_dorms*reg_dorms,reg_dorms*reg_banos,reg_banos*reg_banos])
+        x_train.append([reg_util, reg_terraza, reg_dorms, reg_banos, reg_estacionamientos,
+                        reg_util*reg_dorms,reg_util*reg_banos,reg_dorms*reg_dorms,reg_dorms*reg_banos,reg_banos*reg_banos])
         y_train.append(reg_precio)
 
     #y2_train=[]
@@ -320,10 +323,13 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     y_train=np.array(y_train)
 
 
-    x_test = [util,(total-util),dormitorios,banos,estacionamientos,
-              util*util,util*(total-util),util*dormitorios,util*banos,
-              (total-util)*(total-util),(total-util)*dormitorios,(total-util)*banos,
-              dormitorios*dormitorios,dormitorios*banos,banos*banos]
+    # x_test = [util,(total-util),dormitorios,banos,estacionamientos,
+    #           util*util,util*(total-util),util*dormitorios,util*banos,
+    #           (total-util)*(total-util),(total-util)*dormitorios,(total-util)*banos,
+    #           dormitorios*dormitorios,dormitorios*banos,banos*banos]
+    x_test = [util, (total - util), dormitorios, banos, estacionamientos,
+              util * dormitorios, util * banos,
+              dormitorios * dormitorios, dormitorios * banos, banos * banos]
     x_test=np.array(x_test)
     x_test=np.transpose(x_test)
     # Make predictions using the testing set
