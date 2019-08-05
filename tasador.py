@@ -337,18 +337,18 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     for dato in x_train:
         if utilnegativo:
             dato[0] = float(0.00000)
-            dato[5] = float(0.00000)
-            dato[6] = float(0.00000)
-            dato[7] = float(0.00000)
-            dato[8] = float(0.00000)
+            # dato[5] = float(0.00000)
+            # dato[6] = float(0.00000)
+            # dato[7] = float(0.00000)
+            # dato[8] = float(0.00000)
 
 
         if terrazanegativo:
             dato[1]=float(0.00000)
-            dato[6]=float(0.00000)
-            dato[9]=float(0.00000)
-            dato[10]=float(0.00000)
-            dato[11]=float(0.00000)
+            # dato[6]=float(0.00000)
+            # dato[9]=float(0.00000)
+            # dato[10]=float(0.00000)
+            # dato[11]=float(0.00000)
 
 
         if estacionamientosnegativo:
