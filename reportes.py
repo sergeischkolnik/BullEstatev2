@@ -835,13 +835,15 @@ def calcularDistanciaA(i,data):
     except:
         return -1
 
-def from_portalinmobiliario(tipo,region,verboso=False):
+def from_portalinmobiliario(tipo,region,comunas,verboso=False):
     if verboso:
         print("----------------------")
         print("Extrayendo propiedades de region: "+str(region)+" de portalinmobiliario.")
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE tipo='"+str(tipo)+"' and region='"+str(region)+"'"
+    for comuna in comunas:
+        sqlcomunas="link like '%"+str(comuna)+"%' or "
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE ("+sqlcomunas+") and tipo='"+str(tipo)+"' and region='"+str(region)+"'"
     # if verboso:
     #     print("Consulta: ")
     #     print(sql)
@@ -864,7 +866,7 @@ def from_portalinmobiliario(tipo,region,verboso=False):
         print("----------------------")
     return data
 
-def from_yapo(tipo,region,latlonyapo,verboso=False):
+def from_yapo(tipo,region,comunas,latlonyapo,verboso=False):
     if region=="metropolitana":
             region="15"
 
@@ -2001,8 +2003,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         latlonyapo=False
 
 
-    propsP=from_portalinmobiliario(tipo,region,verboso)
-    propsY=from_yapo(tipo,region,latlonyapo,verboso)
+    propsP=from_portalinmobiliario(tipo,region,listaComunas,verboso)
+    propsY=from_yapo(tipo,region,listaComunas,latlonyapo,verboso)
     props=propsP+propsY
     for comuna in listaComunas:
         print(banosmin)
