@@ -847,6 +847,7 @@ def from_portalinmobiliario(tipo,region,comunas,verboso=False):
     # if verboso:
     #     print("Consulta: ")
     #     print(sql)
+    print(sql)
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
