@@ -378,13 +378,15 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     datospro = []
     if pro:
-
-        propsP = reportes.from_portalinmobiliario(tipo, regionP, True)
-        propsY = reportes.from_yapo(tipo, regionY, True, True)
+        comunaP = (comuna.replace(' ', '-') + '-metropolitana').lower()
+        listacomunas=[]
+        listacomunas.append(comunaP)
+        propsP = reportes.from_portalinmobiliario(tipo, regionP,listacomunas, True)
+        propsY = reportes.from_yapo(tipo, regionY,listacomunas, True, True)
         props = propsP + propsY
 
         if operacion=='venta':
-            comunaP=(comuna.replace(' ','-')+'-metropolitana').lower()
+
             print("la comuna para calcular la rentabilidad promedio es:")
             print(comunaP)
             rentaPromedio = reportes.rentaPProm(tipo, float(dormitorios), float(banos), float(estacionamientos), comunaP)
