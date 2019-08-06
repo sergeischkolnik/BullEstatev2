@@ -378,9 +378,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     datospro = []
     if pro:
-        comunaP = (comuna.replace(' ', '-') + '-metropolitana').lower()
-        listacomunas=[]
-        listacomunas.append(comunaP)
+        listacomunas.append(comuna)
         propsP = reportes.from_portalinmobiliario(tipo, regionP,listacomunas, True)
         propsY = reportes.from_yapo(tipo, regionY,listacomunas, True, True)
         props = propsP + propsY
