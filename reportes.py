@@ -842,7 +842,11 @@ def from_portalinmobiliario(tipo,region,comunas,verboso=False):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     for comuna in comunas:
+        comuna=comuna.lower()
+        comuna=comuna.replace(' ','-')
+        comuna=comuna+'-metropolitana'
         sqlcomunas="link like '%"+str(comuna)+"%' or "
+    sqlcomunas=sqlcomunas[:-4]
     sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE ("+sqlcomunas+") and tipo='"+str(tipo)+"' and region='"+str(region)+"'"
     # if verboso:
     #     print("Consulta: ")
