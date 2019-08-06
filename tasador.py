@@ -207,7 +207,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     if (distancia[a][5]==distancia[a+1][5] and distancia[a][6]==distancia[a+1][6] and
                             distancia[a][7]==distancia[a+1][7] and distancia[a][12]==distancia[a+1][12] and
                             abs(distancia[a][8]-distancia[a+1][8])<=2 and
-                            abs(distancia[a][9]-distancia[a+1][9])<=2) and len(distancia>1):
+                            abs(distancia[a][9]-distancia[a+1][9])<=2) and len(distancia)>1:
                         auxcota+=1
 
                 if len(distancia)-auxcota>=cota:
