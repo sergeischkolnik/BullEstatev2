@@ -160,9 +160,12 @@ def tasador(client):
         client["baños"]=0
     if "dormitorios" not in client:
         client["dormitorios"]=0
+    comuna=client["comuna"]
+    listacomunas=[]
+    listacomunas.append(comuna)
 
-    propsP=reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),True)
-    propsY=reportes.from_yapo(client["tipo"].lower(),regYapoDict[client["region"]],True,True)
+    propsP=reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),listacomunas,True)
+    propsY=reportes.from_yapo(client["tipo"].lower(),regYapoDict[client["region"]],listacomunas,True,True)
     props=propsP+propsY
     print("Propiedades Check")
 
