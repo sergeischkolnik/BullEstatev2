@@ -219,7 +219,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                             auxdistancia1 = sorted(auxdistancia1, key=lambda x: x[5])
                             auxcota = 0
                             if len(auxdistancia1)>1:
-                                for a in range(0, len(distancia) - 1):
+                                for a in range(0, len(auxdistancia1) - 1):
+                                    print(a)
                                     print(auxdistancia1[a])
                                     if (auxdistancia1[a][5] == auxdistancia1[a + 1][5] and auxdistancia1[a][6] == auxdistancia1[a + 1][6] and
                                         auxdistancia1[a][7] == auxdistancia1[a + 1][7] and auxdistancia1[a][12] == auxdistancia1[a + 1][12] and
