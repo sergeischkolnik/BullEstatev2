@@ -844,7 +844,7 @@ def from_portalinmobiliario(tipo,region,comunas,verboso=False):
     for comuna in comunas:
         comuna=comuna.lower()
         comuna=comuna.replace(' ','-')
-        comuna=comuna+'-metropolitana'
+        comuna=comuna+'-'+str(region.lower())
         sqlcomunas="link like '%"+str(comuna)+"%' or "
     sqlcomunas=sqlcomunas[:-4]
     sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE ("+sqlcomunas+") and tipo='"+str(tipo)+"' and region='"+str(region)+"'"
