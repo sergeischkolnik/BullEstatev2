@@ -135,7 +135,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         if sitio=='portal':
             if operacion=='venta':
                 comuna=str(link.split('/')[5])
-                comuna=comuna.replace(str(regionP),'')
+                comuna=comuna.replace('-'+str(regionP),'')
                 comuna=comuna.replace('-',' ')
                 comuna=comuna.capitalize()
                 propiedad.append(comuna)
