@@ -224,7 +224,7 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
                                    operacion,region,comuna1,comuna2,comuna3,comuna4,comuna5,comuna6,verboso=False):
 
         comuna1=comuna1.replace(' ','-')
-        if "metropolitana" not in comuna1:
+        if str(region) not in comuna1:
             comuna1=comuna1+"-"+str(region)
 
         if verboso:
@@ -841,6 +841,7 @@ def from_portalinmobiliario(tipo,region,comunas,verboso=False):
         print("Extrayendo propiedades de region: "+str(region)+" de portalinmobiliario.")
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
+    sqlcomunas=''
     for comuna in comunas:
         comuna=comuna.lower()
         comuna=comuna.replace(' ','-')
