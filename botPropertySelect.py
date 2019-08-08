@@ -355,9 +355,14 @@ def price_range(bot, update,client):
         if client["moneda"]=="UF":
             user = update.message.from_user
             x=client["preciomin"]
-            keyboard = [['{:,}'.format(x+1000).replace(",","."),'{:,}'.format(x+2000).replace(",","."),'{:,}'.format(x+3000).replace(",",".")],
-                        ['{:,}'.format(x+4000).replace(",","."),'{:,}'.format(x+5000).replace(",","."),'{:,}'.format(x+7000).replace(",",".")],
-                        ['{:,}'.format(x+10000).replace(",","."),"Otro","Atrás","Salir"]]
+            if client["operacion"]=="Arrendar":
+               keyboard = [['{:,}'.format(x+2).replace(",","."),'{:,}'.format(x+5).replace(",","."),'{:,}'.format(x+10).replace(",",".")],
+                            ['{:,}'.format(x+15).replace(",","."),'{:,}'.format(x+20).replace(",","."),'{:,}'.format(x+50).replace(",",".")],
+                            ['{:,}'.format(x+100).replace(",","."),"Otro","Atrás","Salir"]]
+            else:
+                keyboard = [['{:,}'.format(x+500).replace(",","."),'{:,}'.format(x+1000).replace(",","."),'{:,}'.format(x+2000).replace(",",".")],
+                            ['{:,}'.format(x+3000).replace(",","."),'{:,}'.format(x+5000).replace(",","."),'{:,}'.format(x+10000).replace(",",".")],
+                            ['{:,}'.format(x+200000).replace(",","."),"Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -369,9 +374,15 @@ def price_range(bot, update,client):
         else:
             user = update.message.from_user
             x=client["preciomin"]
-            keyboard = [['{:,}'.format(x+10000000).replace(",","."),'{:,}'.format(x+2000000).replace(",",".")],
-                        ['{:,}'.format(x+30000000).replace(",","."),'{:,}'.format(x+50000000).replace(",",".")],
-                        ['{:,}'.format(x+100000000).replace(",","."),"Otro","Atrás","Salir"]]
+            if client["operacion"]=="Arrendar":
+                keyboard = [['{:,}'.format(x+50000).replace(",","."),'{:,}'.format(x+100000).replace(",",".")],
+                            ['{:,}'.format(x+200000).replace(",","."),'{:,}'.format(x+500000).replace(",",".")],
+                            ['{:,}'.format(x+1000000).replace(",","."),"Otro","Atrás","Salir"]]
+
+            else:
+                keyboard = [['{:,}'.format(x+10000000).replace(",","."),'{:,}'.format(x+2000000).replace(",",".")],
+                            ['{:,}'.format(x+30000000).replace(",","."),'{:,}'.format(x+50000000).replace(",",".")],
+                            ['{:,}'.format(x+100000000).replace(",","."),"Otro","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,

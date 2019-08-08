@@ -135,7 +135,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         if sitio=='portal':
             if operacion=='venta':
                 comuna=str(link.split('/')[5])
-                comuna=comuna.replace('-metropolitana','')
+                comuna=comuna.replace('-'+str(regionP),'')
                 comuna=comuna.replace('-',' ')
                 comuna=comuna.capitalize()
                 propiedad.append(comuna)
@@ -378,7 +378,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     datospro = []
     if pro:
-        comunaP = (comuna.replace(' ', '-') + '-metropolitana').lower()
+        comunaP = (comuna.replace(' ', '-') + '-'+str(region)).lower()
         listacomunas=[]
         listacomunas.append(comuna)
         propsP = reportes.from_portalinmobiliario(tipo, regionP,listacomunas, True)
