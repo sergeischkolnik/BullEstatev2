@@ -77,13 +77,27 @@ def passvalidation(mail,clave):
 def insertreporte(client):
 
     d = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    if client["reportepro"]:
+        reportepro='si'
+    else:
+        reportepro = 'no'
+    if client["reporteinterno"]:
+        reporteinterno='si'
+    else:
+        reporteinterno = 'no'
+    if client["reportemetro"]:
+        reportemetro='si'
+    else:
+        reportemetro = 'no'
+
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
     cur = mariadb_connection.cursor()
-    sqlInsertInto = "INSERT INTO reportes (idCliente,fecha,operacion,region,comuna,tipo,dormitorios,banos,moneda,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax)"
+    sqlInsertInto = "INSERT INTO reportes (idCliente,fecha,operacion,region,comuna,tipo,dormitorios,banos,moneda,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,pro,interno,metro)"
     sqlValues = "VALUES ('" + str(client["id"]) + "','" + str(d) + "','" + str(client["operacion"]) + "','" + str(
         client["region"]) + "','" + str(client["comuna"]) + "','" + str(client["tipo"]) + "','" + \
                 str(client["dormitorios"]) + "','" + str(client["baños"]) + "','" + str(client["moneda"]) + "','" + str(client["preciomin"]) + "','" + str(client["preciomax"]) + "','" \
-                + str(client["metrosmin"]) + "','" + str(client["metrosmax"]) + "','" + str(client["totalmin"]) + "','" + str(client["totalmax"]) + "')"
+                + str(client["metrosmin"]) + "','" + str(client["metrosmax"]) + "','" + str(client["totalmin"]) + "','" + str(client["totalmax"]) + \
+                reportepro + "','" + interno + "','" + metro + "')"
 
     sql = sqlInsertInto + " " + sqlValues
     print(sql)
