@@ -71,3 +71,18 @@ def passvalidation(mail,clave):
         return True
     else:
         return False
+
+def insertreporte(client):
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
+    cur = mariadb_connection.cursor()
+    sqlInsertInto = "INSERT INTO reportes (idCliente,fecha,operacion,region,comuna,tipo,dormitorios,banos,utilmin,utilmax,totalmin,totalmax)"
+    sqlValues = "VALUES ('" + str(client["id"]) + "','" + str(client["operacion"]) + "','" + str(
+        client["region"]) + "','" + str(client["comuna"]) + "','" + str(client["tipo"]) + "','" + \
+                str(client["dormitorios"]) + "','" + str(client["banos"]) + "','" + str(client["utilmin"]) + "','" + str(client["utilmax"]) + "','" + \
+                + str(client["totalmin"]) + "','" + str(client["totalmax"]) + "')"
+
+    sql = sqlInsertInto + " " + sqlValues
+    print(sql)
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()

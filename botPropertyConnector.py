@@ -1,4 +1,4 @@
-import botPropertyDataBase
+import botPropertyDataBase as db
 import botPropertySelect
 import botPropertyMain
 import botPropertySelect
@@ -95,6 +95,9 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         sendMessageFunc(chat_id,result)
     else:
         sendMessageFunc(chat_id,reply)
+        db.insertreporte(client)
+
+
 
 def connectorFicha(client):
 
