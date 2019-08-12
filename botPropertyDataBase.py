@@ -75,7 +75,8 @@ def passvalidation(mail,clave):
         return False
 
 def insertreporte(client):
-    d = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    
+    d = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
     cur = mariadb_connection.cursor()
     sqlInsertInto = "INSERT INTO reportes (idCliente,fecha,operacion,region,comuna,tipo,dormitorios,banos,utilmin,utilmax,totalmin,totalmax)"
