@@ -82,13 +82,13 @@ def insertreporte(client):
     else:
         reportepro = 'no'
     if client["reporteinterno"]:
-        reporteinterno='si'
+        interno='si'
     else:
-        reporteinterno = 'no'
+        interno = 'no'
     if client["reportemetro"]:
-        reportemetro='si'
+        metro='si'
     else:
-        reportemetro = 'no'
+        metro = 'no'
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
     cur = mariadb_connection.cursor()
