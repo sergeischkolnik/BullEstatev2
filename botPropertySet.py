@@ -655,10 +655,9 @@ def confirm_report(bot,update):
 
         else:
             #generar reporte para cliente, enviar al correo correspondiente
+
             bot.send_message(chat_id=update.message.chat_id, text="Se está generando el reporte")
-
             reply = "Reporte generado y enviado exitosamente al correo: "+(client["mail"])+"."
-
             client["reporteThread"] = threading.Thread(target=connector.generarreporte, args=(client,bot.send_message,update.message.chat_id,reply))
             client["reporteThread"].setDaemon(True)
             client["reporteThread"].start()

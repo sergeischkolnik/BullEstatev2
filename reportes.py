@@ -849,8 +849,8 @@ def from_portalinmobiliario(tipo,region,comunas,verboso=False):
         sqlcomunas+="link like '%"+str(comuna)+"%' or "
     sqlcomunas=sqlcomunas[:-4]
     if sqlcomunas!='':
-        sqlcomunas='('+sqlcomunas+')'
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE "+sqlcomunas+" and tipo='"+str(tipo)+"' and region='"+str(region)+"'"
+        sqlcomunas='('+sqlcomunas+') '
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE "+sqlcomunas+"and tipo='"+str(tipo)+"' and region='"+str(region)+"'"
     # if verboso:
     #     print("Consulta: ")
     #     print(sql)
@@ -1928,21 +1928,21 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         tipo = str(tipo)
     else:
         print("Error, debe haber tipo")
-        return
+        return True
 
 
     if operacion is not None:
         operacion = str(operacion)
     else:
         print("Error, debe haber operacion")
-        return
+        return True
 
     if region is not None:
         region = str(region)
 
     else:
         print("Error, debe haber region")
-        return
+        return True
 
     if region is not None:
         prioridad = str(prioridad)
@@ -1952,13 +1952,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         mail = str(mail)
     else:
         print("Error, debe haber mail")
-        return
+        return True
 
     if nombreCliente is not None:
         nombreCliente = str(nombreCliente)
     else:
         print("Error, debe haber nombre Cliente")
-        return
+        return True
 
     if direccion is not None and radioDireccion is not None:
         direccion = str(direccion)
@@ -2417,8 +2417,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
                         continue
     #Arreglar Mandada de mails
-    print('proceder a mandar correo')
-    sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
+    if len(listaAdjuntos)>0:
+        print('proceder a mandar correo')
+        sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
+        return True
+    else:
+        return 'No Se han encontrado propiedades para el reporte solicitado'
 
     #borrar archivos si no habia carpeta de DB
     if nombrecarpetadb is None:

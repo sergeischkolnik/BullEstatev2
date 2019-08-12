@@ -86,12 +86,15 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
     listaComunas=[]
     listaComunas.append(client["comuna"].lower())
 
-    reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
+    result=reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
                                     None,None, None,None,dormitoriosmin,dormitoriosmax, banosmin, banosmax,
                                     confmin, rentminventa, rentminarriendo,None, None, metrodistance, None, None, None, client["tipo"], client["operacion"],
                                     client["region"].lower(),listaComunas, None, client["mail"],(client["firstname"]+" "+client["lastname"]),
                                     None,None,None,None,corredor,None,True)
-    sendMessageFunc(chat_id,reply)
+    if result is not True:
+        sendMessageFunc(chat_id,result)
+    else:
+        sendMessageFunc(chat_id,reply)
 
 def connectorFicha(client):
 
