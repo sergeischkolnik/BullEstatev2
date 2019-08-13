@@ -96,7 +96,7 @@ def insertreporte(client):
     sqlValues = "VALUES ('" + str(client["id"]) + "','" + str(d) + "','" + str(client["operacion"]) + "','" + str(
         client["region"]) + "','" + str(client["comuna"]) + "','" + str(client["tipo"]) + "','" + \
                 str(client["dormitorios"]) + "','" + str(client["baños"]) + "','" + str(client["moneda"]) + "','" + str(client["preciomin"]) + "','" + str(client["preciomax"]) + "','" \
-                + str(client["metrosmin"]) + "','" + str(client["metrosmax"]) + "','" + str(client["totalmin"]) + "','" + str(client["totalmax"]) + \
+                + str(client["metrosmin"]) + "','" + str(client["metrosmax"]) + "','" + str(client["totalmin"]) + "','" + str(client["totalmax"]) + "','" + \
                 reportepro + "','" + interno + "','" + metro + "')"
 
     sql = sqlInsertInto + " " + sqlValues
