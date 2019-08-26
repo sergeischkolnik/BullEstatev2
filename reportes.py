@@ -17,6 +17,7 @@ from sklearn import datasets, linear_model
 import sendmail
 import tasador as tb2
 #import tasadorbot2 as tb2
+import sendMailOportunidad
 
 import pubPortalExiste
 import math
@@ -2339,6 +2340,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     if verboso:
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
+
+                    if rentaV>0.25:
+
+                        sendMailOportunidad.sendMail(columnNames,subresultado)
+
                     resultado.append(subresultado)
                     #print("sub appended")
 
