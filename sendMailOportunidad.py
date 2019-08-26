@@ -20,7 +20,10 @@ def sendMail(columnames,prop):
     for i,x in enumerate(columnames):
         body+=(str(columnames[i]))
         body+=": "
-        body+=(str(prop[i]))
+        try:
+            body+=(str(prop[i]))
+        except:
+            body+=""
         body+='\n'
 
     msg.attach(MIMEText(body, 'plain'))
