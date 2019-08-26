@@ -303,7 +303,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
             return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
         except:
-
+            print("Entro al except 1")
             return (0,0,len(distancias),["No hay links para tasación inválida",""],es_venta,17)
 
 
@@ -381,7 +381,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             return (0, "N", len(distancias), ["No hay links para tasación inválida", ""], es_venta, 13)
 
     except:
-        print("Entro al except")
+        print("Entro al except 2")
         print(price)
         return (0,"N",len(distancias),["No hay links para tasación inválida",""],es_venta,13)
 
