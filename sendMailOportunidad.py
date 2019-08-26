@@ -18,9 +18,9 @@ def sendMail(columnames,prop):
 
     body = "Estimados" + ":\n\nOportunidad Encontrada."
     for i,x in enumerate(columnames):
-        body+=(columnames[x])
+        body+=(columnames[i])
         body+=": "
-        body+=(prop[x])
+        body+=(prop[i])
         body+='\n'
 
     msg.attach(MIMEText(body, 'plain'))
