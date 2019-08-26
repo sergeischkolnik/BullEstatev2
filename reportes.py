@@ -2341,10 +2341,12 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     if verboso:
                         print("[GeneradorReportes] depto encontrado para "+nombreCliente)
 
-                    if rentaV>0.25:
+                    try:
+                        if rentaV>0.25:
 
-                        sendMailOportunidad.sendMail(columnNames,subresultado)
-
+                            sendMailOportunidad.sendMail(columnNames,subresultado)
+                    except:
+                        pass
                     resultado.append(subresultado)
                     #print("sub appended")
 
