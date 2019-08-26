@@ -374,12 +374,15 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         else:
             price = int(price)
         if price>0:
+            print("Precio es 0")
+            print(price)
             return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
         else:
             return (0, "N", len(distancias), ["No hay links para tasación inválida", ""], es_venta, 13)
 
     except:
-
+        print("Entro al except")
+        print(price)
         return (0,"N",len(distancias),["No hay links para tasación inválida",""],es_venta,13)
 
 if __name__ == "__main__":
@@ -398,8 +401,8 @@ if __name__ == "__main__":
             dormitorios = 3
             banos = 3
             estacionamientos=park
-            region="metropolitana"
-            regionYapo="15"
+            region="valparaiso"
+            regionYapo="6"
             propsP=reportes.from_portalinmobiliario(tipo,region,True)
             propsY=reportes.from_yapo(tipo,regionYapo,True,True)
             props=propsP+propsY

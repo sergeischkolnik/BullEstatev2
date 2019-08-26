@@ -932,3 +932,41 @@ def confirm_tasacion(bot, update,client):
     update.message.reply_text(confirmtext, reply_markup=reply_markup,disable_web_page_preview=True)
 
     return pm.CONFIRM_TASACION
+
+
+##### MODIFICAR
+
+def modificar(bot,update,client):
+
+    user = update.message.from_user
+
+    if client["producto"]=="Reporte":
+
+        keyboard = [["Operacion","Region","Comuna"],
+                    ["Tipo","Dormitorios","Baños"],
+                    ["Precio","Superficie"],
+                    ["Atrás", "Salir"]]
+
+    elif client["producto"]=="Tasación":
+
+        keyboard = [["Operacion","Region","Comuna"],
+                    ["Tipo","Dormitorios","Baños"],
+                    ["Estacionamientos","Bodegas"],
+                    ["Sup. Útil","Sup. Total","Dirección"],
+                    ["Atrás", "Salir"]]
+
+    elif client["producto"]=="Ficha":
+
+        keyboard = [["Sitio","ID","URL"],
+                    ["Atrás", "Salir"]]
+
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    pm.logger.info("{} está Modificando.".format(user.first_name))
+    update.message.reply_text("Seleccionar Atributo que desea modificar", reply_markup=reply_markup)
+
+    return pm.SELECT_FEATURE
+
