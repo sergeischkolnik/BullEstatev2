@@ -115,6 +115,7 @@ def main():
             bien = json_data['BienRaiz']
 
         except:
+            print("error al extraer data")
             continue
         
         propiedad_filtrada = dict()
