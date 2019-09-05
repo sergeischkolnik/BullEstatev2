@@ -6,6 +6,30 @@ import time
 
 import requests
 
+def flatten(S):
+    if S == []:
+        return S
+    if isinstance(S[0], list):
+        return flatten(S[0]) + flatten(S[1:])
+    return S[:1] + flatten(S[1:])
+
+def processDict(D,Master):
+    for elem in D.items():
+        if elem[1] is not None:
+            if elem[0] not in Master:
+                if type(elem[1]) is not list and type(elem[1]) is not tuple and type(elem[1]) is not dict:
+                    Master[elem[0]] = elem[1]
+                if type(elem[1]) is list or type(elem[1]) is dict:
+                    process(elem[1],Master)
+
+def process(D,Master):
+    if type(D) is dict:
+        processDict(D,Master)
+    elif type(D) is list:
+        D = flatten(D)
+        for l in D:
+            process(l,Master)
+
 def sacarVariablesBD():
     #sacar lista de variables de la BD
 
@@ -94,25 +118,22 @@ def main():
             continue
         
         propiedad_filtrada = dict()
+        process(bien,propiedad_filtrada)
         
-        for b in bien.items():
-            if type(b[1]) is not dict and type(b[1]) is not tuple and type(b[1]) is not list and b[1] is not None:
+        for b in propiedad_filtrada:
+            if b[0] not in masterVar:
+                # si la variable no esta en bd
+                tipo = "TEXT"
+                if type(b[1]) is int:
+                    tipo = "INT"
+                elif type(b[1]) is float:
+                    tipo = "FLOAT"
 
-                if b[0] not in masterVar:
-                    # si la variable no esta en bd
-                    tipo = "TEXT"
-                    if type(b[1]) is int:
-                        tipo = "INT"
-                    elif type(b[1]) is float:
-                        tipo = "FLOAT"
+                agregarColumna(b[0],tipo)
 
-                    agregarColumna(b[0],tipo)
-            
-                propiedad_filtrada[b[0]] = b[1]
-        
-        insertarPropiedad(propiedad_filtrada)
+    insertarPropiedad(propiedad_filtrada)
 
-        time.sleep(5)
+    time.sleep(5)
                     
 
 
