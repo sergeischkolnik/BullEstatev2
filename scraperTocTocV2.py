@@ -39,7 +39,7 @@ def insertarPropiedad(propDict):
     sql = sql[:-1]
     sql += ") VALUES("
     for v in propDict.values():
-        sql += str(v) + ","
+        sql += "\'" + str(v) + "\',"
     sql = sql[:-1]
     sql += ") ON DUPLICATE KEY UPDATE "
     for i in propDict.items():
