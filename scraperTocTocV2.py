@@ -8,7 +8,7 @@ import requests
 def sacarVariablesBD():
     #sacar lista de variables de la BD
 
-    sql = """select column_name from information_schema.columns where table_name = 'propiedades' """
+    sql = """select column_name from information_schema.columns where table_name = 'propiedadestoctoc' """
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='toctoc2')
 
