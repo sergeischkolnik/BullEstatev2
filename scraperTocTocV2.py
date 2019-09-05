@@ -48,7 +48,7 @@ def insertarPropiedad(propDict):
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='toctoc2')
 
-    print(sql)
+    #print(sql)
 
     cur = mariadb_connection.cursor()
     cur.execute(sql)
