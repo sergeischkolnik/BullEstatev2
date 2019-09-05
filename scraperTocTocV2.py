@@ -2,6 +2,7 @@ import json
 import random
 import agentCreator
 import pymysql as mysql
+import time
 
 import requests
 
@@ -20,15 +21,47 @@ def sacarVariablesBD():
     listaFinal = []
     for name in tupla:
         listaFinal.append(name[0])
-    print(listaFinal)
+    return listaFinal
 
+def agregarColumna(columnName, tipo):
+    sql = "ALTER TABLE propiedadestoctoc ADD COLUMN " + str(columnName) + " " +str(tipo)
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='toctoc2')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
+def insertarPropiedad(propDict):
+    #En caso de ser remate, inserta en tabla de remates
+    sql = "INSERT INTO propiedadestoctoc("
+    for k in propDict.keys():
+        sql += str(k)+","
+    sql = sql[:-1]
+    sql += ") VALUES("
+    for v in propDict.values():
+        sql += str(v) + ","
+    sql = sql[:-1]
+    sql += ") ON DUPLICATE KEY UPDATE "
+    for i in propDict.items():
+        sql += str(i[0]) + "=" + str(i[1]) + ","
+    sql = sql[:-1]
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+
+    mariadb_connection.commit()
+    mariadb_connection.close()
+    print("Insertada propiedad:" + str(propDict["IdBienRaiz"]))
+    
 def main():
     x = [i for i in range(1000000)]
     random.shuffle(x)
 
     for i in x:
 
-        #masterVar = sacarVariablesBD()
+        masterVar = sacarVariablesBD()
 
         headers = {
             'sec-fetch-mode': 'cors',
@@ -53,10 +86,28 @@ def main():
         json_data = json.loads(response.text)
 
         bien = json_data['BienRaiz']
-
+        
+        propiedad_filtrada = dict()
+        
         for b in bien.items():
-            if type(b[1]) is not dict and type(b[1]) is not tuple and type(b[1]) is not list and b[1] is not None and b[0] not in masterDict.keys():
-                masterDict[b[0]] = b[1]
+            if type(b[1]) is not dict and type(b[1]) is not tuple and type(b[1]) is not list and b[1] is not None:
+                
+                if b[0] not in masterVar:
+                    # si la variable no esta en bd
+                    tipo = "TEXT"
+                    if type(b[1]) is int:
+                        tipo = "INT"
+                    elif type(b[1]) is float:
+                        tipo = "FLOAT"
+
+                    agregarColumna(b[0],tipo)
+            
+                propiedad_filtrada[b[0]] = b[1]
+        
+        insertarPropiedad(propiedad_filtrada)
+
+        time.sleep(5)
+                    
 
 
 
