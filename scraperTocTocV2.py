@@ -123,6 +123,10 @@ def main():
         print(propiedad_filtrada)
 
         print("Revisando a ver si hay que agregar columnas:")
+
+        for m in masterVar:
+            print(m)
+
         for b in propiedad_filtrada.items():
             if b[0] not in masterVar:
                 # si la variable no esta en bd
