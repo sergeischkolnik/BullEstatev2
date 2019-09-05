@@ -91,7 +91,8 @@ def main():
         
         for b in bien.items():
             if type(b[1]) is not dict and type(b[1]) is not tuple and type(b[1]) is not list and b[1] is not None:
-                
+
+                print("Checking if " + str(b[0]) + " is in " + str(masterVar))
                 if b[0] not in masterVar:
                     # si la variable no esta en bd
                     tipo = "TEXT"
