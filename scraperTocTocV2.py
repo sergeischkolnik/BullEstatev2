@@ -46,7 +46,7 @@ def insertarPropiedad(propDict):
         sql += str(i[0]) + "=\'" + str(i[1]) + "\',"
     sql = sql[:-1]
 
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='toctoc2')
 
     print(sql)
 
