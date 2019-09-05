@@ -43,7 +43,7 @@ def insertarPropiedad(propDict):
     sql = sql[:-1]
     sql += ") ON DUPLICATE KEY UPDATE "
     for i in propDict.items():
-        sql += str(i[0]) + "=" + str(i[1]) + ","
+        sql += str(i[0]) + "=\'" + str(i[1]) + "\',"
     sql = sql[:-1]
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
