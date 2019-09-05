@@ -87,7 +87,11 @@ def main():
 
         json_data = json.loads(response.text)
 
-        bien = json_data['BienRaiz']
+        try:
+            bien = json_data['BienRaiz']
+
+        except:
+            continue
         
         propiedad_filtrada = dict()
         
