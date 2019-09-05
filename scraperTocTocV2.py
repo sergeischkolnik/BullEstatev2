@@ -97,7 +97,7 @@ def main():
             'accept-language': 'es-419,es;q=0.9',
             'user-agent': agentCreator.generateAgent(),
             'accept': '*/*',
-            'referer': 'https://www.toctoc.com/propiedades/vivienda/a/a/a/594000',
+            'referer': 'https://www.toctoc.com/propiedades/vivienda/a/a/a/' + str(id),
             'authority': 'www.toctoc.com',
             'x-requested-with': 'XMLHttpRequest',
             'sec-fetch-site': 'same-origin',
@@ -136,9 +136,6 @@ def main():
 
     time.sleep(5)
                     
-
-
-
 
 if __name__ == "__main__":
     main()
