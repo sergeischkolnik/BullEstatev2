@@ -119,7 +119,10 @@ def main():
         
         propiedad_filtrada = dict()
         process(bien,propiedad_filtrada)
-        
+
+        print(propiedad_filtrada)
+
+        print("Revisando a ver si hay que agregar columnas:")
         for b in propiedad_filtrada:
             if b[0] not in masterVar:
                 # si la variable no esta en bd
