@@ -135,9 +135,9 @@ def main():
 
                 agregarColumna(b[0],tipo)
 
-    insertarPropiedad(propiedad_filtrada)
-
-    time.sleep(20)
+        insertarPropiedad(propiedad_filtrada)
+    
+        time.sleep(20)
                     
 
 if __name__ == "__main__":
