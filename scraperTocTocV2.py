@@ -8,11 +8,16 @@ import requests
 def sacarVariablesBD():
     #sacar lista de variables de la BD
 
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='toctoc2')
-    cur = mariadb_connection.cursor()
-    print(cur.column_names)
+    sql = """select column_name from information_schema.columns where table_name = 'propiedades' """
 
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='toctoc2')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+
+    tupla = cur.fetchall()
     mariadb_connection.close()
+    print(tupla)
 
 def main():
     x = [i for i in range(1000000)]
