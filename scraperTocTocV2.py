@@ -17,7 +17,10 @@ def sacarVariablesBD():
 
     tupla = cur.fetchall()
     mariadb_connection.close()
-    print(tupla)
+    listaFinal = []
+    for name in tupla:
+        listaFinal.append(name[0])
+    print(listaFinal)
 
 def main():
     x = [i for i in range(1000000)]
