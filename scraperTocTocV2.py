@@ -85,10 +85,10 @@ def insertarPropiedad(propDict):
     
 def main():
 
-    x = [i for i in range(1000000)]
-    random.shuffle(x)
+    # x = [i for i in range(1000000)]
+    # random.shuffle(x)
 
-    for i in x:
+    for i in range(1,7250000):
 
         masterVar = sacarVariablesBD()
         headers = {
@@ -120,22 +120,33 @@ def main():
         except:
             print("error al extraer data")
             continue
-        
-        propiedad_filtrada = dict()
-        process(bien,propiedad_filtrada)
 
-        for b in propiedad_filtrada.items():
-            if b[0] not in masterVar:
-                # si la variable no esta en bd
-                tipo = "TEXT"
-                if type(b[1]) is int:
-                    tipo = "INT"
-                elif type(b[1]) is float:
-                    tipo = "FLOAT"
+        try:
+            propiedad_filtrada = dict()
+            process(bien,propiedad_filtrada)
+        except:
+            print("error al crear diccionario")
+            continue
 
-                agregarColumna(b[0],tipo)
+        try:
+            for b in propiedad_filtrada.items():
+                if b[0] not in masterVar:
+                    # si la variable no esta en bd
+                    tipo = "TEXT"
+                    if type(b[1]) is int:
+                        tipo = "INT"
+                    elif type(b[1]) is float:
+                        tipo = "FLOAT"
 
-        insertarPropiedad(propiedad_filtrada)
+                    agregarColumna(b[0],tipo)
+        except:
+            print("error al procesar data")
+            continue
+        try:
+            insertarPropiedad(propiedad_filtrada)
+        except:
+            print("error al insertar propiedad a la BBDD")
+            continue
     
         #time.sleep(20)
                     
