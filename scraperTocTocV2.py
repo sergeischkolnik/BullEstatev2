@@ -88,7 +88,7 @@ def main():
     # x = [i for i in range(1000000)]
     # random.shuffle(x)
 
-    for i in range(3000000,7250000):
+    for i in range(1000000,7250000):
 
         masterVar = sacarVariablesBD()
         headers = {
