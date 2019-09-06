@@ -137,7 +137,7 @@ def main():
 
         insertarPropiedad(propiedad_filtrada)
     
-        time.sleep(20)
+        #time.sleep(20)
                     
 
 if __name__ == "__main__":
