@@ -17,7 +17,7 @@ sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and  portalinmobiliario.link like metropolitana and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "and portalinmobiliario.precio>='200000000'"
+          "portalinmobiliario.precio>='200000000'"
 
 
 
