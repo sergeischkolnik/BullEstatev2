@@ -35,7 +35,7 @@ def sendClientMails():
     cur.execute(sql)
     lista = cur.fetchall()
     mariadb_connection.close()
-
+    print(sql)
     print("[mailerFer][" + str(datetime.now()) +"]Sending mails (dptos) to "+str(len(lista))+ " clients:")
 
     for i,l in enumerate(lista):
