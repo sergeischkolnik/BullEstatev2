@@ -19,7 +19,7 @@ def get_proxy():
     proxy = random.choice(proxies)
     proxyDict=\
         {"http": "http://"+str(proxy),
-         "https": "https://"+str(proxy),
+         "https": "http://"+str(proxy),
         }
     return proxyDict
 
