@@ -116,9 +116,12 @@ def main():
 
     # x = [i for i in range(1000000)]
     # random.shuffle(x)
-
-    for i in range(7000000,7250000):
-
+    scraped=get_scraped()
+    for i in range(1,7250000):
+        print("Getting ID: "+str(i))
+        if i in scraped:
+            print("Allready Scraped")
+            continue
         masterVar = sacarVariablesBD()
         headers = {
             'sec-fetch-mode': 'cors',
