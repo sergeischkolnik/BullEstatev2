@@ -123,10 +123,12 @@ def main():
         params = (
             ('id', str(i)),
         )
+        try:
+            response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda', headers=headers, params=params, proxies=get_proxy())
 
-        response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda', headers=headers, params=params, proxies=get_proxy())
-
-        json_data = json.loads(response.text)
+            json_data = json.loads(response.text)
+        except:
+            continue
 
         try:
             bien = json_data['BienRaiz']
