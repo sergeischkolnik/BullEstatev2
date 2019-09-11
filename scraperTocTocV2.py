@@ -116,7 +116,7 @@ def main():
 
     # x = [i for i in range(1000000)]
     # random.shuffle(x)
-    generalList=range(1,7250000)
+    generalList=list(range(1,7250000))
     scraped=get_scraped()
     for x in scraped:
         generalList.remove(x)
