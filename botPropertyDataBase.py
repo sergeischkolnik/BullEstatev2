@@ -89,6 +89,14 @@ def insertreporte(client):
         metro='si'
     else:
         metro = 'no'
+    if client["preciomin"] is None:
+        client["preciomin"]=0
+        client["preciomin"]=999999999999
+    if client["metrosmin"] is None:
+        client["metrosmin"]=0
+        client["metrosmax"]=99999999
+        client["totalmin"]=0
+        client["totalmax"]=99999999
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
     cur = mariadb_connection.cursor()
