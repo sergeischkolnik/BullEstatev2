@@ -16,7 +16,12 @@ def get_proxy():
         proxy_list = ':'.join([item.text for item in items.select("td")[:2]])
         proxies.append(proxy_list)
 
-    return random.choice(proxies)
+    proxy = random.choice(proxies)
+    proxyDict=\
+        {"http": "http://"+str(proxy),
+         "https": "https://"+str(proxy),
+        }
+    return proxyDict
 
 def flatten(S):
     if S == []:
