@@ -118,8 +118,10 @@ def main():
     # random.shuffle(x)
     generalList=list(range(1,7250000))
     scraped=get_scraped()
-    for x in scraped:
+    for a,x in enumerate(scraped):
+        print("Deleting scraped Values from General List")
         if x in generalList:
+            print(str(100*int(a)/int(len(scraped)))+"%")
             generalList.remove(x)
         else:
             print("Value: "+str(x)+" not in general list")
