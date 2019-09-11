@@ -4,9 +4,19 @@ import agentCreator
 import pymysql as mysql
 from itertools import cycle
 import time
-
+from bs4 import BeautifulSoup
 import requests
 
+
+def get_proxy():
+    res = requests.get('https://free-proxy-list.net/', headers={'User-Agent':'Mozilla/5.0'})
+    soup = BeautifulSoup(res.text,"lxml")
+    proxies=[]
+    for items in soup.select("tbody tr"):
+        proxy_list = ':'.join([item.text for item in items.select("td")[:2]])
+        proxies.append(proxy_list)
+
+    return random.choice(proxies)
 
 def flatten(S):
     if S == []:
@@ -109,7 +119,7 @@ def main():
             ('id', str(i)),
         )
 
-        response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda', headers=headers, params=params)
+        response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda', headers=headers, params=params, proxy=get_proxy())
 
         json_data = json.loads(response.text)
 
