@@ -119,16 +119,18 @@ def main():
     generalList=list(range(1,7250000))
     scraped=get_scraped()
     print("Deleting scraped Values from General List")
-    generalList = [i for i in generalList if i not in scraped]
-    print("Scraped Values Deleted")
+    #generalList = [i for i in generalList if i not in scraped]
 
-    # for a,x in enumerate(scraped):
-    #     print("Deleting scraped Values from General List")
-    #     if x in generalList:
-    #         print(str(100*int(a)/int(len(scraped)))+"%")
-    #         generalList.remove(x)
-    #     else:
-    #         print("Value: "+str(x)+" not in general list")
+
+    for a,x in enumerate(scraped):
+        print("Deleting scraped Values from General List")
+        if x in generalList:
+            print(str(int(100*a/len(scraped)))+"%")
+            generalList.remove(x)
+        else:
+            print("Value: "+str(x)+" not in general list")
+    
+    print("Scraped Values Deleted")
     for i in generalList:
         print("Getting ID: "+str(i))
 

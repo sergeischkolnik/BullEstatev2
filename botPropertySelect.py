@@ -307,13 +307,13 @@ def price_range(bot, update,client):
         if client["moneda"]=="UF":
             user = update.message.from_user
             if client["operacion"]=="Arrendar":
-                keyboard = [["0","5","10","15","20","25"],
-                            ["35","50","75","Otro","Atrás","Salir"]]
+                keyboard = [["0","5","10","15","20","25","50"],
+                            ["Otro","Default","Atrás","Salir"]]
 
             else:
                 keyboard = [["0","1.000","2.000","3.000"],
                             ["4.000","5.000","7.000","10.000"],
-                            ["15.000","Otro","Atrás","Salir"]]
+                            ["Otro","Default","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -329,13 +329,13 @@ def price_range(bot, update,client):
             print("entro al if de moneda")
             if client["operacion"]=="Comprar":
                 keyboard = [["0","25.000.000","50.000.000"],
-                            ["75.000.000","100.000.000","150.000.000"],
-                            ["200.000.000","Otro","Atrás","Salir"]]
+                            ["75.000.000","100.000.000","200.000.000"],
+                            ["Otro","Default","Atrás","Salir"]]
 
             else:
                 keyboard = [["0","150.000","200.000"],
-                            ["300.000","500.000","750.000"],
-                            ["1.000.000","Otro","Atrás","Salir"]]
+                            ["300.000","500.000","1.000.000"],
+                            ["Otro","Default","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,
@@ -413,8 +413,8 @@ def area_range(bot, update,client):
         if "metrosmin" not in client:
             user = update.message.from_user
 
-            keyboard = [["0","20","30","40","50","60","70","80"],
-                        ["100","150","200","Otra","Atrás","Salir"]]
+            keyboard = [["0","20","30","40","50","75","100","150"],
+                        ["200","Otra","Default","Atrás","Salir"]]
 
             reply_markup = ReplyKeyboardMarkup(keyboard,
                                                one_time_keyboard=True,

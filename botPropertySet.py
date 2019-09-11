@@ -497,6 +497,14 @@ def price_range(bot, update):
         select.price_range(bot, update,client)
         return pm.SELECT_PRICE_RANGE
 
+    elif update.message.text == "Default":
+
+        client["preciomin"] = None
+        client["preciomax"] = None
+
+        select.price_range(bot, update,client)
+        return pm.SELECT_PRICE_RANGE
+
     elif "moneda" not in client:
         client["moneda"] = update.message.text
         if update.message.text == "UF":
@@ -576,6 +584,15 @@ def area_range(bot, update):
             client["totalmin"]=update.message.text
         else:
             client["totalmax"]=update.message.text
+        select.area_range(bot, update, client)
+        return pm.SELECT_AREA_RANGE
+
+    elif update.message.text == "Default":
+        if "metrosmin" not in client or client["metrosmin"]=="Otra":
+            client["metrosmin"]=None
+            client["metrosmax"]=None
+            client["totalmin"]=None
+            client["totalmax"]=None
         select.area_range(bot, update, client)
         return pm.SELECT_AREA_RANGE
 
