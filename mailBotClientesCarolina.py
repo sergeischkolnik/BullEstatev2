@@ -127,8 +127,8 @@ def sendClientMailsDeptosArriendo():
         nombreProp = str(l[1])
         linkProp=str(l[2])
 
-        #gratis
-        mailer.sendMailGratis(to,nombreProp,linkProp)
+        gratis=True
+        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -149,8 +149,8 @@ def sendClientMailsDeptosVenta():
         nombreProp = str(l[1])
         linkProp=str(l[2])
 
-        #gratis
-        mailer.sendMailGratis(to,nombreProp,linkProp)
+        gratis=False
+        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -170,8 +170,8 @@ def sendClientMailsCasas():
         to = str(l[0])
         nombreProp = str(l[1])
         linkProp=str(l[2])
-
-        mailer.sendMailGratis(to,nombreProp,linkProp)
+        gratis=False
+        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -192,8 +192,8 @@ def sendClientMailsOficinas():
         nombreProp = str(l[1])
 
         linkProp=str(l[2])
-
-        mailer.sendMailGratis(to,nombreProp,linkProp)
+        gratis=True
+        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -214,8 +214,8 @@ def sendClientMailsTerrenos():
         nombreProp = str(l[1])
 
         linkProp=str(l[2])
-
-        mailer.sendMailGratis(to,nombreProp,linkProp)
+        gratis=True
+        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
         checkClient(to,"1")
 
         time.sleep(sleepTime)
