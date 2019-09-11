@@ -648,16 +648,18 @@ def confirm_report(bot,update,client):
         confirmtext.append("Baños: "+client["baños"])
     else:
         confirmtext.append("Baños: "+client["baños"])
-    if client["moneda"]=="UF":
-        confirmtext.append("Desde: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: "+client["moneda"]+" "+'{:,}'.format(client["preciomax"]).replace(",","."))
-    else:
-        confirmtext.append("Desde: $ "+'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: $ "+'{:,}'.format(client["preciomax"]).replace(",","."))
-    if client["tipo"]=="Departamento":
-        confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 útiles, Hasta: "+str(client["metrosmax"])+"m2 útiles")
-        confirmtext.append("Desde: "+str(client["totalmin"])+"m2 totales, Hasta: "+str(client["totalmax"])+"m2 totales")
-    if client["tipo"]=="Casa":
-        confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 construidos, Hasta: "+str(client["metrosmax"])+"m2 construidos")
-        confirmtext.append("Desde: "+str(client["totalmin"])+"m2 de terreno, Hasta: "+str(client["totalmax"])+"m2 de terreno")
+    if client["preciomin"] is not None:
+        if client["moneda"]=="UF":
+            confirmtext.append("Desde: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: "+client["moneda"]+" "+'{:,}'.format(client["preciomax"]).replace(",","."))
+        else:
+            confirmtext.append("Desde: $ "+'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: $ "+'{:,}'.format(client["preciomax"]).replace(",","."))
+    if client["metrosmin"] is not None:
+        if client["tipo"]=="Departamento":
+            confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 útiles, Hasta: "+str(client["metrosmax"])+"m2 útiles")
+            confirmtext.append("Desde: "+str(client["totalmin"])+"m2 totales, Hasta: "+str(client["totalmax"])+"m2 totales")
+        if client["tipo"]=="Casa":
+            confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 construidos, Hasta: "+str(client["metrosmax"])+"m2 construidos")
+            confirmtext.append("Desde: "+str(client["totalmin"])+"m2 de terreno, Hasta: "+str(client["totalmax"])+"m2 de terreno")
     confirmtext.append("El Reporte solicitado "+protext+" Incluye Tasación")
     confirmtext.append("El Reporte solicitado "+internatext+" Incluye Datos de contacto de Publicación")
     confirmtext.append("El Reporte solicitado "+metrotext+" Incluye distancia a estación de metro más cercana")

@@ -29,7 +29,7 @@ def obtenerIdConLink(link,sitio):
 
 
 def generarreporte(client,sendMessageFunc,chat_id,reply):
-    if client["moneda"]=="UF":
+    if client["moneda"]=="UF" and client["preciomin"] is not None:
         client["preciomin"]=client["preciomin"]*ufn
         client["preciomax"]=client["preciomax"]*ufn
     client["tipo"]= client["tipo"].lower()
