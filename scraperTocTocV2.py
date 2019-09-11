@@ -116,12 +116,13 @@ def main():
 
     # x = [i for i in range(1000000)]
     # random.shuffle(x)
+    generalList=range(1,7250000)
     scraped=get_scraped()
-    for i in range(1,7250000):
+    for x in scraped:
+        generalList.remove(x)
+    for i in generalList:
         print("Getting ID: "+str(i))
-        if i in scraped:
-            print("Allready Scraped")
-            continue
+
         masterVar = sacarVariablesBD()
         headers = {
             'sec-fetch-mode': 'cors',
@@ -145,6 +146,7 @@ def main():
 
             json_data = json.loads(response.text)
         except:
+            print("Unable to get response")
             continue
 
         try:
