@@ -124,7 +124,7 @@ def main():
             ('id', str(i)),
         )
 
-        response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda', headers=headers, params=params, proxy=get_proxy())
+        response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda', headers=headers, params=params, proxies=get_proxy())
 
         json_data = json.loads(response.text)
 
