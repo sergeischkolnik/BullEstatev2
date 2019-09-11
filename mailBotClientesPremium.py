@@ -15,7 +15,7 @@ sleeptime = random.randint(150, 250)
 
 sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and  portalinmobiliario.link like metropolitana and " \
+          "duenos.esDueno='si' and  portalinmobiliario.link like 'metropolitana' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "portalinmobiliario.precio>='200000000'"
 
