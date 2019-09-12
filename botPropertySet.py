@@ -767,7 +767,7 @@ def advance(bot, update):
             select.advance(bot, update, client)
             return pm.ADVANCE
 
-    if client["BathRange"] is True:
+    elif client["BathRange"] is True:
         if "BathMin" not in client:
             try:
                 client["BathMin"] = int(update.message.text)

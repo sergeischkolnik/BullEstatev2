@@ -725,7 +725,7 @@ def advance(bot,update,client):
         pm.logger.info("{} está opciones avanzadas.".format(user.first_name))
         update.message.reply_text("Seleccionar Opción", reply_markup=reply_markup)
 
-    return pm.SELECT_ADVANCE
+    return pm.ADVANCE
 
 
 ##### FUNCIONES DE LAS FICHAS
