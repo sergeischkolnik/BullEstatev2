@@ -653,7 +653,7 @@ def confirm_report(bot,update,client):
         else:
             confirmtext.append("Dormitorios: "+client["dormitorios"])
         if "BathMin" in client and "BathMax" in client:
-            confirmtext.append("Bathitorios: " + str(client["BathMin"])+" - "+str(client["BathMax"]))
+            confirmtext.append("Baños: " + str(client["BathMin"])+" - "+str(client["BathMax"]))
         else:
             confirmtext.append("Baños: "+client["baños"])
 
@@ -738,7 +738,7 @@ def advance(bot,update,client):
         else:
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando Radio.".format(user.first_name))
-            update.message.reply_text("Ingresar Radio de Búsqueda (en metros")
+            update.message.reply_text("Ingresar Radio de Búsqueda (en metros)")
 
     elif client["OtraComuna"] is True:
         user = update.message.from_user

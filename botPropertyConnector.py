@@ -39,8 +39,11 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
     else:
         client["operacion"]= "arriendo"
 
+    if "DormMin" in client and "DormMax" in client:
+        dormitoriosmin = client["DormMin"]
+        dormitoriosmax = client["DormMax"]
 
-    if "dormitorios" in client:
+    elif "dormitorios" in client:
         if client["dormitorios"]=='4+':
             dormitoriosmin=4
             dormitoriosmax=None
@@ -50,7 +53,12 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
     else:
         dormitoriosmin=None
         dormitoriosmax=None
-    if "baños" in client:
+
+    if "BathMin" in client and "BathMax" in client:
+        banosmin = client["BathMin"]
+        banosmax = client["BathMax"]
+
+    elif "baños" in client:
         if client["baños"]=='4+':
             banosmin=4
             banosmax=None
@@ -83,14 +91,25 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
     if client["comuna"]=="Santiago Centro":
         client["comuna"]="santiago"
 
+    if "Center" in client and "Radius" in client:
+        direccion=client["Center"]
+        radiodireccion=client["Radius"]
+    else:
+        direccion = client["Center"]
+        radiodireccion = client["Radius"]
+
     listaComunas=[]
-    listaComunas.append(client["comuna"].lower())
+    if type(client["comuna"]) is list:
+        for comuna in client["comuna"]:
+            listaComunas.append(comuna.lower())
+    else:
+        listaComunas.append(client["comuna"].lower())
 
     result=reportes.generarReporteSeparado(client["preciomin"],client["preciomax"],client["metrosmin"],client["metrosmax"],client["totalmin"],client["totalmax"],
                                     None,None, None,None,dormitoriosmin,dormitoriosmax, banosmin, banosmax,
                                     confmin, rentminventa, rentminarriendo,None, None, metrodistance, None, None, None, client["tipo"], client["operacion"],
                                     client["region"].lower(),listaComunas, None, client["mail"],(client["firstname"]+" "+client["lastname"]),
-                                    None,None,None,None,corredor,None,True)
+                                    None,None,direccion,radiodireccion,corredor,None,True)
     if result is not True:
         sendMessageFunc(chat_id,result)
     else:
