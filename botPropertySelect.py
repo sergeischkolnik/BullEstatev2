@@ -695,7 +695,7 @@ def advance(bot,update,client):
             update.message.reply_text("Ingresar Baños máximos")
 
     elif client["Adress"] is True:
-        if "center" not in client:
+        if "Center" not in client:
             user = update.message.from_user
             pm.logger.info("{} está en seleccionando Direccion.".format(user.first_name))
             update.message.reply_text("Ingresar Direccion de Busqueda")
