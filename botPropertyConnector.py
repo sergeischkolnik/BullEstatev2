@@ -41,7 +41,7 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
 
     if client["preciomin"] is None:
         client["preciomin"]=0
-        client["preciomin"]=999999999999
+        client["preciomax"]=999999999999
     if client["metrosmin"] is None:
         client["metrosmin"]=0
         client["metrosmax"]=99999999
