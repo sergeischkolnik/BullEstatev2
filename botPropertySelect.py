@@ -626,7 +626,7 @@ def confirm_report(bot,update,client):
                 [probutton+" Tasación"],
                 [internabutton+" Contacto Publicación"],
                 [metrobutton+" Distancia al metro"],
-                ["Atrás", "Salir"]]
+                ["Atrás","Avanzado","Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -669,6 +669,65 @@ def confirm_report(bot,update,client):
     update.message.reply_text(confirmtext, reply_markup=reply_markup)
 
     return pm.CONFIRM_REPORT
+
+def advance(bot,update,client):
+
+
+
+
+    if client["DormRange"] is True:
+        if "DormMin" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está seleccionando Rango de Dormitorios.".format(user.first_name))
+            update.message.reply_text("Ingresar Dormitorios mínimos")
+        else:
+            user = update.message.from_user
+            pm.logger.info("{} está seleccionando Rango de Dormitorios.".format(user.first_name))
+            update.message.reply_text("Ingresar Dormitorios máximos")
+
+    elif client["BathRange"] is True:
+        if "BathMin" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está seleccionando Rango de Baños.".format(user.first_name))
+            update.message.reply_text("Ingresar Baños mínimos")
+        else:
+            user = update.message.from_user
+            pm.logger.info("{} está seleccionando Rango de Baños.".format(user.first_name))
+            update.message.reply_text("Ingresar Baños máximos")
+
+    elif client["Adress"] is True:
+        if "center" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando Direccion.".format(user.first_name))
+            update.message.reply_text("Ingresar Direccion de Busqueda")
+        else:
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando Radio.".format(user.first_name))
+            update.message.reply_text("Ingresar Radio de Búsqueda (en metros")
+
+    elif client["OtraComuna"] is True:
+        user = update.message.from_user
+        pm.logger.info("{} está en seleccionando otra comuna.".format(user.first_name))
+        update.message.reply_text("Ingresar Comuna que desea agregar")
+
+    else:
+        user = update.message.from_user
+        keyboard = [["Rango Dormitorios"],
+                ["Rango Baños"],
+                ["Buscar por dirección"],
+                ["Agregar Comuna"],
+                ["Confirmar","Atrás","Salir"]]
+
+
+        reply_markup = ReplyKeyboardMarkup(keyboard,
+                                           one_time_keyboard=True,
+                                           resize_keyboard=True)
+
+        pm.logger.info("{} está opciones avanzadas.".format(user.first_name))
+        update.message.reply_text("Seleccionar Opción", reply_markup=reply_markup)
+
+    return pm.SELECT_ADVANCE
+
 
 ##### FUNCIONES DE LAS FICHAS
 

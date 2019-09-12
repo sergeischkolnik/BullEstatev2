@@ -597,7 +597,7 @@ def area_range(bot, update):
                 select.area_range(bot, update, client)
                 return pm.SELECT_AREA_RANGE
             else:
-                client["reportepro"]=False
+                client["reportepro"] = False
                 client["reporteinterno"] = False
                 client["reportemetro"] = False
                 select.confirm_report(bot, update, client)
@@ -670,6 +670,9 @@ def confirm_report(bot,update):
         bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
         select.confirm_report(bot, update, client)
         return pm.CONFIRM_REPORT
+    elif update.message.text == "Avanzado":
+        select.advance(bot, update, client)
+        return pm.ADVANCE
     elif update.message.text == "Agregar Tasación":
         client["reportepro"] = True
         select.confirm_report(bot, update, client)
@@ -710,7 +713,150 @@ def confirm_report(bot,update):
         select.confirm_report(bot, update, client)
         return pm.CONFIRM_REPORT
 
+def Advance(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
 
+    # set client
+    client = clientsDict[update.message.from_user.id]
+    client["dormitorios"] = update.message.text
+    print(client)
+
+    if client["DormRange"] is True:
+        if "DormMin" not in client:
+            try:
+                client["DormMin"] = int(update.message.text)
+            except:
+                bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.advance(bot, update, client)
+            return pm.ADVANCE
+
+        else:
+            try:
+                client["DormMax"] = int(update.message.text)
+                client["DormRange"] = False
+            except:
+                bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.advance(bot, update, client)
+            return pm.ADVANCE
+
+    if client["BathRange"] is True:
+        if "BathMin" not in client:
+            try:
+                client["BathMin"] = int(update.message.text)
+            except:
+                bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.advance(bot, update, client)
+            return pm.ADVANCE
+
+        else:
+            try:
+                client["BathMax"] = int(update.message.text)
+                client["BathRange"] = False
+            except:
+                bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+            select.advance(bot, update, client)
+            return pm.ADVANCE
+
+    elif client["Adress"] is True:
+        if "Center" not in client:
+            client["Center"] = int(update.message.text)
+            select.advance(bot, update, client)
+            return pm.ADVANCE
+
+        else:
+            try:
+                client["Radius"] = int(update.message.text)
+                client["Adress"] = False
+            except:
+                bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
+
+            select.advance(bot, update, client)
+            return pm.ADVANCE
+
+    elif client["OtraComuna"] is True:
+        listaComunas=[]
+        if type(client["comuna"]) is not list:
+            listaComunas.append(client["comuna"])
+            listaComunas.append(update.message.text)
+            client["comuna"]=listaComunas
+        else:
+            client["comuna"].append(update.message.text)
+        client["OtraComuna"] = False
+        select.advance(bot, update, client)
+        return pm.ADVANCE
+
+    elif update.message.text =="Rango Dormitorios":
+        client["DormRange"] = True
+        try:
+            client.pop("DormMin")
+            client.pop("DormMax")
+        except:
+            pass
+        select.advance(bot,update,client)
+        return pm.ADVANCE
+    elif update.message.text =="Rango Baños":
+        client["BathRange"] = True
+        try:
+            client.pop("BathMin")
+            client.pop("BathMax")
+        except:
+            pass
+        select.advance(bot, update, client)
+        return pm.ADVANCE
+    elif update.message.text =="Buscar por dirección":
+        client["Adress"] = True
+        select.advance(bot, update, client)
+        return pm.ADVANCE
+    elif update.message.text =="Agregar Comuna":
+        client["OtraComuna"] = True
+        select.advance(bot, update, client)
+        return pm.ADVANCE
+    elif update.message.text =="Atrás":
+        client["DormRange"] = False
+        client["BathRange"] = False
+        client["AdressRange"] = False
+        client["OtraComuna"] = False
+        try:
+            client.pop("DormMin")
+            client.pop("DormMax")
+        except:
+            pass
+        try:
+            client.pop("BathMin")
+            client.pop("BathMax")
+        except:
+            pass
+        try:
+            client.pop("Center")
+            client.pop("Radius")
+        except:
+            pass
+        try:
+            comunaOriginal=client["comuna"][0]
+            client["comuna"]=comunaOriginal
+        except:
+            pass
+
+        select.confirm(bot,update,client)
+        return pm.CONFIRM_REPORT
+    elif update.message.text == "Confirmar":
+        client["DormRange"] = False
+        client["BathRange"] = False
+        client["AdressRange"] = False
+        client["OtraComuna"] = False
+        select.confirm(bot, update, client)
+        return pm.CONFIRM_REPORT
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.advance(bot, update, client)
+        return pm.ADVANCE
 ### FUNCIONES FICHA
 
 

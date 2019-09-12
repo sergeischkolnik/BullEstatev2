@@ -143,6 +143,8 @@ def main():
 
             CONFIRM_REPORT: [MessageHandler(Filters.text, set.confirm_report)],
 
+            ADVANCE: [MessageHandler(Filters.text, set.advance)],
+
             SELECT_SITE: [MessageHandler(Filters.text, set.site)],
 
             SELECT_ID: [MessageHandler(Filters.text, set.id_prop)],
