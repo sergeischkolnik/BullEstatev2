@@ -147,7 +147,6 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
                     j[12]=0
             for x in range (0,16):
 
-
                 kDict[x]=[0]*16
                 if (distance < drange[x]) and (abs(util/j[8]-1)<utilrange[x]) and (abs(total/j[9]-1)<(1.5*utilrange[x])) and \
                         (abs(dormitorios-j[6])<=dormrange[x] or tipo=="comercial") and (abs(banos-j[7])<=bathrange[x]or tipo=="comercial") and \
@@ -267,8 +266,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     preciosmts=[el[15] for el in distancias]
 
     med=stat.median(preciosmts)
-    intermin=0.4*med
-    intermax=2.5*med
+    intermin=0.5*med
+    intermax=2*med
 
     arregloaux=[]
 
