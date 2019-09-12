@@ -691,6 +691,10 @@ def confirm_report(bot,update):
         select.confirm_report(bot, update, client)
         return pm.CONFIRM_REPORT
     elif update.message.text == "Avanzado":
+        client["DormRange"] = False
+        client["BathRange"] = False
+        client["AdressRange"] = False
+        client["OtraComuna"] = False
         select.advance(bot, update, client)
         return pm.ADVANCE
     elif update.message.text == "Agregar Tasación":
@@ -818,6 +822,7 @@ def Advance(bot, update):
             pass
         select.advance(bot,update,client)
         return pm.ADVANCE
+
     elif update.message.text =="Rango Baños":
         client["BathRange"] = True
         try:
@@ -827,14 +832,22 @@ def Advance(bot, update):
             pass
         select.advance(bot, update, client)
         return pm.ADVANCE
+
     elif update.message.text =="Buscar por dirección":
         client["Adress"] = True
+        try:
+            client.pop("Center")
+            client.pop("Radius")
+        except:
+            pass
         select.advance(bot, update, client)
         return pm.ADVANCE
+
     elif update.message.text =="Agregar Comuna":
         client["OtraComuna"] = True
         select.advance(bot, update, client)
         return pm.ADVANCE
+
     elif update.message.text =="Atrás":
         client["DormRange"] = False
         client["BathRange"] = False
