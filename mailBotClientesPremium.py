@@ -6,7 +6,7 @@ import sendMailVendetudeptoPremium as mailer
 import time
 import threading
 
-past = datetime.now() - timedelta(days=120)
+past = datetime.now() - timedelta(days=360)
 past = datetime.date(past)
 yesterday = datetime.now() - timedelta(days=5)
 yesterday = datetime.date(yesterday)
@@ -15,7 +15,9 @@ sleeptime = random.randint(150, 250)
 
 sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
-          "duenos.esDueno='si' and  portalinmobiliario.link like 'metropolitana' and " \
+          "duenos.esDueno='si' and (portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%' or " \
+          "portalinmobiliario.link like '%lo-barnechea%' or portalinmobiliario.link like '%la-reina%' or portalinmobiliario.link like '%providencia%' or " \
+          "portalinmobiliario.link like '%nunoa%' or portalinmobiliario.link like '%chicureo%') and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "portalinmobiliario.precio>='200000000'"
 

@@ -4,9 +4,38 @@ import agentCreator
 import pymysql as mysql
 from itertools import cycle
 import time
-
+from bs4 import BeautifulSoup
 import requests
 
+def get_scraped():
+    sql = "select IdBienRaiz from propiedadestoctoc"
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='toctoc2')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+
+    tupla = cur.fetchall()
+    mariadb_connection.close()
+    scraped = []
+    for name in tupla:
+        scraped.append(name[0])
+    return scraped
+
+def get_proxy():
+    res = requests.get('https://free-proxy-list.net/', headers={'User-Agent':'Mozilla/5.0'})
+    soup = BeautifulSoup(res.text,"lxml")
+    proxies=[]
+    for items in soup.select("tbody tr"):
+        proxy_list = ':'.join([item.text for item in items.select("td")[:2]])
+        proxies.append(proxy_list)
+
+    proxy = random.choice(proxies)
+    proxyDict=\
+        {"http": "http://"+str(proxy),
+         "https": "http://"+str(proxy),
+        }
+    return proxyDict
 
 def flatten(S):
     if S == []:
@@ -87,8 +116,23 @@ def main():
 
     # x = [i for i in range(1000000)]
     # random.shuffle(x)
+    generalList=list(range(1,7250000))
+    scraped=get_scraped()
+    print("Deleting scraped Values from General List")
+    #generalList = [i for i in generalList if i not in scraped]
 
-    for i in range(7000000,7250000):
+
+    print("Deleting scraped Values from General List")
+    for a,x in enumerate(scraped):
+        if x in generalList:
+            print(str(a)+"/"+str(len(scraped)))
+            generalList.remove(x)
+        else:
+            print("Value: "+str(x)+" not in general list")
+
+    print("Scraped Values Deleted")
+    for i in generalList:
+        print("Getting ID: "+str(i))
 
         masterVar = sacarVariablesBD()
         headers = {
@@ -108,10 +152,13 @@ def main():
         params = (
             ('id', str(i)),
         )
+        try:
+            response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda', headers=headers, params=params, proxies=get_proxy())
 
-        response = requests.get('https://www.toctoc.com/api/propiedades/bienRaiz/vivienda', headers=headers, params=params)
-
-        json_data = json.loads(response.text)
+            json_data = json.loads(response.text)
+        except:
+            print("Unable to get response")
+            continue
 
         try:
             bien = json_data['BienRaiz']

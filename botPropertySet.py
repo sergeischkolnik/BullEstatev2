@@ -497,6 +497,15 @@ def price_range(bot, update):
         select.price_range(bot, update,client)
         return pm.SELECT_PRICE_RANGE
 
+    elif update.message.text == "Default":
+
+        client["preciomin"] = None
+        client["preciomax"] = None
+
+        select.area_range(bot, update, client)
+        print(client)
+        return pm.SELECT_AREA_RANGE
+
     elif "moneda" not in client:
         client["moneda"] = update.message.text
         if update.message.text == "UF":
@@ -579,6 +588,18 @@ def area_range(bot, update):
         select.area_range(bot, update, client)
         return pm.SELECT_AREA_RANGE
 
+    elif update.message.text == "Default":
+        client["metrosmin"]=None
+        client["metrosmax"]=None
+        client["totalmin"]=None
+        client["totalmax"]=None
+        client["reportepro"]=False
+        client["reporteinterno"] = False
+        client["reportemetro"] = False
+        select.confirm_report(bot, update, client)
+        return pm.CONFIRM_REPORT
+
+
     elif "metrosmin" not in client or client["metrosmin"]=="Otra":
         try:
             client["metrosmin"] = int(update.message.text)
@@ -626,7 +647,6 @@ def area_range(bot, update):
             client["reporteinterno"] = False
             client["reportemetro"] = False
             select.confirm_report(bot, update, client)
-
             return pm.CONFIRM_REPORT
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
