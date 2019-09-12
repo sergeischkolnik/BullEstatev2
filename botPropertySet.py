@@ -746,7 +746,6 @@ def advance(bot, update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
-    client["dormitorios"] = update.message.text
     print(client)
 
     if client["DormRange"] is True:
@@ -874,14 +873,14 @@ def advance(bot, update):
         except:
             pass
 
-        select.confirm(bot,update,client)
+        select.confirm_report(bot,update,client)
         return pm.CONFIRM_REPORT
     elif update.message.text == "Confirmar":
         client["DormRange"] = False
         client["BathRange"] = False
         client["AdressRange"] = False
         client["OtraComuna"] = False
-        select.confirm(bot, update, client)
+        select.confirm_report(bot, update, client)
         return pm.CONFIRM_REPORT
     elif update.message.text == "Salir":
         select.menu(bot, update)
