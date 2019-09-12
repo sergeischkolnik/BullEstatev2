@@ -674,9 +674,6 @@ def confirm_report(bot,update,client):
 
 def advance(bot,update,client):
 
-
-
-
     if client["DormRange"] is True:
         if "DormMin" not in client:
             user = update.message.from_user

@@ -737,7 +737,7 @@ def confirm_report(bot,update):
         select.confirm_report(bot, update, client)
         return pm.CONFIRM_REPORT
 
-def Advance(bot, update):
+def advance(bot, update):
     """
     Set option selected from menu.
     """
