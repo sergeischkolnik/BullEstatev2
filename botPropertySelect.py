@@ -638,16 +638,44 @@ def confirm_report(bot,update,client):
     confirmtext.append("Generar reporte para las siguientes características:")
     confirmtext.append("Operación: "+client["operacion"])
     confirmtext.append("Región: "+client["region"])
-    confirmtext.append("Comuna: "+client["comuna"])
-    confirmtext.append("Tipo: "+client["tipo"])
-    if client["tipo"]=="Departamento" or client["tipo"]=="Departamento":
-        confirmtext.append("Dormitorios: "+client["dormitorios"])
-        confirmtext.append("Baños: "+client["baños"])
-    elif client["tipo"]=="Oficina":
-        confirmtext.append("Privados: "+client["dormitorios"])
-        confirmtext.append("Baños: "+client["baños"])
+    if type(client["comuna"]) is list:
+        comunas=""
+        for comuna in client["comuna"]:
+            comunas+=str(comuna)+" - "
+        comunas=comunas[:-3]
+        confirmtext.append("Comunas: " + comunas)
     else:
-        confirmtext.append("Baños: "+client["baños"])
+        confirmtext.append("Comuna: "+client["comuna"])
+    confirmtext.append("Tipo: "+client["tipo"])
+    if client["tipo"]=="Departamento":
+        if "DormMin" in client and "DormMax" in client:
+            confirmtext.append("Dormitorios: " + client["DormMin"]+" - "+client["DormMax"])
+        else:
+            confirmtext.append("Dormitorios: "+client["dormitorios"])
+        if "BathMin" in client and "BathMax" in client:
+            confirmtext.append("Bathitorios: " + client["BathMin"]+" - "+client["BathMax"])
+        else:
+            confirmtext.append("Baños: "+client["baños"])
+
+    elif client["tipo"]=="Oficina":
+        if "DormMin" in client and "DormMax" in client:
+            confirmtext.append("Privados: " + client["DormMin"] + " - " + client["DormMax"])
+        else:
+            confirmtext.append("Privados: " + client["dormitorios"])
+        if "BathMin" in client and "BathMax" in client:
+            confirmtext.append("Baños: " + client["BathMin"] + " - " + client["BathMax"])
+        else:
+            confirmtext.append("Baños: " + client["baños"])
+    else:
+        if "DormMin" in client and "DormMax" in client:
+            confirmtext.append("Dormitorios: " + client["DormMin"] + " - " + client["DormMax"])
+        else:
+            confirmtext.append("Dormitorios: " + client["dormitorios"])
+        if "BathMin" in client and "BathMax" in client:
+            confirmtext.append("Baños: " + client["BathMin"] + " - " + client["BathMax"])
+        else:
+            confirmtext.append("Baños: " + client["baños"])
+
     if client["preciomin"] is not None:
         if client["moneda"]=="UF":
             confirmtext.append("Desde: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",",".")+", Hasta: "+client["moneda"]+" "+'{:,}'.format(client["preciomax"]).replace(",","."))
@@ -660,6 +688,8 @@ def confirm_report(bot,update,client):
         if client["tipo"]=="Casa":
             confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 construidos, Hasta: "+str(client["metrosmax"])+"m2 construidos")
             confirmtext.append("Desde: "+str(client["totalmin"])+"m2 de terreno, Hasta: "+str(client["totalmax"])+"m2 de terreno")
+    if "Center" in client and "Radius" in client:
+        confirmtext.append("Buscando propiedades a un máximo de " + client["Radius"] + " de la dirección: "+ client["Center"] )
     confirmtext.append("El Reporte solicitado "+protext+" Incluye Tasación")
     confirmtext.append("El Reporte solicitado "+internatext+" Incluye Datos de contacto de Publicación")
     confirmtext.append("El Reporte solicitado "+metrotext+" Incluye distancia a estación de metro más cercana")
@@ -678,11 +708,17 @@ def advance(bot,update,client):
         if "DormMin" not in client:
             user = update.message.from_user
             pm.logger.info("{} está seleccionando Rango de Dormitorios.".format(user.first_name))
-            update.message.reply_text("Ingresar Dormitorios mínimos")
+            if client["tipo"] == "Oficina":
+                update.message.reply_text("Ingresar Privados máximos")
+            else:
+                update.message.reply_text("Ingresar Dormitorios mínimos")
         else:
             user = update.message.from_user
             pm.logger.info("{} está seleccionando Rango de Dormitorios.".format(user.first_name))
-            update.message.reply_text("Ingresar Dormitorios máximos")
+            if client["tipo"] == "Oficina":
+                update.message.reply_text("Ingresar Privados máximos")
+            else:
+                update.message.reply_text("Ingresar Dormitorios máximos")
 
     elif client["BathRange"] is True:
         if "BathMin" not in client:
@@ -711,7 +747,11 @@ def advance(bot,update,client):
 
     else:
         user = update.message.from_user
-        keyboard = [["Rango Dormitorios"],
+        if client["tipo"]=="Oficina":
+            rango="Rango Privados"
+        else:
+            rango="Rango Dormitorios"
+        keyboard = [[rango],
                 ["Rango Baños"],
                 ["Buscar por dirección"],
                 ["Agregar Comuna"],
