@@ -39,6 +39,16 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
     else:
         client["operacion"]= "arriendo"
 
+    if client["preciomin"] is None:
+        client["preciomin"]=0
+        client["preciomin"]=999999999999
+    if client["metrosmin"] is None:
+        client["metrosmin"]=0
+        client["metrosmax"]=99999999
+        client["totalmin"]=0
+        client["totalmax"]=99999999
+
+
     if "DormMin" in client and "DormMax" in client:
         dormitoriosmin = client["DormMin"]
         dormitoriosmax = client["DormMax"]
@@ -47,6 +57,9 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         if client["dormitorios"]=='4+':
             dormitoriosmin=4
             dormitoriosmax=None
+        elif client["dormitorios"] is None:
+            dormitoriosmin = None
+            dormitoriosmax = None
         else:
             dormitoriosmin=client["dormitorios"]
             dormitoriosmax=client["dormitorios"]
@@ -62,6 +75,9 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         if client["baños"]=='4+':
             banosmin=4
             banosmax=None
+        elif client["baños"] is None:
+            banosmin = None
+            banosmax = None
         else:
             banosmin=client["baños"]
             banosmax=client["baños"]
