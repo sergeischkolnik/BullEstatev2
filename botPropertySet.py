@@ -787,7 +787,7 @@ def advance(bot, update):
 
     elif client["Adress"] is True:
         if "Center" not in client:
-            client["Center"] = int(update.message.text)
+            client["Center"] = update.message.text
             select.advance(bot, update, client)
             return pm.ADVANCE
 
