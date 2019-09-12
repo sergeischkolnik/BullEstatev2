@@ -693,7 +693,7 @@ def confirm_report(bot,update):
     elif update.message.text == "Avanzado":
         client["DormRange"] = False
         client["BathRange"] = False
-        client["AdressRange"] = False
+        client["Adress"] = False
         client["OtraComuna"] = False
         select.advance(bot, update, client)
         return pm.ADVANCE
