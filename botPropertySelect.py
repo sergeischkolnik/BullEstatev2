@@ -649,30 +649,30 @@ def confirm_report(bot,update,client):
     confirmtext.append("Tipo: "+client["tipo"])
     if client["tipo"]=="Departamento":
         if "DormMin" in client and "DormMax" in client:
-            confirmtext.append("Dormitorios: " + client["DormMin"]+" - "+client["DormMax"])
+            confirmtext.append("Dormitorios: " + str(client["DormMin"])+" - "+str(client["DormMax"]))
         else:
             confirmtext.append("Dormitorios: "+client["dormitorios"])
         if "BathMin" in client and "BathMax" in client:
-            confirmtext.append("Bathitorios: " + client["BathMin"]+" - "+client["BathMax"])
+            confirmtext.append("Bathitorios: " + str(client["BathMin"])+" - "+str(client["BathMax"]))
         else:
             confirmtext.append("Baños: "+client["baños"])
 
     elif client["tipo"]=="Oficina":
         if "DormMin" in client and "DormMax" in client:
-            confirmtext.append("Privados: " + client["DormMin"] + " - " + client["DormMax"])
+            confirmtext.append("Privados: " + str(client["DormMin"]) + " - " + str(client["DormMax"]))
         else:
             confirmtext.append("Privados: " + client["dormitorios"])
         if "BathMin" in client and "BathMax" in client:
-            confirmtext.append("Baños: " + client["BathMin"] + " - " + client["BathMax"])
+            confirmtext.append("Baños: " + str(client["BathMin"]) + " - " + str(client["BathMax"]))
         else:
             confirmtext.append("Baños: " + client["baños"])
     else:
         if "DormMin" in client and "DormMax" in client:
-            confirmtext.append("Dormitorios: " + client["DormMin"] + " - " + client["DormMax"])
+            confirmtext.append("Dormitorios: " + str(client["DormMin"]) + " - " + str(client["DormMax"]))
         else:
             confirmtext.append("Dormitorios: " + client["dormitorios"])
         if "BathMin" in client and "BathMax" in client:
-            confirmtext.append("Baños: " + client["BathMin"] + " - " + client["BathMax"])
+            confirmtext.append("Baños: " + str(client["BathMin"]) + " - " + str(client["BathMax"]))
         else:
             confirmtext.append("Baños: " + client["baños"])
 
@@ -689,7 +689,7 @@ def confirm_report(bot,update,client):
             confirmtext.append("Desde: "+str(client["metrosmin"])+"m2 construidos, Hasta: "+str(client["metrosmax"])+"m2 construidos")
             confirmtext.append("Desde: "+str(client["totalmin"])+"m2 de terreno, Hasta: "+str(client["totalmax"])+"m2 de terreno")
     if "Center" in client and "Radius" in client:
-        confirmtext.append("Buscando propiedades a un máximo de " + client["Radius"] + " de la dirección: "+ client["Center"] )
+        confirmtext.append("Buscando propiedades a un máximo de " + str(client["Radius"]) + " de la dirección: "+ client["Center"] )
     confirmtext.append("El Reporte solicitado "+protext+" Incluye Tasación")
     confirmtext.append("El Reporte solicitado "+internatext+" Incluye Datos de contacto de Publicación")
     confirmtext.append("El Reporte solicitado "+metrotext+" Incluye distancia a estación de metro más cercana")
