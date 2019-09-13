@@ -182,6 +182,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             print(str(x)+": "+str(len(distanciasDict[x])))
     cota=5
     distancia=[]
+    distanciaaux=[]
     auxdistancia1=[]
     auxdistancia2=[]
 
@@ -196,20 +197,46 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             tasacionsimple=True
         if x in distanciasDict:
             distancia+=distanciasDict[x]
+
+            for dist in distancia:
+                preciomt=dist[5]/((dist[8]+dist[9])/2)
+                dist.append(preciomt)
+
+                preciosmts=[el[15] for el in distancia]
+
+                med=stat.median(preciosmts)
+                intermin=0.5*med
+                intermax=2*med
+
+                arregloaux=[]
+
+                for preciodistancia in distancia:
+                    if preciodistancia[15]<intermax and preciodistancia[15]>intermin:
+                        arregloaux.append(preciodistancia)
+
+                print("mediana:"+str(med))
+                print("intermin:"+str(intermin))
+                print("intermax:"+str(intermax))
+                print("Propiedades Eliminadas: "+str(len(distancia)-len(arregloaux)))
+                distancia=arregloaux
+
             if x<4:
                 auxdistancia1+=auxDict1[x]
                 auxdistancia2+=auxDict2[x]
             if len(distancia)>=cota:
                 distancia=sorted(distancia,key=lambda x:x[5])
-                auxcota=0
                 for a in range(0,len(distancia)-1):
                     if (distancia[a][5]==distancia[a+1][5] and distancia[a][6]==distancia[a+1][6] and
                             distancia[a][7]==distancia[a+1][7] and distancia[a][12]==distancia[a+1][12] and
                             abs(distancia[a][8]-distancia[a+1][8])<=2 and
                             abs(distancia[a][9]-distancia[a+1][9])<=2) and len(distancia)>1:
-                        auxcota+=1
+                        pass
+                    else:
+                        distanciaaux.append(distancia[a])
 
-                if len(distancia)-auxcota>=cota:
+                distancia=distanciaaux
+                #opcion de marcar repetidos, o sacarlos de la matriz y no considerarlos en la tasacion
+                if len(distancia)>=cota:
 
                     if x < 4:
 
@@ -257,29 +284,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     try:
         distancias=distancias[:10]
     except:
-        distancias=distancia
+        pass
 
-    for dist in distancias:
-        preciomt=dist[5]/((dist[8]+dist[9])/2)
-        dist.append(preciomt)
-
-    preciosmts=[el[15] for el in distancias]
-
-    med=stat.median(preciosmts)
-    intermin=0.5*med
-    intermax=2*med
-
-    arregloaux=[]
-
-    for preciodistancia in distancias:
-        if preciodistancia[15]<intermax and preciodistancia[15]>intermin:
-            arregloaux.append(preciodistancia)
-
-    print("mediana:"+str(med))
-    print("intermin:"+str(intermin))
-    print("intermax:"+str(intermax))
-    print("Propiedades Eliminadas: "+str(len(distancias)-len(arregloaux)))
-    distancias=arregloaux
+    #esto hay q hacerlo antes de sacar la cota
 
     print('Datos Finales: ' + str(len(distancias)))
     print('precio y estacionamientos Finales: ' + str([el[5]/ufn for el in distancias]) + '-' + str(
@@ -373,7 +380,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         else:
             price = int(price)
         if price>0:
-            print("Precio es 0")
+            print("Check")
             print(price)
             return(price,confDict[g_actual],len(distancias),links,es_venta,g_actual)
         else:
