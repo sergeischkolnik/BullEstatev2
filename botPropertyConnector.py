@@ -6,7 +6,7 @@ import ficha
 import reportes
 import pymysql as mysql
 import uf
-import tasador as tb2
+import tasadorbot2 as tb2
 #import tasadorbot2 as tb2
 ufn=uf.getUf()
 
