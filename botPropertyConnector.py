@@ -111,8 +111,8 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         direccion=client["Center"]
         radiodireccion=client["Radius"]
     else:
-        direccion = client["Center"]
-        radiodireccion = client["Radius"]
+        direccion = None
+        radiodireccion = None
 
     listaComunas=[]
     if type(client["comuna"]) is list:
