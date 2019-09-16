@@ -17,9 +17,13 @@ sql = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
           "duenos.esDueno='si' and (portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%vitacura%' or " \
           "portalinmobiliario.link like '%lo-barnechea%' or portalinmobiliario.link like '%la-reina%' or portalinmobiliario.link like '%providencia%' or " \
-          "portalinmobiliario.link like '%nunoa%' or portalinmobiliario.link like '%chicureo%') and " \
+          "portalinmobiliario.link like '%nunoa%' or " \
+          "(portalinmobiliario.link like '%colina%' and ((portalinmobiliario.lat<'-33.264536' and portalinmobiliario.lat>'-33.470723' and " \
+          "portalinmobiliario.lon<'-70.618245' and portalinmobiliario.lon>'-70.699193') or (portalinmobiliario.lat<'-33.301430' and " \
+          "portalinmobiliario.lat>'-33.335555' and portalinmobiliario.lon<'-70.622641' and portalinmobiliario.lon>'-70.666652'))) or " \
+          "portalinmobiliario.link like '%chicureo%') and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
-          "portalinmobiliario.precio>='200000000'"
+          "portalinmobiliario.precio>='180000000'"
 
 
 

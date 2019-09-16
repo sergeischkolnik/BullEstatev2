@@ -34,7 +34,7 @@ sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobili
           "(portalinmobiliario.link like '%independencia%'));"
 
 sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
-          "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
+          "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and portalinmobiliario.precio<'180000000' and " \
           "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='departamento' and " \
           "portalinmobiliario.fechascrap>='"+str(yesterday)+"' and portalinmobiliario.fechapublicacion>'" + str(past) + "' and " \
           "((portalinmobiliario.link like '%providencia%') or " \
@@ -55,7 +55,7 @@ sqlDeptosVenta = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliari
           "(portalinmobiliario.link like '%independencia%'));"
 
 sqlCasas = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
-      "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
+      "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and portalinmobiliario.precio<'180000000' and " \
       "duenos.esDueno='si' and portalinmobiliario.precio>'400000' and (portalinmobiliario.operacion='arriendo' or portalinmobiliario.operacion='venta') and portalinmobiliario.tipo='casa' and " \
       "portalinmobiliario.fechascrap>='" + str(yesterday) + "' and portalinmobiliario.fechapublicacion>'" + str(
     past) + "' and " \
@@ -71,7 +71,7 @@ sqlCasas = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link
             "portalinmobiliario.link like '%las-condes%' or portalinmobiliario.link like '%la-reina%');"
 
 sqlOficinas = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
-      "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
+      "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and portalinmobiliario.precio<'180000000' and " \
       "duenos.esDueno='si' and (portalinmobiliario.operacion='arriendo' or portalinmobiliario.operacion='venta') and (portalinmobiliario.tipo='oficina' or portalinmobiliario.tipo='comercial') and " \
       "portalinmobiliario.fechascrap>='" + str(yesterday) + "' and portalinmobiliario.fechapublicacion>'" + str(
     past) + "' and " \
@@ -92,7 +92,7 @@ sqlOficinas = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.l
             "(portalinmobiliario.link like '%independencia%'));"
 
 sqlTerrenos = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
-      "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
+      "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and portalinmobiliario.precio<'180000000' and " \
       "duenos.esDueno='si' and (portalinmobiliario.operacion='venta') and " \
       "(portalinmobiliario.tipo='sitio' or portalinmobiliario.tipo='loteo' or portalinmobiliario.tipo='industrial' or portalinmobiliario.tipo='agricola' or portalinmobiliario.tipo='parcela' or portalinmobiliario.tipo='terreno-en-construccion') and " \
       "portalinmobiliario.fechascrap>='" + str(yesterday) + "' and portalinmobiliario.fechapublicacion>'" + str(
