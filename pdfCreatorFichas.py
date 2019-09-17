@@ -295,8 +295,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             d.append(prop[6])
             print(d)
             print("appendeo bien datos")
-            linkHtml = '<link href="' + l + '" color="blue">' + "Link"+'</link>'
+            linkHtml = '<link href="' + l + '" color="blue">' + "Link" + '</link>'
             print(linkHtml)
+            linkHtml=platypus.Paragraph(linkHtml, PS('body'))
             d.append(linkHtml)
             if avaible:
                 d.append("Disponible")
