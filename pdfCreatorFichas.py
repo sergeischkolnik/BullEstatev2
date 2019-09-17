@@ -270,6 +270,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(PageBreak())
 
     if len(links)>0 and interna:
+        print("entro en crear tabla de links")
         data=[]
         n=0
         headers=["Precio","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
@@ -287,13 +288,15 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             data.append(prop[3])
             data.append(prop[6])
             data.append(prop[7])
-
             linkHtml = '<link href="' + l + '" color="blue">' + "Link N° : " +str(n)+ '</link>'
             data.append(linkHtml)
             if avaible:
                 data.append("Disponible")
             else:
                 data.append("No disponible")
+            print(str(n)+" intento de agregar prop a data")
+            print(data)
+
 
         data = [headers]+data
         #t=Table(data,nrCols*[0.6*inch], nrRows*[0.25*inch])
