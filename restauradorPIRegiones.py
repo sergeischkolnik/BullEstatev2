@@ -20,6 +20,7 @@ while True:
     op=last[0]
     region=last[2]
     pagina=last[3]
+    print(region)
     try:
         scraper.Main(tipo,op,region,pagina,True)
     except:
