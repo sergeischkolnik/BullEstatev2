@@ -274,31 +274,33 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         print(links)
         data=[]
         n=0
-        headers=["Precio","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
+        headers=["N°","Precio","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
         for l in links:
+            d=[]
             n+=1
+            d.append(str(n))
             avaible=pubPortalExiste.publicacionExiste(l)
-            print(avaible)
             id=botPropertyConnector.obtenerIdConLink(link,"www.portalinmobiliario.com")
             id=id[0]
-            print(id)
             prop=reportes.precio_from_portalinmobiliario(id)
-            print(prop)
             prop=prop[0]
-            print(prop)
-            data.append(prop[1])
-            data.append(prop[2])
-            data.append(prop[3])
-            data.append(prop[6])
-            data.append(prop[7])
-            linkHtml = '<link href="' + l + '" color="blue">' + "Link N° : " +str(n)+ '</link>'
-            data.append(linkHtml)
+            d.append(prop[1])
+            d.append(prop[2])
+            d.append(prop[3])
+            d.append(prop[6])
+            d.append(prop[7])
+            print(d)
+            print("appendeo bien datos")
+            linkHtml = '<link href="' + l + '" color="blue">' + "Link"+'</link>'
+            print(linkHtml)
+            d.append(linkHtml)
             if avaible:
-                data.append("Disponible")
+                d.append("Disponible")
             else:
-                data.append("No disponible")
+                d.append("No disponible")
             print(str(n)+" intento de agregar prop a data")
-            print(data)
+            print(d)
+            data.append(d)
 
 
         data = [headers]+data
