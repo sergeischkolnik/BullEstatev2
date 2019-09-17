@@ -288,11 +288,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             print(prop)
             print("1er dato de propiedad de propiedad:")
             print(prop[0])
+            d.append(prop[0])
             d.append(prop[1])
             d.append(prop[2])
-            d.append(prop[3])
+            d.append(prop[5])
             d.append(prop[6])
-            d.append(prop[7])
             print(d)
             print("appendeo bien datos")
             linkHtml = '<link href="' + l + '" color="blue">' + "Link"+'</link>'
