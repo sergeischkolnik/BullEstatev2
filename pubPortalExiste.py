@@ -28,6 +28,7 @@ def main():
     printable=publicacionExiste(link)
     print(printable)
     id=botPropertyConnector.obtenerIdConLink(link,"www.portalinmobiliario.com")
+    id=id[0]
     print(id)
     printable=reportes.precio_from_portalinmobiliario(id)
     print(printable)
