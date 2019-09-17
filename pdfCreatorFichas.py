@@ -274,13 +274,13 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         print(links)
         data=[]
         n=0
-        headers=["N°","Precio","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
+        headers=["N°","UF","Precio","UF/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
         for l in links:
             d=[]
             n+=1
             d.append(str(n))
             avaible=pubPortalExiste.publicacionExiste(l)
-            id=botPropertyConnector.obtenerIdConLink(link,"www.portalinmobiliario.com")
+            id=botPropertyConnector.obtenerIdConLink(l,"www.portalinmobiliario.com")
             id=id[0]
             prop=reportes.precio_from_portalinmobiliario(id)
             prop=prop[0]
@@ -288,7 +288,10 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             print(prop)
             print("1er dato de propiedad de propiedad:")
             print(prop[0])
+            ufn=prop[0]/(uf.getUf())
+            d.append(ufn)
             d.append(prop[0])
+            d.append((prop[1]+prop[2])/2*ufn)
             d.append(prop[1])
             d.append(prop[2])
             d.append(prop[5])

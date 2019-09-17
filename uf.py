@@ -25,7 +25,7 @@ def getUf():
         uf=uf.replace(".","")
         uf=uf.replace(",",".")
     except:
-        uf=27778.60
+        uf=28000.60
     uf=float(uf)
     return(uf)
 
