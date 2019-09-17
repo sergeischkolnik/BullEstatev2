@@ -44,8 +44,8 @@ from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 import pdfCreatorFichas
 import reportes
-import tasador as tb2
-#import tasadorbot2 as tb2
+#import tasador as tb2
+import tasadorbot2 as tb2
 import io
 
 
