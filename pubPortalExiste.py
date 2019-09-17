@@ -31,7 +31,9 @@ def main():
     id=id[0]
     print(id)
     printable=reportes.precio_from_portalinmobiliario(id)
-    print(printable)
+    printable=printable[0]
+    for p in printable:
+        print(p)
 
 if __name__ == '__main__':
     main()
