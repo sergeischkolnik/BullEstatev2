@@ -271,6 +271,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
     if len(links)>0 and interna:
         print("entro en crear tabla de links")
+        print(links)
         data=[]
         n=0
         headers=["Precio","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
@@ -282,7 +283,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             id=id[0]
             print(id)
             prop=reportes.precio_from_portalinmobiliario(id)
+            print(prop)
             prop=prop[0]
+            print(prop)
             data.append(prop[1])
             data.append(prop[2])
             data.append(prop[3])
