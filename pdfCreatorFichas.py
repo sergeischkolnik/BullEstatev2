@@ -284,6 +284,10 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             id=id[0]
             prop=reportes.precio_from_portalinmobiliario(id)
             prop=prop[0]
+            print("Arreglo de propiedad:")
+            print(prop)
+            print("1er dato de propiedad de propiedad:")
+            print(prop[0])
             d.append(prop[1])
             d.append(prop[2])
             d.append(prop[3])
