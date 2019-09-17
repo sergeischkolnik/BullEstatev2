@@ -25,14 +25,14 @@ def publicacionExiste(link):
 
 def main():
     link='http://www.portalinmobiliario.com/venta/departamento/santiago-metropolitana/4925265-av-blanco-encalada-almirante-latorre-uda?tp=2&op=1&iug=441&ca=2&ts=1&mn=1&or=&sf=0&sp=0&at=0&i=86'
-    printable=publicacionExiste(link)
-    print(printable)
+    avaible=publicacionExiste(link)
+    print(avaible)
     id=botPropertyConnector.obtenerIdConLink(link,"www.portalinmobiliario.com")
     id=id[0]
     print(id)
-    printable=reportes.precio_from_portalinmobiliario(id)
-    printable=printable[0]
-    for p in printable:
+    prop=reportes.precio_from_portalinmobiliario(id)
+    prop=prop[0]
+    for p in prop:
         print(p)
 
 if __name__ == '__main__':

@@ -16,6 +16,9 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import base64
 import pubPortalExiste
+import reportes
+import botPropertyConnector
+
 
 
 
@@ -267,14 +270,41 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(PageBreak())
 
     if len(links)>0 and interna:
+        data=[]
         n=0
+        headers=["Precio","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
         for l in links:
             n+=1
-            if pubPortalExiste.publicacionExiste(l):
-                linkHtml = '<link href="' + l + '" color="blue">' + "Propiedad comparada N° : " +str(n)+ '</link>'
+            avaible=pubPortalExiste.publicacionExiste(l)
+            print(avaible)
+            id=botPropertyConnector.obtenerIdConLink(link,"www.portalinmobiliario.com")
+            id=id[0]
+            print(id)
+            prop=reportes.precio_from_portalinmobiliario(id)
+            prop=prop[0]
+            data.append(prop[1])
+            data.append(prop[2])
+            data.append(prop[3])
+            data.append(prop[6])
+            data.append(prop[7])
+
+            linkHtml = '<link href="' + l + '" color="blue">' + "Link N° : " +str(n)+ '</link>'
+            data.append(linkHtml)
+            if avaible:
+                data.append("Disponible")
             else:
-                linkHtml = '<link href="' + l + '" color="blue">' + "(NO DISPONIBLE) Propiedad comparada N° : " +str(n)+ '</link>'
-            Story.append(Paragraph(linkHtml, styles["Justify"]))
+                data.append("No disponible")
+
+        data = [headers]+data
+        #t=Table(data,nrCols*[0.6*inch], nrRows*[0.25*inch])
+        t=Table(data)
+        t.setStyle(TableStyle([
+                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ]))
+
+        Story.append(t)
         Story.append(PageBreak())
 
 
