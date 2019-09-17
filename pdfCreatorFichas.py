@@ -15,6 +15,8 @@ from collections import namedtuple
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import base64
+import pubPortalExiste
+
 
 
 
@@ -265,8 +267,13 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(PageBreak())
 
     if len(links)>0 and interna:
+        n=0
         for l in links:
-            linkHtml = '<link href="' + l + '" color="blue">' + "Link" + '</link>'
+            n+=1
+            if pubPortalExiste.publicacionExiste(l):
+                linkHtml = '<link href="' + l + '" color="blue">' + "Propiedad comparada N° : " +str(n)+ '</link>'
+            else:
+                linkHtml = '<link href="' + l + '" color="blue">' + "(NO DISPONIBLE) Propiedad comparada N° : " +str(n)+ '</link>'
             Story.append(Paragraph(linkHtml, styles["Justify"]))
         Story.append(PageBreak())
 
