@@ -20,7 +20,7 @@ import base64
 
 
 
-def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP):
+def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP,links):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]
@@ -262,6 +262,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     else:
         ptext = '<font size=11>' + str(descripcion) + '</font>'
         Story.append(Paragraph(ptext, styles["Justify"]))
+        Story.append(PageBreak())
+
+    if len(links)>0:
+        for l in links:
+            Story.append(Paragraph(l, styles["Justify"]))
         Story.append(PageBreak())
 
 

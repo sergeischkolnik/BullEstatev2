@@ -68,6 +68,7 @@ def obtenerProp(id,sitio):
         return propiedad
 
 def crearFicha(sitio,id,mail,tipoficha):
+    links=[]
     text2=''
     auxPhone=0
     #Determinar tipo de informe
@@ -413,7 +414,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             precioA = tasacionArriendo[0]
             print("el precio tasado de venta inicial es: "+str(precioV))
             print("el precio tasado de arriendo inicial es: "+str(precioA))
-
+            links=tasacionVenta[3]
 
 
 
@@ -493,6 +494,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                 datospro.append(float(rentaA))
 
 
+
         else:
             try:
                 tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
@@ -505,6 +507,8 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             try:
                 precioA = tasacionArriendo[0]
+                links=tasacionArriendo[3]
+
             except:
                 pro=False
                 text2='No se ha podido realizar tasación'
@@ -553,7 +557,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     print(nombrearchivo)
 
-    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datoscontacto,regionP)
+    pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datoscontacto,regionP,links)
     print("pdf generado con exito")
     #Enviar PDF
     sendmail.sendMail(mail,"",nombrearchivo)
