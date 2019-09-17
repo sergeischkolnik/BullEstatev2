@@ -264,9 +264,10 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(Paragraph(ptext, styles["Justify"]))
         Story.append(PageBreak())
 
-    if len(links)>0:
+    if len(links)>0 and interna:
         for l in links:
-            Story.append(Paragraph(l, styles["Justify"]))
+            linkHtml = '<link href="' + l + '" color="blue">' + "Link" + '</link>'
+            Story.append(Paragraph(linkHtml, styles["Justify"]))
         Story.append(PageBreak())
 
 
