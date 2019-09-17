@@ -22,7 +22,10 @@ def publicacionExiste(link):
         return True
     time.sleep(0.3)
 
-if __name__ == '__main__':
+def main():
     link='http://www.portalinmobiliario.com/venta/departamento/santiago-metropolitana/4925265-av-blanco-encalada-almirante-latorre-uda?tp=2&op=1&iug=441&ca=2&ts=1&mn=1&or=&sf=0&sp=0&at=0&i=86'
     printable=publicacionExiste(link)
     print(printable)
+
+if __name__ == '__main__':
+    main()
