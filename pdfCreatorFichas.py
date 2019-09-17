@@ -276,39 +276,42 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         n=0
         headers=["N°","UF","Precio","UF/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
         for l in links:
-            d=[]
-            n+=1
-            d.append(str(n))
-            avaible=pubPortalExiste.publicacionExiste(l)
-            id=botPropertyConnector.obtenerIdConLink(l,"www.portalinmobiliario.com")
-            id=id[0]
-            prop=reportes.precio_from_portalinmobiliario(id)
-            prop=prop[0]
-            print("Arreglo de propiedad:")
-            print(prop)
-            print("1er dato de propiedad de propiedad:")
-            print(prop[0])
-            ufn=prop[0]/(uf.getUf())
-            d.append(ufn)
-            d.append(prop[0])
-            d.append((prop[1]+prop[2])/2*ufn)
-            d.append(prop[1])
-            d.append(prop[2])
-            d.append(prop[5])
-            d.append(prop[6])
-            print(d)
-            print("appendeo bien datos")
-            linkHtml = '<link href="' + l + '" color="blue">' + "Link" + '</link>'
-            print(linkHtml)
-            linkHtml=platypus.Paragraph(linkHtml, PS('body'))
-            d.append(linkHtml)
-            if avaible:
-                d.append("Disponible")
+            if "portal" in l:
+                d=[]
+                n+=1
+                d.append(str(n))
+                avaible=pubPortalExiste.publicacionExiste(l)
+                id=botPropertyConnector.obtenerIdConLink(l,"www.portalinmobiliario.com")
+                id=id[0]
+                prop=reportes.precio_from_portalinmobiliario(id)
+                prop=prop[0]
+                print("Arreglo de propiedad:")
+                print(prop)
+                print("1er dato de propiedad de propiedad:")
+                print(prop[0])
+                ufn=int(prop[0]/(uf.getUf()))
+                d.append(ufn)
+                d.append(prop[0])
+                d.append((prop[1]+prop[2])/2*ufn)
+                d.append(prop[1])
+                d.append(prop[2])
+                d.append(prop[5])
+                d.append(prop[6])
+                print(d)
+                print("appendeo bien datos")
+                linkHtml = '<link href="' + l + '" color="blue">' + "Link" + '</link>'
+                print(linkHtml)
+                linkHtml=platypus.Paragraph(linkHtml, PS('body'))
+                d.append(linkHtml)
+                if avaible:
+                    d.append("Disponible")
+                else:
+                    d.append("No disponible")
+                print(str(n)+" intento de agregar prop a data")
+                print(d)
+                data.append(d)
             else:
-                d.append("No disponible")
-            print(str(n)+" intento de agregar prop a data")
-            print(d)
-            data.append(d)
+                pass
 
 
         data = [headers]+data
