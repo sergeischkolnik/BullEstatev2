@@ -716,7 +716,7 @@ def scrap(d,h,operacion,tipo,region,lista,faillista):
 def Main(tipoRec="departamento",operacionRec="arriendo", regionRec="valparaiso",pagRec=0,isRecovery=False):
 
     #Añadir regiones a arreglo
-    region= ["tarapaca","antofagasta","valparaiso","bernardo-ohiggins","biobio"]
+    region= ["tarapaca","antofagasta","valparaiso","bernardo-ohiggins","biobio","los-lagos"]
 
     #Añadir operaciones a arreglo
     operacion = ["venta", "arriendo"]
