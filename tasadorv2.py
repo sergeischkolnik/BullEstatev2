@@ -12,6 +12,7 @@ from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 import uf
 import statistics as stat
+import reportes
 
 uf1=uf.getUf()
 
@@ -179,5 +180,5 @@ if __name__ == "__main__":
     dormitorios = 3
     banos = 3
     estacionamientos=2
-
-    precio,confianza,nrProps,links = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos)
+    data=reportes.from_portalinmobiliario(tipo,"metropolitana","vitacura",False)
+    precio,confianza,nrProps,links = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data)
