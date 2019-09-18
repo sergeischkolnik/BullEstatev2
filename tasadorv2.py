@@ -149,13 +149,15 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     lastDistance=0
     for m in matrix:
         count+=1
+        mprom=(m[8]+m[9])/2
         totalDistance+=1/m[14]
-        totalPrice+=m[5]/m[14]
+        totalPrice+=m[5]/(m[14]*mprom)
         links.append(m[13])
         if count>10 and (m[14]-lastDistance)>2*(totalDistance*count)**(-1):
             break
         lastDistance=m[14]
     price=totalPrice/totalDistance
+    price=price*((util+total)/2)
 
 
 
@@ -187,5 +189,7 @@ if __name__ == "__main__":
     precio,confianza,nrProps,links,venta,g = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data)
     print(precio)
     print(confianza)
-    time.sleep(30)
-    print(links)
+    print(nrProps)
+    links=links[:10]
+    for link in links:
+        print(link)
