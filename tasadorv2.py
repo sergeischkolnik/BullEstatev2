@@ -180,7 +180,9 @@ if __name__ == "__main__":
     dormitorios = 3
     banos = 3
     estacionamientos=2
-    data=reportes.from_portalinmobiliario(tipo,"metropolitana","vitacura",False)
+    comunas=[]
+    comunas.append("vitacura")
+    data=reportes.from_portalinmobiliario(tipo,"metropolitana",comunas,False)
     precio,confianza,nrProps,links,venta,g = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data)
     print(precio)
     print(confianza)
