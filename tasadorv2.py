@@ -13,6 +13,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 import uf
 import statistics as stat
 import reportes
+import time
 
 uf1=uf.getUf()
 
@@ -186,4 +187,5 @@ if __name__ == "__main__":
     precio,confianza,nrProps,links,venta,g = calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data)
     print(precio)
     print(confianza)
+    time.sleep(30)
     print(links)
