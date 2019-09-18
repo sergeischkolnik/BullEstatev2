@@ -2,7 +2,8 @@ from lxml import html
 import requests
 import agentCreator
 import time
-
+import reportes
+import botPropertyConnector
 
 
 def publicacionExiste(link):
@@ -22,3 +23,17 @@ def publicacionExiste(link):
         return True
     time.sleep(0.3)
 
+def main():
+    link='http://www.portalinmobiliario.com/venta/departamento/santiago-metropolitana/4925265-av-blanco-encalada-almirante-latorre-uda?tp=2&op=1&iug=441&ca=2&ts=1&mn=1&or=&sf=0&sp=0&at=0&i=86'
+    avaible=publicacionExiste(link)
+    print(avaible)
+    id=botPropertyConnector.obtenerIdConLink(link,"www.portalinmobiliario.com")
+    id=id[0]
+    print(id)
+    prop=reportes.precio_from_portalinmobiliario(id)
+    prop=prop[0]
+    for p in prop:
+        print(p)
+
+if __name__ == '__main__':
+    main()

@@ -15,12 +15,17 @@ from collections import namedtuple
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import base64
+import pubPortalExiste
+import reportes
+import botPropertyConnector
 
 
 
 
 
-def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP):
+
+
+def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP,links):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]
@@ -262,6 +267,63 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     else:
         ptext = '<font size=11>' + str(descripcion) + '</font>'
         Story.append(Paragraph(ptext, styles["Justify"]))
+        Story.append(PageBreak())
+
+    if len(links)>0 and interna:
+        print("entro en crear tabla de links")
+        print(links)
+        data=[]
+        n=0
+        headers=["N°","UF","Precio","UF/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
+        for l in links:
+            if "portal" in l:
+                d=[]
+                n+=1
+                d.append(str(n))
+                avaible=pubPortalExiste.publicacionExiste(l)
+                id=botPropertyConnector.obtenerIdConLink(l,"www.portalinmobiliario.com")
+                id=id[0]
+                prop=reportes.precio_from_portalinmobiliario(id)
+                prop=prop[0]
+                print("Arreglo de propiedad:")
+                print(prop)
+                print("1er dato de propiedad de propiedad:")
+                print(prop[0])
+                ufn=int(prop[0]/(uf.getUf()))
+                d.append(ufn)
+                d.append(prop[0])
+                d.append((int(20*ufn/(prop[1]+prop[2])))/10)
+                d.append(int(prop[1]))
+                d.append(int(prop[2]))
+                d.append(prop[5])
+                d.append(prop[6])
+                print(d)
+                print("appendeo bien datos")
+                linkHtml = '<link href="' + l + '" color="blue">' + "Link" + '</link>'
+                print(linkHtml)
+                linkHtml=platypus.Paragraph(linkHtml, PS('body'))
+                d.append(linkHtml)
+                if avaible:
+                    d.append("Disponible")
+                else:
+                    d.append("No disponible")
+                print(str(n)+" intento de agregar prop a data")
+                print(d)
+                data.append(d)
+            else:
+                pass
+
+
+        data = [headers]+data
+        #t=Table(data,nrCols*[0.6*inch], nrRows*[0.25*inch])
+        t=Table(data)
+        t.setStyle(TableStyle([
+                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ]))
+
+        Story.append(t)
         Story.append(PageBreak())
 
 

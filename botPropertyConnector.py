@@ -238,7 +238,7 @@ def tasador(client):
             text="La propiedad ha sido comparada con las siguientes propiedades (entre otras):"
             print("Texto inicial Check")
             try:
-                links=tasacion[3][:10]
+                links=tasacion[3][:20]
             except:
                 pass
             print("reducción de links, check")

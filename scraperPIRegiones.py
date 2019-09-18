@@ -688,7 +688,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 def scrap(d,h,operacion,tipo,region,lista,faillista):
 
     link = "http://www.portalinmobiliario.com/"+str(operacion)+"/"+str(tipo)+"/"+str(region)+"?tp=6&op=2&ca=2&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=1&sf=0&sp=0&pg=1"
-
+    print(link)
     try:
         page2 = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
         tree2 = html.fromstring(page2.content)
@@ -716,7 +716,7 @@ def scrap(d,h,operacion,tipo,region,lista,faillista):
 def Main(tipoRec="departamento",operacionRec="arriendo", regionRec="valparaiso",pagRec=0,isRecovery=False):
 
     #Añadir regiones a arreglo
-    region= ["tarapaca","antofagasta","valparaiso","bernardo-ohiggins","biobio"]
+    region= ["tarapaca","antofagasta","valparaiso","bernardo-ohiggins","biobio","los-lagos"]
 
     #Añadir operaciones a arreglo
     operacion = ["venta", "arriendo"]
