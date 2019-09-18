@@ -138,7 +138,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             r=6371000
             c=pi/180
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
-            distance2=(distance**2+(coef[0]*(j[8]-util))**2+(coef[1]*(j[9]-util))**2+(coef[2]*(j[6]-util))**2+(coef[3]*(j[7]-util))**2+(coef[4]*(j[12]-util))**2)
+            distance2=sqrt(distance**2+(coef[0]*(j[8]-util))**2+(coef[1]*(j[9]-util))**2+(coef[2]*(j[6]-util))**2+(coef[3]*(j[7]-util))**2+(coef[4]*(j[12]-util))**2)
             j.append(distance2)
             matrix.append(j)
     matrix = sorted(matrix, key=lambda x: x[14])
@@ -150,10 +150,10 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     for m in matrix:
         count+=1
         mprom=(m[8]+m[9])/2
-        totalDistance+=1/m[14]
+        totalDistance+=m[14]
         totalPrice+=m[5]/(m[14]*mprom)
         links.append(m[13])
-        if count>10 and (m[14]-lastDistance)>2*(totalDistance*count)**(-1):
+        if count>10 and (m[14]-lastDistance)>(totalDistance/count):
             break
         lastDistance=m[14]
     price=totalPrice/totalDistance
