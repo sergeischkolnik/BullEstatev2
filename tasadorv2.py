@@ -34,7 +34,7 @@ def regresion(x_train,y_train,x_test):
         price=price+coef*x_test[c]
         c=c+1
 
-    return price,utilnegativa,terrazanegativa,estacionamientosnegativa,coef
+    return price,utilnegativa,terrazanegativa,estacionamientosnegativa,regr.coef_
 
 def insertarTasacion(precio,preciomin,preciomax,id):
     sql = "UPDATE tasaciones SET precio='"+str(precio)+"',preciomin='"+str(preciomin)+"',preciomax='"+str(preciomax)+"' WHERE id='"+str(id)+"'"
