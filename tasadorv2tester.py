@@ -29,7 +29,7 @@ for prop in data:
     #print(str(count)+"/"+str(100)+"----------"+str(difpriceprint)+"% ----------- Realprice: "+str(realprice)+" PredictedPrice: "+str(precio))
     if count>199:
         break
-print(sum(deltaprice)/len(deltaprice))
+#print(sum(deltaprice)/len(deltaprice))
 deltaprice=sorted(deltaprice, key=lambda x:x[0],reverse=True)
 
 count=0
