@@ -124,7 +124,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     print("Regresion Hecha")
     print(coef)
-    promcoef=sum(coef)/len(coef)
+    promcoef=sum(abs(coef))/len(coef)
     matrix=[]
     data=sorted(data, key=lambda x:x[5])
     #Data=id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link
