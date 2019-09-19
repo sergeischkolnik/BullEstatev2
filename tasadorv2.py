@@ -155,8 +155,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         totalAntiDistance+=1/m[14]
         totalPrice+=m[5]/(m[14]*mprom)
         links.append(m[13])
-        if count<20:
-            print(str(m[14]-lastDistance)+":"+str(m[14]/count))
+
         if count>10 and (m[14]-lastDistance)>(m[14]/count):
             break
         lastDistance=m[14]
