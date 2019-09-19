@@ -21,3 +21,4 @@ for prop in data[:100]:
     deltaprice.append(difprice)
     difpriceprint=int(difprice*100)
     print(str(count)+"/"+str(100)+"----------"+str(difpriceprint)+"% ----------- Realprice: "+str(realprice)+" PredictedPrice: "+str(precio))
+print(sum(deltaprice)/len(deltaprice))
