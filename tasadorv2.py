@@ -122,8 +122,9 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
 
     p, utilnegativo, terrazanegativo, estacionamientosnegativo, coef = regresion(x_train, y_train, x_test)
 
-    print("Regresion Hecha")
-    print(coef)
+    #print("Regresion Hecha")
+
+    #print(coef)
     promcoef=sum(abs(coef))/len(coef)
     matrix=[]
     data=sorted(data, key=lambda x:x[5])
