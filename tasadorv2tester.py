@@ -26,7 +26,7 @@ for prop in data:
     array.append(confianza)
     deltaprice.append(array)
     difpriceprint=int(difprice*100)
-    #print(str(count)+"/"+str(100)+"----------"+str(difpriceprint)+"% ----------- Realprice: "+str(realprice)+" PredictedPrice: "+str(precio))
+    print(str(count)+"/"+str(100)+"----------"+str(difpriceprint)+"% ----------- Realprice: "+str(realprice)+" PredictedPrice: "+str(precio))
     if count>49:
         break
 #print(sum(deltaprice)/len(deltaprice))
