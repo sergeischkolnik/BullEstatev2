@@ -15,7 +15,9 @@ datalen=len(data)
 
 for prop in data:
     count+=1
+    print(prop[3], prop[4], prop[10], prop[11], prop[8], prop[9], prop[6], prop[7], prop[12])
     precio,confianza,nrProps,links,venta,g = tasadorv2.calcularTasacionData(prop[3],prop[4],prop[10],prop[11],prop[8],prop[9],prop[6],prop[7],prop[12],data)
+    print(precio)
     realprice=prop[5]/ufn
     difprice=abs(realprice-precio)/realprice
     deltaprice.append(difprice)
