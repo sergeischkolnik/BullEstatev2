@@ -180,10 +180,10 @@ if __name__ == "__main__":
 
     operacion = "venta"
     tipo = "departamento"
-    lat = -33.465742
-    lon=-70.649856
-    util = 38
-    total = 38
+    lat =-33.4526
+    lon=-70.6321
+    util = 45
+    total = 45
     dormitorios = 2
     banos = 1
     estacionamientos=1

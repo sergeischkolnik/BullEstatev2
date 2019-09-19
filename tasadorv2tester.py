@@ -5,7 +5,7 @@ import random
 ufn=uf.getUf()
 tipo="departamento"
 
-comunas=['']
+comunas=['santiago']
 count=0
 deltaprice=[]
 
