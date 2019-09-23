@@ -40,8 +40,9 @@ for pd in ponds:
     count=0
     total=0
     for i in deltaprice:
-        total+=i[0]
-        count+=1
+        if i<1:
+            total+=i[0]
+            count+=1
     results.append(total/count)
 for res in results:
     print("avg: "+str(res))
