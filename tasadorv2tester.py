@@ -40,7 +40,7 @@ for pd in ponds:
     count=0
     total=0
     for i in deltaprice:
-        if i<1[0]:
+        if i[0]<1:
             total+=i[0]
             count+=1
     results.append(total/count)
