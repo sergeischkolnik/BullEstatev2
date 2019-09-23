@@ -147,6 +147,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             k.append(distance2)
             matrix.append(k)
             if count<5:
+                print(j)
                 print(k)
 
     matrix = sorted(matrix, key=lambda x: x[14])
