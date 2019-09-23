@@ -36,5 +36,5 @@ count=0
 for i in deltaprice:
     print(i)
     count+=1
-    if count>20:
+    if count>49:
         break
