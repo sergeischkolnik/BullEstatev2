@@ -144,11 +144,10 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
             distance2=((promcoef*distance)**2+(coef[0]*(j[8]-util))**2+(coef[1]*(j[9]-util))**2+(coef[2]*(j[6]-util))**2+(coef[3]*(j[7]-util))**2+(coef[4]*(j[12]-util))**2)
             k=j
-            print(len(k))
             k.append(distance2)
-            print(len(k))
             matrix.append(k)
-
+            print(len(j))
+            print(len(k))
             print(j)
             print(k)
 
