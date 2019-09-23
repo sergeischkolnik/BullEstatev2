@@ -3,6 +3,7 @@ import pymysql as mysql
 from datetime import datetime, timedelta
 import random
 import sendMailVendetudeptoCarolina as mailer
+import sendMailVendetudeptoDaniela as mailerDaniela
 import time
 
 past = datetime.now() - timedelta(days=60)
@@ -10,7 +11,7 @@ past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=2)
 yesterday=datetime.date(yesterday)
 
-sleepTime=random.randint(150,250)
+sleepTime=random.randint(75,125)
 
 sqlDeptosArriendo = "select duenos.mail,portalinmobiliario.nombre,portalinmobiliario.link from duenos inner join portalinmobiliario where " \
           "duenos.idProp=portalinmobiliario.id2 and duenos.contactado IS NULL and " \
@@ -120,7 +121,7 @@ def sendClientMailsDeptosArriendo():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails (dptos arriendo) to "+str(len(lista))+ " clients:")
-
+    carolina=True
     for i,l in enumerate(lista):
 
         to = str(l[0])
@@ -128,7 +129,12 @@ def sendClientMailsDeptosArriendo():
         linkProp=str(l[2])
 
         gratis=True
-        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+        if carolina:
+            mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+            carolina=False
+        else:
+            mailerDaniela.sendMailGratis(to,nombreProp,linkProp)
+            carolina=True
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -142,6 +148,7 @@ def sendClientMailsDeptosVenta():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails (dptos venta) to "+str(len(lista))+ " clients:")
+    carolina=True
 
     for i,l in enumerate(lista):
 
@@ -149,8 +156,13 @@ def sendClientMailsDeptosVenta():
         nombreProp = str(l[1])
         linkProp=str(l[2])
 
-        gratis=False
-        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+        gratis=True
+        if carolina:
+            mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+            carolina=False
+        else:
+            mailerDaniela.sendMailGratis(to,nombreProp,linkProp)
+            carolina=True
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -165,13 +177,19 @@ def sendClientMailsCasas():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails (casas) to "+str(len(lista))+ " clients:")
+    carolina=True
 
     for i,l in enumerate(lista):
         to = str(l[0])
         nombreProp = str(l[1])
         linkProp=str(l[2])
-        gratis=False
-        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+        gratis=True
+        if carolina:
+            mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+            carolina=False
+        else:
+            mailerDaniela.sendMailGratis(to,nombreProp,linkProp)
+            carolina=True
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -186,6 +204,7 @@ def sendClientMailsOficinas():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails (oficinas) to "+str(len(lista))+ " clients:")
+    carolina=True
 
     for i,l in enumerate(lista):
         to = str(l[0])
@@ -193,7 +212,12 @@ def sendClientMailsOficinas():
 
         linkProp=str(l[2])
         gratis=True
-        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+        if carolina:
+            mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+            carolina=False
+        else:
+            mailerDaniela.sendMailGratis(to,nombreProp,linkProp)
+            carolina=True
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -208,6 +232,7 @@ def sendClientMailsTerrenos():
     mariadb_connection.close()
 
     print("[" + str(datetime.now()) +"]Sending mails (terrenos) to "+str(len(lista))+ " clients:")
+    carolina=True
 
     for i,l in enumerate(lista):
         to = str(l[0])
@@ -215,7 +240,12 @@ def sendClientMailsTerrenos():
 
         linkProp=str(l[2])
         gratis=True
-        mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+        if carolina:
+            mailer.sendMailGratis(to,nombreProp,linkProp,gratis)
+            carolina=False
+        else:
+            mailerDaniela.sendMailGratis(to,nombreProp,linkProp)
+            carolina=True
         checkClient(to,"1")
 
         time.sleep(sleepTime)
@@ -288,7 +318,7 @@ def main():
     sendClientMailsDeptosVenta()
     sendClientMailsCasas()
     sendClientMailsOficinas()
-    sendClientMailTerrenos()
+    sendClientMailsTerrenos()
 
 
 # hasSendDailyMails = True

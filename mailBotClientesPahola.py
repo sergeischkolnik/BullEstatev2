@@ -2,7 +2,7 @@ import threading
 import pymysql as mysql
 from datetime import datetime, timedelta
 import random
-import sendMailVendetudeptoPahola as mailer
+import sendMailVendetudeptoDaniela as mailer
 import time
 
 past = datetime.now() - timedelta(days=60)
