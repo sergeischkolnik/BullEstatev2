@@ -27,16 +27,16 @@ for prop in data:
     deltaprice.append(array)
     difpriceprint=int(difprice*100)
     print(str(count)+"/"+str(100)+"----------"+str(difpriceprint)+"% ----------- Realprice: "+str(realprice)+" PredictedPrice: "+str(precio))
-    print(nrProps)
-    print(confianza)
-    if count>49:
+    # print(nrProps)
+    # print(confianza)
+    if count>200:
         break
 #print(sum(deltaprice)/len(deltaprice))
 deltaprice=sorted(deltaprice, key=lambda x:x[0],reverse=True)
 
 count=0
+total=0
 for i in deltaprice:
-    print(i)
+    total+=i[0]
     count+=1
-    if count>49:
-        break
+print("avg: "+str(total/count))
