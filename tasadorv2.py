@@ -146,6 +146,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             k=j
             k.append(distance2)
             matrix.append(k)
+            if count<5:
+                print(k)
 
     matrix = sorted(matrix, key=lambda x: x[14])
     links=[]
@@ -161,8 +163,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
         totalAntiDistance+=1/m[14]
         totalPrice+=m[5]/(m[14]*mprom)
         links.append(m[13])
-        if count<5:
-                print(m)
+
         if count>10 and (m[14]-lastDistance)>(m[14]/count):
             break
         lastDistance=m[14]
