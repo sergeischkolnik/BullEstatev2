@@ -87,7 +87,7 @@ def precio_from_portalinmobiliario(id2):
 
 
 
-def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data):
+def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,estacionamientos,data,pondDist):
 
     ufn=uf.getUf()
     es_venta=operacion=="venta"
@@ -141,7 +141,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             r=6371000
             c=pi/180
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
-            distance2=((promcoef*distance)**2+(coef[0]*(j[8]-util))**2+(coef[1]*(j[9]-util))**2+(coef[2]*(j[6]-util))**2+(coef[3]*(j[7]-util))**2+(coef[4]*(j[12]-util))**2)
+            distance2=((pondDist*promcoef*distance)**2+(coef[0]*(j[8]-util))**2+(coef[1]*(j[9]-util))**2+(coef[2]*(j[6]-util))**2+(coef[3]*(j[7]-util))**2+(coef[4]*(j[12]-util))**2)
             if len(j)==14:
                 j.append(distance2)
             else:
