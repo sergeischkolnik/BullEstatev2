@@ -151,6 +151,7 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     lastDistance=0
     for m in matrix:
         count+=1
+        print(m[14])
         mprom=(m[8]+m[9])/2
         totalDistance+=m[14]
         totalAntiDistance+=1/m[14]
