@@ -29,7 +29,7 @@ for prop in data:
     print(str(count)+"/"+str(100)+"----------"+str(difpriceprint)+"% ----------- Realprice: "+str(realprice)+" PredictedPrice: "+str(precio))
     print(nrProps)
     print(confianza)
-    if count>2:
+    if count>49:
         break
 #print(sum(deltaprice)/len(deltaprice))
 deltaprice=sorted(deltaprice, key=lambda x:x[0],reverse=True)
@@ -38,5 +38,5 @@ count=0
 for i in deltaprice:
     print(i)
     count+=1
-    if count>2:
+    if count>49:
         break
