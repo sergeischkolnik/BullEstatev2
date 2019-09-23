@@ -128,10 +128,13 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     promcoef=sum(abs(coef))/len(coef)
     matrix=[]
     data=sorted(data, key=lambda x:x[5])
+    count=0
     #Data=id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link
     for j in data:
         # i3=op, i4=tipo, i5=precio, i6=dorms, i7=baños, i12= estacionamientos i8=util, i9=total
         if (j[1]>past) and (j[2]>yesterday) and (operacion==j[3]) and (tipo==j[4]):
+            count+=1
+
             lat1=lat
             long1=lon
             lat2=j[10]
@@ -141,6 +144,8 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
             distance= 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
             distance2=((promcoef*distance)**2+(coef[0]*(j[8]-util))**2+(coef[1]*(j[9]-util))**2+(coef[2]*(j[6]-util))**2+(coef[3]*(j[7]-util))**2+(coef[4]*(j[12]-util))**2)
             j.append(distance2)
+            if count<5:
+                print(distance2)
             matrix.append(j)
     matrix = sorted(matrix, key=lambda x: x[14])
     links=[]
@@ -151,8 +156,6 @@ def calcularTasacionData(operacion,tipo,lat,lon,util,total,dormitorios,banos,est
     lastDistance=0
     for m in matrix:
         count+=1
-        if count<5:
-            print(m[14])
         mprom=(m[8]+m[9])/2
         totalDistance+=m[14]
         totalAntiDistance+=1/m[14]
