@@ -453,7 +453,7 @@ def crearFicha(sitio,id,mail,tipoficha):
                     print('fail 3')
 
 
-                if rentaPP < rentaPromedio:
+                if rentaPP < 1.2*rentaPromedio:
 
                     try:
                         print("[GeneradorReportes] renta pp muy baja, recalculando precio")

@@ -50,10 +50,10 @@ def rentaPProm(tipo,dormitorios,banos,estacionamientos,comuna):
     venta=sorted(venta)
     larriendo=len(arriendo)
     lventa=len(venta)
-    minarriendo=int(larriendo*0.1)
-    minventa=int(lventa*0.1)
-    maxarriendo=int(larriendo*0.9)
-    maxventa=int(lventa*0.9)
+    minarriendo=int(larriendo*0.3)
+    minventa=int(lventa*0.3)
+    maxarriendo=int(larriendo*0.7)
+    maxventa=int(lventa*0.7)
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
     if estacionamientos==0:
