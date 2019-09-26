@@ -1,29 +1,16 @@
-import math
-import pymysql as mysql
-from math import radians, sin, cos, acos, asin,pi,sqrt
+
 from datetime import datetime, timedelta, date
 past = datetime.now() - timedelta(days=180)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=10)
 yesterday=datetime.date(yesterday)
-from threading import Thread
-from time import sleep
-from datetime import datetime, timedelta
-import pdfCreatorReportes as pdfC
 import uf
 import numpy as np
 from sklearn import datasets, linear_model
 import sendmail
 import tasadorbot2 as tb2
 import pubPortalExiste
-import math
-import csv
-from csvWriter import writeCsv
-from csvWriter import writeCsvCanje
-from xlsxWriter import writeXlsx
 import os
-import bot1 as tgbot
-import googleMapApi as gm
 import datetime
 fechahoy = datetime.datetime.now()
 fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
@@ -34,19 +21,17 @@ import requests
 import datetime
 from threading import Thread
 import pymysql as mysql
-from itertools import cycle
 import agentCreator
-import time
-import random
 from requests_html import HTMLSession
 session = HTMLSession()
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
-import pdfCreatorFichas
-import reportes
-#import tasador as tb2
-import tasadorbot2 as tb2
-import io
+import pdfCreatorFichasv2 as pdfCreatorFichas
+import reportesHuberV1 as reportes
+
+
+from sklearn import ensemble
+from sklearn.model_selection import train_test_split
 
 
 def obtenerProp(id,sitio):
@@ -75,6 +60,7 @@ def crearFicha(sitio,id,mail,tipoficha):
     pro=False
     interna=False
     full=False
+    textmail=''
 
     if tipoficha==2:
         pro=True
@@ -376,51 +362,97 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     datospro = []
     if pro:
-        comunaP = (comuna.replace(' ', '-') + '-'+str(region)).lower()
-        listacomunas=[]
-        listacomunas.append(comuna)
-        propsP = reportes.from_portalinmobiliario(tipo, regionP,listacomunas, True)
-        propsY = reportes.from_yapo(tipo, regionY,listacomunas, True, True)
-        props = propsP + propsY
+
+        propsPV = reportes.from_portalinmobiliario(tipo, region, [comuna], "venta", True)
+        propsYV = reportes.from_yapo(tipo, region, [comuna], True, "venta", True)
+        propsV = propsPV + propsYV
+        # aca deberiamos hacer el GB
+
+        m2=reportes.m2prom(tipo,comuna)
+        m2V=m2[0]
+        m2A=m2[1]
+
+        clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
+                                                  learning_rate=0.1, loss='huber')
+
+        #id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link
+
+        preciosV = [row[5] for row in propsV]
+
+        trainingV = propsV.copy()
+        for row in trainingV:
+            del row[13]
+            del row[5]
+            del row[4]
+            del row[3]
+            del row[2]
+            del row[1]
+            del row[0]
+
+        x_train , x_test , y_train , y_test = train_test_split(trainingV , preciosV , test_size = 0.10,random_state = 2)
+
+        #obtain scores venta:
+        clfHV.fit(x_train, y_train)
+        print("-----------")
+        print("Score Huber:")
+        print(clfHV.score(x_test,y_test))
+        scoreV=clfHV.score(x_test,y_test)
+
+        clfHV.fit(trainingV, preciosV)
+
+        propsPA = reportes.from_portalinmobiliario(tipo, region, [comuna], "arriendo", True)
+        propsYA = reportes.from_yapo(tipo, region, [comuna], True, "arriendo", True)
+        propsA = propsPA + propsYA
+        # aca deberiamos hacer el GB
+
+        clfHA = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
+                                                  learning_rate=0.1, loss='huber')
+
+        #id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link
+
+        preciosA = [row[5] for row in propsA]
+
+        trainingA = propsA.copy()
+        for row in trainingA:
+            del row[13]
+            del row[5]
+            del row[4]
+            del row[3]
+            del row[2]
+            del row[1]
+            del row[0]
+
+        x_train , x_test , y_train , y_test = train_test_split(trainingA , preciosA , test_size = 0.10,random_state = 2)
+
+        #obtain scores arriendo:
+        clfHA.fit(x_train, y_train)
+        print("-----------")
+        print("Score Huber:")
+        print(clfHA.score(x_test,y_test))
+        scoreA=clfHA.score(x_test,y_test)
+
+        clfHA.fit(trainingA, preciosA)
+
+        textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF."+str((int(10*(m2V/ufn)))/10)+"\nPrecio m2 Arriendo: $"+str((int(m2A)))+"\n\n"
+
+
+        tasacionVenta = clfHV.predict([[dormitorios, banos, metrosmin, metrosmax, lat, lon, estacionamientos]])
+        tasacionArriendo = clfHA.predict(
+        [[dormitorios, banos, metrosmin, metrosmax, lat, lon, estacionamientos]])
+
+
+        precioV = tasacionVenta
+        precioA = tasacionArriendo
+        print("el precio tasado de venta inicial es: "+str(precioV))
+        print("el precio tasado de arriendo inicial es: "+str(precioA))
 
         if operacion=='venta':
-
-            print("la comuna para calcular la rentabilidad promedio es:")
-            print(comunaP)
-            rentaPromedio = reportes.rentaPProm(tipo, float(dormitorios), float(banos), float(estacionamientos), comunaP)
-
-            print("input tasacion ficha")
-            print(tipo)
-            print(float(lat))
-            print(float(lon))
-            print(float(metrosmin))
-            print(float(metrosmax))
-            print(float(dormitorios))
-            print(float(banos))
-            print(float(estacionamientos))
-
-
-
-            tasacionVenta = tb2.calcularTasacionData("venta", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
-                                                     float(banos), float(estacionamientos), props)
-            tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
-                                                     float(banos), float(estacionamientos), props)
-
-
-            precioV = tasacionVenta[0] * uf.getUf()
-            precioA = tasacionArriendo[0]
-            print("el precio tasado de venta inicial es: "+str(precioV))
-            print("el precio tasado de arriendo inicial es: "+str(precioA))
-            links=tasacionVenta[3]
-
-
 
             if precioV is None or precioV < 0.1:
                 pro=False
 
 
             try:
-                precioA = tasacionArriendo[0]
                 rentaV = ((precioV - precio) / precio)
             except:
                 pro=False
@@ -433,11 +465,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             try:
                 rentaA = (precioA * 12 / precio)
-                print('succes 2.1')
-                print(precioA)
-                print(precioV)
-                rentaPP = (precioA * 12 / precioV)
-                print('succes 2.2')
+
             except:
                 pro=False
                 text2='No se ha podido realizar tasación'
@@ -448,32 +476,6 @@ def crearFicha(sitio,id,mail,tipoficha):
                 if rentaA > 0.2:
                     pro=False
                     print('fail 3')
-
-
-                if rentaPP < 1.2*rentaPromedio:
-
-                    try:
-                        print("[GeneradorReportes] renta pp muy baja, recalculando precio")
-                        print("precio anterior:"+str(precioV))
-                        precioV = precioA * 12 / rentaPromedio
-                        rentaV = ((precioV - precio) / precio)
-                        rentaPP = (precioA * 12 / precioV)
-                        print("precio nuevo:"+str(precioV))
-
-
-                    except:
-                        pro=False
-                        text2='No se ha podido realizar tasación'
-                        print('fail 4')
-
-                if rentaPP > 0.15:
-                    try:
-                        precioV = precioA * 12 / 0.15
-                        rentaV = ((precioV - precio) / precio)
-                    except:
-                        pro=False
-                        text2='No se ha podido realizar tasación'
-                        print('fail 52')
 
                 if rentaA < 0:
                     pro=False
@@ -493,18 +495,9 @@ def crearFicha(sitio,id,mail,tipoficha):
 
 
         else:
-            try:
-                tasacionArriendo = tb2.calcularTasacionData("arriendo", tipo, float(lat), float(lon), float(metrosmin),float(metrosmax),float(dormitorios),
-                                                     float(banos), float(estacionamientos), props)
-            except:
-                pro=False
-                text2='No se ha podido realizar tasación'
-                print('fail 6')
-
 
             try:
-                precioA = tasacionArriendo[0]
-                links=tasacionArriendo[3]
+                precioA = tasacionArriendo
 
             except:
                 pro=False
@@ -553,7 +546,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         nombrearchivo="Ficha Propiedad Sitio:"+str(sitio)+", "+str(operacion)+", "+str(tipo)+", "+str(region)+", "+str(comuna)+".pdf"
 
     print(nombrearchivo)
-
+    links=[]
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datoscontacto,regionP,links)
     print("pdf generado con exito")
     #Enviar PDF

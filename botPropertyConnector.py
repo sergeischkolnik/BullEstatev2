@@ -2,7 +2,7 @@ import botPropertyDataBase as db
 import botPropertySelect
 import botPropertyMain
 import botPropertySelect
-import ficha
+import fichav2 as ficha
 import reportesHuberV1 as reportes
 import pymysql as mysql
 import uf
