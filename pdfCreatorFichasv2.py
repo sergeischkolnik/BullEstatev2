@@ -25,7 +25,7 @@ import botPropertyConnector
 
 
 
-def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP):
+def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP,links):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]

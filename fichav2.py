@@ -101,7 +101,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         nombre=str(propiedad[0])
         region=str(propiedad[1])
-        regionP=region
+        regionP=region.copy()
         regionY=region
         if region=='15':
             regionP='metropolitana'
@@ -363,7 +363,7 @@ def crearFicha(sitio,id,mail,tipoficha):
     datospro = []
     if pro:
 
-        propsPV = reportes.from_portalinmobiliario(tipo, region, [comuna], "venta", True)
+        propsPV = reportes.from_portalinmobiliario(tipo, regionP, [comuna], "venta", True)
         propsYV = reportes.from_yapo(tipo, region, [comuna], True, "venta", True)
         propsV = propsPV + propsYV
         # aca deberiamos hacer el GB
@@ -400,7 +400,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         clfHV.fit(trainingV, preciosV)
 
-        propsPA = reportes.from_portalinmobiliario(tipo, region, [comuna], "arriendo", True)
+        propsPA = reportes.from_portalinmobiliario(tipo, regionP, [comuna], "arriendo", True)
         propsYA = reportes.from_yapo(tipo, region, [comuna], True, "arriendo", True)
         propsA = propsPA + propsYA
         # aca deberiamos hacer el GB
