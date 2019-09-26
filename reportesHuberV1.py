@@ -1088,15 +1088,15 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             # rentabilidad de venta
                             subresultado.append(float(rentaV))
                             # delta m2 real
-                            mprom=(prop[7]+prop[8])/2
+                            mprom=(prop[8]+prop[9])/2
                             subresultado.append(float((m2V-(prop[5]/mprom))/m2V))
                             # delta m2 predicho
                             subresultado.append(float((m2V-(precioV/mprom))/m2V))
                             print(prop[5])
                             print(precioV)
-                            print(prop[7])
                             print(prop[8])
-                            print((prop[7]+prop[8])/2)
+                            print(prop[9])
+                            print((prop[8]+prop[9])/2)
                             print((m2V-(prop[5]/mprom))/m2V)
                             print((m2V-(precioV/mprom))/m2V)
 
