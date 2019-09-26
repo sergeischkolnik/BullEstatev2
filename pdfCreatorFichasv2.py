@@ -115,6 +115,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             rentV = float(rentV/10)
             rentV = str(rentV)+"%"
             precioA=datospro[2]
+            precioA=int(precioA)
             precioA=str(format(precioA,','))
             precioA=precioA.replace(',','.')
             precioA='$ '+precioA
