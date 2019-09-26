@@ -447,7 +447,7 @@ def from_yapo(tipo,region,comunas,latlonyapo,op,verboso=False):
 
     # if verboso:
     #     print("Consulta: ")
-    #     print(sql)
+    print(sql)
     cur.execute(sql)
     tupla = cur.fetchall()
     data = []
