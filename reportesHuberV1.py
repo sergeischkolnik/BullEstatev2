@@ -736,7 +736,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     if rentminarriendo is not None:
         rentminarriendo = float(rentminarriendo)
         columnNames.append("Pr. Arriendo Tasado")
-        columnNames.append("Rent.d Arriendo")
+        columnNames.append("Rent. Arriendo")
     else:
         rentminarriendo=False
 
@@ -846,7 +846,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
         m2=m2prom(tipo,comuna)
         m2V=m2[0]
-        m2A=m2[0]
+        m2A=m2[1]
 
         clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
                                                   learning_rate=0.1, loss='huber')
@@ -909,7 +909,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
         clfHA.fit(trainingA, preciosA)
 
-        textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str(scoreV)+"\nScore Arriendos: "+str(scoreA)+"\nPrecio m2 Venta: "+str(m2V/ufn)+"\nPrecio m2 Arriendo: "+str(m2A)+"\n\n"
+        textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreV))/100)+"%\nPrecio m2 Venta: UF."+str((int(1000*(m2V/ufn)))/10)+"\nPrecio m2 Arriendo: $"+str((int(m2A)))+"\n\n"
 
 
         for d in range(dormitoriosmin, dormitoriosmax + 1):
