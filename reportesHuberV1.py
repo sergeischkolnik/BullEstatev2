@@ -1092,13 +1092,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             subresultado.append(float((m2V-(prop[5]/mprom))/m2V))
                             # delta m2 predicho
                             subresultado.append(float((m2V-(precioV/mprom))/m2V))
-                            print(prop[5])
-                            print(precioV)
-                            print(prop[8])
-                            print(prop[9])
-                            print((prop[8]+prop[9])/2)
-                            print((m2V-(prop[5]/mprom))/m2V)
-                            print((m2V-(precioV/mprom))/m2V)
 
                         if rentminarriendo is not False:
                             # precio arriendo tasado
