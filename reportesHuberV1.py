@@ -433,6 +433,7 @@ def from_portalinmobiliario(tipo,region,comunas,op,verboso=False):
 def from_yapo(tipo,region,comunas,latlonyapo,op,verboso=False):
     if region=="metropolitana":
             region="15"
+    comuna=comunas.lower()
 
     if verboso:
         print("----------------------")
@@ -440,9 +441,9 @@ def from_yapo(tipo,region,comunas,latlonyapo,op,verboso=False):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
     cur = mariadb_connection.cursor()
     if latlonyapo:
-        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE operacion='"+op+"' and tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
+        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE operacion='"+op+"' and tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1' and comuna='"+str(comuna)+"'"
     else:
-        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE operacion='" + op + "' and tipo='"+str(tipo)+"'"
+        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE operacion='" + op + "' and tipo='"+str(tipo)+"' and comuna='"+str(comuna)+"'"
 
     # if verboso:
     #     print("Consulta: ")
@@ -909,7 +910,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
         clfHA.fit(trainingA, preciosA)
 
-        textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreV))/100)+"%\nPrecio m2 Venta: UF."+str((int(1000*(m2V/ufn)))/10)+"\nPrecio m2 Arriendo: $"+str((int(m2A)))+"\n\n"
+        textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF."+str((int(10*(m2V/ufn)))/10)+"\nPrecio m2 Arriendo: $"+str((int(m2A)))+"\n\n"
 
 
         for d in range(dormitoriosmin, dormitoriosmax + 1):
@@ -1091,6 +1092,13 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             subresultado.append(float((m2V-(prop[5]/mprom))/m2V))
                             # delta m2 predicho
                             subresultado.append(float((m2V-(precioV/mprom))/m2V))
+                            print(prop[5])
+                            print(precioV)
+                            print(prop[7])
+                            print(prop[8])
+                            print((prop[7]+prop[8])/2)
+                            print((m2V-(prop[5]/mprom))/m2V)
+                            print((m2V-(precioV/mprom))/m2V)
 
                         if rentminarriendo is not False:
                             # precio arriendo tasado
