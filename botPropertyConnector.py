@@ -3,7 +3,7 @@ import botPropertySelect
 import botPropertyMain
 import botPropertySelect
 import ficha
-import reportes
+import reporteshuberV1 as reportes
 import pymysql as mysql
 import uf
 import tasadorbot2 as tb2
