@@ -433,7 +433,7 @@ def from_portalinmobiliario(tipo,region,comunas,op,verboso=False):
 def from_yapo(tipo,region,comunas,latlonyapo,op,verboso=False):
     if region=="metropolitana":
             region="15"
-    comuna=comunas.lower()
+    comuna=comunas[0].lower()
 
     if verboso:
         print("----------------------")
