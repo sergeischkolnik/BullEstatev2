@@ -91,6 +91,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     #sacar informacion de bbdd, y chequear que propiedad existe:
     propiedad=obtenerProp(id,sitio)
+    print(propiedad)
 
     if len(propiedad)<1:
         text='¨Propiedad no se encuentra en la base de datos.'
@@ -99,9 +100,8 @@ def crearFicha(sitio,id,mail,tipoficha):
     else:
         propiedad=list(propiedad)
 
-        nombre=str(propiedad[0])
         region=str(propiedad[1])
-        regionP=region.copy()
+        regionP=region
         regionY=region
         if region=='15':
             regionP='metropolitana'
