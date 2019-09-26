@@ -43,11 +43,11 @@ uf1=uf.getUf()
 def m2prom(tipo,comuna):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
     cur.execute(sql)
     arriendo = cur.fetchall()
     cur = mariadb_connection.cursor()
-    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' and dormitorios='"+str(dormitorios)+"' and banos='"+str(banos)+"' and estacionamientos='"+str(estacionamientos)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
     cur.execute(sql)
     venta = cur.fetchall()
     arriendo=sorted(arriendo)
@@ -615,7 +615,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                            estacionamientos, bodegas, metrodistance, l1, l2, l3, tipo,operacion, region, listaComunas, prioridad, mail,
                            nombreCliente,nombrecarpetadb,idCliente,direccion,radioDireccion,corredor,topx,verboso):
 
-
+    ufn=uf.getUf()
+    textmail=""
     columnNames = []
     columnNames.append('Código')
     if preciomin is not None:
@@ -907,6 +908,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         scoreA=clfHA.score(x_test,y_test)
 
         clfHA.fit(trainingA, preciosA)
+
+        textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str(scoreV)+"\nScore Arriendos: "+str(scoreA)+"\nPrecio m2 Venta: "+str(m2V/ufn)+"\nPrecio m2 Arriendo: "+str(m2A)+"\n\n"
+
 
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
@@ -1248,7 +1252,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     #Arreglar Mandada de mails
     if len(listaAdjuntos)>0:
         print('proceder a mandar correo')
-        sendmail.sendMailMultiple(mail, nombreCliente, listaAdjuntos)
+        sendmail.sendMailMultipleText(mail, nombreCliente, listaAdjuntos,textmail)
         return True
     else:
         return 'No Se han encontrado propiedades para el reporte solicitado'
