@@ -61,6 +61,7 @@ def crearFicha(sitio,id,mail,tipoficha):
     interna=False
     full=False
     textmail=''
+    ufn=uf.getUf()
 
     if tipoficha==2:
         pro=True
