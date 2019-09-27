@@ -41,9 +41,13 @@ fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 uf1=uf.getUf()
 
 def m2prom(tipo,comuna):
+    comuna=comuna.lower()
+    comuna=comuna.replace(" ","-")
+    comuna+="-metropolitana"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
+    print(sql)
     cur.execute(sql)
     arriendo = cur.fetchall()
     cur = mariadb_connection.cursor()
@@ -61,8 +65,6 @@ def m2prom(tipo,comuna):
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
 
-    print(venta)
-    print(lventa)
 
     sumarriendo=0
     sumventa=0
