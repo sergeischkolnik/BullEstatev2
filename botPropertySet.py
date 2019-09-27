@@ -1196,7 +1196,9 @@ def adress(bot,update):
         latD, lonD = gm.getCoordsWithAdress(direccion)
         client["lat"]=latD
         client["lon"]=lonD
-
+        print(direccion)
+        print(latD)
+        print(lonD)
     except:
         bot.send_message(chat_id=update.message.chat_id, text="Dirección incorrecta. Favor revisar y reenviar.")
         select.adress(bot,update,client)

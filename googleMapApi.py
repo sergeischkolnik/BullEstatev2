@@ -8,7 +8,3 @@ def getCoordsWithAdress(address):
     lat = location['lat']
     lng = location['lng']
     return lat,lng
-
-coords=[]
-coords=getCoordsWithAdress("Paul Harris 10016, Las Condes, Chile")
-print(coords)
