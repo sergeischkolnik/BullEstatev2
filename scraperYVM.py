@@ -52,8 +52,6 @@ def insertarPropiedad(propiedad):
 
 def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False,ocr=None):
 
-
-
     while(True):
         link='https://www.yapo.cl/region_metropolitana/comprar?ca=15_s&l=0&w=1&cmn='
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
