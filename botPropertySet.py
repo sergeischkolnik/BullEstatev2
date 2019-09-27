@@ -300,7 +300,7 @@ def last(bot, update):
         select.menu(bot, update)
         return pm.MENU
     else:
-        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        bot.send_message(chat_id=update.message.chat_id, text="No posee historial en "+str(update.message.text)+", o bien es un comando invalido. Presione algun boton.")
         client.pop("product")
         select.last(bot, update,client)
         return pm.SELECT_LAST
