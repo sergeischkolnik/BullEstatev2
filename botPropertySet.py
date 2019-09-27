@@ -1192,7 +1192,7 @@ def adress(bot,update):
     client = clientsDict[update.message.from_user.id]
     client["adress"] = update.message.text
     try:
-        direccion=str(update.message.text)+", "+str(client["comuna"])
+        direccion=str(update.message.text)+", "+str(client["comuna"]+", Chile")
         latD, lonD = gm.getCoordsWithAdress(direccion)
         client["lat"]=latD
         client["lon"]=lonD
