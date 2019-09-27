@@ -369,7 +369,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         propsV = propsPV + propsYV
         # aca deberiamos hacer el GB
 
-        m2=reportes.m2prom(tipo,comuna)
+        m2=reportes.m2prom(tipo,comuna,region)
         m2V=m2[0]
         m2A=m2[1]
 

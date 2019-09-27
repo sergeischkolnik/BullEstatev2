@@ -40,10 +40,10 @@ fechahoy = datetime.datetime.now()
 fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 uf1=uf.getUf()
 
-def m2prom(tipo,comuna):
+def m2prom(tipo,comuna,region):
     comuna=comuna.lower()
     comuna=comuna.replace(" ","-")
-    comuna+="-metropolitana"
+    comuna+="-"+str(region).lower()
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
@@ -75,7 +75,6 @@ def m2prom(tipo,comuna):
 
     promarriendo=(sumarriendo) / max(len(arriendo), 1)
     promventa=float(sumventa)/max(len(venta),1)
-    return promventa,promarriendo
     try:
         return promventa,promarriendo
     except:
@@ -850,7 +849,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         propsV = propsPV + propsYV
         # aca deberiamos hacer el GB
 
-        m2=m2prom(tipo,comuna)
+        m2=m2prom(tipo,comuna,region)
         m2V=m2[0]
         m2A=m2[1]
 
