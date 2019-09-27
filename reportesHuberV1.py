@@ -61,6 +61,9 @@ def m2prom(tipo,comuna):
     arriendo=arriendo[minarriendo:maxarriendo]
     venta=venta[minventa:maxventa]
 
+    print(venta)
+    print(lventa)
+
     sumarriendo=0
     sumventa=0
     for i in arriendo:
