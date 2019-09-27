@@ -18,8 +18,9 @@ while True:
     pagina=ultimo()[0][0]
     print(pagina)
 
-    scraper.main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=pagina,isRecovery=False,ocr=None)
-
-    #except:
-     #   print("[SYVM] ERROR DE SCRAPER. INICIANDO NUEVAMENTE EN 60 SEGUNDOS")
-     #   time.sleep(60)
+    try:
+        scraper.main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=pagina,isRecovery=False,ocr=None)∫
+    
+    except:
+        print("[SYVM] ERROR DE SCRAPER. INICIANDO NUEVAMENTE EN 60 SEGUNDOS")
+        time.sleep(60)
