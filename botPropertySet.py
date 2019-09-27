@@ -198,7 +198,7 @@ def menu(bot, update):
     auxmail=client["mail"]
     auxfirstname=client["firstname"]
     auxlastname=client["lastname"]
-    if "product" in client and client["product"]!="Ayuda":
+    if "product" in client and client["product"]!="Historial":
         lastproduct=client["product"]
         auxclient=client.copy()
 
