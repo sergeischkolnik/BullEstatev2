@@ -186,6 +186,10 @@ def menu(bot, update):
     """
     # Set state:
     global STATE
+    lastoperations={}
+    lastoperations["Reporte"]=[]
+    lastoperations["Tasador"]=[]
+    lastoperations["Ficha"]=[]
 
     #Reset client
     client = clientsDict[update.message.from_user.id]
@@ -193,6 +197,15 @@ def menu(bot, update):
     auxmail=client["mail"]
     auxfirstname=client["firstname"]
     auxlastname=client["lastname"]
+    lastproduct=client["product"]
+    auxclient=client.copy()
+
+    #Save last operations
+    lastoperations[lastproduct].insert(0,auxclient)
+    if len(lastoperations[lastproduct])>5:
+        lastoperations[lastproduct]=lastoperations[lastproduct][0:4]
+    print(str(lastproduct)+" realizados: "+str(len(lastoperations[lastproduct])))
+
 
     hadThr = False
     if "reporteThread" in client.keys():

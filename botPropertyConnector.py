@@ -52,6 +52,9 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         client["totalmin"]=0
         client["totalmax"]=99999999
 
+    if "totalmin" not in client:
+        client["totalmin"]=0
+        client["totalmax"]=99999999
 
     if "DormMin" in client and "DormMax" in client:
         dormitoriosmin = client["DormMin"]
