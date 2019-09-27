@@ -12,7 +12,6 @@ def ultimo():
     cur.execute(sql)
     tupla = cur.fetchall()
     print(tupla)
-    time.sleep(1000)
     return tupla
 
 
