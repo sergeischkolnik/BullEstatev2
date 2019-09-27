@@ -449,12 +449,12 @@ def area_range(bot, update,client):
                                                one_time_keyboard=True,
                                                resize_keyboard=True)
 
-            pm.logger.info("{} está en seleccionando superficie mínima.".format(user.first_name))
+            pm.logger.info("{} está en seleccionando superficie máxima.".format(user.first_name))
             if client["tipo"] == "Comercial":
-                update.message.reply_text("Seleccionar superficie mínima (en m2)", reply_markup=reply_markup)
+                update.message.reply_text("Seleccionar superficie máxima (en m2)", reply_markup=reply_markup)
                 return pm.SELECT_AREA_RANGE
             else:
-                update.message.reply_text("Seleccionar superficie útil mínima (en m2)", reply_markup=reply_markup)
+                update.message.reply_text("Seleccionar superficie útil máxima (en m2)", reply_markup=reply_markup)
                 return pm.SELECT_AREA_RANGE
 
         elif client["metrosmax"]=="Otra":

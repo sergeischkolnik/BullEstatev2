@@ -214,7 +214,7 @@ def tasador(client):
 
 
     propsPV = reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),listacomunas,"venta",True)
-    propsYV = reportes.from_yapo(client["tipo"].lower(),client["region"].lower(),listacomunas,True,"venta",True)
+    propsYV = reportes.from_yapo(client["tipo"].lower(),regionYapo,listacomunas,True,"venta",True)
     propsV = propsPV + propsYV
     # aca deberiamos hacer el GB
 
@@ -251,7 +251,7 @@ def tasador(client):
     clfHV.fit(trainingV, preciosV)
 
     propsPA = reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),listacomunas,"arriendo",True)
-    propsYA = reportes.from_yapo(client["tipo"].lower(),client["region"].lower(),listacomunas,True,"arriendo",True)
+    propsYA = reportes.from_yapo(client["tipo"].lower(),regionYapo,listacomunas,True,"arriendo",True)
     propsA = propsPA + propsYA
     # aca deberiamos hacer el GB
 

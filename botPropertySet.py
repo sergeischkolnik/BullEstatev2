@@ -621,10 +621,12 @@ def area_range(bot, update):
                 client["reportepro"] = False
                 client["reporteinterno"] = False
                 client["reportemetro"] = False
+                print("tipo de reporte seteado")
                 select.confirm_report(bot, update, client)
                 print(client)
                 return pm.CONFIRM_REPORT
-        except:
+        except Exception as e:
+            print(e)
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.area_range(bot, update, client)
             return pm.SELECT_AREA_RANGE
