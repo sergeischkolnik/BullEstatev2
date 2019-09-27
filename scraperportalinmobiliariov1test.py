@@ -676,7 +676,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     #insertarDueno(dueno)
                     print(dueno)
                 except:
-                    abdcedf=0
+                    print("no hay dueño registrado")
 
 
 
