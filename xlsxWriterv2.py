@@ -77,8 +77,8 @@ def writeXlsx(file, data, columnnames, operacion):
     #encontrar indices
     index_r_v = columnnames.index("Rent. Venta") if "Rent. Venta" in columnnames else -1
     index_r_a = columnnames.index("Rent. Arriendo") if "Rent. Arriendo" in columnnames else -1
-    index_d_r = columnnames.index("D.m2 real") if "D.m2 real" in columnnames else -1
-    index_d_p = columnnames.index("D.m2 predicho") if "D.m2 predicho" in columnnames else -1
+
+   
     index_precio = columnnames.index("Precio") if "Precio" in columnnames else -1
     index_precio_a_t = columnnames.index("Pr. Arriendo Tasado") if "Pr. Arriendo Tasado" in columnnames else -1
     index_fecha_e = columnnames.index("fecha encontrado") if "fecha encontrado" in columnnames else -1
@@ -112,12 +112,6 @@ def writeXlsx(file, data, columnnames, operacion):
             if j==index_r_v:
                 worksheet.write(i + 1, j, f, perc)
             elif j==index_r_a:
-                worksheet.write(i + 1, j, f, perc)
-
-            #caso diferencias m2
-            elif j==index_d_r:
-                worksheet.write(i + 1, j, f, perc)
-            elif j==index_d_p:
                 worksheet.write(i + 1, j, f, perc)
 
             #caso precios

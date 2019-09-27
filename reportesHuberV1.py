@@ -46,12 +46,12 @@ def m2prom(tipo,comuna,region):
     comuna+="-"+str(region).lower()
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (2*precio/(metrosmin+metrosmax)) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
     print(sql)
     cur.execute(sql)
     arriendo = cur.fetchall()
     cur = mariadb_connection.cursor()
-    sql = "SELECT (precio/metrosmin) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (2*precio/(metrosmin+metrosmax)) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
     cur.execute(sql)
     venta = cur.fetchall()
     arriendo=sorted(arriendo)
@@ -629,7 +629,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         preciomin=0
     columnNames.append("Precio")
-
+    if tipo=="casa":
+        columnNames.append("UF/m2 constr.")
+        columnNames.append("UF/m2 terren.")
+    else:
+        columnNames.append("UF/m2")
     if preciomax is not None:
         preciomax = float(preciomax)
     else:
@@ -725,9 +729,14 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     if rentminventa is not None and operacion=='venta':
         rentminventa = float(rentminventa)
         columnNames.append("Pr. Venta Tasado")
+        if tipo=="casa":
+            columnNames.append("UF/m2 pred. constr.")
+            columnNames.append("UF/m2 pred. terren.")
+        else:
+            columnNames.append("UF/m2 predicho")
+
         columnNames.append("Rent. Venta")
-        columnNames.append("D.m2 real")
-        columnNames.append("D.m2 predicho")
+
 
 
     else:
@@ -1000,8 +1009,15 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     print('id2=')
                     print(int(prop[0]))
                     subresultado.append(int(prop[0]))
+
                     # precio
                     subresultado.append(int(prop[5]))
+                    if tipo=="casa":
+                        subresultado.append(int(10*(prop[5])/prop[8])/10)
+                        subresultado.append(int(10*(prop[5])/prop[9])/10)
+                    else:
+                        subresultado.append(int(20*(prop[5])/(prop[9]+prop[8]))/10)
+
                     # util
                     subresultado.append(int(prop[8]))
                     # total
@@ -1089,13 +1105,14 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         if rentminventa is not False:
                             # precio venta tasado
                             subresultado.append(precioV)
+                            if tipo=="casa":
+                                subresultado.append(int(10*(precioV)/prop[8])/10)
+                                subresultado.append(int(10*(precioV)/prop[9])/10)
+                            else:
+                                subresultado.append(int(20*(prop[5])/(prop[9]+prop[8]))/10)
                             # rentabilidad de venta
                             subresultado.append(float(rentaV))
-                            # delta m2 real
-                            mprom=(prop[8]+prop[9])/2
-                            subresultado.append(float((m2V-(prop[5]/mprom))/m2V))
-                            # delta m2 predicho
-                            subresultado.append(float((m2V-(precioV/mprom))/m2V))
+
 
                         if rentminarriendo is not False:
                             # precio arriendo tasado
