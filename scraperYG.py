@@ -58,7 +58,6 @@ def main(pagRec=1,isRecovery=False,ocr=None):
         tree = html.fromstring(page.content)
 
         last=tree.xpath('//*[@id="tabnav"]/li[1]/h1/span[2]')
-        print(last)
         last=last[0].text
         last=last.split(' ')
         last=last[5]
