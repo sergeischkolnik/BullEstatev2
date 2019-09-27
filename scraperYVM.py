@@ -319,7 +319,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                     os.remove("auxphone.gif")
                 except:
                     pass
-                print("[SYDVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
+                print("[SYVM] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
 
                 time.sleep(random.uniform(1, 1.5))
 
