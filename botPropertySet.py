@@ -197,7 +197,7 @@ def menu(bot, update):
     auxmail=client["mail"]
     auxfirstname=client["firstname"]
     auxlastname=client["lastname"]
-    if "product" in client:
+    if "product" in client and client["product"]!="Ayuda":
         lastproduct=client["product"]
         auxclient=client.copy()
 
@@ -242,14 +242,63 @@ def menu(bot, update):
     elif update.message.text == "Ficha":
         select.id_prop(bot, update)
         return pm.SELECT_ID
-    elif update.message.text == "Ayuda":
-        select.menu(bot, update)
-        return pm.MENU
+    elif update.message.text == "Historial":
+        select.last(bot, update,client)
+        return pm.SELECT_LAST
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         client.pop("product")
         select.menu(bot, update)
         return pm.MENU
+
+def last(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+
+    # set client
+    client = clientsDict[update.message.from_user.id]
+
+    print(client)
+
+    hadThr = False
+    if "reporteThread" in client.keys():
+        thr = client["reporteThread"]
+        hadThr = True
+
+    if hadThr:
+        client["reporteThread"] = thr
+
+    print(client)
+
+    if update.message.text == "Reporte":
+        if "reporteThread" in client.keys() and client["reporteThread"].isAlive():
+            bot.send_message(chat_id=update.message.chat_id, text="Ya se está generando un reporte. Por favor espere que"
+                                                                  " éste termine antes de comenzar otro. Si ha pasado "
+                                                                  "sobre una hora y el problema persiste, por favor "
+                                                                  "contacte a soporte.")
+            select.menu(bot, update)
+            return pm.MENU
+        else:
+            client["last"] = update.message.text
+            select.last(bot, update,client)
+            return pm.SELECT_LAST
+    elif update.message.text == "Tasador":
+        select.operacion(bot, update,client)
+        return pm.SELECT_OP
+    elif update.message.text == "Ficha":
+        select.id_prop(bot, update)
+        return pm.SELECT_ID
+    elif update.message.text == "Atrás":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        client.pop("product")
+        select.last(bot, update,client)
+        return pm.SELECT_LAST
 
 
 ###FUNCIONES REPORTES

@@ -115,7 +115,7 @@ def menu(bot, update):
     """
     # Create buttons to slect language:
     keyboard = [["Reporte","Tasador"],
-                ["Ficha", "Ayuda"]]
+                ["Ficha", "Historial"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -127,6 +127,26 @@ def menu(bot, update):
     pm.logger.info("{} está en el menu principal.".format(user.first_name))
     update.message.reply_text("Menu Principal", reply_markup=reply_markup)
     return pm.MENU
+
+def last(bot, update,client):
+
+    user = update.message.from_user
+    pm.logger.info("Report requested by {}.".format(user.first_name))
+
+    keyboard = [["Reporte","Tasador"],
+                ["Ficha", "Atrás"]]
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    pm.logger.info("{} está eligiendo operacion del historial.".format(user.first_name))
+    update.message.reply_text("Seleccione operacion realizada", reply_markup=reply_markup)
+
+    return pm.SELECT_LAST
+
+
 
 ##### FUNCIONES DEL REPORTE
 
@@ -770,6 +790,8 @@ def advance(bot,update,client):
         update.message.reply_text("Seleccionar Opción", reply_markup=reply_markup)
 
     return pm.ADVANCE
+
+
 
 
 ##### FUNCIONES DE LAS FICHAS
