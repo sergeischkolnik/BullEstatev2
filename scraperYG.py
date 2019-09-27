@@ -57,7 +57,7 @@ def main(pagRec=1,isRecovery=False,ocr=None):
     while(True):
 
         for reg in regiones:
-            link="https://www.yapo.cl/atacama/inmuebles?ca="+reg+"_s&st=a&cg=1000"
+            link="https://www.yapo.cl/atacama/inmuebles?ca="+str(reg)+"_s&st=a&cg=1000"
             page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
             tree = html.fromstring(page.content)
 
