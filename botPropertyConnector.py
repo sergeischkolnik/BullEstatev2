@@ -9,6 +9,10 @@ import uf
 import tasadorbot2 as tb2
 #import tasadorbot2 as tb2
 ufn=uf.getUf()
+from sklearn import ensemble
+from sklearn.model_selection import train_test_split
+import reportesHuberV1 as reportes
+
 
 def obtenerIdConLink(link,sitio):
 
@@ -170,7 +174,8 @@ def connectorFicha(client):
 def tasador(client):
 
 
-
+    textmail=""
+    regionYapoAux=client["region"]
     regYapoDict={
         "Metropolitana":"15",
         "Valparaiso":"6",
@@ -191,6 +196,8 @@ def tasador(client):
         "Magallanes":"14",
 
     }
+    regionYapo=regYapoDict[regionYapoAux]
+
     print("Diccionario de Regiones para Yapo Creado")
 
     if "bodegas" not in client:
@@ -205,48 +212,97 @@ def tasador(client):
     listacomunas=[]
     listacomunas.append(comuna)
 
-    propsP=reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),listacomunas,True)
-    propsY=reportes.from_yapo(client["tipo"].lower(),regYapoDict[client["region"]],listacomunas,True,True)
-    props=propsP+propsY
-    print("Propiedades Check")
 
-    tasacion=tb2.calcularTasacionData(client["operacion"].lower(),client["tipo"].lower(),client["lat"],client["lon"],int(client["metros"]),
-                                      int(client["total"]),int(client["dormitorios"]),int(client["baños"]),int(client["estacionamientos"]),props)
+    propsPV = reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),listacomunas,"venta",True)
+    propsYV = reportes.from_yapo(client["tipo"].lower(),client["region"].lower(),listacomunas,True,"venta",True)
+    propsV = propsPV + propsYV
+    # aca deberiamos hacer el GB
+
+    m2=reportes.m2prom(client["tipo"].lower(),comuna)
+    m2V=m2[0]
+    m2A=m2[1]
+
+    clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
+                                              learning_rate=0.1, loss='huber')
+
+    #id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link
+
+    preciosV = [row[5] for row in propsV]
+
+    trainingV = propsV.copy()
+    for row in trainingV:
+        del row[13]
+        del row[5]
+        del row[4]
+        del row[3]
+        del row[2]
+        del row[1]
+        del row[0]
+
+    x_train , x_test , y_train , y_test = train_test_split(trainingV , preciosV , test_size = 0.10,random_state = 2)
+
+    #obtain scores venta:
+    clfHV.fit(x_train, y_train)
+    print("-----------")
+    print("Score Huber:")
+    print(clfHV.score(x_test,y_test))
+    scoreV=clfHV.score(x_test,y_test)
+
+    clfHV.fit(trainingV, preciosV)
+
+    propsPA = reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),listacomunas,"arriendo",True)
+    propsYA = reportes.from_yapo(client["tipo"].lower(),client["region"].lower(),listacomunas,True,"arriendo",True)
+    propsA = propsPA + propsYA
+    # aca deberiamos hacer el GB
+
+    clfHA = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
+                                              learning_rate=0.1, loss='huber')
+
+    #id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link
+
+    preciosA = [row[5] for row in propsA]
+
+    trainingA = propsA.copy()
+    for row in trainingA:
+        del row[13]
+        del row[5]
+        del row[4]
+        del row[3]
+        del row[2]
+        del row[1]
+        del row[0]
+
+    x_train , x_test , y_train , y_test = train_test_split(trainingA , preciosA , test_size = 0.10,random_state = 2)
+
+    #obtain scores arriendo:
+    clfHA.fit(x_train, y_train)
+    print("-----------")
+    print("Score Huber:")
+    print(clfHA.score(x_test,y_test))
+    scoreA=clfHA.score(x_test,y_test)
+
+    clfHA.fit(trainingA, preciosA)
+
+    textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF."+str((int(10*(m2V/ufn)))/10)+"\nPrecio m2 Arriendo: $"+str((int(m2A)))+"\n\n"
+    tasacionVenta = clfHV.predict([[int(client["dormitorios"]),int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
+    tasacionArriendo = clfHA.predict([[int(client["dormitorios"]),int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
+
+    precioV = tasacionVenta
+    precioA = tasacionArriendo
+
+
     print("Tasacion Check")
 
-    if tasacion[0]==None:
+    if precioV==None:
         text="No se ha podido realizar la tasación."
         return text
     else:
-        print("precio de "+str(client["operacion"])+" es de: ")
-        print(tasacion[0])
+        print("precio de venta es de: "+str(precioV))
+        print("precio de venta es de: "+str(precioA))
 
-        if tasacion[4]:
-            text="La propiedad ha sido comparada con las siguientes propiedades (entre otras):"
-            print("Texto inicial Check")
-            links=tasacion[3][:5]
-            print("reducción de links, check")
-            for link in links:
-                text+='\n'
-                text+=link
-            text+='\n'
-            text+="Su propiedad se ha tasado a un valor de venta de UF. "+'{:,}'.format(tasacion[0]).replace(",",".")+" ,con una confianza de: "+str(tasacion[1])+"%."
 
-            print("Texto Full, Check")
-            return text
-        else:
-            text="La propiedad ha sido comparada con las siguientes propiedades (entre otras):"
-            print("Texto inicial Check")
-            try:
-                links=tasacion[3][:20]
-            except:
-                pass
-            print("reducción de links, check")
-            for link in links:
-                text+='\n'
-                text+=link
-            text+='\n'
-            text+="Su propiedad se ha tasado a un valor arriendo de $ "+'{:,}'.format(tasacion[0]).replace(",",".")+" ,con una confianza de: "+str(tasacion[1])+"%."
+        textmail+="Su propiedad se ha tasado a un valor de venta de UF. "+'{:,}'.format(precioV).replace(",",".")+".\n"
+        textmail+="Su propiedad se ha tasado a un valor de arriendo de $. "+'{:,}'.format(precioA).replace(",",".")+"."
 
-            print("Texto Full, Check")
-            return text
+        print("Texto Full, Check")
+        return textmail
