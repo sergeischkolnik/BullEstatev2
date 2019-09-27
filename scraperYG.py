@@ -57,7 +57,7 @@ def main(pagRec=1,isRecovery=False,ocr=None):
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
         tree = html.fromstring(page.content)
 
-        last=tree.xpath('//*[@id="tabnav"]/li[2]/h2/span[2]')
+        last=tree.xpath('//*[@id="tabnav"]/li[1]/h1/span[2]')
         print(last)
         last=last[0].text
         last=last.split(' ')
