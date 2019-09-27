@@ -218,7 +218,7 @@ def tasador(client):
     propsV = propsPV + propsYV
     # aca deberiamos hacer el GB
 
-    m2=reportes.m2prom(client["tipo"].lower(),comuna,region)
+    m2=reportes.m2prom(client["tipo"].lower(),comuna,client["region"].lower())
     m2V=m2[0]
     m2A=m2[1]
 
