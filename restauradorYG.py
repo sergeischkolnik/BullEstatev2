@@ -17,7 +17,7 @@ def ultimo():
 
 while True:
     last=ultimo()
-    pagina=last[0]
+    pagina=last[0][0]
     print(pagina)
     try:
         scraper.main(pagina,True)
