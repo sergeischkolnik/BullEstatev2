@@ -1,4 +1,4 @@
-import scraperYDVM as scraper
+import scraperYVM as scraper
 import pymysql as mysql
 from datetime import datetime, timedelta, date
 import time
