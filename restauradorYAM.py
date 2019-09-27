@@ -22,5 +22,5 @@ while True:
         scraper.main(tipoRec="departamento",operacionRec="arriendo", regionRec="metropolitana",pagRec=pagina,isRecovery=False,ocr=None)
 
     except:
-        print("[SYVM] ERROR DE SCRAPER. INICIANDO NUEVAMENTE EN 60 SEGUNDOS")
+        print("[SYAM] ERROR DE SCRAPER. INICIANDO NUEVAMENTE EN 60 SEGUNDOS")
         time.sleep(60)
