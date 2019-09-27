@@ -52,279 +52,282 @@ def insertarPropiedad(propiedad):
 
 def main(pagRec=1,isRecovery=False,ocr=None):
 
-
+    regiones = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
 
     while(True):
-        link='https://www.yapo.cl/chile/inmuebles?ca=15_s&l=0&cmn=&st=a'
-        page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
-        tree = html.fromstring(page.content)
-        last=tree.xpath('//*[@id="tabnav"]/li[2]/h2/span[2]')
-        last=last[0].text
-        last=last.split(' ')
-        last=last[5]
-        last=last.replace('.','')
-        last=int(last)
-        last=int(last/50)+1
 
-        if isRecovery:
-            isRecovery = False
-            ran = range(pagRec,last)
-        else:
-            ran = range(1,last)
+        for reg in regiones:
+            link="https://www.yapo.cl/atacama/inmuebles?ca="+str(reg)+"_s&st=a&cg=1000"
+            page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
+            tree = html.fromstring(page.content)
 
-        for i in ran:
+            last=tree.xpath('//*[@id="tabnav"]/li[2]/h2/span[2]')
+            last=last[0].text
+            last=last.split(' ')
+            last=last[5]
+            last=last.replace('.','')
+            last=int(last)
+            last=int(last/50)+1
 
-            link2='https://www.yapo.cl/chile/inmuebles?ca=15_s&st=a&cg=1000&o='+str(i)
-            session = HTMLSession()
-            r = session.get(link2)
-            links3 = []
-            duenos = []
+            if isRecovery:
+                isRecovery = False
+                ran = range(pagRec,last)
+            else:
+                ran = range(1,last)
 
-            for a in r.html.find('.title'):
-                list = []
-                links3.append(a.links.pop())
+            for i in ran:
 
-            for piece in r.html.find('.clean_links'):
-                company_ad = piece.find('.company_ad')
-                duenos.append(len(company_ad) == 0)
+                link2=link+"&o="+str(i)
+                session = HTMLSession()
+                r = session.get(link2)
+                links3 = []
+                duenos = []
 
-            props = zip(links3,duenos)
+                for a in r.html.find('.title'):
+                    list = []
+                    links3.append(a.links.pop())
 
-            for link3,dueno in props:
+                for piece in r.html.find('.clean_links'):
+                    company_ad = piece.find('.company_ad')
+                    duenos.append(len(company_ad) == 0)
 
-                codigo = -1
-                idregion = -1
-                comuna = ""
-                tipo = ""
-                titulo = ""
-                operacion=""
-                preciouf = -1
-                preciopesos= -1
-                fechapublicacion = ""
-                fechahoy = datetime.datetime.now()
-                fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
-                metrosmin = -1
-                metrosmax = -1
-                dormitorios = -1
-                banos = -1
-                descripcion = ""
-                lat = -999
-                lon = -999
-                anoconstruccion = -1
-                ggcc = -1
-                estacionamientos = 0
+                props = zip(links3,duenos)
 
-                esdueno = 0
+                for link3,dueno in props:
 
-                if dueno:
-                    esdueno = 1
+                    codigo = -1
+                    idregion = -1
+                    comuna = ""
+                    tipo = ""
+                    titulo = ""
+                    operacion=""
+                    preciouf = -1
+                    preciopesos= -1
+                    fechapublicacion = ""
+                    fechahoy = datetime.datetime.now()
+                    fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
+                    metrosmin = -1
+                    metrosmax = -1
+                    dormitorios = -1
+                    banos = -1
+                    descripcion = ""
+                    lat = -999
+                    lon = -999
+                    anoconstruccion = -1
+                    ggcc = -1
+                    estacionamientos = 0
 
+                    esdueno = 0
 
-                page = requests.get(link3, headers={'User-Agent': agentCreator.generateAgent()})
-                tree = html.fromstring(page.content)
-
-                url=[]
-                metatext=page.text
-                metatext=metatext.split(' ')
-                descripcion=[]
-                savedescripcion=False
-                saveimg=False
-                og=True
-
-                for texto in metatext:
+                    if dueno:
+                        esdueno = 1
 
 
-                    if og and 'og:image' in texto:
-                        saveimg=True
-                        og=False
-                    if 'img/yapo' in texto:
-                        saveimg=False
+                    page = requests.get(link3, headers={'User-Agent': agentCreator.generateAgent()})
+                    tree = html.fromstring(page.content)
 
-                    if saveimg and 'img.yapo.cl/images' in texto:
-                        texto=texto.replace('content="','')
-                        texto.replace('"','')
-                        url.append(texto)
-                    if 'phone-url' in texto:
-                        texto=texto.split('"')
-                        texto=texto[1]
-                        auxPhone=texto
-                        auxPhone='https://www.yapo.cl'+auxPhone
+                    url=[]
+                    metatext=page.text
+                    metatext=metatext.split(' ')
+                    descripcion=[]
+                    savedescripcion=False
+                    saveimg=False
+                    og=True
 
-                try:
-                    response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
-                    img = Image.open(BytesIO(response.content))
-                    img.save("auxphone.gif")
-                    telefono=ocr("auxphone.gif")
-                except:
-                    telefono='NN'
-
-                precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
-                precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
-                if ('$') in precio2[0].text:
-                    preciopesos=precio2[0].text
-                    preciouf=precio1[0].text
-                else:
-                    preciopesos=precio1[0].text
-                    preciouf=precio2[0].text
-
-                preciopesos=preciopesos.replace('.','')
-                preciopesos=preciopesos.replace('$','')
-                preciopesos=preciopesos.replace(' ','')
-                preciopesos=preciopesos.replace(')','')
-                preciopesos=preciopesos.replace('(','')
-                preciopesos=preciopesos.replace('*','')
-                preciopesos=int(preciopesos)
-
-                preciouf=preciouf.replace('.','')
-                preciouf=preciouf.replace('$','')
-                preciouf=preciouf.replace(' ','')
-                preciouf=preciouf.replace(')','')
-                preciouf=preciouf.replace('(','')
-                preciouf=preciouf.replace('*','')
-                preciouf=preciouf.replace('UF','')
-                preciouf=preciouf.replace(',','.')
-                preciouf=float(preciouf)
-
-                #extraccion codigo
-                aux = link3.split('.')
-                aux = aux[-2]
-                aux = aux.split('_')
-                codigo = int(aux[-1])
-
-                utag_data = tree.xpath("/html/body/script[1]/text()")[0]
-                text = str(utag_data.split('=')[1])
-                text = text[:-5] + "}"
-
-                try:
-                    value = json.loads(text)
-                except:
-                    continue
+                    for texto in metatext:
 
 
-                try:
-                    idregion = value["region_level2_id"].lower()
-                except:
-                    pass
-                try:
-                    comuna = value["region_level3"].lower()
-                except:
-                    pass
-                try:
-                    titulo = value["ad_title"].lower()
-                except:
-                    pass
-                try:
-                    if value["category_level2"]=="Vendo":
-                        operacion = "venta"
-                    elif value["category_level2"]=="Arriendo":
-                        operacion = "arriendo"
-                    elif value["category_level2"]=="Arriendo de temporada":
-                        operacion = "temporada"
-                except:
-                    pass
-                try:
-                    fechapublicacion = value["publish_date"].split(' ')[0]
-                except:
-                    pass
-                try:
-                    dormitorios = int(value["rooms"])
-                except:
-                    pass
-                try:
-                    descripcion = value["description"]
-                except:
-                    pass
+                        if og and 'og:image' in texto:
+                            saveimg=True
+                            og=False
+                        if 'img/yapo' in texto:
+                            saveimg=False
 
-                try:
-                    if int(value["geoposition_is_precise"]) == 1:
-                        pos = value["geoposition"].split(',')
-                        lat = float(pos[0])
-                        lon = float(pos[1])
-                except:
-                    pass
+                        if saveimg and 'img.yapo.cl/images' in texto:
+                            texto=texto.replace('content="','')
+                            texto.replace('"','')
+                            url.append(texto)
+                        if 'phone-url' in texto:
+                            texto=texto.split('"')
+                            texto=texto[1]
+                            auxPhone=texto
+                            auxPhone='https://www.yapo.cl'+auxPhone
 
-                tabla = tree.xpath("""//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr""")
-                tabla.pop(0)
+                    try:
+                        response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
+                        img = Image.open(BytesIO(response.content))
+                        img.save("auxphone.gif")
+                        telefono=ocr("auxphone.gif")
+                    except:
+                        telefono='NN'
 
-                for row in tabla:
-                    rowname = row.find("th").text
-                    if rowname == "Tipo de inmueble":
-                        tipo = row.find("td").text
-                    elif rowname == "Superficie total":
-                        metrosmax = row.find("td").text.replace('\n','').replace('\t','').split(' ')[0]
-                    elif rowname == "Superficie útil" or rowname == "Superficie construida":
-                        metrosmin = row.find("td").text.replace('\n','').replace('\t','').split(' ')[0]
-                    elif rowname == "Baños":
-                        banos = row.find("td").text
-                        banos = int(str(banos.split(' ')[0]))
-                    elif rowname == "Estacionamiento":
-                        estacionamientos = row.find("td").text
-                    elif rowname == "Año de construcción":
-                        anoconstruccion = row.find("td").text
-                    elif rowname == "Gastos comunes":
-                        ggcc = row.find("td").text[2:]
-                        ggcc = ggcc.replace('.','')
-                        ggcc = float(ggcc)
+                    precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
+                    precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
+                    if ('$') in precio2[0].text:
+                        preciopesos=precio2[0].text
+                        preciouf=precio1[0].text
+                    else:
+                        preciopesos=precio1[0].text
+                        preciouf=precio2[0].text
+
+                    preciopesos=preciopesos.replace('.','')
+                    preciopesos=preciopesos.replace('$','')
+                    preciopesos=preciopesos.replace(' ','')
+                    preciopesos=preciopesos.replace(')','')
+                    preciopesos=preciopesos.replace('(','')
+                    preciopesos=preciopesos.replace('*','')
+                    preciopesos=int(preciopesos)
+
+                    preciouf=preciouf.replace('.','')
+                    preciouf=preciouf.replace('$','')
+                    preciouf=preciouf.replace(' ','')
+                    preciouf=preciouf.replace(')','')
+                    preciouf=preciouf.replace('(','')
+                    preciouf=preciouf.replace('*','')
+                    preciouf=preciouf.replace('UF','')
+                    preciouf=preciouf.replace(',','.')
+                    preciouf=float(preciouf)
+
+                    #extraccion codigo
+                    aux = link3.split('.')
+                    aux = aux[-2]
+                    aux = aux.split('_')
+                    codigo = int(aux[-1])
+
+                    utag_data = tree.xpath("/html/body/script[1]/text()")[0]
+                    text = str(utag_data.split('=')[1])
+                    text = text[:-5] + "}"
+
+                    try:
+                        value = json.loads(text)
+                    except:
+                        continue
 
 
-                propiedad = []
-                propiedad.append(codigo)
-                propiedad.append(idregion)
-                propiedad.append(comuna)
-                propiedad.append(tipo.lower())
-                propiedad.append(titulo)
-                propiedad.append(operacion.lower())
-                propiedad.append(preciouf)
-                propiedad.append(preciopesos)
-                propiedad.append(fechapublicacion)
-                propiedad.append(fechascrap)
-                propiedad.append(metrosmin)
-                propiedad.append(metrosmax)
-                propiedad.append(dormitorios)
-                propiedad.append(banos)
-                propiedad.append(estacionamientos)
-                propiedad.append(descripcion)
-                propiedad.append(lat)
-                propiedad.append(lon)
-                propiedad.append(anoconstruccion)
-                propiedad.append(ggcc)
-                propiedad.append(link3)
-                propiedad.append(esdueno)
-                propiedad.append(telefono)
+                    try:
+                        idregion = value["region_level2_id"].lower()
+                    except:
+                        pass
+                    try:
+                        comuna = value["region_level3"].lower()
+                    except:
+                        pass
+                    try:
+                        titulo = value["ad_title"].lower()
+                    except:
+                        pass
+                    try:
+                        if value["category_level2"]=="Vendo":
+                            operacion = "venta"
+                        elif value["category_level2"]=="Arriendo":
+                            operacion = "arriendo"
+                        elif value["category_level2"]=="Arriendo de temporada":
+                            operacion = "temporada"
+                    except:
+                        pass
+                    try:
+                        fechapublicacion = value["publish_date"].split(' ')[0]
+                    except:
+                        pass
+                    try:
+                        dormitorios = int(value["rooms"])
+                    except:
+                        pass
+                    try:
+                        descripcion = value["description"]
+                    except:
+                        pass
 
-                propiedad.append(idregion)
-                propiedad.append(comuna)
-                propiedad.append(tipo.lower())
-                propiedad.append(titulo)
-                propiedad.append(operacion.lower())
-                propiedad.append(preciouf)
-                propiedad.append(preciopesos)
-                propiedad.append(fechapublicacion)
-                propiedad.append(fechascrap)
-                propiedad.append(metrosmin)
-                propiedad.append(metrosmax)
-                propiedad.append(dormitorios)
-                propiedad.append(banos)
-                propiedad.append(estacionamientos)
-                propiedad.append(descripcion)
-                propiedad.append(lat)
-                propiedad.append(lon)
-                propiedad.append(anoconstruccion)
-                propiedad.append(ggcc)
-                propiedad.append(link3)
-                propiedad.append(esdueno)
-                propiedad.append(telefono)
+                    try:
+                        if int(value["geoposition_is_precise"]) == 1:
+                            pos = value["geoposition"].split(',')
+                            lat = float(pos[0])
+                            lon = float(pos[1])
+                    except:
+                        pass
 
-                insertarPropiedad(propiedad)
-                try:
-                    os.remove("auxphone.gif")
-                except:
-                    pass
-                print("[SYG] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
+                    tabla = tree.xpath("""//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr""")
+                    tabla.pop(0)
 
-                time.sleep(random.uniform(1, 1.5))
+                    for row in tabla:
+                        rowname = row.find("th").text
+                        if rowname == "Tipo de inmueble":
+                            tipo = row.find("td").text
+                        elif rowname == "Superficie total":
+                            metrosmax = row.find("td").text.replace('\n','').replace('\t','').split(' ')[0]
+                        elif rowname == "Superficie útil" or rowname == "Superficie construida":
+                            metrosmin = row.find("td").text.replace('\n','').replace('\t','').split(' ')[0]
+                        elif rowname == "Baños":
+                            banos = row.find("td").text
+                            banos = int(str(banos.split(' ')[0]))
+                        elif rowname == "Estacionamiento":
+                            estacionamientos = row.find("td").text
+                        elif rowname == "Año de construcción":
+                            anoconstruccion = row.find("td").text
+                        elif rowname == "Gastos comunes":
+                            ggcc = row.find("td").text[2:]
+                            ggcc = ggcc.replace('.','')
+                            ggcc = float(ggcc)
 
-            actualizar_checker(operacion=operacion,tipo=tipo,region=idregion,pagina=i)
+
+                    propiedad = []
+                    propiedad.append(codigo)
+                    propiedad.append(idregion)
+                    propiedad.append(comuna)
+                    propiedad.append(tipo.lower())
+                    propiedad.append(titulo)
+                    propiedad.append(operacion.lower())
+                    propiedad.append(preciouf)
+                    propiedad.append(preciopesos)
+                    propiedad.append(fechapublicacion)
+                    propiedad.append(fechascrap)
+                    propiedad.append(metrosmin)
+                    propiedad.append(metrosmax)
+                    propiedad.append(dormitorios)
+                    propiedad.append(banos)
+                    propiedad.append(estacionamientos)
+                    propiedad.append(descripcion)
+                    propiedad.append(lat)
+                    propiedad.append(lon)
+                    propiedad.append(anoconstruccion)
+                    propiedad.append(ggcc)
+                    propiedad.append(link3)
+                    propiedad.append(esdueno)
+                    propiedad.append(telefono)
+
+                    propiedad.append(idregion)
+                    propiedad.append(comuna)
+                    propiedad.append(tipo.lower())
+                    propiedad.append(titulo)
+                    propiedad.append(operacion.lower())
+                    propiedad.append(preciouf)
+                    propiedad.append(preciopesos)
+                    propiedad.append(fechapublicacion)
+                    propiedad.append(fechascrap)
+                    propiedad.append(metrosmin)
+                    propiedad.append(metrosmax)
+                    propiedad.append(dormitorios)
+                    propiedad.append(banos)
+                    propiedad.append(estacionamientos)
+                    propiedad.append(descripcion)
+                    propiedad.append(lat)
+                    propiedad.append(lon)
+                    propiedad.append(anoconstruccion)
+                    propiedad.append(ggcc)
+                    propiedad.append(link3)
+                    propiedad.append(esdueno)
+                    propiedad.append(telefono)
+
+                    insertarPropiedad(propiedad)
+                    try:
+                        os.remove("auxphone.gif")
+                    except:
+                        pass
+                    print("[SYG] insertada propiedad id:" + str(propiedad[0]) + " " +str(i) + "/" + str(last))
+
+                    time.sleep(random.uniform(1, 1.5))
+
+                actualizar_checker(operacion=operacion,tipo=tipo,region=idregion,pagina=i)
 
 
 
