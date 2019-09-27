@@ -70,7 +70,7 @@ def m2prom(tipo,comuna):
 
     promarriendo=(sumarriendo) / max(len(arriendo), 1)
     promventa=float(sumventa)/max(len(venta),1)
-
+    return promventa,promarriendo
     try:
         return promventa,promarriendo
     except:
