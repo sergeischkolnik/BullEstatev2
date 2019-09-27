@@ -59,7 +59,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
         tree = html.fromstring(page.content)
         last=tree.xpath('//*[@id="tabnav"]/li[2]/h2/span[2]')
-        last=last[0].text
+        last=last[1].text
         last=last.split(' ')
         last=last[4]
         last=last.replace('.','')
