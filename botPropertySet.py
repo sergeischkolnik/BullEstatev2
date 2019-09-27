@@ -1204,7 +1204,8 @@ def adress(bot,update):
         print(direccion)
         print(latD)
         print(lonD)
-    except:
+    except Exception as e:
+        print(e)
         bot.send_message(chat_id=update.message.chat_id, text="Dirección incorrecta. Favor revisar y reenviar.")
         select.adress(bot,update,client)
         return pm.SELECT_ADRESS
