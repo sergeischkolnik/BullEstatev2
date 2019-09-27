@@ -1013,10 +1013,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     # precio
                     subresultado.append(int(prop[5]))
                     if tipo=="casa":
-                        subresultado.append(int(10*(prop[5])/prop[8])/10)
-                        subresultado.append(int(10*(prop[5])/prop[9])/10)
+                        subresultado.append(int(10*(prop[5])/(ufn*prop[8]))/10)
+                        subresultado.append(int(10*(prop[5])/(ufn*prop[9]))/10)
                     else:
-                        subresultado.append(int(20*(prop[5])/(prop[9]+prop[8]))/10)
+                        subresultado.append(int(20*(prop[5])/(ufn*(prop[9]+prop[8])))/10)
 
                     # util
                     subresultado.append(int(prop[8]))
@@ -1106,10 +1106,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             # precio venta tasado
                             subresultado.append(precioV)
                             if tipo=="casa":
-                                subresultado.append(int(10*(precioV)/prop[8])/10)
-                                subresultado.append(int(10*(precioV)/prop[9])/10)
+                                subresultado.append(int(10*(precioV)/(ufn*prop[8]))/10)
+                                subresultado.append(int(10*(precioV)/(ufn*prop[9]))/10)
                             else:
-                                subresultado.append(int(20*(prop[5])/(prop[9]+prop[8]))/10)
+                                subresultado.append(int(20*(prop[5])/(ufn*(prop[9]+prop[8])))/10)
                             # rentabilidad de venta
                             subresultado.append(float(rentaV))
 

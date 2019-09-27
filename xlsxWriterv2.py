@@ -78,7 +78,7 @@ def writeXlsx(file, data, columnnames, operacion):
     index_r_v = columnnames.index("Rent. Venta") if "Rent. Venta" in columnnames else -1
     index_r_a = columnnames.index("Rent. Arriendo") if "Rent. Arriendo" in columnnames else -1
 
-   
+
     index_precio = columnnames.index("Precio") if "Precio" in columnnames else -1
     index_precio_a_t = columnnames.index("Pr. Arriendo Tasado") if "Pr. Arriendo Tasado" in columnnames else -1
     index_fecha_e = columnnames.index("fecha encontrado") if "fecha encontrado" in columnnames else -1
