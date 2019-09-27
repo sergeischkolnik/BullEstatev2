@@ -21,7 +21,6 @@ while True:
     print(pagina)
     try:
         scraper.main(pagina,True)
-    except Exception as e:
+    except:
         print("[SYG] ERROR DE SCRAPER. INICIANDO NUEVAMENTE EN 60 SEGUNDOS")
-        print(e)
         time.sleep(60)
