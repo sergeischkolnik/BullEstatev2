@@ -16,6 +16,7 @@ def ultimo():
 
 while True:
     last=ultimo()[0]
+    print("LAST:" + str(last))
     tipo=last[1]
     op=last[0]
     region=last[2]
