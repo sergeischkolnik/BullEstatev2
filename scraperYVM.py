@@ -61,8 +61,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
         last=tree.xpath('//*[@id="tabnav"]/li[2]/h2/span[2]')
         last=last[0].text
         last=last.split(' ')
-        print(last)
-        last=last[4]
+        last=last[5]
         last=last.replace('.','')
         last=int(last)
         last=int(last/50)+1
