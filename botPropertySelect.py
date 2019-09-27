@@ -650,8 +650,10 @@ def confirm_report(bot,update,client):
     if client["tipo"]=="Departamento":
         if "DormMin" in client and "DormMax" in client:
             confirmtext.append("Dormitorios: " + str(client["DormMin"])+" - "+str(client["DormMax"]))
-        else:
+        elif "dormitorios" in client:
             confirmtext.append("Dormitorios: "+client["dormitorios"])
+        else:
+            pass
         if "BathMin" in client and "BathMax" in client:
             confirmtext.append("Baños: " + str(client["BathMin"])+" - "+str(client["BathMax"]))
         else:
