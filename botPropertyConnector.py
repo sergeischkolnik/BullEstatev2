@@ -301,8 +301,8 @@ def tasador(client):
         print("precio de venta es de: "+str(precioA))
 
 
-        textmail+="Su propiedad se ha tasado a un valor de venta de UF. "+'{:,}'.format(precioV).replace(",",".")+".\n"
-        textmail+="Su propiedad se ha tasado a un valor de arriendo de $. "+'{:,}'.format(precioA).replace(",",".")+"."
+        textmail+="Su propiedad se ha tasado a un valor de venta de UF. "+'{:,}'.format(int(precioV/ufn)).replace(",",".")+".\n"
+        textmail+="Su propiedad se ha tasado a un valor de arriendo de $. "+'{:,}'.format(int(precioA)).replace(",",".")+"."
 
         print("Texto Full, Check")
         return textmail
