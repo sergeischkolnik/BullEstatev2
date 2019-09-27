@@ -244,8 +244,9 @@ def menu(bot, update):
         select.id_prop(bot, update)
         return pm.SELECT_ID
     elif update.message.text == "Historial":
-        select.last(bot, update,client)
-        return pm.SELECT_LAST
+        bot.send_message(chat_id=update.message.chat_id, text="En Construccion")
+        select.menu(bot, update)
+        return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         client.pop("product")
@@ -1061,6 +1062,7 @@ def confirm_file(bot, update):
         #     text="No se ha podido crear la ficha"
         text=connector.connectorFicha(client)
         bot.send_message(chat_id=update.message.chat_id, text=text)
+
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Modificar":

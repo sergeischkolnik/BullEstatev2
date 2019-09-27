@@ -961,7 +961,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         if idCliente is not None:
                             ya=yaReportado(idCliente=idCliente,idProp=idProp)
                             if ya[0]:
-                                fechareporte=ya[1]
+                                pass
+                                #fechareporte=ya[1]
                             else:
                                 fechareporte=fechahoy
                         else:
@@ -970,7 +971,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                          if idCliente is not None:
                             ya=yaReportadoYapo(idCliente=idCliente,idProp=idProp)
                             if ya[0]:
-                                fechareporte=ya[1]
+                                pass
+                                #fechareporte=ya[1]
                             else:
                                 fechareporte=fechahoy
                          else:
