@@ -52,13 +52,13 @@ def insertarPropiedad(propiedad):
 
 def main(pagRec=1,isRecovery=False,ocr=None):
 
-
-
     while(True):
         link='https://www.yapo.cl/chile/inmuebles?ca=15_s&l=0&cmn=&st=a'
         page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
         tree = html.fromstring(page.content)
+
         last=tree.xpath('//*[@id="tabnav"]/li[2]/h2/span[2]')
+        print(last)
         last=last[0].text
         last=last.split(' ')
         last=last[5]
