@@ -53,6 +53,11 @@ def signedup(bot,update):
 
     global STATE
     client = clientsDict[update.message.from_user.id]
+    global lastoperations
+    lastoperations={}
+    lastoperations["Reporte"]=[]
+    lastoperations["Tasador"]=[]
+    lastoperations["Ficha"]=[]
 
     if update.message.text == "Si":
         data = db.registered_data(update.message.from_user.id)
@@ -186,10 +191,6 @@ def menu(bot, update):
     """
     # Set state:
     global STATE
-    lastoperations={}
-    lastoperations["Reporte"]=[]
-    lastoperations["Tasador"]=[]
-    lastoperations["Ficha"]=[]
 
     #Reset client
     client = clientsDict[update.message.from_user.id]
@@ -273,7 +274,7 @@ def last(bot, update):
 
     print(client)
 
-    if update.message.text == "Reporte":
+    if update.message.text == "Reporte" and len(lastoperations[update.message.text])>0:
         if "reporteThread" in client.keys() and client["reporteThread"].isAlive():
             bot.send_message(chat_id=update.message.chat_id, text="Ya se está generando un reporte. Por favor espere que"
                                                                   " éste termine antes de comenzar otro. Si ha pasado "
@@ -283,14 +284,18 @@ def last(bot, update):
             return pm.MENU
         else:
             client["last"] = update.message.text
-            select.last(bot, update,client)
-            return pm.SELECT_LAST
-    elif update.message.text == "Tasador":
-        select.operacion(bot, update,client)
-        return pm.SELECT_OP
-    elif update.message.text == "Ficha":
-        select.id_prop(bot, update)
-        return pm.SELECT_ID
+            client=lastoperations[update.message.text][0]
+
+            select.confirm_report(bot, update,client)
+            return pm.CONFIRM_REPORT
+    elif update.message.text == "Tasador" and len(lastoperations[update.message.text])>0:
+        client=lastoperations[update.message.text][0]
+        select.confirm_tasacion(bot, update,client)
+        return pm.CONFIRM_TASACION
+    elif update.message.text == "Ficha" and len(lastoperations[update.message.text])>0:
+        client=lastoperations[update.message.text][0]
+        select.confirm_file(bot, update,client,False,False)
+        return pm.CONFIRM_FILE
     elif update.message.text == "Atrás":
         select.menu(bot, update)
         return pm.MENU
