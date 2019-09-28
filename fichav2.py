@@ -383,6 +383,11 @@ def crearFicha(sitio,id,mail,tipoficha):
         trainingV = propsV.copy()
         for row in trainingV:
             del row[13]
+            if tipo not in ["departamento","Casa","Oficina"]:
+                del row[12]
+                del row[7]
+                if tipo != "local":
+                    del row[6]
             del row[5]
             del row[4]
             del row[3]
@@ -416,6 +421,11 @@ def crearFicha(sitio,id,mail,tipoficha):
         trainingA = propsA.copy()
         for row in trainingA:
             del row[13]
+            if tipo not in ["departamento","Casa","Oficina"]:
+                del row[12]
+                del row[7]
+                if tipo != "local":
+                    del row[6]
             del row[5]
             del row[4]
             del row[3]
@@ -436,11 +446,15 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF."+str((int(10*(m2V/ufn)))/10)+"\nPrecio m2 Arriendo: $"+str((int(m2A)))+"\n\n"
 
+        if tipo not in ["departamento", "Casa", "Oficina"]:
+            prop=[banos, metrosmin, metrosmax, lat, lon]
+            if tipo != "local":
+                prop = [metrosmin, metrosmax, lat, lon]
+        else:
+            prop = [dormitorios, banos, metrosmin, metrosmax, lat, lon, estacionamientos]
 
-        tasacionVenta = clfHV.predict([[dormitorios, banos, metrosmin, metrosmax, lat, lon, estacionamientos]])
-        tasacionArriendo = clfHA.predict(
-        [[dormitorios, banos, metrosmin, metrosmax, lat, lon, estacionamientos]])
-
+        tasacionVenta = clfHV.predict([prop])
+        tasacionArriendo = clfHA.predict([prop])
 
         precioV = tasacionVenta
         precioA = tasacionArriendo
