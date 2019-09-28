@@ -21,7 +21,8 @@ def generateAgent():
     safariList = ["Safari/7046A194A","Safari/8536.25","Safari/534.57.2","Safari/534.53.10","Safari/7534.48.3","Safari/533.21.1"]
     safari = random.choice(safariList)
     firefox = "Firefox/" + str(random.randint(24,65)) + ".0"
-    browserList = [chrome]*6 + [safari]*2 + [firefox]
+    #browserList = [chrome]*6 + [safari]*2 + [firefox]
+    browserList = [chrome] * 0 + [safari] * 2 + [firefox]
     browserFinal = random.choice(browserList)
 
     finalUser = mozillaFinal + " " + osFinal + " (KHTML, like Gecko) " + browserFinal
