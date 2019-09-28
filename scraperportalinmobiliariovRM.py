@@ -615,7 +615,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                             dueno.append(emailvendedor)
                             dueno.append(esDueno(emailvendedor))
                             dueno.append(telefonoVendedor)
-                        print(dueno)
 
                 dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
                 date = tree3.xpath(dateSite)
