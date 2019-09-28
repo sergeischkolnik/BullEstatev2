@@ -597,7 +597,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
                 for x,a in enumerate(rtext):
                     if 'emailVendedor' in a:
-                        print("si tiene dueño, este es: ")
                         emailvendedor=rtext[x+2]
                         emailvendedor=emailvendedor.replace('\r\n','')
                         emailvendedor=emailvendedor.replace('"','')
@@ -618,7 +617,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                             dueno.append(telefonoVendedor)
                         print(dueno)
 
-                print(newLink)
                 dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
                 date = tree3.xpath(dateSite)
                 if len(date) > 0:
