@@ -594,9 +594,10 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                             telefonoVendedor=rtext[x+3]
                             telefonoVendedor=str(telefonoVendedor)
                             telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
-
+                hasContacto="No"
                 for x,a in enumerate(rtext):
                     if 'emailVendedor' in a:
+                        hasContacto="Yes"
                         emailvendedor=rtext[x+2]
                         emailvendedor=emailvendedor.replace('\r\n','')
                         emailvendedor=emailvendedor.replace('"','')
@@ -690,7 +691,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 aux.append(newLink)
 
                 lista=lista+1
-                print ("[SPIVM] "+ str(tipo) + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista))
+                print ("[SPIVM] "+ str(tipo) + "s en "+operacion+" registradas/os en: "+str(region)+": "+str(lista)+" Contact data found: "+str(hasContacto))
                 time.sleep(random.uniform(0,0.5))
 
                 try:
