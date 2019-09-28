@@ -366,8 +366,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
     for j in range(desde, hasta):
         try:
-            #page2 = requests.get(subsites[j], headers={'User-Agent': agentCreator.generateAgent()})
-            page2 = requests.get(subsites[j])
+            page2 = requests.get(subsites[j], headers={'User-Agent': agentCreator.generateAgent(),'Cookies':False})
             tree2 = html.fromstring(page2.content)
 
 
@@ -462,8 +461,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     continue
 
                 try:
-                    #page3 = requests.get(newLink, headers={'User-Agent': agentCreator.generateAgent()})
-                    page3 = requests.get(newLink)
+                    page3 = requests.get(newLink, headers={'User-Agent': agentCreator.generateAgent()})
                     tree3 = html.fromstring(page3.content)
                 except:
                     print("[SPIVM] fail")
