@@ -961,7 +961,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         if idCliente is not None:
                             ya=yaReportado(idCliente=idCliente,idProp=idProp)
                             if ya[0]:
-                                pass
+                                continue
                                 #fechareporte=ya[1]
                             else:
                                 fechareporte=fechahoy
@@ -971,7 +971,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                          if idCliente is not None:
                             ya=yaReportadoYapo(idCliente=idCliente,idProp=idProp)
                             if ya[0]:
-                                pass
+                                continue
                                 #fechareporte=ya[1]
                             else:
                                 fechareporte=fechahoy
@@ -1111,7 +1111,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                 subresultado.append(int(10*(precioV)/(ufn*prop[8]))/10)
                                 subresultado.append(int(10*(precioV)/(ufn*prop[9]))/10)
                             else:
-                                subresultado.append(int(20*(prop[5])/(ufn*(prop[9]+prop[8])))/10)
+                                subresultado.append(int(20*(precioV)/(ufn*(prop[9]+prop[8])))/10)
                             # rentabilidad de venta
                             subresultado.append(float(rentaV))
 
@@ -1274,7 +1274,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
                         continue
     #Arreglar Mandada de mails
-    if len(listaAdjuntos)>0:
+    if len(listaAdjuntos)>0 and :
         print('proceder a mandar correo')
         sendmail.sendMailMultipleText(mail, nombreCliente, listaAdjuntos,textmail)
         return True

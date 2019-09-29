@@ -138,8 +138,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
         else:
             precioA =datospro[0]
-            print(precioA[0])
-            precioA=str(format(precioA[0],','))
+            precioA=int(precioA[0])
+            precioA=str(format(precioA,','))
             precioA=precioA.replace(',','.')
             precioA='$ '+precioA
             headersrentabilidad.append("Tasación Arriendo")
