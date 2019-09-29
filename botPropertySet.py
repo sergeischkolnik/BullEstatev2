@@ -1056,13 +1056,13 @@ def confirm_file(bot, update):
 
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
-        # try:
-        #     text=connector.connectorFicha(client)
-        # except:
-        #     text="No se ha podido crear la ficha"
-        text=connector.connectorFicha(client)
-        bot.send_message(chat_id=update.message.chat_id, text=text)
+        try:
+            text=connector.connectorFicha(client)
+        except Exception as e:
+            print(e)
+            text="No se ha podido crear la ficha"
 
+        bot.send_message(chat_id=update.message.chat_id, text=text)
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Modificar":
