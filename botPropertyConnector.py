@@ -170,9 +170,13 @@ def connectorFicha(client):
         if len(auxid)==0:
             return "La propiedad buscada no se encuentra en la base de datos"
         else:
-            print(auxid[0])
-            text = ficha.crearFicha(client["sitio"], auxid[0], client["mail"], tipoficha)
-            return text
+            try:
+                print(auxid[0])
+                text = ficha.crearFicha(client["sitio"], auxid[0], client["mail"], tipoficha)
+                return text
+            except Exception as e:
+                print(e)
+                return "Se ha producido un error, no se crear la ficha."
 
 def tasador(client):
 
