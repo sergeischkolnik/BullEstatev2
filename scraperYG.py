@@ -50,13 +50,18 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 
-def main(pagRec=1,isRecovery=False,ocr=None):
+def main(pagRec=1,,regRec=1,isRecovery=False,ocr=None):
 
     regiones = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
 
     while(True):
 
         for reg in regiones:
+
+            if isRecovery:
+                if reg != regRec:
+                    continue
+
             link="https://www.yapo.cl/atacama/inmuebles?ca="+str(reg)+"_s&st=a&cg=1000"
             page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
             tree = html.fromstring(page.content)
