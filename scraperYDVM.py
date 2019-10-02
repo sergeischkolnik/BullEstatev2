@@ -161,6 +161,10 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
 
                 precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
                 precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
+
+                if len(precio1) < 0:
+                    continue
+
                 if ('$') in precio2[0].text:
                     preciopesos=precio2[0].text
                     preciouf=precio1[0].text

@@ -167,7 +167,8 @@ def main(pagRec=1,isRecovery=False,ocr=None):
                     '//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong'
                     '//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span'
 
-                    print(link3)
+                    if len(precio1)<0:
+                        continue
 
                     if ('$') in precio2[0].text:
                         preciopesos=precio2[0].text
