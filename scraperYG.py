@@ -333,4 +333,4 @@ def main(pagRec=1,isRecovery=False,ocr=None):
 
 if __name__=="__main__":
     ocr=yapo_ocr()
-    main(pagRec=1,isRecovery=False,ocr=ocr)
+    main(pagRec=13,isRecovery=True,ocr=ocr)
