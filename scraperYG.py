@@ -163,12 +163,21 @@ def main(pagRec=1,isRecovery=False,ocr=None):
 
                     precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
                     precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
+
+                    '//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong'
+                    '//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span'
+
+                    print(link3)
+
                     if ('$') in precio2[0].text:
                         preciopesos=precio2[0].text
                         preciouf=precio1[0].text
                     else:
                         preciopesos=precio1[0].text
                         preciouf=precio2[0].text
+
+
+
 
                     preciopesos=preciopesos.replace('.','')
                     preciopesos=preciopesos.replace('$','')
