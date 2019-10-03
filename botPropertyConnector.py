@@ -214,6 +214,8 @@ def tasador(client):
     if "dormitorios" not in client:
         client["dormitorios"]=0
     comuna=client["comuna"]
+    if comuna=="Santiago Centro":
+        comuna="Santiago"
     listacomunas=[]
     listacomunas.append(comuna)
 
