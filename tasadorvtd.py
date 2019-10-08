@@ -131,9 +131,10 @@ def tasador(prop):
 
 def main():
     propiedades=obtenerPropiedades()
-    print(propiedades)
-    # for prop in propiedades:
-    #     tasador(prop)
+
+    for prop in propiedades:
+        print(prop)
+        #tasador(prop)
 
 if __name__ == '__main__':
     main()
