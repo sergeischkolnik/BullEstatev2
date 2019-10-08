@@ -536,7 +536,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                         baths = str(baths)
                         baths = baths[2]
                         baths = float(baths)
-                        print("baños encontrados de forma tradicional: " + str(baths))
                     else:
                         bathSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[2]/div[1]/div[2]/p/text()[2]'
                         baths = tree3.xpath(bathSite)
@@ -544,7 +543,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                             baths = str(baths)
                             baths = baths[2]
                             baths = float(baths)
-                            print("baños encontrados de forma tradicional: "+str(baths))
                         else:
 
                             baths = None
@@ -571,7 +569,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     #no es dueño
                     corredor="si"
                 rtext=rtext.split(' ')
-                print('se identifico un texto de largo: '+str(len(rtext)))
                 telefonoVendedor = "No"
 
                 for x,a in enumerate(rtext):
@@ -587,10 +584,8 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                             telefonoVendedor=str(telefonoVendedor)
                             telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
                     elif 'baño' in a and baths is None and 'dd' in a:
-                        print("encontre baño")
                         baths=rtext[x-1]
                         baths=baths[-1:]
-                        print(baths)
                     elif 'dormitorio' in a and dorms is None and 'dd' in a:
                         dorms=rtext[x-1]
                         dorms=dorms[-1:]
