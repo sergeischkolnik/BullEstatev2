@@ -382,9 +382,11 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 newLink = str((name[0]).attrib)
                 newLink = newLink[17:]
                 newLink = newLink[:-4]
+                if op=="arriendo":
+                    newLink = 'http://www.portalinmobiliario.com/venta/' + newLink
+                else:
+                    newLink = 'http://www.portalinmobiliario.com/venta/' + newLink
                 print(newLink)
-                newLink = 'http://www.portalinmobiliario.com/venta/' + newLink
-
                 name = (name[0]).text
                 price = (price[0]).text
                 price = str(price)
