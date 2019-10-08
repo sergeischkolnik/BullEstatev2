@@ -386,7 +386,6 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     newLink = 'http://www.portalinmobiliario.com/arrien' + newLink
                 else:
                     newLink = 'http://www.portalinmobiliario.com/venta/' + newLink
-                print(newLink)
                 name = (name[0]).text
                 price = (price[0]).text
                 price = str(price)
