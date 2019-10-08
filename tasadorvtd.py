@@ -43,6 +43,7 @@ def obtenerPropiedades():
     sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link from portalinmobiliario inner join duenos " \
           "WHERE portalinmobiliario.id2=duenos.idProp AND portalinmobiliario.fechascrap>='"+str(yesterday)+"' AND (duenos.mail='contacto@vendetudepto.cl' or duenos.mail='carolina@vendetudepto.cl' or duenos.mail='daniela@vendetudepto.cl' or duenos.mail='pablo@vendetudepto.cl')"
     cur.execute(sql)
+    print(sql)
     propiedad = cur.fetchall()
     if len(propiedad)>0:
         return propiedad[0]
