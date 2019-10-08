@@ -170,7 +170,9 @@ def main():
     propiedades=obtenerPropiedades()
 
     for prop in propiedades:
-        tasacion=tasador(prop)
-        print(str(prop[0])+" --- Venta: "+str(tasacion[0])+" ,arriendo: "+str(tasacion[1]))
+        if prop[3]=='departamento':
+            print(prop)
+            tasacion=tasador(prop)
+            print(str(prop[0])+" --- Venta: "+str(tasacion[0])+" ,arriendo: "+str(tasacion[1]))
 if __name__ == '__main__':
     main()
