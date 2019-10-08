@@ -35,12 +35,12 @@ import reportesHuberV1 as reportes
 
 from sklearn import ensemble
 from sklearn.model_selection import train_test_split
-
+ufn=uf.getUf()
 
 def obtenerPropiedades():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link from portalinmobiliario inner join duenos " \
+    sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link,id2 from portalinmobiliario inner join duenos " \
           "WHERE portalinmobiliario.id2=duenos.idProp AND portalinmobiliario.fechascrap>='"+str(yesterday)+"' AND (duenos.mail='contacto@vendetudepto.cl' or duenos.mail='carolina@vendetudepto.cl' or duenos.mail='daniela@vendetudepto.cl' or duenos.mail='pablo@vendetudepto.cl')"
     cur.execute(sql)
     print(sql)
@@ -88,6 +88,7 @@ def tasador(propiedad):
     lat=(propiedad[11])
     lon=(propiedad[12])
     link=str(propiedad[13])
+    id=str(propiedad[14])
 
     if operacion=='venta':
         comuna=str(link.split('/')[5])
@@ -162,22 +163,34 @@ def tasador(propiedad):
     precioV = tasacionVenta
     precioA = tasacionArriendo
     try:
-        print(precioV)
-        print(precioA)
+
         return(precioV,precioA)
     except Exception as e:
         return e,e
 
 def main():
     propiedades=obtenerPropiedades()
-
+    textprint=""
     for prop in propiedades:
         if prop[3]=='departamento' and prop[2]=='venta':
             print(prop)
             try:
                 tasacion=tasador(prop)
-                print(str(prop[0])+" --- Venta: "+str(tasacion[0])+" ,arriendo: "+str(tasacion[1]))
+                textprint+="Id Prop: "+str(prop[14])+" Precio: "+str(int(prop[4]/ufn))+" Tasacion: "+str(int(tasacion[0]/ufn))
+                if tasacion[0]>prop[4]:
+                    rent=(tasacion[0]-prop[4])/tasacion[0]
+                    rent=rent*100
+                    rent=int(rent)
+                    textprint+="La propiedad está un "+str(rent)+"% BAJO precio de mercado.\n\n"
+                elif tasacion[0]<prop[4]:
+                    rent=(-tasacion[0]+prop[4])/tasacion[0]
+                    rent=rent*100
+                    rent=int(rent)
+                    textprint+="La propiedad está un "+str(rent)+"% SOBRE precio de mercado.\n\n"
+                else:
+                    textprint+="La propiedad está a precio de mercado.\n\n"
             except Exception as e:
-                print(e)
+                pass
+    print(textprint)
 if __name__ == '__main__':
     main()
