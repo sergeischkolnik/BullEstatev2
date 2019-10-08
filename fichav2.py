@@ -99,11 +99,32 @@ def crearFicha(sitio,id,mail,tipoficha):
         return(text)
 
     else:
+        regYapoDict={
+        "Metropolitana":"15",
+        "Valparaiso":"6",
+        "Valparaíso":"6",
+        "Arica":"1",
+        "Iquique":"2",
+        "Antofagasta":"3",
+        "Atacama":"4",
+        "Coquimbo":"5",
+        "Ohiggins":"7",
+        "Maule":"8",
+        "Ñuble":"16",
+        "Biobio":"9",
+        "Araucania":"10",
+        "Los Rios":"11",
+        "Los Lagos":"12",
+        "Aysen":"13",
+        "Magallanes":"14",
+
+        }
+
         propiedad=list(propiedad)
 
         region=str(propiedad[1])
         regionP=region
-        regionY=region
+        regionY=regYapoDict[region.lower()]
         if region=='15':
             regionP='metropolitana'
         if region=='metropolitana':
@@ -365,7 +386,7 @@ def crearFicha(sitio,id,mail,tipoficha):
     if pro:
 
         propsPV = reportes.from_portalinmobiliario(tipo, regionP, [comuna], "venta", True)
-        propsYV = reportes.from_yapo(tipo, region, [comuna], True, "venta", True)
+        propsYV = reportes.from_yapo(tipo, regionY, [comuna], True, "venta", True)
         propsV = propsPV + propsYV
         # aca deberiamos hacer el GB
 

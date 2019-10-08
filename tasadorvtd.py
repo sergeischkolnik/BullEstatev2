@@ -51,15 +51,67 @@ def obtenerPropiedades():
         return 0
 
 
-def tasador(prop):
-    propsPV = reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),listacomunas,"venta",True)
-    propsYV = reportes.from_yapo(client["tipo"].lower(),regionYapo,listacomunas,True,"venta",True)
+def tasador(propiedad):
+    regYapoDict={
+        "Metropolitana":"15",
+        "Valparaiso":"6",
+        "Valparaíso":"6",
+        "Arica":"1",
+        "Iquique":"2",
+        "Antofagasta":"3",
+        "Atacama":"4",
+        "Coquimbo":"5",
+        "Ohiggins":"7",
+        "Maule":"8",
+        "Ñuble":"16",
+        "Biobio":"9",
+        "Araucania":"10",
+        "Los Rios":"11",
+        "Los Lagos":"12",
+        "Aysen":"13",
+        "Magallanes":"14",
+
+        }
+    region=str(propiedad[1])
+    regionP=region
+    regionY=regYapoDict[region.lower()]
+
+    operacion=str(propiedad[2])
+    tipo=str(propiedad[3])
+    precio=float(propiedad[4])
+    dormitorios=str(propiedad[5])
+    banos=str(propiedad[6])
+    metrosmin=str(propiedad[7])
+    metrosmax=str(propiedad[8])
+    estacionamientos=str(propiedad[9])
+    bodegas=str(propiedad[10])
+    lat=str(propiedad[11])
+    lon=str(propiedad[12])
+    link=str(propiedad[13])
+
+    if operacion=='venta':
+        comuna=str(link.split('/')[5])
+        comuna=comuna.replace('-'+str(regionP),'')
+        comuna=comuna.replace('-',' ')
+        comuna=comuna.capitalize()
+        propiedad.append(comuna)
+
+    else:
+        comuna=str(link.split('/')[6])
+        comuna=comuna.replace('-metropolitana','')
+        comuna=comuna.replace('-',' ')
+        comuna=comuna.capitalize()
+        propiedad.append(comuna)
+
+    #Revisar si existe aun la publicacion
+    if not pubPortalExiste.publicacionExiste(link):
+        text='Propiedad ya no se encuentra disponible en el sitio.'
+        return(text)
+
+    propsPV = reportes.from_portalinmobiliario(tipo,region,[comuna],"venta",True)
+    propsYV = reportes.from_yapo(tipo,regionY,[comuna],True,"venta",True)
     propsV = propsPV + propsYV
     # aca deberiamos hacer el GB
-
-    m2=reportes.m2prom(client["tipo"].lower(),comuna,client["region"].lower())
-    m2V=m2[0]
-    m2A=m2[1]
 
     clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
                                               learning_rate=0.1, loss='huber')
@@ -78,19 +130,11 @@ def tasador(prop):
         del row[1]
         del row[0]
 
-    x_train , x_test , y_train , y_test = train_test_split(trainingV , preciosV , test_size = 0.10,random_state = 2)
-
-    #obtain scores venta:
-    clfHV.fit(x_train, y_train)
-    print("-----------")
-    print("Score Huber:")
-    print(clfHV.score(x_test,y_test))
-    scoreV=clfHV.score(x_test,y_test)
 
     clfHV.fit(trainingV, preciosV)
 
-    propsPA = reportes.from_portalinmobiliario(client["tipo"].lower(),client["region"].lower(),listacomunas,"arriendo",True)
-    propsYA = reportes.from_yapo(client["tipo"].lower(),regionYapo,listacomunas,True,"arriendo",True)
+    propsPA = reportes.from_portalinmobiliario(tipo,region,[comuna],"arriendo",True)
+    propsYA = reportes.from_yapo(tipo,regionY,[comuna],True,"arriendo",True)
     propsA = propsPA + propsYA
     # aca deberiamos hacer el GB
 
@@ -111,30 +155,24 @@ def tasador(prop):
         del row[1]
         del row[0]
 
-    x_train , x_test , y_train , y_test = train_test_split(trainingA , preciosA , test_size = 0.10,random_state = 2)
-
-    #obtain scores arriendo:
-    clfHA.fit(x_train, y_train)
-    print("-----------")
-    print("Score Huber:")
-    print(clfHA.score(x_test,y_test))
-    scoreA=clfHA.score(x_test,y_test)
 
     clfHA.fit(trainingA, preciosA)
 
-    textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF "+'{:,}'.format((int(10*(m2V/ufn)))/10).replace(",",".")+"\nPrecio m2 Arriendo: $ "+'{:,}'.format(int(m2A)).replace(",",".")+"\n\n"
-    tasacionVenta = clfHV.predict([[int(client["dormitorios"]),int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
-    tasacionArriendo = clfHA.predict([[int(client["dormitorios"]),int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
+    tasacionVenta = clfHV.predict([[int(dormitorios),int(banos), int(metrosmin),int(metrosmax), lat,lon, int(estacionamientos)]])
+    tasacionArriendo = clfHA.predict([[int(dormitorios),int(banos), int(metrosmin),int(metrosmax), lat,lon, int(estacionamientos)]])
 
     precioV = tasacionVenta
     precioA = tasacionArriendo
+    try:
+        return(precioV,precioA)
+    except Exception as e:
+        return e,e
 
 def main():
     propiedades=obtenerPropiedades()
 
     for prop in propiedades:
-        print(prop)
-        #tasador(prop)
-
+        tasacion=tasador(prop)
+        print(str(prop[0])+" --- Venta: "+str(tasacion[0])+" ,arriendo: "+str(tasacion[1]))
 if __name__ == '__main__':
     main()
