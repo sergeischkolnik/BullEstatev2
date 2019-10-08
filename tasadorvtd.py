@@ -43,7 +43,6 @@ def obtenerPropiedades():
     sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link,id2 from portalinmobiliario inner join duenos " \
           "WHERE portalinmobiliario.id2=duenos.idProp AND portalinmobiliario.fechascrap>='"+str(yesterday)+"' AND (duenos.mail='contacto@vendetudepto.cl' or duenos.mail='carolina@vendetudepto.cl' or duenos.mail='daniela@vendetudepto.cl' or duenos.mail='pablo@vendetudepto.cl')"
     cur.execute(sql)
-    print(sql)
     propiedad = cur.fetchall()
     if len(propiedad)>0:
         return propiedad
@@ -171,9 +170,11 @@ def tasador(propiedad):
 def main():
     propiedades=obtenerPropiedades()
     textprint=""
+    c=0
     for prop in propiedades:
+        c+=1
+        print(str(c)+"/"+str(len(propiedades)))
         if prop[3]=='departamento' and prop[2]=='venta':
-            print(prop)
             try:
                 tasacion=tasador(prop)
                 textprint+="Id Prop: "+str(prop[14])+" Precio: "+str(int(prop[4]/ufn))+" Tasacion: "+str(int(tasacion[0]/ufn))
