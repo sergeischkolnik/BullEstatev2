@@ -79,8 +79,8 @@ def tasador(propiedad):
     operacion=str(propiedad[2])
     tipo=str(propiedad[3])
     precio=float(propiedad[4])
-    dormitorios=str(propiedad[5])
-    banos=str(propiedad[6])
+    dormitorios=(propiedad[5])
+    banos=(propiedad[6])
     metrosmin=(propiedad[7])
     metrosmax=(propiedad[8])
     estacionamientos=(propiedad[9])
@@ -162,6 +162,8 @@ def tasador(propiedad):
     precioV = tasacionVenta
     precioA = tasacionArriendo
     try:
+        print(precioV)
+        print(precioA)
         return(precioV,precioA)
     except Exception as e:
         return e,e
