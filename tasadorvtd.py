@@ -94,14 +94,12 @@ def tasador(propiedad):
         comuna=comuna.replace('-'+str(regionP),'')
         comuna=comuna.replace('-',' ')
         comuna=comuna.capitalize()
-        propiedad.append(comuna)
 
     else:
         comuna=str(link.split('/')[6])
         comuna=comuna.replace('-metropolitana','')
         comuna=comuna.replace('-',' ')
         comuna=comuna.capitalize()
-        propiedad.append(comuna)
 
     #Revisar si existe aun la publicacion
     if not pubPortalExiste.publicacionExiste(link):
