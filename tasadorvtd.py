@@ -172,7 +172,10 @@ def main():
     for prop in propiedades:
         if prop[3]=='departamento':
             print(prop)
-            tasacion=tasador(prop)
-            print(str(prop[0])+" --- Venta: "+str(tasacion[0])+" ,arriendo: "+str(tasacion[1]))
+            try:
+                tasacion=tasador(prop)
+                print(str(prop[0])+" --- Venta: "+str(tasacion[0])+" ,arriendo: "+str(tasacion[1]))
+            except Exception as e:
+                print(e)
 if __name__ == '__main__':
     main()
