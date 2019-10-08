@@ -81,12 +81,12 @@ def tasador(propiedad):
     precio=float(propiedad[4])
     dormitorios=str(propiedad[5])
     banos=str(propiedad[6])
-    metrosmin=str(propiedad[7])
-    metrosmax=str(propiedad[8])
-    estacionamientos=str(propiedad[9])
+    metrosmin=(propiedad[7])
+    metrosmax=(propiedad[8])
+    estacionamientos=(propiedad[9])
     bodegas=str(propiedad[10])
-    lat=str(propiedad[11])
-    lon=str(propiedad[12])
+    lat=(propiedad[11])
+    lon=(propiedad[12])
     link=str(propiedad[13])
 
     if operacion=='venta':
@@ -170,7 +170,7 @@ def main():
     propiedades=obtenerPropiedades()
 
     for prop in propiedades:
-        if prop[3]=='departamento':
+        if prop[3]=='departamento' and prop[2]=='venta':
             print(prop)
             try:
                 tasacion=tasador(prop)
