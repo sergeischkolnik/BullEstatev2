@@ -382,6 +382,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 newLink = str((name[0]).attrib)
                 newLink = newLink[17:]
                 newLink = newLink[:-4]
+                print(newLink)
                 newLink = 'http://www.portalinmobiliario.com/venta/' + newLink
 
                 name = (name[0]).text
@@ -566,7 +567,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     #no es dueño
                     corredor="si"
                 rtext=rtext.split(' ')
-                print('se identifico un texto cde largo: '+str(len(rtext)))
+                print('se identifico un texto de largo: '+str(len(rtext)))
                 telefonoVendedor = "No"
 
                 for x,a in enumerate(rtext):
