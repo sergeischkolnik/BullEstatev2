@@ -383,7 +383,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 newLink = newLink[17:]
                 newLink = newLink[:-4]
                 if op=="arriendo":
-                    newLink = 'http://www.portalinmobiliario.com/venta/' + newLink
+                    newLink = 'http://www.portalinmobiliario.com/arrien' + newLink
                 else:
                     newLink = 'http://www.portalinmobiliario.com/venta/' + newLink
                 print(newLink)
