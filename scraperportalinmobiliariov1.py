@@ -550,6 +550,17 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 r = session.get(newLink)
                 mails = []
                 corredor="no"
+
+                dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
+                date = tree3.xpath(dateSite)
+                if len(date) > 0:
+                    date = date[0].text
+                    date = date[11:]
+                    dateSplit = date.split('-')
+                    date = dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0]
+                else:
+                    date = None
+
                 rtext=r.text
                 if "empresas/ficha" in rtext:
                     #no es dueño
@@ -570,6 +581,24 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                             telefonoVendedor=rtext[x+3]
                             telefonoVendedor=str(telefonoVendedor)
                             telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
+                    elif 'baño' in a and baths is None and 'dd' in a:
+                        baths=rtext[x-1]
+                        baths=baths[-1:]
+                    elif 'dormitorio' in a and dorms is None and 'dd' in a:
+                        dorms=rtext[x-1]
+                        dorms=dorms[-1:]
+                    elif 'latitude' in a and lat is None and ':' in a:
+                        lat=rtext[x+1]
+                        lat=lat[:-1]
+                    elif 'longitude' in a and lon is None and ':' in a:
+                        lon=rtext[x+1]
+                        lon=lon[:-1]
+                    elif 'fecha' in a and "de" in rtext[x+1] and 'publicacion' in rtext[x+2] and date is None:
+                        date=rtext[x+4]
+                        date=date.replace('class="info">','')
+                        date = date.replace('</p>', '')
+                        dateSplit = date.split('-')
+                        date = dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0]
 
                 for x,a in enumerate(rtext):
                     if 'emailVendedor' in a:
@@ -592,15 +621,7 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                             dueno.append(esDueno(emailvendedor))
                             dueno.append(telefonoVendedor)
 
-                dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
-                date = tree3.xpath(dateSite)
-                if len(date) > 0:
-                    date = date[0].text
-                    date = date[11:]
-                    dateSplit = date.split('-')
-                    date = dateSplit[2]+'-'+dateSplit[1]+'-'+dateSplit[0]
-                else:
-                    date = None
+
 
                 split = subsites[j].split('/')
 
