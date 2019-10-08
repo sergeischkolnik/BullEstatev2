@@ -46,9 +46,9 @@ def obtenerPropiedades():
     print(sql)
     propiedad = cur.fetchall()
     if len(propiedad)>0:
-        return propiedad[0]
-    else:
         return propiedad
+    else:
+        return 0
 
 
 def tasador(prop):
