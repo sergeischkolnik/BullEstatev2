@@ -858,6 +858,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         propsV = propsPV + propsYV
         # aca deberiamos hacer el GB
 
+        if comuna=='Santiago Centro':
+            comuna='santiago'
+
         m2=m2prom(tipo,comuna,region)
         m2V=m2[0]
         m2A=m2[1]
