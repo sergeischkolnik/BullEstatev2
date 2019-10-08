@@ -41,7 +41,7 @@ def obtenerPropiedades():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link,id2 from portalinmobiliario inner join duenos " \
-          "WHERE portalinmobiliario.id2=duenos.idProp AND portalinmobiliario.fechascrap>='"+str(yesterday)+"' AND (duenos.mail='contacto@vendetudepto.cl' or duenos.mail='carolina@vendetudepto.cl' or duenos.mail='daniela@vendetudepto.cl' or duenos.mail='pablo@vendetudepto.cl')"
+          "WHERE portalinmobiliario.id2=duenos.idProp AND portalinmobiliario.fechascrap>='"+str(yesterday)+"' AND (duenos.mail='contacto@vendetudepto.cl' or duenos.mail='carolina@vendetudepto.cl' or duenos.mail='daniela@vendetudepto.cl' or duenos.mail='pablo@vendetudepto.cl') and portalinmobiliario.operacion='venta' and portalinmobiliario.tipo='departamento'"
     cur.execute(sql)
     propiedad = cur.fetchall()
     if len(propiedad)>0:
@@ -182,14 +182,15 @@ def main():
                     rent=(tasacion[0]-prop[4])/tasacion[0]
                     rent=rent*100
                     rent=int(rent)
-                    textprint+="La propiedad está un "+str(rent)+"% BAJO precio de mercado.\n\n"
-                elif tasacion[0]<prop[4]:
-                    rent=(-tasacion[0]+prop[4])/tasacion[0]
-                    rent=rent*100
-                    rent=int(rent)
-                    textprint+="La propiedad está un "+str(rent)+"% SOBRE precio de mercado.\n\n"
+                    textprint+="La propiedad está un "+str(rent)+"% BAJO precio de mercado."
+                #elif tasacion[0]<prop[4]:
+                    # rent=(-tasacion[0]+prop[4])/tasacion[0]
+                    # rent=rent*100
+                    # rent=int(rent)
+                    # textprint+="La propiedad está un "+str(rent)+"% SOBRE precio de mercado."
                 else:
-                    textprint+="La propiedad está a precio de mercado.\n\n"
+                    pass
+                    #textprint+="La propiedad está a precio de mercado.\n\n"
             except Exception as e:
                 pass
     print(textprint)
