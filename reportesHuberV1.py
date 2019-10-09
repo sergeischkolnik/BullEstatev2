@@ -1075,7 +1075,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
                     if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
 
-                        if verboso:
+                        if verboso and tipo!= 'comercial':
                             print("[GeneradorReportes] renta promedio para la comuna de: " + str(
                                 comuna) + " para propiedades tipo " + str(tipo) + " de " + str(
                                 int(prop[6])) + " dormitorios, " + str(int(prop[7])) + " baños")
