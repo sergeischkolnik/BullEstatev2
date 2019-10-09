@@ -239,6 +239,9 @@ def tasador(client):
     trainingV = propsV.copy()
     for row in trainingV:
         del row[13]
+        if client["tipo"].lower()=="comercial":
+            del row[7]
+            del row[6]
         del row[5]
         del row[4]
         del row[3]
@@ -272,6 +275,9 @@ def tasador(client):
     trainingA = propsA.copy()
     for row in trainingA:
         del row[13]
+        if client["tipo"].lower()=="comercial":
+            del row[7]
+            del row[6]
         del row[5]
         del row[4]
         del row[3]
@@ -291,8 +297,13 @@ def tasador(client):
     clfHA.fit(trainingA, preciosA)
 
     textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF "+'{:,}'.format((int(10*(m2V/ufn)))/10).replace(",",".")+"\nPrecio m2 Arriendo: $ "+'{:,}'.format(int(m2A)).replace(",",".")+"\n\n"
-    tasacionVenta = clfHV.predict([[int(client["dormitorios"]),int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
-    tasacionArriendo = clfHA.predict([[int(client["dormitorios"]),int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
+
+    if client["tipo"].lower()=="comercial":
+        tasacionVenta = clfHV.predict([[ int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
+        tasacionArriendo = clfHA.predict([[int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
+    else:
+        tasacionVenta = clfHV.predict([[int(client["dormitorios"]),int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
+        tasacionArriendo = clfHA.predict([[int(client["dormitorios"]),int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
 
     precioV = tasacionVenta
     precioA = tasacionArriendo

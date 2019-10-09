@@ -875,6 +875,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         trainingV = propsV.copy()
         for row in trainingV:
             del row[13]
+            if tipo=="comercial":
+                del row[7]
+                del row[6]
             del row[5]
             del row[4]
             del row[3]
@@ -908,6 +911,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         trainingA = propsA.copy()
         for row in trainingA:
             del row[13]
+            if tipo=="comercial":
+                del row[7]
+                del row[6]
             del row[5]
             del row[4]
             del row[3]
@@ -935,19 +941,22 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                                latmin,latmax,lonmin,lonmax,d,d,b,
                                                b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
+                if tipo!='comercial':
+                    propiedadesY = from_yapo_select(past, yesterday, preciomin, preciomax, utilmin, utilmax,
+                                                                 totalmin, totalmax,
+                                                                 latmin, latmax, lonmin, lonmax, d, d, b,
+                                                                 b, estacionamientos, bodegas, tipo, operacion, region,
+                                                                 comuna, "asdasd", "asdasd",
+                                                                 "asdasd", "asdasd", "asdasd",latlonyapo, verboso)
 
-                propiedadesY = from_yapo_select(past, yesterday, preciomin, preciomax, utilmin, utilmax,
-                                                             totalmin, totalmax,
-                                                             latmin, latmax, lonmin, lonmax, d, d, b,
-                                                             b, estacionamientos, bodegas, tipo, operacion, region,
-                                                             comuna, "asdasd", "asdasd",
-                                                             "asdasd", "asdasd", "asdasd",latlonyapo, verboso)
 
 
 
+
+                    propiedades=propiedadesP+propiedadesY
+                else:
+                    propiedades=propiedadesP
                 resultado = []
-
-                propiedades=propiedadesP+propiedadesY
 
                 if verboso:
                     print("[GeneradorReportes] total propiedades encontradas: "+str(len(propiedades)))
@@ -1048,10 +1057,14 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     # Aca hacer prediccion
                     # select -> id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,bodegas,link,id
                     # modelo -> dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos
-
-                    tasacionVenta = clfHV.predict([[prop[6], prop[7], prop[8], prop[9], prop[10], prop[11], prop[12]]])
-                    tasacionArriendo = clfHA.predict(
-                        [[prop[6], prop[7], prop[8], prop[9], prop[10], prop[11], prop[12]]])
+                    if tipo=="comercial":
+                        tasacionVenta = clfHV.predict([[prop[8], prop[9], prop[10], prop[11], prop[12]]])
+                        tasacionArriendo = clfHA.predict(
+                            [[prop[8], prop[9], prop[10], prop[11], prop[12]]])
+                    else:
+                        tasacionVenta = clfHV.predict([[prop[6], prop[7], prop[8], prop[9], prop[10], prop[11], prop[12]]])
+                        tasacionArriendo = clfHA.predict(
+                            [[prop[6], prop[7], prop[8], prop[9], prop[10], prop[11], prop[12]]])
 
                     precioV = tasacionVenta
                     precioA = tasacionArriendo
