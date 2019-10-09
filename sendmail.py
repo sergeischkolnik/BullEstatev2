@@ -37,6 +37,30 @@ def sendMail(to,cliente,file):
     server.sendmail(fromaddr, toaddr, text)
     server.quit()
 
+def sendMailText(to,cliente,text):
+    fromaddr = "contacto@bullestate.cl"
+    toaddr = to
+
+    msg = MIMEMultipart()
+
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "Informe BullEstate"
+
+
+    body = text
+
+    msg.attach(MIMEText(body, 'plain'))
+
+
+    server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+    #server.starttls()
+    server.login(fromaddr, "Bullestate.123")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+
+
 def sendMailMultiple(to,cliente,files):
     print('entrando a enviador de correos')
     fromaddr = "contacto@bullestate.cl"

@@ -177,22 +177,22 @@ def main():
         if prop[3]=='departamento' and prop[2]=='venta':
             try:
                 tasacion=tasador(prop)
-                textprint+="Id Prop: "+str(prop[14])+" Precio: "+str(int(prop[4]/ufn))+" Tasacion: "+str(int(tasacion[0]/ufn))
+                textprint+="\nId Prop: "+str(prop[14])+" Precio: "+str(int(prop[4]/ufn))+" Tasacion: "+str(int(tasacion[0]/ufn))
                 if tasacion[0]>prop[4]:
                     rent=(tasacion[0]-prop[4])/tasacion[0]
                     rent=rent*100
                     rent=int(rent)
-                    textprint+="La propiedad está un "+str(rent)+"% BAJO precio de mercado."
-                #elif tasacion[0]<prop[4]:
-                    # rent=(-tasacion[0]+prop[4])/tasacion[0]
-                    # rent=rent*100
-                    # rent=int(rent)
-                    # textprint+="La propiedad está un "+str(rent)+"% SOBRE precio de mercado."
+                    textprint+="\nLa propiedad está un "+str(rent)+"% BAJO precio de mercado."
+                elif tasacion[0]<prop[4]:
+                    rent=(-tasacion[0]+prop[4])/tasacion[0]
+                    rent=rent*100
+                    rent=int(rent)
+                    textprint+="\nLa propiedad está un "+str(rent)+"% SOBRE precio de mercado."
                 else:
                     pass
-                    #textprint+="La propiedad está a precio de mercado.\n\n"
+                    textprint+="\nLa propiedad está a precio de mercado."
             except Exception as e:
                 pass
-    print(textprint)
+    sendmail.sendMailText("sergei.schkolnik@gmail.com","Sergei",textprint)
 if __name__ == '__main__':
     main()
