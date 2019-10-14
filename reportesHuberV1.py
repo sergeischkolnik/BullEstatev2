@@ -1040,9 +1040,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     # total
                     subresultado.append(int(prop[9]))
                     #Dormitorios
-                    subresultado.append(int(d))
+                    subresultado.append(int(prop[6]))
                     #Baños
-                    subresultado.append(int(b))
+                    subresultado.append(int(prop[7]))
                     # estacionamiento
                     subresultado.append(int(prop[12]))
                     # Bodega
@@ -1268,9 +1268,11 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     nombreComuna=nombreComuna.replace('ü','u')
                     nombreComuna=nombreComuna.replace('ñ','n')
 
-                    nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + nombreComuna + " " + str(
-                        d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
-
+                    if separado:
+                        nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + nombreComuna + " " + str(
+                            d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
+                    else:
+                        nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + nombreComuna + " "+ str(fechahoy) + '.xlsx'
                     if (nombrecarpetadb is None):
                         patharchivo = os.path.join(os.path.expanduser('~'), 'temp' ,nombreArchivo)
 
@@ -1292,6 +1294,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     if verboso:
                         print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
                         continue
+                if separado is False:
+                    break
 
             if separado is False:
                 break
