@@ -159,7 +159,7 @@ def operacion(bot, update,client):
         keyboard = [["Comprar","Arrendar"],
                     ["Atrás", "Salir"]]
     else:
-        keyboard = [["Venta","Arriendo"],
+        keyboard = [["Simple","Full"],
                     ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -1026,7 +1026,7 @@ def confirm_tasacion(bot, update,client):
     pm.logger.info("{} está confirmando tasacion.".format(user.first_name))
     confirmtext=[]
     confirmtext.append("Tasar Propiedad con las siguientes características:")
-    confirmtext.append("Operación: "+client["operacion"])
+    confirmtext.append("Tipo de Tasacion: "+client["tipotasacion"])
     confirmtext.append("Región: "+client["region"])
     confirmtext.append("Comuna: "+client["comuna"])
     confirmtext.append("Tipo: "+client["tipo"])

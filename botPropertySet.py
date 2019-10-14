@@ -319,7 +319,10 @@ def operacion(bot, update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
-    client["operacion"] = update.message.text
+    if client["product"]=="Reporte":
+        client["operacion"] = update.message.text
+    else:
+        client["tipotasacion"] = update.message.text
     print(client)
 
     if update.message.text == "Comprar":
