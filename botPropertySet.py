@@ -331,10 +331,10 @@ def operacion(bot, update):
     elif update.message.text == "Arrendar":
         select.region(bot,update,client)
         return pm.SELECT_REGION
-    elif update.message.text == "Venta":
+    elif update.message.text == "Simple":
         select.region(bot,update,client)
         return pm.SELECT_REGION
-    elif update.message.text == "Arriendo":
+    elif update.message.text == "Full":
         select.region(bot,update,client)
         return pm.SELECT_REGION
     elif update.message.text == "Atrás":
