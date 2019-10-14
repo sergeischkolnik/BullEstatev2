@@ -132,7 +132,7 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
                                     None,None, None,None,dormitoriosmin,dormitoriosmax, banosmin, banosmax,
                                     confmin, rentminventa, rentminarriendo,None, None, metrodistance, None, None, None, client["tipo"], client["operacion"],
                                     client["region"].lower(),listaComunas, None, client["mail"],(client["firstname"]+" "+client["lastname"]),
-                                    None,None,direccion,radiodireccion,corredor,None,True)
+                                    None,None,direccion,radiodireccion,corredor,None,True,True)
     if result is not True:
         sendMessageFunc(chat_id,result)
     else:

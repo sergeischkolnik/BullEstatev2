@@ -586,67 +586,66 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                     date = None
 
                 mails = []
-                corredor="no"
-                rtext=r.text
-                if "empresas/ficha" in rtext:
-                    #no es dueño
-                    corredor="si"
-                rtext=rtext.split(' ')
-
-                for x,a in enumerate(rtext):
-                    if 'telefonosVendedor' in a:
-
-                        telefonoVendedor=rtext[x+2]
-                        telefonoVendedor=telefonoVendedor.replace('nbsp;','')
-                        telefonoVendedor=telefonoVendedor.replace('"','')
-                        telefonoVendedor=telefonoVendedor.replace('&','')
-                        telefonoVendedor="+"+str(telefonoVendedor)
-                        if ("span" in telefonoVendedor):
-                            telefonoVendedor=rtext[x+3]
-                            telefonoVendedor=str(telefonoVendedor)
-                            telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
-                    elif 'baño' in a and baths is None and 'dd' in a:
-                        baths=rtext[x-1]
-                        baths=baths[-1:]
-                    elif 'dormitorio' in a and dorms is None and 'dd' in a:
-                        dorms=rtext[x-1]
-                        dorms=dorms[-1:]
-                    elif 'latitude' in a and lat is None and ':' in a:
-                        lat=rtext[x+1]
-                        lat=lat[:-1]
-                    elif 'longitude' in a and lon is None and ':' in a:
-                        lon=rtext[x+1]
-                        lon=lon[:-1]
-                    elif 'fecha' in a and "de" in rtext[x+1] and 'publicacion' in rtext[x+2] and date is None:
-                        date=rtext[x+4]
-                        date=date.replace('class="info">','')
-                        date = date.replace('</p>', '')
-                        dateSplit = date.split('-')
-                        date = dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0]
-
-                hasContacto="No"
-                for x,a in enumerate(rtext):
-                    if 'emailVendedor' in a:
-                        hasContacto="Yes"
-                        emailvendedor=rtext[x+2]
-                        emailvendedor=emailvendedor.replace('\r\n','')
-                        emailvendedor=emailvendedor.replace('"','')
-                        dueno=[]
-                        dueno.append(code)
-                        dueno.append(emailvendedor)
-                        if (corredor=="si"):
-                            dueno.append("no")
-                            dueno.append(telefonoVendedor)
-                            dueno.append(emailvendedor)
-                            dueno.append("no")
-                            dueno.append(telefonoVendedor)
-                        else:
-                            dueno.append(esDueno(emailvendedor))
-                            dueno.append(telefonoVendedor)
-                            dueno.append(emailvendedor)
-                            dueno.append(esDueno(emailvendedor))
-                            dueno.append(telefonoVendedor)
-
+                # corredor="no"
+                # rtext=r.text
+                # if "empresas/ficha" in rtext:
+                #     #no es dueño
+                #     corredor="si"
+                # rtext=rtext.split(' ')
+                #
+                # for x,a in enumerate(rtext):
+                #     if 'telefonosVendedor' in a:
+                #
+                #         telefonoVendedor=rtext[x+2]
+                #         telefonoVendedor=telefonoVendedor.replace('nbsp;','')
+                #         telefonoVendedor=telefonoVendedor.replace('"','')
+                #         telefonoVendedor=telefonoVendedor.replace('&','')
+                #         telefonoVendedor="+"+str(telefonoVendedor)
+                #         if ("span" in telefonoVendedor):
+                #             telefonoVendedor=rtext[x+3]
+                #             telefonoVendedor=str(telefonoVendedor)
+                #             telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
+                #     elif 'baño' in a and baths is None and 'dd' in a:
+                #         baths=rtext[x-1]
+                #         baths=baths[-1:]
+                #     elif 'dormitorio' in a and dorms is None and 'dd' in a:
+                #         dorms=rtext[x-1]
+                #         dorms=dorms[-1:]
+                #     elif 'latitude' in a and lat is None and ':' in a:
+                #         lat=rtext[x+1]
+                #         lat=lat[:-1]
+                #     elif 'longitude' in a and lon is None and ':' in a:
+                #         lon=rtext[x+1]
+                #         lon=lon[:-1]
+                #     elif 'fecha' in a and "de" in rtext[x+1] and 'publicacion' in rtext[x+2] and date is None:
+                #         date=rtext[x+4]
+                #         date=date.replace('class="info">','')
+                #         date = date.replace('</p>', '')
+                #         dateSplit = date.split('-')
+                #         date = dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0]
+                #
+                # hasContacto="No"
+                # for x,a in enumerate(rtext):
+                #     if 'emailVendedor' in a:
+                #         hasContacto="Yes"
+                #         emailvendedor=rtext[x+2]
+                #         emailvendedor=emailvendedor.replace('\r\n','')
+                #         emailvendedor=emailvendedor.replace('"','')
+                #         dueno=[]
+                #         dueno.append(code)
+                #         dueno.append(emailvendedor)
+                #         if (corredor=="si"):
+                #             dueno.append("no")
+                #             dueno.append(telefonoVendedor)
+                #             dueno.append(emailvendedor)
+                #             dueno.append("no")
+                #             dueno.append(telefonoVendedor)
+                #         else:
+                #             dueno.append(esDueno(emailvendedor))
+                #             dueno.append(telefonoVendedor)
+                #             dueno.append(emailvendedor)
+                #             dueno.append(esDueno(emailvendedor))
+                #             dueno.append(telefonoVendedor)
 
 
                 split = subsites[j].split('/')
@@ -676,6 +675,28 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
                 insertarDescripcion(descripcion,code)
                 fechahoy = datetime.datetime.now()
                 fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
+
+                #verificar si es dueño y crear objeto dueño
+                agency_path = '//*[@id="real_estate_agency"]'
+                agency = tree3.xpath(agency_path)
+                esPropiedario = "no"
+                if len(agency)==0:
+                    #no hay agency; es dueño.
+                    esPropiedario = "si"
+                dueno = []
+                dueno.append(code)
+                dueno.append(None)
+                dueno.append(esPropiedario)
+                phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[3]/span/span[1]/text()'
+                phone = tree3.xpath(phone_path)
+                if len(phone)>0:
+                    dueno.append(str(phone[0]))
+                else:
+                    phone_path =   '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[5]/span/span/text()'
+                    phone = tree3.xpath(phone_path)
+                    dueno.append(str(phone[0]))
+                #fin sector dueño
+
 
                 aux.append(name)
                 aux.append(date)

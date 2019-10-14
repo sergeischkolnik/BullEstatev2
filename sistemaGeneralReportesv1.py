@@ -28,6 +28,10 @@ def main(verboso):
             comunas.append(cliente[29])
         if cliente[30] is not None:
             comunas.append(cliente[30])
+        if cliente[4]=="no":
+            separado=False
+        else:
+            separado=True
 
         reportes.generarReporteSeparado(preciomin=cliente[5], preciomax=cliente[6], utilmin=cliente[7], utilmax=cliente[8],
                                totalmin=cliente[9], totalmax=cliente[10], latmin=cliente[11], latmax=cliente[12], lonmin=cliente[13],
@@ -36,7 +40,7 @@ def main(verboso):
                                estacionamientos=cliente[19],bodegas=cliente[20], metrodistance=cliente[31],l1=cliente[32],l2=cliente[33],l3=cliente[34],
                                tipo=cliente[21], operacion=cliente[22],
                                region=cliente[24], listaComunas=comunas, prioridad=cliente[39], mail=cliente[3],nombreCliente=cliente[1],
-                               idCliente=cliente[0],nombrecarpetadb=cliente[45], direccion=cliente[42], radioDireccion=cliente[43],corredor=cliente[41],topx=cliente[44], verboso=verboso)
+                               idCliente=cliente[0],nombrecarpetadb=cliente[45], direccion=cliente[42], radioDireccion=cliente[43],corredor=cliente[41],topx=cliente[44], verboso=verboso, separado=separado)
 
 
 if __name__ == '__main__':

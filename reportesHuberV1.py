@@ -550,7 +550,7 @@ def main():
 
         generarReporteSeparado(preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,lonmax,dormitoriosmin,
                        dormitoriosmax,banosmin,banosmax,confmin,rentmin, estacionamientos,metrodistance,tipo,operacion,region,comuna1,comuna2,
-                       comuna3,comuna4,comuna5,comuna6,prioridad,flagMail,mail,nombreCliente,True)
+                       comuna3,comuna4,comuna5,comuna6,prioridad,flagMail,mail,nombreCliente,True,True)
 
 def yaReportadoYapo(idCliente,idProp):
     sql = "SELECT * from clientes_propiedades WHERE cliente =" + str(idCliente) + " and prop=" + str(idProp)
@@ -618,7 +618,7 @@ def crearCarpetaSiNoExiste(nombrecarpetadb,fechahoy,nombreCliente):
 def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, latmin, latmax, lonmin, lonmax,
                        dormitoriosmin,dormitoriosmax, banosmin, banosmax, confmin, rentminventa, rentminarriendo,
                            estacionamientos, bodegas, metrodistance, l1, l2, l3, tipo,operacion, region, listaComunas, prioridad, mail,
-                           nombreCliente,nombrecarpetadb,idCliente,direccion,radioDireccion,corredor,topx,verboso):
+                           nombreCliente,nombrecarpetadb,idCliente,direccion,radioDireccion,corredor,topx,verboso,separado):
 
     ufn=uf.getUf()
     textmail=""
@@ -937,22 +937,25 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
 
         for d in range(dormitoriosmin, dormitoriosmax + 1):
             for b in range(banosmin, banosmax + 1):
+
+                if separado:
+                    d2=d
+                    b2=b
+                else:
+                    d2=dormitoriosmax
+                    b2=banosmax
+
                 propiedadesP=from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,
-                                               latmin,latmax,lonmin,lonmax,d,d,b,
-                                               b,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
+                                               latmin,latmax,lonmin,lonmax,d,d2,b,
+                                               b2,estacionamientos,bodegas,tipo,operacion,region,comuna,"asdasd","asdasd",
                                                "asdasd","asdasd","asdasd",verboso)
                 if tipo!='comercial':
                     propiedadesY = from_yapo_select(past, yesterday, preciomin, preciomax, utilmin, utilmax,
                                                                  totalmin, totalmax,
-                                                                 latmin, latmax, lonmin, lonmax, d, d, b,
-                                                                 b, estacionamientos, bodegas, tipo, operacion, region,
+                                                                 latmin, latmax, lonmin, lonmax, d, d2, b,
+                                                                 b2, estacionamientos, bodegas, tipo, operacion, region,
                                                                  comuna, "asdasd", "asdasd",
                                                                  "asdasd", "asdasd", "asdasd",latlonyapo, verboso)
-
-
-
-
-
                     propiedades=propiedadesP+propiedadesY
                 else:
                     propiedades=propiedadesP
@@ -1289,6 +1292,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                     if verboso:
                         print("[GeneradorReportes] No se han encontrado propiedades para el cliente "+nombreCliente)
                         continue
+
+            if separado is False:
+                break
+
     #Arreglar Mandada de mails
     if len(listaAdjuntos)>0:
         print('proceder a mandar correo')
@@ -1317,4 +1324,4 @@ if __name__ == '__main__':
                    confmin=8,rentminventa=0.15,rentminarriendo=0.05,estacionamientos=0,metrodistance=9999,tipo='departamento',operacion='venta',
                    region='metropolitana',comuna1='la-cisterna',comuna2='asdasdasd',comuna3='asdasd',comuna4='asdasdasd',
                    comuna5='asdasd',comuna6='asdasdasd',prioridad='venta',flagMail=2,mail='sergei.schkolnik@gmail.com',
-                   nombreCliente='la-cisterna-1-1',verboso=True)
+                   nombreCliente='la-cisterna-1-1',verboso=True, separado=True)

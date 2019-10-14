@@ -552,48 +552,48 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
                 r = session.get(newLink)
                 mails = []
-                corredor="no"
-                rtext=r.text
-                if "empresas/ficha" in rtext:
-                    #no es dueño
-                    corredor="si"
-                rtext=rtext.split(' ')
-
-                telefonoVendedor = "No"
-
-                for x,a in enumerate(rtext):
-                    if 'telefonosVendedor' in a:
-
-                        telefonoVendedor=rtext[x+2]
-                        telefonoVendedor=telefonoVendedor.replace('nbsp;','')
-                        telefonoVendedor=telefonoVendedor.replace('"','')
-                        telefonoVendedor=telefonoVendedor.replace('&','')
-                        telefonoVendedor="+"+str(telefonoVendedor)
-                        if ("span" in telefonoVendedor):
-                            telefonoVendedor=rtext[x+3]
-                            telefonoVendedor=str(telefonoVendedor)
-                            telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
-
-                for x,a in enumerate(rtext):
-                    if 'emailVendedor' in a:
-                        emailvendedor=rtext[x+2]
-                        emailvendedor=emailvendedor.replace('\r\n','')
-                        emailvendedor=emailvendedor.replace('"','')
-                        dueno=[]
-                        dueno.append(code)
-                        dueno.append(emailvendedor)
-                        if (corredor=="si"):
-                            dueno.append("no")
-                            dueno.append(telefonoVendedor)
-                            dueno.append(emailvendedor)
-                            dueno.append("no")
-                            dueno.append(telefonoVendedor)
-                        else:
-                            dueno.append(esDueno(emailvendedor))
-                            dueno.append(telefonoVendedor)
-                            dueno.append(emailvendedor)
-                            dueno.append(esDueno(emailvendedor))
-                            dueno.append(telefonoVendedor)
+                # corredor="no"
+                # rtext=r.text
+                # if "empresas/ficha" in rtext:
+                #     #no es dueño
+                #     corredor="si"
+                # rtext=rtext.split(' ')
+                #
+                # telefonoVendedor = "No"
+                #
+                # for x,a in enumerate(rtext):
+                #     if 'telefonosVendedor' in a:
+                #
+                #         telefonoVendedor=rtext[x+2]
+                #         telefonoVendedor=telefonoVendedor.replace('nbsp;','')
+                #         telefonoVendedor=telefonoVendedor.replace('"','')
+                #         telefonoVendedor=telefonoVendedor.replace('&','')
+                #         telefonoVendedor="+"+str(telefonoVendedor)
+                #         if ("span" in telefonoVendedor):
+                #             telefonoVendedor=rtext[x+3]
+                #             telefonoVendedor=str(telefonoVendedor)
+                #             telefonoVendedor=telefonoVendedor.replace("itemprop='telephone'>",'')
+                #
+                # for x,a in enumerate(rtext):
+                #     if 'emailVendedor' in a:
+                #         emailvendedor=rtext[x+2]
+                #         emailvendedor=emailvendedor.replace('\r\n','')
+                #         emailvendedor=emailvendedor.replace('"','')
+                #         dueno=[]
+                #         dueno.append(code)
+                #         dueno.append(emailvendedor)
+                #         if (corredor=="si"):
+                #             dueno.append("no")
+                #             dueno.append(telefonoVendedor)
+                #             dueno.append(emailvendedor)
+                #             dueno.append("no")
+                #             dueno.append(telefonoVendedor)
+                #         else:
+                #             dueno.append(esDueno(emailvendedor))
+                #             dueno.append(telefonoVendedor)
+                #             dueno.append(emailvendedor)
+                #             dueno.append(esDueno(emailvendedor))
+                #             dueno.append(telefonoVendedor)
 
                 dateSite = '//*[@id="wrapper"]/section/div/div/div[1]/article/div/div[2]/div[1]/div[1]/div[2]/p[2]/strong'
                 date = tree3.xpath(dateSite)
@@ -634,6 +634,27 @@ def getInfo(subsites,desde,hasta,lista,faillista,op,tip,reg):
 
                 fechahoy = datetime.datetime.now()
                 fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
+
+                #verificar si es dueño y crear objeto dueño
+                agency_path = '//*[@id="real_estate_agency"]'
+                agency = tree3.xpath(agency_path)
+                esPropiedario = "no"
+                if len(agency)==0:
+                    #no hay agency; es dueño.
+                    esPropiedario = "si"
+                dueno = []
+                dueno.append(code)
+                dueno.append(None)
+                dueno.append(esPropiedario)
+                phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[3]/span/span[1]/text()'
+                phone = tree3.xpath(phone_path)
+                if len(phone)>0:
+                    dueno.append(str(phone[0]))
+                else:
+                    phone_path =   '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[5]/span/span/text()'
+                    phone = tree3.xpath(phone_path)
+                    dueno.append(str(phone[0]))
+                #fin sector dueño
 
                 aux.append(name)
                 aux.append(date)
