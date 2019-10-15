@@ -188,7 +188,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         first=descripcion[0]
         last=descripcion[-1]
 
-        first=first.split("<p>")
+        first=first.split(">")
         first=first[1]
         descripcion[0]=first
 
