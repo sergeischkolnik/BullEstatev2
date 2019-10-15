@@ -20,11 +20,6 @@ import reportes
 import botPropertyConnector
 
 
-
-
-
-
-
 def crearPdfTasacion(client,precioV,precioA,links,fileName):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
@@ -55,6 +50,7 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     precioVuf=str(format(precioVuf,','))
     precioVuf=precioVuf.replace(',','.')
 
+    precioV=int(precioV)
     precioV=str(format(precioV,','))
     precioV=precioV.replace(',','.')
 
@@ -62,6 +58,7 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     precioAuf = str(format(precioAuf, ','))
     precioAuf = precioAuf.replace(',', '.')
 
+    precioA=int(precioA)
     precioA = str(format(precioA, ','))
     precioA = precioA.replace(',', '.')
 
