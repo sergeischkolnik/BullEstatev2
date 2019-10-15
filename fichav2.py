@@ -270,7 +270,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         for meta in metatext:
 
-            if 'data-full-images' in meta and '1200' in meta:
+            if 'data-full-images' in meta:
                 meta=meta.split(';')
                 for met in meta:
                     if 'mlstatic' in met:
