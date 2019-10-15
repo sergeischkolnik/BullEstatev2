@@ -20,7 +20,7 @@ import reportes
 import botPropertyConnector
 import uf
 
-def crearPdfTasacion(client,precioV,precioA,links,fileName,m2):
+def crearPdfTasacion(client,precioV,precioA,links,fileName):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]
