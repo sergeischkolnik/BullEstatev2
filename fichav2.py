@@ -184,9 +184,9 @@ def crearFicha(sitio,id,mail,tipoficha):
                 descripcion.append(str(texto))
             if '/div' in texto:
                 savedescripcion = False
-                descripcion=descripcion[1:-1]
+                descripcion=descripcion[1:]
 
-        descripcion[-1]=(descripcion[-1].split("</p>"))[0]
+        #descripcion[-1]=(descripcion[-1].split("</p>"))[0]
 
 
 
