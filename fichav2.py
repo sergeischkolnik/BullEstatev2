@@ -180,9 +180,18 @@ def crearFicha(sitio,id,mail,tipoficha):
             if 'item-description__text' in texto:
                 savedescripcion=True
             if '/div' in texto:
+                if savedescripcion:
+                    descripcion.append(str(texto))
                 savedescripcion = False
             if savedescripcion:
                 descripcion.append(str(texto))
+        first=descripcion[0]
+        last=descripcion[-1]
+
+        first=first.split("<p>")
+        first=first[1]
+        descripcion[0]=first
+
 
         #descripcion=descripcion[2:]
         print(descripcion)
