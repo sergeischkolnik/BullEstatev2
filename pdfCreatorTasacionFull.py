@@ -35,7 +35,7 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     region=str(client["region"])
     comuna=str(client["comuna"])
     tipo=str(client["tipo"])
-    direccion=str(client["direccion"])
+    direccion=str(client["adress"])
 
 
     headerslocalizacion.append("Tipo de Prop.")
