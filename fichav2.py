@@ -185,14 +185,17 @@ def crearFicha(sitio,id,mail,tipoficha):
                 savedescripcion = False
             if savedescripcion:
                 descripcion.append(str(texto))
-        first=descripcion[0]
-        last=descripcion[-1]
 
+        first=descripcion[0].copy()
         first=first.split(">")
         print(first)
         first=first[2]
         descripcion[0]=first
 
+        last=descripcion[-1].copy()
+        last=last.split("<")
+        last=last[0]
+        descripcion[-1]=last
 
         #descripcion=descripcion[2:]
         print(descripcion)
