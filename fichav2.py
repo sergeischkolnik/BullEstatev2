@@ -184,7 +184,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             if savedescripcion:
                 descripcion.append(str(texto))
 
-        descripcion=descripcion[2:]
+        #descripcion=descripcion[2:]
         print(descripcion)
 
         if not interna:
