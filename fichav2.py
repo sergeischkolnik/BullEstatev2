@@ -177,12 +177,17 @@ def crearFicha(sitio,id,mail,tipoficha):
         savedescripcion=False
         for texto in metatext:
 
-            if 'item-description__text' in texto:
-                savedescripcion=True
             if savedescripcion:
                 descripcion.append(str(texto))
+            if 'item-description__text' in texto:
+                savedescripcion=True
+                text=texto.split("<p>")
+                descripcion.append(str(text[1]))
             if '/div' in texto:
                 savedescripcion = False
+                descripcion=descripcion[:-1]
+                text=texto.split("</p>")
+                descripcion.append(str(text[0]))
 
 
 
