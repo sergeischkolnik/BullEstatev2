@@ -324,7 +324,6 @@ def operacion(bot, update):
     else:
         client["tipotasacion"] = update.message.text
     print(client)
-
     if update.message.text == "Comprar":
         select.region(bot,update,client)
         return pm.SELECT_REGION
@@ -338,7 +337,10 @@ def operacion(bot, update):
         select.region(bot,update,client)
         return pm.SELECT_REGION
     elif update.message.text == "Atrás":
-        client.pop("operacion")
+        if client["product"] == "Reporte":
+            client.pop("operacion")
+        else:
+            client.pop("tipotasacion")
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Salir":
