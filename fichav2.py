@@ -179,12 +179,13 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if 'item-description__text' in texto:
                 savedescripcion=True
-            if '/div' in texto:
-                savedescripcion = False
             if savedescripcion:
                 descripcion.append(str(texto))
+            if '/div' in texto:
+                savedescripcion = False
 
-        descripcion=descripcion[2:]
+
+
         print(descripcion)
 
         if not interna:
