@@ -18,9 +18,9 @@ import base64
 import pubPortalExiste
 import reportes
 import botPropertyConnector
+import uf
 
-
-def crearPdfTasacion(client,precioV,precioA,links,fileName):
+def crearPdfTasacion(client,precioV,precioA,links,fileName,m2):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]
@@ -35,14 +35,20 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     region=str(client["region"])
     comuna=str(client["comuna"])
     tipo=str(client["tipo"])
+    direccion=str(client["direccion"])
+
 
     headerslocalizacion.append("Tipo de Prop.")
     headerslocalizacion.append("Región")
     headerslocalizacion.append("Comuna")
+    headerslocalizacion.append("Dirección")
+
 
     datoslocalizacion.append(tipo.capitalize())
     datoslocalizacion.append(region.capitalize())
     datoslocalizacion.append(comuna.capitalize())
+    datoslocalizacion.append(direccion.capitalize())
+
 
 
 
@@ -53,6 +59,8 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     precioV=int(precioV)
     precioV=str(format(precioV,','))
     precioV=precioV.replace(',','.')
+
+
 
     precioAuf = (int(precioA / uf1))
     precioAuf = str(format(precioAuf, ','))
@@ -69,14 +77,17 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     metrosmin=str(int(client["metros"]))
     metrosmax=str(int(client["total"]))
 
+    ufm2 = '{:,}'.format((int(10 * ((2*precioV/(metrosmin+metrosmax))/ uf1))) / 10).replace(",", ".")
+    am2='{:,}'.format(int(2*precioA/(metrosmin+metrosmax))).replace(",",".")
     estacionamientos=str(int(client["estacionamientos"]))
     bodegas=str(int(client["bodegas"]))
 
 
     headersprecio.append("Tasación Venta UF")
     headersprecio.append("Tasación Venta $")
-    headersprecio.append("Tasación Arriendo UF")
+    headersprecio.append("Venta UF/m2")
     headersprecio.append("Tasación Arriendo $")
+    headersprecio.append("Arriendo/m2")
 
     headerspropiedad.append("Sup. Util")
     headerspropiedad.append("Sup. Total")
@@ -87,8 +98,9 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
 
     datosprecio.append(precioVuf)
     datosprecio.append(precioV)
-    datosprecio.append(precioAuf)
+    datosprecio.append(ufm2)
     datosprecio.append(precioA)
+    datosprecio.append(am2)
 
     datospropiedad.append(metrosmin)
     datospropiedad.append(metrosmax)
@@ -96,8 +108,6 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     datospropiedad.append(banos)
     datospropiedad.append(estacionamientos)
     datospropiedad.append(bodegas)
-
-
 
     styles=getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY,leading=16))
@@ -165,10 +175,6 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     Story.append(Spacer(1, 16))
     Story.append(t3)
     Story.append(Spacer(1, 16))
-
-    ptext = '<font size=11><b>Descripción:</b></font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
 
 
     if len(links)>0:

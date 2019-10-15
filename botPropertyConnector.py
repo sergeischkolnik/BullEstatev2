@@ -323,9 +323,9 @@ def tasador(client):
         if client["tipotasacion"]=="Full":
             links=[]
             fileName = "Tasacion " + client["tipo"] + " en " + client["comuna"] + ", " + client[
-                "region"] + " cliente " + client["firstname"] + " " + client["lastname"]
+                "region"] + " cliente " + client["firstname"] + " " + client["lastname"]+".pdf"
             pdfc.crearPdfTasacion(client,precioV,precioA,links,fileName)
-            sendmail.sendMail(client["mail"],client["firstname"]+" "+client["lastname"],fileName)
+            sendmail.sendMail(client["mail"],client["firstname"]+" "+client["lastname"],fileName,m2)
             print('mandando correo con tasacion')
 
         textmail+="Su propiedad se ha tasado a un valor de venta de UF "+'{:,}'.format(int(precioV/ufn)).replace(",",".")+"\n"
