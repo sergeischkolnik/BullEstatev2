@@ -270,10 +270,14 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         for meta in metatext:
 
-            if 'https://image.portalinmobiliario.cl/Portal/Propiedades' in meta and '1200' in meta:
-                meta=meta.split('"')
-
-                url.append(str(meta[1]))
+            if 'data-full-images' in meta and '1200' in meta:
+                meta=meta.split(';')
+                for met in meta:
+                    if 'mlstatic' in met:
+                        met=met.split('&')
+                        met=met[0]
+                        met=met.replace(".webp",".jpg")
+                        url.append(str(met))
 
 
 
