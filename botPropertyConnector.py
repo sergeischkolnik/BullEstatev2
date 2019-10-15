@@ -12,6 +12,8 @@ ufn=uf.getUf()
 from sklearn import ensemble
 from sklearn.model_selection import train_test_split
 import reportesHuberV1 as reportes
+import pdfCreatorTasacionFull as pdfc
+import sendmail
 
 
 def obtenerIdConLink(link,sitio):
@@ -296,7 +298,7 @@ def tasador(client):
 
     clfHA.fit(trainingA, preciosA)
 
-    textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF "+'{:,}'.format((int(10*(m2V/ufn)))/10).replace(",",".")+"\nPrecio m2 Arriendo: $ "+'{:,}'.format(int(m2A)).replace(",",".")+"\n\n"
+    textmail+="Resultados comuna "+str(comuna)+":\nPrecio m2 Venta: UF "+'{:,}'.format((int(10*(m2V/ufn)))/10).replace(",",".")+"\nPrecio m2 Arriendo: $ "+'{:,}'.format(int(m2A)).replace(",",".")+"\n\n"
 
     if client["tipo"].lower()=="comercial":
         tasacionVenta = clfHV.predict([[ int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
@@ -318,9 +320,17 @@ def tasador(client):
         print("precio de venta es de: "+str(precioV))
         print("precio de venta es de: "+str(precioA))
 
+        if client["tipotasacion"]=="Full":
+            links=[]
+            fileName = "Tasacion " + client["tipo"] + " en " + client["comuna"] + ", " + client[
+                "region"] + " cliente " + client["firstname"] + " " + client["lastname"]
+            pdfc.crearPdfTasacion(client,precioV,precioA,links,fileName)
+            sendmail.sendMail(client["mail"],client["firstname"]+" "+client["lastname"],fileName)
+            print('mandando correo con tasacion')
 
         textmail+="Su propiedad se ha tasado a un valor de venta de UF "+'{:,}'.format(int(precioV/ufn)).replace(",",".")+"\n"
         textmail+="Su propiedad se ha tasado a un valor de arriendo de $ "+'{:,}'.format(int(precioA)).replace(",",".")+"\n"
 
         print("Texto Full, Check")
+
         return textmail
