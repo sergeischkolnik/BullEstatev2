@@ -70,7 +70,7 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     metrosmax=str(int(client["total"]))
 
     estacionamientos=str(int(client["estacionamientos"]))
-    bodegas=str(int(client[10]))
+    bodegas=str(int(client["bodegas"]))
 
 
     headersprecio.append("Tasación Venta UF")
