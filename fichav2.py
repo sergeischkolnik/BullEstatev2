@@ -177,7 +177,7 @@ def crearFicha(sitio,id,mail,tipoficha):
         savedescripcion=False
         for texto in metatext:
 
-            if 'propiedad-descr' in texto:
+            if 'item-description__text' in texto:
                 savedescripcion=True
             if '/div' in texto:
                 savedescripcion = False
