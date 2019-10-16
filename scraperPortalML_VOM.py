@@ -217,6 +217,15 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(datetime.datetime.now().day)
 
         propiedad = []
+
+        try:
+            code=int(link[6].split('-')[0])
+
+        except Exception as err:
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al obtener el codigo de portalinmobiliario:"+str(err))
+            continue
+
+        propiedad.append(code)
         propiedad.append(name)
         propiedad.append(date)
         propiedad.append(fechascrap)
