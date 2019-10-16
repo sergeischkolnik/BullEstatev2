@@ -114,7 +114,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
     headerIndex = 0
 
     f = open("errors.csv", "a+")
-    
+
     for i,link in enumerate(linkList):
 
         print(str(i)+"/"+str(len(linkList)) + " - " + link)
@@ -127,7 +127,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
             tree = html.fromstring(request.content)
         except:
             #   print("Fallo.")
-            f.write(str(datetime.now()) + ',' + link + "," + "Error al tratar de crear tree.")
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al tratar de crear tree.")
             continue
 
         priceSymbolPath = '//*[@id="productInfo"]/fieldset/span/span[1]'
@@ -139,11 +139,11 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
         priceSymbol = tree.xpath(priceSymbolPath)
         if len(priceSymbol) == 0:
-            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar el simbolo de precio")
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al sacar el simbolo de precio")
         priceSymbol = priceSymbol[0].text
         price = tree.xpath(pricePath)
         if len(price) == 0:
-            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar precio")
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al sacar precio")
             continue
         price = int(price[0].text.replace(',','').replace(' ','').replace('.',''))
 
@@ -152,14 +152,14 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
         name = tree.xpath(namePath)
         if len(name) == 0:
-            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar nombre")
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al sacar nombre")
             continue
 
         name = name[0].text.replace('\n','').replace('\t','')
 
         address =  tree.xpath(addressPath)
         if len(address) == 0:
-            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar nombre")
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al sacar nombre")
             address = '-'
         else:
             address = address[0].text
@@ -167,7 +167,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         #fecha
         datePosition = request.text.find('<p class="title">Fecha de Publicación</p>')
         if datePosition == -1:
-            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar fecha")
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al sacar fecha")
             date = "00-00-0000"
         else:
             date = request.text[datePosition+60:datePosition+70]
@@ -191,7 +191,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
                 elif "Bodegas" in element:
                     bodegas = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
         except Exception as err:
-            f.write(str(datetime.now()) + ',' + link + "," + "Error:"+str(err))
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error:"+str(err))
             continue
 
         if maxMeters != 0 and minMeters == 0:
@@ -203,7 +203,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         #lat, lon
         mapPosition = request.text.find("center=")
         if mapPosition == -1:
-            f.write(str(datetime.now()) + ',' + link + "," + "Error in finding map")
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error in finding map")
             lat = 0
             lon = 0
         else:
@@ -253,7 +253,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         try:
             insertarPropiedad(propiedad)
         except Exception as err:
-            f.write(str(datetime.now()) + ',' + link + "," + "Error al escribir en BD:" + str(err))
+            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al escribir en BD:" + str(err))
             continue
 
     f.close()
