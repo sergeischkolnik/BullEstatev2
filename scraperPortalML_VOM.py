@@ -266,8 +266,7 @@ def main():
     for tipo in tipos:
         for comuna in comunas:
 
-            if math.fabs(bano-dormitorio) > 4:
-                continue
+            
             for page in pages:
                 time.sleep(random.randint(1,4))
                 link = "https://www.portalinmobiliario.com/venta/"+tipo+"/propiedades-usadas/"+comuna+"-metropolitana/_Desde_"+str(page)
