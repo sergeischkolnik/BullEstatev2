@@ -6,6 +6,7 @@ import time
 import random
 from bs4 import BeautifulSoup
 import datetime
+import pymysql as mysql
 
 headers1 = {
     'authority': 'www.portalinmobiliario.com',
@@ -74,16 +75,43 @@ headerList = [headers1,headers2,headers3]
 
 dormitorios = range(1,10)
 banos = range(1,10)
-comunas = ["providencia","cerrillos","colina","cerro-navia","conchali","el-bosque","estacion-central","huechuraba","independencia",
-           "la-cisterna","la-florida","la-granja","la-pintana","la-reina","lampa","las-condes","lo-barnechea","lo-espejo",
-           "lo-prado","macul","paine","penalolen","puente-alto","pedro-aguirre-cerda","providencia","penaflor",
+comunas = ["santiago","providencia","las-condes","cerrillos","colina","cerro-navia","conchali","el-bosque","estacion-central","huechuraba","independencia",
+           "la-cisterna","la-florida","la-granja","la-pintana","la-reina","lampa","lo-barnechea","lo-espejo",
+           "lo-prado","macul","paine","penalolen","puente-alto","pedro-aguirre-cerda","penaflor",
            "pudahuel","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
-           "san-joaquin","san-pedro","santiago","talagante","vitacura","nunoa"]
+           "san-joaquin","san-pedro","talagante","vitacura","nunoa"]
 pages = range(0,2050,50)
+
+def actualizar_checker(operacion,tipo,region,pagina):
+    d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='spivm'"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
+def insertarPropiedad(propiedad):
+    #Inserta una propiedad en una base de datos
+
+    sql = """INSERT INTO portalinmobiliario(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link)
+             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,bodegas=%s,lat=%s,lon=%s,link=%s"""
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql, (propiedad))
+
+    mariadb_connection.commit()
+    mariadb_connection.close()
 
 def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
     headerIndex = 0
-    for link in linkList:
+    for i,link in enumerate(linkList):
+
+        print(str(i)+"/"+str(len(linkList)) + " - " + link)
 
         time.sleep(random.randint(1,3))
         request = requests.get(link, headers=headerList[headerIndex])
@@ -124,13 +152,13 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         bodegas = 0
         for element in htmlArray:
             if "Superficie total" in element:
-                maxMeters = int(element.split('span')[1][1:-5])
+                maxMeters = int(float(element.split('span')[1][1:-5]))
             elif "Superficie útil" in element:
-                minMeters = int(element.split('span')[1][1:-5])
+                minMeters = int(float(element.split('span')[1][1:-5]))
             elif "Estacionamientos" in element:
-                estacionamientos = int(element.split('span')[1].replace('<','').replace('>','').replace('/',''))
+                estacionamientos = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
             elif "Bodegas" in element:
-                bodegas = int(element.split('span')[1].replace('<','').replace('>','').replace('/',''))
+                bodegas = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
 
         if maxMeters != 0 and minMeters == 0:
             minMeters = maxMeters
@@ -182,9 +210,11 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         propiedad.append(lat)
         propiedad.append(lon)
         propiedad.append(link)
-        print(propiedad)
-        pass
 
+        try:
+            insertarPropiedad(propiedad)
+        except:
+            continue
 
 
 def main():
@@ -200,7 +230,6 @@ def main():
                     link = "https://www.portalinmobiliario.com/venta/departamento/propiedades-usadas/"+dorm_text+"/"+comuna+"-metropolitana/_Desde_"+str(page)+"_Banos_"+str(bano)
                     print(link)
                     request = requests.get(link, headers = headerList[headerIndex])
-                    print(request)
 
                     headerIndex += 1
                     headerIndex = headerIndex % len(headerList)
