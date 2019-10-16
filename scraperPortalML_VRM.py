@@ -7,6 +7,7 @@ import random
 from bs4 import BeautifulSoup
 import datetime
 import pymysql as mysql
+import uf
 
 headers1 = {
     'authority': 'www.portalinmobiliario.com',
@@ -82,6 +83,8 @@ comunas = ["santiago","providencia","las-condes","cerrillos","colina","cerro-nav
            "san-joaquin","san-pedro","talagante","vitacura","nunoa"]
 pages = range(0,2050,50)
 
+uf = uf.getUf()
+
 def actualizar_checker(operacion,tipo,region,pagina):
     d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='spivm'"
@@ -109,6 +112,9 @@ def insertarPropiedad(propiedad):
 
 def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
     headerIndex = 0
+
+    f = open("errors.csv", "a+")
+    
     for i,link in enumerate(linkList):
 
         print(str(i)+"/"+str(len(linkList)) + " - " + link)
@@ -121,28 +127,52 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
             tree = html.fromstring(request.content)
         except:
             #   print("Fallo.")
+            f.write(str(datetime.now()) + ',' + link + "," + "Error al tratar de crear tree.")
             continue
 
         priceSymbolPath = '//*[@id="productInfo"]/fieldset/span/span[1]'
+
         pricePath = '//*[@id="productInfo"]/fieldset/span/span[2]'
         namePath = '//*[@id="short-desc"]/div/header/h1'
 
         addressPath = '//*[@id="root-app"]/div/div/div[1]/div[3]/section/div[1]/div/h2'
 
+        priceSymbol = tree.xpath(priceSymbolPath)
+        if len(priceSymbol) == 0:
+            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar el simbolo de precio")
+        priceSymbol = priceSymbol[0].text
+        price = tree.xpath(pricePath)
+        if len(price) == 0:
+            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar precio")
+            continue
+        price = int(price[0].text.replace(',','').replace(' ','').replace('.',''))
 
-        priceSymbol = tree.xpath(priceSymbolPath)[0].text
-        price = int(tree.xpath(pricePath)[0].text.replace(',','').replace(' ','').replace('.',''))
-        name = tree.xpath(namePath)[0].text.replace('\n','').replace('\t','')
+        if priceSymbol == 'UF':
+            price = price*uf
 
+        name = tree.xpath(namePath)
+        if len(name) == 0:
+            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar nombre")
+            continue
 
-        address = tree.xpath(addressPath)[0].text
+        name = name[0].text.replace('\n','').replace('\t','')
+
+        address =  tree.xpath(addressPath)
+        if len(address) == 0:
+            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar nombre")
+            address = '-'
+        else:
+            address = address[0].text
 
         #fecha
         datePosition = request.text.find('<p class="title">Fecha de Publicación</p>')
-        date = request.text[datePosition+60:datePosition+70]
-
-        dateSplit = date.split('-')
-        date = dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0]
+        if datePosition == -1:
+            f.write(str(datetime.now()) + ',' + link + "," + "Error al sacar fecha")
+            date = "00-00-0000"
+        else:
+            date = request.text[datePosition+60:datePosition+70]
+            dateSplit = date.split('-')
+            date = dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0]
 
         #metraje, estacionamientos, bodegas
         htmlArray = request.text.split('<li class="specs-item">')
@@ -150,15 +180,19 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         minMeters = 0
         estacionamientos = 0
         bodegas = 0
-        for element in htmlArray:
-            if "Superficie total" in element:
-                maxMeters = int(float(element.split('span')[1][1:-5]))
-            elif "Superficie útil" in element:
-                minMeters = int(float(element.split('span')[1][1:-5]))
-            elif "Estacionamientos" in element:
-                estacionamientos = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
-            elif "Bodegas" in element:
-                bodegas = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
+        try:
+            for element in htmlArray:
+                if "Superficie total" in element:
+                    maxMeters = int(float(element.split('span')[1][1:-5]))
+                elif "Superficie útil" in element:
+                    minMeters = int(float(element.split('span')[1][1:-5]))
+                elif "Estacionamientos" in element:
+                    estacionamientos = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
+                elif "Bodegas" in element:
+                    bodegas = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
+        except Exception as err:
+            f.write(str(datetime.now()) + ',' + link + "," + "Error:"+str(err))
+            continue
 
         if maxMeters != 0 and minMeters == 0:
             minMeters = maxMeters
@@ -168,10 +202,15 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
         #lat, lon
         mapPosition = request.text.find("center=")
-        amperPosition = request.text[mapPosition:].find('&')
-        mapTexts = request.text[mapPosition:mapPosition+amperPosition].replace("center=",'').split('%2C')
-        lat = float(mapTexts[0])
-        lon = float(mapTexts[1])
+        if mapPosition == -1:
+            f.write(str(datetime.now()) + ',' + link + "," + "Error in finding map")
+            lat = 0
+            lon = 0
+        else:
+            amperPosition = request.text[mapPosition:].find('&')
+            mapTexts = request.text[mapPosition:mapPosition+amperPosition].replace("center=",'').split('%2C')
+            lat = float(mapTexts[0])
+            lon = float(mapTexts[1])
 
         fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(datetime.datetime.now().day)
 
@@ -213,8 +252,11 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
         try:
             insertarPropiedad(propiedad)
-        except:
+        except Exception as err:
+            f.write(str(datetime.now()) + ',' + link + "," + "Error al escribir en BD:" + str(err))
             continue
+
+    f.close()
 
 
 def main():
