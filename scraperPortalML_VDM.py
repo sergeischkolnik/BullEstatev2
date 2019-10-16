@@ -101,12 +101,12 @@ def insertarPropiedad(propiedad):
 
     sql = """INSERT INTO portalinmobiliario(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link)
              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,bodegas=%s,lat=%s,lon=%s,link=%s"""
-
+    print(sql)
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
     cur.execute(sql, (propiedad))
-
+    print("executed sql")
     mariadb_connection.commit()
     mariadb_connection.close()
 
@@ -257,7 +257,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         propiedad.append(lat)
         propiedad.append(lon)
         propiedad.append(link)
-
+        print(len(propiedad))
         try:
             insertarPropiedad(propiedad)
         except Exception as err:
