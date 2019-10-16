@@ -82,7 +82,7 @@ comunas = ["santiago","providencia","las-condes","cerrillos","colina","cerro-nav
            "pudahuel","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
            "san-joaquin","san-pedro","talagante","vitacura","nunoa"]
 
-tipos=["parcela","oficina","comercial","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
+tipos=["comercial","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
 pages = range(0,2050,50)
 
 uf = uf.getUf()
@@ -266,7 +266,7 @@ def main():
     for tipo in tipos:
         for comuna in comunas:
 
-            
+
             for page in pages:
                 time.sleep(random.randint(1,4))
                 link = "https://www.portalinmobiliario.com/venta/"+tipo+"/propiedades-usadas/"+comuna+"-metropolitana/_Desde_"+str(page)
