@@ -314,12 +314,13 @@ def insertarPropiedad(propiedad):
     mariadb_connection.commit()
     mariadb_connection.close()
 
-def scrap(linkList,region,operacion,tipo):
+def scrap(linkList,region,operacion,tipo,comuna,hoja):
     headerIndex = 0
 
     for i,link in enumerate(linkList):
 
-        print("[PIOV]"+str(i)+"/"+str(len(linkList)) + " - " + link)
+        print("[PIOM]" + str(i + 1 + hoja) + " - " + str(region) + " - " + str(comuna) + " - " + str(operacion) + " - " +
+            str(tipo))
 
         time.sleep(random.randint(1,3))
         request = requests.get(link, headers=headerList[headerIndex])
@@ -605,7 +606,8 @@ def main():
                                     result_link = result_link.split('#')[0]
                                     resultLinkList.append(result_link)
 
-                            scrap(linkList=resultLinkList,region="valparaiso",operacion=operacion, tipo=tipo)
+                            scrap(linkList=resultLinkList,region="valparaiso",operacion=operacion, tipo=tipo,
+                                  hoja=page)
 
             else:
                 for page in pages:
@@ -637,7 +639,7 @@ def main():
                             result_link = element.replace('"', '').replace("item-url=", "")
                             resultLinkList.append(result_link)
 
-                    scrap(linkList=resultLinkList, region="metropolitana", operacion=operacion, tipo=tipo)
+                    scrap(linkList=resultLinkList, region="metropolitana", operacion=operacion, tipo=tipo, hoja=page)
 
 main()
 
