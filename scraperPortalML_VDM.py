@@ -74,8 +74,17 @@ headers3 = {
 headerList = [headers1,headers2,headers3]
 
 
-dormitorios = range(0,10)
-banos = range(1,10)
+dormitorios = ["sin-dormitorios",
+                "1-dormitorio",
+                "2-dormitorios",
+                "3-dormitorios",
+                "mas-de-4-dormitorios"]
+banos = ["_Banos_1",
+          "_Banos_2",
+          "_Banos_3",
+          "_Banos_4",
+          "_Banos_5-o-mas"]
+
 comunas = ["santiago","providencia","las-condes","cerrillos","colina","cerro-navia","conchali","el-bosque","estacion-central","huechuraba","independencia",
            "la-cisterna","la-florida","la-granja","la-pintana","la-reina","lampa","lo-barnechea","lo-espejo",
            "lo-prado","macul","paine","penalolen","puente-alto","pedro-aguirre-cerda","penaflor",
@@ -302,7 +311,7 @@ def insertarDueno(dueno):
     mariadb_connection.commit()
     mariadb_connection.close()
 
-def scrap(linkList,region,operacion,comuna,tipo,dorms,baths,hoja):
+def scrap(linkList,region,operacion,comuna,tipo,hoja):
     fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().day)
 
@@ -407,7 +416,54 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths,hoja):
         if minMeters != 0 and maxMeters == 0:
             maxMeters = minMeters
 
+        #baños y dormitorios
+        try:
+            item1xpath = '//*[@id="productInfo"]/div[1]/dl[1]/dd'
+            item2xpath = '//*[@id="productInfo"]/div[1]/dl[2]/dd'
+            item3xpath = '//*[@id="productInfo"]/div[1]/dl[3]/dd'
+            itemUniquexpath = '//*[@id="productInfo"]/div[1]/dl/dd'
 
+            item1 = tree.xpath(item1xpath)
+            item2 = tree.xpath(item2xpath)
+            item3 = tree.xpath(item3xpath)
+            itemU = tree.xpath(itemUniquexpath)
+
+            item1 = item1[0].text if len(item1) > 0 else ''
+            item2 = item2[0].text if len(item2) > 0 else ''
+            item3 = item3[0].text if len(item3) > 0 else ''
+            itemU = itemU[0].text if len(itemU) > 0 else ''
+
+            if "dormitorio" in item1:
+                dorms = int(item1.split(' ')[0])
+            elif "dormitorio" in item2:
+                dorms = int(item2.split(' ')[0])
+            elif "dormitorio" in item3:
+                dorms = int(item3.split(' ')[0])
+            elif "dormitorio" in itemU:
+                dorms = int(itemU.split(' ')[0])
+            elif "priva" in item1:
+                dorms = int(item1.split(' ')[0])
+            elif "priva" in item2:
+                dorms = int(item2.split(' ')[0])
+            elif "priva" in item3:
+                dorms = int(item3.split(' ')[0])
+            elif "priva" in itemU:
+                dorms = int(itemU.split(' ')[0])
+            else:
+                dorms = 0
+
+            if "baño" in item1:
+                baths = int(item1.split(' ')[0])
+            elif "baño" in item2:
+                baths = int(item2.split(' ')[0])
+            elif "baño" in item3:
+                baths = int(item3.split(' ')[0])
+            elif "baño" in itemU:
+                baths = int(itemU.split(' ')[0])
+            else:
+                baths = 0
+        except:
+            error(link,"Error en baños o dormitorios")
         #lat, lon
         mapPosition = request.text.find("center=")
         if mapPosition == -1:
@@ -530,8 +586,7 @@ def main():
                     continue
                 for page in pages:
                     time.sleep(random.randint(1,4))
-                    dorm_text = "sin-dormitorios" if dormitorio==0 else str(dormitorio)+"-dormitorio"
-                    link = "https://www.portalinmobiliario.com/venta/departamento/propiedades-usadas/"+dorm_text+"/"+comuna+"-metropolitana/_Desde_"+str(page)+"_Banos_"+str(bano)
+                    link = "https://www.portalinmobiliario.com/venta/departamento/propiedades-usadas/"+dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
                     print(link)
                     request = requests.get(link, headers = headerList[headerIndex])
 
@@ -560,7 +615,7 @@ def main():
                             resultLinkList.append(result_link)
 
                     scrap(linkList=resultLinkList,region="metropolitana",operacion="venta",comuna=comuna,
-                          tipo="departamento",dorms=dormitorio,baths=bano,hoja=page)
+                          tipo="departamento",hoja=page)
 
 main()
 
