@@ -319,6 +319,8 @@ def insertarPropiedad(propiedad):
 def scrap(linkList,region,operacion,tipo,hoja):
     headerIndex = 0
 
+
+
     for i,link in enumerate(linkList):
 
         print("[PIOR]" + str(i + 1 + hoja) + " - " + str(region) + " - " + str(operacion) + " - " + str(tipo))
@@ -385,19 +387,27 @@ def scrap(linkList,region,operacion,tipo,hoja):
         minMeters = 0
         estacionamientos = 0
         bodegas = 0
+
+        minMetersFound = maxMetersFound = estacionamientosFound = bodegasFound = False
+
         try:
             for element in htmlArray:
-                if "Superficie total" in element:
+                if "Superficie total" in element and not maxMetersFound:
                     maxMeters = int(float(element.split('span')[1][1:-5]))
-                elif "Superficie útil" in element:
-                    minMeters = int(float(element.split('span')[1][1:-5]))
-                elif "Estacionamientos" in element:
+                    maxMetersFound = True
+                elif "Superficie útil" in element and not minMetersFound:
+                    minMeters = element.split('span')[1][1:-5]
+                    minMetersFound = True
+                elif "Estacionamientos" in element and not estacionamientosFound:
                     estacionamientos = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
-                elif "Bodegas" in element:
+                    estacionamientosFound = True
+                elif "Bodegas" in element and not bodegasFound:
                     bodegas = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
-        except Exception as err:
-            error(link,"Error:"+str(err))
+                    bodegasFound = True
+        except:
+            error(link,"Error en superficies, estacionamientos o bodegas.")
             continue
+
 
         if maxMeters != 0 and minMeters == 0:
             minMeters = maxMeters
