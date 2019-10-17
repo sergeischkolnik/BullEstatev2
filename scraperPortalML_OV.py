@@ -319,7 +319,7 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
 
     for i,link in enumerate(linkList):
 
-        print("[PIOM]" + str(i + 1 + hoja) + " - " + str(region) + " - " + str(comuna) + " - " + str(operacion) + " - " +
+        print("[PIOV]" + str(i + 1 + hoja) + " - " + str(region) + " - " + str(comuna) + " - " + str(operacion) + " - " +
             str(tipo))
 
         time.sleep(random.randint(1,3))
