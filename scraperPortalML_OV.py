@@ -341,6 +341,8 @@ def scrap(linkList,region,operacion,tipo):
         priceSymbol = tree.xpath(priceSymbolPath)
         if len(priceSymbol) == 0:
             error(link,"Error al sacar el simbolo de precio")
+            continue
+
         priceSymbol = priceSymbol[0].text
         price = tree.xpath(pricePath)
         if len(price) == 0:
