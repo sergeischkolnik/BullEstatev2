@@ -266,7 +266,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         propiedad.append(lat)
         propiedad.append(lon)
         propiedad.append(link)
-        print(len(propiedad))
+
         try:
             insertarPropiedad(propiedad)
             print("Inserción exitosa.")
