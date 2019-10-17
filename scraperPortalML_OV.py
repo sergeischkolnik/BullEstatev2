@@ -314,12 +314,12 @@ def insertarPropiedad(propiedad):
     mariadb_connection.commit()
     mariadb_connection.close()
 
-def scrap(linkList,region,operacion,tipo,comuna,hoja):
+def scrap(linkList,region,operacion,tipo,hoja):
     headerIndex = 0
 
     for i,link in enumerate(linkList):
 
-        print("[PIOV]" + str(i + 1 + hoja) + " - " + str(region) + " - " + str(comuna) + " - " + str(operacion) + " - " +
+        print("[PIOV]" + str(i + 1 + hoja) + " - " + str(region) + " - " + str(operacion) + " - " +
             str(tipo))
 
         time.sleep(random.randint(1,3))
