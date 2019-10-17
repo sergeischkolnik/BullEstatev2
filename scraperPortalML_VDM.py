@@ -582,8 +582,7 @@ def main():
     for comuna in comunas:
         for dormitorio in dormitorios:
             for bano in banos:
-                if math.fabs(bano-dormitorio) > 4:
-                    continue
+                
                 for page in pages:
                     time.sleep(random.randint(1,4))
                     link = "https://www.portalinmobiliario.com/venta/departamento/propiedades-usadas/"+dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
