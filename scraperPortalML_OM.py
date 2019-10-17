@@ -92,7 +92,7 @@ comunas = ["santiago","providencia","las-condes","buin","calera-de-tango","cerri
            "pudahuel","padre-hurtado","pirque","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
            "san-joaquin","san-pedro","san-jose-de-maipo","talagante","til-til","vitacura","nunoa"]
 
-tipos=["departamento","casa","comercial","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
+tipos=["comercial","departamento","casa","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
 operaciones = ["venta","arriendo"]
 pages = range(0,2050,50)
 
@@ -328,7 +328,11 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
         print("[PIOM]" + str(i+1+hoja) + " - " + str(region) + " - " + str(comuna) + " - " + str(operacion) + " - " + str(tipo))
 
         time.sleep(random.randint(1,3))
-        request = requests.get(link, headers=headerList[headerIndex])
+        try:
+            request = requests.get(link, headers=headerList[headerIndex])
+        except:
+            time.spleep(random.randint(60,90))
+            request = requests.get(link, headers=headerList[headerIndex])
         headerIndex += 1
         headerIndex = headerIndex % len(headerList)
         try:
