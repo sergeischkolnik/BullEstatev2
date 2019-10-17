@@ -85,6 +85,178 @@ pages = range(0,2050,50)
 
 uf = uf.getUf()
 
+def obtenerBodegas(texto):
+    bodegas=0
+
+    texto=texto.lower()
+
+    visitas=['bodega de visita','bodegas de visita','bodega visita','bodegas visita','bodega para visita', 'bodegas para visita']
+    for vis in visitas:
+        if(vis in texto):
+            texto=texto.replace(vis,'')
+
+    if 'bodegas: 0' in texto:
+        bodegas=0
+    elif 'bodegas: 1' in texto:
+        bodegas=1
+    elif 'bodegas: 2' in texto:
+        bodegas=2
+    elif 'bodegas: 3' in texto:
+        bodegas=3
+    elif ('in bodega' in texto):
+        bodegas=0
+    elif ('bodega: n' in texto):
+        bodegas=0
+    elif ('bodega' in texto):
+        if ('incluye bodega' in texto):
+            if ('no incluye bodega' in texto):
+                bodegas=0
+            elif ('ni incluye bodega' in texto):
+                bodegas=0
+            elif ('tampoco incluye bodega' in texto):
+                bodegas=0
+            else:
+                 bodegas=1
+
+        elif ('tiene bodega' in texto):
+            if ('no tiene bodega' in texto):
+                bodegas=0
+            elif ('ni tiene bodega' in texto):
+                bodegas=0
+            else:
+                 bodegas=1
+
+        elif ('con bodega' in texto):
+            if ('cuenta con bodega' in texto):
+                if ('no cuenta con bodega' in texto):
+                    bodegas=0
+                elif ('ni cuenta con bodega' in texto):
+                    bodegas=0
+                elif ('tampoco cuenta con bodega' in texto):
+                    bodegas=0
+                else:
+                    bodegas=1
+            elif ('viene con bodega' in texto):
+                if ('no viene con bodega' in texto):
+                    bodegas=0
+                elif ('ni viene con bodega' in texto):
+                    bodegas=0
+                else:
+                    bodegas=1
+            else:
+                bodegas=1
+        elif (('ni bodega' in texto) or ('no bodega' in texto)):
+            bodegas=0
+
+        elif (('sin bodega' in texto)):
+            bodegas=0
+
+        elif ('tiene bodega' in texto):
+            if ('no tiene bodega' in texto):
+                bodegas=0
+            elif ('ni tiene bodega' in texto):
+                bodegas=0
+            else:
+                bodegas=1
+        elif ('posee bodega' in texto):
+            if ('no posee bodega' in texto):
+                bodegas=0
+            elif ('ni posee bodega' in texto):
+                bodegas=0
+            else:
+                bodegas=1
+
+        else:
+            bodegas=1
+    return bodegas
+
+def obtenerEstacionamientos(texto):
+    estacionamientos=0
+
+    texto=texto.lower()
+
+    visitas=['estacionamiento de visita','estacionamientos de visita','estacionamiento visita','estacionamientos visita','estacionamiento para visita', 'estacionamientos para visita']
+    for vis in visitas:
+        if(vis in texto):
+            texto=texto.replace(vis,'')
+
+    if 'estacionamientos: 0' in texto:
+        estacionamientos=0
+    elif 'estacionamientos: 1' in texto:
+        estacionamientos=1
+    elif 'estacionamientos: 2' in texto:
+        estacionamientos=2
+    elif 'estacionamientos: 3' in texto:
+        estacionamientos=3
+    elif ('in estacionamiento' in texto):
+        estacionamientos=0
+    elif ('estacionamiento: n' in texto):
+        estacionamientos=0
+    elif ('estacionamiento' in texto):
+        if ('incluye estacionamiento' in texto):
+            if ('no incluye estacionamiento' in texto):
+                estacionamientos=0
+            elif ('ni incluye estacionamiento' in texto):
+                estacionamientos=0
+            elif ('tampoco incluye estacionamiento' in texto):
+                estacionamientos=0
+            else:
+                 estacionamientos=1
+
+        elif ('tiene estacionamiento' in texto):
+            if ('no tiene estacionamiento' in texto):
+                estacionamientos=0
+            elif ('ni tiene estacionamiento' in texto):
+                estacionamientos=0
+            else:
+                 estacionamientos=1
+
+        elif ('con estacionamiento' in texto):
+            if ('cuenta con estacionamiento' in texto):
+                if ('no cuenta con estacionamiento' in texto):
+                    estacionamientos=0
+                elif ('ni cuenta con estacionamiento' in texto):
+                    estacionamientos=0
+                elif ('tampoco cuenta con estacionamiento' in texto):
+                    estacionamientos=0
+                else:
+                    estacionamientos=1
+            elif ('viene con estacionamiento' in texto):
+                if ('no viene con estacionamiento' in texto):
+                    estacionamientos=0
+                elif ('ni viene con estacionamiento' in texto):
+                    estacionamientos=0
+                else:
+                    estacionamientos=1
+            else:
+                estacionamientos=1
+        elif (('ni estacionamiento' in texto) or ('no estacionamiento' in texto)):
+            estacionamientos=0
+
+        elif (('sin estacionamiento' in texto)):
+            estacionamientos=0
+
+        elif ('tiene estacionamiento' in texto):
+            if ('no tiene estacionamiento' in texto):
+                estacionamientos=0
+            elif ('ni tiene estacionamiento' in texto):
+                estacionamientos=0
+            else:
+                estacionamientos=1
+        elif ('posee estacionamiento' in texto):
+            if ('no posee estacionamiento' in texto):
+                estacionamientos=0
+            elif ('ni posee estacionamiento' in texto):
+                estacionamientos=0
+            else:
+                estacionamientos=1
+
+        else:
+            estacionamientos=1
+
+
+    return estacionamientos
+
 def error(link,texto):
 
     f = open("errores " + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) + '-' + str(
@@ -235,6 +407,19 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
             lat = float(mapTexts[0])
             lon = float(mapTexts[1])
 
+        #text mining para bodegas
+        if bodegas == 0:
+            descripcion_xpath  = '//*[@id="description-includes"]/div/p/text()'
+            descripcion_result = tree.xpath(descripcion_xpath)
+            if len(descripcion_result)>0:
+                bodegas = obtenerBodegas(descripcion_result[0].text)
+
+        # text mining para estacionamientos
+        if estacionamientos == 0:
+            descripcion_xpath = '//*[@id="description-includes"]/div/p/text()'
+            descripcion_result = tree.xpath(descripcion_xpath)
+            if len(descripcion_result) > 0:
+                estacionamientos = obtenerEstacionamientos(descripcion_result[0].text)
 
 
         propiedad = []
