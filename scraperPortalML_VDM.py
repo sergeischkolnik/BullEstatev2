@@ -85,6 +85,14 @@ pages = range(0,2050,50)
 
 uf = uf.getUf()
 
+def error(link,texto):
+
+    f = open("errores " + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) + '-' + str(
+        datetime.datetime.now().year) + ".txt", "a+")
+    print(str(datetime.datetime.now()) + ',' + link + "," + str(texto))
+    f.write(str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
+    f.close()
+
 def actualizar_checker(operacion,tipo,region,pagina):
     d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='spivm'"
@@ -108,13 +116,27 @@ def insertarPropiedad(propiedad):
     mariadb_connection.commit()
     mariadb_connection.close()
 
+def insertarDueno(dueno):
+    #Inserta una propiedad en una base de datos
+
+    sql = """INSERT INTO duenos(idProp,mail,telefono,esDueno)
+             VALUES(%s,%s,%s) ON DUPLICATE KEY UPDATE telefono=%s, esDueno=%s"""
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+
+    cur = mariadb_connection.cursor()
+    cur.execute(sql, (dueno))
+
+    mariadb_connection.commit()
+    mariadb_connection.close()
+
 def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
     fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().day)
 
     headerIndex = 0
 
-    f = open("errores " + str(fechascrap) + ".txt", "a+")
+
 
     for i,link in enumerate(linkList):
 
@@ -127,9 +149,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         try:
             tree = html.fromstring(request.content)
         except:
-            #   print("Fallo.")
-            f.write(str(datetime.datetime.now()) + ', ' + link + ", " + "Error al tratar de crear tree.\n\n")
-            print("Error al tratar de crear tree")
+            error(link,"Error al crear tree.")
             continue
 
         priceSymbolPath = '//*[@id="productInfo"]/fieldset/span/span[1]'
@@ -141,13 +161,11 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
         priceSymbol = tree.xpath(priceSymbolPath)
         if len(priceSymbol) == 0:
-            f.write(str(datetime.datetime.now()) + ', ' + link + ", " + "Error al sacar el simbolo de precio.\n\n")
-            print("Error al sacar el simbolo de precio")
+            error(link, "Error al sacar el simbolo de precio")
         priceSymbol = priceSymbol[0].text
         price = tree.xpath(pricePath)
         if len(price) == 0:
-            f.write(str(datetime.datetime.now()) + ', ' + link + ", " + "Error al sacar precio\n\n")
-            print("Error al sacar el precio")
+            error(link, "Error al sacar el precio")
             continue
         price = int(price[0].text.replace(',','').replace(' ','').replace('.',''))
 
@@ -156,16 +174,14 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
         name = tree.xpath(namePath)
         if len(name) == 0:
-            f.write(str(datetime.datetime.now()) + ', ' + link + ", " + "Error al sacar nombre.\n\n")
-            print("Error al sacar el nombre")
+            error(link, "Error al sacar el nombre")
             continue
 
         name = name[0].text.replace('\n','').replace('\t','')
 
         address =  tree.xpath(addressPath)
         if len(address) == 0:
-            f.write(str(datetime.datetime.now()) + ', ' + link + ", " + "Error al sacar direccion.\n\n")
-            print("Error al sacar direccion.")
+            error(link, "Error al sacar el direccion")
             address = '-'
         else:
             address = address[0].text
@@ -173,8 +189,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         #fecha
         datePosition = request.text.find('<p class="title">Fecha de Publicación</p>')
         if datePosition == -1:
-            f.write(str(datetime.datetime.now()) + ', ' + link + ", " + "Error al sacar fecha.\n\n")
-            print("Error al sacar fecha")
+            error(link, "Error al sacar fecha")
             date = "1900-01-01"
         else:
             date = request.text[datePosition+60:datePosition+70]
@@ -198,8 +213,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
                 elif "Bodegas" in element:
                     bodegas = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
         except Exception as err:
-            f.write(str(datetime.datetime.now()) + ', ' + link + ", " + "Error:"+str(err)+".\n\n")
-            print("Error al sacar superdicies, est. o bodegas")
+            error(link, "Error en bloque de info")
             continue
 
         if maxMeters != 0 and minMeters == 0:
@@ -211,7 +225,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         #lat, lon
         mapPosition = request.text.find("center=")
         if mapPosition == -1:
-            f.write(str(datetime.datetime.now()) + ', ' + link + ", " + "Error in finding map.\n\n")
+            error(link, "Error al buscar imagen de mapa")
             lat = 0
             lon = 0
         else:
@@ -227,8 +241,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
             code=int(link.split('/')[6].split('-')[0])
 
         except Exception as err:
-            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al obtener el codigo de portalinmobiliario:"+str(err)+".\n\n")
-            print("Error al sacar codigo")
+            error(link, "Error al sacar codigo")
             continue
 
         propiedad.append(code)
@@ -267,14 +280,47 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         propiedad.append(lon)
         propiedad.append(link)
 
+
         try:
             insertarPropiedad(propiedad)
             print("Inserción exitosa.")
         except Exception as err:
-            f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al escribir en BD:" + str(err)+".\n\n")
+            error(link, "Error en insercion de propiedad:"+str(err))
             continue
 
-    f.close()
+        # verificar si es dueño y crear objeto dueño
+        agency_path = '//*[@id="real_estate_agency"]'
+        agency = tree.xpath(agency_path)
+        esPropietario = "no"
+        if len(agency) == 0:
+            # no hay agency; es dueño.
+            esPropietario = "si"
+        dueno = []
+        dueno.append(code)
+        dueno.append(None)
+        phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[3]/span/span[1]/text()'
+        phoneElem = tree.xpath(phone_path)
+        try:
+            if len(phoneElem) > 0:
+                phone = str(phoneElem[0])
+            else:
+                phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[5]/span/span/text()'
+                phoneElem = tree.xpath(phone_path)
+                phone = str(phoneElem[0])
+        except:
+            error(link,"Error al sacar telefono propietario.")
+            phone = ""
+        dueno.append(phone)
+        dueno.append(esPropietario)
+        dueno.append(phone)
+        dueno.append(esPropietario)
+
+        try:
+            insertarDueno(dueno)
+        except Exception as err:
+            error(link, "Error al insertar dueno:"+str(err))
+            pass
+        # fin sector dueño
 
 
 def main():
