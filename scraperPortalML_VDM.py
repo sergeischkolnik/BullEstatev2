@@ -302,7 +302,7 @@ def insertarDueno(dueno):
     mariadb_connection.commit()
     mariadb_connection.close()
 
-def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
+def scrap(linkList,region,operacion,comuna,tipo,dorms,baths,hoja):
     fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().day)
 
@@ -312,7 +312,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
     for i,link in enumerate(linkList):
 
-        print("[PIVDM]"+str(i)+"/"+str(len(linkList)) + " - " + str(region) + " - " + str(comuna) + " - "+str(operacion) + " - " +
+        print("[PIVDM]"+str(i+1+hoja) + " - " + str(region) + " - " + str(comuna) + " - "+str(operacion) + " - " +
               str(tipo) + " - " + str(dorms) + " - " + str(baths))
 
         time.sleep(random.randint(1,3))
@@ -549,7 +549,7 @@ def main():
                             resultLinkList.append(result_link)
 
                     scrap(linkList=resultLinkList,region="metropolitana",operacion="venta",comuna=comuna,
-                          tipo="departamento",dorms=dormitorio,baths=bano)
+                          tipo="departamento",dorms=dormitorio,baths=bano,hoja=page)
 
 main()
 
