@@ -326,7 +326,11 @@ def scrap(linkList,region,operacion,tipo,hoja):
         print("[PIOR]" + str(i + 1 + hoja) + " - " + str(region) + " - " + str(operacion) + " - " + str(tipo))
 
         time.sleep(random.randint(1,3))
-        request = requests.get(link, headers=headerList[headerIndex])
+        try:
+            request = requests.get(link, headers=headerList[headerIndex])
+        except:
+            time.spleep(random.randint(60,90))
+            request = requests.get(link, headers=headerList[headerIndex])
         headerIndex += 1
         headerIndex = headerIndex % len(headerList)
         try:
