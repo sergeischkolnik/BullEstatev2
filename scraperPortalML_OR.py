@@ -273,8 +273,8 @@ def error(link,texto):
 
     f = open("errores " + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().year) + ".txt", "a+")
-    print("[PIOV][ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto))
-    f.write("[PIOV]"+str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
+    print("[PIOR][ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto))
+    f.write("[PIOR]"+str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
     f.close()
 
 def actualizar_checker(operacion,tipo,region,pagina):
