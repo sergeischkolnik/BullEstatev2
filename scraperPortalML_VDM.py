@@ -296,7 +296,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
             # no hay agency; es dueño.
             esPropietario = "si"
         dueno = []
-        dueno.append(code)
+        dueno.append(str(code))
         dueno.append(None)
         phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[3]/span/span[1]/text()'
         phoneElem = tree.xpath(phone_path)
@@ -316,6 +316,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         dueno.append(esPropietario)
 
         try:
+            print(dueno)
             insertarDueno(dueno)
         except Exception as err:
             error(link, "Error al insertar dueno:"+str(err))
