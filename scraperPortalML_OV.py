@@ -271,8 +271,8 @@ def error(link,texto):
 
     f = open("errores " + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().year) + ".txt", "a+")
-    print("[PIOM][ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto))
-    f.write("[PIOM]"+str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
+    print("[PIOV][ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto))
+    f.write("[PIOV]"+str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
     f.close()
 
 def actualizar_checker(operacion,tipo,region,pagina):
@@ -319,7 +319,7 @@ def scrap(linkList,region,operacion,tipo):
 
     for i,link in enumerate(linkList):
 
-        print("[PIOM]"+str(i)+"/"+str(len(linkList)) + " - " + link)
+        print("[PIOV]"+str(i)+"/"+str(len(linkList)) + " - " + link)
 
         time.sleep(random.randint(1,3))
         request = requests.get(link, headers=headerList[headerIndex])
