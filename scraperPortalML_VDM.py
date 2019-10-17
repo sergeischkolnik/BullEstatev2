@@ -111,9 +111,12 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
+    fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(
+        datetime.datetime.now().day)
+
     headerIndex = 0
 
-    f = open("errors.csv", "a+")
+    f = open("errors " + str(fechascrap) + ".csv", "a+")
 
     for i,link in enumerate(linkList):
 
@@ -128,6 +131,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         except:
             #   print("Fallo.")
             f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al tratar de crear tree.")
+            print("Error al tratar de crear tree")
             continue
 
         priceSymbolPath = '//*[@id="productInfo"]/fieldset/span/span[1]'
@@ -140,10 +144,12 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         priceSymbol = tree.xpath(priceSymbolPath)
         if len(priceSymbol) == 0:
             f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al sacar el simbolo de precio")
+            print("Error al sacar el simbolo de precio")
         priceSymbol = priceSymbol[0].text
         price = tree.xpath(pricePath)
         if len(price) == 0:
             f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al sacar precio")
+            print("Error al sacar el precio")
             continue
         price = int(price[0].text.replace(',','').replace(' ','').replace('.',''))
 
@@ -153,6 +159,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         name = tree.xpath(namePath)
         if len(name) == 0:
             f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al sacar nombre")
+            print("Error al sacar el nombre")
             continue
 
         name = name[0].text.replace('\n','').replace('\t','')
@@ -192,6 +199,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
                     bodegas = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
         except Exception as err:
             f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error:"+str(err))
+            print("Error al sacar superdicies, est. o bodegas")
             continue
 
         if maxMeters != 0 and minMeters == 0:
@@ -212,14 +220,15 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
             lat = float(mapTexts[0])
             lon = float(mapTexts[1])
 
-        fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(datetime.datetime.now().day)
+
 
         propiedad = []
         try:
-            code=int(link[6].split('-')[0])
+            code=int(link.split('/')[6].split('-')[0])
 
         except Exception as err:
             f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al obtener el codigo de portalinmobiliario:"+str(err))
+            print("Error al sacar codigo")
             continue
 
         propiedad.append(code)
@@ -260,6 +269,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
         print(len(propiedad))
         try:
             insertarPropiedad(propiedad)
+            print("Inserción exitosa.")
         except Exception as err:
             f.write(str(datetime.datetime.now()) + ',' + link + "," + "Error al escribir en BD:" + str(err))
             continue
