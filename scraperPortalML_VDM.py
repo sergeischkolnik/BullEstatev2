@@ -117,7 +117,7 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 def insertarDueno(dueno):
-    #Inserta una propiedad en una base de datos
+    #Inserta un dueño en una base de datos
 
     sql = """INSERT INTO duenos(idProp,mail,telefono,esDueno)
              VALUES(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE telefono=%s, esDueno=%s"""
