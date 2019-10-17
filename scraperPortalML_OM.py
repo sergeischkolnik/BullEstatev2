@@ -325,7 +325,7 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
 
     for i,link in enumerate(linkList):
 
-        print("[PIOM]" + str(i+1+hoja) + " - " + str(region) + " - " + str(operacion) + " - " + str(tipo))
+        print("[PIOM]" + str(i+1+hoja) + " - " + str(region) + " - " + str(comuna) + " - " + str(operacion) + " - " + str(tipo))
 
         time.sleep(random.randint(1,3))
         request = requests.get(link, headers=headerList[headerIndex])
