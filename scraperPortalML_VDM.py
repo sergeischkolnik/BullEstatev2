@@ -89,8 +89,8 @@ def error(link,texto):
 
     f = open("errores " + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().year) + ".txt", "a+")
-    print(str(datetime.datetime.now()) + ',' + link + "," + str(texto))
-    f.write("[ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
+    print("[PIVDM][ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto))
+    f.write("[PIVDM]" + str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
     f.close()
 
 def actualizar_checker(operacion,tipo,region,pagina):
@@ -140,7 +140,7 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
     for i,link in enumerate(linkList):
 
-        print(str(i)+"/"+str(len(linkList)) + " - " + str(region) + " - " + str(comuna) + " - "+str(operacion) + " - " +
+        print("[PIVDM]"+str(i)+"/"+str(len(linkList)) + " - " + str(region) + " - " + str(comuna) + " - "+str(operacion) + " - " +
               str(tipo) + " - " + str(dorms) + " - " + str(baths))
 
         time.sleep(random.randint(1,3))
