@@ -74,7 +74,7 @@ headers3 = {
 headerList = [headers1,headers2,headers3]
 
 
-dormitorios = range(1,10)
+dormitorios = range(0,10)
 banos = range(1,10)
 comunas = ["santiago","providencia","las-condes","cerrillos","colina","cerro-navia","conchali","el-bosque","estacion-central","huechuraba","independencia",
            "la-cisterna","la-florida","la-granja","la-pintana","la-reina","lampa","lo-barnechea","lo-espejo",
