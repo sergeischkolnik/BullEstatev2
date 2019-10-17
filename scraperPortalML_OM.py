@@ -421,6 +421,7 @@ def main():
                                 for element in htmlArray:
                                     if "item-url=" in element:
                                         result_link = element.replace('"', '').replace("item-url=", "")
+                                        result_link = result_link.split('#')[0]
                                         resultLinkList.append(result_link)
 
                                 scrap(linkList=resultLinkList,region="metropolitana",operacion=operacion, tipo=tipo)
