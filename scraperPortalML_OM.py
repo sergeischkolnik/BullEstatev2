@@ -298,7 +298,7 @@ def scrap(linkList,region,operacion,tipo):
         propiedad = []
 
         try:
-            code=int(link[6].split('-')[0])
+            code=int(link.split('/')[6].split('-')[0])
 
         except Exception as err:
             error(link,"Error al obtener el codigo de portalinmobiliario:"+str(err))
