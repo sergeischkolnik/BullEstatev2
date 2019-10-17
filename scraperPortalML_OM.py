@@ -71,7 +71,7 @@ headers3 = {
 }
 
 
-headerList = [headers1,headers2,headers3]
+headerList = [headers3,headers3,headers3]
 
 
 dormitorios = ["sin-dormitorios",
