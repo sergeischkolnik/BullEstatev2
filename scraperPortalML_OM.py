@@ -481,14 +481,14 @@ def scrap(linkList,region,operacion,tipo):
 
         #text mining para bodegas
         if bodegas == 0:
-            descripcion_xpath  = '//*[@id="description-includes"]/div/p/text()'
+            descripcion_xpath  = '//*[@id="description-includes"]/div/p'
             descripcion_result = tree.xpath(descripcion_xpath)
             if len(descripcion_result)>0:
                 bodegas = obtenerBodegas(descripcion_result[0].text)
 
         # text mining para estacionamientos
         if estacionamientos == 0:
-            descripcion_xpath = '//*[@id="description-includes"]/div/p/text()'
+            descripcion_xpath = '//*[@id="description-includes"]/div/p'
             descripcion_result = tree.xpath(descripcion_xpath)
             if len(descripcion_result) > 0:
                 estacionamientos = obtenerEstacionamientos(descripcion_result[0].text)
