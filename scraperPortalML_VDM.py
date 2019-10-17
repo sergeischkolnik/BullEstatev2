@@ -120,7 +120,7 @@ def insertarDueno(dueno):
     #Inserta una propiedad en una base de datos
 
     sql = """INSERT INTO duenos(idProp,mail,telefono,esDueno)
-             VALUES(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE telefono=%s, esDueno=%s∫"""
+             VALUES(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE telefono=%s, esDueno=%s"""
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
