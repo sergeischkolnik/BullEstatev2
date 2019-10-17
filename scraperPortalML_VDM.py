@@ -90,7 +90,7 @@ def error(link,texto):
     f = open("errores " + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().year) + ".txt", "a+")
     print(str(datetime.datetime.now()) + ',' + link + "," + str(texto))
-    f.write(str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
+    f.write("[ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
     f.close()
 
 def actualizar_checker(operacion,tipo,region,pagina):
@@ -140,7 +140,8 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
     for i,link in enumerate(linkList):
 
-        print(str(i)+"/"+str(len(linkList)) + " - " + link)
+        print(str(i)+"/"+str(len(linkList)) + " - " + str(region) + " - " + str(comuna) + " - "+str(operacion) + " - " +
+              str(tipo) + " - " + str(dorms) + " - " + str(baths))
 
         time.sleep(random.randint(1,3))
         request = requests.get(link, headers=headerList[headerIndex])
@@ -283,7 +284,6 @@ def scrap(linkList,region,operacion,comuna,tipo,dorms,baths):
 
         try:
             insertarPropiedad(propiedad)
-            print("Inserción exitosa.")
         except Exception as err:
             error(link, "Error en insercion de propiedad:"+str(err))
             continue
