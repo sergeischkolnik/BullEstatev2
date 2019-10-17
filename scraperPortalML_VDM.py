@@ -311,7 +311,7 @@ def insertarDueno(dueno):
     mariadb_connection.commit()
     mariadb_connection.close()
 
-def scrap(linkList,region,operacion,comuna,tipo,hoja):
+def scrap(linkList,region,operacion,comuna,tipo,dormtext,bathtext,hoja):
     fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().day)
 
@@ -322,7 +322,7 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
     for i,link in enumerate(linkList):
 
         print("[PIVDM]"+str(i+1+hoja) + " - " + str(region) + " - " + str(comuna) + " - "+str(operacion) + " - " +
-              str(tipo) + " - " + str(dorms) + " - " + str(baths))
+              str(tipo) + " - " + str(dormtext) + " - " + str(bathtext))
 
         time.sleep(random.randint(1,3))
         try:
@@ -582,7 +582,7 @@ def main():
     for comuna in comunas:
         for dormitorio in dormitorios:
             for bano in banos:
-                
+
                 for page in pages:
                     time.sleep(random.randint(1,4))
                     link = "https://www.portalinmobiliario.com/venta/departamento/propiedades-usadas/"+dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
@@ -614,7 +614,7 @@ def main():
                             resultLinkList.append(result_link)
 
                     scrap(linkList=resultLinkList,region="metropolitana",operacion="venta",comuna=comuna,
-                          tipo="departamento",hoja=page)
+                          tipo="departamento",dorms=dormitorio,baths=banos,hoja=page)
 
 main()
 
