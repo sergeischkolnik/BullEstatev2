@@ -400,7 +400,7 @@ def main():
                                        dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
                                 print(link)
                                 request = requests.get(link, headers = headerList[headerIndex])
-
+                                print(request)
                                 headerIndex += 1
                                 headerIndex = headerIndex % len(headerList)
 
