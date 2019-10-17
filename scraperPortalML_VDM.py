@@ -614,7 +614,7 @@ def main():
                             resultLinkList.append(result_link)
 
                     scrap(linkList=resultLinkList,region="metropolitana",operacion="venta",comuna=comuna,
-                          tipo="departamento",dorms=dormitorio,baths=banos,hoja=page)
+                          tipo="departamento",dorm=dormitorio,bano=bano,hoja=page)
 
 main()
 
