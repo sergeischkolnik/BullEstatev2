@@ -46,12 +46,12 @@ def m2prom(tipo,comuna,region):
     comuna+="-"+str(region).lower()
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT (2*precio/(metrosmin+metrosmax)) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (2*precio/(metrosmin+metrosmax)) FROM portalinmobiliario WHERE operacion='arriendo' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%' and precio is not Null"
     print(sql)
     cur.execute(sql)
     arriendo = cur.fetchall()
     cur = mariadb_connection.cursor()
-    sql = "SELECT (2*precio/(metrosmin+metrosmax)) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%'"
+    sql = "SELECT (2*precio/(metrosmin+metrosmax)) FROM portalinmobiliario WHERE operacion='venta' and tipo='"+str(tipo)+"' and link like '%"+str(comuna)+"%' and precio is not Null"
     cur.execute(sql)
     venta = cur.fetchall()
     arriendo=sorted(arriendo)

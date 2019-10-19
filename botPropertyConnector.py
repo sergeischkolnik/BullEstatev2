@@ -251,14 +251,14 @@ def tasador(client):
         del row[1]
         del row[0]
 
-    x_train , x_test , y_train , y_test = train_test_split(trainingV , preciosV , test_size = 0.10,random_state = 2)
-
-    #obtain scores venta:
-    clfHV.fit(x_train, y_train)
-    print("-----------")
-    print("Score Huber:")
-    print(clfHV.score(x_test,y_test))
-    scoreV=clfHV.score(x_test,y_test)
+    # x_train , x_test , y_train , y_test = train_test_split(trainingV , preciosV , test_size = 0.10,random_state = 2)
+    #
+    # #obtain scores venta:
+    # clfHV.fit(x_train, y_train)
+    # print("-----------")
+    # print("Score Huber:")
+    # print(clfHV.score(x_test,y_test))
+    # scoreV=clfHV.score(x_test,y_test)
 
     clfHV.fit(trainingV, preciosV)
 
@@ -287,14 +287,14 @@ def tasador(client):
         del row[1]
         del row[0]
 
-    x_train , x_test , y_train , y_test = train_test_split(trainingA , preciosA , test_size = 0.10,random_state = 2)
-
-    #obtain scores arriendo:
-    clfHA.fit(x_train, y_train)
-    print("-----------")
-    print("Score Huber:")
-    print(clfHA.score(x_test,y_test))
-    scoreA=clfHA.score(x_test,y_test)
+    # x_train , x_test , y_train , y_test = train_test_split(trainingA , preciosA , test_size = 0.10,random_state = 2)
+    #
+    # #obtain scores arriendo:
+    # clfHA.fit(x_train, y_train)
+    # print("-----------")
+    # print("Score Huber:")
+    # print(clfHA.score(x_test,y_test))
+    # scoreA=clfHA.score(x_test,y_test)
 
     clfHA.fit(trainingA, preciosA)
 
