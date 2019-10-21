@@ -616,7 +616,9 @@ def main():
                     scrap(linkList=resultLinkList,region="metropolitana",operacion="venta",comuna=comuna,
                           tipo="departamento",hoja=page)
 
-main()
+if __name__ == "__main__":
+    while(True):
+        main()
 
 
 
