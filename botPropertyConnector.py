@@ -318,7 +318,7 @@ def tasador(client):
         return text
     else:
         print("precio de venta es de: "+str(precioV))
-        print("precio de venta es de: "+str(precioA))
+        print("precio de arriendo es de: "+str(precioA))
 
         if client["tipotasacion"]=="Full":
             links=[]
