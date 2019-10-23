@@ -6,12 +6,23 @@ import logging
 import botPropertySelect as select
 import botPropertySet as set
 import botPropertyDataBase as db
-
+import pymysql as mysql
 global id
 
 
-#telegram_token = "666842820:AAGg1F_NjlQBL7IPv9XlfMEC0PJ6iWlVLj0"
-telegram_token = "864014186:AAGrFbg92jxFplBVlYSXh9brToc2aal3RMg"
+def getToken():
+    sql = "SELECT token FROM tokens WHERE nombre='tgbot'"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    cur.execute(sql)
+    elem = cur.fetchall()
+    if len(elem)>0:
+        return elem[0]
+    else:
+        return elem
+
+telegram_token = getToken()
+
 # Enable logging
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
