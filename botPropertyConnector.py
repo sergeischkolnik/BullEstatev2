@@ -34,7 +34,7 @@ def obtenerLinks(client,tasacion,venta):
     comuna=client["comuna"]
     if comuna=="Santiago Centro":
         comuna="Santiago"
-    precio = tasacion
+    precio = int(tasacion[0])
     dormitoriosmin = int(client["dormitorios"])
     dormitoriosmax = int(client["dormitorios"])
     banosmin = int(client["baños"])
