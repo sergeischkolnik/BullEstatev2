@@ -49,7 +49,12 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     datoslocalizacion.append(comuna.capitalize())
     datoslocalizacion.append(direccion.capitalize())
 
+    metrosmin = str(int(client["metros"]))
+    metrosmax = str(int(client["total"]))
 
+    ufm2 = '{:,}'.format((int(10 * ((2 * float(precioV) / float(metrosmin + metrosmax)) / float(uf1)))) / 10).replace(
+        ",", ".")
+    am2 = '{:,}'.format(int(2 * float(precioA) / float(metrosmin + metrosmax))).replace(",", ".")
 
 
     precioVuf=(int(precioV/uf1))
@@ -74,11 +79,9 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     dormitorios=str(int(client["dormitorios"]))
     banos=str(int(client["baños"]))
 
-    metrosmin=str(int(client["metros"]))
-    metrosmax=str(int(client["total"]))
 
-    ufm2 = '{:,}'.format((int(10 * ((2*float(precioV)/float(metrosmin+metrosmax))/ float(uf1)))) / 10).replace(",", ".")
-    am2='{:,}'.format(int(2*float(precioA)/float(metrosmin+metrosmax))).replace(",",".")
+
+
     estacionamientos=str(int(client["estacionamientos"]))
     bodegas=str(int(client["bodegas"]))
 
