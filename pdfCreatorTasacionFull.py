@@ -20,15 +20,19 @@ import reportes
 import botPropertyConnector
 import uf
 
-def crearPdfTasacion(client,precioV,precioA,links,fileName):
+def crearPdfTasacion(client,precioV,precioA,links,fileName,ufventacomuna,arriendocomuna):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]
     headersprecio=[]
     headerspropiedad=[]
+    headerscomuna=[]
+
     datoslocalizacion=[]
     datosprecio=[]
     datospropiedad=[]
+    datoscomuna=[]
+
 
     uf1=uf.getUf()
 
@@ -52,16 +56,6 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     metrosmin = str(int(client["metros"]))
     metrosmax = str(int(client["total"]))
 
-    ufm2=float(metrosmin + metrosmax)
-    print(ufm2)
-    ufm2=2 * float(precioV)/ufm2
-    print(ufm2)
-    ufm2=10*ufm2
-    print(ufm2)
-    ufm2=int(ufm2)
-    print(ufm2)
-    ufm2=ufm2/10
-    print(ufm2)
 
     ufm2 = '{:,}'.format((int(10 * ((2 * float(precioV) / (float(metrosmin) + float(metrosmax))) / float(uf1)))) / 10).replace(
         ",", ".")
@@ -123,6 +117,16 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     datospropiedad.append(estacionamientos)
     datospropiedad.append(bodegas)
 
+    headerscomuna.append("Comuna")
+    headerscomuna.append("UF/m2 Venta")
+    headerscomuna.append("$/m2 Arriendo")
+
+    datoscomuna.append(comuna.capitalize())
+    datoscomuna.append(ufventacomuna)
+    datoscomuna.append(arriendocomuna)
+
+
+
     styles=getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY,leading=16))
 
@@ -171,6 +175,19 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
                             ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
                              ]))
 
+    tabla = []
+    tabla.append(headerscomuna)
+    tabla.append(datoscomuna)
+
+    t4 = Table(tabla, hAlign='LEFT')
+    t3.setStyle(TableStyle([
+        ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
+        ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
+        ('FONTSIZE', (0, 0), (-1, -1), 11),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+    ]))
+
     image = Image('bull_logo2.png', hAlign='LEFT')
     image._restrictSize(2 * inch, 3 * inch)
     Story.append(image)
@@ -188,6 +205,8 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     Story.append(t2)
     Story.append(Spacer(1, 16))
     Story.append(t3)
+    Story.append(Spacer(1, 16))
+    Story.append(t4)
     Story.append(Spacer(1, 16))
 
 
