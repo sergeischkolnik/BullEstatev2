@@ -14,6 +14,111 @@ from sklearn.model_selection import train_test_split
 import reportesHuberV1 as reportes
 import pdfCreatorTasacionFull as pdfc
 import sendmail
+from datetime import datetime, timedelta
+past = datetime.now() - timedelta(days=180)
+past=datetime.date(past)
+yesterday = datetime.now() - timedelta(days=10)
+yesterday=datetime.date(yesterday)
+
+
+def obtenerLinks(client,tasacion,venta):
+
+    if "bodegas" not in client:
+        client["bodegas"]=0
+    if "estacionamientos" not in client:
+        client["estacionamientos"]=0
+    if "baños" not in client:
+        client["baños"]=0
+    if "dormitorios" not in client:
+        client["dormitorios"]=0
+    comuna=client["comuna"]
+    if comuna=="Santiago Centro":
+        comuna="Santiago"
+    precio = tasacion
+    dormitoriosmin = int(client["dormitorios"])
+    dormitoriosmax = int(client["dormitorios"])
+    banosmin = int(client["baños"])
+    banosmax = int(client["baños"])
+    metros = int(client["metros"])
+    total = int(client["total"])
+    lat = float(client["lat"])
+    lon = float(client["lon"])
+    estacionamientos = int(client["estacionamientos"])
+    bodegas=int(client["bodegas"])
+    tipo = client["tipo"]
+    region=client["region"]
+    if venta:
+        operacion="venta"
+    else:
+        operacion="arriendo"
+
+    flexPrice=[0.05,0.1,0.15,0.2]
+    flexDist=[50,100,200,500,1000]
+    flexOther=[False,True]
+    props=[]
+    for bath in flexOther:
+        if bath:
+            banosmin=0
+            banosmax=10
+        for dorm in flexOther:
+            if dorm:
+                dormitoriosmin=0
+                dormitoriosmax=10
+            for est in flexOther:
+                if est:
+                    estacionamientos=0
+                for bod in flexOther:
+                    if bod:
+                        bodegas=0
+                    for k in flexDist:
+
+                        distancia=k
+
+                        latmin = lat - ((0.009 / 1000) * distancia)
+                        latmax = lat + ((0.009 / 1000) * distancia)
+                        lonmin = lon - ((0.01 / 1000) * distancia)
+                        lonmax = lon + ((0.01 / 1000) * distancia)
+
+                        for j in flexPrice:
+                            utilmin = metros * (1 - j)
+                            utilmax = metros * (1 + j)
+                            totalmin = total * (1 - j)
+                            totalmax = total * (1 + j)
+
+                            for i in flexPrice:
+                                preciomin=precio*(1-i)
+                                preciomax = precio * (1 + i)
+                                propsP=reportes.from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,
+                                                                               utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,
+                                                                               lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,
+                                                                               estacionamientos,bodegas,tipo,operacion,region,comuna,
+                                                                               'asdfas','asdfas','asdfas','asdfas','asdfas',False)
+                                propsY=reportes.from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,
+                                                                               lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,
+                                                                               estacionamientos,bodegas,tipo,operacion,region,comuna,
+                                                                               'asdfas','asdfas','asdfas','asdfas','asdfas',False)
+                                props=propsP+propsY
+                                if len(props)>4:
+                                    break
+                            if len(props) > 4:
+                                break
+                        if len(props) > 4:
+                            break
+                    if len(props) > 4:
+                        break
+                if len(props) > 4:
+                    break
+            if len(props) > 4:
+                break
+        if len(props) > 4:
+            break
+
+    links=[]
+    for prop in props:
+        links.append(prop[14])
+        if len(links)>9:
+            break
+    return links
 
 
 def obtenerIdConLink(link,sitio):
@@ -325,10 +430,13 @@ def tasador(client):
         print("precio de arriendo es de: "+str(precioA))
 
         if client["tipotasacion"]=="Full":
-            links=[]
+
+            linksVenta=obtenerLinks(client,precioV,True)
+            linksArriendo=obtenerLinks(client,precioA,False)
+
             fileName = "Tasacion " + client["tipo"] + " en " + client["comuna"] + ", " + client[
                 "region"] + " cliente " + client["firstname"] + " " + client["lastname"]+".pdf"
-            pdfc.crearPdfTasacion(client,precioV,precioA,links,fileName,ufventacomuna,arriendocomuna)
+            pdfc.crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,ufventacomuna,arriendocomuna)
             sendmail.sendMail(client["mail"],client["firstname"]+" "+client["lastname"],fileName)
             print('mandando correo con tasacion')
 
