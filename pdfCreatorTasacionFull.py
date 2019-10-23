@@ -20,7 +20,7 @@ import reportes
 import botPropertyConnector
 import uf
 
-def crearPdfTasacion(client,precioV,precioA,links,fileName,ufventacomuna,arriendocomuna):
+def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,ufventacomuna,arriendocomuna):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
     headerslocalizacion=[]
@@ -180,12 +180,12 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName,ufventacomuna,arriend
     tabla.append(datoscomuna)
 
     t4 = Table(tabla, hAlign='LEFT')
-    t3.setStyle(TableStyle([
-        ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
-        ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
-        ('FONTSIZE', (0, 0), (-1, -1), 11),
-        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+    t4.setStyle(TableStyle([
+                            ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
+                            ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
+                            ('FONTSIZE', (0, 0), (-1, -1), 11),
+                            ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+                            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
     ]))
 
     image = Image('bull_logo2.png', hAlign='LEFT')
@@ -210,13 +210,13 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName,ufventacomuna,arriend
     Story.append(Spacer(1, 16))
 
 
-    if len(links)>0:
+    if len(linksVenta)>0:
         print("entro en crear tabla de links")
-        print(links)
+        print(linksVenta)
         data=[]
         n=0
         headers=["N°","UF","Precio","UF/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
-        for l in links:
+        for l in linksVenta:
             if "portal" in l:
                 d=[]
                 n+=1
@@ -267,7 +267,60 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName,ufventacomuna,arriend
         Story.append(t)
         Story.append(PageBreak())
 
+    if len(linksArriendo)>0:
+        print("entro en crear tabla de links")
+        print(linksArriendo)
+        data=[]
+        n=0
+        headers=["N°","Precio","$/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
+        for l in linksArriendo:
+            if "portal" in l:
+                d=[]
+                n+=1
+                d.append(str(n))
+                avaible=pubPortalExiste.publicacionExiste(l)
+                id=botPropertyConnector.obtenerIdConLink(l,"www.portalinmobiliario.com")
+                id=id[0]
+                prop=reportes.precio_from_portalinmobiliario(id)
+                prop=prop[0]
+                print("Arreglo de propiedad:")
+                print(prop)
+                print("1er dato de propiedad de propiedad:")
+                print(prop[0])
+                d.append(prop[0])
+                d.append((int(20*prop[0]/(prop[1]+prop[2])))/10)
+                d.append(int(prop[1]))
+                d.append(int(prop[2]))
+                d.append(prop[5])
+                d.append(prop[6])
+                print(d)
+                print("appendeo bien datos")
+                linkHtml = '<link href="' + l + '" color="blue">' + "Link" + '</link>'
+                print(linkHtml)
+                linkHtml=platypus.Paragraph(linkHtml, PS('body'))
+                d.append(linkHtml)
+                if avaible:
+                    d.append("Disponible")
+                else:
+                    d.append("No disponible")
+                print(str(n)+" intento de agregar prop a data")
+                print(d)
+                data.append(d)
+            else:
+                pass
 
+
+        data = [headers]+data
+        #t=Table(data,nrCols*[0.6*inch], nrRows*[0.25*inch])
+        t=Table(data)
+        t.setStyle(TableStyle([
+                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ]))
+
+        Story.append(t)
+        Story.append(PageBreak())
 
 
     Story=list(Story)
