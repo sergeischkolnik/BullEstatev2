@@ -300,6 +300,10 @@ def tasador(client):
 
     textmail+="Resultados comuna "+str(comuna)+":\nPrecio m2 Venta: UF "+'{:,}'.format((int(10*(m2V/ufn)))/10).replace(",",".")+"\nPrecio m2 Arriendo: $ "+'{:,}'.format(int(m2A)).replace(",",".")+"\n\n"
 
+    ufventacomuna='{:,}'.format((int(10*(m2V/ufn)))/10).replace(",",".")
+    arriendocomuna='{:,}'.format(int(m2A)).replace(",",".")
+
+
     if client["tipo"].lower()=="comercial":
         tasacionVenta = clfHV.predict([[ int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
         tasacionArriendo = clfHA.predict([[int(client["baños"]), int(client["metros"]),int(client["total"]), client["lat"],client["lon"], int(client["estacionamientos"])]])
@@ -324,7 +328,7 @@ def tasador(client):
             links=[]
             fileName = "Tasacion " + client["tipo"] + " en " + client["comuna"] + ", " + client[
                 "region"] + " cliente " + client["firstname"] + " " + client["lastname"]+".pdf"
-            pdfc.crearPdfTasacion(client,precioV,precioA,links,fileName)
+            pdfc.crearPdfTasacion(client,precioV,precioA,links,fileName,ufventacomuna,arriendocomuna)
             sendmail.sendMail(client["mail"],client["firstname"]+" "+client["lastname"],fileName)
             print('mandando correo con tasacion')
 
