@@ -53,59 +53,51 @@ def obtenerLinks(client,tasacion,venta):
         operacion="arriendo"
 
     flexPrice=[0.05,0.1,0.15,0.2]
-    flexDist=[50,100,200,500,1000]
+    flexDist=[50,200,500,1000]
     flexOther=[False,True]
     props=[]
     for bath in flexOther:
         if bath:
             banosmin=0
             banosmax=10
-        for dorm in flexOther:
-            if dorm:
-                dormitoriosmin=0
-                dormitoriosmax=10
-            for est in flexOther:
-                if est:
-                    estacionamientos=0
-                for bod in flexOther:
-                    if bod:
-                        bodegas=0
-                    for k in flexDist:
 
-                        distancia=k
+            dormitoriosmin=0
+            dormitoriosmax=10
+        for est in flexOther:
+            if est:
+                estacionamientos=0
+                bodegas=0
+            for k in flexDist:
 
-                        latmin = lat - ((0.009 / 1000) * distancia)
-                        latmax = lat + ((0.009 / 1000) * distancia)
-                        lonmin = lon - ((0.01 / 1000) * distancia)
-                        lonmax = lon + ((0.01 / 1000) * distancia)
+                distancia=k
 
-                        for j in flexPrice:
-                            utilmin = metros * (1 - j)
-                            utilmax = metros * (1 + j)
-                            totalmin = total * (1 - j)
-                            totalmax = total * (1 + j)
+                latmin = lat - ((0.009 / 1000) * distancia)
+                latmax = lat + ((0.009 / 1000) * distancia)
+                lonmin = lon - ((0.01 / 1000) * distancia)
+                lonmax = lon + ((0.01 / 1000) * distancia)
 
-                            for i in flexPrice:
-                                preciomin=precio*(1-i)
-                                preciomax = precio * (1 + i)
-                                propsP=reportes.from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,
-                                                                               utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,
-                                                                               lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,
-                                                                               estacionamientos,bodegas,tipo,operacion,region,comuna,
-                                                                               'asdfas','asdfas','asdfas','asdfas','asdfas',False)
-                                propsY=reportes.from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,
-                                                                               lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,
-                                                                               estacionamientos,bodegas,tipo,operacion,region,comuna,
-                                                                               'asdfas','asdfas','asdfas','asdfas','asdfas',False)
-                                props=propsP+propsY
-                                if len(props)>4:
-                                    break
-                            if len(props) > 4:
-                                break
-                        if len(props) > 4:
-                            break
+                for j in flexPrice:
+                    utilmin = metros * (1 - j)
+                    utilmax = metros * (1 + j)
+                    totalmin = total * (1 - j)
+                    totalmax = total * (1 + j)
+
+                    preciomin=precio*(1-j)
+                    preciomax = precio * (1 + j)
+                    propsP=reportes.from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,
+                                                                   utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,
+                                                                   lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,
+                                                                   estacionamientos,bodegas,tipo,operacion,region,comuna,
+                                                                   'asdfas','asdfas','asdfas','asdfas','asdfas',False)
+                    propsY=reportes.from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,lonmin,
+                                                                   lonmax,dormitoriosmin,dormitoriosmax,banosmin,banosmax,
+                                                                   estacionamientos,bodegas,tipo,operacion,region,comuna,
+                                                                   'asdfas','asdfas','asdfas','asdfas','asdfas',False)
+                    props=propsP+propsY
+
                     if len(props) > 4:
                         break
+
                 if len(props) > 4:
                     break
             if len(props) > 4:
