@@ -16,10 +16,7 @@ def getToken():
     cur = mariadb_connection.cursor()
     cur.execute(sql)
     elem = cur.fetchall()
-    if len(elem)>0:
-        return elem[0]
-    else:
-        return elem
+    print(elem)
 
 telegram_token = getToken()
 
