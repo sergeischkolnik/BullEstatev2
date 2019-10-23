@@ -262,6 +262,8 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
                                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                                ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
                                ]))
 
         Story.append(t)
@@ -317,6 +319,8 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
                                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                                ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
                                ]))
 
         Story.append(t)
