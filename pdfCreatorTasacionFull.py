@@ -63,9 +63,9 @@ def crearPdfTasacion(client,precioV,precioA,links,fileName):
     ufm2=ufm2/10
     print(ufm2)
 
-    ufm2 = '{:,}'.format((int(10 * ((2 * float(precioV) / float(metrosmin + metrosmax)) / float(uf1)))) / 10).replace(
+    ufm2 = '{:,}'.format((int(10 * ((2 * float(precioV) / (float(metrosmin) + float(metrosmax))) / float(uf1)))) / 10).replace(
         ",", ".")
-    am2 = '{:,}'.format(int(2 * float(precioA) / float(metrosmin + metrosmax))).replace(",", ".")
+    am2 = '{:,}'.format(int(2 * float(precioA) / (float(metrosmin) + float(metrosmax)))).replace(",", ".")
 
 
     precioVuf=(int(precioV/uf1))
