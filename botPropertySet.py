@@ -244,6 +244,9 @@ def menu(bot, update):
         select.id_prop(bot, update)
         return pm.SELECT_ID
     elif update.message.text == "Historial":
+        select.last(bot, update)
+        return pm.SELECT_ID
+    elif update.message.text == "ASDF" or update.message.text == "Props. Cerca" or update.message.text == "Props. VTD":
         bot.send_message(chat_id=update.message.chat_id, text="En Construccion")
         select.menu(bot, update)
         return pm.MENU
