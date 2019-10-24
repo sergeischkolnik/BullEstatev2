@@ -410,7 +410,7 @@ def from_portalinmobiliario(tipo,region,comunas,op,verboso=False):
     sqlcomunas=sqlcomunas[:-4]
     if sqlcomunas!='':
         sqlcomunas='('+sqlcomunas+') '
-    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE operacion='" + op + "' and "+sqlcomunas+"and tipo='"+str(tipo)+"' and region='"+str(region)+"'"
+    sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM portalinmobiliario WHERE fechapublicacion>'"+str(past) +"' and operacion='" + op + "' and "+sqlcomunas+"and tipo='"+str(tipo)+"' and region='"+str(region)+"'"
     # if verboso:
     #     print("Consulta: ")
     #     print(sql)
@@ -445,9 +445,9 @@ def from_yapo(tipo,region,comunas,latlonyapo,op,verboso=False):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
     cur = mariadb_connection.cursor()
     if latlonyapo:
-        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE operacion='"+op+"' and tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
+        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE fechapublicacion>'"+str(past) +"' and operacion='" + op + "' and tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
     else:
-        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE operacion='" + op + "' and tipo='"+str(tipo)+"'"
+        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE fechapublicacion>'"+str(past) +"' and operacion='" + op + "' and tipo='"+str(tipo)+"'"
 
     # if verboso:
     #     print("Consulta: ")
