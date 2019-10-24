@@ -107,13 +107,16 @@ def obtenerLinks(client,tasacion,venta):
 
     links=[]
     m2=2*precio/(metros+total)
+    props=list(props)
     for prop in props:
         m2b=(int(20*prop[5]/(prop[8]+prop[9])))/10
+        prop=list(prop)
         prop.append(abs(m2-m2b))
 
     props.sort(key=lambda x:x[17])
 
     for prop in props:
+
         links.append(prop[14])
         if len(links)>9:
             break
