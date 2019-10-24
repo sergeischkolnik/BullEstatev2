@@ -245,7 +245,7 @@ def menu(bot, update):
         return pm.SELECT_ID
     elif update.message.text == "Historial":
         select.last(bot, update)
-        return pm.SELECT_ID
+        return pm.SELECT_LAST
     elif update.message.text == "ASDF" or update.message.text == "Props. Cerca" or update.message.text == "Props. VTD":
         bot.send_message(chat_id=update.message.chat_id, text="En Construccion")
         select.menu(bot, update)
@@ -306,7 +306,7 @@ def last(bot, update):
     else:
         bot.send_message(chat_id=update.message.chat_id, text="No posee historial en "+str(update.message.text)+", o bien es un comando invalido. Presione algun boton.")
         client.pop("product")
-        select.last(bot, update,client)
+        select.last(bot, update)
         return pm.SELECT_LAST
 
 
@@ -731,7 +731,6 @@ def area_range(bot, update):
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.area_range(bot, update, client)
             return pm.SELECT_AREA_RANGE
-
 
 
 def confirm_report(bot,update):
