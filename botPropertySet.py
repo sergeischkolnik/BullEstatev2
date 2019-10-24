@@ -756,7 +756,7 @@ def confirm_report(bot,update):
             #generar reporte para cliente, enviar al correo correspondiente
 
             bot.send_message(chat_id=update.message.chat_id, text="Se está generando el reporte")
-            if client["historial"]:
+            if "historial" in client:
                 client = lastoperations["Reporte"][0]
             reply = "Reporte generado y enviado exitosamente al correo: "+(client["mail"])+"."
             client["reporteThread"] = threading.Thread(target=connector.generarreporte, args=(client,bot.send_message,update.message.chat_id,reply))
@@ -1068,7 +1068,7 @@ def confirm_file(bot, update):
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
         try:
-            if client["historial"]:
+            if "historial" in client:
                 client = lastoperations["Ficha"][0]
             text=connector.connectorFicha(client)
             client["success"] = "check"
@@ -1238,7 +1238,7 @@ def confirm_tasacion(bot,update):
 
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
-        if client["historial"]:
+        if "historial" in client:
             client = lastoperations["Tasador"][0]
         print(client)
         text=connector.tasador(client)
