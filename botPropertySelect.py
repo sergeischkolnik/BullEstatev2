@@ -115,7 +115,8 @@ def menu(bot, update):
     """
     # Create buttons to slect language:
     keyboard = [["Reporte","Tasador"],
-                ["Ficha", "Historial"]]
+                ["Ficha","Historial"],
+                ["Props. Cerca", "Props. VTD"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
