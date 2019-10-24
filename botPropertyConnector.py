@@ -94,6 +94,7 @@ def obtenerLinks(client,tasacion,venta):
                                                                    estacionamientos,bodegas,tipo,operacion,region,comuna,
                                                                    'asdfas','asdfas','asdfas','asdfas','asdfas',False)
                     props=propsP+propsY
+                    props=list(props)
                     props.sort(key=lambda x: x[5])
                     for i,prop in enumerate(props):
                         if i>0:
