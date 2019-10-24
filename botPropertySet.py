@@ -266,7 +266,7 @@ def last(bot, update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
-
+    client["historial"]=True
     print(client)
 
     hadThr = False
@@ -756,7 +756,8 @@ def confirm_report(bot,update):
             #generar reporte para cliente, enviar al correo correspondiente
 
             bot.send_message(chat_id=update.message.chat_id, text="Se está generando el reporte")
-            client = lastoperations["Reporte"][0]
+            if client["historial"]:
+                client = lastoperations["Reporte"][0]
             reply = "Reporte generado y enviado exitosamente al correo: "+(client["mail"])+"."
             client["reporteThread"] = threading.Thread(target=connector.generarreporte, args=(client,bot.send_message,update.message.chat_id,reply))
             client["reporteThread"].setDaemon(True)
@@ -1067,7 +1068,8 @@ def confirm_file(bot, update):
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
         try:
-            client = lastoperations["Ficha"][0]
+            if client["historial"]:
+                client = lastoperations["Ficha"][0]
             text=connector.connectorFicha(client)
             client["success"] = "check"
         except Exception as e:
@@ -1236,7 +1238,8 @@ def confirm_tasacion(bot,update):
 
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
-        client = lastoperations["Tasador"][0]
+        if client["historial"]:
+            client = lastoperations["Tasador"][0]
         print(client)
         text=connector.tasador(client)
         client["success"] = "check"
