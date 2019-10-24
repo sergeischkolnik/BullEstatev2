@@ -129,7 +129,7 @@ def menu(bot, update):
     update.message.reply_text("Menu Principal", reply_markup=reply_markup)
     return pm.MENU
 
-def last(bot, update,client):
+def last(bot, update):
 
     user = update.message.from_user
     pm.logger.info("Report requested by {}.".format(user.first_name))
