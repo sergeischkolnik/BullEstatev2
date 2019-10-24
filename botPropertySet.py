@@ -198,7 +198,8 @@ def menu(bot, update):
     auxmail=client["mail"]
     auxfirstname=client["firstname"]
     auxlastname=client["lastname"]
-    if "product" in client and client["product"]!="Historial":
+    if "product" in client and client["product"]!="Historial" and 'success' in client:
+        client.pop("success")
         lastproduct=client["product"]
         auxclient=client.copy()
 
@@ -759,6 +760,7 @@ def confirm_report(bot,update):
             client["reporteThread"] = threading.Thread(target=connector.generarreporte, args=(client,bot.send_message,update.message.chat_id,reply))
             client["reporteThread"].setDaemon(True)
             client["reporteThread"].start()
+            client["success"]="check"
 
         #bot.send_message(chat_id=update.message.chat_id, text=reply)
 
@@ -1065,6 +1067,7 @@ def confirm_file(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
         try:
             text=connector.connectorFicha(client)
+            client["success"] = "check"
         except Exception as e:
             print(e)
             text="No se ha podido crear la ficha"
@@ -1232,6 +1235,7 @@ def confirm_tasacion(bot,update):
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
         text=connector.tasador(client)
+        client["success"] = "check"
         bot.send_message(chat_id=update.message.chat_id, text=text,disable_web_page_preview=True)
         select.menu(bot, update)
         return pm.MENU
