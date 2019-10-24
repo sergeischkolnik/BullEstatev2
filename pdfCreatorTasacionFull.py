@@ -136,6 +136,7 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
                             topMargin=72,bottomMargin=18)
 
     Story=[]
+    footer=[]
 
     tabla=[]
     tabla.append(headerslocalizacion)
@@ -327,7 +328,10 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
         Story.append(t)
         Story.append(PageBreak())
 
-    footer=Image('bull_logo2.png', hAlign='RIGHT')
+    footer.append(Image('bull_logo2.png', hAlign='RIGHT'))
+    footer.append('www.bullestate.cl')
+    footer.append('contacto@bullestate.cl')
+    footer.append('+569 3391 1985')
 
     Story=list(Story)
     doc.build(Story,onFirstPage=footer,onLaterPages=footer)
