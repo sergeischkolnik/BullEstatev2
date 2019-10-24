@@ -327,7 +327,8 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
         Story.append(t)
         Story.append(PageBreak())
 
+    footer=Image('bull_logo2.png', hAlign='RIGHT')
 
     Story=list(Story)
-    doc.build(Story)
+    doc.build(Story,onFirstPage=footer,onLaterPages=footer)
     return fileName
