@@ -1234,6 +1234,7 @@ def confirm_tasacion(bot,update):
 
     if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
+        print(client)
         text=connector.tasador(client)
         client["success"] = "check"
         bot.send_message(chat_id=update.message.chat_id, text=text,disable_web_page_preview=True)
@@ -1243,7 +1244,6 @@ def confirm_tasacion(bot,update):
         bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
         select.confirm_tasacion(bot, update, client)
         return pm.CONFIRM_TASACION
-
     elif update.message.text == "Atrás":
         select.adress(bot, update,client)
         return pm.SELECT_ADRESS
