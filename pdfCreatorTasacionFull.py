@@ -328,10 +328,8 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
         Story.append(t)
         Story.append(PageBreak())
 
-    footer.append('www.bullestate.cl')
-    footer.append('contacto@bullestate.cl')
-    footer.append('+569 3391 1985')
+
 
     Story=list(Story)
-    doc.build(Story,onFirstPage=footer,onLaterPages=footer)
+    doc.build(Story)
     return fileName
