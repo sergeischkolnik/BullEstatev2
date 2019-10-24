@@ -52,8 +52,8 @@ def obtenerLinks(client,tasacion,venta):
     else:
         operacion="arriendo"
 
-    flexPrice=[0.05,0.1,0.15,0.2]
-    flexDist=[50,200,500,1000]
+    flexPrice=[0.05,0.1,0.15,0.2,0.25]
+    flexDist=[50,200,500,1000,1500]
     flexOther=[False,True]
     props=[]
     for bath in flexOther:
@@ -106,6 +106,13 @@ def obtenerLinks(client,tasacion,venta):
             break
 
     links=[]
+    m2=2*precio/(metros+total)
+    for prop in props:
+        m2b=(int(20*prop[5]/(prop[8]+prop[9])))/10
+        prop.append(abs(m2-m2b))
+
+    props.sort(key=lambda x:x[17])
+
     for prop in props:
         links.append(prop[14])
         if len(links)>9:
