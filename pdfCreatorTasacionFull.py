@@ -207,7 +207,8 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
     Story.append(t3)
     Story.append(Spacer(1, 16))
     Story.append(t4)
-    Story.append(Spacer(1, 16))
+    Story.append(PageBreak())
+
 
 
     if len(linksVenta)>0:
@@ -215,7 +216,7 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
         print(linksVenta)
         data=[]
         n=0
-        headers=["N°","UF","Precio","UF/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
+        headers=["Ventas","UF","Precio","UF/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
         for l in linksVenta:
             if "portal" in l:
                 d=[]
@@ -232,7 +233,7 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
                 print(prop[0])
                 ufn=int(prop[0]/(uf.getUf()))
                 d.append(ufn)
-                d.append(prop[0])
+                d.append(int(prop[0]))
                 d.append((int(20*ufn/(prop[1]+prop[2])))/10)
                 d.append(int(prop[1]))
                 d.append(int(prop[2]))
@@ -267,14 +268,14 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
                                ]))
 
         Story.append(t)
-        Story.append(PageBreak())
+        Story.append(Spacer(1, 16))
 
     if len(linksArriendo)>0:
         print("entro en crear tabla de links")
         print(linksArriendo)
         data=[]
         n=0
-        headers=["N°","Precio","$/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
+        headers=["Arriendos","Precio","$/mt2","MtsMin","MtsMax","Dorms","Baños","Link","Disponibilidad"]
         for l in linksArriendo:
             if "portal" in l:
                 d=[]
@@ -289,7 +290,7 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
                 print(prop)
                 print("1er dato de propiedad de propiedad:")
                 print(prop[0])
-                d.append(prop[0])
+                d.append(int(prop[0]))
                 d.append((int(20*prop[0]/(prop[1]+prop[2])))/10)
                 d.append(int(prop[1]))
                 d.append(int(prop[2]))
