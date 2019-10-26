@@ -90,7 +90,7 @@ regiones = ["arica-y-parinacota","tarapaca","antofagasta","atacama","coquimbo","
          "biobio","araucania","de-los-rios","los-lagos"]
 tipos=["departamento","casa","comercial","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
 operaciones = ["venta","arriendo"]
-pages = range(0,2050,50)
+pages = range(1,2050,50)
 
 uf = uf.getUf()
 
