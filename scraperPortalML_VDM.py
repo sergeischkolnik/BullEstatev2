@@ -90,7 +90,7 @@ comunas = ["las-condes","santiago","providencia","cerrillos","colina","cerro-nav
            "lo-prado","macul","paine","penalolen","puente-alto","pedro-aguirre-cerda","penaflor",
            "pudahuel","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
            "san-joaquin","san-pedro","talagante","vitacura","nunoa"]
-pages = range(0,2050,50)
+pages = range(1,2050,50)
 
 uf = uf.getUf()
 
@@ -588,6 +588,8 @@ def main():
 
                 for page in pages:
                     time.sleep(random.randint(1,4))
+                    if page==1:
+                        page=0
                     link = "https://www.portalinmobiliario.com/venta/departamento/propiedades-usadas/"+dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
                     print(link)
                     request = requests.get(link, headers = headerList[headerIndex])
