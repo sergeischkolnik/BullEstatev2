@@ -332,8 +332,8 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
         except:
             time.sleep(random.randint(60,90))
             request = requests.get(link, headers=headerList[headerIndex])
-        headerIndex += 1
-        headerIndex = headerIndex % len(headerList)
+        #headerIndex += 1
+        #headerIndex = headerIndex % len(headerList)
         try:
             tree = html.fromstring(request.content)
         except:
@@ -593,14 +593,14 @@ def main():
                     print(link)
                     request = requests.get(link, headers = headerList[headerIndex])
                     print(request)
-                    headerIndex += 1
-                    headerIndex = headerIndex % len(headerList)
+                    #headerIndex += 1
+                    #headerIndex = headerIndex % len(headerList)
 
                     try:
                         tree = html.fromstring(request.content)
                     except:
                      #   print("Fallo.")
-                        break
+                        return
 
                     resultBoxXpath = '//*[@id="results-section"]'
                     results = tree.xpath(resultBoxXpath)
@@ -621,8 +621,7 @@ def main():
                           tipo="departamento",hoja=page)
 
 if __name__ == "__main__":
-    while(True):
-        main()
+    main()
 
 
 
