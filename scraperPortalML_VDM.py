@@ -90,7 +90,7 @@ comunas = ["las-condes","santiago","providencia","cerrillos","colina","cerro-nav
            "lo-prado","macul","paine","penalolen","puente-alto","pedro-aguirre-cerda","penaflor",
            "pudahuel","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
            "san-joaquin","san-pedro","talagante","vitacura","nunoa"]
-pages = range(51,2050,50)
+pages = range(1,2050,50)
 
 uf = uf.getUf()
 
