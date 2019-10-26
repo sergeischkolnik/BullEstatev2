@@ -601,6 +601,9 @@ def main():
                             for page in pages:
                                 time.sleep(random.randint(1,3))
 
+                                if(page==1):
+                                    page=0
+
                                 link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
                                        dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
                                 print(link)
