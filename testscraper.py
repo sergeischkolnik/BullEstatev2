@@ -9,6 +9,12 @@ import datetime
 import pymysql as mysql
 import uf
 
+def error(link,texto):
+
+    print("[PIVDM][ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto))
+
+uf = uf.getUf()
+
 headers1 = {
     'authority': 'www.portalinmobiliario.com',
     'cache-control': 'max-age=0',
@@ -73,26 +79,6 @@ headers3 = {
 
 headerList = [headers1,headers2,headers3]
 
-
-dormitorios = ["3-dormitorios",
-                "1-dormitorio",
-                "2-dormitorios",
-                "sin-dormitorios",
-                "mas-de-4-dormitorios"]
-banos = ["_Banos_3",
-          "_Banos_2",
-          "_Banos_1",
-          "_Banos_4",
-          "_Banos_5-o-mas"]
-
-comunas = ["las-condes","santiago","providencia","cerrillos","colina","cerro-navia","conchali","el-bosque","estacion-central","huechuraba","independencia",
-           "la-cisterna","la-florida","la-granja","la-pintana","la-reina","lampa","lo-barnechea","lo-espejo",
-           "lo-prado","macul","paine","penalolen","puente-alto","pedro-aguirre-cerda","penaflor",
-           "pudahuel","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
-           "san-joaquin","san-pedro","talagante","vitacura","nunoa"]
-pages = range(0,2050,50)
-
-uf = uf.getUf()
 
 def obtenerBodegas(texto):
     bodegas=0
@@ -266,51 +252,6 @@ def obtenerEstacionamientos(texto):
 
     return estacionamientos
 
-def error(link,texto):
-
-    f = open("errores " + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) + '-' + str(
-        datetime.datetime.now().year) + ".txt", "a+")
-    print("[PIVDM][ERROR] " + str(datetime.datetime.now()) + ',' + link + "," + str(texto))
-    f.write("[PIVDM]" + str(datetime.datetime.now()) + ',' + link + "," + str(texto) + "\n\n")
-    f.close()
-
-def actualizar_checker(operacion,tipo,region,pagina):
-    d=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    sql = "UPDATE checker SET lastscrap='"+str(d)+"',operacion='" + operacion + "',tipo='"+ tipo +"',region='"+ region +"',pagina="+str(pagina)+" WHERE nombrescraper='spivm'"
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-
-    cur = mariadb_connection.cursor()
-    cur.execute(sql)
-
-    mariadb_connection.commit()
-    mariadb_connection.close()
-
-def insertarPropiedad(propiedad):
-    #Inserta una propiedad en una base de datos
-
-    sql = """INSERT INTO portalinmobiliario(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link)
-             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,bodegas=%s,lat=%s,lon=%s,link=%s"""
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-
-    cur = mariadb_connection.cursor()
-    cur.execute(sql, (propiedad))
-    mariadb_connection.commit()
-    mariadb_connection.close()
-
-def insertarDueno(dueno):
-    #Inserta un dueño en una base de datos
-
-    sql = """INSERT INTO duenos(idProp,mail,telefono,esDueno)
-             VALUES(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE telefono=%s, esDueno=%s"""
-
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-
-    cur = mariadb_connection.cursor()
-    cur.execute(sql, (dueno))
-
-    mariadb_connection.commit()
-    mariadb_connection.close()
-
 def scrap(linkList,region,operacion,comuna,tipo,hoja):
     fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(
         datetime.datetime.now().day)
@@ -320,9 +261,6 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
 
 
     for i,link in enumerate(linkList):
-
-        if link=='https://www.portalinmobiliario.com/venta/departamento/las-condes-metropolitana/5134274-cristobal-colon-alcantara-uda':
-            print("Propiedad encontrada")
 
         print("[PIVDM]"+str(i+1+hoja) + " - " + str(region) + " - " + str(comuna) + " - "+str(operacion) + " - " +
               str(tipo))
@@ -540,7 +478,8 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
 
 
         try:
-            insertarPropiedad(propiedad)
+            print("Propiedad:")
+            print(propiedad)
         except Exception as err:
             error(link, "Error en insercion de propiedad:"+str(err))
             continue
@@ -573,55 +512,12 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
         dueno.append(esPropietario)
 
         try:
-            insertarDueno(dueno)
+            print("Dueño:")
+            print(dueno)
         except Exception as err:
             error(link, "Error al insertar dueno:"+str(err))
             pass
         # fin sector dueño
 
-
-def main():
-    headerIndex = 0
-    for comuna in comunas:
-        for dormitorio in dormitorios:
-            for bano in banos:
-
-                for page in pages:
-                    time.sleep(random.randint(1,4))
-                    link = "https://www.portalinmobiliario.com/venta/departamento/propiedades-usadas/"+dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
-                    print(link)
-                    request = requests.get(link, headers = headerList[headerIndex])
-
-                    headerIndex += 1
-                    headerIndex = headerIndex % len(headerList)
-
-                    try:
-                        tree = html.fromstring(request.content)
-                    except:
-                     #   print("Fallo.")
-                        break
-
-                    resultBoxXpath = '//*[@id="results-section"]'
-                    results = tree.xpath(resultBoxXpath)
-                    if len(results) == 0:
-                        #no results
-                        break
-
-                    resultLinkList = []
-
-                    htmlArray = request.text.split(" ")
-                    for element in htmlArray:
-                        if "item-url=" in element:
-                            result_link = element.replace('"', '').replace("item-url=", "")
-                            result_link = result_link.split('#')[0]
-                            resultLinkList.append(result_link)
-
-                    scrap(linkList=resultLinkList,region="metropolitana",operacion="venta",comuna=comuna,
-                          tipo="departamento",hoja=page)
-
-if __name__ == "__main__":
-    while(True):
-        main()
-
-
-
+scrap(['https://www.portalinmobiliario.com/venta/departamento/las-condes-metropolitana/5134274-cristobal-colon-alcantara-uda'],
+      "metropolitana","venta","las-condes","departamento",1)
