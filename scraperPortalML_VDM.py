@@ -318,7 +318,6 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
     headerIndex = 0
 
 
-
     for i,link in enumerate(linkList):
 
         if link=='https://www.portalinmobiliario.com/venta/departamento/las-condes-metropolitana/5134274-cristobal-colon-alcantara-uda':
@@ -587,13 +586,13 @@ def main():
             for bano in banos:
 
                 for page in pages:
-                    time.sleep(random.randint(1,4))
+                    time.sleep(random.randint(5,7))
                     if page==1:
                         page=0
                     link = "https://www.portalinmobiliario.com/venta/departamento/propiedades-usadas/"+dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
                     print(link)
                     request = requests.get(link, headers = headerList[headerIndex])
-
+                    print(request)
                     headerIndex += 1
                     headerIndex = headerIndex % len(headerList)
 
