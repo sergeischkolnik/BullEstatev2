@@ -600,7 +600,7 @@ def main():
                         tree = html.fromstring(request.content)
                     except:
                      #   print("Fallo.")
-                        return
+                        break
 
                     resultBoxXpath = '//*[@id="results-section"]'
                     results = tree.xpath(resultBoxXpath)
@@ -621,7 +621,8 @@ def main():
                           tipo="departamento",hoja=page)
 
 if __name__ == "__main__":
-    main()
+    while(True):
+        main()
 
 
 

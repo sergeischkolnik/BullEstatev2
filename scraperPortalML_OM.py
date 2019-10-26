@@ -333,8 +333,9 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
         except:
             time.sleep(random.randint(60,90))
             request = requests.get(link, headers=headerList[headerIndex])
-        headerIndex += 1
-        headerIndex = headerIndex % len(headerList)
+
+        #headerIndex += 1
+        #headerIndex = headerIndex % len(headerList)
         try:
             tree = html.fromstring(request.content)
         except:
@@ -604,8 +605,9 @@ def main():
                                        dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
                                 print(link)
                                 request = requests.get(link, headers = headerList[headerIndex])
-                                headerIndex += 1
-                                headerIndex = headerIndex % len(headerList)
+
+                                #headerIndex += 1
+                                #headerIndex = headerIndex % len(headerList)
 
                                 try:
                                     tree = html.fromstring(request.content)
