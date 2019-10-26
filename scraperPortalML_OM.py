@@ -605,7 +605,7 @@ def main():
                                     page=0
 
                                 link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
-                                       dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+bano
+                                       dormitorio+"/"+comuna+"-metropolitana/_desde_"+str(page)+bano
                                 print(link)
                                 request = requests.get(link, headers = headerList[headerIndex])
 
