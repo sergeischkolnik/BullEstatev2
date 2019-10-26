@@ -637,14 +637,14 @@ def main():
 
                 else:
                     for page in pages:
-                        time.sleep(random.randint(1, 3))
+                        time.sleep(random.randint(5, 7))
 
-                        link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+comuna+"-metropolitana/_Desde_"+str(page)
+                        link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+comuna+"-metropolitana/_desde_"+str(page)
                         print(link)
                         request = requests.get(link, headers=headerList[headerIndex])
 
-                        headerIndex += 1
-                        headerIndex = headerIndex % len(headerList)
+                        #headerIndex += 1
+                        #headerIndex = headerIndex % len(headerList)
 
                         try:
                             tree = html.fromstring(request.content)
