@@ -321,7 +321,7 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 def scrap(linkList,region,operacion,tipo,comuna,hoja):
-    headerIndex = 0
+    headerIndex = 1
 
     for i,link in enumerate(linkList):
 
@@ -589,7 +589,7 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
 
 
 def main():
-    headerIndex = 0
+    headerIndex = 1
     for tipo in tipos:
         for comuna in comunas:
             for operacion in operaciones:
