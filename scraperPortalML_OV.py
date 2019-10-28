@@ -551,7 +551,6 @@ def main():
                                    dormitorio+"/valparaiso/"+bano+"_desde_"+str(page)
                             print(link)
                             request = requests.get(link, headers =headers)
-                            print(request)
 
                             try:
                                 tree = html.fromstring(request.content)
