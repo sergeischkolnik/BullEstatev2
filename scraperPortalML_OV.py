@@ -543,12 +543,13 @@ def main():
                 for bano in banos:
                     for dormitorio in dormitorios:
                         for page in pages:
-                            time.sleep(random.randint(1,3))
+                            time.sleep(random.randint(5,7))
 
                             link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
                                    dormitorio+"/valparaiso/_Desde_"+str(page)+bano
                             print(link)
                             request = requests.get(link, headers =headers)
+                            print(request)
 
                             try:
                                 tree = html.fromstring(request.content)
