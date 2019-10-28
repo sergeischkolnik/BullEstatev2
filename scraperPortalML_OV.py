@@ -15,21 +15,20 @@ headers = {
     'device-memory': '8',
     'dpr': '1',
     'viewport-width': '1920',
-    'rtt': '100',
+    'rtt': '50',
     'downlink': '10',
     'ect': '4g',
     'upgrade-insecure-requests': '1',
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
     'sec-fetch-user': '?1',
-    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3',
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
     'sec-fetch-site': 'same-origin',
     'sec-fetch-mode': 'navigate',
-    'referer': 'https://www.portalinmobiliario.com/',
+    'referer': 'https://www.portalinmobiliario.com/venta/departamento/valparaiso',
     'accept-encoding': 'gzip, deflate, br',
     'accept-language': 'es-US,es;q=0.9,es-419;q=0.8,en;q=0.7',
-    'cookie': '_d2id=b4fe5ae4-05b6-4355-92f0-793350b3b23f-n; _csrf=-cthUQFDWEUyM-UQ1gXl8JlQ; c_home=0.20.0%7C5.3.3; pin_d2id=; pin_exp=new; _d2id=b4fe5ae4-05b6-4355-92f0-793350b3b23f; _pi_ga=GA1.2.2089516064.1572221693; _pi_ga_gid=GA1.2.2104594781.1572221693; _pi_ci=2089516064.1572221693; _pi_dc=1; _hjid=93137d4f-d894-4e04-bc7f-483497035b20; searchbox-currentSearch=eyJvcGVyYXRpb25zIjp7ImxhYmVsIjoiVmVudGEiLCJzZWxlY3RlZCI6InZlbnRhIn0sImNhdGVnb3JpZXMiOnsibGFiZWwiOiJEZXBhcnRhbWVudG9zIiwic2VsZWN0ZWQiOiJ2ZW50YV9kZXBhcnRhbWVudG8ifSwibG9jYXRpb24iOnsidmFsdWUiOiJWYWxwYXJh7XNvIiwic2VsZWN0ZWQiOiJUVXhEVUZaQlRFODRNRFZqIn0sImZpbHRlci1uZXciOnsiY2hlY2tlZCI6ZmFsc2UsImRpc2FibGVkIjpmYWxzZX19; _mlt=b9fb04be-cba4-408e-861d-b8f199111f5f',
+    'cookie': '_d2id=451a14f3-4e31-4e39-8437-0c61431860bf-n; _csrf=nre_frMxdtmQDlFHoqwBFzJ_; c_home=0.20.0%7C5.3.3; pin_d2id=; pin_exp=new; _d2id=451a14f3-4e31-4e39-8437-0c61431860bf; _pi_ga=GA1.2.1908173662.1572265564; _pi_ga_gid=GA1.2.875034433.1572265564; _pi_ci=1908173662.1572265564; _pi_dc=1; _hjid=26bec885-e436-45d1-9d66-9acc89939111; _hjIncludedInSample=1; searchbox-currentSearch=eyJvcGVyYXRpb25zIjp7ImxhYmVsIjoiVmVudGEiLCJzZWxlY3RlZCI6InZlbnRhIn0sImNhdGVnb3JpZXMiOnsibGFiZWwiOiJEZXBhcnRhbWVudG9zIiwic2VsZWN0ZWQiOiJ2ZW50YV9kZXBhcnRhbWVudG8ifSwibG9jYXRpb24iOnsidmFsdWUiOiJWYWxwYXJh7XNvIiwic2VsZWN0ZWQiOiJUVXhEVUZaQlRFODRNRFZqIn0sImZpbHRlci1uZXciOnsiY2hlY2tlZCI6ZmFsc2UsImRpc2FibGVkIjpmYWxzZX19; _mlt=2053cd3b-2b2f-4153-b641-c2fa3d0cd68a',
 }
-
 
 
 dormitorios = ["sin-dormitorios",
