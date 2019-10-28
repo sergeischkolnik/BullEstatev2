@@ -399,7 +399,10 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
         minMetersFound = maxMetersFound = estacionamientosFound = bodegasFound = False
 
         try:
-            for element in htmlArray:
+            for j, element in enumerate(htmlArray):
+                if j == len(htmlArray)-1:
+                    #last element, we have to split again.
+                    element = element.split('</ul>')[0]
                 if "Superficie total" in element and not maxMetersFound:
                     maxMeters = int(float(element.split('span')[1][1:-5]))
                     maxMetersFound = True

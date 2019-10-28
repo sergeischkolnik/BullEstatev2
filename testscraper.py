@@ -258,8 +258,6 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
 
     headerIndex = 0
 
-
-
     for i,link in enumerate(linkList):
 
         print("[PIVDM]"+str(i+1+hoja) + " - " + str(region) + " - " + str(comuna) + " - "+str(operacion) + " - " +
@@ -334,7 +332,10 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
         minMetersFound = maxMetersFound = estacionamientosFound = bodegasFound = False
 
         try:
-            for element in htmlArray:
+            for i,element in enumerate(htmlArray):
+                if i == len(htmlArray)-1:
+                    #last element, we have to split again.
+                    element = element.split('</ul>')[0]
                 if "Superficie total" in element and not maxMetersFound:
                     maxMeters = int(float(element.split('span')[1][1:-5]))
                     maxMetersFound = True
@@ -519,5 +520,5 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
             pass
         # fin sector dueño
 
-scrap(['https://www.portalinmobiliario.com/venta/departamento/las-condes-metropolitana/5134274-cristobal-colon-alcantara-uda'],
+scrap(['https://www.portalinmobiliario.com/venta/departamento/lo-barnechea-metropolitana/4343002-santa-teresita-uda'],
       "metropolitana","venta","las-condes","departamento",1)
