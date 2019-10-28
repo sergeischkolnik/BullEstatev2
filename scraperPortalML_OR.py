@@ -25,9 +25,6 @@ headers = {
 }
 
 
-headerList = [headers]
-
-
 dormitorios = ["sin-dormitorios",
                 "1-dormitorio",
                 "2-dormitorios",
@@ -271,8 +268,6 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 def scrap(linkList,region,operacion,tipo,hoja):
-    headerIndex = 2
-
 
 
     for i,link in enumerate(linkList):
@@ -281,13 +276,12 @@ def scrap(linkList,region,operacion,tipo,hoja):
 
         time.sleep(random.randint(1,3))
         try:
-            request = requests.get(link, headers=headerList[headerIndex])
+            request = requests.get(link, headers=headers)
         except:
             time.sleep(random.randint(60,90))
-            request = requests.get(link, headers=headerList[headerIndex])
+            request = requests.get(link, headers=headers)
 
-        #headerIndex += 1
-        #headerIndex = headerIndex % len(headerList)
+
         try:
             tree = html.fromstring(request.content)
         except:
@@ -553,7 +547,7 @@ def main():
                                 link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
                                        dormitorio+"/"+region+"/_desde_"+str(page)+bano
                                 print(link)
-                                request = requests.get(link, headers = headerList[headerIndex])
+                                request = requests.get(link, headers = headers)
 
                                 #headerIndex += 1
                                 #headerIndex = headerIndex % len(headerList)
@@ -586,7 +580,7 @@ def main():
 
                         link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+region+"/_desde_"+str(page)
                         print(link)
-                        request = requests.get(link, headers=headerList[headerIndex])
+                        request = requests.get(link, headers=headers)
 
                         #headerIndex += 1
                         #headerIndex = headerIndex % len(headerList)

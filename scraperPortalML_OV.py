@@ -30,7 +30,6 @@ headers = {
     'cookie': '_d2id=b4fe5ae4-05b6-4355-92f0-793350b3b23f-n; _csrf=-cthUQFDWEUyM-UQ1gXl8JlQ; c_home=0.20.0%7C5.3.3; pin_d2id=; pin_exp=new; _d2id=b4fe5ae4-05b6-4355-92f0-793350b3b23f; _pi_ga=GA1.2.2089516064.1572221693; _pi_ga_gid=GA1.2.2104594781.1572221693; _pi_ci=2089516064.1572221693; _pi_dc=1; _hjid=93137d4f-d894-4e04-bc7f-483497035b20; searchbox-currentSearch=eyJvcGVyYXRpb25zIjp7ImxhYmVsIjoiVmVudGEiLCJzZWxlY3RlZCI6InZlbnRhIn0sImNhdGVnb3JpZXMiOnsibGFiZWwiOiJEZXBhcnRhbWVudG9zIiwic2VsZWN0ZWQiOiJ2ZW50YV9kZXBhcnRhbWVudG8ifSwibG9jYXRpb24iOnsidmFsdWUiOiJWYWxwYXJh7XNvIiwic2VsZWN0ZWQiOiJUVXhEVUZaQlRFODRNRFZqIn0sImZpbHRlci1uZXciOnsiY2hlY2tlZCI6ZmFsc2UsImRpc2FibGVkIjpmYWxzZX19; _mlt=b9fb04be-cba4-408e-861d-b8f199111f5f',
 }
 
-headerList = [headers]
 
 
 dormitorios = ["sin-dormitorios",
@@ -283,7 +282,7 @@ def scrap(linkList,region,operacion,tipo,hoja):
 
         time.sleep(random.randint(1,3))
         try:
-            request = requests.get(link, headers=headerList[headerIndex])
+            request = requests.get(link, headers=headers)
         except:
             time.sleep(random.randint(60,90))
             request = requests.get(link, headers=headerList[headerIndex])
