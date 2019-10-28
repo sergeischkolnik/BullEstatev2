@@ -545,8 +545,11 @@ def main():
                         for page in pages:
                             time.sleep(random.randint(5,7))
 
+                            if(page==1):
+                                page=0
+
                             link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
-                                   dormitorio+"/valparaiso/_Desde_"+str(page)+bano
+                                   dormitorio+"/valparaiso/_desde_"+str(page)+bano
                             print(link)
                             request = requests.get(link, headers =headers)
                             print(request)
@@ -578,7 +581,7 @@ def main():
                 for page in pages:
                     time.sleep(random.randint(1, 3))
 
-                    link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/valparaiso/_Desde_"+str(page)
+                    link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/valparaiso/_desde_"+str(page)
                     print(link)
                     request = requests.get(link, headers=headers)
 
