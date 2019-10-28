@@ -273,7 +273,6 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 def scrap(linkList,region,operacion,tipo,hoja):
-    headerIndex = 0
 
     for i,link in enumerate(linkList):
 
@@ -285,10 +284,8 @@ def scrap(linkList,region,operacion,tipo,hoja):
             request = requests.get(link, headers=headers)
         except:
             time.sleep(random.randint(60,90))
-            request = requests.get(link, headers=headerList[headerIndex])
+            request = requests.get(link, headers=headers)
 
-        #headerIndex += 1
-        #headerIndex = headerIndex % len(headerList)
         try:
             tree = html.fromstring(request.content)
         except:
@@ -539,7 +536,7 @@ def scrap(linkList,region,operacion,tipo,hoja):
 
 
 def main():
-    headerIndex = 0
+
     for tipo in tipos:
         for operacion in operaciones:
             if tipo=='casa' or tipo=='departamento':
@@ -551,10 +548,7 @@ def main():
                             link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
                                    dormitorio+"/valparaiso/_Desde_"+str(page)+bano
                             print(link)
-                            request = requests.get(link, headers = headerList[headerIndex])
-
-                            #headerIndex += 1
-                            #headerIndex = headerIndex % len(headerList)
+                            request = requests.get(link, headers =headers)
 
                             try:
                                 tree = html.fromstring(request.content)
@@ -585,10 +579,7 @@ def main():
 
                     link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/valparaiso/_Desde_"+str(page)
                     print(link)
-                    request = requests.get(link, headers=headerList[headerIndex])
-
-                    headerIndex += 1
-                    headerIndex = headerIndex % len(headerList)
+                    request = requests.get(link, headers=headers)
 
                     try:
                         tree = html.fromstring(request.content)

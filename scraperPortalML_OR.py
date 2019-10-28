@@ -30,12 +30,6 @@ dormitorios = ["sin-dormitorios",
                 "2-dormitorios",
                 "3-dormitorios",
                 "mas-de-4-dormitorios"]
-banos = ["_Banos_1",
-          "_Banos_2",
-          "_Banos_3",
-          "_Banos_4",
-          "_Banos_5-o-mas"]
-
 
 regiones = ["arica-y-parinacota","tarapaca","antofagasta","atacama","coquimbo","bernardo-ohiggins","maule","nuble",
          "biobio","araucania","de-los-rios","los-lagos"]
@@ -539,48 +533,12 @@ def main():
         for tipo in tipos:
             for operacion in operaciones:
                 if tipo=='casa' or tipo=='departamento':
-                    for bano in banos:
-                        for dormitorio in dormitorios:
-                            for page in pages:
-                                time.sleep(random.randint(5,7))
-
-                                link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
-                                       dormitorio+"/"+region+"/_desde_"+str(page)+bano
-                                print(link)
-                                request = requests.get(link, headers = headers)
-
-                                #headerIndex += 1
-                                #headerIndex = headerIndex % len(headerList)
-
-                                try:
-                                    tree = html.fromstring(request.content)
-                                except:
-                                    break
-
-                                resultBoxXpath = '//*[@id="results-section"]'
-                                results = tree.xpath(resultBoxXpath)
-                                if len(results) == 0:
-                                    #no results
-                                    break
-
-                                resultLinkList = []
-
-                                htmlArray = request.text.split(" ")
-                                for element in htmlArray:
-                                    if "item-url=" in element:
-                                        result_link = element.replace('"', '').replace("item-url=", "")
-                                        result_link = result_link.split('#')[0]
-                                        resultLinkList.append(result_link)
-
-                                scrap(linkList=resultLinkList,region=region,operacion=operacion, tipo=tipo,hoja = page)
-
-                else:
                     for page in pages:
-                        time.sleep(random.randint(5, 7))
+                        time.sleep(random.randint(5,7))
 
                         link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+region+"/_desde_"+str(page)
                         print(link)
-                        request = requests.get(link, headers=headers)
+                        request = requests.get(link, headers = headers)
 
                         #headerIndex += 1
                         #headerIndex = headerIndex % len(headerList)
@@ -593,7 +551,7 @@ def main():
                         resultBoxXpath = '//*[@id="results-section"]'
                         results = tree.xpath(resultBoxXpath)
                         if len(results) == 0:
-                            # no results
+                            #no results
                             break
 
                         resultLinkList = []
@@ -602,9 +560,42 @@ def main():
                         for element in htmlArray:
                             if "item-url=" in element:
                                 result_link = element.replace('"', '').replace("item-url=", "")
+                                result_link = result_link.split('#')[0]
                                 resultLinkList.append(result_link)
 
-                        scrap(linkList=resultLinkList, region=region, operacion=operacion, tipo=tipo, hoja=page)
+                        scrap(linkList=resultLinkList,region=region,operacion=operacion, tipo=tipo,hoja = page)
+
+        else:
+            for page in pages:
+                time.sleep(random.randint(5, 7))
+
+                link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+region+"/_desde_"+str(page)
+                print(link)
+                request = requests.get(link, headers=headers)
+
+                #headerIndex += 1
+                #headerIndex = headerIndex % len(headerList)
+
+                try:
+                    tree = html.fromstring(request.content)
+                except:
+                    break
+
+                resultBoxXpath = '//*[@id="results-section"]'
+                results = tree.xpath(resultBoxXpath)
+                if len(results) == 0:
+                    # no results
+                    break
+
+                resultLinkList = []
+
+                htmlArray = request.text.split(" ")
+                for element in htmlArray:
+                    if "item-url=" in element:
+                        result_link = element.replace('"', '').replace("item-url=", "")
+                        resultLinkList.append(result_link)
+
+                scrap(linkList=resultLinkList, region=region, operacion=operacion, tipo=tipo, hoja=page)
 
 if __name__ == "__main__":
     while(True):
