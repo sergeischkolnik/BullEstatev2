@@ -130,19 +130,20 @@ def obtenerLinks(client,tasacion,venta):
 def obtenerIdConLink(link,sitio):
 
     if (sitio=='www.portalinmobiliario.com'):
-        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
-        cur = mariadb_connection.cursor()
-        sql = "SELECT id2 from portalinmobiliario WHERE link like '%"+str(link)+"%'"
+        return str(link.split('/')[-1].split('-')[0])
+        # mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+        # cur = mariadb_connection.cursor()
+        # sql = "SELECT id2 from portalinmobiliario WHERE link like '%"+str(link)+"%'"
     else:
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
         cur = mariadb_connection.cursor()
         sql = "SELECT id2 from propiedades WHERE link like '%"+str(link)+"%'"
-    cur.execute(sql)
-    id = cur.fetchall()
-    if len(id)>0:
-        return id[0]
-    else:
-        return id
+        cur.execute(sql)
+        id = cur.fetchall()
+        if len(id)>0:
+            return id[0]
+        else:
+            return id
 
 
 def generarreporte(client,sendMessageFunc,chat_id,reply):
@@ -270,9 +271,10 @@ def connectorFicha(client):
         return text
     else:
         auxlink = str(client["link_prop"])
-        if "https" in auxlink and client["sitio"]=="www.portalinmobiliario.com":
-            print(auxlink)
-            auxlink= auxlink.replace('https','http')
+
+        # if "https" in auxlink and client["sitio"]=="www.portalinmobiliario.com":
+        #     print(auxlink)
+        #     auxlink= auxlink.replace('https','http')
         auxlink=auxlink.split('?')
         auxlink=auxlink[0]
         if "//m." in auxlink:
@@ -283,9 +285,7 @@ def connectorFicha(client):
         if len(auxid)==0:
             return "La propiedad buscada no se encuentra en la base de datos"
         else:
-
-            print(auxid[0])
-            text = ficha.crearFicha(client["sitio"], auxid[0], client["mail"], tipoficha)
+            text = ficha.crearFicha(client["sitio"], auxid, client["mail"], tipoficha)
             return text
 
 
