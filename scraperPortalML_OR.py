@@ -528,7 +528,7 @@ def scrap(linkList,region,operacion,tipo,hoja):
 
 
 def main():
-    headerIndex = 2
+
     for region in regiones:
         for tipo in tipos:
             for operacion in operaciones:
@@ -539,9 +539,7 @@ def main():
                         link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+region+"/_desde_"+str(page)
                         print(link)
                         request = requests.get(link, headers = headers)
-
-                        #headerIndex += 1
-                        #headerIndex = headerIndex % len(headerList)
+                        print(request)
 
                         try:
                             tree = html.fromstring(request.content)
