@@ -284,7 +284,7 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
                 d.append(str(n))
                 avaible=pubPortalExiste.publicacionExiste(l)
                 id=botPropertyConnector.obtenerIdConLink(l,"www.portalinmobiliario.com")
-                id=id[0]
+                #id=id[0]
                 prop=reportes.precio_from_portalinmobiliario(id)
                 prop=prop[0]
                 print("Arreglo de propiedad:")
