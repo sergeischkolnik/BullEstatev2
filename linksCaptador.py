@@ -20,3 +20,5 @@ def main():
     props = cur.fetchall()
     print(props)
 
+if __name__ == "__main__":
+    main()
