@@ -50,8 +50,11 @@ def main():
 
     print("Recorriendo propiedades")
     for prop in propsV:
-        tasacionVenta = clfHV.predict([[int(prop[6]),int(prop[7]), int(prop[8]),int(prop[9]), prop[10],prop[11], int(prop[12])]])
-        print(str(tasacionVenta) + " vs " + str(prop[5]))
+        tasacionVenta = int(clfHV.predict([[int(prop[6]),int(prop[7]), int(prop[8]),int(prop[9]), prop[10],prop[11], int(prop[12])]])[0])
+        precioReal = int(prop[5])
+        delta = precioReal - tasacionVenta
+        deltaPorc = (100*delta) / precioReal
+        print(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc))
 
 
 if __name__ == "__main__":
