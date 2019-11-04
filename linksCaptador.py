@@ -25,7 +25,7 @@ def main():
 
     resultados = cur.fetchall()
     propsV = [list(x) for x in resultados]
-
+    print(propsV)
 
     print("creando modelo")
     clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
