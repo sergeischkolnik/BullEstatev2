@@ -50,9 +50,8 @@ def main():
 
     print("Recorriendo propiedades")
     for prop in propsV:
-        print(prop)
         tasacionVenta = clfHV.predict([[int(prop[6]),int(prop[7]), int(prop[8]),int(prop[9]), prop[10],prop[11], int(prop[12])]])
-        print(tasacionVenta + " // " + str(prop[5]))
+        print(str(tasacionVenta) + " vs " + str(prop[5]))
 
 
 if __name__ == "__main__":
