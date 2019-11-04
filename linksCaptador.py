@@ -8,6 +8,7 @@ past = datetime.now() - timedelta(days=180)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=10)
 yesterday=datetime.date(yesterday)
+import pubPortalExiste
 
 def main():
     print("obteniendo propiedades a tasar")
@@ -62,7 +63,8 @@ def main():
         precioReal = int(prop[5])
         delta = precioReal - tasacionVenta
         deltaPorc = int((1000*delta) / precioReal) / 10
-        if(deltaPorc < -20):
+        if(deltaPorc < -15) and (("santiago" or "las-condes" or "providencia" or "nunoa" or "la-reina" or "lo-barnechea" or "vitacura" or "san-miguel") in str(prop[13]))\
+                and pubPortalExiste.publicacionExiste(prop[13]):
             print(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc) + " " + str(prop[13]))
 
 
