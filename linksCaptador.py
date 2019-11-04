@@ -61,8 +61,8 @@ def main():
         tasacionVenta = int(clfHV.predict([[int(prop[6]),int(prop[7]), int(prop[8]),int(prop[9]), prop[10],prop[11], int(prop[12])]])[0])
         precioReal = int(prop[5])
         delta = precioReal - tasacionVenta
-        deltaPorc = (100*delta) / precioReal
-        print(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc))
+        deltaPorc = int((1000*delta) / precioReal) / 10
+        print(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc) + " " + str(prop[13]))
 
 
 if __name__ == "__main__":
