@@ -968,266 +968,269 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                 count=0
 
                 for prop in propiedades:
-                    count=count+1
+                    try:
+                        count=count+1
 
-                    portalinmobiliario= "portalinmobiliario" in prop[14]
+                        portalinmobiliario= "portalinmobiliario" in prop[14]
 
-                    idProp = prop[15]
-                    if portalinmobiliario:
-                        if idCliente is not None:
-                            ya=yaReportado(idCliente=idCliente,idProp=idProp)
-                            if ya[0]:
-                                continue
-                                #fechareporte=ya[1]
+                        idProp = prop[15]
+                        if portalinmobiliario:
+                            if idCliente is not None:
+                                ya=yaReportado(idCliente=idCliente,idProp=idProp)
+                                if ya[0]:
+                                    continue
+                                    #fechareporte=ya[1]
+                                else:
+                                    fechareporte=fechahoy
                             else:
-                                fechareporte=fechahoy
+                                fechareporte = fechahoy
                         else:
-                            fechareporte = fechahoy
-                    else:
-                         if idCliente is not None:
-                            ya=yaReportadoYapo(idCliente=idCliente,idProp=idProp)
-                            if ya[0]:
-                                continue
-                                #fechareporte=ya[1]
-                            else:
-                                fechareporte=fechahoy
-                         else:
-                            fechareporte = fechahoy
-                    if verboso:
-                        print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
-
-
-                    if metrodistance<999999999:
-                        estaciones2=[]
-                        for e in estaciones1:
-                            subestacion=[]
-                            late=e[3]
-                            lone=e[4]
-                            lat1=prop[10]
-                            long1=prop[11]
-                            r=6371000
-                            c=pi/180
-                            distance= 2*r*asin(sqrt(sin(c*(late-lat1)/2)**2 + cos(c*lat1)*cos(c*late)*sin(c*(lone-long1)/2)**2))
-                            subestacion.append(e[1])
-                            subestacion.append(e[2])
-                            subestacion.append(distance)
-                            estaciones2.append(subestacion)
-
-                        estaciones2=sorted(estaciones2,key=lambda x:x[2])
-                        estacioncercana=estaciones2[0]
-
-
-                        if metrodistance != None:
-                            if estacioncercana[2]>float(metrodistance):
-                                continue
-
-
-                    subresultado=[]
-                    #id
-                    print('id2=')
-                    print(int(prop[0]))
-                    subresultado.append(int(prop[0]))
-
-                    # precio
-                    subresultado.append(int(prop[5]))
-                    if tipo=="casa":
-                        subresultado.append(int(10*(prop[5])/(ufn*prop[8]))/10)
-                        subresultado.append(int(10*(prop[5])/(ufn*prop[9]))/10)
-                    else:
-                        subresultado.append(int(20*(prop[5])/(ufn*(prop[9]+prop[8])))/10)
-
-                    # util
-                    subresultado.append(int(prop[8]))
-                    # total
-                    subresultado.append(int(prop[9]))
-                    #Dormitorios
-                    subresultado.append(int(prop[6]))
-                    #Baños
-                    subresultado.append(int(prop[7]))
-                    # estacionamiento
-                    subresultado.append(int(prop[12]))
-                    # Bodega
-                    subresultado.append(int(prop[13]))
-
-
-                    if metrodistance < 999999999:
-                        auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
-                        # metro
-                        subresultado.append(auxestacion)
-                        # distancia metro
-                        subresultado.append(estacioncercana[2])
-
-
-                    # Aca hacer prediccion
-                    # select -> id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,bodegas,link,id
-                    # modelo -> dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos
-                    if tipo=="comercial":
-                        tasacionVenta = clfHV.predict([[prop[8], prop[9], prop[10], prop[11], prop[12]]])
-                        tasacionArriendo = clfHA.predict(
-                            [[prop[8], prop[9], prop[10], prop[11], prop[12]]])
-                    else:
-                        tasacionVenta = clfHV.predict([[prop[6], prop[7], prop[8], prop[9], prop[10], prop[11], prop[12]]])
-                        tasacionArriendo = clfHA.predict(
-                            [[prop[6], prop[7], prop[8], prop[9], prop[10], prop[11], prop[12]]])
-
-                    precioV = tasacionVenta
-                    precioA = tasacionArriendo
-
-                    print("el precio tasado de venta inicial es: " + str(precioV))
-                    print("el precio tasado de arriendo inicial es: " + str(precioA))
-
-
-                    if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
-
-                        if verboso and tipo!= 'comercial':
-                            print("[GeneradorReportes] renta promedio para la comuna de: " + str(
-                                comuna) + " para propiedades tipo " + str(tipo) + " de " + str(
-                                int(prop[6])) + " dormitorios, " + str(int(prop[7])) + " baños")
-
-
-
-                        if precioV is None or precioV<0.1:
-                            if verboso:
-                                print("[GeneradorReportes] Error al predecir precio")
-                            continue
-
-
-                        rentaV=((precioV-prop[5])/prop[5])
-
-
-                        if rentaV<rentminventa:
-                            if verboso:
-                                print("[GeneradorReportes] renta de venta muy baja")
-                            continue
-
-                        if precioA is None or precioA<0.01:
-                            if verboso:
-                                print("[GeneradorReportes] no existe precio de arriendo")
-                            continue
-
-                        rentaA=(precioA*12/prop[5])
-                        rentaPP=(precioA*12/precioV)
+                             if idCliente is not None:
+                                ya=yaReportadoYapo(idCliente=idCliente,idProp=idProp)
+                                if ya[0]:
+                                    continue
+                                    #fechareporte=ya[1]
+                                else:
+                                    fechareporte=fechahoy
+                             else:
+                                fechareporte = fechahoy
                         if verboso:
-                            print("[GeneradorReportes] rentapp: "+str(rentaPP))
-                        if rentaA>0.2:
-                            if verboso:
-                                print("[GeneradorReportes] renta de arriendo muy alta")
-                            continue
-
-                        if rentaA<0:
-                            if verboso:
-                                print("[GeneradorReportes] renta de arriendo muy baja")
-                            continue
-
-                        if rentaA<rentminarriendo:
-                            if verboso:
-                                print("[GeneradorReportes] renta de arriendo mas baja que minima")
-                            continue
-
-                        if rentminventa is not False:
-                            # precio venta tasado
-                            subresultado.append(precioV)
-                            if tipo=="casa":
-                                subresultado.append(int(10*(precioV)/(ufn*prop[8]))/10)
-                                subresultado.append(int(10*(precioV)/(ufn*prop[9]))/10)
-                            else:
-                                subresultado.append(int(20*(precioV)/(ufn*(prop[9]+prop[8])))/10)
-                            # rentabilidad de venta
-                            subresultado.append(float(rentaV))
+                            print("GeneradorReportes] " + str(count)+"/"+str(len(propiedades)))
 
 
-                        if rentminarriendo is not False:
-                            # precio arriendo tasado
-                            subresultado.append(precioA)
-                            # rentabilidad de arriendo
-                            subresultado.append(float(rentaA))
+                        if metrodistance<999999999:
+                            estaciones2=[]
+                            for e in estaciones1:
+                                subestacion=[]
+                                late=e[3]
+                                lone=e[4]
+                                lat1=prop[10]
+                                long1=prop[11]
+                                r=6371000
+                                c=pi/180
+                                distance= 2*r*asin(sqrt(sin(c*(late-lat1)/2)**2 + cos(c*lat1)*cos(c*late)*sin(c*(lone-long1)/2)**2))
+                                subestacion.append(e[1])
+                                subestacion.append(e[2])
+                                subestacion.append(distance)
+                                estaciones2.append(subestacion)
+
+                            estaciones2=sorted(estaciones2,key=lambda x:x[2])
+                            estacioncercana=estaciones2[0]
 
 
-                    else:
-                        if rentminarriendo is not False:
+                            if metrodistance != None:
+                                if estacioncercana[2]>float(metrodistance):
+                                    continue
 
-                            if precioA is None:
+
+                        subresultado=[]
+                        #id
+                        print('id2=')
+                        print(int(prop[0]))
+                        subresultado.append(int(prop[0]))
+
+                        # precio
+                        subresultado.append(int(prop[5]))
+                        if tipo=="casa":
+                            subresultado.append(int(10*(prop[5])/(ufn*prop[8]))/10)
+                            subresultado.append(int(10*(prop[5])/(ufn*prop[9]))/10)
+                        else:
+                            subresultado.append(int(20*(prop[5])/(ufn*(prop[9]+prop[8])))/10)
+
+                        # util
+                        subresultado.append(int(prop[8]))
+                        # total
+                        subresultado.append(int(prop[9]))
+                        #Dormitorios
+                        subresultado.append(int(prop[6]))
+                        #Baños
+                        subresultado.append(int(prop[7]))
+                        # estacionamiento
+                        subresultado.append(int(prop[12]))
+                        # Bodega
+                        subresultado.append(int(prop[13]))
+
+
+                        if metrodistance < 999999999:
+                            auxestacion="("+str(estacioncercana[0])+") "+str(estacioncercana[1])
+                            # metro
+                            subresultado.append(auxestacion)
+                            # distancia metro
+                            subresultado.append(estacioncercana[2])
+
+
+                        # Aca hacer prediccion
+                        # select -> id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,bodegas,link,id
+                        # modelo -> dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos
+                        if tipo=="comercial":
+                            tasacionVenta = clfHV.predict([[prop[8], prop[9], prop[10], prop[11], prop[12]]])
+                            tasacionArriendo = clfHA.predict(
+                                [[prop[8], prop[9], prop[10], prop[11], prop[12]]])
+                        else:
+                            tasacionVenta = clfHV.predict([[prop[6], prop[7], prop[8], prop[9], prop[10], prop[11], prop[12]]])
+                            tasacionArriendo = clfHA.predict(
+                                [[prop[6], prop[7], prop[8], prop[9], prop[10], prop[11], prop[12]]])
+
+                        precioV = tasacionVenta
+                        precioA = tasacionArriendo
+
+                        print("el precio tasado de venta inicial es: " + str(precioV))
+                        print("el precio tasado de arriendo inicial es: " + str(precioA))
+
+
+                        if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
+
+                            if verboso and tipo!= 'comercial':
+                                print("[GeneradorReportes] renta promedio para la comuna de: " + str(
+                                    comuna) + " para propiedades tipo " + str(tipo) + " de " + str(
+                                    int(prop[6])) + " dormitorios, " + str(int(prop[7])) + " baños")
+
+
+
+                            if precioV is None or precioV<0.1:
+                                if verboso:
+                                    print("[GeneradorReportes] Error al predecir precio")
                                 continue
 
-                            # precio arriendo tasado
-                            subresultado.append(precioA)
-                            rentaA=((precioA-prop[5])/prop[5])
+
+                            rentaV=((precioV-prop[5])/prop[5])
+
+
+                            if rentaV<rentminventa:
+                                if verboso:
+                                    print("[GeneradorReportes] renta de venta muy baja")
+                                continue
+
+                            if precioA is None or precioA<0.01:
+                                if verboso:
+                                    print("[GeneradorReportes] no existe precio de arriendo")
+                                continue
+
+                            rentaA=(precioA*12/prop[5])
+                            rentaPP=(precioA*12/precioV)
                             if verboso:
-                                print("[GeneradorReportes] arriendo real: "+str(prop[5]))
-                            if verboso:
-                                print("[GeneradorReportes] arriendo predicho: "+str(precioA))
-                            if verboso:
-                                print("[GeneradorReportes] rentabildiad: "+str(rentaA))
-                            if rentaA>1:
+                                print("[GeneradorReportes] rentapp: "+str(rentaPP))
+                            if rentaA>0.2:
+                                if verboso:
+                                    print("[GeneradorReportes] renta de arriendo muy alta")
+                                continue
+
+                            if rentaA<0:
+                                if verboso:
+                                    print("[GeneradorReportes] renta de arriendo muy baja")
                                 continue
 
                             if rentaA<rentminarriendo:
+                                if verboso:
+                                    print("[GeneradorReportes] renta de arriendo mas baja que minima")
                                 continue
 
-                            # rentabilidad arriendo
-                            subresultado.append(float(rentaA))
+                            if rentminventa is not False:
+                                # precio venta tasado
+                                subresultado.append(precioV)
+                                if tipo=="casa":
+                                    subresultado.append(int(10*(precioV)/(ufn*prop[8]))/10)
+                                    subresultado.append(int(10*(precioV)/(ufn*prop[9]))/10)
+                                else:
+                                    subresultado.append(int(20*(precioV)/(ufn*(prop[9]+prop[8])))/10)
+                                # rentabilidad de venta
+                                subresultado.append(float(rentaV))
 
-                    if not pubPortalExiste.publicacionExiste(prop[14]):
-                        if verboso:
-                            print("[GeneradorReportes] link no disponible")
-                        continue
-                    else:
-                        # link
-                        subresultado.append(prop[14])
 
+                            if rentminarriendo is not False:
+                                # precio arriendo tasado
+                                subresultado.append(precioA)
+                                # rentabilidad de arriendo
+                                subresultado.append(float(rentaA))
 
-                    #agregar mail, telefono y dueño
-                    if corredor is not None:
-                        if portalinmobiliario:
-                            try:
-                                email,telefono,dueno = getDatosDueno(prop[0])
-                            except:
-                                email="NN"
-                                telefono="NN"
-                                dueno="NN"
 
                         else:
-                            email = "NN"
-                            telefono = "NN"
-                            if (prop[16]==1):
-                                dueno='si'
-                            elif (prop[16]==0):
-                                dueno='no'
-                            else:
-                                dueno='NN'
-                        if (str(dueno) == corredor or (dueno == "NN" and corredor != "a")):
+                            if rentminarriendo is not False:
+
+                                if precioA is None:
+                                    continue
+
+                                # precio arriendo tasado
+                                subresultado.append(precioA)
+                                rentaA=((precioA-prop[5])/prop[5])
+                                if verboso:
+                                    print("[GeneradorReportes] arriendo real: "+str(prop[5]))
+                                if verboso:
+                                    print("[GeneradorReportes] arriendo predicho: "+str(precioA))
+                                if verboso:
+                                    print("[GeneradorReportes] rentabildiad: "+str(rentaA))
+                                if rentaA>1:
+                                    continue
+
+                                if rentaA<rentminarriendo:
+                                    continue
+
+                                # rentabilidad arriendo
+                                subresultado.append(float(rentaA))
+
+                        if not pubPortalExiste.publicacionExiste(prop[14]):
                             if verboso:
-                                print("[GeneradorReportes] La propiedad encontrada " + str(
-                                    dueno) + " es gestionada por un dueño")
+                                print("[GeneradorReportes] link no disponible")
                             continue
-                        subresultado.append(email)
-                        subresultado.append(telefono)
-                        subresultado.append(dueno)
-                        subresultado.append(fechareporte)
-
-                    if rentminventa is not False and operacion=="venta":
-                        subresultado.append("confianza venta comming soon")
-                    if rentminarriendo is not False:
-                        subresultado.append("confianza arriendo comming soon")
-
-                    if verboso:
-                        print("[GeneradorReportes] depto encontrado para "+nombreCliente)
-
-                    # try:
-                    #     if rentaV>0.25:
-                    #
-                    #         sendMailOportunidad.sendMail(columnNames,subresultado)
-                    # except:
-                    #     pass
-                    resultado.append(subresultado)
-                    #print("sub appended")
-
-                    if idCliente is not None:
-                        if portalinmobiliario:
-                            guardarRegistro(idCliente, idProp, fechareporte)
                         else:
-                            guardarRegistroYapo(idCliente,idProp,fechareporte)
+                            # link
+                            subresultado.append(prop[14])
 
+
+                        #agregar mail, telefono y dueño
+                        if corredor is not None:
+                            if portalinmobiliario:
+                                try:
+                                    email,telefono,dueno = getDatosDueno(prop[0])
+                                except:
+                                    email="NN"
+                                    telefono="NN"
+                                    dueno="NN"
+
+                            else:
+                                email = "NN"
+                                telefono = "NN"
+                                if (prop[16]==1):
+                                    dueno='si'
+                                elif (prop[16]==0):
+                                    dueno='no'
+                                else:
+                                    dueno='NN'
+                            if (str(dueno) == corredor or (dueno == "NN" and corredor != "a")):
+                                if verboso:
+                                    print("[GeneradorReportes] La propiedad encontrada " + str(
+                                        dueno) + " es gestionada por un dueño")
+                                continue
+                            subresultado.append(email)
+                            subresultado.append(telefono)
+                            subresultado.append(dueno)
+                            subresultado.append(fechareporte)
+
+                        if rentminventa is not False and operacion=="venta":
+                            subresultado.append("confianza venta comming soon")
+                        if rentminarriendo is not False:
+                            subresultado.append("confianza arriendo comming soon")
+
+                        if verboso:
+                            print("[GeneradorReportes] depto encontrado para "+nombreCliente)
+
+                        # try:
+                        #     if rentaV>0.25:
+                        #
+                        #         sendMailOportunidad.sendMail(columnNames,subresultado)
+                        # except:
+                        #     pass
+                        resultado.append(subresultado)
+                        #print("sub appended")
+
+                        if idCliente is not None:
+                            if portalinmobiliario:
+                                guardarRegistro(idCliente, idProp, fechareporte)
+                            else:
+                                guardarRegistroYapo(idCliente,idProp,fechareporte)
+                    except Exception as e:
+                        print(e)
+                        continue
                 if len(resultado)>0:
                     if verboso:
                         print("[GeneradorReportes] Generando Reporte para el cliente "+nombreCliente)
