@@ -33,18 +33,17 @@ def main():
 
     preciosV = [row[5] for row in propsV]
 
-    trainingV = propsV.copy()
-    for row in trainingV:
-        del row[13]
-        #if client["tipo"].lower()=="comercial":
-            #del row[7]
-            #del row[6]
-        del row[5]
-        del row[4]
-        del row[3]
-        del row[2]
-        del row[1]
-        del row[0]
+    trainingV = []
+    for prop in propsV:
+        aux = []
+        aux.append(int(prop[6]))
+        aux.append(int(prop[7]))
+        aux.append(int(prop[8]))
+        aux.append(int(prop[9]))
+        aux.append(prop[10])
+        aux.append(prop[11])
+        aux.append(int(prop[12]))
+        trainingV.append(aux)
 
     print("Haciendo fit")
     clfHV.fit(trainingV, preciosV)
