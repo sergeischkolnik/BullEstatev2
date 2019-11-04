@@ -43,9 +43,9 @@ def main():
     trainingV = propsV.copy()
     for row in trainingV:
         del row[13]
-        if client["tipo"].lower()=="comercial":
-            del row[7]
-            del row[6]
+        #if client["tipo"].lower()=="comercial":
+            #del row[7]
+            #del row[6]
         del row[5]
         del row[4]
         del row[3]
