@@ -66,7 +66,8 @@ def main():
         if(deltaPorc < -30) and (deltaPorc > -100) \
                 and pubPortalExiste.publicacionExiste(prop[13]):
             results.append(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc) + " " + str(prop[13]))
-    print(results)
+    for r in results:
+        print(r)
 
 if __name__ == "__main__":
     main()
