@@ -24,10 +24,7 @@ def main():
     cur.execute(sql)
 
     resultados = cur.fetchall()
-    print(resultados)
     propsV = [list(x) for x in resultados]
-    print(propsV)
-
     print("creando modelo")
     clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
                                               learning_rate=0.1, loss='huber')
@@ -54,6 +51,7 @@ def main():
 
     print("Recorriendo propiedades")
     for prop in propsV:
+        print(prop)
         tasacionVenta = clfHV.predict([[int(prop[6]),int(prop[7]), int(prop[8]),int(prop[9]), prop[10],prop[11], int(prop[12])]])
         print(tasacionVenta + " // " + str(prop[5]))
 
