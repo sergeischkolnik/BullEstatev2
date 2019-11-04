@@ -1,4 +1,8 @@
 import pymysql as mysql
+ufn=uf.getUf()
+from sklearn import ensemble
+from sklearn.model_selection import train_test_split
+
 from datetime import datetime, timedelta
 past = datetime.now() - timedelta(days=180)
 past=datetime.date(past)
@@ -17,8 +21,35 @@ def main():
     'tipo = "departamento" and ' \
     'fechascrap > "' + str(yesterday) + '"'
     cur.execute(sql)
-    props = cur.fetchall()
-    print(props)
+
+    propsV = cur.fetchall()
+
+    clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
+                                              learning_rate=0.1, loss='huber')
+
+    #id2,fechapublicacion,fechascrap,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link
+
+    preciosV = [row[5] for row in propsV]
+
+    trainingV = propsV.copy()
+    for row in trainingV:
+        del row[13]
+        #if client["tipo"].lower()=="comercial":
+            #del row[7]
+            #del row[6]
+        del row[5]
+        del row[4]
+        del row[3]
+        del row[2]
+        del row[1]
+        del row[0]
+
+    clfHV.fit(trainingV, preciosV)
+
+    for prop in propsV:
+        tasacionVenta = clfHV.predict([[int(prop[6]),int(prop[7]), int(prop[8]),int(prop[9]), prop[10],prop[11], int(prop[12])]])
+        print(tasacionVenta + " // " + str(prop[5]))
+
 
 if __name__ == "__main__":
     main()
