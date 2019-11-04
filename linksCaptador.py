@@ -56,17 +56,17 @@ def main():
 
     print("Haciendo fit")
     clfHV.fit(trainingV, preciosV)
-
+    results=[]
     print("Recorriendo propiedades")
     for prop in propsPorTasar:
         tasacionVenta = int(clfHV.predict([[int(prop[6]),int(prop[7]), int(prop[8]),int(prop[9]), prop[10],prop[11], int(prop[12])]])[0])
         precioReal = int(prop[5])
         delta = precioReal - tasacionVenta
         deltaPorc = int((1000*delta) / precioReal) / 10
-        if(deltaPorc < -15) and (("santiago" or "las-condes" or "providencia" or "nunoa" or "la-reina" or "lo-barnechea" or "vitacura" or "san-miguel") in str(prop[13]))\
+        if(deltaPorc < -30) and (deltaPorc > -100) \
                 and pubPortalExiste.publicacionExiste(prop[13]):
-            print(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc) + " " + str(prop[13]))
-
+            results.append(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc) + " " + str(prop[13]))
+    print(results)
 
 if __name__ == "__main__":
     main()
