@@ -24,7 +24,7 @@ def main():
     cur.execute(sql)
 
     propsV = cur.fetchall()
-
+    propsV = list(propsV)
     print("creando modelo")
     clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
                                               learning_rate=0.1, loss='huber')
