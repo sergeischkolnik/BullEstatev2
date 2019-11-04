@@ -62,7 +62,8 @@ def main():
         precioReal = int(prop[5])
         delta = precioReal - tasacionVenta
         deltaPorc = int((1000*delta) / precioReal) / 10
-        print(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc) + " " + str(prop[13]))
+        if(deltaPorc < -20):
+            print(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc) + " " + str(prop[13]))
 
 
 if __name__ == "__main__":
