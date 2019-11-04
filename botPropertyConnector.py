@@ -11,7 +11,7 @@ import tasadorbot2 as tb2
 ufn=uf.getUf()
 from sklearn import ensemble
 from sklearn.model_selection import train_test_split
-import reportesHuberV1 as reportes
+
 import pdfCreatorTasacionFull as pdfc
 import sendmail
 from datetime import datetime, timedelta
