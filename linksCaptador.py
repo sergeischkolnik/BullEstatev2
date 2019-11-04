@@ -24,6 +24,7 @@ def main():
     cur.execute(sql)
 
     resultados = cur.fetchall()
+    print(resultados)
     propsV = [list(x) for x in resultados]
     print(propsV)
 
