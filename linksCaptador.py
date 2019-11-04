@@ -24,7 +24,8 @@ def main():
     cur.execute(sql)
 
     resultados = cur.fetchall()
-    propsV = list(resultados)
+    propsV = [list(x) for x in resultados]
+
 
     print("creando modelo")
     clfHV = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,
@@ -34,7 +35,7 @@ def main():
 
     preciosV = [row[5] for row in propsV]
 
-    trainingV = list(propsV.copy())
+    trainingV = propsV.copy()
     for row in trainingV:
         del row[13]
         #if client["tipo"].lower()=="comercial":
