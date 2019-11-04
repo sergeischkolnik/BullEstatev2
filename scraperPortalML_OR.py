@@ -554,6 +554,15 @@ def main():
                             #no results
                             break
 
+                        #revisar no pasarse del nr de resultados
+                        nrResultsPath = '//*[@id="inner-main"]/aside/div[2]'
+                        try:
+                            results2 = int(tree.xpath(nrResultsPath)[0].text.split(" ")[1].replace(".",""))
+                            if page > results2:
+                                break
+                        except:
+                            break
+
                         resultLinkList = []
 
                         htmlArray = request.text.split(" ")
@@ -585,6 +594,15 @@ def main():
                 results = tree.xpath(resultBoxXpath)
                 if len(results) == 0:
                     # no results
+                    break
+
+                #revisar no pasarse del nr de resultados
+                nrResultsPath = '//*[@id="inner-main"]/aside/div[2]'
+                try:
+                    results2 = int(tree.xpath(nrResultsPath)[0].text.split(" ")[1].replace(".",""))
+                    if page > results2:
+                        break
+                except:
                     break
 
                 resultLinkList = []
