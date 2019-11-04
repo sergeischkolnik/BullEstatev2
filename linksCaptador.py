@@ -34,7 +34,7 @@ def main():
 
     preciosV = [row[5] for row in propsV]
 
-    trainingV = propsV.copy()
+    trainingV = list(propsV.copy())
     for row in trainingV:
         del row[13]
         #if client["tipo"].lower()=="comercial":
