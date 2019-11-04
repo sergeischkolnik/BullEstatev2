@@ -63,7 +63,7 @@ def main():
         precioReal = int(prop[5])
         delta = precioReal - tasacionVenta
         deltaPorc = int((1000*delta) / precioReal) / 10
-        if(deltaPorc < -30) and (deltaPorc > -100) \
+        if(deltaPorc < -20) and (deltaPorc > -100) \
                 and pubPortalExiste.publicacionExiste(prop[13]):
             results.append(str(precioReal) + " vs " + str(tasacionVenta) + " delta%:" + str(deltaPorc) + " " + str(prop[13]))
     for r in results:
