@@ -188,12 +188,22 @@ def crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,uf
                             ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
                             ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
     ]))
+    try:
+        image = Image('bull_logo2.png', hAlign='LEFT')
+        image._restrictSize(2 * inch, 3 * inch)
+        Story.append(image)
+        Story.append(Spacer(1, 16))
 
-    image = Image('bull_logo2.png', hAlign='LEFT')
-    image._restrictSize(2 * inch, 3 * inch)
-    Story.append(image)
-    Story.append(Spacer(1, 16))
-
+    except Exception as e1:
+        try:
+            print("no se pudo obtener la 1ra imagen, se procede a intentar con la segunda.")
+            image = Image('bull_logo.jpeg', hAlign='LEFT')
+            image._restrictSize(2 * inch, 3 * inch)
+            Story.append(image)
+            Story.append(Spacer(1, 16))
+        except Exception as e2:
+            print("no se pudo obtener la 2da imagen")
+            print(e2)
 
 
 

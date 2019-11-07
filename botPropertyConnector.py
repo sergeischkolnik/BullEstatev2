@@ -53,7 +53,7 @@ def obtenerLinks(client,tasacion,venta):
         operacion="arriendo"
 
     flexPrice=[0.05,0.1,0.15,0.2,0.25]
-    flexDist=[50,200,500,1000,1500]
+    flexDist=[500,1000,1500,2000,5000]
     flexOther=[False,True]
     props=[]
     for bath in flexOther:
