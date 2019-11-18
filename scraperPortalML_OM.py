@@ -638,10 +638,10 @@ def main():
                                     link = "https://www.portalinmobiliario.com/" + operacion + "/" + tipo + "/propiedades-usadas/" + \
                                            dormitorio + "/" + comuna + "-metropolitana/" + bano + "_desde_" + str(page)
                                     request = requests.get(link, headers=headerList[headerIndex])
+                                    print(link)
 
                                 try:
                                     tree = html.fromstring(request.content)
-                                    print("tree listo")
                                 except:
                                     break
 
