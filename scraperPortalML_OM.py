@@ -614,10 +614,13 @@ def main():
 
                                 #headerIndex += 1
                                 #headerIndex = headerIndex % len(headerList)
+                                print(request)
 
                                 try:
                                     tree = html.fromstring(request.content)
+                                    print("tree listo")
                                 except:
+                                    print("Fallo al hacer el tree")
                                     break
 
                                 resultBoxXpath = '//*[@id="results-section"]'
@@ -630,6 +633,7 @@ def main():
                                 nrResultsPath = '//*[@id="inner-main"]/aside/div[2]'
                                 try:
                                     results2 = int(tree.xpath(nrResultsPath)[0].text.split(" ")[1].replace(".",""))
+                                    print("page:"+str(page)+", res2:"+str(results2))
                                     if page > results2:
                                         break
                                 except:
