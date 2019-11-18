@@ -633,8 +633,8 @@ def main():
 
                                 #headerIndex += 1
                                 #headerIndex = headerIndex % len(headerList)
-                                print(request)
-                                print(request.content)
+
+                                print(len(request.content))
 
                                 try:
                                     tree = html.fromstring(request.content)
