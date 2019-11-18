@@ -70,8 +70,27 @@ headers3 = {
     'cookie': '_d2id=6f449319-f0db-4852-b6e6-4473d31fff5d-n; _mlt=6a76c9f9-c776-47f0-bf16-8e3bf8ea1091; uniqueID=15965c7c-9edb-43df-9c85-f4dac69268ea; _pi_ga=GA1.2.2067791864.1571058095; _pi_ci=2067791864.1571058095; _d2id=6f449319-f0db-4852-b6e6-4473d31fff5d; _hjid=eb71f50e-8d3c-489e-9792-11a7f5617768; _csrf=WaWxAUx6HMKTob31r4cf-3mz; c_home=0.0.6-redirect-circular-ref%7C5.2.0; pin_d2id=6f449319-f0db-4852-b6e6-4473d31fff5d; pin_exp=new; _pi_ga_gid=GA1.2.996463285.1571231021; JSESSIONID=FFF44D40DDF915344000286569A64337; pmsctx=******IMLC509232849%7C%7CIMLC507223027%7C%7C%7C**; navigation_items=MLC509232849%7C16102019130355-MLC507223027%7C14102019130557; _pi_dc=1',
 }
 
+headers4 = {
+    'authority': 'www.portalinmobiliario.com',
+    'cache-control': 'max-age=0',
+    'device-memory': '8',
+    'dpr': '1',
+    'viewport-width': '1920',
+    'rtt': '50',
+    'downlink': '10',
+    'ect': '4g',
+    'upgrade-insecure-requests': '1',
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36',
+    'sec-fetch-user': '?1',
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+    'sec-fetch-site': 'none',
+    'sec-fetch-mode': 'navigate',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'es-US,es;q=0.9,es-419;q=0.8,en;q=0.7',
+    'cookie': '_d2id=56651be7-1c44-4e59-aed4-a8bf281d49c1-n; AWSELB=7517F7ED0C3C5C3E0C8743D6A3E725F2C642132534377F9EF06CAF69A7F774FA8A907829A9359DF77CC948D6BD7F43E28B53DFDFA3B3D32E934AFE6269AA30474C98D9A3A4; _csrf=Sl_I8u43luB94WJOELIvsXcz; c_home=1.0.0-rc-1%7C5.3.5; pin_d2id=56651be7-1c44-4e59-aed4-a8bf281d49c1-n; pin_exp=new; _d2id=56651be7-1c44-4e59-aed4-a8bf281d49c1; _pi_ga=GA1.2.887072327.1574083185; _pi_ga_gid=GA1.2.803473583.1574083185; _pi_ci=887072327.1574083185; _hjid=3085c973-d7a4-4d64-97a7-f3fecb6ce027; _mlt=a240adeb-d53a-48ed-85aa-8b07569dc715; _pi_dc=1; PI=dtf03w0otqgi0mxtfp1azfov; __RequestVerificationToken=ON3Lv70Oh9_nvCRBVDCEO2CIvgjOOXiqxfoHNkCy_EUMD-o74pPFh1gsLkvzqIBp4CzUuWnAtBu3RxKIRguCdtJmlYo1; _ga=GA1.1.124147076.1574083255; _gid=GA1.1.1471474152.1574083255; _gat=1; _gat_cons=1; _gat_pi=1',
+}
 
-headerList = [headers3,headers3,headers3]
+headerList = [headers4]
 
 
 dormitorios = ["sin-dormitorios",
@@ -321,7 +340,7 @@ def insertarPropiedad(propiedad):
     mariadb_connection.close()
 
 def scrap(linkList,region,operacion,tipo,comuna,hoja):
-    headerIndex = 1
+    headerIndex = 0
 
     for i,link in enumerate(linkList):
 
@@ -592,7 +611,7 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
 
 
 def main():
-    headerIndex = 1
+    headerIndex = 0
     for tipo in tipos:
         for comuna in comunas:
             for operacion in operaciones:
@@ -620,7 +639,6 @@ def main():
                                     tree = html.fromstring(request.content)
                                     print("tree listo")
                                 except:
-                                    print("Fallo al hacer el tree")
                                     break
 
                                 resultBoxXpath = '//*[@id="results-section"]'
