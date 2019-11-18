@@ -634,11 +634,14 @@ def main():
                                 #headerIndex += 1
                                 #headerIndex = headerIndex % len(headerList)
                                 print(request)
+                                print(request.content)
 
                                 try:
                                     tree = html.fromstring(request.content)
                                     print("tree listo")
                                 except:
+                                    link = "https://www.portalinmobiliario.com/" + operacion + "/" + tipo + "/propiedades-usadas/" + \
+                                           dormitorio + "/" + comuna + "-metropolitana/"+ bano+ "_desde_" + str(page)
                                     break
 
                                 resultBoxXpath = '//*[@id="results-section"]'
