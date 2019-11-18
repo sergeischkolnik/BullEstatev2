@@ -1,8 +1,9 @@
 import sendmail as sm
 import pymysql as mysql
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
+import time
 
-reportar_a = ["sergei@bullestate.cl"]
+reportar_a = ["demian@bullestate.cl"]
 
 tipos=["casa","departamento","otro"]
 operaciones = ["venta","arriendo"]
@@ -10,7 +11,10 @@ regiones = ["metropolitana","valparaiso","otra"]
 yesterday = datetime.now() - timedelta(days=1)
 yesterday=datetime.date(yesterday)
 
+
+
 def main():
+    text = ""
     for tipo in tipos:
         for operacion in operaciones:
             for region in regiones:
@@ -35,8 +39,12 @@ def main():
                 cur = mariadb_connection.cursor()
                 cur.execute(sql)
                 elem = cur.fetchall()
-                print(tipo+","+operacion+","+region+"->"+str(elem[0][0]))
+                text += tipo+","+operacion+","+region+"->"+str(elem[0][0])+"\n"
+
+    for p in reportar_a:
+        sm.sendMailText2(to=p,subject="informe scrapers "+str(datetime.now()),text=text)
+        time.sleep(60)
+    print("listo")
 
 if __name__ == "__main__":
-    while(True):
-        main()
+    main()
