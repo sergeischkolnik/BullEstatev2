@@ -85,7 +85,7 @@ banos = ["_Banos_1",
           "_Banos_4",
           "_Banos_5-o-mas"]
 
-comunas = ["santiago","providencia","las-condes","buin","calera-de-tango","cerrillos","colina","cerro-navia","conchali",
+comunas = ["las-condes","santiago","providencia","buin","calera-de-tango","cerrillos","colina","cerro-navia","conchali",
            "curacavi","el-bosque","estacion-central","el-monte","huechuraba","independencia","isla-de-maipo"
            "la-cisterna","la-florida","la-granja","la-pintana","la-reina","lampa","lo-barnechea","lo-espejo",
            "lo-prado","macul","maipu","maria-pinto","melipilla","paine","penalolen","puente-alto","pedro-aguirre-cerda","penaflor",
