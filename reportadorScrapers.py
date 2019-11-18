@@ -35,7 +35,7 @@ def main():
                 cur = mariadb_connection.cursor()
                 cur.execute(sql)
                 elem = cur.fetchall()
-                print(tipo+","+operacion+"->"+str(elem[0][0]))
+                print(tipo+","+operacion+","+region+"->"+str(elem[0][0]))
 
 if __name__ == "__main__":
     while(True):
