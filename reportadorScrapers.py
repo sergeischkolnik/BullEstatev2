@@ -19,7 +19,7 @@ def main():
                 if tipo != "otros":
                     sql += "tipo='"+str(tipo)+"' and "
                 else:
-                    sql += "tipo!=departamento and tipo!=casa and "
+                    sql += "tipo!='departamento' and tipo!='casa' and "
 
 
                 sql += "operacion='"+operacion+"' and "
@@ -29,7 +29,7 @@ def main():
                 if region != "otra":
                     sql += "region='"+str(region)+"'"
                 else:
-                    sql += "region!=metropolitana and region!=valparaiso"
+                    sql += "region!='metropolitana' and region!='valparaiso'"
 
                 mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
                 cur = mariadb_connection.cursor()
