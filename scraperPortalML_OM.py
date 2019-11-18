@@ -92,7 +92,7 @@ comunas = ["santiago","providencia","las-condes","buin","calera-de-tango","cerri
            "pudahuel","padre-hurtado","pirque","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
            "san-joaquin","san-pedro","san-jose-de-maipo","talagante","til-til","vitacura","nunoa"]
 
-tipos=["comercial","departamento","casa","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
+tipos=["casa","comercial","departamento","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
 operaciones = ["venta","arriendo"]
 pages = range(1,2050,50)
 
