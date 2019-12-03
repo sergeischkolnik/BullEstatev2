@@ -231,10 +231,21 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                                ('FONTSIZE', (0,0), (-1,-1), 11),
                                ]))
 
-    image = Image('bull_logo2.png', hAlign='LEFT')
-    image._restrictSize(2 * inch, 3 * inch)
-    Story.append(image)
-    Story.append(Spacer(1, 16))
+    try:
+        image = Image('bull_logo2.png', hAlign='LEFT')
+        image._restrictSize(2 * inch, 3 * inch)
+        Story.append(image)
+        Story.append(Spacer(1, 16))
+    except:
+        try:
+            image = Image('bull_logo.jpg', hAlign='LEFT')
+            image._restrictSize(2 * inch, 3 * inch)
+            Story.append(image)
+            Story.append(Spacer(1, 16))
+        except:
+            pass
+
+
 
     if interna:
         ptext = '<font size=11><b>FICHA PROPIEDAD</b>: '+str(id)+'</font>'
