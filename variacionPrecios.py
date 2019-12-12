@@ -1,4 +1,5 @@
 import pymysql as mysql
+import time
 #imports
 
 
@@ -36,6 +37,7 @@ def main():
     #codigo principal
     #seleccionar desde la base de datos
     print(listaComunas)
+    stopper=True
     for comuna in listaComunas:
 
         #separar departamentos por cantidad de dormitorios, baños y estacionamientos
@@ -54,10 +56,11 @@ def main():
                             promedio=(propiedad[3]+propiedad[4])/2
                             preciometro=propiedad[2]/promedio
                             datos.append([propiedad[1],preciometro])
-
-                    for d in datos:
-                        print(d)
-
+                    if stopper:
+                        for d in datos:
+                            print(d)
+                            time.sleep(5)
+                    stopper=False
                     break
 
                     #calcular el objetivo
