@@ -44,9 +44,13 @@ def main():
                 for k in range (0,3):
 
                     propiedades=obtenerPropiedades(comuna,i,j,k)
-                    departamentos=propiedades[:10]
-                    for propiedad in departamentos:
-                        print(propiedad)
+                    for propiedad in propiedades:
+                        if propiedad[3]>0 and propiedad[4]>0 and propiedad[2]>0:
+                            promedio=(propiedad[3]+propiedad[4])/2
+                            preciometro=propiedad[2]/promedio
+                            propiedad.append(preciometro)
+                    for p in propiedades:
+                        print(p)
                     break
                     #calcular el objetivo
 
