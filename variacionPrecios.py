@@ -44,7 +44,9 @@ def main():
                 for k in range (0,3):
 
                     propiedades=obtenerPropiedades(comuna,i,j,k)
-                    print(propiedades)
+                    departamentos=propiedades[:10]
+                    for propiedad in departamentos:
+                        print(propiedad)
                     break
                     #calcular el objetivo
 
