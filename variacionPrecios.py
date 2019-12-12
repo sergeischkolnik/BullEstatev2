@@ -53,9 +53,13 @@ def main():
                             preciometro=propiedad[2]/promedio
                             datos.append([propiedad[1],preciometro])
                     for d in datos:
+                        datetime.date.sort()
                         print(d)
+
                     break
+
                     #calcular el objetivo
+
 
         #ordenar los departamentos por comuna
             #SELECT * FROM table_iDjBkE
