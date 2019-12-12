@@ -229,7 +229,15 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         client["comuna"]="santiago"
 
     if "Center" in client and "Radius" in client:
-        direccion=client["Center"]+", "+client["comuna"]+", Chile"
+        if len(client["comuna"])>1:
+            for comuna in client["comuna"]:
+                try:
+                    direccion=client["Center"]+", "+comuna+", Chile"
+                    break
+                except:
+                    pass
+        else:
+            direccion = client["Center"] + ", " + client["comuna"] + ", Chile"
         radiodireccion=client["Radius"]
     else:
         direccion = None
