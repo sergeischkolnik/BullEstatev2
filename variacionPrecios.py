@@ -56,7 +56,7 @@ def main():
                             promedio=(propiedad[3]+propiedad[4])/2
                             preciometro=propiedad[2]/promedio
                             datos.append([propiedad[1],preciometro])
-                    sorted(datos)
+                    datos.sort(key=lambda datos:datos[0])
                     if stopper:
                         for d in datos:
                             print(d)
