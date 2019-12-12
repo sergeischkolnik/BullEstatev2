@@ -35,6 +35,7 @@ def main():
            "san-joaquin","san-pedro","san-jose-de-maipo","talagante","til-til","vitacura","nunoa"]
     #codigo principal
     #seleccionar desde la base de datos
+    print(listaComunas)
     for comuna in listaComunas:
 
         #separar departamentos por cantidad de dormitorios, baños y estacionamientos
