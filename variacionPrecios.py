@@ -52,8 +52,8 @@ def main():
                             promedio=(propiedad[3]+propiedad[4])/2
                             preciometro=propiedad[2]/promedio
                             datos.append([propiedad[1],preciometro])
+                            datos.sort(propiedad[0])
                     for d in datos:
-                        datetime.date.sort()
                         print(d)
 
                     break
