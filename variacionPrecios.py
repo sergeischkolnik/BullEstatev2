@@ -49,7 +49,7 @@ def main():
                     for propiedad in propiedades:
                         if propiedad[3]>0 and propiedad[4]>0 and propiedad[2]>0:
                             propiedad=list(propiedad)
-                            propiedades.sort(propiedad[0],key=lambda)
+                            propiedades.sort(propiedad,key=lambda propiedad:propiedad[0])
                             promedio=(propiedad[3]+propiedad[4])/2
                             preciometro=propiedad[2]/promedio
                             datos.append([propiedad[1],preciometro])
