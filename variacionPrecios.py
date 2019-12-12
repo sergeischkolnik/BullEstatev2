@@ -44,6 +44,7 @@ def main():
                 for k in range (0,3):
 
                     propiedades=obtenerPropiedades(comuna,i,j,k)
+                    propiedades=list(propiedades)
                     for propiedad in propiedades:
                         if propiedad[3]>0 and propiedad[4]>0 and propiedad[2]>0:
                             promedio=(propiedad[3]+propiedad[4])/2
