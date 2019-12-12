@@ -93,8 +93,9 @@ headers4 = {
 headerList = [headers4]
 
 
-dormitorios = ["sin-dormitorios",
+dormitorios = [
                 "1-dormitorio",
+                "sin-dormitorios",
                 "2-dormitorios",
                 "3-dormitorios",
                 "mas-de-4-dormitorios"]
@@ -104,15 +105,15 @@ banos = ["_Banos_1",
           "_Banos_4",
           "_Banos_5-o-mas"]
 
-comunas = ["las-condes","santiago","providencia","buin","calera-de-tango","cerrillos","colina","cerro-navia","conchali",
+comunas = ["santiago","las-condes","providencia","buin","calera-de-tango","cerrillos","colina","cerro-navia","conchali",
            "curacavi","el-bosque","estacion-central","el-monte","huechuraba","independencia","isla-de-maipo"
            "la-cisterna","la-florida","la-granja","la-pintana","la-reina","lampa","lo-barnechea","lo-espejo",
            "lo-prado","macul","maipu","maria-pinto","melipilla","paine","penalolen","puente-alto","pedro-aguirre-cerda","penaflor",
            "pudahuel","padre-hurtado","pirque","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
            "san-joaquin","san-pedro","san-jose-de-maipo","talagante","til-til","vitacura","nunoa"]
 
-tipos=["casa","comercial","departamento","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
-operaciones = ["venta","arriendo"]
+tipos=["departamento","casa","comercial","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
+operaciones = ["arriendo","venta"]
 pages = range(1,2050,50)
 
 uf = uf.getUf()
@@ -627,7 +628,7 @@ def main():
                                     page=0
 
                                 link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
-                                       dormitorio+"/"+comuna+"-metropolitana/_desde_"+str(page)+bano
+                                       dormitorio+"/"+comuna+"-metropolitana/_Desde_"+str(page)+"_OrderId_PRICE"+bano
                                 print(link)
                                 request = requests.get(link, headers = headerList[headerIndex])
 
