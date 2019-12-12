@@ -37,7 +37,6 @@ def main():
     #codigo principal
     #seleccionar desde la base de datos
     print(listaComunas)
-    stopper=True
     for comuna in listaComunas:
 
         #separar departamentos por cantidad de dormitorios, baños y estacionamientos
@@ -57,12 +56,14 @@ def main():
                             preciometro=propiedad[2]/promedio
                             datos.append([propiedad[1],preciometro])
                     datos.sort(key=lambda datos:datos[0])
-                    if stopper:
-                        for d in datos:
-                            print(d)
-                            time.sleep(5)
-                    stopper=False
-                    break
+                    #se obtiene arreglo de datos ordenados para comuna especifica, dormitorios, baños, estacionamientos especificos
+                    for d in datos:
+                        print(d)
+
+                        for propiedad[0]:
+                            sort()
+
+                        break
 
                     #calcular el objetivo
 
