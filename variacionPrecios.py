@@ -46,7 +46,8 @@ def main():
                     propiedades=obtenerPropiedades(comuna,i,j,k)
                     propiedades=list(propiedades)
                     datos=[]
-                    import datetimenow=datetime.date.today()
+                    import datetime
+                    now=datetime.date.today()
                     now.isoweekday()
                     days=[now+datetime.timedelta(days=x) for x in range(30)]
                     days
