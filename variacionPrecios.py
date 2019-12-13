@@ -69,7 +69,7 @@ def main():
                             #print(datos[n])
                     avgdatos = {}
                     for w,v in datos.items():
-                        v= sorted(key=lambda v:v[0])
+                        v.sort()
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(1-fiveperc))]
                         avgdatos[w] = sum(v)/ float(len(v))
