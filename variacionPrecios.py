@@ -46,7 +46,7 @@ def main():
 
                     propiedades=obtenerPropiedades(comuna,i,j,k)
                     propiedades=list(propiedades)
-                    datos=[24]
+                    datos=[[]]
                     for propiedad in propiedades:
                         if propiedad[3]>0 and propiedad[4]>0 and propiedad[2]>0:
                             propiedad=list(propiedad)
@@ -55,6 +55,8 @@ def main():
                             promedio=(propiedad[3]+propiedad[4])/2
                             preciometro=propiedad[2]/promedio
                             n=(propiedad[1].month)*2-1
+                            print("mes:")
+                            print(n)
                             if propiedad[1].day<=15:
                                 n=n-1
                             datos[n].append([propiedad[1],preciometro])
