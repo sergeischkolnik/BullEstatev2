@@ -83,8 +83,9 @@ def main():
                     avgdatos["banos"]=j
                     avgdatos["estacionamientos"]=k
                     print(avgdatos)
-                    for n in range (0,23):
-                        print(avgdatos[str(n)])
+                    for n in range (0,24):
+                        print(str(n)+": "+str(avgdatos[str(n)]))
+
 
 
                     #datos.sort(key=lambda datos:datos[0])
