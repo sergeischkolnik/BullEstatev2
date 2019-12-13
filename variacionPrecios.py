@@ -70,10 +70,11 @@ def main():
                     avgdatos = {}
                     for w,v in datos.items():
                         v.sort()
-                        if len(v)<2:
-                            print(v)
+
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(1-fiveperc))]
+                        if len(v)<2:
+                            print(v)
                         try:
                             avgdatos[w] = sum(v)/ float(len(v))
                         except Exception as error:
