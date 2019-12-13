@@ -70,7 +70,8 @@ def main():
                     avgdatos = {}
                     for k,v in datos.items():
                         avgdatos[k] = sum(v)/ float(len(v))
-                    print(avgdatos)
+                    for n in range(0,23):
+                        print(avgdatos[str(n)])
 
                     #datos.sort(key=lambda datos:datos[0])
 
