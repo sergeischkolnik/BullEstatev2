@@ -58,20 +58,23 @@ def main():
                             n=(propiedad[1].month)*2-1
                             if propiedad[1].day<=15:
                                 n=n-1
-                            print("mes:")
-                            print(n)
+                            #print("mes:")
+                            #print(n)
                             n=str(n)
                             if n not in datos:
                                 datos[n]=[]
-                                datos[n].append([preciometro,propiedad[1]])
+                                datos[n].append(preciometro)
                             else:
-                                datos[n].append([preciometro,propiedad[1]])
-                            print(datos[n])
-
-
+                                datos[n].append(preciometro)
+                            #print(datos[n])
+                    avgdatos = {}
+                    for k,v in datos.iteritems():
+                        # v is the list of grades for student k
+                        avgdatos[k] = sum(v)/ float(len(v))
+                    print(avgdatos)
 
                     #datos.sort(key=lambda datos:datos[0])
-                    
+
                     #se obtiene arreglo de datos ordenados para comuna especifica, dormitorios, baños, estacionamientos especificos
 
                     # for propiedad[0]:
