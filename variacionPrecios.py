@@ -88,9 +88,13 @@ def main():
                     print(avgdatos)
                     difdatos = []
                     for n in range (0,23):
-                        dif=-(avgdatos[str(n)]-avgdatos[str(n+1)])/avgdatos[str(n)]
-                        dif=(int(dif*10000))/100
-                        difdatos.append(dif)
+                        if n in avgdatos:
+                            dif=-(avgdatos[str(n)]-avgdatos[str(n+1)])/avgdatos[str(n)]
+                            dif=(int(dif*10000))/100
+                            difdatos.append(dif)
+                        else:
+                            difdatos="No se han encontrado suficientes propiedades"
+                            break
                     print (difdatos)
 
 
