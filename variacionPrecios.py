@@ -86,8 +86,8 @@ def main():
                     avgdatos["banos"]=j
                     avgdatos["estacionamientos"]=k
                     print(avgdatos)
+                    difdatos = []
                     for n in range (0,23):
-                        difdatos = []
                         dif=avgdatos[str(n)]-avgdatos[str(n+1)]
                         difdatos.append(dif)
                     print (difdatos)
