@@ -61,6 +61,7 @@ def main():
                             print(n)
                             if propiedad[1].day<=15:
                                 n=n-1
+                            print(datos[n])
                             datos[n].append([propiedad[1],preciometro])
                     #datos.sort(key=lambda datos:datos[0])
                     print(datos[0])
