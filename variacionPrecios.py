@@ -68,8 +68,8 @@ def main():
                                 datos[n].append(preciometro)
                             #print(datos[n])
                     avgdatos = {}
-                    for k,v in datos.items():
-                        avgdatos[k] = sum(v)/ float(len(v))
+                    for w,v in datos.items():
+                        avgdatos[w] = sum(v)/ float(len(v))
 
                     avgdatos["comuna"]=comuna
                     avgdatos["dormitorios"]=i
