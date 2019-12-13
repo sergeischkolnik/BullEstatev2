@@ -55,11 +55,14 @@ def main():
                             #propiedades.sort(key=lambda propiedad:propiedad[0])
                             promedio=(propiedad[3]+propiedad[4])/2
                             preciometro=propiedad[2]/promedio
-                            n=(propiedad[1].month)*2-1
-                            if propiedad[1].day<=15:
-                                n=n-1
-                            #print("mes:")
-                            #print(n)
+                            if propiedad[1].year=='2018':
+                                n=0
+                            else:
+                                n=(propiedad[1].month)*2
+                                if propiedad[1].day<=15:
+                                    n=n-1
+                                #print("mes:")
+                                #print(n)
                             n=str(n)
                             if n not in datos:
                                 datos[n]=[]
