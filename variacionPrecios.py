@@ -88,7 +88,7 @@ def main():
                     print(avgdatos)
                     difdatos = []
                     for n in range (0,23):
-                        if n in avgdatos:
+                        if str(n) in avgdatos:
                             dif=-(avgdatos[str(n)]-avgdatos[str(n+1)])/avgdatos[str(n)]
                             dif=(int(dif*10000))/100
                             difdatos.append(dif)
