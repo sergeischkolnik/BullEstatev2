@@ -15,7 +15,7 @@ def funcionSql(variable1, variable2, variable3):
 def obtenerPropiedades(comuna,dormitorios,banos,estacionamientos):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id, fechapublicacion, precio, metrosmin,metrosmax FROM portalinmobiliario WHERE operacion='venta' AND region='metropolitana' AND tipo='departamento' AND dormitorios="+str(dormitorios)+" AND banos="+str(banos)+" and estacionamientos="+str(estacionamientos)+" AND fechapublicacion>='2019-01-01' AND link like '%"+str(comuna)+"%';"
+    sql = "SELECT id, fechapublicacion, precio, metrosmin,metrosmax FROM portalinmobiliario WHERE operacion='venta' AND region='metropolitana' AND tipo='departamento' AND dormitorios="+str(dormitorios)+" AND banos="+str(banos)+" and estacionamientos="+str(estacionamientos)+" AND fechapublicacion>='2018-12-16' AND link like '%"+str(comuna)+"%';"
     cur.execute(sql)
     data = cur.fetchall()
     return data
