@@ -87,10 +87,11 @@ def main():
                     avgdatos["estacionamientos"]=k
                     print(avgdatos)
                     for n in range (0,24):
+                        for a,b in avgdatos[w]:
                         difdatos = {}
-                        difdatos[n,n+1]= n-(n+1)
+                        difdatos[a,b]= a-b
                         print(str(n)+": "+str(avgdatos[str(n)]))
-                        print (difdatos[n,n+1])
+                        print (difdatos[a,b])
 
 
 
