@@ -68,8 +68,7 @@ def main():
                                 datos[n].append(preciometro)
                             #print(datos[n])
                     avgdatos = {}
-                    for k,v in datos.iteritems():
-                        # v is the list of grades for student k
+                    for k,v in datos.items():
                         avgdatos[k] = sum(v)/ float(len(v))
                     print(avgdatos)
 
