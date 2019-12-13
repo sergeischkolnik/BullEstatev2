@@ -36,7 +36,7 @@ def main():
            "san-joaquin","san-pedro","san-jose-de-maipo","talagante","til-til","vitacura","nunoa"]
     #codigo principal
     #seleccionar desde la base de datos
-    print(listaComunas)
+    #print(listaComunas)
     for comuna in listaComunas:
 
         #separar departamentos por cantidad de dormitorios, baños y estacionamientos
@@ -70,6 +70,8 @@ def main():
                     avgdatos = {}
                     for w,v in datos.items():
                         v.sort()
+                        if len(v)<2:
+                            print(v)
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(1-fiveperc))]
                         try:
