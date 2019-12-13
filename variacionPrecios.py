@@ -70,7 +70,7 @@ def main():
                     avgdatos = {}
                     for w,v in datos.items():
                         v.sort()
-                        print("Quincena: "+str(w)+", cantidad de datos:"+str(v))
+                        print("Comuna: "+comuna+", Quincena: "+str(w)+", cantidad de datos:"+str(v))
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(1-fiveperc))]
                         try:
