@@ -46,8 +46,8 @@ def main():
 
                     propiedades=obtenerPropiedades(comuna,i,j,k)
                     propiedades=list(propiedades)
-                    datos=[24]
-                    print(datos)
+                    datos={}
+
                     for propiedad in propiedades:
                         if propiedad[3]>0 and propiedad[4]>0 and propiedad[2]>0:
                             propiedad=list(propiedad)
@@ -56,15 +56,22 @@ def main():
                             promedio=(propiedad[3]+propiedad[4])/2
                             preciometro=propiedad[2]/promedio
                             n=(propiedad[1].month)*2-1
-                            print("mes:")
-                            print(n)
                             if propiedad[1].day<=15:
                                 n=n-1
-                            print(datos[n])
-                            datos[n].append([propiedad[1],preciometro])
+                            print("mes:")
+                            print(n)
+                            n=str(n)
+                            if n not in datos:
+                                datos[n]=[]
+                                datos[n].append(preciometro)
+                            else:
+                                datos[n].append(preciometro)
+
+
+
                     #datos.sort(key=lambda datos:datos[0])
-                    print(datos[0])
-                    print(datos[12])
+                    print(datos["0"])
+                    print(datos["12"])
                     #se obtiene arreglo de datos ordenados para comuna especifica, dormitorios, baños, estacionamientos especificos
 
                     # for propiedad[0]:
