@@ -70,8 +70,13 @@ def main():
                     avgdatos = {}
                     for k,v in datos.items():
                         avgdatos[k] = sum(v)/ float(len(v))
-                    for n in range(0,23):
-                        print(avgdatos[str(n)])
+
+                    avgdatos["comuna"]=comuna
+                    avgdatos["dormitorios"]=i
+                    avgdatos["banos"]=j
+                    avgdatos["estacionamientos"]=k
+                    print(avgdatos)
+
 
                     #datos.sort(key=lambda datos:datos[0])
 
