@@ -63,15 +63,16 @@ def main():
                             n=str(n)
                             if n not in datos:
                                 datos[n]=[]
-                                datos[n].append(preciometro)
+                                datos[n].append([preciometro,propiedad[1]])
                             else:
-                                datos[n].append(preciometro)
+                                datos[n].append([preciometro,propiedad[1]])
 
 
 
                     #datos.sort(key=lambda datos:datos[0])
                     print(datos["0"])
-                    print(datos["12"])
+                    if "12" in datos:
+                        print(datos["12"])
                     #se obtiene arreglo de datos ordenados para comuna especifica, dormitorios, baños, estacionamientos especificos
 
                     # for propiedad[0]:
