@@ -69,6 +69,11 @@ def main():
                             #print(datos[n])
                     avgdatos = {}
                     for w,v in datos.items():
+                        for v in sorted(key=lambda datos:datos[n]):
+                            fiveperc= 0.05*len(v)
+                            inicio[]=datos[:fiveperc]
+                            obtenerfin[]=datos[fiveperc:]
+
                         avgdatos[w] = sum(v)/ float(len(v))
 
                     avgdatos["comuna"]=comuna
