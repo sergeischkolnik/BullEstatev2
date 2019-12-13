@@ -47,8 +47,7 @@ def main():
                     propiedades=obtenerPropiedades(comuna,i,j,k)
                     propiedades=list(propiedades)
                     datos=[24]
-                    for d in datos:
-                        d=[]
+                    print(datos)
                     for propiedad in propiedades:
                         if propiedad[3]>0 and propiedad[4]>0 and propiedad[2]>0:
                             propiedad=list(propiedad)
