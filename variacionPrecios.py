@@ -73,6 +73,7 @@ def main():
                         print("Comuna: "+comuna+", Quincena: "+str(w)+", cantidad de datos:"+str(len(v)))
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(1-fiveperc))]
+                        print("Comuna: "+comuna+", Quincena: "+str(w)+", cantidad de datos 90%:"+str(len(v)))
                         try:
                             avgdatos[w] = sum(v)/ float(len(v))
                         except Exception as error:
