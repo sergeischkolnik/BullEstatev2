@@ -72,7 +72,11 @@ def main():
                         v.sort()
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(1-fiveperc))]
-                        avgdatos[w] = sum(v)/ float(len(v))
+                        try:
+                            avgdatos[w] = sum(v)/ float(len(v))
+                        except Exception as error:
+                            print(error)
+                            avgdatos[w]=0
 
                     avgdatos["comuna"]=comuna
                     avgdatos["dormitorios"]=i
