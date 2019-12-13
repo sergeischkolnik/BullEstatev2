@@ -70,10 +70,8 @@ def main():
                     avgdatos = {}
                     for w,v in datos.items():
                         v.sort()
-                        print("Comuna: "+comuna+", Quincena: "+str(w)+", cantidad de datos:"+str(len(v)))
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(len(v)-fiveperc))]
-                        print("Comuna: "+comuna+", Quincena: "+str(w)+", cantidad de datos 90%:"+str(len(v)))
                         try:
                             avgdatos[w] = sum(v)/ float(len(v))
                         except Exception as error:
@@ -85,6 +83,8 @@ def main():
                     avgdatos["banos"]=j
                     avgdatos["estacionamientos"]=k
                     print(avgdatos)
+                    for n in range (0,23):
+                        print(avgdatos[str(n)])
 
 
                     #datos.sort(key=lambda datos:datos[0])
