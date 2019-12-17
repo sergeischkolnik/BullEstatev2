@@ -111,7 +111,7 @@ def main():
                     if app:
                         data.append(difdatos)
                     print (difdatos)
-        csv.writeCsvVariacion(("Variacion "+str(comuna)),data,columnnames)
+        csv.writeCsvVariacion(("Variacion "+str(comuna)+".csv"),data,columnnames)
 
 
 
