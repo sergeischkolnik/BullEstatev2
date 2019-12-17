@@ -19,9 +19,13 @@ def publicacionExiste(link):
     time.sleep(0.3)
 
 def main():
-    link='https://www.portalinmobiliario.com/venta/departamento/santiago-metropolitana/5246104-metro-union-latinoamericana-uda'
-    avaible=publicacionExiste(link)
-    print(avaible)
+    links = [
+        'https://www.portalinmobiliario.com/venta/parcela/san-clemente-maule/5241955-las-lomas-san-clemente-camino-k235-ap-31-uda',
+        'https://www.portalinmobiliario.com/venta/departamento/santiago-metropolitana/4966916-eyzaguirre-766-uda'
+    ]
+    for p in links:
+        avaible=publicacionExiste(p)
+        print(avaible)
 
 
 if __name__ == '__main__':
