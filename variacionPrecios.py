@@ -1,4 +1,5 @@
 import pymysql as mysql
+import csvWriter as csv
 import time
 #imports
 
@@ -39,8 +40,9 @@ def main():
     #print(listaComunas)
     data=[]
     columnnames=["Comuna","Dormitorios","Banos","Estacionamientos"]
-    for i in range(1,24):
-        columnnames.append("Q"+str(i))
+    data=[]
+    for q in range(0,23):
+        columnnames.append("Q"+str(q))
     print(columnnames)
     for comuna in listaComunas:
 
@@ -92,15 +94,24 @@ def main():
                     avgdatos["estacionamientos"]=k
                     print(avgdatos)
                     difdatos = []
+                    difdatos.append(comuna)
+                    difdatos.append(i)
+                    difdatos.append(j)
+                    difdatos.append(k)
                     for n in range (0,23):
                         try:
                             dif=-(avgdatos[str(n)]-avgdatos[str(n+1)])/avgdatos[str(n)]
                             dif=(int(dif*10000))/100
                             difdatos.append(dif)
+                            app=True
                         except:
                             difdatos="No se han encontrado suficientes propiedades"
+                            app=False
                             break
+                    if app:
+                        data.append(difdatos)
                     print (difdatos)
+    csv.writeCsvVariacion("Variacion",data,columnnames)
 
 
 
