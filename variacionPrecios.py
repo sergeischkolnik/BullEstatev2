@@ -37,6 +37,11 @@ def main():
     #codigo principal
     #seleccionar desde la base de datos
     #print(listaComunas)
+    data=[]
+    columnnames=["Comuna","Dormitorios","Banos","Estacionamientos"]
+    for i in range(1,24):
+        columnnames.append("Q"+str(i))
+    print(columnnames)
     for comuna in listaComunas:
 
         #separar departamentos por cantidad de dormitorios, baños y estacionamientos
