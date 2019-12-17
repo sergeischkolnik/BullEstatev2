@@ -83,10 +83,13 @@ def main():
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(len(v)-fiveperc))]
                         try:
-                            avgdatos[w] = sum(v)/ float(len(v))
+                            if float(len(v))>=10:
+                                avgdatos[w] = sum(v)/ float(len(v))
+                            else:
+                                avgdatos[w]=None
                         except Exception as error:
                             #print(error)
-                            avgdatos[w]=0
+                            avgdatos[w]=None
                     comunaauxiliar=comuna
                     comunaauxiliar=comunaauxiliar.replace("-"," ")
                     comunaauxiliar=comunaauxiliar.title()
