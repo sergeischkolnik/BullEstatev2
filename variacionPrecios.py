@@ -39,11 +39,11 @@ def main():
     #seleccionar desde la base de datos
     #print(listaComunas)
     data=[]
-    columnnames=["Comuna","Dormitorios","Banos","Estacionamientos"]
+    columnnames=["Comuna","Dormitorios","Banos","Estacionamientos","Enero-Q1","Enero-Q2","Febrero-Q1","Febrero-Q2","Marzo-Q1","Marzo-Q2","Abril-Q1","Abril-Q2",
+                 "Mayo-Q1","Mayo-Q2","Junio-Q1","Junio-Q2","Julio-Q1","Julio-Q2","Agosto-Q1","Agosto-Q2","Septiembre-Q1","Septiembre-Q2","Octubre-Q1","Octubre-Q2",
+                 "Noviembre-Q1","Noviembre-Q2","Diciembre-Q1"]
     data=[]
-    for q in range(0,23):
-        columnnames.append("Q"+str(q))
-    print(columnnames)
+
     for comuna in listaComunas:
 
         #separar departamentos por cantidad de dormitorios, baños y estacionamientos
@@ -87,8 +87,10 @@ def main():
                         except Exception as error:
                             print(error)
                             avgdatos[w]=0
-
-                    avgdatos["comuna"]=comuna
+                    comunaauxiliar=comuna
+                    comunaauxiliar=comunaauxiliar.replace("-"," ")
+                    comunaauxiliar=comunaauxiliar.capitalize()
+                    avgdatos["comuna"]=comunaauxiliar
                     avgdatos["dormitorios"]=i
                     avgdatos["banos"]=j
                     avgdatos["estacionamientos"]=k
@@ -102,6 +104,8 @@ def main():
                         try:
                             dif=-(avgdatos[str(n)]-avgdatos[str(n+1)])/avgdatos[str(n)]
                             dif=(int(dif*10000))/100
+                            dif=str(dif)
+                            dif=dif.replace(".",",")
                             difdatos.append(dif)
                             app=True
                         except:
