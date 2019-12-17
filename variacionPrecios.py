@@ -85,7 +85,7 @@ def main():
                         try:
                             avgdatos[w] = sum(v)/ float(len(v))
                         except Exception as error:
-                            print(error)
+                            #print(error)
                             avgdatos[w]=0
                     comunaauxiliar=comuna
                     comunaauxiliar=comunaauxiliar.replace("-"," ")
@@ -94,7 +94,7 @@ def main():
                     avgdatos["dormitorios"]=i
                     avgdatos["banos"]=j
                     avgdatos["estacionamientos"]=k
-                    print(avgdatos)
+                    #print(avgdatos)
                     difdatos = []
                     difdatos.append(comuna)
                     difdatos.append(i)
@@ -114,7 +114,11 @@ def main():
                             break
                     if app:
                         data.append(difdatos)
-                    print (difdatos)
+                        print("difdatos appended for comuna: "+str(comunaauxiliar)+", dormitorios: "+str(i)+", banos: "+str(j)+", estacionamientos: "+str(k))
+                    else:
+                        print("FAIL for comuna: "+str(comunaauxiliar)+", dormitorios: "+str(i)+", banos: "+str(j)+", estacionamientos: "+str(k))
+
+                    #print (difdatos)
         csv.writeCsvVariacion(("Variacion "+str(comuna)+".csv"),data,columnnames)
 
 
