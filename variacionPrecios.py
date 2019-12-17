@@ -44,7 +44,7 @@ def main():
                  "Noviembre-Q1","Noviembre-Q2","Diciembre-Q1"]
     data=[]
 
-    for comuna in listaComunas:
+    for c,comuna in enumerate(listaComunas):
 
         #separar departamentos por cantidad de dormitorios, baños y estacionamientos
         for i in range(1,5):
@@ -89,14 +89,14 @@ def main():
                             avgdatos[w]=0
                     comunaauxiliar=comuna
                     comunaauxiliar=comunaauxiliar.replace("-"," ")
-                    comunaauxiliar=comunaauxiliar.capitalize()
-                    avgdatos["comuna"]=comunaauxiliar
+                    comunaauxiliar=comunaauxiliar.title()
+                    avgdatos["comuna"]=comuna
                     avgdatos["dormitorios"]=i
                     avgdatos["banos"]=j
                     avgdatos["estacionamientos"]=k
                     #print(avgdatos)
                     difdatos = []
-                    difdatos.append(comuna)
+                    difdatos.append(comunaauxiliar)
                     difdatos.append(i)
                     difdatos.append(j)
                     difdatos.append(k)
@@ -114,12 +114,12 @@ def main():
                             break
                     if app:
                         data.append(difdatos)
-                        print("difdatos appended for comuna: "+str(comunaauxiliar)+", dormitorios: "+str(i)+", banos: "+str(j)+", estacionamientos: "+str(k))
+                        print("difdatos appended for comuna: "+str(comunaauxiliar)+" ("+str(c)+"/"+str(len(listaComunas))+"), dormitorios: "+str(i)+", banos: "+str(j)+", estacionamientos: "+str(k))
                     else:
                         print("FAIL for comuna: "+str(comunaauxiliar)+", dormitorios: "+str(i)+", banos: "+str(j)+", estacionamientos: "+str(k))
 
                     #print (difdatos)
-        csv.writeCsvVariacion(("Variacion "+str(comuna)+".csv"),data,columnnames)
+    csv.writeCsvVariacion("Variacion RM.csv",data,columnnames)
 
 
 
