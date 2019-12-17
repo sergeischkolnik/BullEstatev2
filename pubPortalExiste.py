@@ -20,8 +20,7 @@ def publicacionExiste(link):
 
 def main():
     links = [
-        'https://www.portalinmobiliario.com/venta/parcela/san-clemente-maule/5241955-las-lomas-san-clemente-camino-k235-ap-31-uda',
-        'https://www.portalinmobiliario.com/venta/departamento/santiago-metropolitana/4966916-eyzaguirre-766-uda'
+        'https://www.portalinmobiliario.com/venta/departamento/estacion-central-metropolitana/5223058-nicasio-retamales-115-uda'
     ]
     for p in links:
         avaible=publicacionExiste(p)
