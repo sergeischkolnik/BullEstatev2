@@ -118,3 +118,16 @@ def writeCsvCanje(file, data, columnnames, operacion):
         writer.writerow(columnnames)
         for row in data:
             writer.writerow(row)
+
+def writeCsvVariacion(file, data, columnnames):
+
+    data = [list(elem) for elem in data]
+
+    #creacion de precios, porcentajes y link
+
+    with open(file, 'w',newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=';',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(columnnames)
+        for row in data:
+            writer.writerow(row)
+
