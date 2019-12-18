@@ -1,4 +1,4 @@
-
+import csvWriter as csv
 
 
 def main():
@@ -111,15 +111,53 @@ def main():
     
     
     </html>"""
-    caudal=info.split("caudal")
+    data=[]
+    columnnames=["Fecha","Hora","Caudal","Altura"]
+    caudal=info.split("altura")
     caudal=caudal[1]
-    caudal = info.split("alturaagua")
+    caudal = caudal.split("alturaagua")
     caudal = caudal[0]
     caudal=caudal.replace(" ","")
     caudal=caudal.replace("quot","")
     caudal=caudal.replace(";","")
+    caudal = caudal.replace("&", "")
+    caudal = caudal.replace(",", "")
+    caudal = caudal.replace("{", "")
+    caudal = caudal.replace("=", "")
+    caudal = caudal.replace("[", "")
+    caudal=caudal.split("caudal")
+    altura=caudal[0]
+    caudal=caudal[1]
+    altura=altura.split("}")
+    caudal=caudal.split("}")
+    caudal=caudal[:-1]
+    for count,c in enumerate(caudal):
+        c=c.replace("valor:","")
+        c=c.split("fecha:")
+        valor=c[0]
+        fecha=c[1]
+        hora=fecha[10:]
+        fecha=fecha[:10]
+        a=altura[count]
+        a = a.replace("valor:", "")
+        a = a.split("fecha:")
+        valoraltura = a[0]
+        fechaaltura = a[1]
 
-    print(caudal)
+        valor=valor.replace(".",",")
+        valoraltura=valoraltura.replace(".",",")
+        fecha=fecha.split("-")
+        fecha=fecha[2]+"-"+fecha[1]+"-"+fecha[0]
+
+
+        horaaltura = fechaaltura[10:]
+        fechaaltura = fechaaltura[:9]
+        data.append([fecha,hora,valor,valoraltura])
+
+
+    for dato in data:
+        print(dato)
+    csv.writeCsvVariacion("SanMiguel-"+fecha+".csv",data,columnnames)
 
 if __name__ == '__main__':
     main()
