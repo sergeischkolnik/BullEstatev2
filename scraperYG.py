@@ -335,6 +335,8 @@ def main(pagRec=1,regRec=1,isRecovery=False,ocr=None):
                     propiedad.append(esdueno)
                     propiedad.append(telefono)
 
+                    print(propiedad)
+
                     insertarPropiedad(propiedad)
                     try:
                         os.remove("auxphone.gif")
