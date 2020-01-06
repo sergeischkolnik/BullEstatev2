@@ -321,7 +321,7 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                     propiedad.append(telefono)
 
                 except Exception as err:
-                    print("Error en propiedad:" + link + " \n " + err)
+                    print("Error en propiedad:" + link + " \n " + str(err))
                     continue
 
                 insertarPropiedad(propiedad)
