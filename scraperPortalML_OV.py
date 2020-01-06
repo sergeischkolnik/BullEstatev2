@@ -439,10 +439,13 @@ def scrap(linkList,region,operacion,tipo,hoja):
 
         try:
             code=int(link.split('/')[6].split('-')[0])
-
         except Exception as err:
-            error(link,"Error al obtener el codigo de portalinmobiliario:"+str(err))
-            continue
+            try:
+                code = int(link.split('/')[3].split('-')[1])
+            except Exception as err2:
+                error(link, "Error al obtener el codigo de portalinmobiliario:" + str(err2))
+                continue
+
 
         #text mining para bodegas
         if bodegas == 0:
