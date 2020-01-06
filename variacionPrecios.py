@@ -16,7 +16,7 @@ def funcionSql(variable1, variable2, variable3):
 def obtenerPropiedades(comuna,dormitorios,banos,estacionamientos):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id, fechapublicacion, precio, metrosmin,metrosmax FROM portalinmobiliario WHERE operacion='venta' AND region='metropolitana' AND tipo='departamento' AND dormitorios="+str(dormitorios)+" AND banos="+str(banos)+" and estacionamientos="+str(estacionamientos)+" AND fechapublicacion>='2018-12-16' AND link like '%"+str(comuna)+"%';"
+    sql = "SELECT id, fechapublicacion, precio, metrosmin,metrosmax FROM portalinmobiliario WHERE operacion='arriendo' AND region='metropolitana' AND tipo='departamento' AND dormitorios="+str(dormitorios)+" AND banos="+str(banos)+" and estacionamientos="+str(estacionamientos)+" AND fechapublicacion>='2018-12-16' AND link like '%"+str(comuna)+"%';"
     cur.execute(sql)
     data = cur.fetchall()
     return data
@@ -83,10 +83,13 @@ def main():
                         fiveperc= 0.05*len(v)
                         v=v[(int(fiveperc)):(int(len(v)-fiveperc))]
                         try:
-                            avgdatos[w] = sum(v)/ float(len(v))
+                            if float(len(v))>=10:
+                                avgdatos[w] = sum(v)/ float(len(v))
+                            else:
+                                avgdatos[w]=None
                         except Exception as error:
                             #print(error)
-                            avgdatos[w]=0
+                            avgdatos[w]=None
                     comunaauxiliar=comuna
                     comunaauxiliar=comunaauxiliar.replace("-"," ")
                     comunaauxiliar=comunaauxiliar.title()
