@@ -167,6 +167,10 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                 if len(precio1) < 0:
                     continue
 
+                if len(precio2) == 0:
+                    print("Error al sacar el precio en " + link)
+                    continue
+
                 if ('$') in precio2[0].text:
                     preciopesos=precio2[0].text
                     preciouf=precio1[0].text
