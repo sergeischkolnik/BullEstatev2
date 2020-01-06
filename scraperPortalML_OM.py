@@ -122,13 +122,7 @@ uf = uf.getUf()
 def obtenerBodegas(texto):
     bodegas = 0
 
-    if texto is None:
-        return 0
-
-    try:
-        texto = texto.lower()
-    except:
-        return 0
+    texto = texto.lower()
 
     visitas = ['bodega de visita', 'bodegas de visita', 'bodega visita', 'bodegas visita', 'bodega para visita',
                'bodegas para visita']
@@ -215,7 +209,13 @@ def obtenerBodegas(texto):
 def obtenerEstacionamientos(texto):
     estacionamientos = 0
 
-    texto = texto.lower()
+    if texto is None:
+        return 0
+
+    try:
+        texto = texto.lower()
+    except:
+        return 0
 
     visitas = ['estacionamiento de visita', 'estacionamientos de visita', 'estacionamiento visita',
                'estacionamientos visita', 'estacionamiento para visita', 'estacionamientos para visita']

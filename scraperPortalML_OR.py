@@ -136,7 +136,13 @@ def obtenerBodegas(texto):
 def obtenerEstacionamientos(texto):
     estacionamientos = 0
 
-    texto = texto.lower()
+    if texto is None:
+        return 0
+
+    try:
+        texto = texto.lower()
+    except:
+        return 0
 
     visitas = ['estacionamiento de visita', 'estacionamientos de visita', 'estacionamiento visita',
                'estacionamientos visita', 'estacionamiento para visita', 'estacionamientos para visita']
