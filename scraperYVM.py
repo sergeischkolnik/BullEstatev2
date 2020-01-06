@@ -149,13 +149,15 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
                         auxPhone=texto
                         auxPhone='https://www.yapo.cl'+auxPhone
 
-                try:
-                    response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
-                    img = Image.open(BytesIO(response.content))
-                    img.save("auxphone.gif")
-                    telefono=ocr("auxphone.gif")
-                except:
-                    telefono='NN'
+                # try:
+                #     response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
+                #     img = Image.open(BytesIO(response.content))
+                #     img.save("auxphone.gif")
+                #     telefono=ocr("auxphone.gif")
+                # except:
+                #     telefono='NN'
+
+                telefono = 'NN'
 
                 precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
                 precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
@@ -332,5 +334,5 @@ def main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",
 
 
 if __name__=="__main__":
-    ocr=yapo_ocr()
-    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False,ocr=ocr)
+    #ocr=yapo_ocr()
+    main(tipoRec="departamento",operacionRec="venta", regionRec="metropolitana",pagRec=1,isRecovery=False)

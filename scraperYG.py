@@ -158,13 +158,15 @@ def main(pagRec=1,regRec=1,isRecovery=False,ocr=None):
                             auxPhone=texto
                             auxPhone='https://www.yapo.cl'+auxPhone
 
-                    try:
-                        response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
-                        img = Image.open(BytesIO(response.content))
-                        img.save("auxphone.gif")
-                        telefono=ocr("auxphone.gif")
-                    except:
-                        telefono='NN'
+                    # try:
+                    #     response = requests.get(auxPhone, headers={'User-Agent': agentCreator.generateAgent()})
+                    #     img = Image.open(BytesIO(response.content))
+                    #     img.save("auxphone.gif")
+                    #     telefono=ocr("auxphone.gif")
+                    # except:
+                    #     telefono='NN'
+
+                    telefono = 'NN'
 
                     precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
                     precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
@@ -347,5 +349,5 @@ def main(pagRec=1,regRec=1,isRecovery=False,ocr=None):
 
 
 if __name__=="__main__":
-    ocr=yapo_ocr()
-    main(pagRec=13,isRecovery=True,ocr=ocr)
+    #ocr=yapo_ocr()
+    main(pagRec=13,isRecovery=True)
