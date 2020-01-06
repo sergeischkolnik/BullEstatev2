@@ -97,7 +97,13 @@ uf = uf.getUf()
 def obtenerBodegas(texto):
     bodegas=0
 
-    texto=texto.lower()
+    if texto is None:
+        return 0
+
+    try:
+        texto=texto.lower()
+    except:
+        return 0
 
     visitas=['bodega de visita','bodegas de visita','bodega visita','bodegas visita','bodega para visita', 'bodegas para visita']
     for vis in visitas:
