@@ -99,9 +99,9 @@ banos = ["_Banos_2",
           "_Banos_1",
           "_Banos_5-o-mas"]
 
-comunas = ["vina-del-mar","valparaiso","concon","lo-barnechea","las-condes","la-reina","recoleta","independencia","estacion-central",
-           "san-miguel","nunoa","providencia","macul","quinta-normal","san-joaquin"]
-regiones=["valparaiso","metropolitana"]
+comunas = ["lo-barnechea","las-condes","la-reina","recoleta","independencia","estacion-central",
+           "san-miguel","nunoa","providencia","macul","quinta-normal","san-joaquin","vina-del-mar","valparaiso","concon",]
+regiones=["metropolitana","valparaiso"]
 operaciones = ["arriendo","venta"]
 tipos = ["departamento"]
 
