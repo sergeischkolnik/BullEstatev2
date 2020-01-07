@@ -12,20 +12,37 @@ from lxml.html import fromstring
 from threading import Thread
 
 def getUf():
-    link='https://valoruf.cl/'
-    page3 = requests.get(link)
-    tree3 = html.fromstring(page3.content)
-    xpath='/html/body/div[2]/h1/span'
-    '/html/body/div[2]/h1/span'
-    uf=tree3.xpath(xpath)
     try:
+        link='https://valoruf.cl/'
+        page3 = requests.get(link)
+        tree3 = html.fromstring(page3.content)
+        xpath='/html/body/div[2]/h1/span'
+        '/html/body/div[2]/h1/span'
+        uf=tree3.xpath(xpath)
         uf=uf[0]
         uf=uf.text
         uf=uf[2:]
         uf=uf.replace(".","")
         uf=uf.replace(",",".")
     except:
-        uf=28000.60
+        try:
+            link='https://www.uf-hoy.com/'
+            page3 = requests.get(link)
+            tree3 = html.fromstring(page3.content)
+            xpath='//*[@id="valor_uf"]/text()'
+            uf=tree3.xpath(xpath)
+            uf=uf[0]
+            uf=uf.replace(".","")
+            uf=uf.replace(",",".")
+        except:
+            print("UF NO OBTENIDA")
+            uf=28316
     uf=float(uf)
     return(uf)
 
+def main():
+    uf1=getUf()
+    print(uf1)
+
+if __name__ == '__main__':
+    main()
