@@ -135,15 +135,7 @@ def obtenerIdConLink(link,sitio):
         # cur = mariadb_connection.cursor()
         # sql = "SELECT id2 from portalinmobiliario WHERE link like '%"+str(link)+"%'"
     else:
-        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
-        cur = mariadb_connection.cursor()
-        sql = "SELECT id2 from propiedades WHERE link like '%"+str(link)+"%'"
-        cur.execute(sql)
-        id = cur.fetchall()
-        if len(id)>0:
-            return id[0]
-        else:
-            return id
+        return link.split('.')[2].split('_')[-1]
 
 
 def generarreporte(client,sendMessageFunc,chat_id,reply):

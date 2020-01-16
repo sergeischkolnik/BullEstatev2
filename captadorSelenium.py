@@ -99,11 +99,11 @@ banos = ["_Banos_2",
           "_Banos_1",
           "_Banos_5-o-mas"]
 
-comunas = ["lo-barnechea","las-condes","la-reina","recoleta","independencia","estacion-central",
-           "san-miguel","nunoa","providencia","macul","quinta-normal","san-joaquin","vina-del-mar","valparaiso","concon",]
+comunas = ["santiago","vitacura","lo-barnechea","las-condes","la-reina","recoleta","independencia","estacion-central",
+           "san-miguel","la-cisterna","huechuraba","pudahuel","maipu","nunoa","providencia","macul","quinta-normal","san-joaquin","vina-del-mar","valparaiso","concon","quilpue"]
 regiones=["metropolitana","valparaiso"]
 operaciones = ["arriendo","venta"]
-tipos = ["departamento"]
+tipos = ["departamento","casa","oficina"]
 
 pages = range(1,2050,50)
 
@@ -390,9 +390,9 @@ def main():
 
     headerIndex = 0
     for region in regiones:
-        for comuna in comunas:
+        for tipo in tipos:
             for operacion in operaciones:
-                for tipo in tipos:
+                for comuna in comunas:
                     for dormitorio in dormitorios:
 
                         for bano in banos:

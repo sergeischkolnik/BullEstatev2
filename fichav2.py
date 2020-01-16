@@ -1,5 +1,7 @@
-
+import scraperPortalML_OR
 from datetime import datetime, timedelta, date
+import time
+import random
 past = datetime.now() - timedelta(days=180)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=10)
@@ -28,10 +30,409 @@ from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 import pdfCreatorFichasv2 as pdfCreatorFichas
 import reportesHuberV1 as reportes
-
+import pubYapoExiste
+import json
 
 from sklearn import ensemble
 from sklearn.model_selection import train_test_split
+
+headers = {
+    'authority': 'www.portalinmobiliario.com',
+    'cache-control': 'max-age=0',
+    'upgrade-insecure-requests': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+    'sec-fetch-user': '?1',
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3',
+    'sec-fetch-site': 'same-origin',
+    'sec-fetch-mode': 'navigate',
+    'referer': 'https://www.portalinmobiliario.com/',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'es-US,es;q=0.9,es-419;q=0.8,en;q=0.7',
+    'cookie': '_d2id=2f52a2ad-2dc1-4db9-ba16-afa9d3030d06-n; _csrf=znVPWlbzP11aMD2-q_Mmr8tQ; c_home=0.20.0%7C5.3.3; pin_d2id=; pin_exp=new; _d2id=2f52a2ad-2dc1-4db9-ba16-afa9d3030d06; _pi_ga=GA1.2.346434101.1572221445; _pi_ga_gid=GA1.2.700821714.1572221445; _pi_ci=346434101.1572221445; _hjid=df262c46-fd11-46f6-9807-0d9cd4bd7878; searchbox-currentSearch=eyJvcGVyYXRpb25zIjp7ImxhYmVsIjoiVmVudGEiLCJzZWxlY3RlZCI6InZlbnRhIn0sImNhdGVnb3JpZXMiOnsibGFiZWwiOiJEZXBhcnRhbWVudG9zIiwic2VsZWN0ZWQiOiJ2ZW50YV9kZXBhcnRhbWVudG8ifSwibG9jYXRpb24iOnsidmFsdWUiOiJWYWxwYXJh7XNvIiwic2VsZWN0ZWQiOiJUVXhEVUZaQlRFODRNRFZqIn0sImZpbHRlci1uZXciOnsiY2hlY2tlZCI6ZmFsc2UsImRpc2FibGVkIjpmYWxzZX19; _mlt=6a66608b-edb2-40c7-bb49-6a89232f6276',
+}
+def obtainPropFromPortal(link):
+
+    try:
+        request = requests.get(link, headers=headers)
+        operacion=(request.request.url.split("/")[3])
+        tipo=(request.request.url.split("/")[3])
+        region=(request.request.url.split("/")[5]).split("-")[1]
+    except:
+        time.sleep(random.randint(60,90))
+        request = requests.get(link, headers=headers)
+        return False
+
+    try:
+        tree = html.fromstring(request.content)
+    except:
+        #   print("Fallo.")
+        return False
+
+    priceSymbolPath = '//*[@id="productInfo"]/fieldset/span/span[1]'
+
+    pricePath = '//*[@id="productInfo"]/fieldset/span/span[2]'
+    namePath = '//*[@id="short-desc"]/div/header/h1'
+    addressPath = '//*[@id="root-app"]/div/div/div[1]/div[3]/section/div[1]/div/h2'
+
+    priceSymbol = tree.xpath(priceSymbolPath)
+    if len(priceSymbol) == 0:
+        return False
+    priceSymbol = priceSymbol[0].text
+    price = tree.xpath(pricePath)
+    if len(price) == 0:
+        return False
+    price = int(price[0].text.replace(',','').replace(' ','').replace('.',''))
+
+    if priceSymbol == 'UF':
+        price = price*uf
+
+    name = tree.xpath(namePath)
+    if len(name) == 0:
+        return False
+    name = name[0].text.replace('\n','').replace('\t','')
+
+    address =  tree.xpath(addressPath)
+    if len(address) == 0:
+
+        address = '-'
+    else:
+        address = address[0].text
+
+    #fecha
+    datePosition = request.text.find('<p class="title">Fecha de Publicación</p>')
+    if datePosition == -1:
+
+        date = "00-00-0000"
+    else:
+        date = request.text[datePosition+60:datePosition+70]
+        dateSplit = date.split('-')
+        date = dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0]
+
+    #metraje, estacionamientos, bodegas
+    htmlArray = request.text.split('<li class="specs-item">')
+    maxMeters = 0
+    minMeters = 0
+    estacionamientos = 0
+    bodegas = 0
+
+    minMetersFound = maxMetersFound = estacionamientosFound = bodegasFound = False
+
+    try:
+        for j, element in enumerate(htmlArray):
+            if j == len(htmlArray)-1:
+                #last element, we have to split again.
+                element = element.split('</ul>')[0]
+            if "Superficie total" in element and not maxMetersFound:
+                maxMeters = int(float(element.split('span')[1][1:-5]))
+                maxMetersFound = True
+            elif "Superficie útil" in element and not minMetersFound:
+                minMeters = element.split('span')[1][1:-5]
+                minMetersFound = True
+            elif "Estacionamientos" in element and not estacionamientosFound:
+                estacionamientos = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
+                estacionamientosFound = True
+            elif "Bodegas" in element and not bodegasFound:
+                bodegas = int(float(element.split('span')[1].replace('<','').replace('>','').replace('/','')))
+                bodegasFound = True
+    except:
+        return False
+
+
+    if maxMeters != 0 and minMeters == 0:
+        minMeters = maxMeters
+    if minMeters != 0 and maxMeters == 0:
+        maxMeters = minMeters
+
+    #baños y dormitorios
+    try:
+        item1xpath = '//*[@id="productInfo"]/div[1]/dl[1]/dd'
+        item2xpath = '//*[@id="productInfo"]/div[1]/dl[2]/dd'
+        item3xpath = '//*[@id="productInfo"]/div[1]/dl[3]/dd'
+        itemUniquexpath = '//*[@id="productInfo"]/div[1]/dl/dd'
+
+        item1 = tree.xpath(item1xpath)
+        item2 = tree.xpath(item2xpath)
+        item3 = tree.xpath(item3xpath)
+        itemU = tree.xpath(itemUniquexpath)
+
+        item1 = item1[0].text if len(item1) > 0 else ''
+        item2 = item2[0].text if len(item2) > 0 else ''
+        item3 = item3[0].text if len(item3) > 0 else ''
+        itemU = itemU[0].text if len(itemU) > 0 else ''
+
+        if "dormitorio" in item1:
+            dorms = int(item1.split(' ')[0])
+        elif "dormitorio" in item2:
+            dorms = int(item2.split(' ')[0])
+        elif "dormitorio" in item3:
+            dorms = int(item3.split(' ')[0])
+        elif "dormitorio" in itemU:
+            dorms = int(itemU.split(' ')[0])
+        elif "priva" in item1:
+            dorms = int(item1.split(' ')[0])
+        elif "priva" in item2:
+            dorms = int(item2.split(' ')[0])
+        elif "priva" in item3:
+            dorms = int(item3.split(' ')[0])
+        elif "priva" in itemU:
+            dorms = int(itemU.split(' ')[0])
+        else:
+            dorms = 0
+
+        if "baño" in item1:
+            baths = int(item1.split(' ')[0])
+        elif "baño" in item2:
+            baths = int(item2.split(' ')[0])
+        elif "baño" in item3:
+            baths = int(item3.split(' ')[0])
+        elif "baño" in itemU:
+            baths = int(itemU.split(' ')[0])
+        else:
+            baths = 0
+    except:
+        return False
+
+
+    #lat, lon
+    mapPosition = request.text.find("center=")
+    if mapPosition == -1:
+
+        lat = 0
+        lon = 0
+    else:
+        amperPosition = request.text[mapPosition:].find('&')
+        mapTexts = request.text[mapPosition:mapPosition+amperPosition].replace("center=",'').split('%2C')
+        lat = float(mapTexts[0])
+        lon = float(mapTexts[1])
+
+    fechascrap = str(datetime.datetime.now().year) + '-' + str(datetime.datetime.now().month) + '-' + str(datetime.datetime.now().day)
+
+    propiedad = []
+
+    try:
+        code = int(link.split('/')[6].split('-')[0])
+    except Exception as err:
+        try:
+            code = int(link.split('/')[3].split('-')[1])
+        except Exception as err2:
+            return False
+
+    #text mining para bodegas
+    if bodegas == 0:
+        descripcion_xpath  = '//*[@id="description-includes"]/div/p'
+        descripcion_result = tree.xpath(descripcion_xpath)
+        if len(descripcion_result)>0:
+            bodegas = scraperPortalML_OR.obtenerBodegas(descripcion_result[0].text)
+
+    # text mining para estacionamientos
+    if estacionamientos == 0:
+        descripcion_xpath = '//*[@id="description-includes"]/div/p'
+        descripcion_result = tree.xpath(descripcion_xpath)
+        if len(descripcion_result) > 0:
+            estacionamientos = scraperPortalML_OR.obtenerBodegas(descripcion_result[0].text)
+
+    sql = "SELECT nombre,region,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link from portalinmobiliario WHERE id2="+str(id)
+
+
+    propiedad.append(name)
+    propiedad.append(region)
+    propiedad.append(operacion)
+    propiedad.append(tipo)
+    propiedad.append(price)
+    propiedad.append(dorms)
+    propiedad.append(baths)
+    propiedad.append(minMeters)
+    propiedad.append(maxMeters)
+    propiedad.append(estacionamientos)
+    propiedad.append(bodegas)
+    propiedad.append(lat)
+    propiedad.append(lon)
+    propiedad.append(link)
+
+    return propiedad
+
+def obtainPropFromYapo(link):
+
+        codigo = -1
+        idregion = -1
+        comuna = ""
+        tipo = ""
+        titulo = ""
+        operacion=""
+        preciouf = -1
+        preciopesos= -1
+        fechapublicacion = ""
+        fechahoy = datetime.datetime.now()
+        fechascrap=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
+        metrosmin = -1
+        metrosmax = -1
+        dormitorios = -1
+        banos = -1
+        descripcion = ""
+        lat = -999
+        lon = -999
+        anoconstruccion = -1
+        ggcc = -1
+        estacionamientos = 0
+
+        esdueno = 0
+
+        page = requests.get(link, headers={'User-Agent': agentCreator.generateAgent()})
+        tree = html.fromstring(page.content)
+
+        url=[]
+        metatext=page.text
+        metatext=metatext.split(' ')
+        descripcion=[]
+        savedescripcion=False
+        saveimg=False
+        og=True
+        telefono = 'NN'
+
+        precio1=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong')
+        precio2=tree.xpath('//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span')
+
+        '//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/strong'
+        '//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr[1]/td/div/span/span'
+
+        if len(precio1)<0:
+            return False
+
+        if len(precio2) == 0:
+            print("Error al sacar el precio en " + link)
+            return False
+
+        if ('$') in precio2[0].text:
+            preciopesos=precio2[0].text
+            preciouf=precio1[0].text
+        else:
+            preciopesos=precio1[0].text
+            preciouf=precio2[0].text
+
+
+
+
+        preciopesos=preciopesos.replace('.','')
+        preciopesos=preciopesos.replace('$','')
+        preciopesos=preciopesos.replace(' ','')
+        preciopesos=preciopesos.replace(')','')
+        preciopesos=preciopesos.replace('(','')
+        preciopesos=preciopesos.replace('*','')
+        preciopesos=int(preciopesos)
+
+        preciouf=preciouf.replace('.','')
+        preciouf=preciouf.replace('$','')
+        preciouf=preciouf.replace(' ','')
+        preciouf=preciouf.replace(')','')
+        preciouf=preciouf.replace('(','')
+        preciouf=preciouf.replace('*','')
+        preciouf=preciouf.replace('UF','')
+        preciouf=preciouf.replace(',','.')
+        preciouf=float(preciouf)
+
+        #extraccion codigo
+        aux = link.split('.')
+        aux = aux[-2]
+        aux = aux.split('_')
+        codigo = int(aux[-1])
+
+        utag_data = tree.xpath("/html/body/script[1]/text()")[0]
+        text = str(utag_data.split('=')[1])
+        text = text[:-5] + "}"
+
+        try:
+            value = json.loads(text)
+        except:
+            return False
+
+
+        try:
+            idregion = value["region_level2_id"].lower()
+        except:
+            pass
+        try:
+            comuna = value["region_level3"].lower()
+        except:
+            pass
+        try:
+            titulo = value["ad_title"].lower()
+        except:
+            pass
+        try:
+            if value["category_level2"]=="Vendo":
+                operacion = "venta"
+            elif value["category_level2"]=="Arriendo":
+                operacion = "arriendo"
+            elif value["category_level2"]=="Arriendo de temporada":
+                operacion = "temporada"
+        except:
+            pass
+        try:
+            fechapublicacion = value["publish_date"].split(' ')[0]
+        except:
+            pass
+        try:
+            dormitorios = int(value["rooms"])
+        except:
+            pass
+        try:
+            descripcion = value["description"]
+        except:
+            pass
+
+        try:
+            if int(value["geoposition_is_precise"]) == 1:
+                pos = value["geoposition"].split(',')
+                lat = float(pos[0])
+                lon = float(pos[1])
+        except:
+            pass
+
+        tabla = tree.xpath("""//*[@id="content"]/section[1]/article/div[5]/div[1]/table/tbody/tr""")
+        tabla.pop(0)
+
+        for row in tabla:
+            rowname = row.find("th").text
+            if rowname == "Tipo de inmueble":
+                tipo = row.find("td").text
+            elif rowname == "Superficie total":
+                metrosmax = row.find("td").text.replace('\n','').replace('\t','').split(' ')[0]
+            elif rowname == "Superficie útil" or rowname == "Superficie construida":
+                metrosmin = row.find("td").text.replace('\n','').replace('\t','').split(' ')[0]
+            elif rowname == "Baños":
+                banos = row.find("td").text
+                banos = int(str(banos.split(' ')[0]))
+            elif rowname == "Estacionamiento":
+                estacionamientos = row.find("td").text
+            elif rowname == "Año de construcción":
+                anoconstruccion = row.find("td").text
+            elif rowname == "Gastos comunes":
+                ggcc = row.find("td").text[2:]
+                ggcc = ggcc.replace('.','')
+                ggcc = float(ggcc)
+
+
+        try:
+            propiedad = []
+            propiedad.append(titulo)
+            propiedad.append(idregion)
+            propiedad.append(operacion.lower())
+            propiedad.append(tipo.lower())
+            propiedad.append(preciopesos)
+            propiedad.append(int(float(dormitorios)))
+            propiedad.append(int(float(banos)))
+            propiedad.append(int(float(metrosmin)))
+            propiedad.append(int(float(metrosmax)))
+            propiedad.append(int(float(estacionamientos)))
+            propiedad.append(int(float(estacionamientos)))
+            propiedad.append(lat)
+            propiedad.append(lon)
+            propiedad.append(link)
+            propiedad.append(comuna)
+            return propiedad
+        except Exception as err:
+            print("Error en propiedad:" + link + " \n " + str(err))
+            return False
 
 
 def obtenerProp(id,sitio):
@@ -95,8 +496,21 @@ def crearFicha(sitio,id,mail,tipoficha):
     print(propiedad)
 
     if len(propiedad)<1:
-        text='¨Propiedad no se encuentra en la base de datos.'
-        return(text)
+
+        if sitio=='portal':
+            link="https://www.portalinmobiliario.com/"+str(id)
+        else:
+            link="https://www.yapo.cl/region_metropolitana/"+str(id)
+
+        if not pubPortalExiste.publicacionExiste(link) and not pubYapoExiste.publicacionExiste(link):
+            text='¨Propiedad no se encuentra en la base de datos.'
+            return(text)
+        elif sitio=="portal":
+            pass
+        else:
+            if obtainPropFromYapo(link) is not False:
+                propiedad=obtainPropFromYapo(link)
+
 
     else:
         regYapoDict={
