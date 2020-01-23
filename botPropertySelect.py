@@ -1168,7 +1168,7 @@ def crm_feature(bot, update,client):
     elif "canje" not in client:
         user = update.message.from_user
         pm.logger.info("{} está en seleccionando canje.".format(user.first_name))
-        update.message.reply_text("Ingresar Si/no es Canje")
+        update.message.reply_text("Ingresar Si/No es Canje")
         return pm.CRM_FEATURE
     else:
         update.message.reply_text("Error inesperado. Volviendo al Menu")
