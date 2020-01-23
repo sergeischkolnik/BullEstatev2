@@ -147,8 +147,6 @@ def last(bot, update):
 
     return pm.SELECT_LAST
 
-
-
 ##### FUNCIONES DEL REPORTE
 
 def operacion(bot, update,client):
@@ -795,12 +793,7 @@ def advance(bot,update,client):
 
     return pm.ADVANCE
 
-
-
-
 ##### FUNCIONES DE LAS FICHAS
-
-
 
 def site(bot, update):
     global STATE
@@ -1061,7 +1054,6 @@ def confirm_tasacion(bot, update,client):
 
     return pm.CONFIRM_TASACION
 
-
 ##### MODIFICAR
 
 def modificar(bot,update,client):
@@ -1098,3 +1090,25 @@ def modificar(bot,update,client):
 
     return pm.SELECT_FEATURE
 
+##### CRM
+
+def crm(bot, update,client):
+
+    user = update.message.from_user
+    pm.logger.info("Report requested by {}.".format(user.first_name))
+
+
+    keyboard = [["Nueva","Buscar"],
+                    ["Lista Completa", "Salir"]]
+
+
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=True,
+                                       resize_keyboard=True)
+
+    user = update.message.from_user
+    pm.logger.info("{} está eligiendo operacion del CRM.".format(user.first_name))
+    update.message.reply_text("Seleccione acción a realizar", reply_markup=reply_markup)
+
+
+    return pm.CRM

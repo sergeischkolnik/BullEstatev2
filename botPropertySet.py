@@ -248,9 +248,8 @@ def menu(bot, update):
         select.last(bot, update)
         return pm.SELECT_LAST
     elif update.message.text == "ASDF" or update.message.text == "Props. Cerca" or update.message.text == "Props. VTD":
-        bot.send_message(chat_id=update.message.chat_id, text="En Construccion")
-        select.menu(bot, update)
-        return pm.MENU
+        select.crm(bot, update)
+        return pm.CRM
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         client.pop("product")
@@ -313,7 +312,6 @@ def last(bot, update):
 
 ###FUNCIONES REPORTES
 
-
 def operacion(bot, update):
     """
     Set option selected from menu.
@@ -354,7 +352,6 @@ def operacion(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.operacion(bot, update,client)
         return pm.SELECT_OP
-
 
 def region(bot, update):
     """
@@ -401,7 +398,6 @@ def region(bot, update):
         select.region(bot,update,client)
         return pm.SELECT_REGION
 
-
 def comuna(bot, update):
     """
     Set option selected from menu.
@@ -429,7 +425,6 @@ def comuna(bot, update):
     else:
         select.tipo(bot, update)
         return pm.SELECT_TIPO
-
 
 def tipo(bot, update):
     """
@@ -470,7 +465,6 @@ def tipo(bot, update):
         select.tipo(bot, update)
         return pm.SELECT_TIPO
 
-
 def dorms(bot, update):
     """
     Set option selected from menu.
@@ -497,7 +491,6 @@ def dorms(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.dorms(bot, update,client)
         return pm.SELECT_DORMS
-
 
 def baths(bot, update):
     """
@@ -537,7 +530,6 @@ def baths(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.baths(bot, update,client)
         return pm.SELECT_BATHS
-
 
 def price_range(bot, update):
     """
@@ -616,7 +608,6 @@ def price_range(bot, update):
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.price_range(bot, update, client)
             return pm.SELECT_PRICE_RANGE
-
 
 def area_range(bot, update):
     """
@@ -732,7 +723,6 @@ def area_range(bot, update):
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.area_range(bot, update, client)
             return pm.SELECT_AREA_RANGE
-
 
 def confirm_report(bot,update):
     """
@@ -971,8 +961,8 @@ def advance(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.advance(bot, update, client)
         return pm.ADVANCE
-### FUNCIONES FICHA
 
+### FUNCIONES FICHA
 
 def site(bot, update):
     """
@@ -1011,7 +1001,6 @@ def site(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.site(bot, update)
         return pm.SELECT_SITE
-
 
 def id_prop(bot, update):
     """
@@ -1055,7 +1044,6 @@ def id_prop(bot, update):
             bot.send_message(chat_id=update.message.chat_id, text="Si usted inentó ingresar un id, debe ser un número entero. Si usted intentó ingresar un link, debe ser válido. ")
             select.id_prop(bot, update)
             return pm.SELECT_ID
-
 
 def confirm_file(bot, update):
 
@@ -1260,3 +1248,33 @@ def confirm_tasacion(bot,update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.confirm_tasacion(bot, update, client)
         return pm.CONFIRM_TASACION
+
+#FUNCIONES CRM
+
+def crm(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+
+    # set client
+    client = clientsDict[update.message.from_user.id]
+    print(client)
+
+    if update.message.text == "Nueva":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Buscar":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Lista Completa":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Salir":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.crm(bot, update,client)
+        return pm.CRM
