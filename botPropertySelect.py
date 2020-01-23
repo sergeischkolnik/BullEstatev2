@@ -116,7 +116,7 @@ def menu(bot, update):
     # Create buttons to slect language:
     keyboard = [["Reporte","Tasador"],
                 ["Ficha","Historial"],
-                ["Props. Cerca", "Props. VTD"]]
+                ["Props. Cerca", "CRM"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -157,7 +157,7 @@ def operacion(bot, update,client):
     if client["product"]=="Reporte":
         keyboard = [["Comprar","Arrendar"],
                     ["Atrás", "Salir"]]
-    elif client["product"]=="Props. VTD":
+    elif client["product"]=="CRM":
         keyboard = [["Venta","Arriendo"],
                     ["Atrás", "Salir"]]
     else:
@@ -172,7 +172,7 @@ def operacion(bot, update,client):
     pm.logger.info("{} está eligiendo operacion.".format(user.first_name))
     if client["product"] == "Reporte":
         update.message.reply_text("Seleccione operacion", reply_markup=reply_markup)
-    elif client["product"] == "Props. VTD":
+    elif client["product"] == "CRM":
         update.message.reply_text("Seleccione operacion", reply_markup=reply_markup)
     else:
         update.message.reply_text("Seleccione tipo de tasación", reply_markup=reply_markup)
@@ -329,7 +329,11 @@ def price_range(bot, update,client):
         pm.logger.info("{} está seleccionando moneda.".format(user.first_name))
         update.message.reply_text("Seleccionar Moneda", reply_markup=reply_markup)
         return pm.SELECT_PRICE_RANGE
-
+    elif "preciomin" not in client and client["product"]=="CRM":
+        user = update.message.from_user
+        pm.logger.info("{} está en seleccionando precio.".format(user.first_name))
+        update.message.reply_text("Ingresar precio")
+        return pm.SELECT_PRICE_RANGE
     elif "preciomin" not in client:
         if client["moneda"]=="UF":
             user = update.message.from_user
@@ -1118,3 +1122,25 @@ def crm(bot, update):
 
 
     return pm.CRM
+
+def crm_feature(bot, update):
+
+    # user = update.message.from_user
+    # pm.logger.info("Report requested by {}.".format(user.first_name))
+    #
+    #
+    # keyboard = [["Buscar","Lista Completa"],
+    #             ["Nueva","Actualizar"],
+    #             ["Eliminar", "Salir"]]
+    #
+    #
+    # reply_markup = ReplyKeyboardMarkup(keyboard,
+    #                                    one_time_keyboard=True,
+    #                                    resize_keyboard=True)
+    #
+    # user = update.message.from_user
+    # pm.logger.info("{} está eligiendo operacion del CRM.".format(user.first_name))
+    # update.message.reply_text("Seleccione acción a realizar", reply_markup=reply_markup)
+
+
+    return pm.MENU

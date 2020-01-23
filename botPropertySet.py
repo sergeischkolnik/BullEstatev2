@@ -247,7 +247,7 @@ def menu(bot, update):
     elif update.message.text == "Historial":
         select.last(bot, update)
         return pm.SELECT_LAST
-    elif update.message.text == "ASDF" or update.message.text == "Props. Cerca" or update.message.text == "Props. VTD":
+    elif update.message.text == "ASDF" or update.message.text == "Props. Cerca" or update.message.text == "CRM":
         select.crm(bot, update)
         return pm.CRM
     else:
@@ -604,6 +604,10 @@ def price_range(bot, update):
             select.price_range(bot, update, client)
             return pm.SELECT_PRICE_RANGE
 
+    elif client["product"]=="CRM":
+        select.crm_feature(bot, update)
+        print(client)
+        return pm.CRM_FEATURE
     else:
         try:
             client["preciomax"] = int(update.message.text.replace('.',''))
@@ -1207,9 +1211,9 @@ def adress(bot,update):
     client = clientsDict[update.message.from_user.id]
     client["adress"] = update.message.text
 
-    if client["product"]=="Props. VTD":
-        select.menu(bot,update)
-        return pm.MENU
+    if client["product"]=="CRM":
+        select.price_range(bot,update,client)
+        return pm.SELECT_PRICE_RANGE
     else:
         try:
             direccion=str(update.message.text)+", "+str(client["comuna"]+", Chile")
@@ -1272,6 +1276,7 @@ def crm(bot, update):
     # set client
     client = clientsDict[update.message.from_user.id]
     print(client)
+    client["crm"] = update.message.text
 
     if update.message.text == "Buscar":
         select.menu(bot, update)
@@ -1295,3 +1300,55 @@ def crm(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
         select.crm(bot, update,client)
         return pm.CRM
+
+def crm_feature(bot, update):
+    """
+    Set option selected from menu.
+    """
+    # Set state:
+    global STATE
+
+    # set client
+    client = clientsDict[update.message.from_user.id]
+    print(client)
+
+    if client["crm"] == "Buscar":
+        select.menu(bot, update)
+        return pm.MENU
+    elif client["crm"] == "Lista Completa":
+        select.menu(bot, update)
+        return pm.MENU
+    elif client["crm"] == "Nueva":
+        if update.message.text == "Buscar":
+            select.menu(bot, update)
+            return pm.MENU
+        elif update.message.text == "Lista Completa":
+            select.menu(bot, update)
+            return pm.MENU
+        elif update.message.text == "Nueva":
+            select.operacion(bot, update,client)
+            return pm.SELECT_OP
+        elif update.message.text == "Actualizar":
+            select.menu(bot, update)
+            return pm.MENU
+        elif update.message.text == "Eliminar":
+            select.menu(bot, update)
+            return pm.MENU
+        elif update.message.text == "Salir":
+            select.menu(bot, update)
+            return pm.MENU
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.crm(bot, update,client)
+            return pm.CRM
+    elif client["crm"] == "Actualizar":
+        select.menu(bot, update)
+        return pm.MENU
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Error. Regresando al Menu")
+        select.menu(bot, update)
+        return pm.MENU
+
+
+
+
