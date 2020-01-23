@@ -597,7 +597,7 @@ def price_range(bot, update):
         try:
             client["preciomin"]=int(update.message.text.replace('.',''))
             if client["product"]=="CRM":
-                select.crm_feature(bot, update)
+                select.crm_feature(bot, update,client)
                 print(client)
                 return pm.CRM_FEATURE
             else:
@@ -1239,8 +1239,12 @@ def confirm_tasacion(bot,update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
-
-    if update.message.text == "Confirmar":
+    if client["product"]=="CRM":
+        bot.send_message(chat_id=update.message.chat_id, text="Info procesada. Falta construir conector.")
+        client["success"] = "check"
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
         if "historial" in client:
             client = lastoperations["Tasador"][0]
@@ -1320,28 +1324,34 @@ def crm_feature(bot, update):
         select.menu(bot, update)
         return pm.MENU
     elif client["crm"] == "Nueva":
-        if update.message.text == "Buscar":
-            select.menu(bot, update)
-            return pm.MENU
-        elif update.message.text == "Lista Completa":
-            select.menu(bot, update)
-            return pm.MENU
-        elif update.message.text == "Nueva":
-            select.operacion(bot, update,client)
-            return pm.SELECT_OP
-        elif update.message.text == "Actualizar":
-            select.menu(bot, update)
-            return pm.MENU
-        elif update.message.text == "Eliminar":
-            select.menu(bot, update)
-            return pm.MENU
-        elif update.message.text == "Salir":
-            select.menu(bot, update)
-            return pm.MENU
+        if "telefono" not in client:
+            client[""]= update.message.text
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+        elif "mailcliente" not in client:
+            client[""]= update.message.text
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+        elif "linkPortal" not in client:
+            client[""]= update.message.text
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+        elif "linkYapo" not in client:
+            client[""]= update.message.text
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+        elif "comision" not in client:
+            client[""]= update.message.text
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+        elif "canje" not in client:
+            client[""]= update.message.text
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
         else:
-            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-            select.crm(bot, update,client)
-            return pm.CRM
+            bot.send_message(chat_id=update.message.chat_id, text="Procesó toda la info.")
+            select.confirm_tasacion(bot, update)
+            return pm.CONFIRM_TASACION
     elif client["crm"] == "Actualizar":
         select.menu(bot, update)
         return pm.MENU

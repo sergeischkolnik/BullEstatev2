@@ -1031,8 +1031,12 @@ def confirm_tasacion(bot, update,client):
 
     pm.logger.info("{} está confirmando tasacion.".format(user.first_name))
     confirmtext=[]
-    confirmtext.append("Tasar Propiedad con las siguientes características:")
-    confirmtext.append("Tipo de Tasacion: "+client["tipotasacion"])
+    if client["product"]=="CRM":
+        confirmtext.append("Ignresar Propiedad al CRM con las siguientes características:")
+        confirmtext.append("Tipo de Propiedad: "+client["tipotasacion"])
+    else:
+        confirmtext.append("Tasar Propiedad con las siguientes características:")
+        confirmtext.append("Tipo de Tasacion: "+client["tipotasacion"])
     confirmtext.append("Región: "+client["region"])
     confirmtext.append("Comuna: "+client["comuna"])
     confirmtext.append("Tipo: "+client["tipo"])
@@ -1055,6 +1059,17 @@ def confirm_tasacion(bot, update,client):
         confirmtext.append("Superficie: "+str(client["metros"])+"m2 construidos")
         confirmtext.append("Superficie: "+str(client["total"])+"m2 de terreno")
     confirmtext.append("Dirección: "+client["adress"])
+    if client["product"]=="CRM":
+        if client["moneda"]=="UF":
+            confirmtext.append("Precio: "+client["moneda"]+" "'{:,}'.format(client["preciomin"]).replace(",","."))
+        else:
+            confirmtext.append("Precio: $ "+'{:,}'.format(client["preciomin"]).replace(",","."))
+        confirmtext.append("Telefono Cliente: "+client["estacionamientos"])
+        confirmtext.append("Mail Cliente: "+client["estacionamientos"])
+        confirmtext.append("Link Portalinmmobiliario: "+client["estacionamientos"])
+        confirmtext.append("Link Yapo: "+client["estacionamientos"])
+        confirmtext.append("Comision: "+client["estacionamientos"])
+        confirmtext.append("¿Es Canje?: "+client["estacionamientos"])
 
 
     confirmtext="\n".join(confirmtext)
@@ -1123,24 +1138,38 @@ def crm(bot, update):
 
     return pm.CRM
 
-def crm_feature(bot, update):
+def crm_feature(bot, update,client):
 
-    # user = update.message.from_user
-    # pm.logger.info("Report requested by {}.".format(user.first_name))
-    #
-    #
-    # keyboard = [["Buscar","Lista Completa"],
-    #             ["Nueva","Actualizar"],
-    #             ["Eliminar", "Salir"]]
-    #
-    #
-    # reply_markup = ReplyKeyboardMarkup(keyboard,
-    #                                    one_time_keyboard=True,
-    #                                    resize_keyboard=True)
-    #
-    # user = update.message.from_user
-    # pm.logger.info("{} está eligiendo operacion del CRM.".format(user.first_name))
-    # update.message.reply_text("Seleccione acción a realizar", reply_markup=reply_markup)
-
-
-    return pm.MENU
+    if "telefono" not in client:
+        user = update.message.from_user
+        pm.logger.info("{} está en seleccionando telefono.".format(user.first_name))
+        update.message.reply_text("Ingresar teléfono")
+        return pm.CRM_FEATURE
+    elif "mailcliente" not in client:
+        user = update.message.from_user
+        pm.logger.info("{} está en seleccionando mail cliente.".format(user.first_name))
+        update.message.reply_text("Ingresar Mail Cliente")
+        return pm.CRM_FEATURE
+    elif "linkPortal" not in client:
+        user = update.message.from_user
+        pm.logger.info("{} está en seleccionando linkPortal.".format(user.first_name))
+        update.message.reply_text("Ingresar link Portal Inmobiliario")
+        return pm.CRM_FEATURE
+    elif "linkYapo" not in client:
+        user = update.message.from_user
+        pm.logger.info("{} está en seleccionando linkYapo.".format(user.first_name))
+        update.message.reply_text("Ingresar link de Yapo.cl")
+        return pm.CRM_FEATURE
+    elif "comision" not in client:
+        user = update.message.from_user
+        pm.logger.info("{} está en seleccionando comision.".format(user.first_name))
+        update.message.reply_text("Ingresar Comisión")
+        return pm.CRM_FEATURE
+    elif "canje" not in client:
+        user = update.message.from_user
+        pm.logger.info("{} está en seleccionando canje.".format(user.first_name))
+        update.message.reply_text("Ingresar Si/no es Canje")
+        return pm.CRM_FEATURE
+    else:
+        update.message.reply_text("Error inesperado. Volviendo al Menu")
+        return pm.MENU
