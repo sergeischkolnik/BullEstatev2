@@ -1098,8 +1098,9 @@ def crm(bot, update):
     pm.logger.info("Report requested by {}.".format(user.first_name))
 
 
-    keyboard = [["Nueva","Buscar"],
-                    ["Lista Completa", "Salir"]]
+    keyboard = [["Buscar","Lista Completa"],
+                ["Nueva","Actualizar"],
+                ["Eliminar", "Salir"]]
 
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
