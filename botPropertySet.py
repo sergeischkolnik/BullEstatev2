@@ -323,7 +323,10 @@ def operacion(bot, update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
-    if client["product"]=="Reporte":
+    if client["product"]=="CRM":
+        if client["crm"]=="Buscar":
+            client["operacion"] = update.message.text
+    elif client["product"]=="Reporte":
         client["operacion"] = update.message.text
     else:
         client["tipotasacion"] = update.message.text
@@ -523,6 +526,9 @@ def baths(bot, update):
         if client["product"]=="Reporte":
             select.price_range(bot,update,client)
             return pm.SELECT_PRICE_RANGE
+        elif client["product"]=="CRM" and client["crm"]=="Buscar":
+            select.price_range(bot,update,client)
+            return pm.SELECT_PRICE_RANGE
         else:
             if client["tipo"]=="Comercial":
                 select.area(bot,update,client)
@@ -602,7 +608,7 @@ def price_range(bot, update):
     elif "preciomin" not in client or client["preciomin"]=="Otro":
         try:
             client["preciomin"]=int(update.message.text.replace('.',''))
-            if client["product"]=="CRM":
+            if client["product"]=="CRM" and client["crm"]=="Nueva":
                 select.crm_feature(bot, update,client)
                 print(client)
                 return pm.CRM_FEATURE
@@ -751,7 +757,7 @@ def confirm_report(bot,update):
     # set client
     client = clientsDict[update.message.from_user.id]
 
-    if update.message.text == "SI":
+    if update.message.text == "SI" and client["product"]=="reporte":
 
         if "reporteThread" in client.keys() and client["reporteThread"].isAlive():
             bot.send_message(chat_id=update.message.chat_id, text="Ya se está generando un reporte. Por favor espere que"
@@ -774,6 +780,10 @@ def confirm_report(bot,update):
         #bot.send_message(chat_id=update.message.chat_id, text=reply)
 
         select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "SI" and client["product"]=="CRM":
+        bot.send_message(chat_id=update.message.chat_id, text="Busqueda exitosa. Falta construir conector")
+        select.menu(bot,update)
         return pm.MENU
     elif update.message.text == "Modificar":
         bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
@@ -1290,8 +1300,8 @@ def crm(bot, update):
     client["crm"] = update.message.text
 
     if update.message.text == "Buscar":
-        select.menu(bot, update)
-        return pm.MENU
+        select.operacion(bot, update,client)
+        return pm.SELECT_OP
     elif update.message.text == "Lista Completa":
         select.menu(bot, update)
         return pm.MENU
@@ -1309,7 +1319,7 @@ def crm(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.crm(bot, update,client)
+        select.crm(bot, update)
         return pm.CRM
 
 def crm_feature(bot, update):
