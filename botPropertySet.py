@@ -1262,13 +1262,19 @@ def crm(bot, update):
     client = clientsDict[update.message.from_user.id]
     print(client)
 
-    if update.message.text == "Nueva":
-        select.menu(bot, update)
-        return pm.MENU
-    elif update.message.text == "Buscar":
+    if update.message.text == "Buscar":
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Lista Completa":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Nueva":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Actualizar":
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Eliminar":
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Salir":
