@@ -1206,22 +1206,27 @@ def adress(bot,update):
 
     client = clientsDict[update.message.from_user.id]
     client["adress"] = update.message.text
-    try:
-        direccion=str(update.message.text)+", "+str(client["comuna"]+", Chile")
-        latD, lonD = gm.getCoordsWithAdress(direccion)
-        client["lat"]=latD
-        client["lon"]=lonD
-        print(direccion)
-        print(latD)
-        print(lonD)
-    except Exception as e:
-        print(e)
-        bot.send_message(chat_id=update.message.chat_id, text="Dirección incorrecta. Favor revisar y reenviar.")
-        select.adress(bot,update,client)
-        return pm.SELECT_ADRESS
-    select.confirm_tasacion(bot, update, client)
-    print(client)
-    return pm.CONFIRM_TASACION
+
+    if client["product"]=="Props. VTD":
+        select.menu(bot,update)
+        return pm.MENU
+    else:
+        try:
+            direccion=str(update.message.text)+", "+str(client["comuna"]+", Chile")
+            latD, lonD = gm.getCoordsWithAdress(direccion)
+            client["lat"]=latD
+            client["lon"]=lonD
+            print(direccion)
+            print(latD)
+            print(lonD)
+        except Exception as e:
+            print(e)
+            bot.send_message(chat_id=update.message.chat_id, text="Dirección incorrecta. Favor revisar y reenviar.")
+            select.adress(bot,update,client)
+            return pm.SELECT_ADRESS
+        select.confirm_tasacion(bot, update, client)
+        print(client)
+        return pm.CONFIRM_TASACION
 
 def confirm_tasacion(bot,update):
 
