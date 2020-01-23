@@ -329,7 +329,7 @@ def price_range(bot, update,client):
         pm.logger.info("{} está seleccionando moneda.".format(user.first_name))
         update.message.reply_text("Seleccionar Moneda", reply_markup=reply_markup)
         return pm.SELECT_PRICE_RANGE
-    elif "preciomin" not in client and client["product"]=="CRM":
+    elif "preciomin" not in client and client["product"]=="CRM" and client["crm"]=="Nueva":
         user = update.message.from_user
         pm.logger.info("{} está en seleccionando precio.".format(user.first_name))
         update.message.reply_text("Ingresar precio")
@@ -666,7 +666,10 @@ def confirm_report(bot,update,client):
 
     pm.logger.info("{} está confirmando reporte.".format(user.first_name))
     confirmtext=[]
-    confirmtext.append("Generar reporte para las siguientes características:")
+    if client["product"]=="CRM" and client["crm"]=="Buscar":
+        confirmtext.append("Generar búsqueda para las siguientes características:")
+    else:
+        confirmtext.append("Generar reporte para las siguientes características:")
     confirmtext.append("Operación: "+client["operacion"])
     confirmtext.append("Región: "+client["region"])
     if type(client["comuna"]) is list:
@@ -725,10 +728,15 @@ def confirm_report(bot,update,client):
             confirmtext.append("Desde: "+str(client["totalmin"])+"m2 de terreno, Hasta: "+str(client["totalmax"])+"m2 de terreno")
     if "Center" in client and "Radius" in client:
         confirmtext.append("Buscando propiedades a un máximo de " + str(client["Radius"]) + " de la dirección: "+ client["Center"] )
-    confirmtext.append("El Reporte solicitado "+protext+" Incluye Tasación")
-    confirmtext.append("El Reporte solicitado "+internatext+" Incluye Datos de contacto de Publicación")
-    confirmtext.append("El Reporte solicitado "+metrotext+" Incluye distancia a estación de metro más cercana")
 
+    if client["product"]=="CRM" and client["crm"]=="Buscar":
+        confirmtext.append("La Búsqueda solicitada "+protext+" Incluye Tasación")
+        confirmtext.append("La Búsqueda solicitada "+internatext+" Incluye Datos de contacto de Publicación")
+        confirmtext.append("La Búsqueda solicitada "+metrotext+" Incluye distancia a estación de metro más cercana")
+    else:
+        confirmtext.append("El Reporte solicitado "+protext+" Incluye Tasación")
+        confirmtext.append("El Reporte solicitado "+internatext+" Incluye Datos de contacto de Publicación")
+        confirmtext.append("El Reporte solicitado "+metrotext+" Incluye distancia a estación de metro más cercana")
 
 
     confirmtext="\n".join(confirmtext)
