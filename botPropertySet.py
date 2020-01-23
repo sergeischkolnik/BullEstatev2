@@ -1347,7 +1347,7 @@ def crm_feature(bot, update):
         elif "canje" not in client:
             client["canje"]= update.message.text
             bot.send_message(chat_id=update.message.chat_id, text="Procesó toda la info.")
-            select.confirm_tasacion(bot, update)
+            select.confirm_tasacion(bot, update,client)
             return pm.CONFIRM_TASACION
         else:
             update.message.reply_text("Error inesperado. Volviendo al Menu")
