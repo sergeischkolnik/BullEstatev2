@@ -1139,37 +1139,60 @@ def crm(bot, update):
     return pm.CRM
 
 def crm_feature(bot, update,client):
+    if client["crm"]=="Nueva":
+        if "telefono" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando telefono.".format(user.first_name))
+            update.message.reply_text("Ingresar teléfono")
+            return pm.CRM_FEATURE
+        elif "mailcliente" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando mail cliente.".format(user.first_name))
+            update.message.reply_text("Ingresar Mail Cliente")
+            return pm.CRM_FEATURE
+        elif "linkPortal" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando linkPortal.".format(user.first_name))
+            update.message.reply_text("Ingresar link Portal Inmobiliario")
+            return pm.CRM_FEATURE
+        elif "linkYapo" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando linkYapo.".format(user.first_name))
+            update.message.reply_text("Ingresar link de Yapo.cl")
+            return pm.CRM_FEATURE
+        elif "comision" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando comision.".format(user.first_name))
+            update.message.reply_text("Ingresar Comisión")
+            return pm.CRM_FEATURE
+        elif "canje" not in client:
+            user = update.message.from_user
+            pm.logger.info("{} está en seleccionando canje.".format(user.first_name))
+            update.message.reply_text("Ingresar Si/No es Canje")
+            return pm.CRM_FEATURE
+        else:
+            update.message.reply_text("Error inesperado. Volviendo al Menu")
+            return pm.MENU
+    elif client["crm"]=="Lista Completa":
+        user = update.message.from_user
 
-    if "telefono" not in client:
-        user = update.message.from_user
-        pm.logger.info("{} está en seleccionando telefono.".format(user.first_name))
-        update.message.reply_text("Ingresar teléfono")
+        keyboard = [["Confirmar","Modificar"],
+                    ["Atrás", "Salir"]]
+
+        reply_markup = ReplyKeyboardMarkup(keyboard,
+                                           one_time_keyboard=True,
+                                           resize_keyboard=True)
+        print("creo el teclado")
+
+        pm.logger.info("{} está confirmando Lista con las siguientes características.".format(user.first_name))
+        confirmtext=[]
+        confirmtext.append("Obtener lista de propiedades con las siguientes caracteristicas:")
+        confirmtext.append("Operación: "+client["tipotasacion"])
+        confirmtext.append("Tipo de Propiedad: "+client["tipo"])
+        confirmtext.append("Región: "+client["region"])
+        confirmtext.append("Comuna: "+client["comuna"])
+        confirmtext="\n".join(confirmtext)
+        print(confirmtext)
+        update.message.reply_text(confirmtext, reply_markup=reply_markup,disable_web_page_preview=True)
+
         return pm.CRM_FEATURE
-    elif "mailcliente" not in client:
-        user = update.message.from_user
-        pm.logger.info("{} está en seleccionando mail cliente.".format(user.first_name))
-        update.message.reply_text("Ingresar Mail Cliente")
-        return pm.CRM_FEATURE
-    elif "linkPortal" not in client:
-        user = update.message.from_user
-        pm.logger.info("{} está en seleccionando linkPortal.".format(user.first_name))
-        update.message.reply_text("Ingresar link Portal Inmobiliario")
-        return pm.CRM_FEATURE
-    elif "linkYapo" not in client:
-        user = update.message.from_user
-        pm.logger.info("{} está en seleccionando linkYapo.".format(user.first_name))
-        update.message.reply_text("Ingresar link de Yapo.cl")
-        return pm.CRM_FEATURE
-    elif "comision" not in client:
-        user = update.message.from_user
-        pm.logger.info("{} está en seleccionando comision.".format(user.first_name))
-        update.message.reply_text("Ingresar Comisión")
-        return pm.CRM_FEATURE
-    elif "canje" not in client:
-        user = update.message.from_user
-        pm.logger.info("{} está en seleccionando canje.".format(user.first_name))
-        update.message.reply_text("Ingresar Si/No es Canje")
-        return pm.CRM_FEATURE
-    else:
-        update.message.reply_text("Error inesperado. Volviendo al Menu")
-        return pm.MENU

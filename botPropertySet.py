@@ -323,9 +323,8 @@ def operacion(bot, update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
-    if client["product"]=="CRM":
-        if client["crm"]=="Buscar":
-            client["operacion"] = update.message.text
+    if client["product"]=="CRM" and client["crm"]=="Buscar":
+        client["operacion"] = update.message.text
     elif client["product"]=="Reporte":
         client["operacion"] = update.message.text
     else:
@@ -452,8 +451,10 @@ def tipo(bot, update):
     client = clientsDict[update.message.from_user.id]
     client["tipo"] = update.message.text
     print(client)
-
-    if update.message.text == "Departamento":
+    if client["product"]=="CRM" and client["crm"]=="Lista Completa":
+        select.crm_feature(bot,update,client)
+        return pm.CRM_FEATURE
+    elif update.message.text == "Departamento":
         select.dorms(bot,update,client)
         return pm.SELECT_DORMS
     elif update.message.text == "Casa":
@@ -1303,8 +1304,8 @@ def crm(bot, update):
         select.operacion(bot, update,client)
         return pm.SELECT_OP
     elif update.message.text == "Lista Completa":
-        select.menu(bot, update)
-        return pm.MENU
+        select.operacion(bot, update,client)
+        return pm.SELECT_OP
     elif update.message.text == "Nueva":
         select.operacion(bot, update,client)
         return pm.SELECT_OP
@@ -1337,8 +1338,31 @@ def crm_feature(bot, update):
         select.menu(bot, update)
         return pm.MENU
     elif client["crm"] == "Lista Completa":
-        select.menu(bot, update)
-        return pm.MENU
+
+        if update.message.text == "Confirmar":
+            bot.send_message(chat_id=update.message.chat_id, text="Generando lista. Falta constructor")
+            if "historial" in client:
+                client = lastoperations["Tasador"][0]
+            print(client)
+            #text=connector.tasador(client)
+            client["success"] = "check"
+            #bot.send_message(chat_id=update.message.chat_id, text=text,disable_web_page_preview=True)
+            select.menu(bot, update)
+            return pm.MENU
+        elif update.message.text == "Modificar":
+            bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
+            select.crm_feature(bot, update, client)
+            return pm.CONFIRM_TASACION
+        elif update.message.text == "Atrás":
+            select.tipo(bot, update)
+            return pm.SELECT_TIPO
+        elif update.message.text == "Salir":
+            select.menu(bot, update)
+            return pm.MENU
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.confirm_tasacion(bot, update, client)
+            return pm.CONFIRM_TASACION
     elif client["crm"] == "Nueva":
         if "telefono" not in client:
             client["telefono"]= update.message.text
