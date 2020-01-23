@@ -596,18 +596,19 @@ def price_range(bot, update):
     elif "preciomin" not in client or client["preciomin"]=="Otro":
         try:
             client["preciomin"]=int(update.message.text.replace('.',''))
-            select.price_range(bot, update,client)
-            print(client)
-            return pm.SELECT_PRICE_RANGE
+            if client["product"]=="CRM":
+                select.crm_feature(bot, update)
+                print(client)
+                return pm.CRM_FEATURE
+            else:
+                select.price_range(bot, update,client)
+                print(client)
+                return pm.SELECT_PRICE_RANGE
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.price_range(bot, update, client)
             return pm.SELECT_PRICE_RANGE
 
-    elif client["product"]=="CRM":
-        select.crm_feature(bot, update)
-        print(client)
-        return pm.CRM_FEATURE
     else:
         try:
             client["preciomax"] = int(update.message.text.replace('.',''))

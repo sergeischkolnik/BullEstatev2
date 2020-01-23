@@ -386,7 +386,7 @@ def price_range(bot, update,client):
         if client["moneda"]=="UF":
             user = update.message.from_user
             x=client["preciomin"]
-            if client["operacion"]=="Arrendar":
+            if client["operacion"]=="Arrendar" or :
                keyboard = [['{:,}'.format(x+2).replace(",","."),'{:,}'.format(x+5).replace(",","."),'{:,}'.format(x+10).replace(",",".")],
                             ['{:,}'.format(x+15).replace(",","."),'{:,}'.format(x+20).replace(",","."),'{:,}'.format(x+50).replace(",",".")],
                             ['{:,}'.format(x+100).replace(",","."),"Otro","Atrás","Salir"]]
