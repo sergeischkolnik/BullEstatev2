@@ -1092,7 +1092,7 @@ def modificar(bot,update,client):
 
 ##### CRM
 
-def crm(bot, update,client):
+def crm(bot, update):
 
     user = update.message.from_user
     pm.logger.info("Report requested by {}.".format(user.first_name))
