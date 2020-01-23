@@ -1325,27 +1325,27 @@ def crm_feature(bot, update):
         return pm.MENU
     elif client["crm"] == "Nueva":
         if "telefono" not in client:
-            client[""]= update.message.text
+            client["telefono"]= update.message.text
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         elif "mailcliente" not in client:
-            client[""]= update.message.text
+            client["mailcliente"]= update.message.text
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         elif "linkPortal" not in client:
-            client[""]= update.message.text
+            client["linkPortal"]= update.message.text
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         elif "linkYapo" not in client:
-            client[""]= update.message.text
+            client["linkYapo"]= update.message.text
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         elif "comision" not in client:
-            client[""]= update.message.text
+            client["comision"]= update.message.text
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         elif "canje" not in client:
-            client[""]= update.message.text
+            client["canje"]= update.message.text
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         else:
