@@ -170,6 +170,8 @@ def main():
 
             CONFIRM_TASACION: [MessageHandler(Filters.text, set.confirm_tasacion)],
 
+            #CRM:
+
             CRM: [MessageHandler(Filters.text, set.crm)]
                 },
 

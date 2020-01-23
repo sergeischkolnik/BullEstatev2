@@ -338,6 +338,12 @@ def operacion(bot, update):
     elif update.message.text == "Full":
         select.region(bot,update,client)
         return pm.SELECT_REGION
+    elif update.message.text == "Venta":
+        select.region(bot,update,client)
+        return pm.SELECT_REGION
+    elif update.message.text == "Arriendo":
+        select.region(bot,update,client)
+        return pm.SELECT_REGION
     elif update.message.text == "Atrás":
         if client["product"] == "Reporte":
             client.pop("operacion")
@@ -1269,8 +1275,8 @@ def crm(bot, update):
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Nueva":
-        select.menu(bot, update)
-        return pm.MENU
+        select.operacion(bot, update,client)
+        return pm.SELECT_OP
     elif update.message.text == "Actualizar":
         select.menu(bot, update)
         return pm.MENU

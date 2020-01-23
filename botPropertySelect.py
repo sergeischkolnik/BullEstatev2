@@ -157,6 +157,9 @@ def operacion(bot, update,client):
     if client["product"]=="Reporte":
         keyboard = [["Comprar","Arrendar"],
                     ["Atrás", "Salir"]]
+    elif client["product"]=="Props. VTD":
+        keyboard = [["Venta","Arriendo"],
+                    ["Atrás", "Salir"]]
     else:
         keyboard = [["Simple","Full"],
                     ["Atrás", "Salir"]]
@@ -168,6 +171,8 @@ def operacion(bot, update,client):
     user = update.message.from_user
     pm.logger.info("{} está eligiendo operacion.".format(user.first_name))
     if client["product"] == "Reporte":
+        update.message.reply_text("Seleccione operacion", reply_markup=reply_markup)
+    elif client["product"] == "Props. VTD":
         update.message.reply_text("Seleccione operacion", reply_markup=reply_markup)
     else:
         update.message.reply_text("Seleccione tipo de tasación", reply_markup=reply_markup)
