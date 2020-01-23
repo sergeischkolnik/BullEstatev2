@@ -58,6 +58,8 @@ def signedup(bot,update):
     lastoperations["Reporte"]=[]
     lastoperations["Tasador"]=[]
     lastoperations["Ficha"]=[]
+    lastoperations["CRM"]=[]
+
 
     if update.message.text == "Si":
         data = db.registered_data(update.message.from_user.id)
@@ -345,7 +347,11 @@ def operacion(bot, update):
         select.region(bot,update,client)
         return pm.SELECT_REGION
     elif update.message.text == "Atrás":
-        if client["product"] == "Reporte":
+        if client["product"]=="CRM":
+            client.pop("tipotasacion")
+            select.crm(bot, update)
+            return pm.CRM
+        elif client["product"] == "Reporte":
             client.pop("operacion")
         else:
             client.pop("tipotasacion")
