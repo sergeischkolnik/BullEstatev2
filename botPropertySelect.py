@@ -862,11 +862,14 @@ def confirm_file(bot, update,client,pro,interna):
         internabutton="Agregar"
         internatext="No"
 
-
-    keyboard = [["Confirmar","Modificar"],
-                [probutton+" Tasación"],
-                [internabutton+" Contacto Publicación"],
-                ["Atrás", "Salir"]]
+    if client["product"]=="CRM":
+        keyboard = [["Confirmar","Modificar"],
+                    ["Atrás", "Salir"]]
+    else:
+        keyboard = [["Confirmar","Modificar"],
+                    [probutton+" Tasación"],
+                    [internabutton+" Contacto Publicación"],
+                    ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,

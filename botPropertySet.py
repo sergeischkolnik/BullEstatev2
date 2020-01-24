@@ -1081,7 +1081,21 @@ def confirm_file(bot, update):
     # set client
     client = clientsDict[update.message.from_user.id]
 
-    if update.message.text == "Confirmar":
+    if update.message.text == "Confirmar" and client["product"]=="CRM":
+        bot.send_message(chat_id=update.message.chat_id, text="Buscando propiedad en CRM")
+        try:
+            text="Falta Construir conector"
+            #Conector
+            client["success"] = "check"
+        except Exception as e:
+            print(e)
+            text="No se encuentra la propiedad solicitada en el CRM"
+
+        bot.send_message(chat_id=update.message.chat_id, text=text)
+        select.menu(bot, update)
+        return pm.MENU
+
+    elif update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
         try:
             if "historial" in client:
@@ -1310,8 +1324,8 @@ def crm(bot, update):
         select.operacion(bot, update,client)
         return pm.SELECT_OP
     elif update.message.text == "Actualizar":
-        select.menu(bot, update)
-        return pm.MENU
+        select.id_prop()
+        return pm.SELECT_ID
     elif update.message.text == "Eliminar":
         select.menu(bot, update)
         return pm.MENU
