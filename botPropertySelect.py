@@ -154,6 +154,7 @@ def callback(bot,update,client):
         print("Calback activated. Modify Variable is: "+str(client["modify"]))
         if client["modify"]:
             print("going to set.callback")
+            client.pop("modify")
             set.callback(bot,update)
             return pm.CALLBACK
         else:
