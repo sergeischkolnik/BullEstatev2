@@ -307,7 +307,8 @@ def last(bot, update):
 def callback(bot,update):
 
     client = clientsDict[update.message.from_user.id]
-    
+    print("entro al set.callback...")
+    print(client)
     if client["product"]=="Reporte":
         select.confirm_report(bot,update,client)
         return pm.CONFIRM_REPORT
@@ -323,6 +324,9 @@ def callback(bot,update):
     elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
         select.crm_feature(bot,update,client)
         return pm.CRM_FEATURE
+    else:
+        select.menu(bot, update)
+        return pm.MENU
 
 
 ###FUNCIONES REPORTES
