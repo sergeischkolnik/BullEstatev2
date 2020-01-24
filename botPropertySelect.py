@@ -878,7 +878,7 @@ def confirm_file(bot, update,client,pro,interna):
 
     pm.logger.info("{} está confirmando ficha.".format(user.first_name))
     confirmtext=[]
-    if client["product"]!="CRM":
+    if client["product"]=="CRM":
         confirmtext.append(str(client["crm"])+" la siguiente propiedad:")
         #cargar datos propiedad
         if "id_prop" in client:
