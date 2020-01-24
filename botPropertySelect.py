@@ -163,12 +163,15 @@ def callback(bot,update,client):
             return
     else:
         return
+
 ##### FUNCIONES DEL REPORTE
 
 def operacion(bot, update,client):
 
-    if "modify" in client:
-        callback(bot,update,client)
+    if "modify" in client and client[modify]:
+        return pm.CALLBACK
+    elif "modify" in client:
+        client["modify"]=True
 
     user = update.message.from_user
     pm.logger.info("Report requested by {}.".format(user.first_name))
@@ -200,9 +203,10 @@ def operacion(bot, update,client):
 
 def region(bot, update,client):
 
-    if "modify" in client:
-        callback(bot,update,client)
-        return
+    if "modify" in client and client[modify]:
+        return pm.CALLBACK
+    elif "modify" in client:
+        client["modify"]=True
 
     """
     Main menu function.
