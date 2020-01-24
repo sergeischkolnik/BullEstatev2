@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 SIGNEDUP, FIRST, SIGNUP, LOGIN,MENU, SELECT_OP, SELECT_REGION, SELECT_COMUNA, SELECT_TIPO, SELECT_DORMS,SELECT_BATHS, \
 SELECT_PRICE_RANGE, SELECT_AREA_RANGE,CONFIRM_REPORT,ADVANCE,MODIFY,SELECT_SITE,SELECT_ID,CONFIRM_FILE,SELECT_FEATURE,SELECT_AREA,\
-SELECT_ADRESS,SELECT_LAST,CONFIRM_TASACION,CRM,CRM_FEATURE = range(26)
+SELECT_ADRESS,SELECT_LAST,CONFIRM_TASACION,CRM,CRM_FEATURE,CALLBACK = range(26)
 
 STATE = MENU
 
@@ -176,7 +176,9 @@ def main():
 
             CRM: [MessageHandler(Filters.text, set.crm)],
 
-            CRM_FEATURE: [MessageHandler(Filters.text, set.crm_feature)]
+            CRM_FEATURE: [MessageHandler(Filters.text, set.crm_feature)],
+
+            CALLBACK: [MessageHandler(Filters.text, set.callback)]
                 },
 
         fallbacks=[CommandHandler('cancel', cancel),

@@ -304,6 +304,27 @@ def last(bot, update):
         select.menu(bot, update)
         return pm.MENU
 
+def callback(bot,update):
+
+    client = clientsDict[update.message.from_user.id]
+    
+    if client["product"]=="Reporte":
+        select.confirm_report(bot,update,client)
+        return pm.CONFIRM_REPORT
+    elif client["product"]=="Tasador":
+        select.confirm_tasacion(bot,update,client)
+        return pm.CONFIRM_TASACION
+    elif client["product"]=="CRM" and client["crm"]=="Buscar":
+        select.confirm_report(bot,update,client)
+        return pm.CONFIRM_REPORT
+    elif client["product"]=="CRM" and client["crm"]=="Nueva":
+        select.confirm_tasacion(bot,update,client)
+        return pm.CONFIRM_TASACION
+    elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
+        select.crm_feature(bot,update,client)
+        return pm.CRM_FEATURE
+
+
 ###FUNCIONES REPORTES
 
 def operacion(bot, update):
