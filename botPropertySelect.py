@@ -884,7 +884,7 @@ def confirm_file(bot, update,client,pro,interna):
         confirmtext.append("ID Propiedad:"+str(client["id_prop"]))
     else:
         confirmtext.append("URL Propiedad:" + str(client["link_prop"]))
-    if ["product"]!="CRM":
+    if not ["product"]=="CRM":
         confirmtext.append("La Ficha solicitada "+protext+" Incluye Tasación")
         confirmtext.append("La Ficha solicitada "+internatext+" Incluye Datos de contacto de Publicación")
         confirmtext.append("Se enviara al siguiente correo:"+client["mail"])
