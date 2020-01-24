@@ -310,6 +310,8 @@ def callback(bot,update):
     client = clientsDict[update.message.from_user.id]
     print("entro al set.callback...")
     print(client)
+
+    client.pop("modify")
     if client["product"]=="Reporte":
         select.confirm_report(bot,update,client)
         return pm.CONFIRM_REPORT
@@ -328,6 +330,7 @@ def callback(bot,update):
     else:
         select.menu(bot, update)
         return pm.MENU
+
 
 
 ###FUNCIONES REPORTES
@@ -349,23 +352,41 @@ def operacion(bot, update):
         client["tipotasacion"] = update.message.text
     print(client)
     if update.message.text == "Comprar":
-        select.region(bot,update,client)
-        return pm.SELECT_REGION
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
     elif update.message.text == "Arrendar":
-        select.region(bot,update,client)
-        return pm.SELECT_REGION
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
     elif update.message.text == "Simple":
-        select.region(bot,update,client)
-        return pm.SELECT_REGION
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
     elif update.message.text == "Full":
-        select.region(bot,update,client)
-        return pm.SELECT_REGION
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
     elif update.message.text == "Venta":
-        select.region(bot,update,client)
-        return pm.SELECT_REGION
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
     elif update.message.text == "Arriendo":
-        select.region(bot,update,client)
-        return pm.SELECT_REGION
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
     elif update.message.text == "Atrás":
         if client["product"]=="CRM":
             client.pop("tipotasacion")
@@ -398,23 +419,41 @@ def region(bot, update):
     print(client)
 
     if update.message.text == "Metropolitana":
-        select.comuna(bot,update,client)
-        return pm.SELECT_COMUNA
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.comuna(bot,update,client)
+            return pm.SELECT_COMUNA
     elif update.message.text == "Valparaiso":
-        select.comuna(bot, update,client)
-        return pm.SELECT_COMUNA
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.comuna(bot, update,client)
+            return pm.SELECT_COMUNA
     elif update.message.text == "Biobio":
-        select.comuna(bot, update,client)
-        return pm.SELECT_COMUNA
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.comuna(bot, update,client)
+            return pm.SELECT_COMUNA
     elif update.message.text == "Coquimbo":
-        select.comuna(bot, update,client)
-        return pm.SELECT_COMUNA
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.comuna(bot, update,client)
+            return pm.SELECT_COMUNA
     elif update.message.text == "Antofagasta":
-        select.comuna(bot, update,client)
-        return pm.SELECT_COMUNA
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.comuna(bot, update,client)
+            return pm.SELECT_COMUNA
     elif str(update.message.text).lower() in ["arica","iquique","atacama","ohiggins","maule","ñuble","araucanía","los ríos","los lagos","aysen","magallanes"]:
-        select.comuna(bot, update,client)
-        return pm.SELECT_COMUNA
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.comuna(bot, update,client)
+            return pm.SELECT_COMUNA
     elif update.message.text == "Otra":
         select.region(bot, update,client)
         return pm.SELECT_REGION
@@ -455,8 +494,11 @@ def comuna(bot, update):
         select.menu(bot, update)
         return pm.MENU
     else:
-        select.tipo(bot, update,client)
-        return pm.SELECT_TIPO
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.tipo(bot, update,client)
+            return pm.SELECT_TIPO
 
 def tipo(bot, update):
     """
@@ -470,20 +512,35 @@ def tipo(bot, update):
     client["tipo"] = update.message.text
     print(client)
     if client["product"]=="CRM" and client["crm"]=="Lista Completa":
-        select.crm_feature(bot,update,client)
-        return pm.CRM_FEATURE
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
     elif update.message.text == "Departamento":
-        select.dorms(bot,update,client)
-        return pm.SELECT_DORMS
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.dorms(bot,update,client)
+            return pm.SELECT_DORMS
     elif update.message.text == "Casa":
-        select.dorms(bot, update,client)
-        return pm.SELECT_DORMS
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.dorms(bot, update,client)
+            return pm.SELECT_DORMS
     elif update.message.text == "Oficina":
-        select.dorms(bot, update,client)
-        return pm.SELECT_DORMS
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.dorms(bot, update,client)
+            return pm.SELECT_DORMS
     elif update.message.text == "Comercial":
-        select.baths(bot, update,client)
-        return pm.SELECT_BATHS
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.baths(bot, update,client)
+            return pm.SELECT_BATHS
 
     elif update.message.text == "Atrás":
         client.pop("tipo")
@@ -512,8 +569,11 @@ def dorms(bot, update):
     print(client)
     admited=["1","2","3","4","4+","5","6","7","8","9","10",]
     if update.message.text in admited:
-        select.baths(bot,update,client)
-        return pm.SELECT_BATHS
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.baths(bot,update,client)
+            return pm.SELECT_BATHS
     elif update.message.text == "Atrás":
         client.pop("dormitorios")
         select.tipo(bot, update,client)
@@ -543,19 +603,31 @@ def baths(bot, update):
 
 
         if client["product"]=="Reporte":
-            select.price_range(bot,update,client)
-            return pm.SELECT_PRICE_RANGE
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                select.price_range(bot,update,client)
+                return pm.SELECT_PRICE_RANGE
         elif client["product"]=="CRM" and client["crm"]=="Buscar":
-            select.price_range(bot,update,client)
-            return pm.SELECT_PRICE_RANGE
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                select.price_range(bot,update,client)
+                return pm.SELECT_PRICE_RANGE
         else:
             if client["tipo"]=="Comercial":
-                select.area(bot,update,client)
-                return pm.SELECT_AREA
+                if "modify" in client:
+                    callback(bot,update)
+                else:
+                    select.area(bot,update,client)
+                    return pm.SELECT_AREA
 
             else:
-                select.feature(bot,update,client)
-                return pm.SELECT_FEATURE
+                if "modify" in client:
+                    callback(bot,update)
+                else:
+                    select.feature(bot,update,client)
+                    return pm.SELECT_FEATURE
     elif update.message.text == "Atrás":
         client.pop("baños")
         select.dorms(bot, update,client)
@@ -609,9 +681,12 @@ def price_range(bot, update):
         client["preciomin"] = None
         client["preciomax"] = None
 
-        select.area_range(bot, update, client)
-        print(client)
-        return pm.SELECT_AREA_RANGE
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.area_range(bot, update, client)
+            print(client)
+            return pm.SELECT_AREA_RANGE
 
     elif "moneda" not in client:
         client["moneda"] = update.message.text
@@ -628,9 +703,12 @@ def price_range(bot, update):
         try:
             client["preciomin"]=int(update.message.text.replace('.',''))
             if client["product"]=="CRM" and client["crm"]=="Nueva":
-                select.crm_feature(bot, update,client)
-                print(client)
-                return pm.CRM_FEATURE
+                if "modify" in client:
+                    callback(bot,update)
+                else:
+                    select.crm_feature(bot, update,client)
+                    print(client)
+                    return pm.CRM_FEATURE
             else:
                 select.price_range(bot, update,client)
                 print(client)
@@ -644,8 +722,11 @@ def price_range(bot, update):
         try:
             client["preciomax"] = int(update.message.text.replace('.',''))
             select.area_range(bot, update, client)
-            print(client)
-            return pm.SELECT_AREA_RANGE
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                print(client)
+                return pm.SELECT_AREA_RANGE
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.price_range(bot, update, client)
@@ -1022,27 +1103,40 @@ def modify(bot, update):
 
     elif client["product"]=="Reporte":
         if update.message.text == "Operacion":
+            client.pop("operacion")
             select.operacion(bot,update,client)
             return pm.SELECT_OP
         elif update.message.text == "Tipo":
+            client.pop("tipo")
             select.tipo(bot,update,client)
             return pm.SELECT_TIPO
         elif update.message.text == "Región":
+            client.pop("region")
             select.region(bot,update,client)
             return pm.SELECT_REGION
         elif update.message.text == "Comuna":
+            client.pop("comuna")
             select.comuna(bot,update,client)
             return pm.SELECT_COMUNA
         elif update.message.text == "Dormitorios":
+            client.pop("dormitorios")
             select.dorms(bot,update,client)
             return pm.SELECT_DORMS
         elif update.message.text == "Baños":
+            client.pop("banos")
             select.baths(bot,update,client)
             return pm.SELECT_BATHS
         elif update.message.text == "Precio":
+            client.pop("preciomin")
+            client.pop("preciomax")
+            client.pop("moneda")
             select.price_range(bot,update,client)
             return pm.SELECT_PRICE_RANGE
         elif update.message.text == "Superficie":
+            client.pop("metrosmin")
+            client.pop("metrosmax")
+            client.pop("totalmin")
+            client.pop("totalmax")
             select.area_range(bot,update,client)
             return pm.SELECT_AREA_RANGE
         elif update.message.text == "Atrás":
@@ -1055,33 +1149,44 @@ def modify(bot, update):
 
     elif client["product"]=="Tasador":
         if update.message.text == "Tipo Tasacion":
+            client.pop("tipotasacion")
             select.operacion(bot,update,client)
             return pm.SELECT_OP
         elif update.message.text == "Tipo Propiedad":
+            client.pop("tipo")
             select.tipo(bot,update,client)
             return pm.SELECT_TIPO
         elif update.message.text == "Región":
+            client.pop("region")
             select.region(bot,update,client)
             return pm.SELECT_REGION
         elif update.message.text == "Comuna":
+            client.pop("comuna")
             select.comuna(bot,update,client)
             return pm.SELECT_COMUNA
         elif update.message.text == "Dormitorios":
+            client.pop("dormitorios")
             select.dorms(bot,update,client)
             return pm.SELECT_DORMS
         elif update.message.text == "Baños":
+            client.pop("baños")
             select.baths(bot,update,client)
             return pm.SELECT_BATHS
         elif update.message.text == "Estacionamientos":
+            client.pop("estacionamientos")
             select.feature(bot,update,client)
             return pm.SELECT_FEATURE
         elif update.message.text == "Bodegas":
+            client.pop("bodegas")
             select.feature(bot,update,client)
             return pm.SELECT_FEATURE
         elif update.message.text == "Superficie":
+            client.pop("metros")
+            client.pop("total")
             select.area(bot,update,client)
             return pm.SELECT_AREA
         elif update.message.text == "Direccion":
+            client.pop("adress")
             select.adress(bot,update,client)
             return pm.SELECT_ADRESS
         elif update.message.text == "Atrás":
@@ -1098,29 +1203,42 @@ def modify(bot, update):
 
     elif client["product"]=="CRM" and client["crm"]=="Buscar":
         if update.message.text == "Operacion":
+            client.pop("operacion")
             select.operacion(bot,update,client)
             return pm.SELECT_OP
         elif update.message.text == "Tipo":
+            client.pop("tipo")
             select.tipo(bot,update,client)
             return pm.SELECT_TIPO
         elif update.message.text == "Región":
+            client.pop("region")
             select.region(bot,update,client)
             return pm.SELECT_REGION
         elif update.message.text == "Comuna":
+            client.pop("comuna")
             select.comuna(bot,update,client)
             return pm.SELECT_COMUNA
         elif update.message.text == "Dormitorios":
+            client.pop("dormitorios")
             select.dorms(bot,update,client)
             return pm.SELECT_DORMS
         elif update.message.text == "Baños":
+            client.pop("banos")
             select.baths(bot,update,client)
             return pm.SELECT_BATHS
-        elif update.message.text == "Superficie":
-            select.area_range(bot,update,client)
-            return pm.SELECT_AREA_RANGE
         elif update.message.text == "Precio":
+            client.pop("preciomin")
+            client.pop("preciomax")
+            client.pop("moneda")
             select.price_range(bot,update,client)
             return pm.SELECT_PRICE_RANGE
+        elif update.message.text == "Superficie":
+            client.pop("metrosmin")
+            client.pop("metrosmax")
+            client.pop("totalmin")
+            client.pop("totalmax")
+            select.area_range(bot,update,client)
+            return pm.SELECT_AREA_RANGE
         elif update.message.text == "Atrás":
             select.confirm_report(bot, update, client)
             return pm.CONFIRM_REPORT
@@ -1131,45 +1249,64 @@ def modify(bot, update):
 
     elif client["product"]=="CRM" and client["crm"]=="Nueva":
         if update.message.text == "Operacion":
+            client.pop("operacion")
             select.operacion(bot,update,client)
             return pm.SELECT_OP
         elif update.message.text == "Región":
+            client.pop("region")
             select.region(bot,update,client)
             return pm.SELECT_REGION
         elif update.message.text == "Comuna":
+            client.pop("comuna")
             select.comuna(bot,update,client)
             return pm.SELECT_COMUNA
         elif update.message.text == "Tipo":
+            client.pop("tipo")
             select.tipo(bot,update,client)
             return pm.SELECT_TIPO
         elif update.message.text == "Dormitorios":
+            client.pop("dormitorios")
             select.dorms(bot,update,client)
             return pm.SELECT_DORMS
         elif update.message.text == "Baños":
+            client.pop("baños")
             select.baths(bot,update,client)
             return pm.SELECT_BATHS
         elif update.message.text == "Estacionamientos":
+            client.pop("estacionamientos")
             select.feature(bot,update,client)
             return pm.SELECT_FEATURE
         elif update.message.text == "Bodegas":
+            client.pop("bodegas")
             select.feature(bot,update,client)
             return pm.SELECT_FEATURE
         elif update.message.text == "Superficie":
+            client.pop("metros")
+            client.pop("total")
             select.area(bot,update,client)
             return pm.SELECT_AREA
         elif update.message.text == "Precio":
+            client.pop("moneda")
+            client.pop("preciomin")
             select.price_range(bot,update,client)
             return pm.SELECT_PRICE_RANGE
         elif update.message.text == "Direccion":
+            client.pop("adress")
             select.adress(bot,update,client)
             return pm.SELECT_ADRESS
         elif update.message.text == "Datos Cliente":
+            client.pop("telefono")
+            client.pop("mailcliente")
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         elif update.message.text == "Link":
+            client.pop("linkPortal")
+            client.pop("linkYapo")
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         elif update.message.text == "Condiciones":
+            client.pop("comision")
+            client.pop("canje")
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
         elif update.message.text == "Atrás":
@@ -1376,15 +1513,21 @@ def feature(bot, update):
         if "estacionamientos" not in client:
             client["estacionamientos"]= update.message.text.replace("3+","3")
             if client["tipo"]=="Departamento":
-                select.feature(bot,update,client)
-                return pm.SELECT_FEATURE
+                if "modify" in client:
+                    callback(bot,update)
+                else:
+                    select.feature(bot,update,client)
+                    return pm.SELECT_FEATURE
             else:
                 select.area(bot,update,client)
                 return pm.SELECT_AREA
         else:
             client["bodegas"]= update.message.text
-            select.area(bot,update,client)
-            return pm.SELECT_AREA
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                select.area(bot,update,client)
+                return pm.SELECT_AREA
     elif update.message.text == "Atrás":
         if "estacionamientos" in client:
             client.pop("estacionamientos")
@@ -1449,9 +1592,12 @@ def area(bot,update):
     else:
         try:
             client["total"] = int(update.message.text)
-            select.adress(bot, update, client)
-            print(client)
-            return pm.SELECT_ADRESS
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                select.adress(bot, update, client)
+                print(client)
+                return pm.SELECT_ADRESS
         except:
             bot.send_message(chat_id=update.message.chat_id, text="Favor ingresar número entero")
             select.area(bot, update, client)
@@ -1463,8 +1609,11 @@ def adress(bot,update):
     client["adress"] = update.message.text
 
     if client["product"]=="CRM":
-        select.price_range(bot,update,client)
-        return pm.SELECT_PRICE_RANGE
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.price_range(bot,update,client)
+            return pm.SELECT_PRICE_RANGE
     else:
         try:
             direccion=str(update.message.text)+", "+str(client["comuna"]+", Chile")
@@ -1479,9 +1628,12 @@ def adress(bot,update):
             bot.send_message(chat_id=update.message.chat_id, text="Dirección incorrecta. Favor revisar y reenviar.")
             select.adress(bot,update,client)
             return pm.SELECT_ADRESS
-        select.confirm_tasacion(bot, update, client)
-        print(client)
-        return pm.CONFIRM_TASACION
+        if "modify" in client:
+            callback(bot,update)
+        else:
+            select.confirm_tasacion(bot, update, client)
+            print(client)
+            return pm.CONFIRM_TASACION
 
 def confirm_tasacion(bot,update):
 
@@ -1597,24 +1749,39 @@ def crm_feature(bot, update):
     elif client["crm"] == "Nueva":
         if "telefono" not in client:
             client["telefono"]= update.message.text
-            select.crm_feature(bot,update,client)
-            return pm.CRM_FEATURE
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                select.crm_feature(bot,update,client)
+                return pm.CRM_FEATURE
         elif "mailcliente" not in client:
             client["mailcliente"]= update.message.text
-            select.crm_feature(bot,update,client)
-            return pm.CRM_FEATURE
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                select.crm_feature(bot,update,client)
+                return pm.CRM_FEATURE
         elif "linkPortal" not in client:
-            client["linkPortal"]= update.message.text
-            select.crm_feature(bot,update,client)
-            return pm.CRM_FEATURE
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                client["linkPortal"]= update.message.text
+                select.crm_feature(bot,update,client)
+                return pm.CRM_FEATURE
         elif "linkYapo" not in client:
-            client["linkYapo"]= update.message.text
-            select.crm_feature(bot,update,client)
-            return pm.CRM_FEATURE
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                client["linkYapo"]= update.message.text
+                select.crm_feature(bot,update,client)
+                return pm.CRM_FEATURE
         elif "comision" not in client:
-            client["comision"]= update.message.text
-            select.crm_feature(bot,update,client)
-            return pm.CRM_FEATURE
+            if "modify" in client:
+                callback(bot,update)
+            else:
+                client["comision"]= update.message.text
+                select.crm_feature(bot,update,client)
+                return pm.CRM_FEATURE
         elif "canje" not in client:
             client["canje"]= update.message.text
             bot.send_message(chat_id=update.message.chat_id, text="Procesó toda la info.")

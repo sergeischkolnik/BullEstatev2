@@ -168,10 +168,7 @@ def callback(bot,update,client):
 
 def operacion(bot, update,client):
 
-    if "modify" in client and client["modify"]:
-        return pm.CALLBACK
-    elif "modify" in client:
-        client["modify"]=True
+
 
     user = update.message.from_user
     pm.logger.info("Report requested by {}.".format(user.first_name))
@@ -203,11 +200,6 @@ def operacion(bot, update,client):
 
 def region(bot, update,client):
 
-    if "modify" in client and client["modify"]:
-        return pm.CALLBACK
-    elif "modify" in client:
-        client["modify"]=True
-
     """
     Main menu function.
     This will display the options from the main menu.
@@ -236,8 +228,7 @@ def region(bot, update,client):
     return pm.SELECT_REGION
 
 def comuna(bot,update,client):
-    if "modify" in client:
-        callback(bot,update,client)
+
 
     user = update.message.from_user
     if "comuna" not in client:
@@ -276,8 +267,7 @@ def comuna(bot,update,client):
     return pm.SELECT_COMUNA
 
 def tipo(bot,update,client):
-    if "modify" in client:
-        callback(bot,update,client)
+
 
     user = update.message.from_user
 
@@ -297,8 +287,6 @@ def tipo(bot,update,client):
 
 def dorms(bot,update,client):
 
-    if "modify" in client:
-        callback(bot,update,client)
 
     user = update.message.from_user
 
@@ -321,8 +309,7 @@ def dorms(bot,update,client):
 
 def baths(bot,update,client):
 
-    if "modify" in client:
-        callback(bot,update,client)
+
     user = update.message.from_user
 
 
@@ -351,8 +338,6 @@ def price_range(bot, update,client):
     # Create buttons to slect language:
     print("entro al select de pricerange")
 
-    if "modify" in client:
-        callback(bot,update,client)
 
     if "moneda" not in client:
 
@@ -475,8 +460,7 @@ def area_range(bot, update,client):
     This will display the options from the main menu.
     """
     # Create buttons to slect language:
-    if "modify" in client:
-        callback(bot,update,client)
+
     user = update.message.from_user
     print("entro al select de arearange")
     print("esta en tipo: " + client["tipo"])
@@ -997,8 +981,7 @@ def confirm_file(bot, update,client,pro,interna):
 
 def feature(bot,update,client):
 
-    if "modify" in client:
-        callback(bot,update,client)
+
 
     user = update.message.from_user
 
@@ -1026,8 +1009,7 @@ def area(bot, update,client):
     Main menu function.
     This will display the options from the main menu.
     """
-    if "modify" in client:
-        callback(bot,update,client)
+
     # Create buttons to slect language:
     user = update.message.from_user
     print("entro al select de arearange")
@@ -1127,9 +1109,6 @@ def adress(bot, update,client):
     Main menu function.
     This will display the options from the main menu.
     """
-
-    if "modify" in client:
-        callback(bot,update,client)
 
     user = update.message.from_user
     pm.logger.info("{} está escogiendo direccion.".format(user.first_name))
@@ -1257,8 +1236,7 @@ def crm(bot, update):
     return pm.CRM
 
 def crm_feature(bot, update,client):
-    if "modify" in client:
-        callback(bot,update,client)
+
     if client["crm"]=="Nueva":
         if "telefono" not in client:
             user = update.message.from_user
