@@ -15,7 +15,6 @@ clientsDict = dict()
 
 ### FUNCIONES GLOBALES
 
-
 def start(bot, update):
 
 
@@ -47,7 +46,6 @@ def start(bot, update):
         print("usuario no registrado")
         select.first(bot, update)
         return pm.FIRST
-
 
 def signedup(bot,update):
 
@@ -97,7 +95,6 @@ def first(bot,update):
         select.first(bot, update)
         return pm.FIRST
 
-
 def signup(bot,update):
 
         # Set state:
@@ -135,7 +132,6 @@ def signup(bot,update):
         bot.send_message(chat_id=update.message.chat_id, text="Felicidades "+client["firstname"]+", Te has registrado exitosamente")
         select.menu(bot, update)
         return pm.MENU
-
 
 def login(bot,update):
     # Set state:
@@ -183,9 +179,6 @@ def login(bot,update):
                 client.clear()
                 select.first(bot,update)
                 return pm.FIRST
-
-
-
 
 def menu(bot, update):
     """
@@ -310,7 +303,6 @@ def last(bot, update):
         client.pop("product")
         select.menu(bot, update)
         return pm.MENU
-
 
 ###FUNCIONES REPORTES
 
@@ -437,7 +429,7 @@ def comuna(bot, update):
         select.menu(bot, update)
         return pm.MENU
     else:
-        select.tipo(bot, update)
+        select.tipo(bot, update,client)
         return pm.SELECT_TIPO
 
 def tipo(bot, update):
@@ -478,7 +470,7 @@ def tipo(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.tipo(bot, update)
+        select.tipo(bot, update,client)
         return pm.SELECT_TIPO
 
 def dorms(bot, update):
@@ -498,7 +490,7 @@ def dorms(bot, update):
         return pm.SELECT_BATHS
     elif update.message.text == "Atrás":
         client.pop("dormitorios")
-        select.tipo(bot, update)
+        select.tipo(bot, update,client)
         return pm.SELECT_TIPO
     elif update.message.text == "Salir":
         select.menu(bot, update)
@@ -990,6 +982,209 @@ def advance(bot, update):
         select.advance(bot, update, client)
         return pm.ADVANCE
 
+def modify(bot, update):
+    # Set state:
+    global STATE
+
+    # set client
+    client = clientsDict[update.message.from_user.id]
+    client["modify"]=False
+    if update.message.text == "Salir":
+
+        bot.send_message(chat_id=update.message.chat_id, text="Vovliendo al menu principal")
+        select.menu(bot, update)
+        return pm.MENU
+
+    elif client["product"]=="Reporte":
+        if update.message.text == "Operacion":
+            select.operacion(bot,update,client)
+            return pm.SELECT_OP
+        elif update.message.text == "Tipo":
+            select.tipo(bot,update,client)
+            return pm.SELECT_TIPO
+        elif update.message.text == "Región":
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
+        elif update.message.text == "Comuna":
+            select.comuna(bot,update,client)
+            return pm.SELECT_COMUNA
+        elif update.message.text == "Dormitorios":
+            select.dorms(bot,update,client)
+            return pm.SELECT_DORMS
+        elif update.message.text == "Baños":
+            select.baths(bot,update,client)
+            return pm.SELECT_BATHS
+        elif update.message.text == "Precio":
+            select.price_range(bot,update,client)
+            return pm.SELECT_PRICE_RANGE
+        elif update.message.text == "Superficie":
+            select.area_range(bot,update,client)
+            return pm.SELECT_AREA_RANGE
+        elif update.message.text == "Atrás":
+            select.confirm_report(bot, update, client)
+            return pm.CONFIRM_REPORT
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.modify(bot, update, client)
+            return pm.MODIFY
+
+    elif client["product"]=="Tasador":
+        if update.message.text == "Tipo Tasacion":
+            select.operacion(bot,update,client)
+            return pm.SELECT_OP
+        elif update.message.text == "Tipo Propiedad":
+            select.tipo(bot,update,client)
+            return pm.SELECT_TIPO
+        elif update.message.text == "Región":
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
+        elif update.message.text == "Comuna":
+            select.comuna(bot,update,client)
+            return pm.SELECT_COMUNA
+        elif update.message.text == "Dormitorios":
+            select.dorms(bot,update,client)
+            return pm.SELECT_DORMS
+        elif update.message.text == "Baños":
+            select.baths(bot,update,client)
+            return pm.SELECT_BATHS
+        elif update.message.text == "Estacionamientos":
+            select.feature(bot,update,client)
+            return pm.SELECT_FEATURE
+        elif update.message.text == "Bodegas":
+            select.feature(bot,update,client)
+            return pm.SELECT_FEATURE
+        elif update.message.text == "Superficie":
+            select.area(bot,update,client)
+            return pm.SELECT_AREA
+        elif update.message.text == "Direccion":
+            select.adress(bot,update,client)
+            return pm.SELECT_ADRESS
+        elif update.message.text == "Atrás":
+            select.confirm_tasacion(bot, update, client)
+            return pm.CONFIRM_TASACION
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.modify(bot, update, client)
+            return pm.MODIFY
+
+    elif client["product"]=="Ficha":
+        #Back to beggining product
+        pass
+
+    elif client["product"]=="CRM" and client["crm"]=="Buscar":
+        if update.message.text == "Operacion":
+            select.operacion(bot,update,client)
+            return pm.SELECT_OP
+        elif update.message.text == "Tipo":
+            select.tipo(bot,update,client)
+            return pm.SELECT_TIPO
+        elif update.message.text == "Región":
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
+        elif update.message.text == "Comuna":
+            select.comuna(bot,update,client)
+            return pm.SELECT_COMUNA
+        elif update.message.text == "Dormitorios":
+            select.dorms(bot,update,client)
+            return pm.SELECT_DORMS
+        elif update.message.text == "Baños":
+            select.baths(bot,update,client)
+            return pm.SELECT_BATHS
+        elif update.message.text == "Superficie":
+            select.area_range(bot,update,client)
+            return pm.SELECT_AREA_RANGE
+        elif update.message.text == "Precio":
+            select.price_range(bot,update,client)
+            return pm.SELECT_PRICE_RANGE
+        elif update.message.text == "Atrás":
+            select.confirm_report(bot, update, client)
+            return pm.CONFIRM_REPORT
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.modify(bot, update, client)
+            return pm.MODIFY
+
+    elif client["product"]=="CRM" and client["crm"]=="Nueva":
+        if update.message.text == "Operacion":
+            select.operacion(bot,update,client)
+            return pm.SELECT_OP
+        elif update.message.text == "Región":
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
+        elif update.message.text == "Comuna":
+            select.comuna(bot,update,client)
+            return pm.SELECT_COMUNA
+        elif update.message.text == "Tipo":
+            select.tipo(bot,update,client)
+            return pm.SELECT_TIPO
+        elif update.message.text == "Dormitorios":
+            select.dorms(bot,update,client)
+            return pm.SELECT_DORMS
+        elif update.message.text == "Baños":
+            select.baths(bot,update,client)
+            return pm.SELECT_BATHS
+        elif update.message.text == "Estacionamientos":
+            select.feature(bot,update,client)
+            return pm.SELECT_FEATURE
+        elif update.message.text == "Bodegas":
+            select.feature(bot,update,client)
+            return pm.SELECT_FEATURE
+        elif update.message.text == "Superficie":
+            select.area(bot,update,client)
+            return pm.SELECT_AREA
+        elif update.message.text == "Precio":
+            select.price_range(bot,update,client)
+            return pm.SELECT_PRICE_RANGE
+        elif update.message.text == "Direccion":
+            select.adress(bot,update,client)
+            return pm.SELECT_ADRESS
+        elif update.message.text == "Datos Cliente":
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+        elif update.message.text == "Link":
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+        elif update.message.text == "Condiciones":
+            select.crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+        elif update.message.text == "Atrás":
+            select.confirm_tasacion(bot, update,client)
+            return pm.CONFIRM_TASACION
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.modify(bot, update, client)
+            return pm.MODIFY
+
+    elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
+        if update.message.text == "Operacion":
+            pass
+        elif update.message.text == "Tipo":
+            select.tipo(bot,update,client)
+            return pm.SELECT_TIPO
+        elif update.message.text == "Región":
+            select.region(bot,update,client)
+            return pm.SELECT_REGION
+        elif update.message.text == "Comuna":
+            select.comuna(bot,update,client)
+            return pm.SELECT_COMUNA
+        elif update.message.text == "Atrás":
+            select.crm_feature(bot, update, client)
+            return pm.CRM_FEATURE
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.modify(bot, update, client)
+            return pm.MODIFY
+
+    elif client["product"]=="CRM" and (client["crm"]=="Actualizar" or client["crm"]=="Eliminar"):
+        #Back to begin
+        pass
+
+
+    else:
+        bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+        select.modify(bot, update, client)
+        return pm.MODIFY
+
 ### FUNCIONES FICHA
 
 def site(bot, update):
@@ -1368,7 +1563,7 @@ def crm_feature(bot, update):
             select.crm_feature(bot, update, client)
             return pm.CONFIRM_TASACION
         elif update.message.text == "Atrás":
-            select.tipo(bot, update)
+            select.tipo(bot, update,client)
             return pm.SELECT_TIPO
         elif update.message.text == "Salir":
             select.menu(bot, update)

@@ -27,7 +27,6 @@ def signedup(bot,update,id):
     update.message.reply_text("Desea continuar con el correo: "+str(data[1]), reply_markup=reply_markup)
     return pm.SIGNEDUP
 
-
 def first(bot,update):
 
     global STATE
@@ -147,9 +146,34 @@ def last(bot, update):
 
     return pm.SELECT_LAST
 
+def callback(bot,update,client):
+
+    if client["modify"]:
+        client.pop("modify")
+        if client["product"]=="Reporte":
+            confirm_tasacion(bot,update,client)
+            return pm.CONFIRM_REPORT
+        elif client["product"]=="Tasador":
+            confirm_tasacion(bot,update,client)
+            return pm.CONFIRM_TASACION
+        elif client["product"]=="CRM" and client["crm"]=="Buscar":
+            confirm_tasacion(bot,update,client)
+            return pm.CONFIRM_REPORT
+        elif client["product"]=="CRM" and client["crm"]=="Nueva":
+            confirm_tasacion(bot,update,client)
+            return pm.CONFIRM_TASACION
+        elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
+            crm_feature(bot,update,client)
+            return pm.CRM_FEATURE
+    else:
+        client["modify"]=True
+
 ##### FUNCIONES DEL REPORTE
 
 def operacion(bot, update,client):
+
+    if "modify" in client:
+        callback(bot,update,client)
 
     user = update.message.from_user
     pm.logger.info("Report requested by {}.".format(user.first_name))
@@ -180,6 +204,10 @@ def operacion(bot, update,client):
     return pm.SELECT_OP
 
 def region(bot, update,client):
+
+    if "modify" in client:
+        callback(bot,update,client)
+
     """
     Main menu function.
     This will display the options from the main menu.
@@ -208,6 +236,8 @@ def region(bot, update,client):
     return pm.SELECT_REGION
 
 def comuna(bot,update,client):
+    if "modify" in client:
+        callback(bot,update,client)
 
     user = update.message.from_user
     if "comuna" not in client:
@@ -245,7 +275,9 @@ def comuna(bot,update,client):
 
     return pm.SELECT_COMUNA
 
-def tipo(bot,update):
+def tipo(bot,update,client):
+    if "modify" in client:
+        callback(bot,update,client)
 
     user = update.message.from_user
 
@@ -264,6 +296,9 @@ def tipo(bot,update):
     return pm.SELECT_TIPO
 
 def dorms(bot,update,client):
+
+    if "modify" in client:
+        callback(bot,update,client)
 
     user = update.message.from_user
 
@@ -286,6 +321,8 @@ def dorms(bot,update,client):
 
 def baths(bot,update,client):
 
+    if "modify" in client:
+        callback(bot,update,client)
     user = update.message.from_user
 
 
@@ -313,6 +350,9 @@ def price_range(bot, update,client):
     """
     # Create buttons to slect language:
     print("entro al select de pricerange")
+
+    if "modify" in client:
+        callback(bot,update,client)
 
     if "moneda" not in client:
 
@@ -435,6 +475,8 @@ def area_range(bot, update,client):
     This will display the options from the main menu.
     """
     # Create buttons to slect language:
+    if "modify" in client:
+        callback(bot,update,client)
     user = update.message.from_user
     print("entro al select de arearange")
     print("esta en tipo: " + client["tipo"])
@@ -810,6 +852,53 @@ def advance(bot,update,client):
 
     return pm.ADVANCE
 
+def modify(bot, update,client):
+    user = update.message.from_user
+    if client["product"]=="Reporte":
+        keyboard = [["Operacion","Tipo"],
+                    ["Región","Comuna"],
+                    ["Dormitorios","Baños"],
+                    ["Precio","Superficie"],
+                    ["Atrás","Salir"]]
+    elif client["product"]=="Tasador":
+        keyboard = [["Tipo Tasacion","Tipo Propiedad"],
+                    ["Región","Comuna"],
+                    ["Dormitorios","Baños"],
+                    ["Estacionamientos","Bodegas"],
+                    ["Superficie","Direccion"],
+                    ["Atrás","Salir"]]
+    elif client["product"]=="Ficha":
+        #Back to beggining product
+        pass
+    elif client["product"]=="CRM" and client["crm"]=="Buscar":
+        keyboard = [["Operacion","Tipo"],
+                    ["Región","Comuna"],
+                    ["Dormitorios","Baños"],
+                    ["Superficie","Precio"],
+                    ["Atrás","Salir"]]
+
+    elif client["product"]=="CRM" and client["crm"]=="Nueva":
+        keyboard = [["Operacion","Región","Comuna"],
+                    ["Tipo","Dormitorios","Baños"],
+                    ["Estacionamientos","Bodegas"],
+                    ["Superficie","Precio","Direccion"],
+                    ["Datos Cliente","Link","Condiciones"],
+                    ["Atrás","Salir"]]
+    elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
+        keyboard = [["Operacion","Tipo"],
+                    ["Region","Comuna"],
+                    ["Atrás","Salir"]]
+    elif client["product"]=="CRM" and (client["crm"]=="Actualizar" or client["crm"]=="Eliminar"):
+        #Back to begin
+        pass
+    else:
+        pass
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                           one_time_keyboard=True,
+                                           resize_keyboard=True)
+    pm.logger.info("{} está modificando.".format(user.first_name))
+    update.message.reply_text("Seleccionar Opción que desee modificar", reply_markup=reply_markup)
+
 ##### FUNCIONES DE LAS FICHAS
 
 def site(bot, update):
@@ -908,6 +997,9 @@ def confirm_file(bot, update,client,pro,interna):
 
 def feature(bot,update,client):
 
+    if "modify" in client:
+        callback(bot,update,client)
+
     user = update.message.from_user
 
 
@@ -934,6 +1026,8 @@ def area(bot, update,client):
     Main menu function.
     This will display the options from the main menu.
     """
+    if "modify" in client:
+        callback(bot,update,client)
     # Create buttons to slect language:
     user = update.message.from_user
     print("entro al select de arearange")
@@ -1033,6 +1127,9 @@ def adress(bot, update,client):
     Main menu function.
     This will display the options from the main menu.
     """
+
+    if "modify" in client:
+        callback(bot,update,client)
 
     user = update.message.from_user
     pm.logger.info("{} está escogiendo direccion.".format(user.first_name))
@@ -1160,6 +1257,8 @@ def crm(bot, update):
     return pm.CRM
 
 def crm_feature(bot, update,client):
+    if "modify" in client:
+        callback(bot,update,client)
     if client["crm"]=="Nueva":
         if "telefono" not in client:
             user = update.message.from_user
