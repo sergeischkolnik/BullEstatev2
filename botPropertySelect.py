@@ -168,7 +168,7 @@ def callback(bot,update,client):
 
 def operacion(bot, update,client):
 
-    if "modify" in client and client[modify]:
+    if "modify" in client and client["modify"]:
         return pm.CALLBACK
     elif "modify" in client:
         client["modify"]=True
@@ -203,7 +203,7 @@ def operacion(bot, update,client):
 
 def region(bot, update,client):
 
-    if "modify" in client and client[modify]:
+    if "modify" in client and client["modify"]:
         return pm.CALLBACK
     elif "modify" in client:
         client["modify"]=True
