@@ -657,6 +657,7 @@ def area_range(bot, update,client):
 
 def confirm_report(bot,update,client):
 
+    global STATE
     user = update.message.from_user
     print(STATE)
 
