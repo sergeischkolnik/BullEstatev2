@@ -147,30 +147,32 @@ def last(bot, update):
     return pm.SELECT_LAST
 
 def callback(bot,update,client):
-    print("Calback activated. Modify Variable is: "+str(client["modify"]))
-    if client["modify"]:
-        client.pop("modify")
-        print("Variable modify was eliminated")
-        if client["product"]=="Reporte":
-            confirm_report(bot,update,client)
-            return pm.CONFIRM_REPORT
-        elif client["product"]=="Tasador":
-            confirm_tasacion(bot,update,client)
-            return pm.CONFIRM_TASACION
-        elif client["product"]=="CRM" and client["crm"]=="Buscar":
-            confirm_report(bot,update,client)
-            return pm.CONFIRM_REPORT
-        elif client["product"]=="CRM" and client["crm"]=="Nueva":
-            confirm_tasacion(bot,update,client)
-            return pm.CONFIRM_TASACION
-        elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
-            crm_feature(bot,update,client)
-            return pm.CRM_FEATURE
+    if "modify" in client:
+        print("Calback activated. Modify Variable is: "+str(client["modify"]))
+        if client["modify"]:
+            client.pop("modify")
+            print("Variable modify was eliminated")
+            if client["product"]=="Reporte":
+                confirm_report(bot,update,client)
+                return pm.CONFIRM_REPORT
+            elif client["product"]=="Tasador":
+                confirm_tasacion(bot,update,client)
+                return pm.CONFIRM_TASACION
+            elif client["product"]=="CRM" and client["crm"]=="Buscar":
+                confirm_report(bot,update,client)
+                return pm.CONFIRM_REPORT
+            elif client["product"]=="CRM" and client["crm"]=="Nueva":
+                confirm_tasacion(bot,update,client)
+                return pm.CONFIRM_TASACION
+            elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
+                crm_feature(bot,update,client)
+                return pm.CRM_FEATURE
+        else:
+            client["modify"]=True
+            print("Variable modify was switched from False to True")
+            return
     else:
-        client["modify"]=True
-        print("Variable modify was switched from False to True")
         return
-
 ##### FUNCIONES DEL REPORTE
 
 def operacion(bot, update,client):
@@ -210,6 +212,7 @@ def region(bot, update,client):
 
     if "modify" in client:
         callback(bot,update,client)
+        return
 
     """
     Main menu function.
