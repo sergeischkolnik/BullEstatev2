@@ -779,9 +779,8 @@ def confirm_report(bot,update):
         select.menu(bot,update)
         return pm.MENU
     elif update.message.text == "Modificar":
-        bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
-        select.confirm_report(bot, update, client)
-        return pm.CONFIRM_REPORT
+        select.modify(bot, update, client)
+        return pm.MODIFY
     elif update.message.text == "Avanzado":
         client["DormRange"] = False
         client["BathRange"] = False
@@ -1305,9 +1304,8 @@ def confirm_file(bot, update):
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Modificar":
-        bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
-        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
-        return pm.CONFIRM_FILE
+        select.modify(bot, update, client)
+        return pm.MODIFY
     elif update.message.text == "Agregar Tasación":
         client["fichapro"] = True
         select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
@@ -1481,9 +1479,8 @@ def confirm_tasacion(bot,update):
         select.menu(bot, update)
         return pm.MENU
     elif update.message.text == "Modificar":
-        bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
-        select.confirm_tasacion(bot, update, client)
-        return pm.CONFIRM_TASACION
+        select.modify(bot, update, client)
+        return pm.MODIFY
     elif update.message.text == "Atrás":
         select.adress(bot, update,client)
         return pm.SELECT_ADRESS
@@ -1559,9 +1556,8 @@ def crm_feature(bot, update):
             select.menu(bot, update)
             return pm.MENU
         elif update.message.text == "Modificar":
-            bot.send_message(chat_id=update.message.chat_id, text="Lo sentimos, por ahora no se puede modificar. Si lo deseas, presiona 'Salir' para volver a generar un reporte, o volver atrás")
-            select.crm_feature(bot, update, client)
-            return pm.CONFIRM_TASACION
+            select.modify(bot, update, client)
+            return pm.MODIFY
         elif update.message.text == "Atrás":
             select.tipo(bot, update,client)
             return pm.SELECT_TIPO
