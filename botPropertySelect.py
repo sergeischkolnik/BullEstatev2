@@ -147,10 +147,14 @@ def last(bot, update):
     return pm.SELECT_LAST
 
 def callback(bot,update,client):
+
+    user = update.message.from_user
+
     if "modify" in client:
         print("Calback activated. Modify Variable is: "+str(client["modify"]))
         if client["modify"]:
             print("going to set.callback")
+            set.callback(bot,update)
             return pm.CALLBACK
         else:
             client["modify"]=True

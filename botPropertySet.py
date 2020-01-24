@@ -306,6 +306,7 @@ def last(bot, update):
 
 def callback(bot,update):
 
+    global STATE
     client = clientsDict[update.message.from_user.id]
     print("entro al set.callback...")
     print(client)
