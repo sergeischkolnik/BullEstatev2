@@ -306,12 +306,12 @@ def last(bot, update):
 
 def callback(bot,update):
 
-    global STATE
     client = clientsDict[update.message.from_user.id]
     print("entro al set.callback...")
-    print(client)
-
     client.pop("modify")
+    print(client)
+    print(STATE)
+
     if client["product"]=="Reporte":
         select.confirm_report(bot,update,client)
         return pm.CONFIRM_REPORT
@@ -411,8 +411,6 @@ def region(bot, update):
     Set option selected from menu.
     """
     # Set state:
-    global STATE
-
     # set client
     client = clientsDict[update.message.from_user.id]
     client["region"] = update.message.text
