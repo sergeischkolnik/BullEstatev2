@@ -1327,8 +1327,8 @@ def crm(bot, update):
         select.id_prop(bot,update)
         return pm.SELECT_ID
     elif update.message.text == "Eliminar":
-        select.menu(bot, update)
-        return pm.MENU
+        select.id_prop(bot,update)
+        return pm.SELECT_ID
     elif update.message.text == "Salir":
         select.menu(bot, update)
         return pm.MENU

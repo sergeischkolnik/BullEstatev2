@@ -878,13 +878,22 @@ def confirm_file(bot, update,client,pro,interna):
 
     pm.logger.info("{} está confirmando ficha.".format(user.first_name))
     confirmtext=[]
-    confirmtext.append("Generar ficha para las siguientes características:")
-    confirmtext.append("Sitio de origen:"+client["sitio"])
-    if "id_prop" in client:
-        confirmtext.append("ID Propiedad:"+str(client["id_prop"]))
-    else:
-        confirmtext.append("URL Propiedad:" + str(client["link_prop"]))
     if client["product"]!="CRM":
+        confirmtext.append(str(client["crm"])+" la siguiente propiedad:")
+        #cargar datos propiedad
+        if "id_prop" in client:
+            confirmtext.append("ID Propiedad:"+str(client["id_prop"]))
+            confirmtext.append("Sitio de origen:"+client["sitio"])
+        else:
+            confirmtext.append("URL Propiedad:" + str(client["link_prop"]))
+    else:
+        confirmtext.append("Generar ficha para las siguientes características:")
+        confirmtext.append("Sitio de origen:"+client["sitio"])
+        if "id_prop" in client:
+            confirmtext.append("ID Propiedad:"+str(client["id_prop"]))
+        else:
+            confirmtext.append("URL Propiedad:" + str(client["link_prop"]))
+
         confirmtext.append("La Ficha solicitada "+protext+" Incluye Tasación")
         confirmtext.append("La Ficha solicitada "+internatext+" Incluye Datos de contacto de Publicación")
         confirmtext.append("Se enviara al siguiente correo:"+client["mail"])
