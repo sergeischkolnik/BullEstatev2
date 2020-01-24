@@ -305,12 +305,10 @@ def last(bot, update):
         return pm.MENU
 
 def callback(bot,update):
-    global STATE
     client = clientsDict[update.message.from_user.id]
     print("entro al set.callback...")
     client.pop("modify")
     print(client)
-    print(STATE)
 
     if client["product"]=="Reporte":
         select.confirm_report(bot,update,client)
