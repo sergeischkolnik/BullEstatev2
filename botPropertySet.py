@@ -1324,7 +1324,7 @@ def crm(bot, update):
         select.operacion(bot, update,client)
         return pm.SELECT_OP
     elif update.message.text == "Actualizar":
-        select.id_prop()
+        select.id_prop(bot,update)
         return pm.SELECT_ID
     elif update.message.text == "Eliminar":
         select.menu(bot, update)
