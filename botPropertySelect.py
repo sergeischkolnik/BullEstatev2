@@ -147,9 +147,10 @@ def last(bot, update):
     return pm.SELECT_LAST
 
 def callback(bot,update,client):
-
+    print("Calback activated. Modify Variable is: "+str(client["modify"]))
     if client["modify"]:
         client.pop("modify")
+        print("Variable modify was eliminated")
         if client["product"]=="Reporte":
             confirm_report(bot,update,client)
             return pm.CONFIRM_REPORT
@@ -167,6 +168,8 @@ def callback(bot,update,client):
             return pm.CRM_FEATURE
     else:
         client["modify"]=True
+        print("Variable modify was switched from False to True")
+        return
 
 ##### FUNCIONES DEL REPORTE
 
