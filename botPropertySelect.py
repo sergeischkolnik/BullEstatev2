@@ -151,13 +151,13 @@ def callback(bot,update,client):
     if client["modify"]:
         client.pop("modify")
         if client["product"]=="Reporte":
-            confirm_tasacion(bot,update,client)
+            confirm_report(bot,update,client)
             return pm.CONFIRM_REPORT
         elif client["product"]=="Tasador":
             confirm_tasacion(bot,update,client)
             return pm.CONFIRM_TASACION
         elif client["product"]=="CRM" and client["crm"]=="Buscar":
-            confirm_tasacion(bot,update,client)
+            confirm_report(bot,update,client)
             return pm.CONFIRM_REPORT
         elif client["product"]=="CRM" and client["crm"]=="Nueva":
             confirm_tasacion(bot,update,client)
