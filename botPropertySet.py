@@ -349,15 +349,16 @@ def operacion(bot, update):
     else:
         client["tipotasacion"] = update.message.text
     print(client)
+
     if update.message.text == "Comprar":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.region(bot,update,client)
             return pm.SELECT_REGION
     elif update.message.text == "Arrendar":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.region(bot,update,client)
             return pm.SELECT_REGION
@@ -416,37 +417,37 @@ def region(bot, update):
 
     if update.message.text == "Metropolitana":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.comuna(bot,update,client)
             return pm.SELECT_COMUNA
     elif update.message.text == "Valparaiso":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.comuna(bot, update,client)
             return pm.SELECT_COMUNA
     elif update.message.text == "Biobio":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.comuna(bot, update,client)
             return pm.SELECT_COMUNA
     elif update.message.text == "Coquimbo":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.comuna(bot, update,client)
             return pm.SELECT_COMUNA
     elif update.message.text == "Antofagasta":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.comuna(bot, update,client)
             return pm.SELECT_COMUNA
     elif str(update.message.text).lower() in ["arica","iquique","atacama","ohiggins","maule","ñuble","araucanía","los ríos","los lagos","aysen","magallanes"]:
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.comuna(bot, update,client)
             return pm.SELECT_COMUNA
@@ -491,7 +492,7 @@ def comuna(bot, update):
         return pm.MENU
     else:
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.tipo(bot, update,client)
             return pm.SELECT_TIPO
@@ -509,31 +510,31 @@ def tipo(bot, update):
     print(client)
     if client["product"]=="CRM" and client["crm"]=="Lista Completa":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.crm_feature(bot,update,client)
             return pm.CRM_FEATURE
     elif update.message.text == "Departamento":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.dorms(bot,update,client)
             return pm.SELECT_DORMS
     elif update.message.text == "Casa":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.dorms(bot, update,client)
             return pm.SELECT_DORMS
     elif update.message.text == "Oficina":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.dorms(bot, update,client)
             return pm.SELECT_DORMS
     elif update.message.text == "Comercial":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.baths(bot, update,client)
             return pm.SELECT_BATHS
@@ -566,7 +567,7 @@ def dorms(bot, update):
     admited=["1","2","3","4","4+","5","6","7","8","9","10",]
     if update.message.text in admited:
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.baths(bot,update,client)
             return pm.SELECT_BATHS
@@ -600,27 +601,27 @@ def baths(bot, update):
 
         if client["product"]=="Reporte":
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 select.price_range(bot,update,client)
                 return pm.SELECT_PRICE_RANGE
         elif client["product"]=="CRM" and client["crm"]=="Buscar":
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 select.price_range(bot,update,client)
                 return pm.SELECT_PRICE_RANGE
         else:
             if client["tipo"]=="Comercial":
                 if "modify" in client:
-                    callback(bot,update)
+                    return callback(bot,update)
                 else:
                     select.area(bot,update,client)
                     return pm.SELECT_AREA
 
             else:
                 if "modify" in client:
-                    callback(bot,update)
+                    return callback(bot,update)
                 else:
                     select.feature(bot,update,client)
                     return pm.SELECT_FEATURE
@@ -678,7 +679,7 @@ def price_range(bot, update):
         client["preciomax"] = None
 
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.area_range(bot, update, client)
             print(client)
@@ -700,7 +701,7 @@ def price_range(bot, update):
             client["preciomin"]=int(update.message.text.replace('.',''))
             if client["product"]=="CRM" and client["crm"]=="Nueva":
                 if "modify" in client:
-                    callback(bot,update)
+                    return callback(bot,update)
                 else:
                     select.crm_feature(bot, update,client)
                     print(client)
@@ -719,7 +720,7 @@ def price_range(bot, update):
             client["preciomax"] = int(update.message.text.replace('.',''))
             select.area_range(bot, update, client)
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 print(client)
                 return pm.SELECT_AREA_RANGE
@@ -1510,7 +1511,7 @@ def feature(bot, update):
             client["estacionamientos"]= update.message.text.replace("3+","3")
             if client["tipo"]=="Departamento":
                 if "modify" in client:
-                    callback(bot,update)
+                    return callback(bot,update)
                 else:
                     select.feature(bot,update,client)
                     return pm.SELECT_FEATURE
@@ -1520,7 +1521,7 @@ def feature(bot, update):
         else:
             client["bodegas"]= update.message.text
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 select.area(bot,update,client)
                 return pm.SELECT_AREA
@@ -1589,7 +1590,7 @@ def area(bot,update):
         try:
             client["total"] = int(update.message.text)
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 select.adress(bot, update, client)
                 print(client)
@@ -1606,7 +1607,7 @@ def adress(bot,update):
 
     if client["product"]=="CRM":
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.price_range(bot,update,client)
             return pm.SELECT_PRICE_RANGE
@@ -1625,7 +1626,7 @@ def adress(bot,update):
             select.adress(bot,update,client)
             return pm.SELECT_ADRESS
         if "modify" in client:
-            callback(bot,update)
+            return callback(bot,update)
         else:
             select.confirm_tasacion(bot, update, client)
             print(client)
@@ -1746,34 +1747,34 @@ def crm_feature(bot, update):
         if "telefono" not in client:
             client["telefono"]= update.message.text
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 select.crm_feature(bot,update,client)
                 return pm.CRM_FEATURE
         elif "mailcliente" not in client:
             client["mailcliente"]= update.message.text
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 select.crm_feature(bot,update,client)
                 return pm.CRM_FEATURE
         elif "linkPortal" not in client:
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 client["linkPortal"]= update.message.text
                 select.crm_feature(bot,update,client)
                 return pm.CRM_FEATURE
         elif "linkYapo" not in client:
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 client["linkYapo"]= update.message.text
                 select.crm_feature(bot,update,client)
                 return pm.CRM_FEATURE
         elif "comision" not in client:
             if "modify" in client:
-                callback(bot,update)
+                return callback(bot,update)
             else:
                 client["comision"]= update.message.text
                 select.crm_feature(bot,update,client)
