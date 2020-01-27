@@ -331,7 +331,8 @@ def callback(bot,update):
 
 
 
-###FUNCIONES REPORTES
+
+ ###FUNCIONES REPORTES
 
 def operacion(bot, update):
     """
@@ -854,7 +855,7 @@ def confirm_report(bot,update):
     # set client
     client = clientsDict[update.message.from_user.id]
 
-    if update.message.text == "SI" and client["product"]=="reporte":
+    if update.message.text == "SI" and client["product"]=="Reporte":
 
         if "reporteThread" in client.keys() and client["reporteThread"].isAlive():
             bot.send_message(chat_id=update.message.chat_id, text="Ya se está generando un reporte. Por favor espere que"
