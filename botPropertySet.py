@@ -1645,7 +1645,7 @@ def confirm_tasacion(bot,update):
     # set client
     client = clientsDict[update.message.from_user.id]
 
-    if update.message.text == "Confirmar" and client["product"]=="CRM" and client["crm"]=="Nueva"
+    if update.message.text == "Confirmar" and client["product"]=="CRM" and client["crm"]=="Nueva":
         bot.send_message(chat_id=update.message.chat_id, text="Ingresando propiedad nueva a Base de Datos")
         # Ingresar prop nueva
         text=connector.nueva(client)
