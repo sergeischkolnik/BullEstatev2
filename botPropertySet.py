@@ -1440,7 +1440,9 @@ def confirm_file(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="Buscando propiedad en CRM")
         try:
             text="Falta Construir conector"
-            #Conector
+            #Pedir Propiedad
+            #Ofrecer opciones de modificacion
+            #Entrar a modificar nuevo.
             client["success"] = "check"
         except Exception as e:
             print(e)
@@ -1639,12 +1641,8 @@ def confirm_tasacion(bot,update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
-    if client["product"]=="CRM":
-        bot.send_message(chat_id=update.message.chat_id, text="Info procesada. Falta construir conector.")
-        client["success"] = "check"
-        select.menu(bot, update)
-        return pm.MENU
-    elif update.message.text == "Confirmar":
+
+    if update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
         if "historial" in client:
             client = lastoperations["Tasador"][0]
