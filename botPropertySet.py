@@ -881,6 +881,8 @@ def confirm_report(bot,update):
         return pm.MENU
     elif update.message.text == "SI" and client["product"]=="CRM":
         bot.send_message(chat_id=update.message.chat_id, text="Busqueda exitosa. Falta construir conector")
+        text=connector.buscar(client)
+        bot.send_message(chat_id=update.message.chat_id, text=text)
         select.menu(bot,update)
         return pm.MENU
     elif update.message.text == "Modificar":
@@ -1439,11 +1441,12 @@ def confirm_file(bot, update):
     if update.message.text == "Confirmar" and client["product"]=="CRM":
         bot.send_message(chat_id=update.message.chat_id, text="Buscando propiedad en CRM")
         try:
-            text="Falta Construir conector"
-            #Pedir Propiedad
-            #Ofrecer opciones de modificacion
-            #Entrar a modificar nuevo.
-            client["success"] = "check"
+            if client["cmr"]=="Actualizar":
+                text=connector.actualizar(client)
+                client["success"] = "check"
+            else:
+                text = connector.eliminar(client)
+                client["success"] = "check"
         except Exception as e:
             print(e)
             text="No se encuentra la propiedad solicitada en el CRM"
@@ -1642,7 +1645,15 @@ def confirm_tasacion(bot,update):
     # set client
     client = clientsDict[update.message.from_user.id]
 
-    if update.message.text == "Confirmar":
+    if update.message.text == "Confirmar" and client["product"]=="CRM" and client["crm"]=="Nueva"
+        bot.send_message(chat_id=update.message.chat_id, text="Ingresando propiedad nueva a Base de Datos")
+        # Ingresar prop nueva
+        text=connector.nueva(client)
+        client["success"] = "check"
+        bot.send_message(chat_id=update.message.chat_id, text=text,disable_web_page_preview=True)
+        select.menu(bot, update)
+        return pm.MENU
+    elif update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Tasación")
         if "historial" in client:
             client = lastoperations["Tasador"][0]
@@ -1720,13 +1731,11 @@ def crm_feature(bot, update):
     elif client["crm"] == "Lista Completa":
 
         if update.message.text == "Confirmar":
-            bot.send_message(chat_id=update.message.chat_id, text="Generando lista. Falta constructor")
-            if "historial" in client:
-                client = lastoperations["Tasador"][0]
+            bot.send_message(chat_id=update.message.chat_id, text="Generando lista Completa")
             print(client)
-            #text=connector.tasador(client)
+            text=connector.listaCompleta(client)
             client["success"] = "check"
-            #bot.send_message(chat_id=update.message.chat_id, text=text,disable_web_page_preview=True)
+            bot.send_message(chat_id=update.message.chat_id, text=text,disable_web_page_preview=True)
             select.menu(bot, update)
             return pm.MENU
         elif update.message.text == "Modificar":

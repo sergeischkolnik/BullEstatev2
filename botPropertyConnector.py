@@ -254,7 +254,6 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
         db.insertreporte(client)
 
 
-
 def connectorFicha(client):
 
     if client["fichapro"] and client["fichainterna"]:
@@ -452,3 +451,27 @@ def tasador(client):
         print("Texto Full, Check")
 
         return textmail
+
+### FUCIONES CRM
+
+def buscar(client):
+    text="Falta Construir Conector de Buscar"
+    return text
+
+def listaCompleta(client):
+    text = "Falta Construir Conector de Buscar"
+    return text
+
+def nueva(client):
+    text = "Falta Construir Conector de Buscar"
+    return text
+
+def actualizar(client):
+    text = "Falta Construir Conector de Buscar"
+    return text
+
+def eliminar(client):
+    text = "Falta Construir Conector de Buscar"
+    return text
+
+
