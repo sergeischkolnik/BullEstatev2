@@ -455,23 +455,88 @@ def tasador(client):
 ### FUCIONES CRM
 
 def buscar(client):
-    text="Falta Construir Conector de Buscar"
+
+    if client["moneda"]=="UF":
+        uf=True
+    else:
+        uf=False
+
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
+    cur = mariadb_connection.cursor()
+    if uf:
+        sql = "SELECT * FROM propiedades WHERE operacion='" + str(client["operacion"]) + "' AND region='" + str(client["region"]) + "' AND " \
+          "comuna='" + str(client["comuna"]) + "' AND tipo='" + str(client["tipo"]) + "' AND dormitorios=" + str(client["dormitorios"]) + " AND " \
+          "banos=" + str(client["baños"]) + " AND uf>=" + str(client["preciomin"]*0.95) + " AND uf<=" + str(client["preciomax"]*1.05) + " AND metros>=" + str(client["metrosmin"]) + " AND " \
+          "metros<=" + str(client["metrosmax"]) + " AND totales>=" + str(client["totalmin"]) + " AND totales<=" + str(client["totalmax"])
+
+        sql2 = "SELECT * FROM propiedades WHERE operacion='" + str(client["operacion"]) + "' AND region='" + str(
+            client["region"]) + "' AND " \
+                                "comuna='" + str(client["comuna"]) + "' AND tipo='" + str(
+            client["tipo"]) + "' AND dormitorios=" + str(client["dormitorios"]) + " AND " \
+                                                                                  "banos=" + str(
+            client["baños"]) + " AND pesos>=" + str(client["preciomin"]*ufn*0.95) + " AND pesos<=" + str(
+            client["preciomax"]*ufn*1.05) + " AND metros>=" + str(client["metrosmin"]) + " AND " \
+                                                                                "metros<=" + str(
+            client["metrosmax"]) + " AND totales>=" + str(client["totalmin"]) + " AND totales<=" + str(
+            client["totalmax"])
+    else:
+        sql = "SELECT * FROM propiedades WHERE operacion='" + str(client["operacion"]) + "' AND region='" + str(
+            client["region"]) + "' AND " \
+                                "comuna='" + str(client["comuna"]) + "' AND tipo='" + str(
+            client["tipo"]) + "' AND dormitorios=" + str(client["dormitorios"]) + " AND " \
+                                                                                  "banos=" + str(
+            client["baños"]) + " AND uf>=" + str(client["preciomin"]*0.95/ufn) + " AND uf<=" + str(
+            client["preciomax"]*1.05/ufn) + " AND metros>=" + str(client["metrosmin"]) + " AND " \
+                                                                                "metros<=" + str(
+            client["metrosmax"]) + " AND totales>=" + str(client["totalmin"]) + " AND totales<=" + str(
+            client["totalmax"])
+
+        sql2 = "SELECT * FROM propiedades WHERE operacion='" + str(client["operacion"]) + "' AND region='" + str(
+            client["region"]) + "' AND " \
+                                "comuna='" + str(client["comuna"]) + "' AND tipo='" + str(
+            client["tipo"]) + "' AND dormitorios=" + str(client["dormitorios"]) + " AND " \
+                                                                                  "banos=" + str(
+            client["baños"]) + " AND pesos>=" + str(client["preciomin"]*0.95) + " AND pesos<=" + str(
+            client["preciomax"]*1.05) + " AND metros>=" + str(client["metrosmin"]) + " AND " \
+                                                                                      "metros<=" + str(
+            client["metrosmax"]) + " AND totales>=" + str(client["totalmin"]) + " AND totales<=" + str(
+            client["totalmax"])
+    try:
+        cur.execute(sql)
+    except:
+        cur.execute(sql2)
+
+    props = cur.fetchall()
+    mariadb_connection.close()
+    text=""
+    if len(props) > 0:
+        n=0
+        for prop in props:
+            text += str(n)+"\n"
+            for p in prop:
+                text+=str(p)+"\n"
+            text+="\n"
+
+        return text
+    else:
+        text="No hay propiedades en el CRM con los criterios elegidos"
     return text
 
 def listaCompleta(client):
-    text = "Falta Construir Conector de Buscar"
+    text = "Falta Construir Conector de Lista Completa"
     return text
 
 def nueva(client):
-    text = "Falta Construir Conector de Buscar"
+    text = "Falta Construir Conector de Nueva"
     return text
 
 def actualizar(client):
-    text = "Falta Construir Conector de Buscar"
+    text = "Falta Construir Conector de Actualizar"
     return text
 
 def eliminar(client):
-    text = "Falta Construir Conector de Buscar"
+    text = "Falta Construir Conector de Eliminar"
     return text
 
 
