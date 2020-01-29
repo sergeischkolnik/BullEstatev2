@@ -222,6 +222,11 @@ def menu(bot, update):
 
     print(client)
 
+    if client["id"]==940873510:
+        bot.send_message(chat_id=update.message.chat_id, text="Ha superado el límite de operaciones permitidas")
+        select.menu(bot,update)
+        return pm.MENU
+
     if update.message.text == "Reporte":
         if "reporteThread" in client.keys() and client["reporteThread"].isAlive():
             bot.send_message(chat_id=update.message.chat_id, text="Ya se está generando un reporte. Por favor espere que"
