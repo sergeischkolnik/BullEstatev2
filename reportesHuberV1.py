@@ -30,15 +30,54 @@ import os
 import bot1 as tgbot
 import googleMapApi as gm
 import datetime
-
+import requests
+import scraperPortalML_VDM as scraper
 from sklearn import ensemble
 from sklearn.model_selection import train_test_split
-
+import time
+import random
+import html
 
 
 fechahoy = datetime.datetime.now()
 fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
 uf1=uf.getUf()
+
+def esDueno(link):
+    headerIndex = 0
+    headerList=scraper.headerList
+
+
+    try:
+        request = requests.get(link, headers=headerList[headerIndex])
+    except:
+        time.sleep(random.randint(60, 90))
+        request = requests.get(link, headers=headerList[headerIndex])
+    # headerIndex += 1
+    # headerIndex = headerIndex % len(headerList)
+    try:
+        tree = html.fromstring(request.content)
+    except:
+        return False
+    agency_path = '//*[@id="real_estate_agency"]'
+    agency = tree.xpath(agency_path)
+    esPropietario = "no"
+    if len(agency) == 0:
+        # no hay agency; es dueño.
+        esPropietario = "si"
+
+    if "orredor" in request.text:
+        esPropietario="no"
+    if "omisión" in request.text:
+        if "2%" in request.text or "50%" in request.text:
+            esPropietario = "no"
+        elif "in Comisi" in request.text or "in comisi" in request.text:
+            esPropietario="si"
+    if esPropietario=="si":
+        textoventa = ((request.text).split('Escribe tu pregunta...">')[1]).split("</textarea>")[0]
+        if "ropiedad" in textoventa or "orredor" in textoventa or "state" in textoventa or "ome" in textoventa or "nversi" in textoventa:
+            esPropietario="no"
+    return esPropietario
 
 def m2prom(tipo,comuna,region):
     comuna=comuna.lower()
@@ -445,9 +484,12 @@ def from_yapo(tipo,region,comunas,latlonyapo,op,verboso=False):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='yapo')
     cur = mariadb_connection.cursor()
     if latlonyapo:
-        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE fechapublicacion>'"+str(past) +"' and operacion='" + op + "' and tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
+        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon," \
+              "estacionamientos,link FROM propiedades WHERE fechapublicacion>'"+str(past) +"' and operacion='" + op + "' and " \
+              "tipo='"+str(tipo)+"' AND idregion='"+str(region)+"' AND lat!='-999' AND metrosmin!='-1' AND metrosmax!='-1'"
     else:
-        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon,estacionamientos,link FROM propiedades WHERE fechapublicacion>'"+str(past) +"' and operacion='" + op + "' and tipo='"+str(tipo)+"'"
+        sql = "SELECT id2,fechapublicacion,fechascrap,operacion,tipo,preciopesos,dormitorios,banos,metrosmin,metrosmax,lat,lon," \
+              "estacionamientos,link FROM propiedades WHERE fechapublicacion>'"+str(past) +"' and operacion='" + op + "' and tipo='"+str(tipo)+"'"
 
     # if verboso:
     #     print("Consulta: ")
@@ -1182,6 +1224,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                             if portalinmobiliario:
                                 try:
                                     email,telefono,dueno = getDatosDueno(prop[0])
+                                    dueno=esDueno(prop[14])
                                 except:
                                     email="NN"
                                     telefono="NN"
@@ -1196,11 +1239,14 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                     dueno='no'
                                 else:
                                     dueno='NN'
+
                             if (str(dueno) == corredor or (dueno == "NN" and corredor != "a")):
                                 if verboso:
                                     print("[GeneradorReportes] La propiedad encontrada " + str(
                                         dueno) + " es gestionada por un dueño")
                                 continue
+
+
                             subresultado.append(email)
                             subresultado.append(telefono)
                             subresultado.append(dueno)
