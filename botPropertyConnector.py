@@ -461,17 +461,17 @@ def buscar(client):
     else:
         uf=False
     if client["metrosmin"] is None:
-        client["metrosmin"]==0
+        client["metrosmin"]=0
     if client["metrosmax"] is None:
-        client["metrosmax"]==999999
+        client["metrosmax"]=999999
     if client["totalmin"] is None:
-        client["totalmin"]==0
+        client["totalmin"]=0
     if client["totalmax"] is None:
-        client["totalmax"]==999999
+        client["totalmax"]=999999
     if client["preciomin"] is None:
-        client["preciomin"]==0
+        client["preciomin"]=0
     if client["preciomax"] is None:
-        client["preciomax"]==99999999999999999999999999999999999999999999999
+        client["preciomax"]=99999999999999999999999999999999999999999999999
     print(client)
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
