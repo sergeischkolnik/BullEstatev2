@@ -529,16 +529,18 @@ def buscar(client):
     props = cur.fetchall()
     mariadb_connection.close()
     tags=["ID: ","Tipo: ","Operación: ", "Región: ","Comuna: ","Precio UF: ","Precio (Pesos): ", supmin,supmax,"Dormitorios: ", "Baños: ", "Estacionamientos: ", "Bodegas: ", "Telefono: ","Mail: ",
-          "Link Portal: ", "Link Yapo: ", "Comisión: ", "Canje"]
+          "Link Portal: ", "Link Yapo: ", "Comisión: ", "Canje: "]
     text=""
     if len(props) > 0:
         n=0
         for prop in props:
             text += str(n+1)+"\n"
+            n+=1
             for x,p in enumerate(prop):
                 if p is not None:
                     text+=tags[x]+str(p)+"\n"
             text+="\n"
+
 
         return text
     else:
@@ -546,7 +548,40 @@ def buscar(client):
     return text
 
 def listaCompleta(client):
-    text = "Falta Construir Conector de Lista Completa"
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT * FROM propiedades WHERE operacion='" + str(client["operacion"]) + "' AND region='" + str(
+        client["region"]) + "' AND comuna='" + str(client["comuna"]) + "' AND tipo='" + str(client["tipo"])
+    cur.execute(sql)
+
+
+    if client["tipo"] == "Casa":
+        supmin = "Sup. Construida: "
+        supmax = "Sup. Terreno: "
+    else:
+        supmin = "Sup. Útil: "
+        supmax = "Sup. Total: "
+
+    props = cur.fetchall()
+    mariadb_connection.close()
+    tags = ["ID: ", "Tipo: ", "Operación: ", "Región: ", "Comuna: ", "Precio UF: ", "Precio (Pesos): ", supmin, supmax,
+            "Dormitorios: ", "Baños: ", "Estacionamientos: ", "Bodegas: ", "Telefono: ", "Mail: ",
+            "Link Portal: ", "Link Yapo: ", "Comisión: ", "Canje: "]
+    text = ""
+    if len(props) > 0:
+        n = 0
+        for prop in props:
+            text += str(n + 1) + "\n"
+            n += 1
+            for x, p in enumerate(prop):
+                if p is not None:
+                    text += tags[x] + str(p) + "\n"
+            text += "\n"
+
+        return text
+    else:
+        text = "No hay propiedades en el CRM con los criterios elegidos"
     return text
 
 def nueva(client):
