@@ -519,15 +519,25 @@ def buscar(client):
     except:
         cur.execute(sql2)
 
+    if client["tipo"]=="Casa":
+        supmin="Sup. Construida: "
+        supmax="Sup. Terreno: "
+    else:
+        supmin = "Sup. Útil: "
+        supmax = "Sup. Total: "
+
     props = cur.fetchall()
     mariadb_connection.close()
+    tags=["ID: ","Tipo: ","Operación: ", "Región: ","Comuna: ","Precio UF: ","Precio (Pesos): ", supmin,supmax,"Dormitorios: ", "Baños: ", "Estacionamientos: ", "Bodegas: ", "Telefono: ","Mail: ",
+          "Link Portal: ", "Link Yapo: ", "Comisión: ", "Canje"]
     text=""
     if len(props) > 0:
         n=0
         for prop in props:
-            text += str(n)+"\n"
-            for p in prop:
-                text+=str(p)+"\n"
+            text += str(n+1)+"\n"
+            for x,p in enumerate(prop):
+                if p is not None:
+                    text+=tags[x]+str(p)+"\n"
             text+="\n"
 
         return text
