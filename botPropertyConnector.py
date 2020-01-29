@@ -472,6 +472,7 @@ def buscar(client):
         client["preciomin"]==0
     if client["preciomax"] is None:
         client["preciomax"]==99999999999999999999999999999999999999999999999
+    print(client)
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
     cur = mariadb_connection.cursor()
