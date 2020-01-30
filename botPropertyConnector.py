@@ -614,9 +614,22 @@ def nueva(client):
         text="No se pudo insertar la propiedad"
     return text
 
+def selectOne(client):
+    if "link_prop" in client:
+        client["id_prop"] = obtenerIdConLink(client["link_prop"], client["sitio"])
+
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT * FROM propiedades WHERE link like'%" + str(client["id_prop"] + "%'")
+    cur.execute(sql)
+    prop = cur.fetchall()
+    prop = prop[0]
+    return prop
+
 def actualizar(client):
     text = "Falta Construir Conector de Actualizar"
     return text
+
 
 def eliminar(client):
     text = "Falta Construir Conector de Eliminar"

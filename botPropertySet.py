@@ -1446,10 +1446,24 @@ def confirm_file(bot, update):
     if update.message.text == "Confirmar" and client["product"]=="CRM":
         bot.send_message(chat_id=update.message.chat_id, text="Buscando propiedad en CRM")
         try:
+            prop = connector.selectOne(client)
+            if len(prop) > 0:
+                proptext = ''
+                for p in prop:
+                    proptext += str(p) + "\n"
+                bot.send_message(chat_id=update.message.chat_id, text=proptext)
+
+            else:
+                bot.send_message(chat_id=update.message.chat_id, text="propiedad no encontrada")
+                select.menu(bot, update)
+                return pm.MENU
+
             if client["cmr"]=="Actualizar":
-                text=connector.actualizar(client)
+                bot.send_message(chat_id=update.message.chat_id, text="Seleccione que desea Actualizar")
+                text = connector.eliminar(client)
                 client["success"] = "check"
             else:
+                bot.send_message(chat_id=update.message.chat_id, text="Confirme que desea eliminar del CRM")
                 text = connector.eliminar(client)
                 client["success"] = "check"
         except Exception as e:
