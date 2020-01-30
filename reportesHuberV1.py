@@ -299,7 +299,6 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
         print("Datos de consulta especifica de YAPO listos")
         print("Se han encontrado "+str(len(tupla))+" propiedades.")
         print("----------------------")
-        sleep(60)
         return tupla
 
 def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,
