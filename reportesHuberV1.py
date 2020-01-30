@@ -36,7 +36,7 @@ from sklearn import ensemble
 from sklearn.model_selection import train_test_split
 import time
 import random
-import html
+from lxml import html
 
 
 fechahoy = datetime.datetime.now()
@@ -58,7 +58,7 @@ def esDueno(link):
     try:
         tree = html.fromstring(request.content)
     except:
-        return False
+        return "no"
     agency_path = '//*[@id="real_estate_agency"]'
     agency = tree.xpath(agency_path)
     esPropietario = "no"
@@ -1225,6 +1225,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                 try:
                                     email,telefono,dueno = getDatosDueno(prop[0])
                                     dueno=esDueno(prop[14])
+                                    print("es dueño?")
+                                    print(dueno)
+                                    sleep(60)
                                 except:
                                     email="NN"
                                     telefono="NN"
