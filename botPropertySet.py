@@ -1103,6 +1103,7 @@ def modify(bot, update):
     # set client
     client = clientsDict[update.message.from_user.id]
     client["modify"]=False
+    print(client)
     if update.message.text == "Salir":
 
         bot.send_message(chat_id=update.message.chat_id, text="Vovliendo al menu principal")
