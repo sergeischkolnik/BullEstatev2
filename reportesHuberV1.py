@@ -292,8 +292,8 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
         sqlwhere="(comuna LIKE '%" + comuna1 + "%' or comuna LIKE '%"+ comuna2 + "%' or comuna LIKE '%"+ comuna3 + "%' or comuna LIKE '%"+ comuna4 + "%' or comuna LIKE '%"+ comuna5 +"%' or comuna LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        # print("Consulta YAPO:")
-        # print(sql)
+        print("Consulta YAPO:")
+        print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
         print("Datos de consulta especifica de YAPO listos")
