@@ -1531,9 +1531,9 @@ def confirm_file(bot, update):
         except Exception as e:
             print(e)
             text="No se encuentra la propiedad solicitada en el CRM"
-
-        select.menu(bot, update)
-        return pm.MENU
+            bot.send_message(chat_id=update.message.chat_id, text=text)
+            select.menu(bot, update)
+            return pm.MENU
 
     elif update.message.text == "Confirmar":
         bot.send_message(chat_id=update.message.chat_id, text="Generando Ficha")
