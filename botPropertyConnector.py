@@ -599,8 +599,8 @@ def nueva(client):
         sql = "INSERT INTO propiedades(tipo,operaion,region,comuna,direccion,uf,pesos,metros,totales,dormitorios,banos,estacionamientos," \
               "bodegas,telefono,mail,linkportal,linkyapo,comision,canje) " \
               "VALUES('" + str(client["tipo"]) + "','" + str(client["tipotasacion"]) + "','" + str(client["region"]) + "','" + str(client["comuna"]) + "','" + \
-              str(client["adress"]) + "','" + int(precio[0]) + "','" + int(precio[1]) + "','" + int(client["metros"]) + "','" + int(client["total"]) + "','" + \
-              int(client["dormitorios"]) + "','" + int(client["baños"]) + "','" + int(client["estacionamientos"]) + "','" + int(client["bodegas"]) + "','" + \
+              str(client["adress"]) + "','" + str(precio[0]) + "','" + str(precio[1]) + "','" + str(client["metros"]) + "','" + str(client["total"]) + "','" + \
+              str(client["dormitorios"]) + "','" + str(client["baños"]) + "','" + str(client["estacionamientos"]) + "','" + str(client["bodegas"]) + "','" + \
               str(client["telefono"]) + "','" + str(client["mailcliente"]) + "','" + str(client["linkPortal"]) + "','" + str(client["linkYapo"]) + "','" + \
               str(client["comision"]) + "','" + str(client["canje"]) + "')"
         mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
