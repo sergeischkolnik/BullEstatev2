@@ -24,7 +24,8 @@ def getUf():
         uf=uf[2:]
         uf=uf.replace(".","")
         uf=uf.replace(",",".")
-    except:
+    except Exception as e:
+        print(e)
         try:
             link='https://www.uf-hoy.com/'
             page3 = requests.get(link)
@@ -34,7 +35,8 @@ def getUf():
             uf=uf[0]
             uf=uf.replace(".","")
             uf=uf.replace(",",".")
-        except:
+        except Exception as e:
+            print(e)
             print("UF NO OBTENIDA")
             uf=28316
     uf=float(uf)

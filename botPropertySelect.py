@@ -678,11 +678,16 @@ def confirm_report(bot,update,client):
         metrobutton="Agregar"
         metrotext="No"
 
-    keyboard = [["SI","Modificar"],
+    if client["product"]=="Reporte":
+        keyboard = [["SI","Modificar"],
                 [probutton+" Tasación"],
                 [internabutton+" Contacto Publicación"],
                 [metrobutton+" Distancia al metro"],
                 ["Atrás","Avanzado","Salir"]]
+    else:
+        keyboard = [["SI", "Modificar"],
+                    ["Atrás", "Salir"]]
+
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
