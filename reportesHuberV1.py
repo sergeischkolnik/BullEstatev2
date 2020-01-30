@@ -796,9 +796,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         rentminarriendo=False
 
-    print("necesitamos rentabilidades?")
-    print(rentminventa)
-    print(rentminarriendo)
+
 
     if estacionamientos is not None:
         estacionamientos = int(estacionamientos)
@@ -1123,7 +1121,9 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         print("el precio tasado de venta inicial es: " + str(precioV))
                         print("el precio tasado de arriendo inicial es: " + str(precioA))
 
-
+                        print("necesitamos rentabilidades?")
+                        print(rentminventa)
+                        print(rentminarriendo)
                         if (operacion=="venta" and (rentminventa is not False or rentminarriendo is not False)):
 
                             if verboso and tipo!= 'comercial':
