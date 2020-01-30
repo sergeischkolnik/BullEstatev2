@@ -1231,7 +1231,6 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                                     dueno=esDueno(prop[14])
                                     print("es dueño?")
                                     print(dueno)
-                                    sleep(60)
                                 except:
                                     email="NN"
                                     telefono="NN"
