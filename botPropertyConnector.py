@@ -588,9 +588,9 @@ def nueva(client):
 
     try:
         if client["moneda"]=="UF":
-            precio=[client["preciomin"],None]
+            precio=[client["preciomin"],0]
         else:
-            precio = [None,client["preciomin"]]
+            precio = [0,client["preciomin"]]
         # 'id': 9561926, 'mail': 'sergei.schkolnik@gmail.com', 'firstname': 'Sergei', 'lastname': 'Schkolnik', 'product': 'CRM', 'crm': 'Nueva',
         # 'tipotasacion': 'Venta', 'region': 'Metropolitana', 'comuna': 'Las Condes', 'tipo': 'Departamento', 'dormitorios': '2', 'baños': '1',
         # 'estacionamientos': '0', 'bodegas': '0', 'metros': 30, 'total': 35, 'adress': 'Guvf', 'moneda': 'UF', 'preciomin': 500, 'telefono': 'Tv',
