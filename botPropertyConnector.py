@@ -617,10 +617,13 @@ def nueva(client):
 def selectOne(client):
     if "link_prop" in client:
         client["id_prop"] = obtenerIdConLink(client["link_prop"], client["sitio"])
-
+    if "portal" in client["sitio"]:
+        link="linkPortal"
+    else:
+        link="linkYapo"
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
     cur = mariadb_connection.cursor()
-    sql = "SELECT * FROM propiedades WHERE link like'%" + str(client["id_prop"] + "%'")
+    sql = "SELECT * FROM propiedades WHERE "+str(link)+" like'%" + str(client["id_prop"] + "%'")
     cur.execute(sql)
     prop = cur.fetchall()
     prop = prop[0]
