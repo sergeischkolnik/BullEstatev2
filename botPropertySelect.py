@@ -872,6 +872,15 @@ def modify(bot, update,client):
                     ["Superficie","Precio","Direccion"],
                     ["Datos Cliente","Link","Condiciones"],
                     ["Atrás","Salir"]]
+    elif client["product"]=="CRM" and client["crm"]=="Actualizar":
+        keyboard = [["Operacion","Región","Comuna"],
+                    ["Tipo","Dormitorios","Baños"],
+                    ["Estacionamientos","Bodegas"],
+                    ["Superficie","Precio","Direccion"],
+                    ["Datos Cliente","Link","Condiciones"],
+                    ["Atrás","Salir"]]
+    elif client["product"]=="CRM" and client["crm"]=="Eliminar":
+        keyboard = [["Eliminar","Salir"]]
     elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
         keyboard = [["Operacion","Tipo"],
                     ["Region","Comuna"],
@@ -885,7 +894,14 @@ def modify(bot, update,client):
                                            one_time_keyboard=True,
                                            resize_keyboard=True)
     pm.logger.info("{} está modificando.".format(user.first_name))
-    update.message.reply_text("Seleccionar Opción que desee modificar", reply_markup=reply_markup)
+    if client["product"] == "CRM" and client["crm"] == "Actualizar":
+        update.message.reply_text("Seleccionar Opción que desee Actualizar", reply_markup=reply_markup)
+
+    elif client["product"] == "CRM" and client["crm"] == "Eliminar":
+        update.message.reply_text("Esta Seguro que desea eliminar?", reply_markup=reply_markup)
+    else:
+        update.message.reply_text("Seleccionar Opción que desee modificar", reply_markup=reply_markup)
+    return pm.MODIFY
 
 ##### FUNCIONES DE LAS FICHAS
 
@@ -1275,6 +1291,9 @@ def crm_feature(bot, update,client):
         else:
             update.message.reply_text("Error inesperado. Volviendo al Menu")
             return pm.MENU
+    elif client["crm"]=="Actualizar":
+        update.message.reply_text("Falta ultima parte del conector")
+        return pm.MENU
     elif client["crm"]=="Lista Completa":
         user = update.message.from_user
 

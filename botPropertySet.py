@@ -330,6 +330,9 @@ def callback(bot,update):
     elif client["product"]=="CRM" and client["crm"]=="Lista Completa":
         select.crm_feature(bot,update,client)
         return pm.CRM_FEATURE
+    elif client["product"]=="CRM" and client["crm"]=="Actualizar":
+        select.crm_feature(bot,update,client)
+        return pm.CRM_FEATURE
     else:
         select.menu(bot, update)
         return pm.MENU
@@ -1342,10 +1345,69 @@ def modify(bot, update):
             select.modify(bot, update, client)
             return pm.MODIFY
 
-    elif client["product"]=="CRM" and (client["crm"]=="Actualizar" or client["crm"]=="Eliminar"):
-        #Back to begin
-        pass
-
+    elif client["product"]=="CRM" and (client["crm"]=="Actualizar"):
+        if update.message.text == "Tipo Tasacion":
+            client.pop("tipotasacion")
+            select.operacion(bot, update, client)
+            return pm.SELECT_OP
+        elif update.message.text == "Tipo Propiedad":
+            client.pop("tipo")
+            select.tipo(bot, update, client)
+            return pm.SELECT_TIPO
+        elif update.message.text == "Región":
+            client.pop("region")
+            select.region(bot, update, client)
+            return pm.SELECT_REGION
+        elif update.message.text == "Comuna":
+            client.pop("comuna")
+            select.comuna(bot, update, client)
+            return pm.SELECT_COMUNA
+        elif update.message.text == "Dormitorios":
+            client.pop("dormitorios")
+            select.dorms(bot, update, client)
+            return pm.SELECT_DORMS
+        elif update.message.text == "Baños":
+            client.pop("baños")
+            select.baths(bot, update, client)
+            return pm.SELECT_BATHS
+        elif update.message.text == "Estacionamientos":
+            client.pop("estacionamientos")
+            select.feature(bot, update, client)
+            return pm.SELECT_FEATURE
+        elif update.message.text == "Bodegas":
+            client.pop("bodegas")
+            select.feature(bot, update, client)
+            return pm.SELECT_FEATURE
+        elif update.message.text == "Superficie":
+            client.pop("metros")
+            client.pop("total")
+            select.area(bot, update, client)
+            return pm.SELECT_AREA
+        elif update.message.text == "Direccion":
+            client.pop("adress")
+            select.adress(bot, update, client)
+            return pm.SELECT_ADRESS
+        elif update.message.text == "Atrás":
+            select.confirm_tasacion(bot, update, client)
+            return pm.CONFIRM_TASACION
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.modify(bot, update, client)
+            return pm.MODIFY
+    elif client["product"]=="CRM" and (client["crm"]=="Eliminar"):
+        if update.message.text == "Eliminar":
+            text = connector.eliminar(client)
+            bot.send_message(chat_id=update.message.chat_id, text=text)
+            select.menu(bot,update)
+            return pm.MENU
+        elif update.message.text == "Salir":
+            bot.send_message(chat_id=update.message.chat_id, text="Volviendo a Menu Principal")
+            select.menu(bot, update)
+            return pm.MENU
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
+            select.modify(bot, update, client)
+            return pm.MODIFY
 
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
@@ -1450,7 +1512,7 @@ def confirm_file(bot, update):
             if len(prop) > 0:
                 proptext = ''
                 for p in prop:
-                    proptext += str(p) + "\n"
+                    proptext += str(p) + " / "
                 bot.send_message(chat_id=update.message.chat_id, text=proptext)
 
             else:
@@ -1460,12 +1522,12 @@ def confirm_file(bot, update):
 
             if client["crm"]=="Actualizar":
                 bot.send_message(chat_id=update.message.chat_id, text="Seleccione que desea Actualizar")
-                text = connector.eliminar(client)
-                client["success"] = "check"
+                select.modify(client)
+                pm.MODIFY
             else:
                 bot.send_message(chat_id=update.message.chat_id, text="Confirme que desea eliminar del CRM")
-                text = connector.eliminar(client)
-                client["success"] = "check"
+                select.modify(client)
+                pm.MODIFY
         except Exception as e:
             print(e)
             text="No se encuentra la propiedad solicitada en el CRM"
