@@ -528,7 +528,7 @@ def buscar(client):
 
     props = cur.fetchall()
     mariadb_connection.close()
-    tags=["ID: ","Tipo: ","Operación: ", "Región: ","Comuna: ","Precio UF: ","Precio (Pesos): ", supmin,supmax,"Dormitorios: ", "Baños: ", "Estacionamientos: ", "Bodegas: ", "Telefono: ","Mail: ",
+    tags=["ID: ","Tipo: ","Operación: ", "Región: ","Comuna: ","Dirección","Precio UF: ","Precio (Pesos): ", supmin,supmax,"Dormitorios: ", "Baños: ", "Estacionamientos: ", "Bodegas: ", "Telefono: ","Mail: ",
           "Link Portal: ", "Link Yapo: ", "Comisión: ", "Canje: "]
     text=""
     if len(props) > 0:
@@ -565,7 +565,7 @@ def listaCompleta(client):
 
     props = cur.fetchall()
     mariadb_connection.close()
-    tags = ["ID: ", "Tipo: ", "Operación: ", "Región: ", "Comuna: ", "Precio UF: ", "Precio (Pesos): ", supmin, supmax,
+    tags = ["ID: ", "Tipo: ", "Operación: ", "Región: ", "Comuna: ", "Dirección" ,"Precio UF: ", "Precio (Pesos): ", supmin, supmax,
             "Dormitorios: ", "Baños: ", "Estacionamientos: ", "Bodegas: ", "Telefono: ", "Mail: ",
             "Link Portal: ", "Link Yapo: ", "Comisión: ", "Canje: "]
     text = ""
@@ -596,10 +596,10 @@ def nueva(client):
         # 'estacionamientos': '0', 'bodegas': '0', 'metros': 30, 'total': 35, 'adress': 'Guvf', 'moneda': 'UF', 'preciomin': 500, 'telefono': 'Tv',
         # 'mailcliente': 'U', 'linkPortal': 'G', 'linkYapo': 'G', 'comision': 'G'}
 
-        sql = "INSERT INTO propiedades(tipo,operaion,region,comuna,uf,pesos,metros,totales,dormitorios,banos,estacionamientos," \
+        sql = "INSERT INTO propiedades(tipo,operaion,region,comuna,direccion,uf,pesos,metros,totales,dormitorios,banos,estacionamientos," \
               "bodegas,telefono,mail,linkportal,linkyapo,comision,canje) " \
               "VALUES('" + str(client["tipo"]) + "','" + str(client["tipotasacion"]) + "','" + str(client["region"]) + "','" + str(client["comuna"]) + "','" + \
-              int(precio[0]) + "','" + int(precio[1]) + "','" + int(client["metros"]) + "','" + int(client["total"]) + "','" + \
+              str(client["adress"]) + "','" + int(precio[0]) + "','" + int(precio[1]) + "','" + int(client["metros"]) + "','" + int(client["total"]) + "','" + \
               int(client["dormitorios"]) + "','" + int(client["baños"]) + "','" + int(client["estacionamientos"]) + "','" + int(client["bodegas"]) + "','" + \
               str(client["telefono"]) + "','" + str(client["mailcliente"]) + "','" + str(client["linkPortal"]) + "','" + str(client["linkYapo"]) + "','" + \
               str(client["comision"]) + "','" + str(client["canje"]) + "')"
