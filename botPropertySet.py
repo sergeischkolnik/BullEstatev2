@@ -1458,7 +1458,7 @@ def confirm_file(bot, update):
                 select.menu(bot, update)
                 return pm.MENU
 
-            if client["cmr"]=="Actualizar":
+            if client["crm"]=="Actualizar":
                 bot.send_message(chat_id=update.message.chat_id, text="Seleccione que desea Actualizar")
                 text = connector.eliminar(client)
                 client["success"] = "check"
