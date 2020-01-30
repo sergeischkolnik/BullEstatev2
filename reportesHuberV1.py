@@ -796,6 +796,10 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
     else:
         rentminarriendo=False
 
+    print("necesitamos rentabilidades?")
+    print(rentminventa)
+    print(rentminarriendo)
+
     if estacionamientos is not None:
         estacionamientos = int(estacionamientos)
     else:
