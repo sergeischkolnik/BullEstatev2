@@ -1532,7 +1532,6 @@ def confirm_file(bot, update):
             print(e)
             text="No se encuentra la propiedad solicitada en el CRM"
 
-        bot.send_message(chat_id=update.message.chat_id, text=text)
         select.menu(bot, update)
         return pm.MENU
 
