@@ -585,7 +585,33 @@ def listaCompleta(client):
     return text
 
 def nueva(client):
-    text = "Falta Construir Conector de Nueva"
+
+    try:
+        if client["moneda"]=="UF":
+            precio=[client["preciomin"],None]
+        else:
+            precio = [None,client["preciomin"]]
+        # 'id': 9561926, 'mail': 'sergei.schkolnik@gmail.com', 'firstname': 'Sergei', 'lastname': 'Schkolnik', 'product': 'CRM', 'crm': 'Nueva',
+        # 'tipotasacion': 'Venta', 'region': 'Metropolitana', 'comuna': 'Las Condes', 'tipo': 'Departamento', 'dormitorios': '2', 'baños': '1',
+        # 'estacionamientos': '0', 'bodegas': '0', 'metros': 30, 'total': 35, 'adress': 'Guvf', 'moneda': 'UF', 'preciomin': 500, 'telefono': 'Tv',
+        # 'mailcliente': 'U', 'linkPortal': 'G', 'linkYapo': 'G', 'comision': 'G'}
+
+        sql = "INSERT INTO propiedades(tipo,operaion,region,comuna,uf,pesos,metros,totales,dormitorios,banos,estacionamientos," \
+              "bodegas,telefono,mail,linkportal,linkyapo,comision,canje) " \
+              "VALUES('" + str(client["tipo"]) + "','" + str(client["tipotasacion"]) + "','" + str(client["region"]) + "','" + str(client["comuna"]) + "','" + \
+              int(precio[0]) + "','" + int(precio[1]) + "','" + int(client["metros"]) + "','" + int(client["total"]) + "','" + \
+              int(client["dormitorios"]) + "','" + int(client["baños"]) + "','" + int(client["estacionamientos"]) + "','" + int(client["bodegas"]) + "','" + \
+              str(client["telefono"]) + "','" + str(client["mailcliente"]) + "','" + str(client["linkPortal"]) + "','" + str(client["linkYapo"]) + "','" + \
+              str(client["comision"]) + "','" + str(client["canje"]) + "')"
+        mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
+        cur = mariadb_connection.cursor()
+        cur.execute(sql)
+        mariadb_connection.commit()
+        mariadb_connection.close()
+        text = "Propiedad Insertada con éxito"
+    except Exception as E:
+        print(E)
+        text="No se pudo insertar la propiedad"
     return text
 
 def actualizar(client):
