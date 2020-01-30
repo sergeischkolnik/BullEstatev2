@@ -596,7 +596,7 @@ def nueva(client):
         # 'estacionamientos': '0', 'bodegas': '0', 'metros': 30, 'total': 35, 'adress': 'Guvf', 'moneda': 'UF', 'preciomin': 500, 'telefono': 'Tv',
         # 'mailcliente': 'U', 'linkPortal': 'G', 'linkYapo': 'G', 'comision': 'G'}
 
-        sql = "INSERT INTO propiedades(tipo,operaion,region,comuna,direccion,uf,pesos,metros,totales,dormitorios,banos,estacionamientos," \
+        sql = "INSERT INTO propiedades(tipo,operacion,region,comuna,direccion,uf,pesos,metros,totales,dormitorios,banos,estacionamientos," \
               "bodegas,telefono,mail,linkportal,linkyapo,comision,canje) " \
               "VALUES('" + str(client["tipo"]) + "','" + str(client["tipotasacion"]) + "','" + str(client["region"]) + "','" + str(client["comuna"]) + "','" + \
               str(client["adress"]) + "','" + str(precio[0]) + "','" + str(precio[1]) + "','" + str(client["metros"]) + "','" + str(client["total"]) + "','" + \
