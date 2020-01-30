@@ -1522,11 +1522,11 @@ def confirm_file(bot, update):
 
             if client["crm"]=="Actualizar":
                 bot.send_message(chat_id=update.message.chat_id, text="Seleccione que desea Actualizar")
-                select.modify(client)
+                select.modify(bot,update,client)
                 pm.MODIFY
             else:
                 bot.send_message(chat_id=update.message.chat_id, text="Confirme que desea eliminar del CRM")
-                select.modify(client)
+                select.modify(bot,update,client)
                 pm.MODIFY
         except Exception as e:
             print(e)
