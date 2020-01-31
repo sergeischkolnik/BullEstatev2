@@ -1348,13 +1348,9 @@ def modify(bot, update):
 
     elif client["product"]=="CRM" and client["crm"]=="Actualizar":
         if update.message.text == "Operación":
-            client.pop("tipotasacion")
+            client.pop("operacion")
             select.operacion(bot, update, client)
             return pm.SELECT_OP
-        elif update.message.text == "Tipo":
-            client.pop("tipo")
-            select.tipo(bot, update, client)
-            return pm.SELECT_TIPO
         elif update.message.text == "Región":
             client.pop("region")
             select.region(bot, update, client)
@@ -1363,6 +1359,10 @@ def modify(bot, update):
             client.pop("comuna")
             select.comuna(bot, update, client)
             return pm.SELECT_COMUNA
+        elif update.message.text == "Tipo":
+            client.pop("tipo")
+            select.tipo(bot, update, client)
+            return pm.SELECT_TIPO
         elif update.message.text == "Dormitorios":
             client.pop("dormitorios")
             select.dorms(bot, update, client)
@@ -1384,10 +1384,30 @@ def modify(bot, update):
             client.pop("total")
             select.area(bot, update, client)
             return pm.SELECT_AREA
+        elif update.message.text == "Precio":
+            client.pop("moneda")
+            client.pop("preciomin")
+            select.price_range(bot, update, client)
+            return pm.SELECT_PRICE_RANGE
         elif update.message.text == "Direccion":
             client.pop("adress")
             select.adress(bot, update, client)
             return pm.SELECT_ADRESS
+        elif update.message.text == "Datos Cliente":
+            client.pop("telefono")
+            client.pop("mailcliente")
+            select.crm_feature(bot, update, client)
+            return pm.CRM_FEATURE
+        elif update.message.text == "Link":
+            client.pop("linkPortal")
+            client.pop("linkYapo")
+            select.crm_feature(bot, update, client)
+            return pm.CRM_FEATURE
+        elif update.message.text == "Condiciones":
+            client.pop("comision")
+            client.pop("canje")
+            select.crm_feature(bot, update, client)
+            return pm.CRM_FEATURE
         elif update.message.text == "Atrás":
             select.confirm_tasacion(bot, update, client)
             return pm.CONFIRM_TASACION
@@ -1523,10 +1543,10 @@ def confirm_file(bot, update):
 
             if client["crm"]=="Actualizar":
                 select.modify(bot,update,client)
-                pm.MODIFY
+                return pm.MODIFY
             else:
                 select.modify(bot,update,client)
-                pm.MODIFY
+                return pm.MODIFY
         except Exception as e:
             print(e)
             text="No se encuentra la propiedad solicitada en el CRM"
