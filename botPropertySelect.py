@@ -885,11 +885,9 @@ def modify(bot, update,client):
         keyboard = [["Operacion","Tipo"],
                     ["Region","Comuna"],
                     ["Atrás","Salir"]]
-    elif client["product"]=="CRM" and (client["crm"]=="Actualizar" or client["crm"]=="Eliminar"):
-        #Back to begin
-        pass
+
     else:
-        pass
+        return pm.MODIFY
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                            one_time_keyboard=True,
                                            resize_keyboard=True)

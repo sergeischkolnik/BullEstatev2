@@ -1346,7 +1346,7 @@ def modify(bot, update):
             select.modify(bot, update, client)
             return pm.MODIFY
 
-    elif client["product"]=="CRM" and (client["crm"]=="Actualizar"):
+    elif client["product"]=="CRM" and client["crm"]=="Actualizar":
         if update.message.text == "Tipo Tasacion":
             client.pop("tipotasacion")
             select.operacion(bot, update, client)
@@ -1395,7 +1395,7 @@ def modify(bot, update):
             bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
             select.modify(bot, update, client)
             return pm.MODIFY
-    elif client["product"]=="CRM" and (client["crm"]=="Eliminar"):
+    elif client["product"]=="CRM" and client["crm"]=="Eliminar":
         if update.message.text == "Eliminar":
             text = connector.eliminar(client)
             bot.send_message(chat_id=update.message.chat_id, text=text)
