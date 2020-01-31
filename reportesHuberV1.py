@@ -1328,7 +1328,7 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
                         nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + nombreComuna + " " + str(
                             d) + " " + str(b) + " " + str(fechahoy) + '.xlsx'
                     else:
-                        nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + nombreComuna + " "+ str(fechahoy) + '.xlsx'
+                        nombreArchivo = "reporte " + nombreCliente + " " + str(tipo) + " " + str(operacion) + " " + nombreComuna + " "+ str(fechahoy) + '.xlsx'
                     if (nombrecarpetadb is None):
                         patharchivo = os.path.join(os.path.expanduser('~'), 'temp' ,nombreArchivo)
 
