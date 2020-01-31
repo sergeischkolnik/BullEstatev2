@@ -1347,65 +1347,66 @@ def modify(bot, update):
             return pm.MODIFY
 
     elif client["product"]=="CRM" and client["crm"]=="Actualizar":
+        client["update"]=[]
         if update.message.text == "Operación":
-            client.pop("operacion")
+            client["update"].append("operacion")
             select.operacion(bot, update, client)
             return pm.SELECT_OP
         elif update.message.text == "Región":
-            client.pop("region")
+            client["update"].append("region")
             select.region(bot, update, client)
             return pm.SELECT_REGION
         elif update.message.text == "Comuna":
-            client.pop("comuna")
+            client["update"].append("comuna")
             select.comuna(bot, update, client)
             return pm.SELECT_COMUNA
         elif update.message.text == "Tipo":
-            client.pop("tipo")
+            client["update"].append("tipo")
             select.tipo(bot, update, client)
             return pm.SELECT_TIPO
         elif update.message.text == "Dormitorios":
-            client.pop("dormitorios")
+            client["update"].append("dormitorios")
             select.dorms(bot, update, client)
             return pm.SELECT_DORMS
         elif update.message.text == "Baños":
-            client.pop("baños")
+            client["update"].append("baños")
             select.baths(bot, update, client)
             return pm.SELECT_BATHS
         elif update.message.text == "Estacionamientos":
-            client.pop("estacionamientos")
+            client["update"].append("estacionamientos")
             select.feature(bot, update, client)
             return pm.SELECT_FEATURE
         elif update.message.text == "Bodegas":
-            client.pop("bodegas")
+            client["update"].append("bodegas")
             select.feature(bot, update, client)
             return pm.SELECT_FEATURE
         elif update.message.text == "Superficie":
-            client.pop("metros")
-            client.pop("total")
+            client["update"].append("metros")
+            client["update"].append("total")
             select.area(bot, update, client)
             return pm.SELECT_AREA
         elif update.message.text == "Precio":
-            client.pop("moneda")
-            client.pop("preciomin")
+            client["update"].append("moneda")
+            client["update"].append("preciomin")
             select.price_range(bot, update, client)
             return pm.SELECT_PRICE_RANGE
         elif update.message.text == "Direccion":
-            client.pop("adress")
+            client["update"].append("adress")
             select.adress(bot, update, client)
             return pm.SELECT_ADRESS
         elif update.message.text == "Datos Cliente":
-            client.pop("telefono")
-            client.pop("mailcliente")
+            client["update"].append("telefono")
+            client["update"].append("mailcliente")
             select.crm_feature(bot, update, client)
             return pm.CRM_FEATURE
         elif update.message.text == "Link":
-            client.pop("linkPortal")
-            client.pop("linkYapo")
+            client["update"].append("linkPortal")
+            client["update"].append("linkYapo")
             select.crm_feature(bot, update, client)
             return pm.CRM_FEATURE
         elif update.message.text == "Condiciones":
-            client.pop("comision")
-            client.pop("canje")
+            client["update"].append("comision")
+            client["update"].append("canje")
             select.crm_feature(bot, update, client)
             return pm.CRM_FEATURE
         elif update.message.text == "Atrás":
@@ -1896,6 +1897,8 @@ def crm_feature(bot, update):
             select.menu(bot,update)
             return pm.MENU
     elif client["crm"] == "Actualizar":
+        text=connector.actualizar(client)
+        update.message.reply_text(text)
         select.menu(bot, update)
         return pm.MENU
     else:

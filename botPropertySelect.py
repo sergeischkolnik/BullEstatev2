@@ -1292,7 +1292,7 @@ def crm_feature(bot, update,client):
             return pm.MENU
     elif client["crm"]=="Actualizar":
         update.message.reply_text("Falta ultima parte del conector")
-        return pm.MENU
+        return pm.CRM_FEATURE
     elif client["crm"]=="Lista Completa":
         user = update.message.from_user
 
