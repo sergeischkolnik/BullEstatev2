@@ -1900,7 +1900,7 @@ def crm_feature(bot, update):
             return pm.MENU
     elif client["crm"] == "Actualizar":
         text=connector.actualizar(client)
-        update.message.reply_text(text)
+        bot.send_message(chat_id=update.message.chat_id, text=text)
         select.menu(bot, update)
         return pm.MENU
     else:

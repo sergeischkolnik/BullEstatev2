@@ -1338,7 +1338,6 @@ def crm_feature(bot, update,client):
             update.message.reply_text("Error inesperado. Volviendo al Menu")
             return pm.MENU
     elif client["crm"]=="Actualizar":
-        update.message.reply_text("Falta ultima parte del conector")
         return pm.CRM_FEATURE
     elif client["crm"]=="Lista Completa":
         user = update.message.from_user
