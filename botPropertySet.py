@@ -1347,11 +1347,11 @@ def modify(bot, update):
             return pm.MODIFY
 
     elif client["product"]=="CRM" and client["crm"]=="Actualizar":
-        if update.message.text == "Tipo Tasacion":
+        if update.message.text == "Operación":
             client.pop("tipotasacion")
             select.operacion(bot, update, client)
             return pm.SELECT_OP
-        elif update.message.text == "Tipo Propiedad":
+        elif update.message.text == "Tipo":
             client.pop("tipo")
             select.tipo(bot, update, client)
             return pm.SELECT_TIPO
@@ -1522,11 +1522,9 @@ def confirm_file(bot, update):
                 return pm.MENU
 
             if client["crm"]=="Actualizar":
-                bot.send_message(chat_id=update.message.chat_id, text="Seleccione que desea Actualizar")
                 select.modify(bot,update,client)
                 pm.MODIFY
             else:
-                bot.send_message(chat_id=update.message.chat_id, text="Confirme que desea eliminar del CRM")
                 select.modify(bot,update,client)
                 pm.MODIFY
         except Exception as e:

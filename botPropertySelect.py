@@ -873,7 +873,7 @@ def modify(bot, update,client):
                     ["Datos Cliente","Link","Condiciones"],
                     ["Atrás","Salir"]]
     elif client["product"]=="CRM" and client["crm"]=="Actualizar":
-        keyboard = [["Operacion","Región","Comuna"],
+        keyboard = [["Operación","Región","Comuna"],
                     ["Tipo","Dormitorios","Baños"],
                     ["Estacionamientos","Bodegas"],
                     ["Superficie","Precio","Direccion"],
@@ -894,12 +894,13 @@ def modify(bot, update,client):
     pm.logger.info("{} está modificando.".format(user.first_name))
     if client["product"] == "CRM" and client["crm"] == "Actualizar":
         update.message.reply_text("Seleccionar Opción que desee Actualizar", reply_markup=reply_markup)
-
+        return pm.MODIFY
     elif client["product"] == "CRM" and client["crm"] == "Eliminar":
         update.message.reply_text("Esta Seguro que desea eliminar?", reply_markup=reply_markup)
+        return pm.MODIFY
     else:
         update.message.reply_text("Seleccionar Opción que desee modificar", reply_markup=reply_markup)
-    return pm.MODIFY
+        return pm.MODIFY
 
 ##### FUNCIONES DE LAS FICHAS
 
