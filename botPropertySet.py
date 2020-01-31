@@ -1615,6 +1615,8 @@ def feature(bot, update):
     if update.message.text == "0" or update.message.text == "1" or update.message.text == "2" or update.message.text == "3+":
         if "estacionamientos" not in client:
             client["estacionamientos"]= update.message.text.replace("3+","3")
+            if "tipo" not in client:
+                return callback
             if client["tipo"]=="Departamento":
                 if "modify" in client:
                     return callback(bot,update)
