@@ -651,6 +651,7 @@ def actualizar(client):
         link = "linkPortal"
     else:
         link = "linkYapo"
+        
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
     cur = mariadb_connection.cursor()
     sql = "UPDATE propiedades SET "+str(update)+"='"+str(client[update])+"' WHERE " + str(link) + " like'%" + str(client["id_prop"]) + "%'"
