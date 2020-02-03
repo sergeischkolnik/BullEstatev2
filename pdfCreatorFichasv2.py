@@ -357,12 +357,12 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
               ["Rent. Capital (2)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14)/((0.95)*precioufreal*1.031+14))/10)+"%"],
               ["Rent. Total(3)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+14))/10)+"%"],
               ["Rentabilidad Neta(4)",str(int(1000*((1+rent)**(7/12)-1))/10)+"%"],
-              ["Rentabilidad Neta UF (5)",str(int(((1+rent)**(7/12)-1))*((0.95)*precioufreal*1.031+25))+" UF"],
+              ["Rentabilidad Neta UF (5)",str(int(((1+rent)**(7/12)-1)*(0.95)*precioufreal*1.031+25))+" UF"],
               ["Rentabilidad Anual Neta(6)",str(int(1000*rent)/10)+"%"],
               ["Costos Legales(7)","25 UF"],
               ["Costos de Corretaje(8)",str(int(0.02*0.95*precioufreal))+" UF"],
               ["IVA(9)",str(int((0.95*tasacionUF-((0.95)*precioufreal))*0.19))+" UF"],
-              ["Total Inversión Inicial(10)",str(int((0.95*tasacionUF-((0.95)*precioufreal))*0.19))+" UF"],
+              ["Total Inversión Inicial(10)",str(int((0.95)*precioufreal*1.031+25))+" UF"],
               ["Comisión BullEstate(11)",str(int(0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)-0.05*((0.95)*precioufreal*1.031+25))+0.01*0.95*precioufreal))+" UF"]]
 
 
@@ -403,10 +403,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(Spacer(1, 14))
         Story.append(PageBreak())
 
-        reventas=[0.9,0.95,1]
+        reventas=[0.9,0.925,0.95,0.975,1]
 
         for rev in reventas:
-            ftext = '<font size=11>INFO FINANCIERA (Reventa al '+str(int(100*rev))+'%):</font>'
+            ftext = '<font size=11>INFO FINANCIERA (Reventa al '+(str(int(1000*rev)/10)).replace('.',',')+'% - '+str(format(int(rev*tasacionUF),',')).replace(',','.')+' UF - $' +str(format(int(rev*tasacion),',')).replace(',','.')+ ':</font>'
+
             Story.append(Paragraph(ftext, styles["Justify"]))
             Story.append(Spacer(1, 14))
             data=[]
