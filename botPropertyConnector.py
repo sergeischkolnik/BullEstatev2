@@ -640,7 +640,8 @@ def selectOne(client):
     return prop
 
 def actualizar(client):
-    text= "Modificando "+str(client['update'])+" a "+str(client[client['update']])+". "
+    update=client['update'][0]
+    text= "Modificando "+str(client['update'])+" a "+str(client[update])+". "
     text += "Falta Construir Conector de Actualizar"
     return text
 
