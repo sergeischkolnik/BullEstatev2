@@ -635,6 +635,8 @@ def selectOne(client):
     cur = mariadb_connection.cursor()
     sql = "SELECT * FROM propiedades WHERE "+str(link)+" like'%" + str(client["id_prop"]) + "%'"
     cur.execute(sql)
+    mariadb_connection.commit()
+    mariadb_connection.close()
     prop = cur.fetchall()
     prop = prop[0]
     return prop
