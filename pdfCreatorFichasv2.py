@@ -356,12 +356,14 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
               ["Rent. de arriendo(1)",str(int(1000*(precioAreal*12/uf1/((0.95)*precioufreal*1.031+14)))/10)+"%"],
               ["Rent. Capital (2)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14)/((0.95)*precioufreal*1.031+14))/10)+"%"],
               ["Rent. Total(3)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+14))/10)+"%"],
-              ["Rentabilidad Neta(4)",str(int(1000*((1+rent)**(7/12))-1)/10)+"%"],
-              ["Rentabilidad Anual Neta(5)",str(int(1000*rent)/10)+"%"],
-              ["Costos Legales(6)","25 UF"],
-              ["Costos de Corretaje(7)",str(int(0.02*0.95*precioufreal))+" UF"],
-              ["IVA(8)",str(int((0.95*tasacionUF-((0.95)*precioufreal))*0.19))+" UF"],
-              ["Comisión BullEstate(9)",str(int(0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)-0.05*((0.95)*precioufreal*1.031+25))+0.01*0.95*precioufreal))+" UF"]]
+              ["Rentabilidad Neta(4)",str(int(1000*((1+rent)**(7/12)-1))/10)+"%"],
+              ["Rentabilidad Neta UF (5)",str(int(((1+rent)**(7/12)-1))*((0.95)*precioufreal*1.031+25))+" UF"],
+              ["Rentabilidad Anual Neta(6)",str(int(1000*rent)/10)+"%"],
+              ["Costos Legales(7)","25 UF"],
+              ["Costos de Corretaje(8)",str(int(0.02*0.95*precioufreal))+" UF"],
+              ["IVA(9)",str(int((0.95*tasacionUF-((0.95)*precioufreal))*0.19))+" UF"],
+              ["Total Inversión Inicial(10)",str(int((0.95*tasacionUF-((0.95)*precioufreal))*0.19))+" UF"],
+              ["Comisión BullEstate(11)",str(int(0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)-0.05*((0.95)*precioufreal*1.031+25))+0.01*0.95*precioufreal))+" UF"]]
 
 
         t=Table(data)
@@ -384,15 +386,19 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(Paragraph(ftext, styles["Justify"]))
         ftext = '<font size=6>(4)Rentabilidad neta de un ciclo de inversión, descontando gastos.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=6>(5)Rentabilidad neta anualizada</font>'
+        ftext = '<font size=6>(5)Rentabilidad neta en UF de un ciclo de inversión, descontando gastos.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=6>(6)Estudio de títulos, pago de CBR y notaría.</font>'
+        ftext = '<font size=6>(6)Rentabilidad neta anualizada</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=6>(7)Valor correspondiente al 2% de costos de corretaje, al comprar propiedad</font>'
+        ftext = '<font size=6>(7)Estudio de títulos, pago de CBR y notaría.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=6>(8) Valor correspondiente al 19% de la diferencia entre valor compra y valor re-venta</font>'
+        ftext = '<font size=6>(8)Valor correspondiente al 2% de costos de corretaje, al comprar propiedad</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=6>(9)Comisión correspondiente al 1% más un 25% de la utilidad obtenida sobre 5% por parte del Cliente.</font>'
+        ftext = '<font size=6>(9) Valor correspondiente al 19% de la diferencia entre valor compra y valor re-venta</font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=6>(10) Valor propiedad más corretaje, gastos legales, y comisión Fija de Bullestate</font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=6>(11)Comisión correspondiente al 1% más un 25% de la utilidad obtenida sobre 5% por parte del Cliente.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
         Story.append(Spacer(1, 14))
         Story.append(PageBreak())
@@ -435,7 +441,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                                    ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                                    ('BACKGROUND',(0,0), (-1,0),colors.HexColor('#34BAAF')),
                                    ('TEXTCOLOR',(0,0), (-1,0),colors.black),
-                                   ('FONTSIZE', (0,0), (-1,-1), 7),
+                                   ('FONTSIZE', (0,0), (-1,-1), 6.5),
                                    ]))
             t.setStyle(table_style)
             for row, values, in enumerate(data):
