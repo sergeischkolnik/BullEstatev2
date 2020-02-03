@@ -641,8 +641,19 @@ def selectOne(client):
 
 def actualizar(client):
     update=client['update'][0]
-    text= "Modificando "+str(client['update'])+" a "+str(client[update])+". "
-    text += "Falta Construir Conector de Actualizar"
+    if "link_prop" in client:
+        client["id_prop"] = obtenerIdConLink(client["link_prop"], client["sitio"])
+    if "portal" in client["sitio"]:
+        link = "linkPortal"
+    else:
+        link = "linkYapo"
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
+    cur = mariadb_connection.cursor()
+    sql = "UPDATE propiedades SET "+str(update)+"="+str(client[update])+" WHERE " + str(link) + " like'%" + str(client["id_prop"]) + "%'"
+    cur.execute(sql)
+
+    text= "Se ha modificado "+str(update)+" a "+str(client[update])+". "
+
     return text
 
 
