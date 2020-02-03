@@ -357,7 +357,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
               ["Rent. Capital (2)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14)/((0.95)*precioufreal*1.031+14))/10)+"%"],
               ["Rent. Total(3)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+14))/10)+"%"],
               ["Rentabilidad Neta(4)",str(int(1000*((1+rent)**(7/12)-1))/10)+"%"],
-              ["Rentabilidad Neta UF (5)",str(int(((1+rent)**(7/12)-1)*(0.95)*precioufreal*1.031+25))+" UF"],
+              ["Rentabilidad Neta UF (5)",str(int(((int((0.95)*precioufreal*1.031+25))*((1+rent)**(7/12)-1))))+" UF"],
               ["Rentabilidad Anual Neta(6)",str(int(1000*rent)/10)+"%"],
               ["Costos Legales(7)","25 UF"],
               ["Costos de Corretaje(8)",str(int(0.02*0.95*precioufreal))+" UF"],
