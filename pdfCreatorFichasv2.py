@@ -375,7 +375,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(t)
         Story.append(Spacer(1, 14))
 
-        ftext = '<font size=8>(1)Rentabilidad calculada como doce veces el valor de arriendo dividido por el total de inversión.<b></b></font>'
+        ftext = '<font size=8><b>(1)Rentabilidad calculada como doce veces el valor de arriendo dividido por el total de inversión.</b></font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
         ftext = '<font size=8><b>(2)Rentabilidad calculada como (valor de reventa - total inversión)/total inversión.</b></font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
@@ -387,7 +387,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(Paragraph(ftext, styles["Justify"]))
         ftext = '<font size=8><b>(6)Estudio de títulos, pago de CBR y notaría.</b></font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b><(7)Valor correspondiente al 2% de costos de corretaje, al comprar propiedad/b></font>'
+        ftext = '<font size=8><b>(7)Valor correspondiente al 2% de costos de corretaje, al comprar propiedad</b></font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
         ftext = '<font size=8><b>(8) Valor correspondiente al 19% de la diferencia entre valor compra y valor re-venta</b></font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
