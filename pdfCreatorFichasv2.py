@@ -418,8 +418,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
             for n in range (0,9):
                 row=[]
-                row.append((str(format(int((0.8+0.025*n)*tasacionUF),','))).replace(',','.'))
-                row.append((str(format(int((0.8+0.025*n)*tasacion),','))).replace(',','.'))
+                row.append((str(format(int((0.8+0.025*n)*precioufreal),','))).replace(',','.'))
+                row.append((str(format(int((0.8+0.025*n)*precioreal),','))).replace(',','.'))
                 row.append(str(80+2.5*n)+"%")
                 for i in range (1,16):
                     tasacionUF=float(tasacionUF)
