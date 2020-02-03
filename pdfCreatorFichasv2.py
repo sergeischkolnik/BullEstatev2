@@ -390,9 +390,12 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             t.setStyle(table_style)
             for row, values, in enumerate(data):
                 for column, value in enumerate(values):
-                    intvalue=int(value[:-1])
-                    if intvalue < 0:
-                        table_style.add('TEXTCOLOR', (column, row), (column, row), colors.red)
+                    intvalue=float(value[:-1])
+                    try:
+                        if intvalue < 0:
+                            table_style.add('TEXTCOLOR', (column, row), (column, row), colors.red)
+                    except:
+                        pass
             Story.append(t)
             Story.append(Spacer(1, 14))
         Story.append(PageBreak())
