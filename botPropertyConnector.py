@@ -271,9 +271,9 @@ def connectorFicha(client):
         elif client["fichapro"] and not client["fichainterna"]:
             tipoficha=6
         elif not client["fichapro"] and client["fichainterna"]:
-            tipoficha=7
+            tipoficha=8
         else:
-            tipoficha=5
+            tipoficha=6
 
     if "id_prop" in client:
         text=ficha.crearFicha(client["sitio"],client["id_prop"],client["mail"],tipoficha)
