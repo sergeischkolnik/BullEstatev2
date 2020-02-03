@@ -380,13 +380,19 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             data = [headers]+data
             #t=Table(data,nrCols*[0.6*inch], nrRows*[0.25*inch])
             t=Table(data)
-            t.setStyle(TableStyle([
+            table_style=(TableStyle([
                                    ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                                    ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-                                   ('BACKGROUND',(0,0), (-1,0),colors.lightgrey),
+                                   ('BACKGROUND',(0,0), (-1,0),colors.HexColor('#34BAAF')),
                                    ('TEXTCOLOR',(0,0), (-1,0),colors.black),
                                    ('FONTSIZE', (0,0), (-1,-1), 11),
                                    ]))
+            t.setStyle(table_style)
+            for row, values, in enumerate(data):
+                for column, value in enumerate(values):
+                    intvalue=int(value[:-1])
+                    if intvalue < 0:
+                        table_style.add('TEXTCOLOR', (column, row), (column, row), colors.red)
             Story.append(t)
             Story.append(Spacer(1, 14))
         Story.append(PageBreak())
