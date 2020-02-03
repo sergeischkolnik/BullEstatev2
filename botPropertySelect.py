@@ -115,7 +115,7 @@ def menu(bot, update):
     # Create buttons to slect language:
     keyboard = [["Reporte","Tasador"],
                 ["Ficha","Historial"],
-                ["Props. Cerca", "CRM"]]
+                ["Inversiones", "CRM"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=True,
@@ -944,7 +944,7 @@ def id_prop(bot, update):
     update.message.reply_text("Ingrese id propiedad, o bien el link de la publicación")
     return pm.SELECT_ID
 
-def confirm_file(bot, update,client,pro,interna):
+def confirm_file(bot, update,client,pro,interna,financiera):
     user = update.message.from_user
 
     if pro:
@@ -959,6 +959,12 @@ def confirm_file(bot, update,client,pro,interna):
     else:
         internabutton="Agregar"
         internatext="No"
+    if financiera:
+        financierabutton="Quitar"
+        financieratext="Si"
+    else:
+        financierabutton="Agregar"
+        financieratext="No"
 
     if client["product"]=="CRM":
         keyboard = [["Confirmar","Modificar"],
@@ -967,6 +973,7 @@ def confirm_file(bot, update,client,pro,interna):
         keyboard = [["Confirmar","Modificar"],
                     [probutton+" Tasación"],
                     [internabutton+" Contacto Publicación"],
+                    [financierabutton + " Ficha Financiera"],
                     ["Atrás", "Salir"]]
 
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -994,6 +1001,7 @@ def confirm_file(bot, update,client,pro,interna):
 
         confirmtext.append("La Ficha solicitada "+protext+" Incluye Tasación")
         confirmtext.append("La Ficha solicitada "+internatext+" Incluye Datos de contacto de Publicación")
+        confirmtext.append("La Ficha solicitada "+financieratext+" Incluye Datos Financieros")
         confirmtext.append("Se enviara al siguiente correo:"+client["mail"])
 
     confirmtext="\n".join(confirmtext)

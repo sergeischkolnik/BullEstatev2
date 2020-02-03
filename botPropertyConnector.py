@@ -256,14 +256,24 @@ def generarreporte(client,sendMessageFunc,chat_id,reply):
 
 def connectorFicha(client):
 
-    if client["fichapro"] and client["fichainterna"]:
-        tipoficha=4
-    elif client["fichapro"] and not client["fichainterna"]:
-        tipoficha=2
-    elif not client["fichapro"] and client["fichainterna"]:
-        tipoficha=3
+    if not client["fichafinanciera"]:
+        if client["fichapro"] and client["fichainterna"]:
+            tipoficha=4
+        elif client["fichapro"] and not client["fichainterna"]:
+            tipoficha=2
+        elif not client["fichapro"] and client["fichainterna"]:
+            tipoficha=3
+        else:
+            tipoficha=1
     else:
-        tipoficha=1
+        if client["fichapro"] and client["fichainterna"]:
+            tipoficha=8
+        elif client["fichapro"] and not client["fichainterna"]:
+            tipoficha=6
+        elif not client["fichapro"] and client["fichainterna"]:
+            tipoficha=7
+        else:
+            tipoficha=5
 
     if "id_prop" in client:
         text=ficha.crearFicha(client["sitio"],client["id_prop"],client["mail"],tipoficha)

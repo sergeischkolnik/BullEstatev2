@@ -460,10 +460,12 @@ def crearFicha(sitio,id,mail,tipoficha):
     #Determinar tipo de informe
     pro=False
     interna=False
-    full=False
+    financiera=False
     textmail=''
     ufn=uf.getUf()
-
+    if tipoficha>4:
+        financiera=True
+        tipoficha=tipoficha-4
     if tipoficha==2:
         pro=True
     elif tipoficha==3:

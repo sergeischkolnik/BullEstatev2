@@ -247,7 +247,7 @@ def menu(bot, update):
     elif update.message.text == "Historial":
         select.last(bot, update)
         return pm.SELECT_LAST
-    elif update.message.text == "ASDF" or update.message.text == "Props. Cerca" or update.message.text == "CRM":
+    elif update.message.text == "ASDF" or update.message.text == "Inversiones" or update.message.text == "CRM":
         select.crm(bot, update)
         return pm.CRM
     else:
@@ -337,9 +337,6 @@ def callback(bot,update):
         select.menu(bot, update)
         return pm.MENU
 
-
-
-
  ###FUNCIONES REPORTES
 
 def operacion(bot, update):
@@ -351,6 +348,7 @@ def operacion(bot, update):
 
     # set client
     client = clientsDict[update.message.from_user.id]
+
     if client["product"]=="CRM" and client["crm"]=="Buscar":
         client["operacion"] = update.message.text
     elif client["product"]=="Reporte":
@@ -1454,14 +1452,16 @@ def site(bot, update):
     if update.message.text == "www.portalinmobiliario.com":
         client["fichapro"]=False
         client["fichainterna"] = False
-        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        client["fichafinanciera"] = False
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
         print(client)
         return pm.CONFIRM_FILE
     if update.message.text == "www.yapo.cl":
         select.id_prop(bot, update)
         client["fichapro"]=False
         client["fichainterna"] = False
-        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        client["fichafinanciera"] = False
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
         print(client)
         return pm.CONFIRM_FILE
     elif update.message.text == "Atrás":
