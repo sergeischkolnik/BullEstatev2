@@ -363,7 +363,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                 row.append((str(format(int((0.8+0.02*n)*tasacion),','))).replace(',','.'))
                 row.append(str(80+2*n)+"%")
                 for i in range (1,16):
-
+                    tasacionUF=float(tasacionUF)
+                    precioufreal=float(precioufreal)
+                    precioAreal=float(precioAreal)
+                    uf1=float(uf1)
+                    rev=float(rev)
                     rent=(1+(((rev*tasacionUF-((0.8+0.02*n)*precioufreal))*0.81-((0.8+0.02*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.02*n)*precioufreal*1.031+14)-0.25*((((rev*tasacionUF-((0.8+0.02*n)*precioufreal))*0.81-((0.8+0.02*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.02*n)*precioufreal*1.031+14)-0.05))**(12/i)-1
                     rent=str((int(10000*rent))/100)+"%"
                     row.append(rent)
