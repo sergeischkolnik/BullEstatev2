@@ -106,6 +106,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     if pro:
         if operacion=='venta':
             precioV=datospro[0]
+            precioVreal=precioV
             precioV=precioV/uf1
             precioV=int(precioV)
             precioV=str(format(precioV,','))
@@ -343,7 +344,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
     if pro and financiera and operacion=='venta':
         tasacion=datospro[0]
-        tasacionUF=(precioV/uf1)
+        tasacionUF=(precioVreal/uf1)
         print("entro datos financieros")
         reventas=[0.9,0.95,1]
 
