@@ -350,7 +350,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         reventas=[0.9,0.95,1]
 
         for rev in reventas:
-            ftext = '<font size=11><b>INFO FINANCIERA (Reventa al '+str(100*rev)+'%</b></font>'
+            ftext = '<font size=11><b>INFO FINANCIERA (Reventa al '+str(100*rev)+'%):</b></font>'
             Story.append(Paragraph(ftext, styles["Justify"]))
             Story.append(Spacer(1, 14))
             data=[]
@@ -359,19 +359,19 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                 headers.append(str(i))
 
 
-            for n in range (0,11):
+            for n in range (0,9):
                 row=[]
-                row.append((str(format(int((0.8+0.02*n)*tasacionUF),','))).replace(',','.'))
-                row.append((str(format(int((0.8+0.02*n)*tasacion),','))).replace(',','.'))
-                row.append(str(80+2*n)+"%")
+                row.append((str(format(int((0.8+0.025*n)*tasacionUF),','))).replace(',','.'))
+                row.append((str(format(int((0.8+0.025*n)*tasacion),','))).replace(',','.'))
+                row.append(str(80+2.5*n)+"%")
                 for i in range (1,16):
                     tasacionUF=float(tasacionUF)
                     precioufreal=float(precioufreal)
                     precioAreal=float(precioAreal)
                     uf1=float(uf1)
                     rev=float(rev)
-                    rent=(1+(((rev*tasacionUF-((0.8+0.02*n)*precioufreal))*0.81-((0.8+0.02*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.02*n)*precioufreal*1.031+14)-0.25*((((rev*tasacionUF-((0.8+0.02*n)*precioufreal))*0.81-((0.8+0.02*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.02*n)*precioufreal*1.031+14)-0.05))**(12/i)-1
-                    rent=str((int(10000*rent))/100)+"%"
+                    rent=(1+(((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.025*n)*precioufreal*1.031+14)-0.25*((((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.025*n)*precioufreal*1.031+14)-0.05))**(12/i)-1
+                    rent=str((int(1000*rent))/10)+"%"
                     row.append(rent)
                 data.append(row)
 
@@ -388,6 +388,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                                    ('FONTSIZE', (0,0), (-1,-1), 11),
                                    ]))
             Story.append(t)
+            Story.append(Spacer(1, 14))
         Story.append(PageBreak())
 
 
