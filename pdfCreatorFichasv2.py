@@ -341,11 +341,12 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
         Story.append(t)
         Story.append(PageBreak())
-
+    print("Antes de entrar a datos financieros")
     if pro and financiera and operacion=='venta':
+        print("entro datos financieros")
         tasacion=datospro[0]
         tasacionUF=(precioVreal/uf1)
-        print("entro datos financieros")
+
         reventas=[0.9,0.95,1]
 
         for rev in reventas:
