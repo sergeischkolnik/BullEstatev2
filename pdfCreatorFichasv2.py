@@ -343,6 +343,10 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(PageBreak())
     print("Antes de entrar a datos financieros")
     if pro and financiera and operacion=='venta':
+
+
+
+
         print("entro datos financieros")
         tasacion=datospro[0]
         tasacionUF=(precioVreal/uf1)
@@ -350,7 +354,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         reventas=[0.9,0.95,1]
 
         for rev in reventas:
-            ftext = '<font size=11><b>INFO FINANCIERA (Reventa al '+str(100*rev)+'%):</b></font>'
+            ftext = '<font size=11><b>INFO FINANCIERA (Reventa al '+str(int(100*rev))+'%):</b></font>'
             Story.append(Paragraph(ftext, styles["Justify"]))
             Story.append(Spacer(1, 14))
             data=[]
@@ -385,7 +389,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                                    ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                                    ('BACKGROUND',(0,0), (-1,0),colors.HexColor('#34BAAF')),
                                    ('TEXTCOLOR',(0,0), (-1,0),colors.black),
-                                   ('FONTSIZE', (0,0), (-1,-1), 11),
+                                   ('FONTSIZE', (0,0), (-1,-1), 9),
                                    ]))
             t.setStyle(table_style)
             for row, values, in enumerate(data):
@@ -393,7 +397,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                     try:
                         intvalue=float(value[:-1])
                         if intvalue < 0:
-                            table_style.add('TEXTCOLOR', (column, row), (column, row), colors.red)
+                            table_style.add('BACKGROUND', (column, row), (column, row), colors.red)
+                        if intvalue > 0.2:
+                            table_style.add('BACKGROUND', (column, row), (column, row), colors.limegreen)
+                        if intvalue > 0.5:
+                            table_style.add('BACKGROUND', (column, row), (column, row), colors.darkgreen)
                     except:
                         pass
             Story.append(t)
