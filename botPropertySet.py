@@ -333,6 +333,7 @@ def callback(bot,update):
     elif client["product"]=="CRM" and client["crm"]=="Actualizar":
         text = connector.actualizar(client)
         bot.send_message(chat_id=update.message.chat_id, text=text)
+        client["success"] = "check"
         select.menu(bot, update)
         return pm.MENU
     else:
@@ -615,6 +616,12 @@ def baths(bot, update):
                 select.price_range(bot,update,client)
                 return pm.SELECT_PRICE_RANGE
         elif client["product"]=="CRM" and client["crm"]=="Buscar":
+            if "modify" in client:
+                return callback(bot,update)
+            else:
+                select.price_range(bot,update,client)
+                return pm.SELECT_PRICE_RANGE
+        elif client["product"]=="CRM" and client["crm"]=="Actualizar":
             if "modify" in client:
                 return callback(bot,update)
             else:
