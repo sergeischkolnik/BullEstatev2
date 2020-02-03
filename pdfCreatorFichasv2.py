@@ -251,13 +251,13 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
 
     if interna:
-        ptext = '<font size=11><b>FICHA PROPIEDAD</b>: '+str(id)+'</font>'
+        ptext = '<font size=11>FICHA PROPIEDAD: '+str(id)+'</font>'
         Story.append(Paragraph(ptext, styles["Justify"]))
         Story.append(Spacer(1, 14))
 
 
     else:
-        ptext = '<font size=11><b>FICHA PROPIEDAD</b></font>'
+        ptext = '<font size=11>FICHA PROPIEDAD</font>'
         Story.append(Paragraph(ptext, styles["Justify"]))
         Story.append(Spacer(1, 14))
 
@@ -272,7 +272,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(t4)
         Story.append(Spacer(1, 16))
 
-    ptext = '<font size=11><b>Descripción:</b></font>'
+    ptext = '<font size=11>Descripción:</font>'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
@@ -336,7 +336,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         t.setStyle(TableStyle([
                                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ('FONTSIZE', (0,0), (-1,-1), 11),
                                ]))
 
         Story.append(t)
@@ -348,11 +348,12 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         tasacion=datospro[0]
         tasacionUF=(precioVreal/uf1)
 
-        ftext = '<font size=11><b>Propuesta de Compra Arriendo y Posterior Venta en un Período de 7 Meses, ofertando 95% Valor propiedad, Revendiendo a 95%  del valor de tasación:</b></font>'
+        ftext = '<font size=11>Propuesta de Compra Arriendo y Posterior Venta en un Período de 7 Meses, ofertando 95% Valor propiedad, Revendiendo a 95%  del valor de tasación:</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
         Story.append(Spacer(1, 14))
         rent=(1+(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+25)-0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+25)-0.05))**(12/7)-1
-        data=[["Rent. de arriendo(1)",str(int(1000*(precioAreal*12/uf1/((0.95)*precioufreal*1.031+14)))/10)+"%"],
+        data=[["Item","Valor"],
+              ["Rent. de arriendo(1)",str(int(1000*(precioAreal*12/uf1/((0.95)*precioufreal*1.031+14)))/10)+"%"],
               ["Rent. Capital (2)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14)/((0.95)*precioufreal*1.031+14))/10)+"%"],
               ["Rent. Total(3)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+14))/10)+"%"],
               ["Rentabilidad Neta(4)",str(int(1000*((1+rent)**(7/12))-1)/10)+"%"],
@@ -375,23 +376,23 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         Story.append(t)
         Story.append(Spacer(1, 14))
 
-        ftext = '<font size=8><b>(1)Rentabilidad calculada como doce veces el valor de arriendo dividido por el total de inversión.</b></font>'
+        ftext = '<font size=6>(1)Rentabilidad calculada como doce veces el valor de arriendo dividido por el total de inversión.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b>(2)Rentabilidad calculada como (valor de reventa - total inversión)/total inversión.</b></font>'
+        ftext = '<font size=6>(2)Rentabilidad calculada como (valor de reventa - total inversión)/total inversión.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b>(3)Rentabilidad de Arriendo + Rentabilidad de Capital, durante ciclo de inversión.</b></font>'
+        ftext = '<font size=6>(3)Rentabilidad de Arriendo + Rentabilidad de Capital, durante ciclo de inversión.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b>(4)Rentabilidad neta de un ciclo de inversión, descontando gastos.</b></font>'
+        ftext = '<font size=6>(4)Rentabilidad neta de un ciclo de inversión, descontando gastos.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b>(5)Rentabilidad neta anualizada</b></font>'
+        ftext = '<font size=6>(5)Rentabilidad neta anualizada</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b>(6)Estudio de títulos, pago de CBR y notaría.</b></font>'
+        ftext = '<font size=6>(6)Estudio de títulos, pago de CBR y notaría.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b>(7)Valor correspondiente al 2% de costos de corretaje, al comprar propiedad</b></font>'
+        ftext = '<font size=6>(7)Valor correspondiente al 2% de costos de corretaje, al comprar propiedad</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b>(8) Valor correspondiente al 19% de la diferencia entre valor compra y valor re-venta</b></font>'
+        ftext = '<font size=6>(8) Valor correspondiente al 19% de la diferencia entre valor compra y valor re-venta</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
-        ftext = '<font size=8><b>(9)Comisión correspondiente al 1% más un 25% de la utilidad obtenida sobre 5% por parte del Cliente.</b></font>'
+        ftext = '<font size=6>(9)Comisión correspondiente al 1% más un 25% de la utilidad obtenida sobre 5% por parte del Cliente.</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
         Story.append(Spacer(1, 14))
         Story.append(PageBreak())
@@ -399,7 +400,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         reventas=[0.9,0.95,1]
 
         for rev in reventas:
-            ftext = '<font size=11><b>INFO FINANCIERA (Reventa al '+str(int(100*rev))+'%):</b></font>'
+            ftext = '<font size=11>INFO FINANCIERA (Reventa al '+str(int(100*rev))+'%):</font>'
             Story.append(Paragraph(ftext, styles["Justify"]))
             Story.append(Spacer(1, 14))
             data=[]
@@ -434,13 +435,15 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                                    ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                                    ('BACKGROUND',(0,0), (-1,0),colors.HexColor('#34BAAF')),
                                    ('TEXTCOLOR',(0,0), (-1,0),colors.black),
-                                   ('FONTSIZE', (0,0), (-1,-1), 9),
+                                   ('FONTSIZE', (0,0), (-1,-1), 7),
                                    ]))
             t.setStyle(table_style)
             for row, values, in enumerate(data):
                 for column, value in enumerate(values):
                     try:
+                        print(value)
                         intvalue=float(value[:-1])
+                        print(intvalue)
                         if intvalue < 0:
                             table_style.add('BACKGROUND', (column, row), (column, row), colors.red)
                         if intvalue > 0.2:
