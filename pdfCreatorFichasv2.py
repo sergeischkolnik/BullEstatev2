@@ -117,7 +117,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             rentV = float(rentV/10)
             rentV = str(rentV)+"%"
             precioA=datospro[2]
-            precioAreal=precioA
+            precioAreal=10000*(int(precioA/10000))
             precioA=int(precioA)
             precioA=str(format(precioA,','))
             precioA=precioA.replace(',','.')
@@ -344,12 +344,57 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     print("Antes de entrar a datos financieros")
     if pro and financiera and operacion=='venta':
 
-
-
-
         print("entro datos financieros")
         tasacion=datospro[0]
         tasacionUF=(precioVreal/uf1)
+
+        ftext = '<font size=11><b>Propuesta de Compra Arriendo y Posterior Venta en un Período de 7 Meses, ofertando 95% Valor propiedad, Revendiendo a 95%  del valor de tasación:</b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        Story.append(Spacer(1, 14))
+        rent=(1+(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+25)-0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+25)-0.05))**(12/7)-1
+        data=[["Rent. de arriendo(1)",str(int(1000*(precioAreal*12/uf1/((0.95)*precioufreal*1.031+14)))/10)+"%"],
+              ["Rent. Capital (2)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14)/((0.95)*precioufreal*1.031+14))/10)+"%"],
+              ["Rent. Total(3)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+14))/10)+"%"],
+              ["Rentabilidad Neta(4)",str(int(1000*((1+rent)**(7/12))-1)/10)+"%"],
+              ["Rentabilidad Anual Neta(5)",str(int(1000*rent)/10)+"%"],
+              ["Costos Legales(6)","25 UF"],
+              ["Costos de Corretaje(7)",str(int(0.02*0.95*precioufreal))+" UF"],
+              ["IVA(8)",str(int((0.95*tasacionUF-((0.95)*precioufreal))*0.19))+" UF"],
+              ["Comisión BullEstate(9)",str(int(0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)-0.05*((0.95)*precioufreal*1.031+25))+0.01*0.95*precioufreal))+" UF"]]
+
+
+        t=Table(data)
+        table_style=(TableStyle([
+                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               ('BACKGROUND',(0,0), (-1,0),colors.HexColor('#34BAAF')),
+                               ('TEXTCOLOR',(0,0), (-1,0),colors.black),
+                               ('FONTSIZE', (0,0), (-1,-1), 9),
+                               ]))
+        t.setStyle(table_style)
+        Story.append(t)
+        Story.append(Spacer(1, 14))
+
+        ftext = '<font size=8>(1)Rentabilidad calculada como doce veces el valor de arriendo dividido por el total de inversión.<b></b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=8><b>(2)Rentabilidad calculada como (valor de reventa - total inversión)/total inversión.</b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=8><b>(3)Rentabilidad de Arriendo + Rentabilidad de Capital, durante ciclo de inversión.</b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=8><b>(4)Rentabilidad neta de un ciclo de inversión, descontando gastos.</b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=8><b>(5)Rentabilidad neta anualizada</b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=8><b>(6)Estudio de títulos, pago de CBR y notaría.</b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=8><b><(7)Valor correspondiente al 2% de costos de corretaje, al comprar propiedad/b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=8><b>(8) Valor correspondiente al 19% de la diferencia entre valor compra y valor re-venta</b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        ftext = '<font size=8><b>(9)Comisión correspondiente al 1% más un 25% de la utilidad obtenida sobre 5% por parte del Cliente.</b></font>'
+        Story.append(Paragraph(ftext, styles["Justify"]))
+        Story.append(Spacer(1, 14))
+        Story.append(PageBreak())
 
         reventas=[0.9,0.95,1]
 
@@ -374,7 +419,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                     precioAreal=float(precioAreal)
                     uf1=float(uf1)
                     rev=float(rev)
-                    rent=(1+(((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.025*n)*precioufreal*1.031+14)-0.25*((((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.025*n)*precioufreal*1.031+14)-0.05))**(12/i)-1
+                    rent=(1+(((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-25+precioAreal*i/uf1)/((0.8+0.025*n)*precioufreal*1.031+25)-0.25*((((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-25+precioAreal*i/uf1)/((0.8+0.025*n)*precioufreal*1.031+25)-0.05))**(12/i)-1
                     rent=str((int(1000*rent))/10)+"%"
                     row.append(rent)
                 data.append(row)
