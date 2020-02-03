@@ -635,8 +635,7 @@ def selectOne(client):
     cur = mariadb_connection.cursor()
     sql = "SELECT * FROM propiedades WHERE "+str(link)+" like'%" + str(client["id_prop"]) + "%'"
     cur.execute(sql)
-    mariadb_connection.commit()
-    mariadb_connection.close()
+
     prop = cur.fetchall()
     prop = prop[0]
     return prop
@@ -651,13 +650,14 @@ def actualizar(client):
         link = "linkPortal"
     else:
         link = "linkYapo"
-        
+
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
     cur = mariadb_connection.cursor()
     sql = "UPDATE propiedades SET "+str(update)+"='"+str(client[update])+"' WHERE " + str(link) + " like'%" + str(client["id_prop"]) + "%'"
     print(sql)
     cur.execute(sql)
-
+    mariadb_connection.commit()
+    mariadb_connection.close()
     text= "Se ha modificado "+str(update)+" a "+str(client[update])+". "
 
     return text
