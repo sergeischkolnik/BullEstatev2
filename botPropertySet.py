@@ -331,8 +331,10 @@ def callback(bot,update):
         select.crm_feature(bot,update,client)
         return pm.CRM_FEATURE
     elif client["product"]=="CRM" and client["crm"]=="Actualizar":
-        select.crm_feature(bot,update,client)
-        return pm.CRM_FEATURE
+        text = connector.actualizar(client)
+        bot.send_message(chat_id=update.message.chat_id, text=text)
+        select.menu(bot, update)
+        return pm.MENU
     else:
         select.menu(bot, update)
         return pm.MENU
