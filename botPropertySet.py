@@ -1499,6 +1499,7 @@ def id_prop(bot, update):
             client["link_prop"] = update.message.text
             client["fichapro"]=False
             client["fichainterna"] = False
+            client["fichafinanciera"] = False
             select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
             print(client)
             return pm.CONFIRM_FILE
@@ -1508,6 +1509,7 @@ def id_prop(bot, update):
             client["link_prop"] = update.message.text
             client["fichapro"]=False
             client["fichainterna"] = False
+            client["fichafinanciera"] = False
             select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
             print(client)
             return pm.CONFIRM_FILE
