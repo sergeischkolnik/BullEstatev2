@@ -650,6 +650,7 @@ def actualizar(client):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='CRM')
     cur = mariadb_connection.cursor()
     sql = "UPDATE propiedades SET "+str(update)+"="+str(client[update])+" WHERE " + str(link) + " like'%" + str(client["id_prop"]) + "%'"
+    print(sql)
     cur.execute(sql)
 
     text= "Se ha modificado "+str(update)+" a "+str(client[update])+". "
