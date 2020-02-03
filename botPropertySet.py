@@ -298,7 +298,7 @@ def last(bot, update):
         return pm.CONFIRM_TASACION
     elif update.message.text == "Ficha" and len(lastoperations[update.message.text])>0:
         client=lastoperations[update.message.text][0]
-        select.confirm_file(bot, update,client,False,False)
+        select.confirm_file(bot, update,client,False,False,False)
         return pm.CONFIRM_FILE
     elif update.message.text == "Atrás":
         select.menu(bot, update)
@@ -1499,7 +1499,7 @@ def id_prop(bot, update):
             client["link_prop"] = update.message.text
             client["fichapro"]=False
             client["fichainterna"] = False
-            select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+            select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
             print(client)
             return pm.CONFIRM_FILE
         elif "yapo.cl" in update.message.text:
@@ -1508,7 +1508,7 @@ def id_prop(bot, update):
             client["link_prop"] = update.message.text
             client["fichapro"]=False
             client["fichainterna"] = False
-            select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+            select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
             print(client)
             return pm.CONFIRM_FILE
 
@@ -1574,19 +1574,27 @@ def confirm_file(bot, update):
         return pm.MODIFY
     elif update.message.text == "Agregar Tasación":
         client["fichapro"] = True
-        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
         return pm.CONFIRM_FILE
     elif update.message.text == "Agregar Contacto Publicación":
         client["fichainterna"] = True
-        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
+        return pm.CONFIRM_FILE
+    elif update.message.text == "Agregar Ficha Financiera":
+        client["fichafinanciera"] = True
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
         return pm.CONFIRM_FILE
     elif update.message.text == "Quitar Tasación":
         client["fichapro"] = False
-        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
         return pm.CONFIRM_FILE
     elif update.message.text == "Quitar Contacto Publicación":
         client["fichainterna"] = False
-        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"])
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
+        return pm.CONFIRM_FILE
+    elif update.message.text == "Quitar Ficha Financiera":
+        client["fichafinanciera"] = False
+        select.confirm_file(bot, update, client,client["fichapro"],client["fichainterna"],client["fichafinanciera"])
         return pm.CONFIRM_FILE
     elif update.message.text == "Atrás":
         select.id_prop(bot, update)
@@ -1596,7 +1604,7 @@ def confirm_file(bot, update):
         return pm.MENU
     else:
         bot.send_message(chat_id=update.message.chat_id, text="Comando invalido, presione algun boton.")
-        select.confirm_file(bot, update, client, client["fichapro"], client["fichainterna"])
+        select.confirm_file(bot, update, client, client["fichapro"], client["fichainterna"],client["fichafinanciera"])
         return pm.CONFIRM_FILE
 
 #FUNCIONES TASADOR

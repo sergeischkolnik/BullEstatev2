@@ -20,11 +20,6 @@ import reportes
 import botPropertyConnector
 
 
-
-
-
-
-
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP,links):
     #Propiedad:
     #DatosPro: Preciov/RentV/PrecioA/RentA, o bien solo PrecioA
@@ -36,6 +31,11 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     datospropiedad=[]
     datosrentabilidad=[]
     datoscontacto=[]
+
+    if pro=="financiera":
+        pro=True
+        financiera=True
+
 
     uf1=uf.getUf()
     for x,p in enumerate (propiedad):
@@ -58,7 +58,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     datoslocalizacion.append(comuna.capitalize())
 
     precio=int(propiedad[4])
-
+    precioreal=precio
+    precioufreal=precio/uf1
     preciouf=(int(precio/uf1))
     preciouf=str(format(preciouf,','))
     preciouf=preciouf.replace(',','.')
@@ -115,6 +116,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
             rentV = float(rentV/10)
             rentV = str(rentV)+"%"
             precioA=datospro[2]
+            precioAreal=precioA
             precioA=int(precioA)
             precioA=str(format(precioA,','))
             precioA=precioA.replace(',','.')
@@ -338,6 +340,50 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
         Story.append(t)
         Story.append(PageBreak())
+
+    if pro and financiera and operacion=='venta':
+        tasacion=datospro[0]
+        tasacionUF=(precioV/uf1)
+        print("entro datos financieros")
+        reventas=[0.9,0.95,1]
+
+        for rev in reventas:
+            ftext = '<font size=11><b>INFO FINANCIERA (Reventa al '+str(100*rev)+'%</b></font>'
+            Story.append(Paragraph(ftext, styles["Justify"]))
+            Story.append(Spacer(1, 14))
+            data=[]
+            headers=["Valor UF:","Valor Pesos", "% Oferta"]
+            for i in range (1,16):
+                headers.append(str(i))
+
+
+            for n in range (0,11):
+                row=[]
+                row.append((str(format(int((0.8+0.02*n)*tasacionUF),','))).replace(',','.'))
+                row.append((str(format(int((0.8+0.02*n)*tasacion),','))).replace(',','.'))
+                row.append(str(80+2*n)+"%")
+                for i in range (1,16):
+
+                    rent=(1+(((rev*tasacionUF-((0.8+0.02*n)*precioufreal))*0.81-((0.8+0.02*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.02*n)*precioufreal*1.031+14)-0.25*((((rev*tasacionUF-((0.8+0.02*n)*precioufreal))*0.81-((0.8+0.02*n)*precioufreal)*0.031)-14+precioAreal*i/uf1)/((0.8+0.02*n)*precioufreal*1.031+14)-0.05))**(12/i)-1
+                    rent=str((int(10000*rent))/100)+"%"
+                    row.append(rent)
+                data.append(row)
+
+
+
+            data = [headers]+data
+            #t=Table(data,nrCols*[0.6*inch], nrRows*[0.25*inch])
+            t=Table(data)
+            t.setStyle(TableStyle([
+                                   ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                                   ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                                   ('BACKGROUND',(0,0), (-1,0),colors.lightgrey),
+                                   ('TEXTCOLOR',(0,0), (-1,0),colors.black),
+                                   ('FONTSIZE', (0,0), (-1,-1), 11),
+                                   ]))
+            Story.append(t)
+        Story.append(PageBreak())
+
 
 
     for x in range(0,lenfotos):

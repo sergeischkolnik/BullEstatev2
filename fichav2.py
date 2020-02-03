@@ -1018,6 +1018,8 @@ def crearFicha(sitio,id,mail,tipoficha):
 
     print(nombrearchivo)
     links=[]
+    if financiera:
+        pro="financiera"
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datoscontacto,regionP,links)
     print("pdf generado con exito")
     #Enviar PDF
