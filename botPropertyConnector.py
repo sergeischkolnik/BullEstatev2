@@ -644,6 +644,9 @@ def actualizar(client):
     update=client['update'][0]
     if 'tipotasacion' in client:
         client['operacion']=client['tipotasacion']
+    if update=='baños':
+        client['banos']=client['baños']
+        update='banos'
     if "link_prop" in client:
         client["id_prop"] = obtenerIdConLink(client["link_prop"], client["sitio"])
     if "portal" in client["sitio"]:
