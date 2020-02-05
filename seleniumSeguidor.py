@@ -15,7 +15,12 @@ import xlsxwriter
 import datetime
 fechahoy = datetime.datetime.now()
 fechahoy=str(fechahoy.day)+'-'+str(fechahoy.month)+'-'+str(fechahoy.year)
+import pandas as pd
 
+def excelToDict(name):
+    df = pd.read_excel (str(name)+'.xlsx')
+    dict=df.to_dict('index')
+    return dict
 
 def writeExcel(gendict,particular1,name):
 
