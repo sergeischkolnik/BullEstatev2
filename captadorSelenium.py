@@ -99,7 +99,7 @@ banos = ["_Banos_2",
           "_Banos_1",
           "_Banos_5-o-mas"]
 
-comunas = ["santiago","vitacura","lo-barnechea","las-condes","la-reina","recoleta","independencia","estacion-central",
+comunas = ["las-condes","santiago","vitacura","lo-barnechea","la-reina","recoleta","independencia","estacion-central",
            "san-miguel","la-cisterna","huechuraba","pudahuel","maipu","nunoa","providencia","macul","quinta-normal","san-joaquin","vina-del-mar","valparaiso","concon","quilpue"]
 regiones=["metropolitana","valparaiso"]
 operaciones = ["arriendo","venta"]

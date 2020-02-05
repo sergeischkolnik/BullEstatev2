@@ -82,7 +82,7 @@ if __name__ == "__main__":
     body1 += "El servicio incluye publicaciones con cuentas pagadas en principales portales de compraventa inmobiliaria, difusión en nuestra cartera de clientes, y gestión de visitas. Como te mencioné anteriormente, esto no tiene absolutamente ningún costo para ti.\n"
     body1 += "Además, realizamos el acompañamiento hasta la firma final de compraventa o de arriendo de la propiedad.\n\n"
     body1 += "Si tienes interés, te solicito enviar toda la información de tu propiedad a mi correo carolina@vendetudepto.cl (precio, características, horarios de visita, fotografías, etc), y con gusto asignaremos un corredor para tu propiedad. Junto con esto, rogamos enviarnos tu número de contacto.\n\n"
-    body1 += "Ante cualquier dudas, por favor escríbeme al correo o a nuestro WhatsApp +569 8936 6288.\n"
+    body1 += "Ante cualquier dudas, por favor escríbeme al correo o a nuestro WhatsApp +569 3683 8747.\n"
     body1 += "De antemano muchas gracias por tu tiempo,\n\n"
     body1 += "Saludos cordiales,\n\n"
     body1 += "Carolina, \n"
