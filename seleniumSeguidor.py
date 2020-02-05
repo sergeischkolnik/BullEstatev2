@@ -84,6 +84,7 @@ def nonePropiedad():
     propiedad["telefono"]=None
     propiedad["mail"]=None
     propiedad["linkPortal"]=None
+    propiedad["codigoPortal"]=None
     propiedad["linkYapo"]=None
     propiedad["comision"]=None
     propiedad["canje"]=None
@@ -103,6 +104,8 @@ def login(driver):
     time.sleep(random.randint(5,15))
 
 def obtenerPropiedades(driver):
+    revisadas=[]
+    fin=False
     propiedades={}
     propiedad=nonePropiedad()
     driver.find_element_by_xpath('//*[@id="nav-Propiedad"]/a/span').click()
@@ -112,6 +115,7 @@ def obtenerPropiedades(driver):
     time.sleep(2)
     count=0
     first=True
+    paginaactual=1
     while True:
         for i in range(1,11):
 
@@ -126,24 +130,29 @@ def obtenerPropiedades(driver):
                 moneda=(driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[11]/div').text).split(' ')[0]
                 precio=(driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[11]/div').text).split(' ')[1]
                 driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']').click()
+                fin=False
             except Exception as E:
                 print(E)
                 try:
-                    time.sleep(5)
-                    active=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr[1]/td[12]/div/div').get_attribute('title')
-                    tipo=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[3]/div/div').text
-                    direccion=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[4]/div/div').text
-                    comuna=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[5]/div/div').text
-                    dormitorios=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[7]/div/div').text
-                    banos=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[8]/div/div').text
-                    operacion=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[10]/div/div').text
-                    moneda=(driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[11]/div/div').text).split(' ')[0]
-                    precio=(driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[11]/div/div').text).split(' ')[1]
+                    time.sleep(30)
+                    tipo=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[3]/div').text
+                    direccion=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[4]/div').text
+                    comuna=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[5]/div').text
+                    dormitorios=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[7]/div').text
+                    banos=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[8]/div').text
+                    operacion=driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[10]/div').text
+                    moneda=(driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[11]/div').text).split(' ')[0]
+                    precio=(driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']/td[11]/div').text).split(' ')[1]
                     driver.find_element_by_xpath('//*[@id="grillaPropiedades"]/table/tbody/tr['+str(i)+']').click()
+                    fin=False
                 except Exception as E:
-                    print(E)
-                    print("Fin Propiedades")
-                    return
+                    if fin:
+                        print(E)
+                        print("Fin Propiedades")
+                        return False,False
+                    else:
+                        fin=True
+                        continue
             time.sleep(2)
             driver.find_element_by_xpath('//*[@id="btnResumenPropiedadListado"]').click()
             time.sleep(2)
@@ -184,7 +193,7 @@ def obtenerPropiedades(driver):
             time.sleep(2)
             resumen=False
             try:
-                estado=driver.find_element_by_xpath('//*[@id="estadoPropiedadEnFicha"]').text
+                estado=driver.find_element_by_xpath('//*[@id="header"]/div/div[1]/div/span[2]').text
                 resumen=True
 
                 cdireccion=driver.find_element_by_class_name("direccion").text.split("\n")
@@ -248,6 +257,7 @@ def obtenerPropiedades(driver):
             propiedad["telefono"]=None
             propiedad["mail"]=None
             propiedad["linkPortal"]=str(link)
+            propiedad["codigoPortal"]=str(codigo)
             propiedad["linkYapo"]=None
             propiedad["comision"]=None
             propiedad["canje"]=None
@@ -255,12 +265,17 @@ def obtenerPropiedades(driver):
             propiedad["activa"]=str(estado)
 
             propiedades[str(i+count)]=propiedad
-            print(str(i+count)+":")
+            revisadas.append(i+count)
+            print(str(10*(paginaactual-1)+i)+":")
             print(propiedad)
-
+            if paginaactual>1:
+                for z in range(1,paginaactual):
+                    driver.find_element_by_xpath("//span[@class='icono16x16 siguiente']").click()
+                    time.sleep(3)
             # print(str(i+count)+": "+str(estado)+"/ "+str(operacion)+"/ "+str(tipo)+"/ "+str(dormitorios)+"/ "+str(banos)+"/ "+str(estacionamientos)+"/ "+str(bodegas)+
             #       "/ "+str(min)+"/ "+str(max)+"/ "+str(direccion)+"/ "+str(comuna)+"/ "+str(moneda)+"/ "+str(precio)+"/ "+str(codigo)+"/ "+str(link))+"/"+(str(description))
         if first:
+            paginaactual+=1
             print("Yes, its first")
             driver.find_element_by_xpath("//span[@class='icono16x16 siguiente']").click()
             print("Next Page clicked")
@@ -278,7 +293,6 @@ def obtenerPropiedades(driver):
         time.sleep(10)
         count+=10
     #driver.find_element_by_xpath('').click()
-    return propiedades,propiedad
 
 
 def contactPublication(driver,link,text):
@@ -314,8 +328,8 @@ def contactPublication(driver,link,text):
 def main():
     driver = initialize()
     login(driver)
-    propiedades,propiedad=obtenerPropiedades(driver)
     try:
+        propiedades,propiedad=obtenerPropiedades(driver)
         writeExcel(propiedades,propiedad,"Propiedades Vendetudepto "+str(fechahoy))
     except Exception as E:
         print(E)
