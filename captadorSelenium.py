@@ -100,8 +100,8 @@ banos = ["_Banos_2",
           "_Banos_5-o-mas"]
 
 comunas = ["las-condes","santiago","vitacura","lo-barnechea","la-reina","recoleta","independencia","estacion-central",
-           "san-miguel","la-cisterna","huechuraba","pudahuel","maipu","nunoa","providencia","macul","quinta-normal","san-joaquin","vina-del-mar","valparaiso","concon","quilpue"]
-regiones=["metropolitana","valparaiso"]
+           "san-miguel","maipu","nunoa","providencia","macul","quinta-normal","san-joaquin"]
+regiones=["metropolitana"]
 operaciones = ["arriendo","venta"]
 tipos = ["departamento","casa","oficina"]
 
