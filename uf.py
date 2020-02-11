@@ -27,7 +27,7 @@ headers1 = {
 
 def getUf():
     try:
-        link='https://valoruf.cl/'
+        link='https://valoruf.cl'
         page3 = requests.get(link,headers1)
         tree3 = html.fromstring(page3.content)
         xpath='//html/body/div/div/div[2]/div/span[2]'
@@ -41,12 +41,13 @@ def getUf():
     except Exception as e:
         print(e)
         try:
-            link='https://www.uf-hoy.com/'
-            page3 = requests.get(link)
+            link='https://www.calculadora-uf.cl'
+            page3 = requests.get(link,headers1)
             tree3 = html.fromstring(page3.content)
             xpath='//*[@id="valor_uf"]/text()'
-            uf=tree3.xpath(xpath)
-            uf=uf[0]
+            xpath2='//*[@id="__next"]/div/div[2]/div[3]/div[3]/div[2]/div[2]/div[2]/div[1]'
+            uf=tree3.xpath(xpath2)
+            uf=uf[0].text
             uf=uf.replace(".","")
             uf=uf.replace(",",".")
         except Exception as e:
