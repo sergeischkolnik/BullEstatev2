@@ -38,6 +38,7 @@ def getUf():
         uf=uf[2:]
         uf=uf.replace(".","")
         uf=uf.replace(",",".")
+        print("UF OBTENIDA EXITOSAMENTE")
     except Exception as e:
         print(e)
         try:
@@ -50,10 +51,11 @@ def getUf():
             uf=uf[0].text
             uf=uf.replace(".","")
             uf=uf.replace(",",".")
+            print("UF OBTENIDA EXITOSAMENTE")
         except Exception as e:
             print(e)
             print("UF NO OBTENIDA")
-            uf=28316
+            uf=28360
     uf=float(uf)
     return(uf)
 
