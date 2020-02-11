@@ -16,7 +16,7 @@ def getUf():
         link='https://valoruf.cl/'
         page3 = requests.get(link)
         tree3 = html.fromstring(page3.content)
-        xpath='/html/body/div[2]/h1/span'
+        xpath='//html/body/div/div/div[2]/div/span[2]'
         '/html/body/div[2]/h1/span'
         uf=tree3.xpath(xpath)
         uf=uf[0]
