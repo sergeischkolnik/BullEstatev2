@@ -617,6 +617,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
         #descripcion=descripcion[2:]
         print(descripcion)
+        descripcion=list(descripcion)
 
         if not interna:
             for desc in descripcion:
