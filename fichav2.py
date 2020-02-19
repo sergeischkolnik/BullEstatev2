@@ -699,6 +699,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
 
             propiedad.append(descripcion)
+            print(propiedad)
 
         for meta in metatext:
 
