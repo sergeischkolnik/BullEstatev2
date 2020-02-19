@@ -448,6 +448,7 @@ def obtenerProp(id,sitio):
     print(sql)
     cur.execute(sql)
     propiedad = cur.fetchall()
+    print(propiedad)
     if len(propiedad)>0:
         return propiedad[0]
     else:
@@ -697,7 +698,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             descripcion=descripcion.replace('&#209;','Ñ')
 
 
-            propiedad=list(propiedad)
+            
             propiedad.append(descripcion)
             print(propiedad)
 
