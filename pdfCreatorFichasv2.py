@@ -35,7 +35,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     if pro=="financiera":
         pro=True
         financiera=True
-
+    else:
+        financiera=False
 
     uf1=uf.getUf()
     for x,p in enumerate (propiedad):

@@ -193,6 +193,12 @@ def menu(bot, update):
     auxmail=client["mail"]
     auxfirstname=client["firstname"]
     auxlastname=client["lastname"]
+
+    # if client["id"]==940873510:
+    #     bot.send_message(chat_id=update.message.chat_id, text="Bot en Mantención")
+    #     select.menu(bot,update)
+    #     return pm.MENU
+    #
     if "product" in client and client["product"]!="Historial" and 'success' in client:
         client.pop("success")
         lastproduct=client["product"]
@@ -222,10 +228,6 @@ def menu(bot, update):
 
     print(client)
 
-    if client["id"]==940873510:
-        bot.send_message(chat_id=update.message.chat_id, text="Bot en Mantención")
-        select.menu(bot,update)
-        return pm.MENU
 
     if update.message.text == "Reporte":
         if "reporteThread" in client.keys() and client["reporteThread"].isAlive():
