@@ -124,6 +124,7 @@ def main(linkedTextList,inicialLink):
         except Exception as E:
             print(E)
         time.sleep(random.randint(5,15))
+    driver.close()
 
 
 if __name__ == "__main__":
@@ -142,14 +143,18 @@ if __name__ == "__main__":
     'cookie': '_d2id=10753c94-136c-426d-b536-52f4bdc9ad06-n; PI=d50qlpmdqz1qdv4lynbllh0w; __RequestVerificationToken=NK9YOkOtc3k6bUsfzF0OyZa_kYCBJlPtdTSyYK97lihubPSwAGhZp8pigJ1j5S6LOPG3PlvaiaCMpSoomr7Ez00OFHw1; uniqueID=4df06d9b-bd2e-4565-bff5-9d30c15ea7b2; _ga=GA1.1.434386957.1551705638; _hjid=f5243996-1bed-4c3a-9d9b-0468976dd33e; Buscador=Region=356&IDBusquedaUnidadGeopolitica=356&TipoPropiedad=Departamento; AWSELB=7517F7ED0C3C5C3E0C8743D6A3E725F2C6421325348258AB2B2B6C24C55B97E7B421F62FEDE1E3B33663FE99C845602640543858273DAF905910FD5E38A1B2D3F9329B42B1; _mlt=d8ec613f-94d1-479b-9224-07a09b8ecc69; pin_d2id=10753c94-136c-426d-b536-52f4bdc9ad06-n; _pi_ga=GA1.2.901507403.1570560325; _pi_ci=901507403.1570560325; _d2id=10753c94-136c-426d-b536-52f4bdc9ad06; _csrf=wiPGYePC-rZQJpMMJMEqYZv_; searchbox-currentSearch=eyJvcGVyYXRpb25zIjp7ImxhYmVsIjoiVmVudGEiLCJzZWxlY3RlZCI6InZlbnRhIn0sImNhdGVnb3JpZXMiOnsibGFiZWwiOiJEZXBhcnRhbWVudG9zIiwic2VsZWN0ZWQiOiJ2ZW50YV9kZXBhcnRhbWVudG8ifSwibG9jYXRpb24iOnsidmFsdWUiOiJwcm92aWRlbmNpYSIsInNlbGVjdGVkIjoiIn0sImZpbHRlci1uZXciOnsiY2hlY2tlZCI6ZmFsc2UsImRpc2FibGVkIjpmYWxzZX19; JSESSIONID=4EE983A7EB482E20624672E4E17AF4E8; pmsctx=******IMLC507223027%7C%7CIMLC507775718%7CIMLC508093497%7C%7C**; navigation_items=MLC507223027%7C14102019125752-MLC507775718%7C14102019125042-MLC508093497%7C08102019190408-MLC507769027%7C08102019184813-MLC507748684%7C08102019184550; c_home=0.0.6-redirect-circular-ref%7C5.2.0; pin_exp=new; _pi_ga_gid=GA1.2.1582383825.1571164864',
 }
 
-    inicialLinkVentaSantiago='https://www.yapo.cl/region_metropolitana/comprar?ca=15_s&cmn=305&cmn=307&cmn=313&cmn=315&cmn=316&cmn=323&cmn=330&cmn=335&cmn=340&cmn=343&cmn=346&ret=1&cg=1220&f=p&o='
-    inicialLinkArriendoSantiago='https://www.yapo.cl/region_metropolitana/arrendar?ca=15_s&cmn=305&cmn=307&cmn=313&cmn=315&cmn=316&cmn=323&cmn=330&cmn=335&cmn=340&cmn=343&cmn=346&ret=1&cg=1240&f=p&o='
+    inicialLinkVentaSantiagoDepto='https://www.yapo.cl/region_metropolitana/comprar?ca=15_s&cmn=305&cmn=307&cmn=313&cmn=315&cmn=316&cmn=323&cmn=330&cmn=335&cmn=340&cmn=343&cmn=346&ret=1&cg=1220&f=p&o='
+    inicialLinkArriendoSantiagoDepto='https://www.yapo.cl/region_metropolitana/arrendar?ca=15_s&cmn=305&cmn=307&cmn=313&cmn=315&cmn=316&cmn=323&cmn=330&cmn=335&cmn=340&cmn=343&cmn=346&ret=1&cg=1240&f=p&o='
+    inicialLinkVentaSantiagoCasa='https://www.yapo.cl/region_metropolitana/comprar?ca=15_s&cmn=313&cmn=315&cmn=316&cmn=323&cmn=330&cmn=346&ret=2&cg=1220&f=p&o='
+    inicialLinkArriendoSantiagoCasa='https://www.yapo.cl/region_metropolitana/arrendar?ca=15_s&cmn=313&cmn=315&cmn=316&cmn=323&cmn=330&cmn=346&ret=2&cg=1240&f=p&o='
     inicialLinkVentaDeptoValpo='https://www.yapo.cl/valparaiso/comprar?ca=6_s&cmn=52&cmn=79&cmn=81&ret=1&cg=1220&f=p&o='
     inicialLinkArriendoDeptoValpo='https://www.yapo.cl/valparaiso/comprar?ca=6_s&cmn=52&cmn=79&cmn=81&ret=1&cg=1240&f=p&o='
 
     inicials=[]
-    inicials.append(inicialLinkVentaSantiago)
-    inicials.append(inicialLinkArriendoSantiago)
+    inicials.append(inicialLinkVentaSantiagoDepto)
+    inicials.append(inicialLinkArriendoSantiagoDepto)
+    inicials.append(inicialLinkVentaSantiagoCasa)
+    inicials.append(inicialLinkArriendoSantiagoCasa)
     inicials.append(inicialLinkVentaDeptoValpo)
     inicials.append(inicialLinkArriendoDeptoValpo)
 

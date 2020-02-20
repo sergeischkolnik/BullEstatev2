@@ -698,7 +698,7 @@ def crearFicha(sitio,id,mail,tipoficha):
             descripcion=descripcion.replace('&#209;','Ñ')
 
 
-            
+
             propiedad.append(descripcion)
             print(propiedad)
 
