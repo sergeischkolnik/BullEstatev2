@@ -36,6 +36,7 @@ tasacion={
     "phone":sys.argv[14],
     "profile":sys.argv[15],
     "interest":sys.argv[16],
+    "adress":sys.argv[2],
 
     }
 print (tasacion)
