@@ -40,7 +40,7 @@ tasacion={
     }
 print (tasacion)
 try:
-    print((geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"]))))[0]
+    print((geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])))[0])
     tasacion["comuna"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])).split(','))[1]
     tasacion["region"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])).split(','))[2].replace('Region ','')
     comuna=tasacion["comuna"]
@@ -61,3 +61,14 @@ except Exception as E:
 
 
  
+[Location(Los Barbechos 479, Las Condes, Región Metropolitana, Chile, (-33.402217, -70.5608656, 0.0)),
+Location(Los Barbechos 479, Las Condes, Región Metropolitana, Chile, (-33.402217, -70.5608656, 0.0)),
+Location(Nuestra Señora del Rosario 397, Las Condes, Región Metropolitana, Chile, (-33.4021739, -70.5603974, 0.0)),
+Location(Los Barbechos 431, Las Condes, Región Metropolitana, Chile, (-33.4024876, -70.5609707, 0.0)),
+Location(Los Barbechos 401-437, Las Condes, Región Metropolitana, Chile, (-33.40251260000001, -70.5608103, 0.0)),
+Location(Las Condes, Santiago Metropolitan Region, Chile, (-33.4079424, -70.5451063, 0.0)),
+Location(Las Condes, Santiago Metropolitan Region, Chile, (-33.4087844, -70.567069, 0.0)),
+Location(Santiago, Santiago Metropolitan Region, Chile, (-33.4488897, -70.6692655, 0.0)),
+Location(Santiago Province, Santiago Metropolitan Region, Chile, (-33.45, -70.66669999999999, 0.0)),
+Location(Santiago Metropolitan Region, Chile, (-33.4375545, -70.6504896, 0.0)),
+Location(Chile, (-35.675147, -71.542969, 0.0))]
