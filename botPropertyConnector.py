@@ -453,6 +453,7 @@ def tasador(client):
             fileName = "Tasacion " + client["tipo"] + " en " + client["comuna"] + ", " + client[
                 "region"] + " cliente " + client["firstname"] + " " + client["lastname"]+".pdf"
             pdfc.crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,ufventacomuna,arriendocomuna)
+            print("pdf creado")
             sendmail.sendMail(client["mail"],client["firstname"]+" "+client["lastname"],fileName)
             print('mandando correo con tasacion')
 
