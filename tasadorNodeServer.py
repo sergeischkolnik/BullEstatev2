@@ -40,7 +40,7 @@ tasacion={
     }
 print (tasacion)
 try:
-    print((geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"]))))
+    print((geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"]))))[0]
     tasacion["comuna"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])).split(','))[1]
     tasacion["region"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])).split(','))[2].replace('Region ','')
     comuna=tasacion["comuna"]
