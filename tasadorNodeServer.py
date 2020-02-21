@@ -41,8 +41,8 @@ tasacion={
 print (tasacion)
 try:
     print((geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])))[0])
-    tasacion["comuna"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])).split(','))[1]
-    tasacion["region"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])).split(','))[2].replace('Region ','')
+    tasacion["comuna"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"]))[0].split(','))[1]
+    tasacion["region"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"]))[0].split(','))[2].replace('Region ','')
     comuna=tasacion["comuna"]
     lat,lon=getCoordsWithAdress(tasacion["fulladdress"])
     tasacion["lat"]=lat
@@ -60,4 +60,4 @@ except Exception as E:
    
 
 
- 
+
