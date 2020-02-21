@@ -16,7 +16,8 @@ def getCoordsWithAdress(address):
 tasacion={}
 text=''
 
-
+for i in sys.argv:
+    print (i)
 
 tasacion={
     "tipo":sys.argv[1],
@@ -37,7 +38,7 @@ tasacion={
     "interest":sys.argv[16],
 
     }
-
+print (tasacion)
 try:
     tasacion["comuna"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])).split(','))[1]
     tasacion["region"]= (geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])).split(','))[2].replace('Region ','')
@@ -47,13 +48,13 @@ try:
     tasacion["lon"]=lon
     tasacion["tipotasacion"]="Full"
     tasaciontext=bpc.tasador(tasacion)
-    
+
     print(tasaciontext)
     #print(tasacion)
     #print(tasacion["comuna"])
     #sys.stdout.flush()
 except Exception as E:
-    
+
     print(E)
    
 
