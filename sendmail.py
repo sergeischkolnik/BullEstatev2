@@ -34,6 +34,7 @@ def sendMail(to,cliente,file):
     #server.starttls()
     server.login(fromaddr, "Bullestate.123")
     text = msg.as_string()
+    print("mail listo para mandar")
     server.sendmail(fromaddr, toaddr, text)
     server.quit()
 
