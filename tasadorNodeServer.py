@@ -42,20 +42,22 @@ print (tasacion)
 try:
     print((geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"])))[0])
     tasacion["comuna"]= (str(geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"]))[0]).split(','))[1]
+    print(tasacion["comuna"])
     tasacion["region"]= (str(geolocator.reverse(getCoordsWithAdress(tasacion["fulladdress"]))[0]).split(','))[2].replace('Region ','')
+    print(tasacion["region"])
     comuna=tasacion["comuna"]
     lat,lon=getCoordsWithAdress(tasacion["fulladdress"])
     tasacion["lat"]=lat
     tasacion["lon"]=lon
     tasacion["tipotasacion"]="Full"
     tasaciontext=bpc.tasador(tasacion)
-
+    print("succeed")
     print(tasaciontext)
     #print(tasacion)
     #print(tasacion["comuna"])
     #sys.stdout.flush()
 except Exception as E:
-
+    print("fail")
     print(E)
    
 
