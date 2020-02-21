@@ -448,6 +448,8 @@ def tasador(client):
             linksVenta=obtenerLinks(client,precioV,True)
             linksArriendo=obtenerLinks(client,precioA,False)
 
+            print("correos obtenidos")
+
             fileName = "Tasacion " + client["tipo"] + " en " + client["comuna"] + ", " + client[
                 "region"] + " cliente " + client["firstname"] + " " + client["lastname"]+".pdf"
             pdfc.crearPdfTasacion(client,precioV,precioA,linksVenta,linksArriendo,fileName,ufventacomuna,arriendocomuna)

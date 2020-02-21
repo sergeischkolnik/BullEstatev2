@@ -292,13 +292,15 @@ def from_yapo_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin
         sqlwhere="(comuna LIKE '%" + comuna1 + "%' or comuna LIKE '%"+ comuna2 + "%' or comuna LIKE '%"+ comuna3 + "%' or comuna LIKE '%"+ comuna4 + "%' or comuna LIKE '%"+ comuna5 +"%' or comuna LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        print("Consulta YAPO:")
-        print(sql)
+        if verboso:
+            print("Consulta YAPO:")
+            print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
-        print("Datos de consulta especifica de YAPO listos")
-        print("Se han encontrado "+str(len(tupla))+" propiedades.")
-        print("----------------------")
+        if verboso:
+            print("Datos de consulta especifica de YAPO listos")
+            print("Se han encontrado "+str(len(tupla))+" propiedades.")
+            print("----------------------")
         return tupla
 
 def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,utilmax,totalmin,totalmax,latmin,latmax,
@@ -384,13 +386,15 @@ def from_portalinmobiliario_select(past,yesterday,preciomin,preciomax,utilmin,ut
         sqlwhere="(link LIKE '%" + comuna1 + "%' or link LIKE '%"+ comuna2 + "%' or link LIKE '%"+ comuna3 + "%' or link LIKE '%"+ comuna4 + "%' or link LIKE '%"+ comuna5 +"%' or link LIKE '%"+ comuna6 +"%')"
         sql=sql+sqlwhere
 
-        print("Consulta:")
-        print(sql)
+        if verboso:
+            print("Consulta:")
+            print(sql)
         cur.execute(sql)
         tupla = cur.fetchall()
-        print("Datos de consulta especifica de portal listos")
-        print("Se han encontrado "+str(len(tupla))+" propiedades.")
-        print("----------------------")
+        if verboso:
+            print("Datos de consulta especifica de portal listos")
+            print("Se han encontrado "+str(len(tupla))+" propiedades.")
+            print("----------------------")
         return tupla
 
 def clientes():
