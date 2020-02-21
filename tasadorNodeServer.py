@@ -37,6 +37,7 @@ tasacion={
     "profile":sys.argv[15],
     "interest":sys.argv[16],
     "adress":sys.argv[2],
+    "tipotasacion":sys.argv[17],
 
     }
 print (tasacion)
@@ -50,7 +51,7 @@ try:
     lat,lon=getCoordsWithAdress(tasacion["fulladdress"])
     tasacion["lat"]=lat
     tasacion["lon"]=lon
-    tasacion["tipotasacion"]="Full"
+
     print("entering bpc")
     tasaciontext=bpc.tasador(tasacion)
     print("succeed")
