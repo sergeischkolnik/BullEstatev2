@@ -971,7 +971,8 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
             del row[0]
 
         x_train , x_test , y_train , y_test = train_test_split(trainingA , preciosA , test_size = 0.10,random_state = 2)
-
+        print(x_train)
+        print(y_train)
         #obtain scores arriendo:
         clfHA.fit(x_train, y_train)
         print("-----------")
