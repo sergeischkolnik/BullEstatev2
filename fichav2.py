@@ -924,17 +924,20 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             if precioV is None or precioV < 0.1:
                 pro=False
+                financiera = False
 
 
             try:
                 rentaV = ((precioV - precio) / precio)
             except:
                 pro=False
+                financiera = False
                 text2='No se ha podido realizar tasación'
                 print('fail 1')
 
             if precioA is None or precioA < 0.01:
                 pro=False
+                financiera = False
 
 
             try:
@@ -942,6 +945,7 @@ def crearFicha(sitio,id,mail,tipoficha):
 
             except:
                 pro=False
+                financiera = False
                 text2='No se ha podido realizar tasación'
                 print('fail 2')
 
@@ -949,11 +953,12 @@ def crearFicha(sitio,id,mail,tipoficha):
             if pro:
                 if rentaA > 0.2:
                     pro=False
+                    financiera=False
                     print('fail 3')
 
                 if rentaA < 0:
                     pro=False
-
+                    financiera = False
 
             if pro:
                 # precio venta tasado
@@ -1023,6 +1028,7 @@ def crearFicha(sitio,id,mail,tipoficha):
     links=[]
     if financiera:
         pro="financiera"
+    print("entering pdfCreator")
     pdfCreatorFichas.crearPdfFicha(nombrearchivo,id,propiedad,lenfotos,pro,datospro,interna,datoscontacto,regionP,links)
     print("pdf generado con exito")
     #Enviar PDF
