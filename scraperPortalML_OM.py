@@ -105,14 +105,14 @@ banos = ["_Banos_1",
           "_Banos_4",
           "_Banos_5-o-mas"]
 
-comunas = ["santiago","las-condes","providencia","buin","calera-de-tango","cerrillos","colina","cerro-navia","conchali",
+comunas = ["providencia","santiago","las-condes","buin","calera-de-tango","cerrillos","colina","cerro-navia","conchali",
            "curacavi","el-bosque","estacion-central","el-monte","huechuraba","independencia","isla-de-maipo"
            "la-cisterna","la-florida","la-granja","la-pintana","la-reina","lampa","lo-barnechea","lo-espejo",
            "lo-prado","macul","maipu","maria-pinto","melipilla","paine","penalolen","puente-alto","pedro-aguirre-cerda","penaflor",
            "pudahuel","padre-hurtado","pirque","quilicura","quinta-normal","recoleta","renca","san-bernardo","san-miguel","san-ramon",
            "san-joaquin","san-pedro","san-jose-de-maipo","talagante","til-til","vitacura","nunoa"]
 
-tipos=["departamento","casa","comercial","parcela","oficina","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
+tipos=["oficina","departamento","casa","comercial","parcela","industrial","agricola","terreno-en-construccion","bodega","estacionamiento"]
 operaciones = ["arriendo","venta"]
 pages = range(1,2050,50)
 
@@ -535,14 +535,20 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
             descripcion_xpath  = '//*[@id="description-includes"]/div/p'
             descripcion_result = tree.xpath(descripcion_xpath)
             if len(descripcion_result)>0:
-                bodegas = obtenerBodegas(descripcion_result[0].text)
+                try:
+                    bodegas = obtenerBodegas(descripcion_result[0].text)
+                except:
+                    bodegas=0
 
         # text mining para estacionamientos
         if estacionamientos == 0:
             descripcion_xpath = '//*[@id="description-includes"]/div/p'
             descripcion_result = tree.xpath(descripcion_xpath)
             if len(descripcion_result) > 0:
-                estacionamientos = obtenerEstacionamientos(descripcion_result[0].text)
+                try:
+                    estacionamientos = obtenerEstacionamientos(descripcion_result[0].text)
+                except:
+                    estacionamientos = 0
 
         propiedad.append(code)
         propiedad.append(name)
