@@ -386,10 +386,14 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
         if len(price) == 0:
             error(link,"Error al sacar precio")
             continue
-        price = int(price[0].text.replace(',','').replace(' ','').replace('.',''))
+
 
         if priceSymbol == 'UF':
+            price = float(price[0].text.replace(' ', '').replace('.', '').replace(',', '.'))
             price = price*uf
+            price=int(price)
+        else:
+            price = int(price[0].text.replace(',', '').replace(' ', '').replace('.', ''))
 
         name = tree.xpath(namePath)
         if len(name) == 0:
@@ -693,61 +697,113 @@ def main():
                                       comuna=comuna, hoja=page)
 
                 elif tipo=='oficina':
-                    for bano in banos:
 
-                        for page in pages:
-                            time.sleep(random.randint(1,3))
 
-                            if(page==1):
-                                page=0
+                    for page in pages:
+                        time.sleep(random.randint(1,3))
 
-                            link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
-                                   "/"+comuna+"-metropolitana/_Desde_"+str(page)+"_OrderId_PRICE"+bano
+                        if(page==1):
+                            page=0
+
+                        link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
+                               "/"+comuna+"-metropolitana/_Desde_"+str(page)+"_OrderId_PRICE"
+                        print(link)
+                        request = requests.get(link, headers = headerList[headerIndex])
+
+                        #headerIndex += 1
+                        #headerIndex = headerIndex % len(headerList)
+
+                        if len(request.content) == 0:
+                            link = "https://www.portalinmobiliario.com/" + operacion + "/" + tipo + "/propiedades-usadas/" + \
+                                   "/" + comuna + "-metropolitana/_Desde_" + str(page)
+                            request = requests.get(link, headers=headerList[headerIndex])
                             print(link)
-                            request = requests.get(link, headers = headerList[headerIndex])
 
-                            #headerIndex += 1
-                            #headerIndex = headerIndex % len(headerList)
+                        try:
+                            tree = html.fromstring(request.content)
+                        except:
+                            break
 
-                            if len(request.content) == 0:
-                                link = "https://www.portalinmobiliario.com/" + operacion + "/" + tipo + "/propiedades-usadas/" + \
-                                       dormitorio + "/" + comuna + "-metropolitana/" + bano + "_Desde_" + str(page)
-                                request = requests.get(link, headers=headerList[headerIndex])
-                                print(link)
+                        resultBoxXpath = '//*[@id="results-section"]'
+                        results = tree.xpath(resultBoxXpath)
+                        if len(results) == 0:
+                            #no results
+                            break
 
-                            try:
-                                tree = html.fromstring(request.content)
-                            except:
+                        #revisar no pasarse del nr de resultados
+                        nrResultsPath = '//*[@id="inner-main"]/aside/div[2]'
+                        try:
+                            results2 = int(tree.xpath(nrResultsPath)[0].text.split(" ")[1].replace(".",""))
+                            print("page:"+str(page)+", res2:"+str(results2))
+                            if page > results2:
                                 break
+                        except:
+                            break
 
-                            resultBoxXpath = '//*[@id="results-section"]'
-                            results = tree.xpath(resultBoxXpath)
-                            if len(results) == 0:
-                                #no results
+                        resultLinkList = []
+
+                        htmlArray = request.text.split(" ")
+                        for element in htmlArray:
+                            if "item-url=" in element:
+                                result_link = element.replace('"', '').replace("item-url=", "")
+                                result_link = result_link.split('#')[0]
+                                resultLinkList.append(result_link)
+
+                        scrap(linkList=resultLinkList,region="metropolitana",operacion=operacion, tipo=tipo,
+                              comuna=comuna, hoja=page)
+
+                    for page in pages:
+                        time.sleep(random.randint(1,3))
+
+                        if(page==1):
+                            page=0
+
+                        link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
+                               "/"+comuna+"-metropolitana/_Desde_"+str(page)+"_OrderId_PRICE"
+                        print(link)
+                        request = requests.get(link, headers = headerList[headerIndex])
+
+                        #headerIndex += 1
+                        #headerIndex = headerIndex % len(headerList)
+
+                        if len(request.content) == 0:
+                            link = "https://www.portalinmobiliario.com/" + operacion + "/" + tipo + "/propiedades-usadas/" + \
+                                   "/" + comuna + "-metropolitana/" +  "_Desde_" + str(page)
+                            request = requests.get(link, headers=headerList[headerIndex])
+                            print(link)
+
+                        try:
+                            tree = html.fromstring(request.content)
+                        except:
+                            break
+
+                        resultBoxXpath = '//*[@id="results-section"]'
+                        results = tree.xpath(resultBoxXpath)
+                        if len(results) == 0:
+                            #no results
+                            break
+
+                        #revisar no pasarse del nr de resultados
+                        nrResultsPath = '//*[@id="inner-main"]/aside/div[2]'
+                        try:
+                            results2 = int(tree.xpath(nrResultsPath)[0].text.split(" ")[1].replace(".",""))
+                            print("page:"+str(page)+", res2:"+str(results2))
+                            if page > results2:
                                 break
+                        except:
+                            break
 
-                            #revisar no pasarse del nr de resultados
-                            nrResultsPath = '//*[@id="inner-main"]/aside/div[2]'
-                            try:
-                                results2 = int(tree.xpath(nrResultsPath)[0].text.split(" ")[1].replace(".",""))
-                                print("page:"+str(page)+", res2:"+str(results2))
-                                if page > results2:
-                                    break
-                            except:
-                                break
+                        resultLinkList = []
 
-                            resultLinkList = []
+                        htmlArray = request.text.split(" ")
+                        for element in htmlArray:
+                            if "item-url=" in element:
+                                result_link = element.replace('"', '').replace("item-url=", "")
+                                result_link = result_link.split('#')[0]
+                                resultLinkList.append(result_link)
 
-                            htmlArray = request.text.split(" ")
-                            for element in htmlArray:
-                                if "item-url=" in element:
-                                    result_link = element.replace('"', '').replace("item-url=", "")
-                                    result_link = result_link.split('#')[0]
-                                    resultLinkList.append(result_link)
-
-                            scrap(linkList=resultLinkList,region="metropolitana",operacion=operacion, tipo=tipo,
-                                  comuna=comuna, hoja=page)
-
+                        scrap(linkList=resultLinkList,region="metropolitana",operacion=operacion, tipo=tipo,
+                              comuna=comuna, hoja=page)
 
                 else:
                     for page in pages:
