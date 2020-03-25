@@ -655,7 +655,7 @@ def main():
 
                                 if len(request.content) == 0:
                                     link = "https://www.portalinmobiliario.com/" + operacion + "/" + tipo + "/propiedades-usadas/" + \
-                                           dormitorio + "/" + comuna + "-metropolitana/" + bano + "_desde_" + str(page)
+                                           dormitorio + "/" + comuna + "-metropolitana/" + bano + "_Desde_" + str(page)
                                     request = requests.get(link, headers=headerList[headerIndex])
                                     print(link)
 
@@ -696,7 +696,7 @@ def main():
                     for page in pages:
                         time.sleep(random.randint(5, 7))
 
-                        link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+comuna+"-metropolitana/_desde_"+str(page)
+                        link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+comuna+"-metropolitana/_Desde_"+str(page)
                         print(link)
                         request = requests.get(link, headers=headerList[headerIndex])
 
