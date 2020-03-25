@@ -706,7 +706,7 @@ def main():
                             page=0
 
                         link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
-                               "/"+comuna+"-metropolitana/_Desde_"+str(page)+"_OrderId_PRICE"
+                               comuna+"-metropolitana/_Desde_"+str(page)+"_OrderId_PRICE*DESC"
                         print(link)
                         request = requests.get(link, headers = headerList[headerIndex])
 
@@ -759,7 +759,7 @@ def main():
                             page=0
 
                         link = "https://www.portalinmobiliario.com/"+operacion+"/"+tipo+"/propiedades-usadas/"+\
-                               "/"+comuna+"-metropolitana/_Desde_"+str(page)+"_OrderId_PRICE"
+                               comuna+"-metropolitana/_Desde_"+str(page)+"_OrderId_PRICE"
                         print(link)
                         request = requests.get(link, headers = headerList[headerIndex])
 
