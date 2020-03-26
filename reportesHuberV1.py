@@ -732,7 +732,27 @@ def generarReporteSeparado(preciomin, preciomax, utilmin, utilmax, totalmin, tot
         lonmax = float(lonmax)
     else:
         lonmax=9999999
-    if tipo not in 'local comercial':
+    if tipo == "oficina":
+        if dormitoriosmin is not None:
+            dormitoriosmin = int(dormitoriosmin)
+        else:
+            dormitoriosmin=0
+
+        if dormitoriosmax is not None:
+            dormitoriosmax = int(dormitoriosmax)
+        else:
+            dormitoriosmax=100
+
+        if banosmin is not None:
+            banosmin = int(banosmin)
+        else:
+            banosmin=0
+
+        if banosmax is not None:
+            banosmax = int(banosmax)
+        else:
+            banosmax=100
+    elif tipo not in 'local comercial':
         if dormitoriosmin is not None:
             dormitoriosmin = int(dormitoriosmin)
         else:
