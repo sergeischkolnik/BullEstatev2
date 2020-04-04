@@ -27,8 +27,19 @@ def sanitizar(sucio):
     limpio = limpio.replace("-magallanes-y-antartica-chilena", "")
     return limpio
 
+def update(array):
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    for i,row in enumerate(array):
+        print("UPDATE N°: " + str(i) + " - ID: " + str(row[0]) + ", Comuna: " + row[1])
+        sql = "UPDATE portalinmobiliario set comuna='"+row[1]+"' WHERE id='"+str(row[0])+"'"
+        cur.execute(sql)
+        mariadb_connection.commit()
+    mariadb_connection.close()
+
 
 def main():
+    array=[]
     lista=obtenedor()
     for x,row in enumerate(lista):
         try:
@@ -36,18 +47,20 @@ def main():
             id = row[0]
             if "/MLC-/" in link:
                 comuna=""
-                print("N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
+                print("OBTAIN N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
+                array.append([id,comuna])
                 continue
             n=5
             if ("/do/" in link or "/do-de-temporada/" in link):
                 n=6
             comuna=(sanitizar(link.split("/")[n])).replace("-"," ")
-            if (comuna=="departamento" or comuna=="casa"):
-                print("N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
-                print(link)
-                break
-            print("N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
+            print("OBTAIN N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
+            array.append([id, comuna])
         except:
             comuna=""
-            print("N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
+            print("OBTAIN N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
+            array.append([id, comuna])
+
+
+        update(array)
 main()
