@@ -19,7 +19,7 @@ headers = {
 link="https://www.portalinmobiliario.com/venta/sitio/las-condes-metropolitana/5536262-los-dominicos-camino-otonal-la-fuente-uda"
 
 request = requests.get(link, headers)
-
+print(request)
 # headerIndex += 1
 # headerIndex = headerIndex % len(headerList)
 
