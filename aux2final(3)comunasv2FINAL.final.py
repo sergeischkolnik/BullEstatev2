@@ -33,6 +33,9 @@ def main():
     for row in lista:
         link=row[1]
         comuna=(sanitizar(link.split("/")[5])).replace("-"," ")
+        if (comuna=="departamento" or comuna=="casa"):
+            print(link)
+            break
         print (comuna)
 
 main()
