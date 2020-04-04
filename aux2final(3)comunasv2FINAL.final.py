@@ -15,3 +15,5 @@ def main():
         link=row[1]
         comuna=link.split("/")[5].replace("-"," ").capitalize()
         print (comuna)
+
+main()
