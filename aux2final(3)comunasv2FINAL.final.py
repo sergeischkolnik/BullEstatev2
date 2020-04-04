@@ -32,6 +32,10 @@ def main():
     lista=obtenedor()
     for row in lista:
         link=row[1]
+        if "/MLC-/" in link:
+            comuna=""
+            print(comuna)
+            continue
         n=5
         if "/do/" in link:
             n=6
