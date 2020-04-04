@@ -62,5 +62,5 @@ def main():
             array.append([id, comuna])
 
 
-        update(array)
+    update(array)
 main()
