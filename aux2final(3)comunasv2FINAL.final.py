@@ -36,18 +36,18 @@ def main():
             id = row[0]
             if "/MLC-/" in link:
                 comuna=""
-                print("N°: "+x+" - ID: "+id+", Comuna: "+comuna)
+                print("N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
                 continue
             n=5
             if ("/do/" in link or "/do-de-temporada/" in link):
                 n=6
             comuna=(sanitizar(link.split("/")[n])).replace("-"," ")
             if (comuna=="departamento" or comuna=="casa"):
-                print("N°: " + x + " - ID: " + id + ", Comuna: " + comuna)
+                print("N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
                 print(link)
                 break
-            print("N°: " + x + " - ID: " + id + ", Comuna: " + comuna)
+            print("N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
         except:
             comuna=""
-            print("N°: " + x + " - ID: " + id + ", Comuna: " + comuna)
+            print("N°: " + str(x) + " - ID: " + str(id) + ", Comuna: " + comuna)
 main()
