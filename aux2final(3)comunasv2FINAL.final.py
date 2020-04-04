@@ -2,7 +2,7 @@ import pymysql as mysql
 
 def obtenedor():
 
-    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bot')
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
     sql = "SELECT id,link from portalinmobiliario limit 100"
     cur.execute(sql)
