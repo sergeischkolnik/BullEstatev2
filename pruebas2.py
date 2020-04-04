@@ -90,4 +90,5 @@ tree = html.fromstring(request.content)
 comunaPath = '//*[@id="productInfo"]/fieldset/span/span[1]'
 
 comuna=tree.xpath(comunaPath)
-print(comuna.text)
+for com in comuna:
+    print(com)
