@@ -37,7 +37,7 @@ def main():
             print(comuna)
             continue
         n=5
-        if "/do/" in link:
+        if ("/do/" in link or "/do-de-temporada/" in link):
             n=6
         comuna=(sanitizar(link.split("/")[n])).replace("-"," ")
         if (comuna=="departamento" or comuna=="casa"):
