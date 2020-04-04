@@ -4,7 +4,7 @@ def obtenedor():
 
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
     cur = mariadb_connection.cursor()
-    sql = "SELECT id,link from portalinmobiliario limit 100"
+    sql = "SELECT id,link from portalinmobiliario"
     cur.execute(sql)
     list = cur.fetchall()
     return list
