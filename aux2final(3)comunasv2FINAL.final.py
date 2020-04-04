@@ -32,7 +32,7 @@ def main():
     lista=obtenedor()
     for row in lista:
         link=row[1]
-        comuna=(sanitizar(link.split("/")[5])).replace("-"," ").capitalize()
+        comuna=(sanitizar(link.split("/")[5])).replace("-"," ")
         print (comuna)
 
 main()
