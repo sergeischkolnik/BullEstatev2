@@ -30,19 +30,24 @@ def sanitizar(sucio):
 
 def main():
     lista=obtenedor()
-    for row in lista:
-        link=row[1]
-        if "/MLC-/" in link:
+    for x,row in enumerate(lista):
+        try:
+            link=row[1]
+            id = row[0]
+            if "/MLC-/" in link:
+                comuna=""
+                print("N°: "+x+" - ID: "+id+", Comuna: "+comuna)
+                continue
+            n=5
+            if ("/do/" in link or "/do-de-temporada/" in link):
+                n=6
+            comuna=(sanitizar(link.split("/")[n])).replace("-"," ")
+            if (comuna=="departamento" or comuna=="casa"):
+                print("N°: " + x + " - ID: " + id + ", Comuna: " + comuna)
+                print(link)
+                break
+            print("N°: " + x + " - ID: " + id + ", Comuna: " + comuna)
+        except:
             comuna=""
-            print(comuna)
-            continue
-        n=5
-        if ("/do/" in link or "/do-de-temporada/" in link):
-            n=6
-        comuna=(sanitizar(link.split("/")[n])).replace("-"," ")
-        if (comuna=="departamento" or comuna=="casa"):
-            print(link)
-            break
-        print (comuna)
-
+            print("N°: " + x + " - ID: " + id + ", Comuna: " + comuna)
 main()
