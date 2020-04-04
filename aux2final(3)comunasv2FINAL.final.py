@@ -32,7 +32,10 @@ def main():
     lista=obtenedor()
     for row in lista:
         link=row[1]
-        comuna=(sanitizar(link.split("/")[5])).replace("-"," ")
+        n=5
+        if "/do/" in link:
+            n=6
+        comuna=(sanitizar(link.split("/")[n])).replace("-"," ")
         if (comuna=="departamento" or comuna=="casa"):
             print(link)
             break
