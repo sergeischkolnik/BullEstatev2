@@ -560,11 +560,11 @@ def scrap(linkList,region,operacion,tipo,hoja):
         dueno = []
         dueno.append(str(code))
         dueno.append(None)
-        phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[3]/span/span[1]/text()'
+        phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/div[2]/span/span[1]'
         phoneElem = tree.xpath(phone_path)
         try:
             if len(phoneElem) > 0:
-                phone = str(phoneElem[0])
+                phone = str(phoneElem[0].text)
             else:
                 phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[5]/span/span/text()'
                 phoneElem = tree.xpath(phone_path)
