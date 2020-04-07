@@ -465,6 +465,41 @@ def scrap(linkList,region,operacion,tipo,hoja):
             if len(descripcion_result) > 0:
                 estacionamientos = obtenerEstacionamientos(descripcion_result[0].text)
 
+        try:
+            code = int(link.split('/')[6].split('-')[0])
+        except Exception as err:
+            try:
+                code = int(link.split('/')[3].split('-')[1])
+            except Exception as err2:
+                error(link, "Error al obtener el codigo de portalinmobiliario:" + str(err2))
+                continue
+
+        comunaPath = ('//*[@id="root-app"]/section/nav/div[1]/ul/li[5]/a/span')
+        barrioPath = ('//*[@id="root-app"]/section/nav/div[1]/ul/li[6]/a/span')
+
+        try:
+            comuna = tree.xpath(comunaPath)
+            comuna = (comuna[0].text).lower().replace("ñ", "n").replace("ü", "u").replace("á", "a").replace("é",
+                                                                                                            "e").replace(
+                "í", "i").replace("ó", "o").replace("ú", "u").replace("ä", "a").replace("ö", "o")
+
+        except:
+            pass
+        try:
+            barrio = tree.xpath(barrioPath)
+            barrio = (barrio[0].text).lower().replace("ñ", "n").replace("ü", "u").replace("á", "a").replace("é",
+                                                                                                            "e").replace(
+                "í", "i").replace("ó", "o").replace("ú", "u").replace("ä", "a").replace("ö", "o")
+
+        except:
+            pass
+
+        print(link)
+        if comuna:
+            print(comuna)
+        if barrio:
+            print(barrio)
+
         propiedad.append(code)
         propiedad.append(name)
         propiedad.append(date)
