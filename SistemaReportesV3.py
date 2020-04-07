@@ -1,5 +1,5 @@
 import pymysql as mysql
-import reportesHuberV1 as reportes
+import reportesV3 as reportes
 
 def getClientes():
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
@@ -32,10 +32,10 @@ def main(verboso):
         else:
             separado=True
 
-        reportes.generarReporteSeparado(preciomin=cliente[5], preciomax=cliente[6], utilmin=cliente[7], utilmax=cliente[8],
+        reportes.generarReporte(preciomin=cliente[5], preciomax=cliente[6], utilmin=cliente[7], utilmax=cliente[8],
                                totalmin=cliente[9], totalmax=cliente[10], latmin=cliente[11], latmax=cliente[12], lonmin=cliente[13],
                                lonmax=cliente[14], dormitoriosmin=cliente[15], dormitoriosmax=cliente[16], banosmin=cliente[17],
-                               banosmax=cliente[18], confmin=cliente[40], rentminventa=cliente[36],rentminarriendo=cliente[37],
+                               banosmax=cliente[18], rentminventa=cliente[36],rentminarriendo=cliente[37],
                                estacionamientos=cliente[19],bodegas=cliente[20], metrodistance=cliente[31],l1=cliente[32],l2=cliente[33],l3=cliente[34],
                                tipo=cliente[21], operacion=cliente[22],
                                region=cliente[24], listaComunas=comunas, prioridad=cliente[39], mail=cliente[3],nombreCliente=cliente[1],
