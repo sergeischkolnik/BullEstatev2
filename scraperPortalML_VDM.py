@@ -540,11 +540,6 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
             pass
 
 
-
-        if barrio:
-            print("**********"+barrio+"***********")
-
-
         propiedad = []
 
         propiedad.append(code)

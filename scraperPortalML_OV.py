@@ -502,8 +502,6 @@ def scrap(linkList,region,operacion,tipo,hoja):
         except:
             pass
 
-        if barrio:
-            print("**********"+barrio+"***********")
 
         propiedad.append(code)
         propiedad.append(name)
