@@ -300,8 +300,8 @@ def actualizar_checker(operacion,tipo,region,pagina):
 def insertarPropiedad(propiedad):
     #Inserta una propiedad en una base de datos
 
-    sql = """INSERT INTO portalinmobiliario(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link)
-             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,bodegas=%s,lat=%s,lon=%s,link=%s"""
+    sql = """INSERT INTO portalinmobiliario(id2,nombre,fechapublicacion,fechascrap,region,direccion,operacion,tipo,precio,dormitorios,banos,metrosmin,metrosmax,estacionamientos,bodegas,lat,lon,link,comuna,barrio)
+             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nombre=%s,fechapublicacion=%s,fechascrap=%s,region=%s,direccion=%s,operacion=%s,tipo=%s,precio=%s,dormitorios=%s,banos=%s,metrosmin=%s,metrosmax=%s,estacionamientos=%s,bodegas=%s,lat=%s,lon=%s,link=%s,comuna=%s,barrio=%s"""
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
 
     cur = mariadb_connection.cursor()
@@ -539,11 +539,11 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
         except:
             pass
 
-        print(link)
-        if comuna:
-            print(comuna)
+
+
         if barrio:
-            print(barrio)
+            print("**********"+barrio+"***********")
+
 
         propiedad = []
 
@@ -565,6 +565,8 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
         propiedad.append(lat)
         propiedad.append(lon)
         propiedad.append(link)
+        propiedad.append(comuna)
+        propiedad.append(barrio)
         propiedad.append(name)
         propiedad.append(date)
         propiedad.append(fechascrap)
@@ -582,7 +584,8 @@ def scrap(linkList,region,operacion,comuna,tipo,hoja):
         propiedad.append(lat)
         propiedad.append(lon)
         propiedad.append(link)
-
+        propiedad.append(comuna)
+        propiedad.append(barrio)
 
         try:
             insertarPropiedad(propiedad)
