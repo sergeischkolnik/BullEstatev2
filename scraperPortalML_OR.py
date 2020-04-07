@@ -558,9 +558,10 @@ def scrap(linkList,region,operacion,tipo,hoja):
             if len(phoneElem) > 0:
                 phone = str(phoneElem[0].text)
             else:
-                phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/p[5]/span/span/text()'
+                phone_path = '//*[@id="root-app"]/div/div[1]/div[2]/section[1]/div/span/span[1]'
+
                 phoneElem = tree.xpath(phone_path)
-                phone = str(phoneElem[0])
+                phone = str(phoneElem[0].text)
         except:
             error(link, "Error al sacar telefono propietario.")
             phone = ""
