@@ -566,7 +566,7 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
 
         comunaPath = ('//*[@id="root-app"]/section/nav/div[1]/ul/li[5]/a/span')
         barrioPath = ('//*[@id="root-app"]/section/nav/div[1]/ul/li[6]/a/span')
-        barrio = None
+
         try:
             comuna = tree.xpath(comunaPath)
             comuna = (comuna[0].text).lower().replace("ñ", "n").replace("ü", "u").replace("á", "a").replace("é",
@@ -582,6 +582,7 @@ def scrap(linkList,region,operacion,tipo,comuna,hoja):
                 "í", "i").replace("ó", "o").replace("ú", "u").replace("ä", "a").replace("ö", "o")
 
         except:
+            barrio = None
             pass
 
         propiedad.append(code)
