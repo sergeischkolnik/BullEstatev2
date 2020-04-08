@@ -1,7 +1,11 @@
+#EXTERNAL
 from lxml import html
 import requests
-import agentCreator
 import time
+
+#INTERNAL
+import agentCreator
+
 
 
 def publicacionExiste(link):

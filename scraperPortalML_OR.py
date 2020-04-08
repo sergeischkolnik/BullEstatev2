@@ -1,3 +1,4 @@
+#EXTERNAL
 import requests
 from lxml import html
 import math
@@ -7,6 +8,8 @@ import random
 from bs4 import BeautifulSoup
 import datetime
 import pymysql as mysql
+
+#INTERNAL
 import uf
 
 headers = {

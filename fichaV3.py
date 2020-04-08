@@ -16,20 +16,19 @@ from sklearn.model_selection import train_test_split
 
 #INTERNAL
 import scraperPortalML_OR
-import uf
-import sendmail
+import indicadoresV3 as indicadores
+import sendMailV3 as sendmail
 import pubPortalExiste
 import pubYapoExiste
 import agentCreator
-import pdfCreatorFichasv2 as pdfCreatorFichas
-import reportesHuberV1 as reportes
-
+import pdfCreatorFichasV3 as pdfCreatorFichas
+import reportesV3 as reportes
 
 #VALUE SETTING
 session = HTMLSession()
 fechahoy = datetime.datetime.now()
 fechahoy=str(fechahoy.year)+'-'+str(fechahoy.month)+'-'+str(fechahoy.day)
-uf1=uf.getUf()
+uf=indicadores.getUf()
 past = datetime.now() - timedelta(days=180)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=10)

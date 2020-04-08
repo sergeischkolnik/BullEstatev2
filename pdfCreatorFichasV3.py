@@ -1,26 +1,27 @@
 #EXTERNAL
-import time
 from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.pdfbase.pdfmetrics import registerFont
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, inch
-from datetime import datetime, timedelta
 from reportlab import platypus
 from  reportlab.lib.styles import ParagraphStyle as PS
-import locale
-import os
-from collections import namedtuple
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-import base64
+import pymysql as mysql
 
 #INTERNAL
 import pubPortalExiste
-import reportes
 import botPropertyConnector
-import uf
+import indicadoresV3 as indicadores
+
+def precio_from_portalinmobiliario(id2):
+    mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='bullestate')
+    cur = mariadb_connection.cursor()
+    sql = "SELECT precio,metrosmin,metrosmax,lat,lon,dormitorios,banos FROM portalinmobiliario WHERE id2='"+str(id2)+"'"
+    cur.execute(sql)
+    precio = cur.fetchall()
+
+    return precio
 
 def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinterna,regionP,links):
     #Propiedad:
@@ -40,7 +41,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
     else:
         financiera=False
 
-    uf1=uf.getUf()
+    uf=indicadores.getUf()
     for x,p in enumerate (propiedad):
         if p is None:
             propiedad[x]=0
@@ -62,8 +63,8 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
     precio=int(propiedad[4])
     precioreal=precio
-    precioufreal=precio/uf1
-    preciouf=(int(precio/uf1))
+    precioufreal=precio/uf
+    preciouf=(int(precio/uf))
     preciouf=str(format(preciouf,','))
     preciouf=preciouf.replace(',','.')
 
@@ -110,7 +111,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
         if operacion=='venta':
             precioV=datospro[0]
             precioVreal=precioV
-            precioV=precioV/uf1
+            precioV=precioV/uf
             precioV=int(precioV)
             precioV=str(format(precioV,','))
             precioV=precioV.replace(',','.')
@@ -302,7 +303,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                 avaible=pubPortalExiste.publicacionExiste(l)
                 id=botPropertyConnector.obtenerIdConLink(l,"www.portalinmobiliario.com")
                 id=id[0]
-                prop=reportes.precio_from_portalinmobiliario(id)
+                prop=precio_from_portalinmobiliario(id)
                 prop=prop[0]
                 print("Arreglo de propiedad:")
                 print(prop)
@@ -349,16 +350,16 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
 
         print("entro datos financieros")
         tasacion=datospro[0]
-        tasacionUF=(precioVreal/uf1)
+        tasacionUF=(precioVreal/uf)
 
         ftext = '<font size=11>Propuesta de Compra Arriendo y Posterior Venta en un Período de 7 Meses, ofertando 95% Valor propiedad, Revendiendo a 95%  del valor de tasación:</font>'
         Story.append(Paragraph(ftext, styles["Justify"]))
         Story.append(Spacer(1, 14))
-        rent=(1+(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+25)-0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+25)-0.05))**(12/7)-1
+        rent=(1+(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf)/((0.95)*precioufreal*1.031+25)-0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf)/((0.95)*precioufreal*1.031+25)-0.05))**(12/7)-1
         data=[["Item","Valor"],
-              ["Rent. de arriendo(1)",str(int(1000*(precioAreal*12/uf1/((0.95)*precioufreal*1.031+14)))/10)+"%"],
+              ["Rent. de arriendo(1)",str(int(1000*(precioAreal*12/uf/((0.95)*precioufreal*1.031+14)))/10)+"%"],
               ["Rent. Capital (2)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14)/((0.95)*precioufreal*1.031+14))/10)+"%"],
-              ["Rent. Total(3)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14+precioAreal*7/uf1)/((0.95)*precioufreal*1.031+14))/10)+"%"],
+              ["Rent. Total(3)",str(int(1000*(((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-14+precioAreal*7/uf)/((0.95)*precioufreal*1.031+14))/10)+"%"],
               ["Rentabilidad Neta(4)",str(int(1000*((1+rent)**(7/12)-1))/10)+"%"],
               ["Rentabilidad Neta UF (5)",str(int(((int((0.95)*precioufreal*1.031+25))*((1+rent)**(7/12)-1))))+" UF"],
               ["Rentabilidad Anual Neta(6)",str(int(1000*rent)/10)+"%"],
@@ -366,7 +367,7 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
               ["Costos de Corretaje(8)",str(int(0.02*0.95*precioufreal))+" UF"],
               ["IVA(9)",str(int((0.95*tasacionUF-((0.95)*precioufreal))*0.19))+" UF"],
               ["Total Inversión Inicial(10)",str(int((0.95)*precioufreal*1.031+25))+" UF"],
-              ["Comisión BullEstate(11)",str(int(0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf1)-0.05*((0.95)*precioufreal*1.031+25))+0.01*0.95*precioufreal))+" UF"]]
+              ["Comisión BullEstate(11)",str(int(0.25*((((0.95*tasacionUF-((0.95)*precioufreal))*0.81-((0.95)*precioufreal)*0.031)-25+precioAreal*7/uf)-0.05*((0.95)*precioufreal*1.031+25))+0.01*0.95*precioufreal))+" UF"]]
 
 
         t=Table(data)
@@ -428,9 +429,9 @@ def crearPdfFicha(fileName,id,propiedad,lenfotos,pro,datospro,interna,datosinter
                     tasacionUF=float(tasacionUF)
                     precioufreal=float(precioufreal)
                     precioAreal=float(precioAreal)
-                    uf1=float(uf1)
+                    uf=float(uf)
                     rev=float(rev)
-                    rent=(1+(((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-25+precioAreal*i/uf1)/((0.8+0.025*n)*precioufreal*1.031+25)-0.25*((((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-25+precioAreal*i/uf1)/((0.8+0.025*n)*precioufreal*1.031+25)-0.05))**(12/i)-1
+                    rent=(1+(((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-25+precioAreal*i/uf)/((0.8+0.025*n)*precioufreal*1.031+25)-0.25*((((rev*tasacionUF-((0.8+0.025*n)*precioufreal))*0.81-((0.8+0.025*n)*precioufreal)*0.031)-25+precioAreal*i/uf)/((0.8+0.025*n)*precioufreal*1.031+25)-0.05))**(12/i)-1
                     rent=str((int(1000*rent))/10)+"%"
                     row.append(rent)
                 data.append(row)
