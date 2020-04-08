@@ -1,23 +1,23 @@
+#EXTERNAL
+import pymysql as mysql
+from sklearn import ensemble
+from datetime import datetime, timedelta
+
+#INTERNAL
 import botPropertyDataBase as db
-import botPropertySelect
-import botPropertyMain
-import botPropertySelect
 import fichav2 as ficha
 import reportesHuberV1 as reportes
-import pymysql as mysql
 import uf
-import tasadorbot2 as tb2
-#import tasadorbot2 as tb2
-ufn=uf.getUf()
-from sklearn import ensemble
-from sklearn.model_selection import train_test_split
 import pdfCreatorTasacionFull as pdfc
 import sendmail
-from datetime import datetime, timedelta
+
+
+#VALUE SETTING
 past = datetime.now() - timedelta(days=180)
 past=datetime.date(past)
 yesterday = datetime.now() - timedelta(days=10)
 yesterday=datetime.date(yesterday)
+ufn=uf.getUf()
 
 
 def obtenerLinks(client,tasacion,venta):

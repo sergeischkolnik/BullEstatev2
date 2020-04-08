@@ -1,14 +1,14 @@
+#EXTERNAL
 from telegram.ext import Updater, CommandHandler, MessageHandler, RegexHandler
 from telegram.ext import ConversationHandler, CallbackQueryHandler, Filters
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 import logging
-import botPropertySelect as select
-import botPropertySet as set
-import botPropertyDataBase as db
 import pymysql as mysql
 global id
 
+#INTERNAL
+import botPropertySet as set
 
 def getToken():
     sql = "SELECT token FROM tokens WHERE nombre='tgbot'"

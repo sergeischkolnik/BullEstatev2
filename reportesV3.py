@@ -11,13 +11,13 @@ from sklearn.model_selection import train_test_split
 import time
 import random
 from lxml import html
+import os
 
 #INTERNAL
-import uf
-import sendmail
+import indicadoresV3 as indicadores
+import sendMailV3
 import pubPortalExiste
-from xlsxWriterv2 import writeXlsx
-import os
+from xlsxWriterV3 import writeXlsx
 import googleMapApi as gm
 import headersV3 as headers
 
@@ -102,8 +102,6 @@ def m2prom(tipo,comuna,region):
         return promventa,promarriendo
     except:
         return 0,0
-
-
 
 def estaciones(l1,l2,l3,select):
     mariadb_connection = mysql.connect(user='root', password='sergei', host='127.0.0.1', database='metro')
@@ -481,7 +479,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
                            estacionamientos, bodegas, metrodistance, l1, l2, l3, tipo,operacion, region, listaComunas, prioridad, mail,
                            nombreCliente,nombrecarpetadb,idCliente,direccion,radioDireccion,corredor,topx,verboso,separado):
 
-    ufn=uf.getUf()
+    uf = indicadores.getUf()
     textmail=""
     columnNames = []
     columnNames.append('Código')
@@ -734,9 +732,9 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
         propsPV = from_portalinmobiliario(tipo, region, [comuna], "venta", verboso)
         propsYV = from_yapo(tipo, region, [comuna], latlonyapo, "venta", verboso)
         propsV = propsPV + propsYV
-        # aca deberiamos hacer el GB
+        comuna=comuna.lower()
 
-        if comuna=='Santiago Centro':
+        if comuna=='santiago centro':
             comuna='santiago'
 
         m2=m2prom(tipo,comuna,region)
@@ -812,7 +810,7 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
 
         clfHA.fit(trainingA, preciosA)
 
-        textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF."+str((int(10*(m2V/ufn)))/10)+"\nPrecio m2 Arriendo: $"+str((int(m2A)))+"\n\n"
+        textmail+="Resultados comuna "+str(comuna)+":\n"+"Score Ventas: "+str((int(10000*scoreV))/100)+"%\nScore Arriendos: "+str((int(10000*scoreA))/100)+"%\nPrecio m2 Venta: UF."+str((int(10*(m2V/uf)))/10)+"\nPrecio m2 Arriendo: $"+str((int(m2A)))+"\n\n"
 
 
         for d in range(dormitoriosmin, dormitoriosmax + 1):
@@ -910,10 +908,10 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
                         # precio
                         subresultado.append(int(prop[5]))
                         if tipo=="casa":
-                            subresultado.append(int(10*(prop[5])/(ufn*prop[8]))/10)
-                            subresultado.append(int(10*(prop[5])/(ufn*prop[9]))/10)
+                            subresultado.append(int(10*(prop[5])/(uf*prop[8]))/10)
+                            subresultado.append(int(10*(prop[5])/(uf*prop[9]))/10)
                         else:
-                            subresultado.append(int(20*(prop[5])/(ufn*(prop[9]+prop[8])))/10)
+                            subresultado.append(int(20*(prop[5])/(uf*(prop[9]+prop[8])))/10)
 
                         # util
                         subresultado.append(int(prop[8]))
@@ -1009,10 +1007,10 @@ def generarReporte(preciomin, preciomax, utilmin, utilmax, totalmin, totalmax, l
                                 # precio venta tasado
                                 subresultado.append(precioV)
                                 if tipo=="casa":
-                                    subresultado.append(int(10*(precioV)/(ufn*prop[8]))/10)
-                                    subresultado.append(int(10*(precioV)/(ufn*prop[9]))/10)
+                                    subresultado.append(int(10*(precioV)/(uf*prop[8]))/10)
+                                    subresultado.append(int(10*(precioV)/(uf*prop[9]))/10)
                                 else:
-                                    subresultado.append(int(20*(precioV)/(ufn*(prop[9]+prop[8])))/10)
+                                    subresultado.append(int(20*(precioV)/(uf*(prop[9]+prop[8])))/10)
                                 # rentabilidad de venta
                                 subresultado.append(float(rentaV))
 
